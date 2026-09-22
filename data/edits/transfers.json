@@ -1,0 +1,38 @@
+{
+  "_설명": "공식 파일(15043686, 15137827)에 없거나 틀린 환승을 고친다. 역은 {노선, 이름}으로 적는다. 모든 항목에 출처를 적는다. 확인한 날짜: 2026-09-22.",
+  "add": [
+    {
+      "a": { "line": "DH", "name": "거제" },
+      "b": { "line": "3", "name": "거제" },
+      "source": "부산교통공사 노선도·3호선 거제역 안내방송, 코레일 경남권 광역철도 노선도(2026.9.1. 기준), 부산시 보도자료(2016-12-27)",
+      "urls": [
+        "https://www.humetro.busan.kr/homepage/cyberstation/map.do",
+        "https://info.korail.com/info/contents.do?key=2951",
+        "https://www.busan.go.kr/news/totalnews01/view?dataNo=57175"
+      ],
+      "note": "15137827은 거제해맞이역을 3호선 환승역으로 적었지만 틀렸다. 2016년에 옛 거제역이 거제해맞이역으로, 남문구역이 거제역으로 이름이 바뀌었다(한국일보 2016-02-14)."
+    },
+    {
+      "a": { "line": "3", "name": "대저" },
+      "b": { "line": "BGL", "name": "대저" },
+      "source": "부산교통공사 노선도·3호선 대저역 안내방송, 코레일 경남권 광역철도 노선도, 부산김해경전철 막차 환승 시간표",
+      "urls": [
+        "https://www.humetro.busan.kr/homepage/cyberstation/map.do",
+        "https://info.korail.com/info/contents.do?key=2951",
+        "https://www.bglrt.com/00149.web?scode=901"
+      ]
+    }
+  ],
+  "remove": [
+    {
+      "a": { "line": "DH", "name": "거제해맞이" },
+      "b": { "line": "3", "name": "거제" },
+      "source": "위 거제 항목과 같은 출처. 거제해맞이역은 환승역이 아니다."
+    }
+  ],
+  "notTransfers": [
+    { "pair": "동해선 부전 – 1호선 부전", "note": "약 200m 떨어진 다른 역. 공식 환승역 아님(코레일 노선도, 1호선 안내방송). 부산교통공사 노선도는 동해선 쪽에만 표시가 있어 출처끼리 다르다." },
+    { "pair": "동해선 동래 – 1·4호선 동래", "note": "공식 환승역 아님(부산교통공사 노선도, 코레일 노선도)." },
+    { "pair": "동해선 센텀 – 2호선 센텀시티", "note": "공식 환승역 아님(부산교통공사 노선도, 코레일 노선도)." }
+  ]
+}

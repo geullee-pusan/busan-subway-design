@@ -1,0 +1,163 @@
+{
+  "admdong": {
+    "file": "data/raw/admdongkor/HangJeongDong_ver20260701.geojson",
+    "url": "https://raw.githubusercontent.com/vuski/admdongkor/7360288277dfd12d74e54b959c59bdd66f852e3a/ver20260701/HangJeongDong_ver20260701.geojson",
+    "bytes": 34648875,
+    "sha256": "c01ef44a0eb00978662ba7a6240ccb1da287fb52abd85104a1758969d391132f",
+    "fetched": "2026-09-22"
+  },
+  "admdong-license": {
+    "file": "data/raw/admdongkor/LICENSE-DATA",
+    "url": "https://raw.githubusercontent.com/vuski/admdongkor/7360288277dfd12d74e54b959c59bdd66f852e3a/LICENSE-DATA",
+    "bytes": 2757,
+    "sha256": "d892791d5ba176e3bb7cc178937b26d3b33e2ad19da581af168c9e48428ba507",
+    "fetched": "2026-09-22"
+  },
+  "bgl-ridership": {
+    "file": "data/raw/datagokr/15105181.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003599678&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 3095702,
+    "sha256": "6165cd9c22f7c620910f767d3ba7f86dc3edc47b531586ffa33223b0b2265a91",
+    "fetched": "2026-09-22"
+  },
+  "dem-N34E128": {
+    "file": "data/raw/dem/N34E128.hgt.gz",
+    "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N34/N34E128.hgt.gz",
+    "bytes": 2191975,
+    "sha256": "dff44e1fa5fd93d8e440ce38b7ec74937ec33d1160f7811d5151703c8f07045c",
+    "fetched": "2026-09-22"
+  },
+  "dem-N34E129": {
+    "file": "data/raw/dem/N34E129.hgt.gz",
+    "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N34/N34E129.hgt.gz",
+    "bytes": 1973798,
+    "sha256": "a3887946b2073b6d0b60fcacacfe80abd42c95f281a6b72c3d72d4f09e9890b8",
+    "fetched": "2026-09-22"
+  },
+  "dem-N35E128": {
+    "file": "data/raw/dem/N35E128.hgt.gz",
+    "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N35/N35E128.hgt.gz",
+    "bytes": 12836160,
+    "sha256": "b13f3596bb594058a33eea1d0e9bfa646896eb8b20dd7d15d79d6216e5cca270",
+    "fetched": "2026-09-22"
+  },
+  "dem-N35E129": {
+    "file": "data/raw/dem/N35E129.hgt.gz",
+    "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N35/N35E129.hgt.gz",
+    "bytes": 6095710,
+    "sha256": "b8b03c1406bbdb432f848c8952e3d352958fb0dc7efab8e441c3df88e3dd324d",
+    "fetched": "2026-09-22"
+  },
+  "donghae-stations": {
+    "file": "data/raw/datagokr/15137827.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003029206&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 2053,
+    "sha256": "349bf4be3c0bfdd53876d464042d977998171632ccbe5780f80fad7684f7a725",
+    "fetched": "2026-09-22"
+  },
+  "krna-line1": {
+    "file": "data/raw/datagokr/15041165.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002646360&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 2004,
+    "sha256": "00ba518eaa9fd4ea5d46d27bb3c30c1692a59b08960b49aebe6d800bb5d8a29c",
+    "fetched": "2026-09-22"
+  },
+  "krna-line2": {
+    "file": "data/raw/datagokr/15041166.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002646355&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 2245,
+    "sha256": "807df06a26e8bcf20526d281fc5c42efda58d2cda61d42b5c079d039325782ed",
+    "fetched": "2026-09-22"
+  },
+  "krna-line3": {
+    "file": "data/raw/datagokr/15041167.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002646350&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 891,
+    "sha256": "94bf4dd4f4aa39deb7fc916e660c65a15f0803bb1199697f2ae21f4056cea5db",
+    "fetched": "2026-09-22"
+  },
+  "krna-line4": {
+    "file": "data/raw/datagokr/15041168.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002646344&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 729,
+    "sha256": "078d47ffe93204a7528e09442b5d93680790eeb4bf4bc3fab2089833a32fd892",
+    "fetched": "2026-09-22"
+  },
+  "link-time": {
+    "file": "data/raw/datagokr/3033564.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003113886&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 3515,
+    "sha256": "7f913662cb61c16e7648dcb5024e6d9ff60a66bdae6860ec5cb6731f0b970916",
+    "fetched": "2026-09-22"
+  },
+  "osm-routes": {
+    "file": "data/raw/osm/routes.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 390328,
+    "sha256": "cea756649ac332b6bdbc55fb6db2360afa26ae231e79d78be1fbbd01715a2a8d",
+    "fetched": "2026-09-22"
+  },
+  "osm-stations": {
+    "file": "data/raw/osm/stations.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 440733,
+    "sha256": "0e767799516dbe74846d08f292be3fcb3781e83bebeea484ad2ef0292bf3cead",
+    "fetched": "2026-09-22"
+  },
+  "osm-water": {
+    "file": "data/raw/osm/water.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 2366279,
+    "sha256": "1acce6af9aee92a94a739b4988bb9500f631027f239ce91f0df43ec05352274d",
+    "fetched": "2026-09-22"
+  },
+  "population": {
+    "file": "data/raw/datagokr/15097972.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007644704&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 2568139,
+    "sha256": "0cbb5983a9efad7951548a89ae11c295ed08e95f8d222d15bc5e5e46d5701e24",
+    "fetched": "2026-09-22"
+  },
+  "ridership-annual-2025": {
+    "file": "data/raw/datagokr/3033569.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003630293&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 7397,
+    "sha256": "8db7235dccdaeb839cd7a329c412149b25b330a0f118af6df0323f46c19725eb",
+    "fetched": "2026-09-22"
+  },
+  "ridership-hourly-2025": {
+    "file": "data/raw/datagokr/3057229_2025.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003585709&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 10200261,
+    "sha256": "206a8a88738bc9eabf79417b71faa7c9775cbce5cab7d31ed665b1418518df34",
+    "fetched": "2026-09-22"
+  },
+  "speed": {
+    "file": "data/raw/datagokr/15142581.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003113888&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 118,
+    "sha256": "6b09f4e9e5637dcaeb091e21cc3336007bdbeac2dd4a55426abdba29c09d41f6",
+    "fetched": "2026-09-22"
+  },
+  "station-detail": {
+    "file": "data/raw/datagokr/15050408.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002540193&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 32270,
+    "sha256": "b16e4c5172865047bdb603d1890e88805ae3e9caf68cf92ce30fc91ef7749d33",
+    "fetched": "2026-09-22"
+  },
+  "station-info": {
+    "file": "data/raw/datagokr/15043686.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002438468&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 28266,
+    "sha256": "611d0dab158dbc0b5a44081f979c4f5bbd888b66e94e2df7f0f0e23da63d6b89",
+    "fetched": "2026-09-22"
+  },
+  "timetable": {
+    "file": "data/raw/datagokr/15082980.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003680384&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 3595188,
+    "sha256": "30397f2aa38835dfc37c2093a02a6e02547eb8a9b635b187f0db4c9e19ec69b7",
+    "fetched": "2026-09-22"
+  }
+}

@@ -1,0 +1,9 @@
+* text=auto eol=lf
+
+# 원본은 받은 바이트 그대로 둔다(줄바꿈을 바꾸지 않는다). 해시는 data/raw-lock.json에 있다.
+data/raw/** -text
+
+*.gz binary
+*.hgt binary
+*.png binary
+*.xlsx binary

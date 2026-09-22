@@ -1,0 +1,178 @@
+{
+  "lines": [
+    {
+      "id": "1",
+      "label": "1",
+      "name": "1호선",
+      "fullName": "부산 도시철도 1호선",
+      "operator": "부산교통공사",
+      "status": "운행 중",
+      "stations": ["95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134"],
+      "lengthKm": 39.9,
+      "lengthSource": "3033564 호선별누계",
+      "runSource": "3033564",
+      "dwellS": 27,
+      "dwellSource": "15142581 표정속도 30.69km/h로 계산: (전 구간 거리 ÷ 표정속도 − 주행시간 합) ÷ 중간역 수",
+      "color": "#F06A00",
+      "colorSource": "OSM colour 태그",
+      "carsPerTrain": 8,
+      "capacityPerCar": {
+        "lead": "110~113",
+        "middle": "120~124"
+      },
+      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)"
+    },
+    {
+      "id": "2",
+      "label": "2",
+      "name": "2호선",
+      "fullName": "부산 도시철도 2호선",
+      "operator": "부산교통공사",
+      "status": "운행 중",
+      "stations": ["201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243"],
+      "lengthKm": 45.2,
+      "lengthSource": "3033564 호선별누계",
+      "runSource": "3033564",
+      "dwellS": 23,
+      "dwellSource": "15142581 표정속도 31.91km/h로 계산: (전 구간 거리 ÷ 표정속도 − 주행시간 합) ÷ 중간역 수",
+      "color": "#81BF48",
+      "colorSource": "OSM colour 태그",
+      "carsPerTrain": 6,
+      "capacityPerCar": {
+        "lead": "113",
+        "middle": "124"
+      },
+      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)"
+    },
+    {
+      "id": "3",
+      "label": "3",
+      "name": "3호선",
+      "fullName": "부산 도시철도 3호선",
+      "operator": "부산교통공사",
+      "status": "운행 중",
+      "stations": ["301","302","303","304","305","306","307","308","309","310","311","312","313","314","315","316","317"],
+      "lengthKm": 18.1,
+      "lengthSource": "3033564 호선별누계",
+      "runSource": "3033564",
+      "dwellS": 24,
+      "dwellSource": "15142581 표정속도 31.94km/h로 계산: (전 구간 거리 ÷ 표정속도 − 주행시간 합) ÷ 중간역 수",
+      "color": "#BB8C00",
+      "colorSource": "OSM colour 태그",
+      "carsPerTrain": 4,
+      "capacityPerCar": {
+        "lead": "113",
+        "middle": "124"
+      },
+      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)"
+    },
+    {
+      "id": "4",
+      "label": "4",
+      "name": "4호선",
+      "fullName": "부산 경량도시철도 4호선",
+      "operator": "부산교통공사",
+      "status": "운행 중",
+      "stations": ["401","402","403","404","405","406","407","408","409","410","411","412","413","414"],
+      "lengthKm": 12,
+      "lengthSource": "3033564 호선별누계",
+      "runSource": "3033564",
+      "dwellS": 25,
+      "dwellSource": "15142581 표정속도 28.8km/h로 계산: (전 구간 거리 ÷ 표정속도 − 주행시간 합) ÷ 중간역 수",
+      "color": "#217DCB",
+      "colorSource": "OSM colour 태그",
+      "carsPerTrain": 6,
+      "capacityPerCar": {
+        "lead": "52",
+        "middle": "52~54"
+      },
+      "vehicle": "고무차륜 경전철, 무인운전(직류 750V 제3궤조)"
+    },
+    {
+      "id": "BGL",
+      "label": "BGL",
+      "name": "부산김해경전철",
+      "fullName": "부산김해경전철: 사상 → 가야대",
+      "operator": "부산김해경전철운영(주)",
+      "status": "운행 중",
+      "stations": ["BG01","BG02","BG03","BG04","BG05","BG06","BG07","BG08","BG09","BG10","BG11","BG12","BG13","BG14","BG15","BG16","BG17","BG18","BG19","BG20","BG21"],
+      "lengthKm": 23.9,
+      "lengthSource": "디지털김해문화대전(운영사·지자체 출처는 찾지 못함)",
+      "runSource": "추정: 전 구간 38분 56초(부산김해경전철 운영사 노선검색, 사상→가야대(운영사 안내: 평균적인 시간))을 역 사이 직선거리 비율로 나눔",
+      "dwellS": 0,
+      "dwellSource": "역 사이 시간에 포함",
+      "osmRelation": 2204611,
+      "color": "#8652A1",
+      "colorSource": "OSM colour 태그",
+      "carsPerTrain": 2,
+      "capacityPerTrain": 184,
+      "vehicle": "철제차륜 경전철, 무인운전(직류 750V 제3궤조)"
+    },
+    {
+      "id": "DH",
+      "label": "동해",
+      "name": "동해선",
+      "fullName": "동해선 광역전철: 부전 → 태화강",
+      "operator": "한국철도공사",
+      "status": "운행 중",
+      "stations": ["DH01","DH02","DH03","DH04","DH05","DH06","DH07","DH08","DH09","DH10","DH11","DH12","DH13","DH14","DH15","DH16","DH17","DH18","DH19","DH20","DH21","DH22","DH23"],
+      "lengthKm": 63.8,
+      "lengthSource": "코레일 광역철도 운영노선(2025-01-01 기준)",
+      "runSource": "추정: 전 구간 76분(코레일 보도자료 2021-12-27, 부전→태화강(지금 시각표로는 확인 못 함))을 역 사이 직선거리 비율로 나눔",
+      "dwellS": 0,
+      "dwellSource": "역 사이 시간에 포함",
+      "osmRelation": 6708903,
+      "color": "#0054A6",
+      "colorSource": "OSM colour 태그",
+      "carsPerTrain": 4
+    }
+  ],
+  "planned": [
+    {
+      "id": "YS",
+      "name": "양산선(양산밸리라인)",
+      "status": "개통 예정",
+      "section": "노포–북정",
+      "lengthKm": 11.43,
+      "stations": 7,
+      "vehicle": "고무차륜 경전철(K-AGT), 무인운행, 2량 1편성, 편성 정원 104명",
+      "opening": "2026년 12월 목표(확정 발표 없음)",
+      "sources": [
+        {"title":"부산교통공사 건설진행","url":"https://www.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050302"},
+        {"title":"양산시 게시글(차량) 2025-05-09","url":"https://www.yangsan.go.kr/mayor/board/post/view.do?bcIdx=645&idx=1011422&mid=0201000000"},
+        {"title":"부산시 보도 2026-05-04(연내 12월 목표)","url":"https://www.busan.go.kr/news/totalnews01/view?dataNo=72760"},
+        {"title":"국민일보 2026-09-04(영업시운전 뒤 12월 개통 예정)","url":"https://www.kukinews.com/article/view/kuk202609040176"},
+        {"title":"철도신문 2026-09-14(이름 확정)","url":"https://www.korearailroad.kr/news/articleView.html?idxno=194290"}
+      ]
+    },
+    {
+      "id": "SH",
+      "name": "사상–하단선",
+      "status": "공사 중",
+      "section": "사상–하단",
+      "lengthKm": 6.9,
+      "stations": 7,
+      "vehicle": "고무차륜 경전철(K-AGT)",
+      "opening": "사업기간 2027년까지(2025-07 연장 보도). 개통은 2028년 이후라는 전망도 있음",
+      "sources": [
+        {"title":"부산교통공사 건설진행","url":"https://www.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050302"},
+        {"title":"서울신문 2025-07-25(사업기간 연장)","url":"https://www.seoul.co.kr/news/society/2025/07/25/20250725500235"},
+        {"title":"부산일보 2026-01-28(개통 전망)","url":"https://v.daum.net/v/20260128164825166"}
+      ]
+    },
+    {
+      "id": "HN",
+      "name": "하단–녹산선",
+      "status": "계획",
+      "section": "하단–녹산",
+      "lengthKm": 13.47,
+      "stations": 11,
+      "vehicle": "고무차륜 경전철(K-AGT)",
+      "opening": null,
+      "sources": [
+        {"title":"부산시 보도자료 2022-06-30(예비타당성 최종 통과)","url":"https://www.busan.go.kr/nbtnewsBU/1532701"},
+        {"title":"부산일보 2026-05-04(설계 단계, 2028년 착공 목표)","url":"https://www.busan.com/view/busan/view.php?code=2026050418350688667"}
+      ]
+    }
+  ]
+}

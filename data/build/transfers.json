@@ -1,0 +1,15 @@
+{
+  "transfers": [
+    {"id":"T-119","name":"서면","stations":["119","219"],"source":"15043686"},
+    {"id":"T-123","name":"연산","stations":["123","305"],"source":"15043686"},
+    {"id":"T-124","name":"교대","stations":["124","DH04"],"source":"15137827"},
+    {"id":"T-125","name":"동래","stations":["125","402"],"source":"15043686"},
+    {"id":"T-205","name":"벡스코","stations":["205","DH10"],"source":"15137827"},
+    {"id":"T-208","name":"수영","stations":["208","301"],"source":"15043686"},
+    {"id":"T-227","name":"사상","stations":["227","BG01"],"source":"15043686"},
+    {"id":"T-233","name":"덕천","stations":["233","313"],"source":"15043686"},
+    {"id":"T-306","name":"거제","stations":["306","DH03"],"source":"data/edits/transfers.json"},
+    {"id":"T-309","name":"미남","stations":["309","401"],"source":"15043686"},
+    {"id":"T-317","name":"대저","stations":["317","BG07"],"source":"data/edits/transfers.json"}
+  ]
+}

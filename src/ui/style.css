@@ -1,0 +1,37 @@
+/* 색은 docs/SPEC.md 7.1절을 따른다. */
+:root {
+  --land: #edf1ec;
+  --ink: #1f3342;
+  font-family: sans-serif;
+  font-size: 18px;
+  color: var(--ink);
+  background: var(--land);
+}
+
+body {
+  margin: 0;
+}
+
+.home {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.home h1 {
+  font-size: 32px;
+  margin: 0 0 16px;
+}
+
+.home-note {
+  margin: 0 0 48px;
+}
+
+/* SPEC 3장: 글자는 18px 이상 */
+.credits {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 18px;
+  line-height: 1.6;
+}

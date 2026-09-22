@@ -37,6 +37,7 @@
 - `npm run dev`: 개발 서버
 - `npm run build`: `dist/index.html` 단일 파일 빌드
 - `npm test`: 시뮬레이션 테스트(결정론, 경로, 공사비, 보정, 성능)
+- `npm run fetch`: `scripts/sources.mjs` 목록대로 원본을 `data/raw/`에 받는다(네트워크를 쓴다)
 - `npm run data`: `data/raw/`를 처리해 `data/build/`를 만든다
 - `npm run validate`: 데이터 검증
 
@@ -44,6 +45,9 @@
 - `data/raw/`: 받은 원본. 고치지 않는다.
 - `data/build/`: 게임용 JSON.
 - `data/SOURCES.md`: 출처, 받은 날짜, 이용 조건.
+- `data/raw-lock.json`: 원본 파일의 주소, 크기, SHA-256.
+- `data/facts.json`: 웹 페이지에서 확인한 사실과 출처.
+- `data/edits/`: 원본의 빠진 곳이나 틀린 곳을 손으로 고친 기록. 항목마다 출처를 적는다.
 - `scripts/`: 수집, 처리, 검증 스크립트.
 - `src/sim/`: 격자, 경로, 이동 모델, 붐빔, 공사비.
 - `src/ui/`: 화면.

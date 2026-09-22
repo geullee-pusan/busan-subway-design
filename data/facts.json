@@ -1,0 +1,119 @@
+{
+  "_설명": "파일로 받을 수 없는 사실(웹 페이지, 보도자료)을 출처와 함께 적는다. npm run data가 이 값을 쓴다. 확인한 날짜: 2026-09-22. 사람이 읽는 설명은 data/SOURCES.md 2장에 있다.",
+  "lines": {
+    "1": {
+      "stations": { "value": 40, "source": "부산교통공사 2024년 운영실적", "url": "https://www2.humetro.busan.kr/homepage/manage/page/subLocation.do?menu_no=10070302" },
+      "lengthKm": { "value": 39.9, "source": "부산교통공사 2024년 운영실적(영업거리)", "url": "https://www2.humetro.busan.kr/homepage/manage/page/subLocation.do?menu_no=10070302" },
+      "carsPerTrain": { "value": 8, "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" },
+      "capacityPerCar": { "value": { "lead": "110~113", "middle": "120~124" }, "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" },
+      "vehicle": { "value": "통근형 직류 전동차(직류 1,500V 가공선)", "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" }
+    },
+    "2": {
+      "stations": { "value": 43, "source": "부산교통공사 2024년 운영실적", "url": "https://www2.humetro.busan.kr/homepage/manage/page/subLocation.do?menu_no=10070302" },
+      "lengthKm": { "value": 45.2, "source": "부산교통공사 2024년 운영실적(영업거리)", "url": "https://www2.humetro.busan.kr/homepage/manage/page/subLocation.do?menu_no=10070302" },
+      "carsPerTrain": { "value": 6, "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" },
+      "capacityPerCar": { "value": { "lead": "113", "middle": "124" }, "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" },
+      "vehicle": { "value": "통근형 직류 전동차(직류 1,500V 가공선)", "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" }
+    },
+    "3": {
+      "stations": { "value": 17, "source": "부산교통공사 2024년 운영실적", "url": "https://www2.humetro.busan.kr/homepage/manage/page/subLocation.do?menu_no=10070302" },
+      "lengthKm": { "value": 18.1, "source": "부산교통공사 2024년 운영실적(영업거리)", "url": "https://www2.humetro.busan.kr/homepage/manage/page/subLocation.do?menu_no=10070302" },
+      "carsPerTrain": { "value": 4, "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" },
+      "capacityPerCar": { "value": { "lead": "113", "middle": "124" }, "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" },
+      "vehicle": { "value": "통근형 직류 전동차(직류 1,500V 가공선)", "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" }
+    },
+    "4": {
+      "stations": { "value": 14, "source": "부산교통공사 2024년 운영실적", "url": "https://www2.humetro.busan.kr/homepage/manage/page/subLocation.do?menu_no=10070302" },
+      "lengthKm": { "value": 12.0, "source": "부산교통공사 2024년 운영실적(영업거리)", "url": "https://www2.humetro.busan.kr/homepage/manage/page/subLocation.do?menu_no=10070302" },
+      "carsPerTrain": { "value": 6, "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" },
+      "capacityPerCar": { "value": { "lead": "52", "middle": "52~54" }, "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" },
+      "vehicle": { "value": "고무차륜 경전철, 무인운전(직류 750V 제3궤조)", "source": "부산교통공사 전동차 현황·제원", "url": "https://www2.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050403" }
+    },
+    "BGL": {
+      "stations": { "value": 21, "source": "부산김해경전철 운영사 노선검색", "url": "https://www.bglrt.com/00012.web?flag=&startcode=901&endcode=921" },
+      "lengthKm": { "value": 23.9, "source": "디지털김해문화대전(운영사·지자체 출처는 찾지 못함)", "url": "https://gimhae.grandculture.net/gimhae/toc/GC09400235" },
+      "endToEndMin": { "value": 38.933, "text": "38분 56초", "source": "부산김해경전철 운영사 노선검색, 사상→가야대(운영사 안내: 평균적인 시간)", "url": "https://www.bglrt.com/00012.web?flag=&startcode=901&endcode=921" },
+      "carsPerTrain": { "value": 2, "source": "부산김해경전철 차량 주요사양", "url": "https://www.bglrt.com/00030/00060/00092.web" },
+      "capacityPerTrain": { "value": 184, "note": "좌석 64 + 입석 120, 혼잡 때 304명", "source": "부산김해경전철 차량 주요사양", "url": "https://www.bglrt.com/00030/00060/00092.web" },
+      "vehicle": { "value": "철제차륜 경전철, 무인운전(직류 750V 제3궤조)", "source": "부산김해경전철 차량 주요사양", "url": "https://www.bglrt.com/00030/00060/00092.web" }
+    },
+    "DH": {
+      "stations": { "value": 23, "source": "코레일 광역철도 운영노선(2025-01-01 기준)", "url": "https://info.korail.com/info/contents.do?key=1446" },
+      "lengthKm": { "value": 63.8, "source": "코레일 광역철도 운영노선(2025-01-01 기준)", "url": "https://info.korail.com/info/contents.do?key=1446" },
+      "endToEndMin": { "value": 76, "text": "76분", "source": "코레일 보도자료 2021-12-27, 부전→태화강(지금 시각표로는 확인 못 함)", "url": "https://info.korail.com/info/selectBbsNttView.do?key=911&bbsNo=199&nttNo=14867" },
+      "carsPerTrain": { "value": 4, "source": "코레일 보도자료 2021-12-27", "url": "https://info.korail.com/info/selectBbsNttView.do?key=911&bbsNo=199&nttNo=14867" }
+    }
+  },
+  "planned": [
+    {
+      "id": "YS",
+      "name": "양산선(양산밸리라인)",
+      "status": "개통 예정",
+      "section": "노포–북정",
+      "lengthKm": 11.43,
+      "stations": 7,
+      "vehicle": "고무차륜 경전철(K-AGT), 무인운행, 2량 1편성, 편성 정원 104명",
+      "opening": "2026년 12월 목표(확정 발표 없음)",
+      "sources": [
+        { "title": "부산교통공사 건설진행", "url": "https://www.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050302" },
+        { "title": "양산시 게시글(차량) 2025-05-09", "url": "https://www.yangsan.go.kr/mayor/board/post/view.do?bcIdx=645&idx=1011422&mid=0201000000" },
+        { "title": "부산시 보도 2026-05-04(연내 12월 목표)", "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=72760" },
+        { "title": "국민일보 2026-09-04(영업시운전 뒤 12월 개통 예정)", "url": "https://www.kukinews.com/article/view/kuk202609040176" },
+        { "title": "철도신문 2026-09-14(이름 확정)", "url": "https://www.korearailroad.kr/news/articleView.html?idxno=194290" }
+      ]
+    },
+    {
+      "id": "SH",
+      "name": "사상–하단선",
+      "status": "공사 중",
+      "section": "사상–하단",
+      "lengthKm": 6.9,
+      "stations": 7,
+      "vehicle": "고무차륜 경전철(K-AGT)",
+      "opening": "사업기간 2027년까지(2025-07 연장 보도). 개통은 2028년 이후라는 전망도 있음",
+      "sources": [
+        { "title": "부산교통공사 건설진행", "url": "https://www.humetro.busan.kr/homepage/cht/page/subLocation.do?menu_no=1001050302" },
+        { "title": "서울신문 2025-07-25(사업기간 연장)", "url": "https://www.seoul.co.kr/news/society/2025/07/25/20250725500235" },
+        { "title": "부산일보 2026-01-28(개통 전망)", "url": "https://v.daum.net/v/20260128164825166" }
+      ]
+    },
+    {
+      "id": "HN",
+      "name": "하단–녹산선",
+      "status": "계획",
+      "section": "하단–녹산",
+      "lengthKm": 13.47,
+      "stations": 11,
+      "vehicle": "고무차륜 경전철(K-AGT)",
+      "opening": null,
+      "sources": [
+        { "title": "부산시 보도자료 2022-06-30(예비타당성 최종 통과)", "url": "https://www.busan.go.kr/nbtnewsBU/1532701" },
+        { "title": "부산일보 2026-05-04(설계 단계, 2028년 착공 목표)", "url": "https://www.busan.com/view/busan/view.php?code=2026050418350688667" }
+      ]
+    }
+  ],
+  "constructionCost": {
+    "_설명": "SPEC 5.2절의 공사비 기준. 억 원 단위.",
+    "basis": {
+      "line": "하단–녹산선",
+      "lengthKm": 13.47,
+      "cost100M": 11265,
+      "perKm100M": 836,
+      "date": "2022-06-30",
+      "source": "부산시 보도자료(기재부 재정사업평가위원회 최종 통과)",
+      "url": "https://www.busan.go.kr/nbtnewsBU/1532701"
+    },
+    "later": [
+      { "cost100M": 14489, "date": "2024-10-04", "note": "국토부 기본계획 승인 뒤(명지국제신도시 2.3km 지하화 반영)", "url": "http://www.busan.go.kr/nbtnewsBU/1651589" },
+      { "cost100M": 14845, "date": "2025-06-11", "note": "턴키 입찰공고 때", "url": "https://www.seoul.co.kr/news/society/2025/06/12/20250612500109" }
+    ]
+  },
+  "history": [
+    {
+      "date": "1985-07-19",
+      "event": "1호선 1단계 개통: 노포동~범내골 16.2km, 정거장 17곳",
+      "source": "부산교통공사 1호선 건설연혁",
+      "url": "https://data.humetro.busan.kr/homepage/default/page/subLocation.do?menu_no=1002020101"
+    }
+  ]
+}

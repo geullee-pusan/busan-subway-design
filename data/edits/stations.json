@@ -1,0 +1,18 @@
+{
+  "_설명": "OSM 노선 자료에 빠진 역을 넣는다. osmNode는 data/raw/osm/stations.json에 있는 역 노드 번호다. 모든 항목에 출처를 적는다.",
+  "insert": [
+    {
+      "line": "DH",
+      "after": "안락",
+      "osmNode": 7461024100,
+      "name": "부산원동",
+      "reason": "OSM 동해선 노선(relation 6708903)의 정차역 목록에 빠져 있다. 역 노드는 있다(코레일 운영, ref K116, 안락과 재송 사이).",
+      "sources": [
+        { "title": "코레일 광역철도 운영노선: 동해선 23역(2025-01-01 기준)", "url": "https://info.korail.com/info/contents.do?key=1446" },
+        { "title": "한국철도공사 동해선 역 위치정보(공공데이터포털 15137827): 8015 부산원동역(좌표는 양산 원동역으로 틀림)", "url": "https://www.data.go.kr/data/15137827/fileData.do" },
+        { "title": "OpenStreetMap node 7461024100 부산원동", "url": "https://www.openstreetmap.org/node/7461024100" }
+      ],
+      "checked": "2026-09-22"
+    }
+  ]
+}

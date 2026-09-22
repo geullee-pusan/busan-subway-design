@@ -1,0 +1,25 @@
+{
+  "_설명": "칸 지형을 자동으로 판정하는 기준값(초안). 칸마다 100m 간격으로 10×10점을 찍어 판정한다. 바꾸면 npm run data를 다시 돌린다.",
+  "cellSizeM": 1000,
+  "samplesPerSide": 10,
+  "marginCells": 1,
+  "water": {
+    "_설명": "바다·강 점이 이 비율 이상이면 물 칸. 바다 점과 강 점 중 많은 쪽으로 정한다.",
+    "minFraction": 0.5
+  },
+  "mountain": {
+    "_설명": "땅 점의 평균 고도나 평균 경사가 기준 이상이면 산. 산 칸에는 사람을 두지 않는다.",
+    "minMeanElevationM": 200,
+    "minMeanSlopeDeg": 17
+  },
+  "hill": {
+    "_설명": "산이 아니고 평균 경사가 기준 이상이면 언덕.",
+    "minMeanSlopeDeg": 8
+  },
+  "field": {
+    "_설명": "평지 가운데 사람이 적고 낮은 칸은 외곽 들판.",
+    "maxDensityPerKm2": 500,
+    "maxMeanElevationM": 30
+  },
+  "extendKm": 25
+}

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+
+# 바뀌지 않는 큰 원본은 git에 넣지 않는다.
+# 주소와 SHA-256은 data/SOURCES.md와 scripts/sources.mjs에 있고, npm run fetch로 다시 받는다.
+data/raw/admdongkor/*.geojson
+data/raw/dem/

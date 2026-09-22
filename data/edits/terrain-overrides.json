@@ -1,0 +1,4 @@
+{
+  "_설명": "자동 판정을 손으로 고친 칸. col은 서쪽에서, row는 북쪽에서 센다(0부터). terrain은 sea, river, mountain, hill, flat, field 중 하나. 고친 이유를 note에 적는다.",
+  "cells": []
+}
