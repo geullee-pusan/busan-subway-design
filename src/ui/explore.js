@@ -1,4 +1,6 @@
 // 부산 둘러보기 화면. 지도 + 범례 + 역 정보.
+// 기준 연도를 2026년과 2027년으로 바꿔 볼 수 있다(2027년에는 양산선과 사상–하단선이 있다).
+import { futureLines } from '../data.js';
 import { createMap } from './map.js';
 import { legendBox, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { createStationPanel } from './station-panel.js';
@@ -24,6 +26,10 @@ export function renderExplore(root, { onHome }) {
   viewGroup.setAttribute('role', 'group');
   viewGroup.setAttribute('aria-label', '지도 보기 고르기');
   bar.append(viewGroup);
+  const yearGroup = element('div', 'view-group');
+  yearGroup.setAttribute('role', 'group');
+  yearGroup.setAttribute('aria-label', '어느 해의 부산인지 고르기');
+  bar.append(yearGroup);
   const homeButton = element('button', 'button', '처음으로');
   homeButton.type = 'button';
   homeButton.addEventListener('click', onHome);
@@ -45,14 +51,42 @@ export function renderExplore(root, { onHome }) {
   screen.append(main);
   root.append(screen);
 
+  let year = 2026;
+  let currentView = '실제 지도';
+
   function setView(view) {
+    currentView = view;
     map.setView(view);
-    legend.replaceChildren(legendBox({ view }));
+    if (year >= 2027) map.setFuture(futureLines);
+    legend.replaceChildren(legendBox({ view, future: year >= 2027 }));
     for (const button of viewGroup.children) {
       const on = button.textContent === view;
       button.classList.toggle('is-on', on);
       button.setAttribute('aria-pressed', String(on));
     }
+  }
+
+  function setYear(next) {
+    year = next;
+    map.setFuture(year >= 2027 ? futureLines : null);
+    legend.replaceChildren(legendBox({ view: currentView, future: year >= 2027 }));
+    for (const button of yearGroup.children) {
+      const on = button.textContent === `${next}년`;
+      button.classList.toggle('is-on', on);
+      button.setAttribute('aria-pressed', String(on));
+    }
+    panel.showNote(
+      year >= 2027
+        ? '2027년 부산이에요. 점선은 앞으로 생길 양산선과 사상–하단선이에요.'
+        : '2026년 부산이에요. 지금 다니는 노선만 있어요.',
+    );
+  }
+
+  for (const value of [2026, 2027]) {
+    const button = element('button', 'button', `${value}년`);
+    button.type = 'button';
+    button.addEventListener('click', () => setYear(value));
+    yearGroup.append(button);
   }
 
   for (const view of VIEWS) {
@@ -67,6 +101,7 @@ export function renderExplore(root, { onHome }) {
   // 크기를 맞춘 뒤 그린다.
   map.resize();
   setView('실제 지도');
+  setYear(2026);
   map.fit();
   scale.update(map.zoom);
 

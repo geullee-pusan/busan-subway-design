@@ -43,6 +43,7 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
   root.setAttribute('aria-live', 'polite');
   let current = null;
   let dayType = '평일';
+  let note = null;
 
   function showEmpty() {
     root.replaceChildren();
@@ -50,6 +51,7 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
     box.append(element('h2', null, '역을 눌러 보세요'));
     box.append(element('p', null, '지도에서 역을 누르면 이름과 하루 이용객을 볼 수 있어요.'));
     box.append(element('p', 'panel-hint', '한 손가락으로 끌면 지도가 움직여요. 두 손가락을 벌리면 커져요.'));
+    if (note) box.append(element('p', 'panel-note', note));
     root.append(box);
   }
 
@@ -197,6 +199,11 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
     show(stationId) {
       current = stationId;
       render();
+    },
+    /** 지도 위쪽에서 바뀐 것을 알려 줄 때 쓴다(예: 기준 연도). */
+    showNote(text) {
+      note = text;
+      if (!current) showEmpty();
     },
   };
 }

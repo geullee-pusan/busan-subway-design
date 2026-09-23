@@ -1,7 +1,7 @@
 // 결과 화면과 설명하기(SPEC 6장 5·6번).
 // 이용객 막대, 시간대별 꺾은선, 가장 붐빈 곳(사람 아이콘), 빨라진 사람, 공사비, 어림과 비교.
 // 세 문장으로 설명하고, 결과 카드를 그림으로 저장하거나 인쇄할 수 있다.
-import { lineById, ridership, stationById } from '../data.js';
+import { lineById, planned, ridership, stationById } from '../data.js';
 import { NEW_LINE_ID } from '../sim/design-world.js';
 import { busiestLinks } from '../sim/effect.js';
 import { barChart, hourlyLineChart } from './chart.js';
@@ -102,12 +102,12 @@ function downloadCard(svg) {
 /**
  * @param {object} p design, cost, result, effect, estimate, newNames, runsLeftText, onHome, onAgain
  */
-export function renderResult(root, { design, cost, result, effect, estimate, newNames, endingText, onHome }) {
+export function renderResult(root, { design, cost, result, effect, estimate, newNames, endingText, onHome, mission, voices = [], onSave }) {
   root.replaceChildren();
   const screen = element('div', 'screen result');
 
   const bar = element('header', 'top-bar');
-  bar.append(element('h1', 'top-title', '하루 운행 결과'));
+  bar.append(element('h1', 'top-title', mission ? `${mission.number}. ${mission.title}` : '하루 운행 결과'));
   screen.append(bar);
 
   const body = element('div', 'compare-body');
@@ -116,7 +116,15 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
 
   const newStations = result.stations.filter((s) => s.id.startsWith(`${NEW_LINE_ID}-`));
   const newRiders = newStations.reduce((sum, s) => sum + s.board + s.alight, 0);
-  const peakHour = ridership.shape['평일'].indexOf(Math.max(...ridership.shape['평일']));
+  const dayType = mission?.dayType ?? '평일';
+  const shape = ridership.shape[dayType] ?? ridership.shape['평일'];
+  const peakHour = shape.indexOf(Math.max(...shape));
+
+  if (mission) {
+    body.append(element('h2', null, '오늘의 질문'));
+    body.append(element('p', 'mission-question', mission.question));
+    body.append(element('p', 'panel-note', '아래 숫자를 보고 생각해 보세요. 정답은 없어요.'));
+  }
 
   // 1. 새 노선 이용객과 어림 비교
   body.append(element('h2', null, '내 노선에 탄 사람'));
@@ -170,12 +178,60 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   body.append(element('h2', null, '무엇이 달라졌나요?'));
   const list = element('ul', 'panel-list');
   list.append(element('li', null, `빨라진 사람: 하루에 ${countText(effect.fasterPeople)}`));
-  if (effect.fasterPeople > 0) {
+  if (effect.measuredPeople > 0) {
     list.append(element('li', null, `한 사람이 아낀 시간: 평균 ${effect.averageSavedMin.toFixed(1)}분`));
+  }
+  if (effect.newlyReachable > 0) {
+    list.append(element('li', null, `도시철도로 처음 갈 수 있게 된 사람: 하루에 ${countText(effect.newlyReachable)}`));
   }
   list.append(element('li', null, `노선 길이: ${distanceText(cost.lengthKm * 1000)}, 역 ${design.stations.length}개`));
   list.append(element('li', null, `공사비: ${moneyText(cost.total)}`));
   body.append(list);
+
+  // 4-1. 실제 계획과 견주기(과제 5)
+  const realPlan = mission?.compareWith ? planned.find((line) => line.id === mission.compareWith) : null;
+  if (realPlan) {
+    body.append(element('h2', null, '실제 계획과 견줘 봐요'));
+    body.append(element('p', null, `부산시가 세운 ${realPlan.name} 계획이에요.`));
+    const rows = [
+      { label: '노선 길이', mine: cost.lengthKm, real: realPlan.lengthKm, text: (v) => distanceText(v * 1000) },
+      { label: '역 수', mine: design.stations.length, real: realPlan.stations, text: (v) => `${v}개` },
+    ];
+    if (realPlan.cost100M) rows.push({ label: '공사비', mine: cost.total, real: realPlan.cost100M, text: (v) => moneyText(v) });
+    for (const row of rows) {
+      body.append(element('h3', null, row.label));
+      body.append(
+        barChart(
+          [
+            { label: '내 노선', value: row.mine, text: row.text(row.mine) },
+            { label: '실제 계획', value: row.real, text: row.text(row.real) },
+          ],
+          { width: 360 },
+        ),
+      );
+    }
+    body.append(element('p', 'panel-note', '어느 쪽이 맞다는 뜻은 아니에요. 무엇이 다른지 보고 까닭을 생각해 보세요.'));
+  }
+
+  // 4-2. 주민 목소리
+  if (voices.length > 0) {
+    body.append(element('h2', null, '주민 목소리'));
+    const box = element('div', 'voice-list');
+    const most = Math.max(...voices.map((voice) => voice.people));
+    for (const voice of voices) {
+      const card = element('article', 'voice-card');
+      card.append(element('p', 'voice-text', `“${voice.text}”`));
+      const why = voice.closerThanM
+        ? `${voice.why} 우리는 ${distanceText(voice.closerThanM)}보다 가까우면 가깝다고 봐요.`
+        : voice.why;
+      card.append(element('p', 'panel-note', why));
+      // 숫자는 늘 그림과 함께 보여 준다(CLAUDE.md). 막대 길이는 가장 많은 목소리에 견준 값이다.
+      card.append(barChart([{ label: '관련된 사람', value: voice.people }], { max: most, width: 260 }));
+      box.append(card);
+    }
+    body.append(box);
+    body.append(element('p', 'panel-note', '목소리는 노선과 역의 자리를 보고 규칙대로 나와요. 같은 설계면 늘 같은 목소리가 나와요.'));
+  }
 
   // 5. 설명하기
   body.append(element('h2', null, '세 문장으로 설명해요'));
@@ -222,6 +278,24 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   }
   refreshCard();
   for (const input of inputs) input.addEventListener('input', refreshCard);
+
+  // 6-1. 설계 저장(가 칸, 나 칸) — 나중에 둘을 나란히 견준다
+  if (onSave) {
+    body.append(element('h2', null, '이 설계를 저장해요'));
+    body.append(element('p', 'panel-note', '가 칸과 나 칸에 하나씩 저장하면, 처음 화면에서 둘을 나란히 볼 수 있어요.'));
+    const saveRow = element('div', 'tool-row');
+    const saved = element('p', 'panel-note', '');
+    for (const slot of ['가', '나']) {
+      const node = element('button', 'button', `${slot} 칸에 저장`);
+      node.type = 'button';
+      node.addEventListener('click', () => {
+        onSave(slot, { newRiders, faster: effect.fasterPeople, cost: cost.total, lengthKm: cost.lengthKm, stations: design.stations.length });
+        saved.textContent = `${slot} 칸에 저장했어요.`;
+      });
+      saveRow.append(node);
+    }
+    body.append(saveRow, saved);
+  }
 
   const buttons = element('div', 'tool-row');
   const save = element('button', 'button', '그림으로 저장');

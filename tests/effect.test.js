@@ -67,5 +67,7 @@ test('빨라진 사람: 시간이 줄어든 만큼만 센다', () => {
   assert.equal(effect.savedMinutes, 200);
   assert.equal(effect.newlyReachable, 10);
   assert.equal(effect.newLineRiders, 40);
-  assert.equal(Math.round(effect.averageSavedMin * 10) / 10, 6.7);
+  // 평균은 시간을 잴 수 있는 20명으로만 낸다(전에 못 가던 10명은 뺀다).
+  assert.equal(effect.measuredPeople, 20);
+  assert.equal(effect.averageSavedMin, 10);
 });

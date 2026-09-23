@@ -328,6 +328,74 @@ body {
   font-weight: 700;
 }
 
+/* 과제 카드 */
+.mission-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.mission-card {
+  border: 2px solid rgba(31, 51, 66, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mission-card h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.mission-card p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.mission-card .button {
+  margin-top: auto;
+}
+
+.mission-question {
+  font-weight: 700;
+}
+
+.mission-brief {
+  border-bottom: 2px solid rgba(31, 51, 66, 0.2);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.mission-brief h2 {
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+
+/* 주민 목소리 */
+.voice-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.voice-card {
+  border: 2px solid rgba(31, 51, 66, 0.25);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--paper);
+}
+
+.voice-text {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
 /* 부모 설정 카드 */
 .parent-card {
   border: 2px solid rgba(31, 51, 66, 0.35);
@@ -625,4 +693,13 @@ body {
     transition: none !important;
     animation: none !important;
   }
+}
+
+/* 과제 카드의 어른용 설명(성취기준 원문) */
+.standard-line {
+  display: block;
+}
+
+.standard-line + .standard-line {
+  margin-top: 4px;
 }

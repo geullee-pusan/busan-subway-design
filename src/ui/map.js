@@ -170,6 +170,44 @@ function lineTagsLayer(view) {
 
 /** 새로 그리는 노선의 색과 이름표 */
 export const DESIGN_COLOR = '#C0392B';
+/** 앞으로 생길 노선(양산선, 사상–하단선)의 색 */
+export const FUTURE_COLOR = '#6B7A8F';
+
+/** 앞으로 생길 노선. 점선으로 그려서 지금 다니는 노선과 구분한다. */
+function futureLayer(future) {
+  const layer = el('g', { 'aria-hidden': 'true' });
+  if (!future) return layer;
+  const byId = new Map(future.stations.map((s) => [s.id, s]));
+  for (const line of future.lines) {
+    const points = line.stations.map((id) => byId.get(id)).filter(Boolean);
+    if (points.length < 2) continue;
+    layer.append(
+      el('polyline', {
+        points: points.map((s) => `${(s.x * CELL).toFixed(1)},${(s.y * CELL).toFixed(1)}`).join(' '),
+        fill: 'none',
+        stroke: FUTURE_COLOR,
+        'stroke-width': 5,
+        'stroke-dasharray': '10 6',
+        'stroke-linejoin': 'round',
+        'vector-effect': 'non-scaling-stroke',
+      }),
+    );
+    for (const station of points) {
+      layer.append(
+        el('circle', {
+          cx: (station.x * CELL).toFixed(1),
+          cy: (station.y * CELL).toFixed(1),
+          r: 3.2,
+          fill: '#FFFFFF',
+          stroke: FUTURE_COLOR,
+          'stroke-width': 2,
+          'vector-effect': 'non-scaling-stroke',
+        }),
+      );
+    }
+  }
+  return layer;
+}
 
 /** 설계한 노선을 그린다. path와 stations는 칸 번호 목록이다. */
 function designLayer(design, cols) {
@@ -218,7 +256,7 @@ export function createMap({ onSelect, onCell }) {
   svg.append(viewport);
   root.append(svg);
 
-  const state = { view: '실제 지도', k: 1, tx: 0, ty: 0, selected: null, mode: '역', design: null };
+  const state = { view: '실제 지도', k: 1, tx: 0, ty: 0, selected: null, mode: '역', design: null, future: null };
   let layers = {};
 
   function draw() {
@@ -231,8 +269,9 @@ export function createMap({ onSelect, onCell }) {
     layers.stations = stationsLayer(state.view);
     layers.labels = labelsLayer(state.view);
     layers.tags = lineTagsLayer(state.view);
+    layers.future = futureLayer(state.future);
     layers.design = designLayer(state.design, grid.cols);
-    viewport.append(layers.lines, layers.stations, layers.design, layers.labels, layers.tags, overlay);
+    viewport.append(layers.lines, layers.future, layers.stations, layers.design, layers.labels, layers.tags, overlay);
     applySelection();
     applyTransform();
   }
@@ -405,6 +444,15 @@ export function createMap({ onSelect, onCell }) {
     onSelect(stationId);
   }
 
+  /** 어떤 칸이 화면 가운데 오도록 옮긴다. */
+  function focusOn(col, row, zoom = 2) {
+    const { width, height } = size();
+    state.k = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoom));
+    state.tx = width / 2 - (col + 0.5) * CELL * state.k;
+    state.ty = height / 2 - (row + 0.5) * CELL * state.k;
+    applyTransform();
+  }
+
   function fit() {
     const { width, height } = size();
     state.k = Math.min(width / (grid.cols * CELL), height / (grid.rows * CELL));
@@ -426,6 +474,7 @@ export function createMap({ onSelect, onCell }) {
     element: root,
     draw,
     fit,
+    focusOn,
     resize,
     select,
     zoomIn: () => {
@@ -457,6 +506,11 @@ export function createMap({ onSelect, onCell }) {
         const size = sizeOf ? sizeOf(id) : null;
         circle.setAttribute('r', ((size ?? base) / state.k).toFixed(2));
       }
+    },
+    /** 앞으로 생길 노선을 함께 그린다({lines, stations}). null이면 지운다. */
+    setFuture: (future) => {
+      state.future = future;
+      draw();
     },
     setDesign: (design) => {
       state.design = design;

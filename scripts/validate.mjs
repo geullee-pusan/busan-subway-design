@@ -237,6 +237,41 @@ const grid = readJson('data/build/grid.json');
   report('must', `격자 배열이 모두 ${grid.cols} × ${grid.rows}칸이다`, bad.length === 0, bad.map((k) => `크기가 다름: ${k}`));
 }
 
+// 11. 앞으로 생길 노선(Phase 5)
+{
+  const future = readJson('data/build/future-lines.json');
+  const planned = Object.fromEntries(readJson('data/facts.json').planned.map((line) => [line.id, line]));
+  const details = [];
+  let ok = future.lines.length > 0;
+  for (const line of future.lines) {
+    const fact = planned[line.id];
+    const meters = future.links.filter((l) => l.line === line.id).reduce((sum, l) => sum + l.distanceM, 0);
+    const sameCount = fact && line.stations.length === fact.stations;
+    const sameLength = fact && Math.abs(meters - fact.lengthKm * 1000) <= 5;
+    if (!sameCount || !sameLength) ok = false;
+    details.push(
+      `${line.name}: ${line.stations.length}역(발표 ${fact?.stations ?? '?'}), 이어 붙인 거리 ${(meters / 1000).toFixed(2)}km(발표 ${fact?.lengthKm ?? '?'}km)`,
+    );
+  }
+  const outside = future.stations.filter((station) => !station.inGrid).map((station) => station.id);
+  details.push(outside.length ? `격자 밖 역: ${outside.join(', ')}` : '모든 역이 격자 안에 있다');
+  report('must', '앞으로 생길 노선의 역 수와 길이가 공식 발표와 같다', ok, details);
+}
+
+// 12. 교육과정 성취기준 원문(Phase 5)
+{
+  const standards = readJson('data/standards.json');
+  const used = new Set();
+  for (const mission of readJson('src/content/missions.json').missions) for (const code of mission.standards) used.add(code);
+  for (const code of readFileSync(new URL('../docs/SPEC.md', import.meta.url), 'utf8').match(/4(?:사|수)\d{2}-\d{2}/g) ?? [])
+    used.add(code);
+  const missing = [...used].filter((code) => !standards.standards[code] || standards.standards[code].text.includes('TODO'));
+  report('must', '과제 카드와 SPEC이 가리키는 성취기준에 원문이 있다', missing.length === 0, [
+    `쓰는 성취기준 ${used.size}개, 원문을 적어 둔 것 ${Object.keys(standards.standards).length}개(${standards.checked} 대조)`,
+    ...missing.map((code) => `원문 없음: ${code}`),
+  ]);
+}
+
 // 결과 출력
 let failed = 0;
 for (const r of results) {

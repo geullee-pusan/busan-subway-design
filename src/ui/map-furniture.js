@@ -1,6 +1,6 @@
 // 지도에 늘 붙어 있는 것들: 범례, 방위표, 축척 막대(SPEC 12장 Phase 1 완료 기준).
 import { lines } from '../data.js';
-import { CELL, DESIGN_COLOR, TERRAIN_COLORS } from './map.js';
+import { CELL, DESIGN_COLOR, FUTURE_COLOR, TERRAIN_COLORS } from './map.js';
 import { wordWithCard } from './word-card.js';
 
 const TERRAIN_LABELS = [
@@ -19,8 +19,8 @@ function element(tag, className, text) {
   return node;
 }
 
-/** @param {{view?: string, showDesign?: boolean}} options */
-export function legendBox({ view = '실제 지도', showDesign = false } = {}) {
+/** @param {{view?: string, showDesign?: boolean, future?: boolean}} options */
+export function legendBox({ view = '실제 지도', showDesign = false, future = false } = {}) {
   const box = element('div', 'legend');
   box.append(element('h3', null, '지도 보는 법'));
   if (view === '실제 지도') {
@@ -52,6 +52,13 @@ export function legendBox({ view = '실제 지도', showDesign = false } = {}) {
     const tag = element('span', 'line-tag', '새');
     tag.style.background = DESIGN_COLOR;
     item.append(tag, element('span', null, '내가 그린 노선'));
+    lineList.append(item);
+  }
+  if (future) {
+    const item = element('li');
+    const tag = element('span', 'line-tag', '예정');
+    tag.style.background = FUTURE_COLOR;
+    item.append(tag, element('span', null, '앞으로 생길 노선'));
     lineList.append(item);
   }
   box.append(lineList);

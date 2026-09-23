@@ -24,17 +24,27 @@ function bigButton(label, onClick) {
 
 /**
  * @param {HTMLElement} root
- * @param {object} actions onExplore, onCompare, onDesign, settings, onSetting
+ * @param {object} actions onExplore, onCompare, onDesign, onMissions, onAB, settings, onSetting
  */
-export function renderHome(root, { onExplore, onCompare, onDesign, settings, onSetting }) {
+export function renderHome(root, { onExplore, onCompare, onDesign, onMissions, onAB, settings, onSetting }) {
   root.replaceChildren();
 
   const main = element('main', 'screen home');
   main.append(element('h1', null, '부산 도시철도 설계실'));
 
   const buttons = element('div', 'home-buttons');
-  buttons.append(bigButton('부산 둘러보기', onExplore), bigButton('노선 그리기', onDesign), bigButton('우리 계산 vs 진짜', onCompare));
+  buttons.append(bigButton('부산 둘러보기', onExplore), bigButton('과제 카드', onMissions), bigButton('자유 설계', onDesign));
   main.append(buttons);
+
+  const more = element('div', 'home-buttons');
+  const small = (label, onClick) => {
+    const node = element('button', 'button', label);
+    node.type = 'button';
+    node.addEventListener('click', onClick);
+    return node;
+  };
+  more.append(small('설계 가와 나 견주기', onAB), small('우리 계산 vs 진짜', onCompare));
+  main.append(more);
 
   main.append(element('p', 'home-note', '지도에서 역을 눌러 보세요. 노선을 그려서 하루 운행도 해 볼 수 있어요.'));
 

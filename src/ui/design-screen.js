@@ -1,6 +1,6 @@
 // 설계 화면(docs/SPEC.md 6장 2번, 7.2절).
 // 격자를 따라 선을 긋고 역을 놓는다. 공사비와 예산이 바로 보이고, 되돌리기는 무제한이다.
-import { grid, ruleTables, stations } from '../data.js';
+import { futureLines, grid, ruleTables, stations } from '../data.js';
 import { rules } from '../model.js';
 import { TRAINS_PER_HOUR, checkDesign, designCost, headway, stationGaps } from '../sim/design.js';
 import { extendPath } from '../sim/design.js';
@@ -35,18 +35,20 @@ function existingStationCells() {
   return cells;
 }
 
-/** @param {{onHome: () => void, onRun: (design: object) => void, runsLeft: number|null}} actions */
-export function renderDesign(root, { onHome, onRun, runsLeft = null }) {
+/** @param {{onHome: () => void, onRun: (design: object) => void, runsLeft: number|null, mission: object|null}} actions */
+export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen design');
   const existing = existingStationCells();
+  const budget = mission?.budget100M ?? rules.freeDesignBudget100M;
+  const showFuture = (mission?.baseYear ?? 2026) >= 2027;
 
   let design = { path: [], stations: [], kind: '경전철', trainsPerHour: 8 };
   const history = [];
   let mode = '그리기';
 
   const bar = element('header', 'top-bar');
-  bar.append(element('h1', 'top-title', '노선 설계'));
+  bar.append(element('h1', 'top-title', mission ? `${mission.number}. ${mission.title}` : '노선 설계'));
   bar.append(button('처음으로', onHome));
   screen.append(bar);
 
@@ -59,7 +61,7 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null }) {
   });
   mapBox.append(map.element);
   const legend = element('div', 'legend-holder');
-  legend.append(legendBox({ view: '실제 지도', showDesign: true }));
+  legend.append(legendBox({ view: '실제 지도', showDesign: true, future: showFuture }));
   const scale = scaleBar();
   const credit = element('p', 'credit', '© OpenStreetMap contributors');
   mapBox.append(legend, northArrow(), scale, zoomButtons(map), credit);
@@ -127,10 +129,21 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null }) {
   function renderPanel() {
     panel.replaceChildren();
     const cost = designCost(design, grid, rules, ruleTables, existing);
-    const budget = rules.freeDesignBudget100M;
 
-    // 무엇을 하는 화면인지
-    panel.append(element('h2', null, '노선 만들기'));
+    // 과제 카드 또는 자유 설계 안내
+    if (mission) {
+      const card = element('div', 'mission-brief');
+      card.append(element('h2', null, mission.title));
+      card.append(element('p', 'mission-question', mission.question));
+      card.append(element('p', 'panel-note', mission.hint));
+      if (showFuture) card.append(element('p', 'panel-note', '점선은 앞으로 생길 노선이에요.'));
+      if (mission.dayType !== '평일') {
+        card.append(element('p', 'panel-note', `이 과제는 ${mission.dayType} 자료로 하루를 돌려요.`));
+      }
+      panel.append(card);
+    } else {
+      panel.append(element('h2', null, '노선 만들기'));
+    }
     panel.append(element('p', 'panel-note', '지도에서 칸을 눌러 선을 그어요. 한 칸은 1km예요.'));
 
     // 모드 고르기
@@ -255,7 +268,9 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null }) {
 
   map.resize();
   map.setView('실제 지도');
-  map.fit();
+  if (showFuture) map.setFuture(futureLines);
+  if (mission?.focus) map.focusOn(mission.focus.col, mission.focus.row, 2);
+  else map.fit();
   setMode('그리기');
   scale.update(map.zoom);
 

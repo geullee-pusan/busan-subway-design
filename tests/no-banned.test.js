@@ -26,6 +26,8 @@ const sources = files.map((path) => ({ path: path.replace(ROOT + '\\', '').repla
 const ALLOW = [
   // 이용허락범위 제한 없음 같은 말
   /이용허락범위 제한/,
+  // "별이나 점수는 없다"처럼 넣지 않았다고 적어 둔 설명
+  /(없다|없어요|넣지 않는다|쓰지 않는다)/,
 ];
 
 function findWord(text, pattern) {

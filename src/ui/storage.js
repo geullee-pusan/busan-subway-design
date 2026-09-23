@@ -49,3 +49,27 @@ export function runsLeft(settings) {
 export function useRun(settings) {
   return saveSettings({ ...settings, runsDate: today(), runsUsed: settings.runsUsed + 1 });
 }
+
+const DESIGN_KEY = 'busan-subway-design-saves';
+
+/** 저장한 설계 두 개(가, 나)를 읽는다. 없으면 빈 칸이다. */
+export function loadDesigns() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(DESIGN_KEY) ?? '{}');
+    return { 가: saved['가'] ?? null, 나: saved['나'] ?? null };
+  } catch {
+    return { 가: null, 나: null };
+  }
+}
+
+/** 설계를 '가' 또는 '나' 칸에 저장한다. */
+export function saveDesign(slot, payload) {
+  const designs = loadDesigns();
+  designs[slot] = { ...payload, savedOn: today() };
+  try {
+    localStorage.setItem(DESIGN_KEY, JSON.stringify(designs));
+  } catch {
+    // 저장이 안 되어도 화면은 그대로 된다.
+  }
+  return designs;
+}

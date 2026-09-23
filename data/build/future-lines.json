@@ -1,0 +1,42 @@
+{
+  "note": "앞으로 생길 노선. 역 자리는 OSM 공사 중 역 노드, 길이는 공식 발표를 썼다. 역 사이 시간은 표정속도로 어림한 값이다.",
+  "lines": [
+    {"id":"YS","label":"양산","name":"양산선","fullName":"양산선(양산밸리라인)","operator":"부산교통공사","status":"개통 예정","stations":["YS-노포","YS-사송","YS-내송","YS-양산시청","YS-양산중앙","YS-신기","YS-북정"],"lengthKm":11.43,"lengthSource":"공식 발표(data/facts.json)","runSource":"추정: 경전철 표정속도","dwellS":0,"dwellSource":"역 사이 시간에 포함","headwayMin":null,"capacityPerTrain":312,"capacitySource":"경전철 정원(rules.json)","kind":"경전철","opening":"2026년 12월 목표(확정 발표 없음)","color":null},
+    {"id":"SH","label":"사하","name":"사상–하단선","fullName":"사상–하단선","operator":"부산교통공사","status":"공사 중","stations":["SH-사상","SH-새벽시장","SH-사상스마트시티","SH-학장","SH-엄궁","SH-동아대","SH-하단"],"lengthKm":6.9,"lengthSource":"공식 발표(data/facts.json)","runSource":"추정: 경전철 표정속도","dwellS":0,"dwellSource":"역 사이 시간에 포함","headwayMin":null,"capacityPerTrain":312,"capacitySource":"경전철 정원(rules.json)","kind":"경전철","opening":"사업기간 2027년까지(2025-07 연장 보도). 개통은 2028년 이후라는 전망도 있음","color":null}
+  ],
+  "stations": [
+    {"id":"YS-노포","line":"YS","name":"노포","lat":35.28468657,"lon":129.094967,"coordSource":"기존 역 위치","x":28.636,"y":13.381,"col":28,"row":13,"inGrid":true},
+    {"id":"YS-사송","line":"YS","name":"사송","lat":35.3034692,"lon":129.0788184,"coordSource":"OSM node 10066753928(공사 중 역)","x":27.166,"y":11.3,"col":27,"row":11,"inGrid":true},
+    {"id":"YS-내송","line":"YS","name":"내송","lat":35.3154155,"lon":129.0658026,"coordSource":"OSM node 10066753929(공사 중 역)","x":25.981,"y":9.976,"col":25,"row":9,"inGrid":true},
+    {"id":"YS-양산시청","line":"YS","name":"양산시청","lat":35.3349557,"lon":129.0355279,"coordSource":"OSM node 10066753930(공사 중 역)","x":23.229,"y":7.81,"col":23,"row":7,"inGrid":true},
+    {"id":"YS-양산중앙","line":"YS","name":"양산중앙","lat":35.3440632,"lon":129.033826,"coordSource":"OSM node 10066753935(공사 중 역)","x":23.074,"y":6.8,"col":23,"row":6,"inGrid":true},
+    {"id":"YS-신기","line":"YS","name":"신기","lat":35.3533099,"lon":129.0380737,"coordSource":"OSM node 10066753936(공사 중 역)","x":23.459,"y":5.774,"col":23,"row":5,"inGrid":true},
+    {"id":"YS-북정","line":"YS","name":"북정","lat":35.3614992,"lon":129.0411549,"coordSource":"OSM node 10066753937(공사 중 역)","x":23.739,"y":4.866,"col":23,"row":4,"inGrid":true},
+    {"id":"SH-사상","line":"SH","name":"사상","lat":35.16214,"lon":128.9844736,"coordSource":"OSM node 10566822382(공사 중 역)","x":18.586,"y":26.976,"col":18,"row":26,"inGrid":true},
+    {"id":"SH-새벽시장","line":"SH","name":"새벽시장","lat":35.1547494,"lon":128.9830249,"coordSource":"OSM node 10566822381(공사 중 역)","x":18.454,"y":27.795,"col":18,"row":27,"inGrid":true},
+    {"id":"SH-사상스마트시티","line":"SH","name":"사상스마트시티","lat":35.1440378,"lon":128.9803197,"coordSource":"OSM node 10566822380(공사 중 역)","x":18.207,"y":28.983,"col":18,"row":28,"inGrid":true},
+    {"id":"SH-학장","line":"SH","name":"학장","lat":35.1388704,"lon":128.9771117,"coordSource":"OSM node 10566822379(공사 중 역)","x":17.915,"y":29.556,"col":17,"row":29,"inGrid":true},
+    {"id":"SH-엄궁","line":"SH","name":"엄궁","lat":35.1266081,"lon":128.9686308,"coordSource":"OSM node 10566822378(공사 중 역)","x":17.142,"y":30.916,"col":17,"row":30,"inGrid":true},
+    {"id":"SH-동아대","line":"SH","name":"동아대","lat":35.112799,"lon":128.9642266,"coordSource":"OSM node 5942137553(공사 중 역)","x":16.74,"y":32.447,"col":16,"row":32,"inGrid":true},
+    {"id":"SH-하단","line":"SH","name":"하단","lat":35.1067401,"lon":128.9681803,"coordSource":"OSM node 14081390783(공사 중 역)","x":17.1,"y":33.119,"col":17,"row":33,"inGrid":true}
+  ],
+  "links": [
+    {"line":"YS","from":"YS-노포","to":"YS-사송","distanceM":2674,"runS":334,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 11.43km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"YS","from":"YS-사송","to":"YS-내송","distanceM":1863,"runS":233,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 11.43km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"YS","from":"YS-내송","to":"YS-양산시청","distanceM":3674,"runS":459,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 11.43km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"YS","from":"YS-양산시청","to":"YS-양산중앙","distanceM":1072,"runS":134,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 11.43km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"YS","from":"YS-양산중앙","to":"YS-신기","distanceM":1149,"runS":144,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 11.43km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"YS","from":"YS-신기","to":"YS-북정","distanceM":997,"runS":125,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 11.43km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"SH","from":"SH-사상","to":"SH-새벽시장","distanceM":868,"runS":109,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 6.9km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"SH","from":"SH-새벽시장","to":"SH-사상스마트시티","distanceM":1269,"runS":159,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 6.9km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"SH","from":"SH-사상스마트시티","to":"SH-학장","distanceM":673,"runS":84,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 6.9km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"SH","from":"SH-학장","to":"SH-엄궁","distanceM":1636,"runS":205,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 6.9km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"SH","from":"SH-엄궁","to":"SH-동아대","distanceM":1656,"runS":207,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 6.9km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"},
+    {"line":"SH","from":"SH-동아대","to":"SH-하단","distanceM":798,"runS":100,"distanceSource":"OSM 역 사이 직선거리를 공식 길이 6.9km에 맞춰 늘임","runSource":"추정: 경전철 표정속도 28.8km/h"}
+  ],
+  "transfers": [
+    {"id":"T-YS-노포","name":"노포","stations":["134","YS-노포"],"source":"같은 자리(300m 안)"},
+    {"id":"T-SH-사상","name":"사상","stations":["227","BG01","SH-사상"],"source":"같은 자리(300m 안)"},
+    {"id":"T-SH-하단","name":"하단","stations":["102","SH-하단"],"source":"같은 자리(300m 안)"}
+  ]
+}

@@ -1,22 +1,25 @@
 import { grid, ridership, ruleTables, stations } from './data.js';
-import { rules, runWithDesign, todayRun } from './model.js';
+import { rules, runWithDesign, worldFor } from './model.js';
 import { designCost } from './sim/design.js';
 import { NEW_LINE_ID } from './sim/design-world.js';
 import { compareRuns } from './sim/effect.js';
+import { residentVoices } from './sim/voices.js';
+import { renderAB } from './ui/ab-screen.js';
 import { renderCompare } from './ui/compare-screen.js';
 import { renderDesign } from './ui/design-screen.js';
 import { renderEstimate } from './ui/estimate-screen.js';
 import { renderExplore } from './ui/explore.js';
 import { renderHome } from './ui/home.js';
+import { renderMissions } from './ui/mission-screen.js';
 import { renderResult } from './ui/result-screen.js';
 import { renderRunning } from './ui/running-screen.js';
-import { loadSettings, runsLeft, saveSettings, useRun } from './ui/storage.js';
+import { loadDesigns, loadSettings, runsLeft, saveDesign, saveSettings, useRun } from './ui/storage.js';
 import './ui/style.css';
 
 const root = document.getElementById('app');
 let cleanup = null;
 let settings = loadSettings();
-const session = { design: null, estimate: null };
+const session = { design: null, estimate: null, mission: null };
 
 function show(render) {
   cleanup?.();
@@ -26,11 +29,14 @@ function show(render) {
 function showHome() {
   session.design = null;
   session.estimate = null;
+  session.mission = null;
   show(() =>
     renderHome(root, {
       onExplore: showExplore,
       onCompare: showCompare,
-      onDesign: showDesign,
+      onDesign: () => showDesign(null),
+      onMissions: showMissions,
+      onAB: showAB,
       settings,
       onSetting: (next) => {
         settings = saveSettings({ ...settings, ...next });
@@ -48,8 +54,19 @@ function showCompare() {
   show(() => renderCompare(root, { onHome: showHome }));
 }
 
-function showDesign() {
-  show(() => renderDesign(root, { onHome: showHome, onRun: startEstimate, runsLeft: runsLeft(settings) }));
+function showAB() {
+  show(() => renderAB(root, { designs: loadDesigns(), onHome: showHome }));
+}
+
+function showMissions() {
+  show(() => renderMissions(root, { onHome: showHome, onPick: (mission) => showDesign(mission) }));
+}
+
+function showDesign(mission) {
+  session.mission = mission;
+  show(() =>
+    renderDesign(root, { onHome: showHome, onRun: startEstimate, runsLeft: runsLeft(settings), mission }),
+  );
 }
 
 function startEstimate(design) {
@@ -60,7 +77,7 @@ function startEstimate(design) {
         session.estimate = estimate;
         startRunning();
       },
-      onBack: showDesign,
+      onBack: () => showDesign(session.mission),
     }),
   );
 }
@@ -79,12 +96,17 @@ function newStationNames(design) {
 
 function startRunning() {
   const design = session.design;
+  const mission = session.mission;
+  const options = { year: mission?.baseYear ?? 2026, dayType: mission?.dayType ?? '평일' };
   settings = useRun(settings);
-  const before = todayRun().result;
-  const after = runWithDesign(design);
-  const effect = compareRuns(before, after.result);
-  const existing = new Set(stations.filter((s) => s.inGrid).map((s) => s.row * grid.cols + s.col));
+
+  const base = worldFor(options);
+  const after = runWithDesign(design, options);
+  const effect = compareRuns(base.result, after.result);
+  const inGridStations = stations.filter((s) => s.inGrid);
+  const existing = new Set(inGridStations.map((s) => s.row * grid.cols + s.col));
   const cost = designCost(design, grid, rules, ruleTables, existing);
+  const voices = residentVoices({ design, grid, existingStations: inGridStations, rules });
   const left = runsLeft(settings);
   const endingText =
     left === null
@@ -97,7 +119,7 @@ function startRunning() {
     renderRunning(root, {
       design,
       result: after.result,
-      hourShape: ridership.shape['평일'],
+      hourShape: ridership.shape[options.dayType] ?? ridership.shape['평일'],
       onDone: () =>
         show(() =>
           renderResult(root, {
@@ -108,6 +130,10 @@ function startRunning() {
             estimate: session.estimate,
             newNames: newStationNames(design),
             endingText,
+            mission,
+            voices,
+            onSave: (slot, summary) =>
+              saveDesign(slot, { ...summary, title: mission ? mission.title : '자유 설계', design }),
             onHome: showHome,
           }),
         ),

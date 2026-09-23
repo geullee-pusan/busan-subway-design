@@ -4,6 +4,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDistricts } from './build/districts.mjs';
+import { buildFutureLines } from './build/future.mjs';
 import { buildGrid } from './build/grid.mjs';
 import { buildNetwork } from './build/network.mjs';
 import { renderPreview } from './build/preview.mjs';
@@ -217,12 +218,27 @@ for (const line of network.lines) {
   }
 }
 
+// 5-3. 앞으로 생길 노선(양산선, 사상–하단선): 2027년 부산을 보여 줄 때 쓴다
+const ruleTables = readJson('src/content/rules.json').tables;
+const future = buildFutureLines(raw, network.stations, facts, ruleTables, issues);
+for (const station of future.stations) {
+  const [e, n] = utm52.forward(station.lon, station.lat);
+  station.x = Math.round(e - grid.origin.easting) / 1000;
+  station.y = Math.round(grid.origin.northing - n) / 1000;
+  station.col = Math.floor(station.x);
+  station.row = Math.floor(station.y);
+  station.inGrid = station.col >= 0 && station.col < grid.cols && station.row >= 0 && station.row < grid.rows;
+}
+
 // 6. 쓰기
 mkdirSync(OUT, { recursive: true });
 const write = (name, data) => writeFileSync(resolve(OUT, name), typeof data === 'string' ? data : stringify(data));
 // 앞으로 생길 노선. 배포물에는 바깥 주소를 넣지 않는다(CLAUDE.md). 주소는 data/SOURCES.md와 data/facts.json에 있다.
+// 공사비는 기준으로 삼은 노선(하단–녹산선) 것만 발표값이 있다.
+const costBasis = facts.constructionCost?.basis;
 const planned = (facts.planned ?? []).map((line) => ({
   ...line,
+  cost100M: costBasis && costBasis.lengthKm === line.lengthKm && costBasis.stations === line.stations ? costBasis.cost100M : null,
   sources: (line.sources ?? []).map((s) => s.title),
 }));
 write('lines.json', { lines: network.lines, planned });
@@ -235,6 +251,10 @@ write('ridership.json', ridership);
 write('districts.json', districts);
 write('station-info.json', stationInfo);
 write('schematic.json', schematic);
+write('future-lines.json', {
+  note: '앞으로 생길 노선. 역 자리는 OSM 공사 중 역 노드, 길이는 공식 발표를 썼다. 역 사이 시간은 표정속도로 어림한 값이다.',
+  ...future,
+});
 write('dongs.json', {
   note: '격자에 걸치는 행정동. x, y는 그 동의 땅 가운데 점(격자 칸 단위)이다. 인구는 행정안전부 2026년 8월 자료다.',
   dongs: dongList,

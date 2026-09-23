@@ -108,18 +108,20 @@ test('순위 상관: 같은 순서면 1, 뒤집으면 -1', () => {
 
 // --- 실제 자료로 돌리는 시험 ---
 
-function loadWorld() {
+/** @param {{year?: number}} options 2027년이면 양산선과 사상–하단선을 더한다. */
+function loadWorld({ year = 2026, dayType = '평일' } = {}) {
   const rules = rulesFromCards(readJson('src/content/rules.json').rules);
-  const stations = readJson('data/build/stations.json').stations;
+  const future = year >= 2027 ? readJson('data/build/future-lines.json') : { stations: [], lines: [], links: [], transfers: [] };
+  const stations = [...readJson('data/build/stations.json').stations, ...future.stations];
   const world = buildWorld({
     grid: readJson('data/build/grid.json'),
     stations,
-    lines: readJson('data/build/lines.json').lines,
-    links: readJson('data/build/links.json').links,
-    transfers: readJson('data/build/transfers.json').transfers,
+    lines: [...readJson('data/build/lines.json').lines, ...future.lines],
+    links: [...readJson('data/build/links.json').links, ...future.links],
+    transfers: [...readJson('data/build/transfers.json').transfers, ...future.transfers],
     places: readJson('src/content/places.json').places,
     dongs: readJson('data/build/dongs.json').dongs,
-    hourShape: readJson('data/build/ridership.json').shape['평일'],
+    hourShape: readJson('data/build/ridership.json').shape[dayType],
     defaultHeadwayMin: rules.defaultHeadwayMin,
   });
   return { world, rules, stations };
@@ -129,6 +131,42 @@ test('결정론: 같은 입력을 두 번 돌리면 결과가 완전히 같다',
   const { world, rules } = loadWorld();
   const run = () => JSON.stringify(runDay(world, prepareWorld(world, rules), rules));
   assert.equal(run(), run());
+});
+
+test('기준 연도: 2027년 부산에는 앞으로 생길 노선이 들어 있다', { skip }, () => {
+  const now = loadWorld();
+  const later = loadWorld({ year: 2027 });
+  const newLines = later.world.lines.filter((line) => !now.world.lines.some((old) => old.id === line.id));
+  assert.deepEqual(
+    newLines.map((line) => line.id),
+    ['YS', 'SH'],
+  );
+  assert.equal(later.stations.length, now.stations.length + 14);
+  // 노포역에서 양산선으로 갈아탈 수 있어야 한다.
+  const transfer = later.world.transfers.find((t) => t.stations.includes('YS-노포'));
+  assert.ok(transfer && transfer.stations.includes('134'));
+});
+
+test('기준 연도: 2027년을 두 번 돌려도 같은 값이 나온다', { skip }, () => {
+  const { world, rules } = loadWorld({ year: 2027 });
+  const run = () => JSON.stringify(runDay(world, prepareWorld(world, rules), rules));
+  assert.equal(run(), run());
+});
+
+test('기준 연도: 양산선이 생기면 양산 쪽 사람들이 도시철도를 더 탄다', { skip }, () => {
+  const now = loadWorld();
+  const later = loadWorld({ year: 2027 });
+  const trips = ({ world, rules }) => runDay(world, prepareWorld(world, rules), rules).totals.railTrips;
+  assert.ok(trips(later) > trips(now), '2027년에 도시철도를 타는 사람이 더 많아야 한다');
+});
+
+test('요일: 토요일은 시간대 모양이 달라도 늘 같은 결과를 낸다(과제 6)', { skip }, () => {
+  const saturday = loadWorld({ dayType: '토요일' });
+  const run = (w) => runDay(w.world, prepareWorld(w.world, w.rules), w.rules);
+  const once = JSON.stringify(run(saturday));
+  assert.equal(once, JSON.stringify(run(saturday)));
+  const weekday = JSON.stringify(run(loadWorld()));
+  assert.notEqual(once, weekday, '토요일과 평일 결과가 같으면 요일 자료를 안 쓰고 있다');
 });
 
 test('성능: 하루 돌리기가 1초 안에 끝난다', { skip }, () => {

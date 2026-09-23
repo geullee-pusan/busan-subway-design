@@ -14,6 +14,8 @@ export function compareRuns(before, after) {
   let fasterPeople = 0;
   let savedMinutes = 0;
   let newlyReachable = 0;
+  // 전에도 갈 수 있던 길이라 "몇 분 줄었는지" 잴 수 있는 사람. 평균을 낼 때 쓴다.
+  let measuredPeople = 0;
   for (let i = 0; i < after.pairTime.length; i++) {
     const people = after.pairPeople[i] * 2; // 갈 때와 올 때를 모두 센다
     if (people <= 0) continue;
@@ -27,6 +29,7 @@ export function compareRuns(before, after) {
     }
     if (timeBefore - timeAfter > FASTER_MIN) {
       fasterPeople += people;
+      measuredPeople += people;
       savedMinutes += people * (timeBefore - timeAfter);
     }
   }
@@ -34,7 +37,9 @@ export function compareRuns(before, after) {
   return {
     fasterPeople,
     savedMinutes,
-    averageSavedMin: fasterPeople > 0 ? savedMinutes / fasterPeople : 0,
+    // 전에는 못 가던 길인 사람은 줄어든 시간을 잴 수 없어서 평균에서 뺀다.
+    measuredPeople,
+    averageSavedMin: measuredPeople > 0 ? savedMinutes / measuredPeople : 0,
     newlyReachable,
     newLineRiders: newLine.reduce((sum, s) => sum + s.board + s.alight, 0),
     totalBefore: before.totals.board,

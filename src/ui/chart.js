@@ -13,7 +13,8 @@ function el(name, attrs = {}, text) {
 }
 
 /**
- * 막대그래프. items: [{label, value, color}]
+ * 막대그래프. items: [{label, value, color, text}]
+ * text를 주면 막대 아래에 그 글을 쓴다(사람 수가 아닌 값일 때 쓴다).
  */
 export function barChart(items, { max, width = 320, numberMode = '기본' } = {}) {
   const rowHeight = 44;
@@ -26,7 +27,8 @@ export function barChart(items, { max, width = 320, numberMode = '기본' } = {}
     const barWidth = Math.max(2, ((width - labelWidth - 8) * item.value) / top);
     svg.append(el('text', { x: 0, y: y + 22, 'font-size': 16, fill: INK }, item.label));
     svg.append(el('rect', { x: labelWidth, y: y + 6, width: barWidth, height: 20, rx: 4, fill: item.color ?? INK }));
-    svg.append(el('text', { x: labelWidth + 4, y: y + 40, 'font-size': 15, fill: INK }, countText(item.value, numberMode)));
+    const value = item.text ?? countText(item.value, numberMode);
+    svg.append(el('text', { x: labelWidth + 4, y: y + 40, 'font-size': 15, fill: INK }, value));
   });
   return svg;
 }
