@@ -148,6 +148,7 @@ const VIEW_DEFAULTS = {
   runScope: '내 노선', // 운행 화면의 탄 사람 수와 많이 타는 역: '내 노선' 또는 '부산 전체'
   rideVoice: false, // 시승 모드 안내 방송을 소리로 읽는다(기기 안 목소리만)
   rideVoiceMode: 'voice', // 이 기기에서 목소리가 나온 방법: 'voice' | 'lang' | 'default'
+  trip: null, // 여행 모드에서 고른 것 {hour, rider, modes}. 출발지와 도착지는 저장하지 않는다.
   historyPopulation: 'now', // 옛날 부산 자유 설계의 사는 사람 자료: 'now'(지금 인구) 또는 'then'(그때 인구, 어림)
   rideSound: false, // 시승 모드 가락과 열차 소리(환승역·종착역 가락, 달리는 소리)
 };
@@ -163,6 +164,7 @@ export function loadView() {
     if (typeof view.rideVoice !== 'boolean') view.rideVoice = false;
     if (typeof view.rideSound !== 'boolean') view.rideSound = false;
     if (!['now', 'then'].includes(view.historyPopulation)) view.historyPopulation = 'now';
+    if (view.trip !== null && (typeof view.trip !== 'object' || Array.isArray(view.trip))) view.trip = null;
     if (!['voice', 'lang', 'default'].includes(view.rideVoiceMode)) view.rideVoiceMode = 'voice';
     if (view.legendOpen !== null && typeof view.legendOpen !== 'boolean') view.legendOpen = null;
     return view;

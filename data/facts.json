@@ -679,5 +679,51 @@
       "부산이 아닌 칸(양산, 김해, 창원 진해, 울산 울주, 밀양)은 옛날 자료를 모으지 않아 지금 인구를 그대로 쓴다.",
       "구 안에서 사는 곳이 옮겨 간 것(예: 새 아파트 단지)은 알 수 없다. 구마다 같은 비율로 늘리고 줄인다."
     ]
+  },
+  "fares": {
+    "_설명": "여행 모드 요금. 웹 페이지에서 확인했다(2026-09-24). 게임에는 src/content/fares.json으로 들어간다.",
+    "checkedOn": "2026-09-24",
+    "subway": {
+      "value": {
+        "zoneKm": 10,
+        "adultCard": [
+          1600,
+          1800
+        ],
+        "youthCard": [
+          1050,
+          1200
+        ],
+        "childCard": "무료"
+      },
+      "source": "부산교통공사 도시철도 운임 정보",
+      "url": "https://www2.humetro.busan.kr/homepage/default/page/subLocation.do?menu_no=1001010501"
+    },
+    "bus": {
+      "value": {
+        "adultCard": 1550,
+        "youthCard": 800,
+        "childCard": "무료"
+      },
+      "source": "부산광역시 시내버스 요금(일반버스, 조정 후)",
+      "url": "https://www.busan.go.kr/depart/ecnmahpublicfee01"
+    },
+    "transfer": {
+      "value": "하차 후 30분 이내, 환승 2회까지. 이용하는 교통수단 중 가장 높은 요금까지 낸다. 지하철 2구간·시계외 요금은 따로.",
+      "source": "부산시 버스정보시스템 일반 환승안내",
+      "url": "https://bus.busan.go.kr/busanBIMS/bus_info/busInfo_transfer.asp"
+    },
+    "taxi": {
+      "value": {
+        "baseFare": 4800,
+        "baseKm": 2,
+        "distance": "132m/100원",
+        "time": "33초/100원(15km/h 이하)",
+        "night": "23~04시 20%, 24~02시 30%",
+        "since": "2023-06-01"
+      },
+      "source": "부산광역시 택시요금(중형택시 요금현황, 자료: 부산광역시 택시운수과)",
+      "url": "https://www.busan.go.kr/depart/ahtaxi03"
+    }
   }
 }

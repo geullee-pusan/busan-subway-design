@@ -156,6 +156,28 @@
       "step": 1
     },
     {
+      "id": "taxiSpeedKmh",
+      "card": "택시는 {value} 가요",
+      "value": 22,
+      "unit": "km/h",
+      "kind": "우리가 정한 값",
+      "note": "여행 모드에서 쓴다. 부산 택시의 평균 속도 자료를 찾지 못해 버스(도심 17km/h)보다 조금 빠르게 정했다. TODO(확인 필요).",
+      "min": 5,
+      "max": 60,
+      "step": 1
+    },
+    {
+      "id": "taxiWaitMin",
+      "card": "택시를 잡는 데 {value}이 걸려요",
+      "value": 5,
+      "unit": "분",
+      "kind": "우리가 정한 값",
+      "note": "여행 모드에서 쓴다. 택시를 부르거나 잡는 시간. TODO(확인 필요).",
+      "min": 0,
+      "max": 30,
+      "step": 1
+    },
+    {
       "id": "defaultHeadwayMin",
       "card": "시간표를 못 구한 노선은 {value}마다 온다고 봐요",
       "value": 10,

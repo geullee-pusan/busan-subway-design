@@ -7,6 +7,7 @@ import { renderAB } from './ui/ab-screen.js';
 import { renderCompare } from './ui/compare-screen.js';
 import { renderDesign } from './ui/design-screen.js';
 import { renderRide } from './ui/ride-screen.js';
+import { renderTrip } from './ui/trip-screen.js';
 import { renderEstimate } from './ui/estimate-screen.js';
 import { renderExplore } from './ui/explore.js';
 import { renderHistory } from './ui/history-screen.js';
@@ -63,6 +64,7 @@ function showHome() {
       onMissions: showMissions,
       onAB: showAB,
       onHistory: showHistory,
+      onTrip: showTrip,
       onRules: () => showRules(false),
       onParent: showParent,
       onCleared: () => {
@@ -79,6 +81,11 @@ function showHome() {
       },
     }),
   );
+}
+
+/** 여행하기: 걷기, 버스, 지하철, 택시로 가는 길 견주기 */
+function showTrip() {
+  show(() => renderTrip(root, { onHome: showHome }));
 }
 
 function showHistory() {

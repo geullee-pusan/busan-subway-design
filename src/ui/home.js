@@ -24,7 +24,7 @@ function bigButton(label, onClick) {
 
 /**
  * @param {HTMLElement} root
- * @param {object} actions onExplore, onCompare, onDesign, onMissions, onAB, onHistory, onRules, onParent, onCleared, settings, onSetting, ruleSetName
+ * @param {object} actions onExplore, onCompare, onDesign, onMissions, onAB, onHistory, onTrip, onRules, onParent, onCleared, settings, onSetting, ruleSetName
  */
 export function renderHome(root, {
   onExplore,
@@ -33,6 +33,7 @@ export function renderHome(root, {
   onMissions,
   onAB,
   onHistory,
+  onTrip = null,
   onRules,
   onParent,
   settings,
@@ -53,6 +54,7 @@ export function renderHome(root, {
 
   const buttons = element('div', 'home-buttons');
   buttons.append(bigButton('부산 둘러보기', onExplore), bigButton('과제 카드', onMissions), bigButton('자유 설계', onDesign));
+  if (onTrip) buttons.append(bigButton('여행하기', onTrip));
   main.append(buttons);
 
   const more = element('div', 'home-buttons');

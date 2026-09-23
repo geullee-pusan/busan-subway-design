@@ -1576,3 +1576,108 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* 여행하기 */
+.trip-point {
+  margin: 8px 0 12px;
+}
+
+.trip-point h3 {
+  margin: 8px 0 6px;
+}
+
+.trip-select {
+  width: 100%;
+  min-height: 2.667rem;
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+.trip-pick {
+  width: 100%;
+}
+
+.trip-list {
+  display: grid;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.trip-card {
+  display: block;
+  width: 100%;
+  min-height: 2.667rem;
+  padding: 10px 12px;
+  text-align: left;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 2px solid rgba(31, 51, 66, 0.25);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.trip-card.is-on {
+  border: 3px solid var(--ink);
+  box-shadow: 0 2px 6px rgba(31, 51, 66, 0.2);
+}
+
+.trip-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.trip-title {
+  font-weight: 700;
+  font-size: 1.111rem;
+}
+
+.trip-time {
+  font-weight: 700;
+  font-size: 1.222rem;
+}
+
+.trip-bar {
+  display: flex;
+  height: 1.4rem;
+  margin: 8px 0 4px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.trip-piece {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.trip-detail {
+  margin: 4px 0;
+  font-size: 1rem;
+}
+
+.trip-money {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 4px 0;
+}
+
+.trip-fare {
+  font-weight: 700;
+  font-size: 1.111rem;
+}
+
+.trip-coins {
+  color: #c79200;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
