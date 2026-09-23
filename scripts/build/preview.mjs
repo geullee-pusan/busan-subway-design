@@ -16,8 +16,8 @@ const HIGH_MOUNTAIN_M = 400;
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-/** grid: data/build/grid.json 내용, lines/stations: 노선과 역(격자 좌표 x, y 포함) */
-export function renderPreview({ grid, lines, stations, notes }) {
+/** grid: data/build/grid.json 내용, lines/stations: 노선과 역(격자 좌표 x, y 포함), districts: 구·군 경계선 */
+export function renderPreview({ grid, lines, stations, districts, notes }) {
   const W = grid.cols * S;
   const H = grid.rows * S;
   const left = 36;
@@ -51,6 +51,15 @@ export function renderPreview({ grid, lines, stations, notes }) {
     out.push(`<line x1="0" y1="${r * S}" x2="${W}" y2="${r * S}" stroke="${COLORS.ink}" stroke-opacity="0.12"/>`);
     if (r < grid.rows) out.push(`<text x="-4" y="${r * S + 9}" font-size="9" text-anchor="end" fill-opacity="0.6">${r}</text>`);
   }
+  // 해안선과 구·군 경계
+  const path = (points) => points.map(([x, y]) => `${(x * S).toFixed(1)},${(y * S).toFixed(1)}`).join(' ');
+  for (const line of districts?.coastline ?? []) {
+    out.push(`<polyline points="${path(line)}" fill="none" stroke="${COLORS.ink}" stroke-opacity="0.45" stroke-width="0.8"/>`);
+  }
+  for (const line of districts?.boundaries ?? []) {
+    out.push(`<polyline points="${path(line)}" fill="none" stroke="${COLORS.ink}" stroke-opacity="0.35" stroke-width="0.8" stroke-dasharray="3 2"/>`);
+  }
+
   // 인구: 칸 가운데 점. 넓이가 인구에 비례한다.
   let maxPop = 1;
   for (const row of grid.population) for (const n of row) maxPop = Math.max(maxPop, n);

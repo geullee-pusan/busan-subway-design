@@ -195,7 +195,42 @@ const grid = readJson('data/build/grid.json');
   report('check', '1~4호선 좌표가 두 출처에서 300m 안이다', far === 0, details);
 }
 
-// 8. 격자 배열 크기
+// 8. 역마다 이용객 자료와 개통일이 있는가
+{
+  const ridership = readJson('data/build/ridership.json');
+  const info = readJson('data/build/station-info.json').stations;
+  const schematic = readJson('data/build/schematic.json');
+  const details = [];
+
+  const noRidership = stations.filter((s) => !ridership.stations[s.id]);
+  const unexplained = noRidership.filter((s) => !ridership.missing.some((m) => m.id === s.id));
+  details.push(`이용객 자료가 있는 역 ${Object.keys(ridership.stations).length}개, 없는 역 ${noRidership.length}개(모두 까닭을 적음)`);
+  for (const m of ridership.missing.filter((m) => m.reason !== '자료 없음')) details.push(`${m.name}(${m.line}): ${m.reason}`);
+  const noOpening = stations.filter((s) => !info[s.id]?.openedOn);
+  const noPosition = stations.filter((s) => !schematic.positions[s.id]);
+  report(
+    'must',
+    '모든 역에 개통일과 노선도 좌표가 있고, 이용객이 없는 역은 까닭이 적혀 있다',
+    unexplained.length === 0 && noOpening.length === 0 && noPosition.length === 0,
+    [
+      ...details,
+      ...unexplained.map((s) => `까닭 없이 이용객 자료가 없어요: ${s.id} ${s.name}`),
+      ...noOpening.map((s) => `개통일이 없어요: ${s.id} ${s.name}`),
+      ...noPosition.map((s) => `노선도 좌표가 없어요: ${s.id} ${s.name}`),
+    ],
+  );
+}
+
+// 9. 구·군 경계선이 있는가
+{
+  const districts = readJson('data/build/districts.json');
+  const busan = districts.districts.filter((d) => d.name.startsWith('부산광역시'));
+  report('check', '구·군 경계선과 해안선이 있다', busan.length === 16 && districts.boundaries.length > 0, [
+    `구·군 ${districts.districts.length}곳(부산 ${busan.length}곳), 경계선 ${districts.boundaries.length}개, 해안선 ${districts.coastline.length}개`,
+  ]);
+}
+
+// 10. 격자 배열 크기
 {
   const keys = ['terrain', 'population', 'populationBusan', 'elevationM', 'slopeDeg', 'district'];
   const bad = keys.filter((k) => grid[k].length !== grid.rows || grid[k].some((row) => row.length !== grid.cols));

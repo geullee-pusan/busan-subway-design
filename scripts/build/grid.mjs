@@ -159,6 +159,7 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
     name: f.properties.adm_nm,
     sido: f.properties.sidonm,
     sgg: f.properties.sggnm,
+    sggCode: f.properties.sgg,
     geometry: f.geometry,
     lonLat: lonLatBBox(f.geometry),
   }));
@@ -457,5 +458,6 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
     populationInGrid: out.population.reduce((s, n) => s + n, 0),
     overrides: overridden.size,
   };
-  return { grid, stats, issues };
+  // dongs와 box는 구·군 경계선을 뽑을 때 쓴다(scripts/build/districts.mjs).
+  return { grid, stats, issues, dongs: inBox, box: gridBox };
 }

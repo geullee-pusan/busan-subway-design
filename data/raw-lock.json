@@ -132,6 +132,13 @@
     "sha256": "206a8a88738bc9eabf79417b71faa7c9775cbce5cab7d31ed665b1418518df34",
     "fetched": "2026-09-22"
   },
+  "route-map": {
+    "file": "data/raw/datagokr/15054957.zip",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003511950&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 15372503,
+    "sha256": "544974509823404d8435cc0c0c6dc19c3ef312d17fa48eaac763728734014ff3",
+    "fetched": "2026-09-23"
+  },
   "speed": {
     "file": "data/raw/datagokr/15142581.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003113888&fileDetailSn=1&insertDataPrcus=N",

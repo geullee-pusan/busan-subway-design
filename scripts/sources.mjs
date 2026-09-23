@@ -36,6 +36,9 @@ export const SOURCES = [
   { key: 'donghae-stations', file: 'data/raw/datagokr/15137827.csv', url: dataGoKr('FILE_000000003029206'), size: 2053 },
   { key: 'bgl-ridership', file: 'data/raw/datagokr/15105181.csv', url: dataGoKr('FILE_000000003599678'), size: 3095702 },
 
+  // 공식 노선 색을 뽑는 노선도 이미지 (공공데이터포털, 큰 파일이라 git에 넣지 않는다)
+  { key: 'route-map', file: 'data/raw/datagokr/15054957.zip', url: dataGoKr('FILE_000000003511950'), size: 15372503 },
+
   // 행정안전부 주민등록 인구 (공공데이터포털)
   { key: 'population', file: 'data/raw/datagokr/15097972.csv', url: dataGoKr('FILE_000000007644704'), size: 2568139 },
 

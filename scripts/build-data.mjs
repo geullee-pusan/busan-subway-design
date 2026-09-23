@@ -3,9 +3,13 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildDistricts } from './build/districts.mjs';
 import { buildGrid } from './build/grid.mjs';
 import { buildNetwork } from './build/network.mjs';
 import { renderPreview } from './build/preview.mjs';
+import { buildRidership } from './build/ridership.mjs';
+import { buildSchematic } from './build/schematic.mjs';
+import { buildStationInfo } from './build/station-info.mjs';
 import { readTrains, summarizeService } from './build/service.mjs';
 import { stringify } from './lib/json.mjs';
 import { utm52 } from './lib/utm.mjs';
@@ -86,8 +90,15 @@ const extraPoints = [
   { name: '북정(양산선, OSM)', lon: bukjeong.lon, lat: bukjeong.lat },
   { name: gaya.name, lon: gaya.lon, lat: gaya.lat },
 ];
-const { grid, stats: gridStats, issues: gridIssues } = buildGrid({ raw, config, extraPoints, overrides });
+const { grid, stats: gridStats, issues: gridIssues, dongs, box } = buildGrid({ raw, config, extraPoints, overrides });
 issues.push(...gridIssues.map((m) => `[격자] ${m}`));
+
+// 구·군 경계선과 해안선(지도에 그릴 선)
+const districts = {
+  source: '행정동 경계(vuski/admdongkor ver20260701, 통계청 SGIS 가공, CC BY 4.0)를 시군구끼리 합쳐 만든 선',
+  note: '좌표는 격자 칸 단위다. x는 서쪽 끝에서, y는 북쪽 끝에서 잰다. 60m 기준으로 점을 줄였다.',
+  ...buildDistricts(dongs, box, grid.origin, { cellSizeM: grid.cellSizeM }),
+};
 
 // 역의 격자 좌표(km). x는 서쪽 끝에서 동쪽으로, y는 북쪽 끝에서 남쪽으로 잰다.
 for (const s of network.stations) {
@@ -118,7 +129,42 @@ const gridOut = {
   },
 };
 
-// 3. 운행 요약(시각표)
+// 3. 역별 이용객(2025년)
+const ridershipRaw = buildRidership(raw, network.stations, issues);
+const ridership = {
+  source: '부산교통공사 시간대별 승하차인원 2025년(공공데이터포털 3057229), 경상남도 김해시 경전철 역사별 시간대별 승하차 2025년(15105181)',
+  note: '요일 묶음별 하루 평균이다. 시간대 값을 반올림하고, 하루 합계는 그 값들을 더한 값이다. 공휴일은 자료에 표시가 없어 평일에 섞여 있다. hourly의 0번은 자정부터 새벽 1시까지다.',
+  dayTypes: ['평일', '토요일', '일요일'],
+  stations: ridershipRaw.stations,
+  missing: ridershipRaw.missing.map((id) => {
+    const station = network.stations.find((s) => s.id === id);
+    const group = network.transfers.find((t) => t.stations.includes(id));
+    const sibling = group?.stations.find((x) => x !== id && ridershipRaw.stations[x]);
+    const siblingStation = sibling ? network.stations.find((s) => s.id === sibling) : null;
+    return {
+      id,
+      name: station.name,
+      line: station.line,
+      reason: siblingStation
+        ? `게이트가 함께 있어 ${siblingStation.line}호선 ${siblingStation.name}(${sibling})에 합쳐 센다`
+        : '자료 없음',
+    };
+  }),
+};
+if (ridershipRaw.unusedRows.length) issues.push(`[이용객] 역 목록에 없는 역번호 자료: ${ridershipRaw.unusedRows.join(', ')}`);
+
+// 4. 역 정보(유래, 주소, 개통일)와 노선도 보기 좌표
+const stationInfo = {
+  source: '영문 이름·주소·유래: 부산교통공사 도시철도 역정보 2021-10-20(공공데이터포털 15050408). 개통일: data/facts.json',
+  note: '부산김해경전철과 동해선은 유래·주소 자료가 없다.',
+  stations: buildStationInfo(raw, network.stations, network.lines, facts, issues),
+};
+const schematic = {
+  note: '노선도 보기용 좌표(격자 칸 단위). 환승역과 종점은 실제 자리에 두고, 그 사이 역은 곧은 선 위에 같은 간격으로 놓았다.',
+  ...buildSchematic(network.lines, network.stations),
+};
+
+// 5. 운행 요약(시각표)
 const trains = readTrains(raw('datagokr/15082980.csv'));
 const humetroOrder = network.lines
   .filter((l) => ['1', '2', '3', '4'].includes(l.id))
@@ -129,15 +175,24 @@ const service = {
   weekday: summarizeService(trains, humetroOrder, '평일'),
 };
 
-// 4. 쓰기
+// 6. 쓰기
 mkdirSync(OUT, { recursive: true });
 const write = (name, data) => writeFileSync(resolve(OUT, name), typeof data === 'string' ? data : stringify(data));
-write('lines.json', { lines: network.lines, planned: facts.planned ?? [] });
+// 앞으로 생길 노선. 배포물에는 바깥 주소를 넣지 않는다(CLAUDE.md). 주소는 data/SOURCES.md와 data/facts.json에 있다.
+const planned = (facts.planned ?? []).map((line) => ({
+  ...line,
+  sources: (line.sources ?? []).map((s) => s.title),
+}));
+write('lines.json', { lines: network.lines, planned });
 write('stations.json', { stations: network.stations });
 write('links.json', { links: network.links });
 write('transfers.json', { transfers: network.transfers });
 write('grid.json', gridOut);
 write('service.json', service);
+write('ridership.json', ridership);
+write('districts.json', districts);
+write('station-info.json', stationInfo);
+write('schematic.json', schematic);
 write('build-report.json', { grid: gridStats, stations: network.stations.length, links: network.links.length, issues });
 write(
   'preview.svg',
@@ -145,7 +200,8 @@ write(
     grid: gridOut,
     lines: network.lines,
     stations: network.stations,
-    notes: ['노선 색은 OSM 태그(공식 색 확인 전)', '역 사이 선은 직선으로 그림'],
+    districts,
+    notes: ['점선은 구·군 경계', '노선 색은 OSM 태그(공식 색 확인 전)', '역 사이 선은 직선으로 그림'],
   }),
 );
 
