@@ -1,6 +1,17 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { countText, dateText, distanceText, durationText, exactCount, roParticle, roundedCount, yearText } from '../src/ui/format.js';
+import {
+  countText,
+  dateText,
+  distanceText,
+  durationText,
+  exactCount,
+  moneyBlocks,
+  moneyText,
+  roParticle,
+  roundedCount,
+  yearText,
+} from '../src/ui/format.js';
 
 test('큰 수: 기본 모드는 어림수로 쓴다', () => {
   assert.equal(roundedCount(42380), '약 4만 2천 명');
@@ -38,6 +49,17 @@ test('조사: 받침이 없거나 ㄹ이면 "로", 아니면 "으로"', () => {
   assert.equal(roParticle('동해선'), '으로');
   assert.equal(roParticle('부산김해경전철'), '로');
   assert.equal(roParticle('버스'), '로');
+});
+
+test('돈: 기본 모드는 어림수, 진짜 숫자 모드는 조와 억', () => {
+  assert.equal(moneyText(11265, '진짜 숫자'), '1조 1,265억 원');
+  assert.equal(moneyText(8360, '진짜 숫자'), '8,360억 원');
+  assert.equal(moneyText(20000, '진짜 숫자'), '2조 원');
+  assert.equal(moneyText(11265), '약 1조 1천억 원');
+  assert.equal(moneyText(8360), '약 8천 4백억 원');
+  assert.equal(moneyText(9000), '약 9천억 원');
+  assert.equal(moneyText(295), '약 300억 원');
+  assert.equal(moneyBlocks(11265), 113);
 });
 
 test('날짜는 연도와 긴 날짜로 쓴다', () => {

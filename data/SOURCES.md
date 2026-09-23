@@ -118,6 +118,8 @@
 | 모델의 조정 손잡이 4개 | 기존 노선망으로 돌린 결과를 2025년 실제 승하차와 맞춰 고름. 값과 근거는 `docs/calibration.md` | `scripts/calibrate.mjs` |
 | 모델의 고정 규칙 값 | 걷는 빠르기, 버스 속도와 기다리는 시간처럼 우리가 정한 값. 모두 `src/content/rules.json`에 적어 두고 화면에 보여 준다 | `src/content/rules.json` |
 | 중심지(가는 곳) 목록과 크기 | SPEC 5.3절의 목록을 쓰고, 크기 1~5는 우리가 정한 값이다(자료가 아니다) | `src/content/places.json` |
+| 1km 공사비 861억 원, 역 하나 295억 원 | 3호선(18.3km 17역 1조 7,395억)과 4호선(12.7km 14역 1조 2,616억) 건설비로 "역 하나 = 1km의 0.343배"를 구하고, 그 비율로 하단–녹산선 최신 사업비를 나눴다 | `data/facts.json`의 `constructionCost` |
+| 노선 종류별 정원과 속도 | 경전철은 4호선(312명, 28.8km/h), 지하철은 2호선 정원(722명)과 1~3호선 표정속도 평균(31.5km/h) | `src/content/rules.json`의 `tables.lineKinds` |
 
 ## 4. 원본에서 찾은 문제와 고친 방법
 

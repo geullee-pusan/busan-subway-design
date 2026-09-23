@@ -27,6 +27,7 @@ export const service = serviceFile;
 export const dongs = dongsFile.dongs;
 export const places = placesFile.places;
 export const ruleCards = rulesFile.rules;
+export const ruleTables = rulesFile.tables;
 
 /** 역 id → 역 */
 export const stationById = new Map(stations.map((s) => [s.id, s]));

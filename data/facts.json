@@ -449,7 +449,9 @@
       "perKm100M": 1102,
       "date": "2025-06-11",
       "source": "턴키 입찰공고 때의 총사업비(부산일보 2025-06-12 보도). 길이 13.47km는 예비타당성 때와 같다",
-      "url": "https://www.busan.com/view/busan/view.php?code=2025061214151206862"
+      "url": "https://www.busan.com/view/busan/view.php?code=2025061214151206862",
+      "stations": 11,
+      "stationsSource": "부산시 보도자료(정거장 11곳)"
     },
     "earlier": [
       {
@@ -464,7 +466,32 @@
         "note": "부산시 총사업비 확정(명지국제신도시 2.3km 지하화로 3,224억 증액), 국토부 기본계획 승인 2024-10",
         "url": "https://www.busan.go.kr/news/snsbusan01/view?dataNo=70527"
       }
-    ]
+    ],
+    "builtLines": {
+      "3": {
+        "lengthKm": 18.3,
+        "stations": 17,
+        "cost100M": 17395,
+        "opened": "2005-11-28",
+        "source": "부산교통공사 3호선 건설연혁",
+        "url": "https://data.humetro.busan.kr/homepage/default/page/subLocation.do?menu_no=1002020103"
+      },
+      "4": {
+        "lengthKm": 12.7,
+        "stations": 14,
+        "cost100M": 12616,
+        "opened": "2011-03-30",
+        "source": "부산교통공사 4호선 건설연혁",
+        "url": "https://data.humetro.busan.kr/homepage/default/page/subLocation.do?menu_no=1002020104"
+      },
+      "_설명": "이미 지은 노선의 건설비. 1km 값과 역 하나 값의 비율을 구하는 데 쓴다. 억 원 단위."
+    },
+    "derived": {
+      "_설명": "게임이 쓰는 값. 3·4호선 건설비로 역 하나가 1km의 몇 배인지 구하고(0.343배), 그 비율로 하단–녹산선 최신 사업비를 1km 값과 역 값으로 나눴다. 두 노선은 지은 해가 달라서 비율만 가져왔다.",
+      "stationToKmRatio": 0.343,
+      "perKm100M": 861,
+      "perStation100M": 295
+    }
   },
   "history": [
     {

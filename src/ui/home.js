@@ -9,9 +9,9 @@ const CREDITS = [
 
 /**
  * @param {HTMLElement} root
- * @param {{onExplore: () => void, onCompare: () => void}} actions
+ * @param {{onExplore: () => void, onCompare: () => void, onDesign: () => void}} actions
  */
-export function renderHome(root, { onExplore, onCompare }) {
+export function renderHome(root, { onExplore, onCompare, onDesign }) {
   root.replaceChildren();
 
   const main = document.createElement('main');
@@ -29,6 +29,13 @@ export function renderHome(root, { onExplore, onCompare }) {
   explore.textContent = '부산 둘러보기';
   explore.addEventListener('click', onExplore);
   buttons.append(explore);
+
+  const design = document.createElement('button');
+  design.type = 'button';
+  design.className = 'button big';
+  design.textContent = '노선 그리기';
+  design.addEventListener('click', onDesign);
+  buttons.append(design);
 
   const compare = document.createElement('button');
   compare.type = 'button';

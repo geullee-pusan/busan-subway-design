@@ -64,6 +64,39 @@ export function roParticle(word) {
   return '로';
 }
 
+/**
+ * 돈(억 원 단위)을 글로 쓴다.
+ * 기본 모드는 어림수로, 진짜 숫자 모드는 "1조 1,265억 원"처럼 쓴다(SPEC 3장).
+ */
+export function moneyText(hundredMillion, mode = '기본') {
+  const value = Math.round(hundredMillion);
+  if (value <= 0) return '0원';
+  if (mode === '진짜 숫자') {
+    const jo = Math.floor(value / 10000);
+    const rest = value % 10000;
+    if (jo > 0) return rest === 0 ? `${jo}조 원` : `${jo}조 ${rest.toLocaleString('ko-KR')}억 원`;
+    return `${value.toLocaleString('ko-KR')}억 원`;
+  }
+  if (value >= 10000) {
+    const rounded = Math.round(value / 1000) * 1000;
+    const jo = Math.floor(rounded / 10000);
+    const cheon = (rounded % 10000) / 1000;
+    return cheon === 0 ? `약 ${jo}조 원` : `약 ${jo}조 ${cheon}천억 원`;
+  }
+  if (value >= 1000) {
+    const rounded = Math.round(value / 100) * 100;
+    const cheon = Math.floor(rounded / 1000);
+    const baek = (rounded % 1000) / 100;
+    return baek === 0 ? `약 ${cheon}천억 원` : `약 ${cheon}천 ${baek}백억 원`;
+  }
+  return `약 ${Math.round(value / 10) * 10}억 원`;
+}
+
+/** 벽돌 블록 개수. 한 블록은 100억 원이다(SPEC 3장). */
+export function moneyBlocks(hundredMillion) {
+  return Math.round(hundredMillion / 100);
+}
+
 /** 역 이름 뒤에 "역"을 붙인다. 이미 "역"으로 끝나면 그대로 둔다(부산역 → 부산역). */
 export function stationLabel(name) {
   return name.endsWith('역') ? name : `${name}역`;

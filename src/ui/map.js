@@ -168,11 +168,46 @@ function lineBadgesLayer(view) {
   return layer;
 }
 
+/** 새로 그리는 노선의 색과 이름표 */
+export const DESIGN_COLOR = '#C0392B';
+
+/** 설계한 노선을 그린다. path와 stations는 칸 번호 목록이다. */
+function designLayer(design, cols) {
+  const layer = el('g', { 'aria-hidden': 'true' });
+  if (!design || design.path.length === 0) return layer;
+  const center = (index) => [((index % cols) + 0.5) * CELL, (Math.floor(index / cols) + 0.5) * CELL];
+  const points = design.path.map(center);
+  if (points.length > 1) {
+    layer.append(
+      el('polyline', {
+        points: points.map(([x, y]) => `${x},${y}`).join(' '),
+        fill: 'none',
+        stroke: DESIGN_COLOR,
+        'stroke-width': 6,
+        'stroke-linejoin': 'round',
+        'stroke-linecap': 'round',
+        'vector-effect': 'non-scaling-stroke',
+      }),
+    );
+  }
+  // 길의 끝은 어디에 이어 그릴 수 있는지 보이도록 크게 그린다.
+  const [lx, ly] = center(design.path.at(-1));
+  layer.append(el('circle', { cx: lx, cy: ly, r: 4, fill: DESIGN_COLOR, 'fill-opacity': 0.5 }));
+  for (const cell of design.stations) {
+    const [x, y] = center(cell);
+    layer.append(
+      el('circle', { cx: x, cy: y, r: 5, fill: '#FFFFFF', stroke: DESIGN_COLOR, 'stroke-width': 3, 'vector-effect': 'non-scaling-stroke' }),
+    );
+  }
+  return layer;
+}
+
 /**
  * 지도를 만든다.
  * @param {(stationId: string|null) => void} onSelect 역을 누르면 부른다
+ * @param {(cellIndex: number) => void} [onCell] 칸을 누르거나 끌면 부른다('칸' 모드일 때)
  */
-export function createMap({ onSelect }) {
+export function createMap({ onSelect, onCell }) {
   const root = document.createElement('div');
   root.className = 'map';
 
@@ -181,7 +216,7 @@ export function createMap({ onSelect }) {
   svg.append(viewport);
   root.append(svg);
 
-  const state = { view: '실제 지도', k: 1, tx: 0, ty: 0, selected: null };
+  const state = { view: '실제 지도', k: 1, tx: 0, ty: 0, selected: null, mode: '역', design: null };
   let layers = {};
 
   function draw() {
@@ -194,7 +229,8 @@ export function createMap({ onSelect }) {
     layers.stations = stationsLayer(state.view);
     layers.labels = labelsLayer(state.view);
     layers.badges = lineBadgesLayer(state.view);
-    viewport.append(layers.lines, layers.stations, layers.labels, layers.badges);
+    layers.design = designLayer(state.design, grid.cols);
+    viewport.append(layers.lines, layers.stations, layers.design, layers.labels, layers.badges);
     applySelection();
     applyTransform();
   }
@@ -297,12 +333,31 @@ export function createMap({ onSelect }) {
     }
   });
 
+  /** 화면 점이 어느 칸인지 */
+  function cellAt(clientX, clientY) {
+    const point = toMap(clientX, clientY);
+    const col = Math.floor(point.x);
+    const row = Math.floor(point.y);
+    if (col < 0 || col >= grid.cols || row < 0 || row >= grid.rows) return null;
+    return row * grid.cols + col;
+  }
+
+  let lastCell = null;
+
   svg.addEventListener('pointermove', (event) => {
     const previous = pointers.get(event.pointerId);
     if (!previous) return;
     const next = { x: event.clientX, y: event.clientY };
     pointers.set(event.pointerId, next);
-    if (pointers.size === 1) {
+    if (pointers.size === 1 && state.mode === '칸') {
+      // 손가락을 끌면 지나가는 칸마다 알려 준다(선 그리기).
+      const cell = cellAt(next.x, next.y);
+      if (cell !== null && cell !== lastCell) {
+        lastCell = cell;
+        moved += 20;
+        onCell?.(cell);
+      }
+    } else if (pointers.size === 1) {
       state.tx += next.x - previous.x;
       state.ty += next.y - previous.y;
       moved += Math.abs(next.x - previous.x) + Math.abs(next.y - previous.y);
@@ -321,7 +376,15 @@ export function createMap({ onSelect }) {
     const start = pointers.get(event.pointerId);
     pointers.delete(event.pointerId);
     if (pointers.size < 2) pinchStart = null;
-    if (!start || moved > 10) return;
+    const wasDrawing = state.mode === '칸' && lastCell !== null;
+    lastCell = null;
+    if (!start || wasDrawing) return;
+    if (state.mode === '칸') {
+      const cell = cellAt(event.clientX, event.clientY);
+      if (cell !== null) onCell?.(cell);
+      return;
+    }
+    if (moved > 10) return;
     const point = toMap(event.clientX, event.clientY);
     const station = nearestStation(point, Math.max(0.5, 12 / (CELL * state.k)) + 0.35);
     select(station ? station.id : null);
@@ -376,6 +439,18 @@ export function createMap({ onSelect }) {
     setView: (view) => {
       state.view = view;
       draw();
+    },
+    /** '역'이면 역을 고르고, '칸'이면 칸을 알려 준다(선 그리기). */
+    setMode: (mode) => {
+      state.mode = mode;
+    },
+    setDesign: (design) => {
+      state.design = design;
+      if (layers.design) {
+        const next = designLayer(design, grid.cols);
+        layers.design.replaceWith(next);
+        layers.design = next;
+      }
     },
     get zoom() {
       return state.k;
