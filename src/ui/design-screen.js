@@ -1,15 +1,30 @@
 // 설계 화면(docs/SPEC.md 6장 2번, 7.2절).
 // 격자를 따라 선을 긋고 역을 놓는다. 공사비와 예산이 바로 보이고, 되돌리기는 무제한이다.
 import { futureLines, grid, ruleTables, stations } from '../data.js';
-import { BASE_YEAR, networkOfYear, rules } from '../model.js';
+import { BASE_YEAR, networkOfYear, rules, stationNameContext } from '../model.js';
 import { TRAINS_PER_HOUR, checkDesign, designCost, headway, stationGaps } from '../sim/design.js';
 import { extendPath } from '../sim/design.js';
-import { distanceText, durationText, moneyBlocks, moneyText } from './format.js';
+import { cleanStationName, nameStations } from '../sim/station-names.js';
+import { distanceText, durationText, moneyBlocks, moneyText, stationLabel } from './format.js';
 import { createMap } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
+import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
 
 const MODES = ['그리기', '역 놓기', '지우기', '움직이기'];
+/** 이름을 어디서 가져왔는지 아이 말로 */
+const NAME_SOURCES = {
+  동네: '동네 이름',
+  중심지: '중심지 이름',
+  '갈아타는 역': '갈아타는 역',
+  직접: '내가 지은 이름',
+  차례: '',
+};
+
+/** 화면에 쓰는 역 이름. "새 역 1"처럼 차례로 부른 이름에는 "역"을 붙이지 않는다. */
+function shownName(entry) {
+  return entry.source === '차례' ? entry.name : stationLabel(entry.name);
+}
 const KINDS = ['경전철', '지하철'];
 
 function element(tag, className, text) {
@@ -46,7 +61,21 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
   const budget = mission?.budget100M ?? rules.freeDesignBudget100M;
   const showFuture = baseYear >= 2027;
 
-  let design = { path: [], stations: [], kind: '경전철', trainsPerHour: 8 };
+  let design = { path: [], stations: [], kind: '경전철', trainsPerHour: 8, names: {} };
+  // 새 역 이름을 지을 때 쓰는 자료(그 해의 기존 역, 행정동, 중심지)
+  const nameContext = stationNameContext(baseYear);
+  /** 지금 이름을 고치고 있는 역의 칸. 없으면 null */
+  let editing = null;
+
+  /** 설계의 역마다 이름을 정한다(선을 따라 차례로). */
+  function namesOf(d) {
+    return nameStations({ design: d, ...nameContext, auto: loadView().autoNames });
+  }
+
+  /** 지도와 운행에 넘길 설계: 정한 이름을 함께 싣는다. */
+  function withNames(d) {
+    return { ...d, stationNames: Object.fromEntries(namesOf(d).map((entry) => [entry.cell, entry.name])) };
+  }
   const history = [];
   let mode = '그리기';
 
@@ -61,6 +90,8 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
   const map = createMap({
     onSelect: () => {},
     onCell: (cell) => onCellTap(cell),
+    // 움직이기에서 새 역이나 그 이름을 누르면 이름 고치기를 연다.
+    onDesignStation: (cell) => startEditing(cell),
   });
   mapBox.append(map.element);
   const legend = element('div', 'legend-holder');
@@ -76,7 +107,30 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
   root.append(screen);
 
   function remember() {
-    history.push({ ...design, path: [...design.path], stations: [...design.stations] });
+    history.push({ ...design, path: [...design.path], stations: [...design.stations], names: { ...design.names } });
+  }
+
+  function startEditing(cell) {
+    if (!design.stations.includes(cell)) return;
+    editing = cell;
+    renderPanel();
+  }
+
+  /** 고친 이름을 저장한다. 빈 칸이면 저절로 지은 이름으로 돌아간다. */
+  function saveName(cell, text) {
+    const name = cleanStationName(text);
+    const current = design.names?.[cell] ?? null;
+    editing = null;
+    if (name === current) {
+      update();
+      return;
+    }
+    remember();
+    const names = { ...design.names };
+    if (name) names[cell] = name;
+    else delete names[cell];
+    design = { ...design, names };
+    update();
   }
 
   function onCellTap(cell) {
@@ -127,8 +181,89 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
   }
 
   function update() {
-    map.setDesign(design);
+    // 지운 역의 고친 이름은 버린다(그 칸에 다시 역을 놓으면 새로 짓는다).
+    const names = design.names ?? {};
+    const kept = Object.fromEntries(Object.entries(names).filter(([cell]) => design.stations.includes(Number(cell))));
+    if (Object.keys(kept).length !== Object.keys(names).length) design = { ...design, names: kept };
+    if (editing !== null && !design.stations.includes(editing)) editing = null;
+    map.setDesign(withNames(design));
     renderPanel();
+  }
+
+  /** 역 이름 목록. 이름을 누르면 그 자리에서 고칠 수 있다. */
+  function renderNames(named) {
+    panel.append(element('h3', null, '역 이름'));
+    const auto = loadView().autoNames;
+    const toggle = button(auto ? '이름 저절로 짓기: 켬' : '이름 저절로 짓기: 끔', () => {
+      saveView({ autoNames: !auto });
+      update();
+    });
+    toggle.classList.toggle('is-on', auto);
+    toggle.setAttribute('aria-pressed', String(auto));
+    panel.append(toggle);
+    panel.append(
+      element(
+        'p',
+        'panel-note',
+        auto ? '가까운 역, 중심지, 동네 이름을 보고 지어요.' : '저절로 짓지 않아요. 차례대로 새 역 1, 2 …로 불러요.',
+      ),
+    );
+    panel.append(element('p', 'panel-note guide', '이름을 누르면 고칠 수 있어요.'));
+    panel.append(element('p', 'panel-note guide', '움직이기를 고르고 지도의 새 역 이름을 눌러도 돼요.'));
+
+    const list = element('ol', 'name-list');
+    for (const entry of named) {
+      const item = element('li');
+      if (editing === entry.cell) {
+        item.append(nameEditor(entry));
+      } else {
+        const open = button('', () => startEditing(entry.cell), 'name-button');
+        open.append(element('span', 'name-order', `${entry.order}`), element('span', 'name-text', shownName(entry)));
+        const from = NAME_SOURCES[entry.source];
+        if (from) open.append(element('span', 'name-source', from));
+        open.setAttribute('aria-label', `${entry.order}번째 역 ${shownName(entry)}, 눌러서 이름 고치기`);
+        item.append(open);
+      }
+      list.append(item);
+    }
+    panel.append(list);
+  }
+
+  /** 이름 고치는 칸 */
+  function nameEditor(entry) {
+    const box = element('div', 'name-editor');
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'text-input';
+    input.maxLength = 12;
+    input.value = entry.source === '차례' ? '' : entry.name;
+    input.placeholder = entry.name;
+    input.setAttribute('aria-label', `${entry.order}번째 역 이름`);
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') saveName(entry.cell, input.value);
+      if (event.key === 'Escape') {
+        editing = null;
+        renderPanel();
+      }
+    });
+    const row = element('div', 'tool-row');
+    row.append(
+      button('저장', () => saveName(entry.cell, input.value)),
+      button('취소', () => {
+        editing = null;
+        renderPanel();
+      }),
+    );
+    if (design.names?.[entry.cell]) row.append(button('처음 이름으로', () => saveName(entry.cell, '')));
+    box.append(input, row);
+    box.append(element('p', 'panel-note', '끝의 "역"은 저절로 붙어요. 비워 두면 처음 이름으로 돌아가요.'));
+    // 그린 뒤에 입력 칸으로 옮겨 간다.
+    requestAnimationFrame(() => {
+      box.scrollIntoView({ block: 'center' });
+      input.focus();
+      input.select();
+    });
+    return box;
   }
 
   function renderPanel() {
@@ -243,13 +378,19 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
       element('p', null, `60분 ÷ ${design.trainsPerHour}대 = ${durationText(gap.minutes * 60 + gap.seconds)}마다 한 대씩 와요.`),
     );
 
+    // 역 이름
+    const named = namesOf(design);
+    if (named.length > 0) renderNames(named);
+
     // 역 사이 거리와 시간
     const gaps = stationGaps(design, grid, ruleTables);
     if (gaps.length > 0) {
       panel.append(element('h3', null, '역 사이'));
       const gapList = element('ul', 'panel-list');
       for (const [index, item] of gaps.entries()) {
-        gapList.append(element('li', null, `${index + 1}번째 역에서 ${index + 2}번째 역까지: ${distanceText(item.meters)}, ${durationText(item.seconds)}`));
+        const from = named[index] ? shownName(named[index]) : `${index + 1}번째 역`;
+        const to = named[index + 1] ? shownName(named[index + 1]) : `${index + 2}번째 역`;
+        gapList.append(element('li', null, `${from}에서 ${to}까지: ${distanceText(item.meters)}, ${durationText(item.seconds)}`));
       }
       panel.append(gapList);
     }
@@ -265,7 +406,7 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
     const noRuns = runsLeft === 0;
     // 운행 단추는 패널 아래에 늘 붙여 둔다. 세로 화면에서 패널이 길어도 스크롤하지 않고 누를 수 있다.
     const dock = element('div', 'run-dock');
-    const runButton = button('하루 운행 해 보기', () => onRun(design), 'button big');
+    const runButton = button('하루 운행 해 보기', () => onRun(withNames(design)), 'button big');
     runButton.disabled = !check.ok || overBudget || noRuns;
     dock.append(runButton);
     if (noRuns) {

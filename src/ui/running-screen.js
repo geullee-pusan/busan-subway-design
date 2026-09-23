@@ -101,7 +101,8 @@ export function renderRunning(root, { design, result, hourShape, onDone }) {
   const top = [...result.stations].sort((a, b) => b.board - a.board).slice(0, 5);
   const bars = top.map((station) => {
     const row = element('div', 'run-bar-row');
-    const name = stationById.get(station.id)?.name ?? '새 역';
+    const cell = station.id.startsWith(`${NEW_LINE_ID}-`) ? station.id.slice(NEW_LINE_ID.length + 1) : null;
+    const name = stationById.get(station.id)?.name ?? design.stationNames?.[cell] ?? '새 역';
     row.append(element('span', 'run-bar-name', name));
     const track = element('div', 'run-bar');
     const fill = element('div', 'run-bar-fill');

@@ -150,14 +150,14 @@ function startEstimate(design) {
   );
 }
 
-/** 새 노선의 역 이름: 선을 따라 첫 역부터 "새 역 1, 2, 3…" */
+/** 새 노선의 역 이름. 설계 화면에서 정한 이름을 쓰고, 없으면 선을 따라 "새 역 1, 2, 3…" */
 function newStationNames(design) {
   const names = new Map();
   let order = 0;
   for (const cell of design.path) {
     if (!design.stations.includes(cell)) continue;
     order += 1;
-    names.set(`${NEW_LINE_ID}-${cell}`, `새 역 ${order}`);
+    names.set(`${NEW_LINE_ID}-${cell}`, design.stationNames?.[cell] ?? `새 역 ${order}`);
   }
   return names;
 }

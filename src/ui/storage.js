@@ -144,6 +144,7 @@ const VIEW_DEFAULTS = {
   legendOpen: null, // null이면 화면 크기를 보고 정한다
   showGuides: true,
   textScale: 1,
+  autoNames: true, // 새 역 이름을 저절로 짓는다(행정동·중심지·기존 역 이름)
 };
 
 export function loadView() {
@@ -152,6 +153,7 @@ export function loadView() {
     const view = { ...VIEW_DEFAULTS, ...saved };
     if (!TEXT_SCALES.some((scale) => scale.value === view.textScale)) view.textScale = 1;
     if (typeof view.showGuides !== 'boolean') view.showGuides = true;
+    if (typeof view.autoNames !== 'boolean') view.autoNames = true;
     if (view.legendOpen !== null && typeof view.legendOpen !== 'boolean') view.legendOpen = null;
     return view;
   } catch {

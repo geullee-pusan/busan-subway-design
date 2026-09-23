@@ -6,7 +6,8 @@ export const NEW_LINE_ID = 'NEW';
 
 /**
  * @param {object} world buildWorld가 만든 세상
- * @param {{path: number[], stations: number[], kind: string, trainsPerHour: number}} design
+ * @param {{path: number[], stations: number[], kind: string, trainsPerHour: number, stationNames?: Record<string, string>}} design
+ *   stationNames는 정해 둔 역 이름(칸 번호 → 이름). 없으면 "새 역 n"으로 부른다.
  * @param {{cols: number}} grid
  * @param {object} tables src/content/rules.json의 tables
  */
@@ -18,7 +19,7 @@ export function withDesign(world, design, grid, tables) {
   const stations = onPath.map(({ cell, order }) => ({
     id: `${NEW_LINE_ID}-${cell}`,
     line: NEW_LINE_ID,
-    name: `새 역 ${order + 1}`,
+    name: design.stationNames?.[cell] ?? `새 역 ${order + 1}`,
     cell,
     x: (cell % grid.cols) + 0.5,
     y: Math.floor(cell / grid.cols) + 0.5,

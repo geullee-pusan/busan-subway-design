@@ -25,9 +25,13 @@ function svgEl(name, attrs = {}, text) {
   return node;
 }
 
-/** 역 이름. 새로 그린 역은 "새 역 n"으로 부른다. */
+/** 역 이름. 새로 그린 역은 설계 화면에서 정한 이름(없으면 "새 역 n")으로 부른다. */
 function nameOf(id, newNames) {
-  if (id.startsWith(`${NEW_LINE_ID}-`)) return newNames.get(id) ?? '새 역';
+  if (id.startsWith(`${NEW_LINE_ID}-`)) {
+    // 설계 화면에서 정한 이름. 차례로 부른 '새 역 n'에는 '역'을 붙이지 않는다.
+    const name = newNames.get(id) ?? '새 역';
+    return name.startsWith('새 역') ? name : stationLabel(name);
+  }
   const station = stationById.get(id);
   return station ? stationLabel(station.name) : id;
 }

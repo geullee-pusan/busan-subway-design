@@ -172,6 +172,8 @@ function lineTagsLayer(view, network) {
 
 /** 새로 그리는 노선의 색과 이름표 */
 export const DESIGN_COLOR = '#C0392B';
+/** 새 역 이름 글자 크기(화면 픽셀). 기존 역 이름(11px)보다 크게 해서 눈에 띄게 한다. */
+const DESIGN_LABEL_PX = 15;
 /** 앞으로 생길 노선(양산선, 사상–하단선)의 색 */
 export const FUTURE_COLOR = '#6B7A8F';
 
@@ -238,16 +240,45 @@ function designLayer(design, cols) {
     layer.append(
       el('circle', { cx: x, cy: y, r: 5, fill: '#FFFFFF', stroke: DESIGN_COLOR, 'stroke-width': 3, 'vector-effect': 'non-scaling-stroke' }),
     );
+    // 역 이름(설계 화면에서 정한 것). 글자 크기는 확대 배율에 맞춰 applyTransform이 고친다.
+    const name = design.stationNames?.[cell];
+    if (name) {
+      const text = el('text', {
+        class: 'design-label',
+        'data-cell': cell,
+        'data-x': x,
+        'data-y': y,
+        fill: DESIGN_COLOR,
+        stroke: '#FFFFFF',
+        'paint-order': 'stroke',
+        'font-weight': 700,
+      });
+      text.textContent = name;
+      layer.append(text);
+    }
   }
   return layer;
+}
+
+/** 새 역 이름 글자를 확대 배율에 맞춘다. 화면에서 늘 같은 크기로 보인다. */
+function scaleDesignLabels(layer, k) {
+  for (const text of layer?.querySelectorAll('.design-label') ?? []) {
+    const x = Number(text.getAttribute('data-x'));
+    const y = Number(text.getAttribute('data-y'));
+    text.setAttribute('x', (x + 9 / k).toFixed(2));
+    text.setAttribute('y', (y - 7 / k).toFixed(2));
+    text.setAttribute('font-size', (DESIGN_LABEL_PX / k).toFixed(2));
+    text.setAttribute('stroke-width', (4 / k).toFixed(2));
+  }
 }
 
 /**
  * 지도를 만든다.
  * @param {(stationId: string|null) => void} onSelect 역을 누르면 부른다
  * @param {(cellIndex: number) => void} [onCell] 칸을 누르거나 끌면 부른다('칸' 모드일 때)
+ * @param {(cellIndex: number) => void} [onDesignStation] 새 역이나 그 이름을 누르면 부른다('역' 모드일 때)
  */
-export function createMap({ onSelect, onCell }) {
+export function createMap({ onSelect, onCell, onDesignStation }) {
   const root = document.createElement('div');
   root.className = 'map';
 
@@ -312,6 +343,7 @@ export function createMap({ onSelect, onCell }) {
       const base = station.transfer ? 5 : 3.2;
       circle.setAttribute('r', (base / state.k).toFixed(2));
     }
+    scaleDesignLabels(layers.design, state.k);
     root.dispatchEvent(new CustomEvent('map-zoom', { detail: { k: state.k } }));
   }
 
@@ -376,6 +408,30 @@ export function createMap({ onSelect, onCell }) {
     }
   });
 
+  /**
+   * 지도 좌표(칸 단위)에서 누른 새 역을 찾는다. 역 동그라미나 그 옆 이름 글자를 누르면 그 칸을 돌려준다.
+   * @returns {number|null}
+   */
+  function designStationAt(point) {
+    const design = state.design;
+    if (!design) return null;
+    const px = 1 / (CELL * state.k); // 화면 1픽셀이 몇 칸인가
+    for (const cell of design.stations) {
+      const cx = (cell % grid.cols) + 0.5;
+      const cy = Math.floor(cell / grid.cols) + 0.5;
+      if (Math.hypot(point.x - cx, point.y - cy) <= Math.max(0.45, 16 * px)) return cell;
+      const name = design.stationNames?.[cell];
+      if (!name) continue;
+      // 이름 글자 자리: 동그라미 오른쪽 위(scaleDesignLabels와 같은 자리)
+      const left = cx + 9 * px;
+      const right = left + (name.length * DESIGN_LABEL_PX + 8) * px;
+      const top = cy - (7 + DESIGN_LABEL_PX + 4) * px;
+      const bottom = cy - 2 * px;
+      if (point.x >= left - 4 * px && point.x <= right && point.y >= top && point.y <= bottom + 6 * px) return cell;
+    }
+    return null;
+  }
+
   /** 화면 점이 어느 칸인지 */
   function cellAt(clientX, clientY) {
     const point = toMap(clientX, clientY);
@@ -429,6 +485,11 @@ export function createMap({ onSelect, onCell }) {
     }
     if (moved > 10) return;
     const point = toMap(event.clientX, event.clientY);
+    const designCell = designStationAt(point);
+    if (designCell !== null && onDesignStation) {
+      onDesignStation(designCell);
+      return;
+    }
     const station = nearestStation(point, Math.max(0.5, 12 / (CELL * state.k)) + 0.35);
     select(station ? station.id : null);
   }
@@ -527,6 +588,7 @@ export function createMap({ onSelect, onCell }) {
         const next = designLayer(design, grid.cols);
         layers.design.replaceWith(next);
         layers.design = next;
+        scaleDesignLabels(next, state.k);
       }
     },
     get zoom() {

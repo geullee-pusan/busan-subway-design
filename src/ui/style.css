@@ -952,3 +952,61 @@ body {
 .run-dock p {
   margin: 8px 0 0;
 }
+
+/* 설계 화면의 역 이름 목록. 이름을 누르면 그 자리에서 고친다. */
+.name-list {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.name-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 2.667rem;
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  text-align: left;
+  color: var(--ink);
+  background: var(--paper);
+  border: 2px solid rgba(192, 57, 43, 0.35);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.name-button:hover {
+  border-color: #c0392b;
+}
+
+.name-order {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.556rem;
+  height: 1.556rem;
+  border-radius: 0.778rem;
+  background: #c0392b;
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 0.889rem;
+}
+
+.name-text {
+  font-weight: 700;
+}
+
+.name-source {
+  margin-left: auto;
+  font-size: 0.889rem;
+  opacity: 0.75;
+}
+
+.name-editor .text-input {
+  width: 100%;
+}

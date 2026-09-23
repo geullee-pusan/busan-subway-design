@@ -154,3 +154,30 @@ export function lineColorOf(stationId) {
   const station = stationById.get(stationId);
   return station ? lines.find((l) => l.id === station.line)?.color ?? null : null;
 }
+
+/**
+ * 새 역 이름을 지을 때 쓰는 자료(src/sim/station-names.js).
+ * 이미 있는 역은 그 해의 노선망을 따른다(2027년이면 앞으로 생길 역까지, 옛날이면 그때 있던 역만).
+ */
+export function stationNameContext(year = BASE_YEAR) {
+  const list =
+    year >= 2027 ? [...stations, ...futureLines.stations] : year < BASE_YEAR ? networkOfYear(year).stations : stations;
+  // 설계를 세상에 넣을 때(withDesign)와 같은 방법으로 칸을 정한다.
+  const cellOf = (s) => Math.floor(s.y) * grid.cols + Math.floor(s.x);
+  const inside = (s) => s.x >= 0 && s.y >= 0 && s.x < grid.cols && s.y < grid.rows;
+  const existing = list.filter(inside).map((s) => ({ name: s.name, cell: cellOf(s) }));
+  // 중심지 자리는 지금 역 목록과 행정동에서 찾는다(옛날 부산에도 중심지는 있다).
+  const dongByCode = new Map(dongs.map((d) => [d.code, d]));
+  const placeSpots = places
+    .map((place) => {
+      const anchor = place.at.station ? stationById.get(place.at.station) : dongByCode.get(place.at.dong);
+      return anchor ? { name: place.name, x: anchor.x, y: anchor.y } : null;
+    })
+    .filter(Boolean);
+  return {
+    cols: grid.cols,
+    existing,
+    dongs: dongs.map((d) => ({ name: d.name, x: d.x, y: d.y })),
+    places: placeSpots,
+  };
+}
