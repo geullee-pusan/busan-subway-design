@@ -2,7 +2,21 @@
 //  - 큰 수: 기본 모드는 "약 4만 2천 명", 진짜 숫자 모드는 "42,380명"
 //  - 시간: "2분 20초"
 //  - 거리: "1km 600m"
-// 모두 순수 함수다.
+// 모드를 따로 넘기지 않으면 부모 화면에서 고른 모드를 쓴다(setNumberMode).
+// 모드를 넘기면 그 값만 보고 셈한다.
+
+/** 부모 화면에서 고른 숫자 표시 모드. 화면 전체의 기본값이다. */
+let numberMode = '기본';
+
+/** @param {'기본'|'진짜 숫자'} mode */
+export function setNumberMode(mode) {
+  numberMode = mode === '진짜 숫자' ? '진짜 숫자' : '기본';
+  return numberMode;
+}
+
+export function getNumberMode() {
+  return numberMode;
+}
 
 /** 만 단위와 천 단위로 어림해서 쓴다. 기본 모드에서 쓴다. */
 export function roundedCount(value) {
@@ -27,7 +41,7 @@ export function exactCount(value) {
 }
 
 /** 숫자 표시 모드에 맞춰 사람 수를 쓴다. */
-export function countText(value, mode = '기본') {
+export function countText(value, mode = numberMode) {
   return mode === '진짜 숫자' ? exactCount(value) : roundedCount(value);
 }
 
@@ -68,7 +82,7 @@ export function roParticle(word) {
  * 돈(억 원 단위)을 글로 쓴다.
  * 기본 모드는 어림수로, 진짜 숫자 모드는 "1조 1,265억 원"처럼 쓴다(SPEC 3장).
  */
-export function moneyText(hundredMillion, mode = '기본') {
+export function moneyText(hundredMillion, mode = numberMode) {
   const value = Math.round(hundredMillion);
   if (value <= 0) return '0원';
   if (mode === '진짜 숫자') {
@@ -112,4 +126,76 @@ export function dateText(date) {
   if (!date) return null;
   const [y, m, d] = date.split('-').map(Number);
   return `${y}년 ${m}월 ${d}일`;
+}
+
+/** 비율을 "10명 중 4명"처럼 쓴다. 딱 떨어지지 않으면 100명이나 1000명으로 센다. */
+export function peopleOutOf(ratio) {
+  for (const base of [10, 100, 1000]) {
+    const people = ratio * base;
+    if (Math.abs(people - Math.round(people)) < 1e-9) return `${base}명 중 ${Math.round(people)}명`;
+  }
+  return `1000명 중 ${Math.round(ratio * 1000)}명`;
+}
+
+/** 규칙 값에 쓰는 짧은 숫자. 1.199 → "1.2", 861 → "861" */
+function shortNumber(value) {
+  return String(Number(Number(value).toFixed(2)));
+}
+
+/** 어림한 값이 원래 값과 같으면 "약"을 뺀다. 규칙 값은 우리가 딱 정한 수다. */
+function ruleCount(value, mode) {
+  if (mode === '진짜 숫자') return exactCount(value);
+  const text = roundedCount(value);
+  if (!text.startsWith('약 ')) return text;
+  const exact = value < 10000 ? value % 100 === 0 : value % 1000 === 0;
+  return exact ? text.slice(2) : text;
+}
+
+/**
+ * 규칙 값을 단위에 맞게 쓴다. 예: 861(억 원) → "861억 원", 1000(m) → "1km"
+ * @param {{unit: string}} rule src/content/rules.json의 규칙
+ */
+export function ruleValueText(rule, value = rule.value, mode = numberMode) {
+  const n = shortNumber(value);
+  switch (rule.unit) {
+    case '명':
+      return ruleCount(value, mode);
+    case '억 원':
+      return moneyText(value, '진짜 숫자'); // 규칙 값은 어림하지 않고 그대로 쓴다
+    case 'm':
+      return distanceText(value);
+    case 'km':
+      return `${n}km`;
+    case 'km/h':
+      return `한 시간에 ${n}km`;
+    case '분':
+      return `${n}분`;
+    case '초':
+      return durationText(value);
+    case '비율':
+      return peopleOutOf(value);
+    case '배':
+      return `${n}배`;
+    case '번':
+      return `${n}번`;
+    case '개':
+      return `${n}개`;
+    case '칸':
+      return `${n}칸`;
+    default:
+      return `${n}${rule.unit ?? ''}`;
+  }
+}
+
+/**
+ * 규칙 카드 문장. 값이 바뀌면 문장도 같이 바뀐다.
+ *  {value}  단위까지 붙인 값("861억 원")
+ *  {number} 숫자만("861")
+ *  {per10}  1분에 늘어나는 비율을 10분치로("10명 중 8명")
+ */
+export function ruleCardText(rule, value = rule.value, mode = numberMode) {
+  return rule.card
+    .replaceAll('{value}', ruleValueText(rule, value, mode))
+    .replaceAll('{number}', shortNumber(value))
+    .replaceAll('{per10}', peopleOutOf(value * 10));
 }

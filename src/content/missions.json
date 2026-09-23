@@ -13,9 +13,15 @@
       "budget100M": 12000,
       "baseYear": 2027,
       "dayType": "평일",
-      "focus": { "col": 25, "row": 9 },
+      "focus": {
+        "col": 25,
+        "row": 9
+      },
       "hint": "양산선은 지도에 이미 그려져 있어요. 사람이 많은 곳과 이어 보세요.",
-      "standards": ["4사03-01", "4사07-02"]
+      "standards": [
+        "4사03-01",
+        "4사07-02"
+      ]
     },
     {
       "number": 2,
@@ -29,9 +35,14 @@
       "budget100M": 10000,
       "baseYear": 2027,
       "dayType": "평일",
-      "focus": { "col": 18, "row": 26 },
+      "focus": {
+        "col": 18,
+        "row": 26
+      },
       "hint": "사상역에서 가고 싶은 곳까지 선을 이어 보세요.",
-      "standards": ["4사10-02"]
+      "standards": [
+        "4사10-02"
+      ]
     },
     {
       "number": 3,
@@ -45,9 +56,15 @@
       "budget100M": 20000,
       "baseYear": 2026,
       "dayType": "평일",
-      "focus": { "col": 23, "row": 35 },
+      "focus": {
+        "col": 23,
+        "row": 35
+      },
       "hint": "남포역이나 자갈치역에서 바다를 건너 보세요. 공사비 막대를 잘 보세요.",
-      "standards": ["4사07-01", "4사09-01"]
+      "standards": [
+        "4사07-01",
+        "4사09-01"
+      ]
     },
     {
       "number": 4,
@@ -61,9 +78,14 @@
       "budget100M": 6000,
       "baseYear": 2026,
       "dayType": "평일",
-      "focus": { "col": 21, "row": 34 },
+      "focus": {
+        "col": 21,
+        "row": 34
+      },
       "hint": "역을 더 놓으면 걷는 시간은 줄지만 공사비가 늘어요. 둘을 견줘 보세요.",
-      "standards": ["4사01-02"]
+      "standards": [
+        "4사01-02"
+      ]
     },
     {
       "number": 5,
@@ -77,10 +99,15 @@
       "budget100M": 15000,
       "baseYear": 2026,
       "dayType": "평일",
-      "focus": { "col": 12, "row": 32 },
+      "focus": {
+        "col": 12,
+        "row": 32
+      },
       "hint": "하단역에서 명지와 녹산 쪽으로 이어 보세요. 강과 들판은 공사비가 달라요.",
       "compareWith": "HN",
-      "standards": ["4사10-01"]
+      "standards": [
+        "4사10-01"
+      ]
     },
     {
       "number": 6,
@@ -94,20 +121,52 @@
       "budget100M": 10000,
       "baseYear": 2026,
       "dayType": "토요일",
-      "focus": { "col": 32, "row": 26 },
+      "focus": {
+        "col": 32,
+        "row": 26
+      },
       "hint": "바닷가로 가는 사람이 많아요. 역을 어디에 두면 좋을까요?",
-      "standards": ["4사09-02"]
+      "standards": [
+        "4사09-02"
+      ]
+    },
+    {
+      "number": 7,
+      "id": "nineteen85",
+      "title": "1985년의 부산",
+      "situation": [
+        "1985년 7월 19일에 1호선이 처음 열렸어요.",
+        "그때는 노포역에서 범내골역까지 17개 역뿐이었어요."
+      ],
+      "question": "그때 부산에 노선을 하나 더 놓는다면 어디가 좋을까요?",
+      "budget100M": 10000,
+      "baseYear": 1985,
+      "dayType": "평일",
+      "focus": {
+        "col": 23,
+        "row": 30
+      },
+      "hint": "1호선이 닿지 않는 동네를 찾아보세요.",
+      "standards": [
+        "4사04-02",
+        "4사02-03"
+      ]
     },
     {
       "number": 8,
       "id": "free",
       "title": "자유 설계",
-      "situation": ["내가 부산에 꼭 필요하다고 생각하는 노선을 그려요."],
+      "situation": [
+        "내가 부산에 꼭 필요하다고 생각하는 노선을 그려요."
+      ],
       "question": "이 노선은 누구의 하루를 바꾸나요?",
       "budget100M": 20000,
       "baseYear": 2026,
       "dayType": "평일",
-      "focus": { "col": 25, "row": 27 },
+      "focus": {
+        "col": 25,
+        "row": 27
+      },
       "hint": "사람이 많은 칸과 중심지를 이어 보세요.",
       "standards": []
     }

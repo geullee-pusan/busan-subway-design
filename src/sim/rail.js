@@ -128,3 +128,31 @@ export function pathBetween({ previous, count }, from, to) {
   }
   return path.reverse();
 }
+
+/**
+ * 한 역에서 다른 역까지 가장 빠른 시간(분). 못 가면 null.
+ * 연표 화면처럼 한 짝만 볼 때 쓴다(모든 짝을 구하지 않아 빠르다).
+ */
+export function timeBetween(graph, fromId, toId) {
+  const from = graph.index.get(fromId);
+  const to = graph.index.get(toId);
+  if (from === undefined || to === undefined) return null;
+  if (from === to) return 0;
+  const times = new Float64Array(graph.stations.length).fill(Infinity);
+  times[from] = 0;
+  const queue = new Heap();
+  queue.push({ node: from, cost: 0 });
+  while (queue.size > 0) {
+    const { node, cost } = queue.pop();
+    if (cost > times[node]) continue;
+    if (node === to) return cost;
+    for (const edge of graph.edges[node]) {
+      const next = cost + edge.minutes;
+      if (next < times[edge.to]) {
+        times[edge.to] = next;
+        queue.push({ node: edge.to, cost: next });
+      }
+    }
+  }
+  return Number.isFinite(times[to]) ? times[to] : null;
+}

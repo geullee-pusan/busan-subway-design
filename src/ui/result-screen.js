@@ -2,6 +2,7 @@
 // 이용객 막대, 시간대별 꺾은선, 가장 붐빈 곳(사람 아이콘), 빨라진 사람, 공사비, 어림과 비교.
 // 세 문장으로 설명하고, 결과 카드를 그림으로 저장하거나 인쇄할 수 있다.
 import { lineById, planned, ridership, stationById } from '../data.js';
+import { BASE_YEAR, networkOfYear } from '../model.js';
 import { NEW_LINE_ID } from '../sim/design-world.js';
 import { busiestLinks } from '../sim/effect.js';
 import { barChart, hourlyLineChart } from './chart.js';
@@ -102,7 +103,7 @@ function downloadCard(svg) {
 /**
  * @param {object} p design, cost, result, effect, estimate, newNames, runsLeftText, onHome, onAgain
  */
-export function renderResult(root, { design, cost, result, effect, estimate, newNames, endingText, onHome, mission, voices = [], onSave }) {
+export function renderResult(root, { design, cost, result, effect, estimate, newNames, endingText, onHome, mission, voices = [], onSave, ruleSetName = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen result');
 
@@ -188,7 +189,34 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   list.append(element('li', null, `공사비: ${moneyText(cost.total)}`));
   body.append(list);
 
-  // 4-1. 실제 계획과 견주기(과제 5)
+  // 4-1. 옛날 부산과 지금 부산 견주기(과제 7)
+  const pastYear = mission && mission.baseYear < BASE_YEAR ? mission.baseYear : null;
+  if (pastYear) {
+    const then = networkOfYear(pastYear);
+    const now = networkOfYear(BASE_YEAR);
+    const km = (network) => network.links.reduce((sum, link) => sum + link.distanceM, 0) / 1000;
+    body.append(element('h2', null, `${pastYear}년 부산과 지금 부산`));
+    const rows = [
+      { label: '노선 수', then: then.lines.length, now: now.lines.length, text: (v) => `${v}개` },
+      { label: '역 수', then: then.stations.length, now: now.stations.length, text: (v) => `${v}개` },
+      { label: '노선 길이', then: km(then), now: km(now), text: (v) => distanceText(v * 1000) },
+    ];
+    for (const row of rows) {
+      body.append(element('h3', null, row.label));
+      body.append(
+        barChart(
+          [
+            { label: `${pastYear}년`, value: row.then, text: row.text(row.then) },
+            { label: `${BASE_YEAR}년`, value: row.now, text: row.text(row.now) },
+          ],
+          { width: 360 },
+        ),
+      );
+    }
+    body.append(element('p', 'panel-note', '사는 사람과 가는 곳은 지금 자료를 썼어요. 그때 자료를 구하지 못했어요.'));
+  }
+
+  // 4-2. 실제 계획과 견주기(과제 5)
   const realPlan = mission?.compareWith ? planned.find((line) => line.id === mission.compareWith) : null;
   if (realPlan) {
     body.append(element('h2', null, '실제 계획과 견줘 봐요'));
@@ -213,7 +241,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
     body.append(element('p', 'panel-note', '어느 쪽이 맞다는 뜻은 아니에요. 무엇이 다른지 보고 까닭을 생각해 보세요.'));
   }
 
-  // 4-2. 주민 목소리
+  // 4-3. 주민 목소리
   if (voices.length > 0) {
     body.append(element('h2', null, '주민 목소리'));
     const box = element('div', 'voice-list');
@@ -232,6 +260,11 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
     body.append(box);
     body.append(element('p', 'panel-note', '목소리는 노선과 역의 자리를 보고 규칙대로 나와요. 같은 설계면 늘 같은 목소리가 나와요.'));
   }
+
+  // 4-4. 어떤 규칙으로 돌렸는지(SPEC 9.1 운영 방식)
+  body.append(
+    element('p', 'panel-note', ruleSetName ? `"${ruleSetName}" 규칙으로 돌렸어요.` : '기본 규칙으로 돌렸어요.'),
+  );
 
   // 5. 설명하기
   body.append(element('h2', null, '세 문장으로 설명해요'));

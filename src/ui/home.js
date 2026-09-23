@@ -1,5 +1,5 @@
 // 첫 화면. 여기서만 새 하루를 시작한다(SPEC 6장 끝나는 방식).
-import { runsLeft } from './storage.js';
+import { clearAll, runsLeft } from './storage.js';
 
 const CREDITS = [
   '© OpenStreetMap contributors (openstreetmap.org/copyright)',
@@ -24,13 +24,32 @@ function bigButton(label, onClick) {
 
 /**
  * @param {HTMLElement} root
- * @param {object} actions onExplore, onCompare, onDesign, onMissions, onAB, settings, onSetting
+ * @param {object} actions onExplore, onCompare, onDesign, onMissions, onAB, onHistory, onRules, onParent, onCleared, settings, onSetting, ruleSetName
  */
-export function renderHome(root, { onExplore, onCompare, onDesign, onMissions, onAB, settings, onSetting }) {
+export function renderHome(root, {
+  onExplore,
+  onCompare,
+  onDesign,
+  onMissions,
+  onAB,
+  onHistory,
+  onRules,
+  onParent,
+  settings,
+  onSetting,
+  onCleared,
+  ruleSetName = null,
+}) {
   root.replaceChildren();
 
   const main = element('main', 'screen home');
-  main.append(element('h1', null, '부산 도시철도 설계실'));
+  const head = element('div', 'home-head');
+  head.append(element('h1', null, '부산 도시철도 설계실'));
+  const parentButton = element('button', 'button', '부모');
+  parentButton.type = 'button';
+  parentButton.addEventListener('click', onParent);
+  head.append(parentButton);
+  main.append(head);
 
   const buttons = element('div', 'home-buttons');
   buttons.append(bigButton('부산 둘러보기', onExplore), bigButton('과제 카드', onMissions), bigButton('자유 설계', onDesign));
@@ -43,8 +62,14 @@ export function renderHome(root, { onExplore, onCompare, onDesign, onMissions, o
     node.addEventListener('click', onClick);
     return node;
   };
-  more.append(small('설계 가와 나 견주기', onAB), small('우리 계산 vs 진짜', onCompare));
+  more.append(
+    small('옛날 부산', onHistory),
+    small('게임의 규칙', onRules),
+    small('설계 가와 나 견주기', onAB),
+    small('우리 계산 vs 진짜', onCompare),
+  );
   main.append(more);
+  if (ruleSetName) main.append(element('p', 'home-note', `지금은 "${ruleSetName}" 규칙으로 돌려요.`));
 
   main.append(element('p', 'home-note', '지도에서 역을 눌러 보세요. 노선을 그려서 하루 운행도 해 볼 수 있어요.'));
 
@@ -75,6 +100,31 @@ export function renderHome(root, { onExplore, onCompare, onDesign, onMissions, o
     change.addEventListener('click', () => onSetting({ runsPerDay: null }));
     main.append(change);
   }
+
+  // 부모 화면의 네 자리 숫자를 잊었을 때 쓰는 길(SPEC 9.2). 두 번 물어본다.
+  const wipe = element('div', 'home-wipe');
+  const wipeStart = element('button', 'quiet-button', '저장한 것 모두 지우기');
+  wipeStart.type = 'button';
+  wipeStart.addEventListener('click', () => {
+    wipe.replaceChildren();
+    wipe.append(element('p', 'warn', '설정, 저장한 설계, 우리 집 규칙, 부모 화면 숫자를 모두 지울까요? 되돌릴 수 없어요.'));
+    const row = element('div', 'tool-row');
+    const yes = element('button', 'button', '네, 지워요');
+    yes.type = 'button';
+    yes.addEventListener('click', () => {
+      clearAll();
+      onCleared();
+    });
+    const no = element('button', 'button', '아니요');
+    no.type = 'button';
+    no.addEventListener('click', () => {
+      wipe.replaceChildren(wipeStart);
+    });
+    row.append(yes, no);
+    wipe.append(row);
+  });
+  wipe.append(wipeStart);
+  main.append(wipe);
 
   const credits = element('ul', 'credits');
   for (const text of CREDITS) credits.append(element('li', null, text));

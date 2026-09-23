@@ -4,6 +4,7 @@ import { lineById, ridership, stationById } from '../data.js';
 import { comparison, todayRun } from '../model.js';
 import { comparisonChart } from './chart.js';
 import { countText, stationLabel } from './format.js';
+import { activeRuleSet } from './storage.js';
 import { wordWithCard } from './word-card.js';
 
 const WHY = [
@@ -22,6 +23,8 @@ function element(tag, className, text) {
 
 /** @param {{onHome: () => void}} actions */
 export function renderCompare(root, { onHome }) {
+  // 규칙을 바꾸면 이 견주기도 달라진다. 어떤 규칙으로 돌렸는지 늘 적는다(SPEC 9.1).
+  const ruleSet = activeRuleSet();
   root.replaceChildren();
   const screen = element('div', 'screen compare');
 
@@ -68,6 +71,14 @@ export function renderCompare(root, { onHome }) {
     body.append(comparisonChart(rows, {}));
     const matched = compared.topMatch.matched;
     body.append(element('p', null, `진짜로 사람이 많은 역 10곳 가운데 ${matched}곳을 우리 계산도 많다고 했어요.`));
+
+    if (ruleSet) {
+      body.append(
+        element('p', 'warn', `"${ruleSet.name}" 규칙으로 돌린 값이에요. 기본 규칙일 때와 달라요.`),
+      );
+    } else {
+      body.append(element('p', 'panel-note', '기본 규칙으로 돌린 값이에요.'));
+    }
 
     body.append(element('h2', null, '왜 다를까요?'));
     const why = element('ul', 'panel-list');

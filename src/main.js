@@ -1,5 +1,5 @@
 import { grid, ridership, ruleTables, stations } from './data.js';
-import { rules, runWithDesign, worldFor } from './model.js';
+import { BASE_YEAR, networkOfYear, rules, runWithDesign, setRules, worldFor } from './model.js';
 import { designCost } from './sim/design.js';
 import { NEW_LINE_ID } from './sim/design-world.js';
 import { compareRuns } from './sim/effect.js';
@@ -9,17 +9,34 @@ import { renderCompare } from './ui/compare-screen.js';
 import { renderDesign } from './ui/design-screen.js';
 import { renderEstimate } from './ui/estimate-screen.js';
 import { renderExplore } from './ui/explore.js';
+import { renderHistory } from './ui/history-screen.js';
 import { renderHome } from './ui/home.js';
+import { renderParent } from './ui/parent-screen.js';
+import { renderRules } from './ui/rules-screen.js';
 import { renderMissions } from './ui/mission-screen.js';
 import { renderResult } from './ui/result-screen.js';
 import { renderRunning } from './ui/running-screen.js';
-import { loadDesigns, loadSettings, runsLeft, saveDesign, saveSettings, useRun } from './ui/storage.js';
+import { setNumberMode } from './ui/format.js';
+import { activeRuleSet, loadDesigns, loadSettings, runsLeft, saveDesign, saveSettings, useRun } from './ui/storage.js';
 import './ui/style.css';
 
 const root = document.getElementById('app');
 let cleanup = null;
 let settings = loadSettings();
 const session = { design: null, estimate: null, mission: null };
+
+// 저장해 둔 "우리 집 규칙"과 숫자 표시 모드를 먼저 켠다.
+applySaved();
+
+function applySaved() {
+  setNumberMode(settings.numberMode);
+  setRules(activeRuleSet()?.values);
+}
+
+/** 지금 쓰는 규칙 묶음 이름. 없으면 null. */
+function ruleSetName() {
+  return activeRuleSet()?.name ?? null;
+}
 
 function show(render) {
   cleanup?.();
@@ -37,11 +54,56 @@ function showHome() {
       onDesign: () => showDesign(null),
       onMissions: showMissions,
       onAB: showAB,
+      onHistory: showHistory,
+      onRules: () => showRules(false),
+      onParent: showParent,
+      onCleared: () => {
+        settings = loadSettings();
+        applySaved();
+        showHome();
+      },
+      ruleSetName: ruleSetName(),
       settings,
       onSetting: (next) => {
         settings = saveSettings({ ...settings, ...next });
+        setNumberMode(settings.numberMode);
         showHome();
       },
+    }),
+  );
+}
+
+function showHistory() {
+  show(() => renderHistory(root, { onHome: showHome }));
+}
+
+function showParent() {
+  show(() =>
+    renderParent(root, {
+      onHome: showHome,
+      onRules: () => showRules(true),
+      ruleSetName: ruleSetName(),
+      settings,
+      onSetting: (next) => {
+        settings = saveSettings({ ...settings, ...next });
+        setNumberMode(settings.numberMode);
+        return settings;
+      },
+      onCleared: () => {
+        settings = loadSettings();
+        applySaved();
+        showHome();
+      },
+    }),
+  );
+}
+
+function showRules(canEdit) {
+  show(() =>
+    renderRules(root, {
+      canEdit,
+      onBack: canEdit ? showParent : showHome,
+      onApply: (values) => setRules(values ?? undefined),
     }),
   );
 }
@@ -103,7 +165,8 @@ function startRunning() {
   const base = worldFor(options);
   const after = runWithDesign(design, options);
   const effect = compareRuns(base.result, after.result);
-  const inGridStations = stations.filter((s) => s.inGrid);
+  const yearStations = options.year < BASE_YEAR ? networkOfYear(options.year).stations : stations;
+  const inGridStations = yearStations.filter((s) => s.inGrid);
   const existing = new Set(inGridStations.map((s) => s.row * grid.cols + s.col));
   const cost = designCost(design, grid, rules, ruleTables, existing);
   const voices = residentVoices({ design, grid, existingStations: inGridStations, rules });
@@ -132,6 +195,7 @@ function startRunning() {
             endingText,
             mission,
             voices,
+            ruleSetName: ruleSetName(),
             onSave: (slot, summary) =>
               saveDesign(slot, { ...summary, title: mission ? mission.title : '자유 설계', design }),
             onHome: showHome,

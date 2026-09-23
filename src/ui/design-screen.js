@@ -1,7 +1,7 @@
 // 설계 화면(docs/SPEC.md 6장 2번, 7.2절).
 // 격자를 따라 선을 긋고 역을 놓는다. 공사비와 예산이 바로 보이고, 되돌리기는 무제한이다.
 import { futureLines, grid, ruleTables, stations } from '../data.js';
-import { rules } from '../model.js';
+import { BASE_YEAR, networkOfYear, rules } from '../model.js';
 import { TRAINS_PER_HOUR, checkDesign, designCost, headway, stationGaps } from '../sim/design.js';
 import { extendPath } from '../sim/design.js';
 import { distanceText, durationText, moneyBlocks, moneyText } from './format.js';
@@ -27,9 +27,9 @@ function button(label, onClick, className = 'button') {
 }
 
 /** 이미 있는 역이 놓인 칸(환승역이 되는 칸) */
-function existingStationCells() {
+function existingStationCells(list = stations) {
   const cells = new Set();
-  for (const station of stations) {
+  for (const station of list) {
     if (station.inGrid) cells.add(station.row * grid.cols + station.col);
   }
   return cells;
@@ -39,9 +39,12 @@ function existingStationCells() {
 export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen design');
-  const existing = existingStationCells();
+  const baseYear = mission?.baseYear ?? BASE_YEAR;
+  // 옛날 부산이면 그 해에 있던 역만 이미 있는 역으로 친다.
+  const past = baseYear < BASE_YEAR ? networkOfYear(baseYear) : null;
+  const existing = existingStationCells(past?.stations ?? stations);
   const budget = mission?.budget100M ?? rules.freeDesignBudget100M;
-  const showFuture = (mission?.baseYear ?? 2026) >= 2027;
+  const showFuture = baseYear >= 2027;
 
   let design = { path: [], stations: [], kind: '경전철', trainsPerHour: 8 };
   const history = [];
@@ -139,6 +142,10 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
       if (showFuture) card.append(element('p', 'panel-note', '점선은 앞으로 생길 노선이에요.'));
       if (mission.dayType !== '평일') {
         card.append(element('p', 'panel-note', `이 과제는 ${mission.dayType} 자료로 하루를 돌려요.`));
+      }
+      if (past) {
+        card.append(element('p', 'panel-note', `지도에 ${baseYear}년 노선만 있어요.`));
+        card.append(element('p', 'panel-note', '사는 사람과 가는 곳은 지금 자료를 써요. 그때 자료를 구하지 못했어요.'));
       }
       panel.append(card);
     } else {
@@ -268,6 +275,7 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
 
   map.resize();
   map.setView('실제 지도');
+  if (past) map.setNetwork(past);
   if (showFuture) map.setFuture(futureLines);
   if (mission?.focus) map.focusOn(mission.focus.col, mission.focus.row, 2);
   else map.fit();

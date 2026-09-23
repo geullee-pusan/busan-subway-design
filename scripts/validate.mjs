@@ -272,6 +272,31 @@ const grid = readJson('data/build/grid.json');
   ]);
 }
 
+// 13. 게임 안 출처 목록(Phase 6)
+{
+  const sources = readJson('src/content/sources.json');
+  const lock = readJson('data/raw-lock.json');
+  const problems = [];
+  let count = 0;
+  for (const group of sources.groups) {
+    for (const item of group.items) {
+      count += 1;
+      for (const key of ['what', 'from', 'when', 'license']) {
+        if (!item[key]) problems.push(`${group.title}/${item.what ?? '?'}: ${key}가 없다`);
+      }
+      if (item.lockKey && !lock[item.lockKey]) problems.push(`${item.what}: raw-lock에 ${item.lockKey}가 없다`);
+      const text = JSON.stringify(item);
+      if (/https?:\/\//.test(text.replace('openstreetmap.org/copyright', ''))) {
+        problems.push(`${item.what}: 배포물에 바깥 주소를 넣지 않는다`);
+      }
+    }
+  }
+  report('must', '게임 안 출처 목록이 빠짐없이 적혀 있다', problems.length === 0, [
+    `출처 ${count}개, 묶음 ${sources.groups.length}개`,
+    ...problems,
+  ]);
+}
+
 // 결과 출력
 let failed = 0;
 for (const r of results) {

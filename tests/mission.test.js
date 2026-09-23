@@ -17,10 +17,9 @@ const future = read('data/build/future-lines.json');
 const stations = read('data/build/stations.json').stations;
 
 test('SPEC 8장의 과제 카드가 모두 있다', () => {
-  // 7번(1985년의 부산)은 옛날 노선망 자료가 필요해서 Phase 6에서 만든다.
   assert.deepEqual(
     missions.map((m) => m.number),
-    [1, 2, 3, 4, 5, 6, 8],
+    [1, 2, 3, 4, 5, 6, 7, 8],
   );
   assert.equal(new Set(missions.map((m) => m.id)).size, missions.length);
 });
@@ -30,7 +29,8 @@ test('과제 카드에는 상황, 질문, 예산, 기준 연도가 있다', () =
     assert.ok(mission.situation.length > 0, `${mission.number}번에 상황이 없다`);
     assert.match(mission.question, /\?$/, `${mission.number}번 질문은 물음표로 끝나야 한다`);
     assert.ok(mission.budget100M > 0);
-    assert.ok([2026, 2027].includes(mission.baseYear));
+    // 1985년은 옛날 부산, 2027년은 앞으로 생길 노선까지 있는 부산이다.
+    assert.ok(mission.baseYear === 1985 || [2026, 2027].includes(mission.baseYear));
     assert.ok(['평일', '토요일', '일요일'].includes(mission.dayType));
     assert.ok(mission.hint.length > 0);
   }

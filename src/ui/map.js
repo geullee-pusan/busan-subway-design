@@ -16,6 +16,8 @@ const TERRAIN_COLORS = {
   field: '#F4F1E2',
 };
 const INK = '#1F3342';
+/** 기본으로 그리는 노선망. setNetwork로 옛날 부산으로 바꿀 수 있다. */
+const NOW_NETWORK = { lines, stations, stationById };
 const MIN_ZOOM = 0.6;
 const MAX_ZOOM = 6;
 
@@ -84,11 +86,11 @@ function positionOf(station, view) {
   return { x: station.x, y: station.y };
 }
 
-function linesLayer(view) {
+function linesLayer(view, network) {
   const layer = el('g', {});
-  for (const line of lines) {
+  for (const line of network.lines) {
     const points = line.stations.map((id) => {
-      const p = positionOf(stationById.get(id), view);
+      const p = positionOf(network.stationById.get(id), view);
       return [p.x, p.y];
     });
     layer.append(
@@ -104,9 +106,9 @@ function linesLayer(view) {
   return layer;
 }
 
-function stationsLayer(view) {
+function stationsLayer(view, network) {
   const layer = el('g', {});
-  for (const station of stations) {
+  for (const station of network.stations) {
     const p = positionOf(station, view);
     const isTransfer = Boolean(station.transfer);
     const node = el('circle', {
@@ -114,7 +116,7 @@ function stationsLayer(view) {
       cy: (p.y * CELL).toFixed(1),
       r: isTransfer ? 5 : 3.2,
       fill: '#FFFFFF',
-      stroke: lineById.get(station.line).color ?? INK,
+      stroke: lineById.get(station.line)?.color ?? INK,
       'stroke-width': isTransfer ? 3 : 2,
       'vector-effect': 'non-scaling-stroke',
       'data-station': station.id,
@@ -125,10 +127,10 @@ function stationsLayer(view) {
 }
 
 /** 역 이름. 확대하면 모든 역, 줄이면 환승역과 종점만 보인다. */
-function labelsLayer(view) {
+function labelsLayer(view, network) {
   const layer = el('g', { 'aria-hidden': 'true' });
-  const terminals = new Set(lines.flatMap((l) => [l.stations[0], l.stations.at(-1)]));
-  for (const station of stations) {
+  const terminals = new Set(network.lines.flatMap((l) => [l.stations[0], l.stations.at(-1)]));
+  for (const station of network.stations) {
     const p = positionOf(station, view);
     const important = Boolean(station.transfer) || terminals.has(station.id);
     const text = el('text', {
@@ -148,10 +150,10 @@ function labelsLayer(view) {
 }
 
 /** 노선 번호표(색만으로 뜻을 전하지 않기 위해) */
-function lineTagsLayer(view) {
+function lineTagsLayer(view, network) {
   const layer = el('g', { 'aria-hidden': 'true' });
-  for (const line of lines) {
-    const first = stationById.get(line.stations[0]);
+  for (const line of network.lines) {
+    const first = network.stationById.get(line.stations[0]);
     const p = positionOf(first, view);
     const width = Math.max(18, line.label.length * 9 + 8);
     const group = el('g', {
@@ -256,7 +258,7 @@ export function createMap({ onSelect, onCell }) {
   svg.append(viewport);
   root.append(svg);
 
-  const state = { view: '실제 지도', k: 1, tx: 0, ty: 0, selected: null, mode: '역', design: null, future: null };
+  const state = { view: '실제 지도', k: 1, tx: 0, ty: 0, selected: null, mode: '역', design: null, future: null, network: NOW_NETWORK };
   let layers = {};
 
   function draw() {
@@ -265,10 +267,10 @@ export function createMap({ onSelect, onCell }) {
     if (state.view === '실제 지도') {
       viewport.append(terrainLayer(), gridLinesLayer(), boundaryLayer());
     }
-    layers.lines = linesLayer(state.view);
-    layers.stations = stationsLayer(state.view);
-    layers.labels = labelsLayer(state.view);
-    layers.tags = lineTagsLayer(state.view);
+    layers.lines = linesLayer(state.view, state.network);
+    layers.stations = stationsLayer(state.view, state.network);
+    layers.labels = labelsLayer(state.view, state.network);
+    layers.tags = lineTagsLayer(state.view, state.network);
     layers.future = futureLayer(state.future);
     layers.design = designLayer(state.design, grid.cols);
     viewport.append(layers.lines, layers.future, layers.stations, layers.design, layers.labels, layers.tags, overlay);
@@ -508,6 +510,13 @@ export function createMap({ onSelect, onCell }) {
       }
     },
     /** 앞으로 생길 노선을 함께 그린다({lines, stations}). null이면 지운다. */
+    /** 그릴 노선망을 바꾼다. null이면 지금 부산으로 돌아간다(옛날 부산 연표에서 쓴다). */
+    setNetwork: (network) => {
+      state.network = network
+        ? { lines: network.lines, stations: network.stations, stationById: new Map(network.stations.map((s) => [s.id, s])) }
+        : NOW_NETWORK;
+      draw();
+    },
     setFuture: (future) => {
       state.future = future;
       draw();

@@ -1,6 +1,7 @@
 // data/build/의 게임용 자료를 한곳에서 읽는다. 빌드할 때 파일 안에 함께 들어간다(오프라인).
 import placesFile from './content/places.json';
 import rulesFile from './content/rules.json';
+import sourcesFile from './content/sources.json';
 import missionsFile from './content/missions.json';
 import districtsFile from '../data/build/districts.json';
 import dongsFile from '../data/build/dongs.json';
@@ -34,6 +35,7 @@ export const ruleTables = rulesFile.tables;
 export const missions = missionsFile.missions;
 export const futureLines = futureFile;
 export const standards = standardsFile.standards;
+export const sources = sourcesFile;
 
 /** 역 id → 역 */
 export const stationById = new Map(stations.map((s) => [s.id, s]));

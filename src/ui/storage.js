@@ -73,3 +73,102 @@ export function saveDesign(slot, payload) {
   }
   return designs;
 }
+
+// --- 우리 집 규칙 (SPEC 9.1) ---
+
+const RULES_KEY = 'busan-subway-design-rules';
+
+/**
+ * 저장한 규칙 묶음과 지금 쓰는 묶음 이름.
+ * values는 바꾼 값만 담는다({규칙 id: 숫자}).
+ */
+export function loadRuleSets() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(RULES_KEY) ?? '{}');
+    const sets = Array.isArray(saved.sets) ? saved.sets : [];
+    const activeName = sets.some((set) => set.name === saved.activeName) ? saved.activeName : null;
+    return { sets, activeName };
+  } catch {
+    return { sets: [], activeName: null };
+  }
+}
+
+function writeRuleSets(next) {
+  try {
+    localStorage.setItem(RULES_KEY, JSON.stringify(next));
+  } catch {
+    // 저장이 안 되어도 게임은 그대로 된다.
+  }
+  return next;
+}
+
+/** 규칙 묶음을 이름 붙여 저장하고, 그 묶음을 쓰기 시작한다. 같은 이름이면 덮어쓴다. */
+export function saveRuleSet(name, values) {
+  const { sets } = loadRuleSets();
+  const next = sets.filter((set) => set.name !== name);
+  next.push({ name, values, savedOn: today() });
+  return writeRuleSets({ sets: next, activeName: name });
+}
+
+/** 쓸 묶음을 고른다. null이면 기본 규칙으로 돌아간다. */
+export function useRuleSet(name) {
+  const { sets } = loadRuleSets();
+  return writeRuleSets({ sets, activeName: sets.some((set) => set.name === name) ? name : null });
+}
+
+export function deleteRuleSet(name) {
+  const { sets, activeName } = loadRuleSets();
+  const next = sets.filter((set) => set.name !== name);
+  return writeRuleSets({ sets: next, activeName: activeName === name ? null : activeName });
+}
+
+/** 지금 쓰는 규칙 묶음. 없으면 null. */
+export function activeRuleSet() {
+  const { sets, activeName } = loadRuleSets();
+  return sets.find((set) => set.name === activeName) ?? null;
+}
+
+// --- 부모 화면 잠금 (SPEC 9.2) ---
+//
+// 네 자리 숫자는 아이가 잘못 눌러 들어가지 않게 막는 잠금이다. 보안 장치가 아니다.
+// 기기 안에만 있고 아무 데도 보내지 않는다. 잊으면 저장한 것을 모두 지워서 다시 정한다.
+
+const PIN_KEY = 'busan-subway-design-pin';
+
+/** 네 자리 숫자를 정해 두었는가 */
+export function hasPin() {
+  try {
+    return /^\d{4}$/.test(localStorage.getItem(PIN_KEY) ?? '');
+  } catch {
+    return false;
+  }
+}
+
+export function savePin(pin) {
+  if (!/^\d{4}$/.test(pin)) return false;
+  try {
+    localStorage.setItem(PIN_KEY, pin);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function checkPin(pin) {
+  try {
+    return localStorage.getItem(PIN_KEY) === pin;
+  } catch {
+    return false;
+  }
+}
+
+/** 저장한 것을 모두 지운다(설정, 설계, 규칙 묶음, 잠금). */
+export function clearAll() {
+  for (const key of [KEY, DESIGN_KEY, RULES_KEY, PIN_KEY]) {
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      // 못 지워도 화면은 그대로 뜬다.
+    }
+  }
+}

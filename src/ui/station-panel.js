@@ -1,7 +1,7 @@
 // 역을 누르면 보여 주는 정보: 이름, 갈아타기, 개통일, 이웃 역, 하루 이용객, 시간대별 이용객, 이름의 유래.
 import { lineById, neighborLinks, ridership, ridershipOf, stationById, stationInfo, transferSiblings } from '../data.js';
 import { barChart, hourlyLineChart } from './chart.js';
-import { countText, dateText, distanceText, durationText, roParticle, stationLabel } from './format.js';
+import { countText, dateText, distanceText, durationText, getNumberMode, roParticle, stationLabel } from './format.js';
 import { wordWithCard } from './word-card.js';
 
 const DAY_TYPES = ['평일', '토요일', '일요일'];
@@ -38,7 +38,7 @@ function lineTag(lineId) {
   return tag;
 }
 
-export function createStationPanel({ numberMode = '기본' } = {}) {
+export function createStationPanel({ numberMode = getNumberMode() } = {}) {
   const root = element('aside', 'panel');
   root.setAttribute('aria-live', 'polite');
   let current = null;

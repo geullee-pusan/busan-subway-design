@@ -1,6 +1,6 @@
 // 그래프. 숫자는 늘 그림과 함께 보여준다(CLAUDE.md).
 // 색만으로 뜻을 전하지 않도록, 막대와 선에 이름표를 함께 붙인다.
-import { countText } from './format.js';
+import { countText, getNumberMode } from './format.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const INK = '#1F3342';
@@ -16,7 +16,7 @@ function el(name, attrs = {}, text) {
  * 막대그래프. items: [{label, value, color, text}]
  * text를 주면 막대 아래에 그 글을 쓴다(사람 수가 아닌 값일 때 쓴다).
  */
-export function barChart(items, { max, width = 320, numberMode = '기본' } = {}) {
+export function barChart(items, { max, width = 320, numberMode = getNumberMode() } = {}) {
   const rowHeight = 44;
   const height = items.length * rowHeight + 8;
   const labelWidth = 56;
@@ -37,7 +37,7 @@ export function barChart(items, { max, width = 320, numberMode = '기본' } = {}
  * 두 값을 나란히 견주는 막대그래프. rows: [{label, real, model}]
  * 색만으로 뜻을 전하지 않도록 막대마다 "진짜", "우리 계산" 이름표를 붙인다.
  */
-export function comparisonChart(rows, { width = 460, numberMode = '기본', color = INK } = {}) {
+export function comparisonChart(rows, { width = 460, numberMode = getNumberMode(), color = INK } = {}) {
   const rowHeight = 74;
   const height = rows.length * rowHeight + 8;
   const labelWidth = 110;
@@ -77,7 +77,7 @@ export function comparisonChart(rows, { width = 460, numberMode = '기본', colo
 /**
  * 시간대별 꺾은선그래프. series: [{label, values(24개), color, dashed}]
  */
-export function hourlyLineChart(series, { width = 340, height = 190, numberMode = '기본' } = {}) {
+export function hourlyLineChart(series, { width = 340, height = 190, numberMode = getNumberMode() } = {}) {
   const padding = { top: 16, right: 10, bottom: 34, left: 40 };
   const innerWidth = width - padding.left - padding.right;
   const innerHeight = height - padding.top - padding.bottom;
@@ -117,6 +117,59 @@ export function hourlyLineChart(series, { width = 340, height = 190, numberMode 
         `${s.label} ${peak}시`,
       ),
     );
+  }
+  return svg;
+}
+
+/**
+ * 해마다 값이 어떻게 늘었는지 보여 주는 꺾은선그래프.
+ * points: [{year, value}], marked는 지금 고른 해다.
+ */
+export function yearLineChart(points, { width = 360, height = 180, marked = null, valueText = (v) => String(v) } = {}) {
+  const padding = { top: 16, right: 12, bottom: 34, left: 46 };
+  const innerWidth = width - padding.left - padding.right;
+  const innerHeight = height - padding.top - padding.bottom;
+  const years = points.map((p) => p.year);
+  const first = Math.min(...years);
+  const last = Math.max(...years);
+  const max = Math.max(1, ...points.map((p) => p.value));
+  const x = (year) => padding.left + (last === first ? 0 : (innerWidth * (year - first)) / (last - first));
+  const y = (value) => padding.top + innerHeight - (innerHeight * value) / max;
+
+  const svg = el('svg', { class: 'chart', viewBox: `0 0 ${width} ${height}`, width: '100%', height, role: 'img' });
+  svg.append(el('line', { x1: padding.left, y1: y(0), x2: width - padding.right, y2: y(0), stroke: INK, 'stroke-opacity': 0.4 }));
+  svg.append(el('text', { x: 0, y: y(0) + 5, 'font-size': 13, fill: INK }, '0'));
+  svg.append(el('text', { x: 0, y: y(max) + 5, 'font-size': 13, fill: INK }, valueText(max)));
+  for (const year of [first, last]) {
+    svg.append(el('text', { x: x(year), y: height - 16, 'font-size': 13, fill: INK, 'text-anchor': year === first ? 'start' : 'end' }, `${year}년`));
+  }
+  svg.append(
+    el('polyline', {
+      points: points.map((p) => `${x(p.year).toFixed(1)},${y(p.value).toFixed(1)}`).join(' '),
+      fill: 'none',
+      stroke: INK,
+      'stroke-width': 3,
+      'stroke-linejoin': 'round',
+    }),
+  );
+  if (marked !== null) {
+    const here = points.filter((p) => p.year <= marked).at(-1);
+    if (here) {
+      svg.append(el('line', { x1: x(marked), y1: padding.top, x2: x(marked), y2: y(0), stroke: INK, 'stroke-opacity': 0.25 }));
+      svg.append(el('circle', { cx: x(marked), cy: y(here.value), r: 5, fill: '#C0392B' }));
+      svg.append(
+        el(
+          'text',
+          {
+            x: Math.min(Math.max(x(marked), padding.left + 4), width - padding.right - 70),
+            y: Math.max(y(here.value) - 8, padding.top + 12),
+            'font-size': 13,
+            fill: INK,
+          },
+          `${marked}년 ${valueText(here.value)}`,
+        ),
+      );
+    }
   }
   return svg;
 }

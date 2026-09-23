@@ -17,8 +17,21 @@ export function rulesFromCards(cards) {
  * @param {object[]} p.dongs data/build/dongs.json의 dongs
  * @param {number[]} p.hourShape 시간대 모양(24개)
  * @param {number} p.defaultHeadwayMin 시각표가 없는 노선의 배차 간격
+ * @param {object[]} [p.anchorStations] 중심지 자리를 찾을 때 쓸 역 목록.
+ *   옛날 부산에서는 역이 없어도 중심지는 그대로 있어야 해서, 지금의 역 목록을 넣는다.
  */
-export function buildWorld({ grid, stations, lines, links, transfers, places, dongs, hourShape, defaultHeadwayMin }) {
+export function buildWorld({
+  grid,
+  stations,
+  lines,
+  links,
+  transfers,
+  places,
+  dongs,
+  hourShape,
+  defaultHeadwayMin,
+  anchorStations = stations,
+}) {
   const zones = [];
   for (let row = 0; row < grid.rows; row++) {
     for (let col = 0; col < grid.cols; col++) {
@@ -39,11 +52,11 @@ export function buildWorld({ grid, stations, lines, links, transfers, places, do
     }
   }
 
-  const stationById = new Map(stations.map((s) => [s.id, s]));
+  const anchorById = new Map(anchorStations.map((s) => [s.id, s]));
   const dongByCode = new Map(dongs.map((d) => [d.code, d]));
   const centers = [];
   for (const place of places) {
-    const anchor = place.at.station ? stationById.get(place.at.station) : dongByCode.get(place.at.dong);
+    const anchor = place.at.station ? anchorById.get(place.at.station) : dongByCode.get(place.at.dong);
     if (!anchor) continue;
     const terrain = grid.terrain[Math.floor(anchor.y)]?.[Math.floor(anchor.x)];
     centers.push({
