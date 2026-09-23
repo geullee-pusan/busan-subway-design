@@ -11,7 +11,10 @@
     "fetch": "node scripts/fetch.mjs",
     "data": "node scripts/build-data.mjs",
     "validate": "node scripts/validate.mjs",
-    "calibrate": "node scripts/calibrate.mjs"
+    "calibrate": "node scripts/calibrate.mjs",
+    "preview": "vite preview --port 4173 --strictPort",
+    "tablet": "vite preview --port 4173 --strictPort --host",
+    "icons": "node scripts/make-icons.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

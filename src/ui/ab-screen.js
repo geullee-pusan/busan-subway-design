@@ -30,7 +30,7 @@ export function renderAB(root, { designs, onHome }) {
   const b = designs['나'];
   if (!a || !b) {
     body.append(element('h2', null, '아직 견줄 설계가 모자라요'));
-    body.append(element('p', null, '노선을 그려서 하루 운행을 한 뒤, 결과 화면에서 가 칸과 나 칸에 하나씩 저장해 보세요.'));
+    body.append(element('p', null, '노선을 그려서 하루 운행을 해 보세요. 결과 화면에서 가 칸과 나 칸에 하나씩 저장해요.'));
     const list = element('ul', 'panel-list');
     for (const slot of ['가', '나']) {
       const saved = designs[slot];

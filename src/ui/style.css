@@ -662,8 +662,9 @@ body {
 }
 
 .word-button {
-  min-width: 28px;
-  min-height: 28px;
+  /* 글 속에 들어가는 작은 단추라 48px 규칙에서 뺀다. 대신 누르기 쉽게 키웠다(tests/words.test.js). */
+  min-width: 36px;
+  min-height: 36px;
   margin-left: 4px;
   font-size: 16px;
   font-family: inherit;

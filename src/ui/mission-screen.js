@@ -45,7 +45,7 @@ export function renderMissions(root, { onPick, onHome }) {
       learn.hidden = true;
       for (const code of mission.standards) {
         const item = element('span', 'standard-line');
-        item.textContent = `[${code}] ${standards[code]?.text ?? 'TODO(확인 필요)'}`;
+        item.textContent = `[${code}] ${standards[code]?.text ?? '원문을 아직 확인하지 못했어요'}`;
         learn.append(item);
       }
       const toggle = element('button', 'more-button', '어른을 위한 설명');

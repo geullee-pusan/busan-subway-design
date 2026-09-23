@@ -11,7 +11,7 @@ const WHY = [
   '우리 계산은 집에서 큰 중심지로 가는 길만 세어요. 학교나 친구 집으로 가는 길은 빼먹었어요.',
   '중심지 크기는 우리가 정한 값이에요. 진짜 일자리 수를 넣으면 더 잘 맞을 거예요.',
   '버스 시간은 곧은 거리로 어림했어요. 진짜 버스 길과 막히는 길은 넣지 않았어요.',
-  '갈아타기만 하고 나가지 않는 사람은 진짜 자료에 안 세는데, 우리 계산은 조금 다르게 세요.',
+  '갈아타기만 하는 사람은 진짜 자료에 안 세요. 우리 계산은 조금 다르게 세요.',
 ];
 
 function element(tag, className, text) {
@@ -89,7 +89,7 @@ export function renderCompare(root, { onHome }) {
     note.append(
       element('span', null, '우리 계산은 '),
       wordWithCard('격자', '격자'),
-      element('span', null, ` 칸마다 사는 사람으로 이동을 만들고, 가까운 역 3개까지 살펴서 가장 빠른 길을 골라요. 오늘 계산에서 도시철도를 탄 사람은 ${countText(result.totals.railTrips * 2)}이에요.`),
+      element('span', null, ` 칸마다 사는 사람으로 이동을 만들어요. 가까운 역 3개를 살펴 가장 빠른 길을 골라요. 오늘 계산에서 도시철도를 탄 사람은 ${countText(result.totals.railTrips * 2)}이에요.`),
     );
     body.append(note);
     body.append(element('p', 'panel-source', `견준 자료: ${ridership.source}`));

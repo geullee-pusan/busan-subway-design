@@ -11,6 +11,7 @@ import { renderEstimate } from './ui/estimate-screen.js';
 import { renderExplore } from './ui/explore.js';
 import { renderHistory } from './ui/history-screen.js';
 import { renderHome } from './ui/home.js';
+import { setupInstall } from './ui/install.js';
 import { renderParent } from './ui/parent-screen.js';
 import { renderRules } from './ui/rules-screen.js';
 import { renderMissions } from './ui/mission-screen.js';
@@ -205,4 +206,6 @@ function startRunning() {
   );
 }
 
+// 홈 화면 설치 준비(서비스 워커 등록). https나 localhost에서만 돈다.
+setupInstall();
 showHome();

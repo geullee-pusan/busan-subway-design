@@ -22,6 +22,7 @@
   - 같은 입력은 항상 같은 출력을 낸다.
 - 다음 기능은 넣지 않는다: 점수, 별, 배지, 등급, 순위표, 연속 접속 보상, 알림, 제한 시간, 카운트다운, 자동으로 이어지는 다음 판.
 - 광고, 외부 링크, 결제, 사용 추적을 넣지 않는다. 배포물은 네트워크 요청 없이 오프라인으로 동작해야 한다.
+  - 서비스 워커(`public/sw.js`)는 깔 때 우리 파일을 한 번 받아 두는 것만 한다. 바깥 주소를 부르지 않고 `fetch`도 쓰지 않는다.
 - 화면 문구 규칙:
   - 초등 3~4학년 수준으로 쓴다. "~해요"체, 한 문장에 한 가지 뜻.
   - 어려운 낱말은 `src/content/words.json`의 낱말 카드로 연결한다.
@@ -35,7 +36,10 @@
 
 ## 명령
 - `npm run dev`: 개발 서버
-- `npm run build`: `dist/index.html` 단일 파일 빌드
+- `npm run build`: 게임을 `dist/index.html` 한 파일로 만든다. 홈 화면 설치에 필요한 곁들이 파일(`manifest.webmanifest`, `sw.js`, 아이콘)이 함께 나온다
+- `npm run preview`: 빌드한 것을 localhost로 띄운다(서비스 워커 확인)
+- `npm run tablet`: 같은 와이파이의 태블릿에서 열 수 있게 띄운다
+- `npm run icons`: 홈 화면 아이콘을 다시 만든다
 - `npm test`: 시뮬레이션 테스트(결정론, 경로, 공사비, 보정, 성능)
 - `npm run fetch`: `scripts/sources.mjs` 목록대로 원본을 `data/raw/`에 받는다(네트워크를 쓴다)
 - `npm run data`: `data/raw/`를 처리해 `data/build/`를 만든다
@@ -53,4 +57,5 @@
 - `src/sim/`: 격자, 경로, 이동 모델, 붐빔, 공사비.
 - `src/ui/`: 화면.
 - `src/content/`: 과제 카드, 규칙 카드, 낱말 카드 JSON.
+- `public/`: 그대로 복사되는 파일. 홈 화면 설치에 쓰는 manifest, 서비스 워커, 아이콘.
 - `tests/`: 테스트.

@@ -1,0 +1,18 @@
+{
+  "name": "부산 도시철도 설계실",
+  "short_name": "설계실",
+  "description": "부산 지도 위에 도시철도 노선을 그리고 하루를 돌려 보는 게임",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#EDF1EC",
+  "theme_color": "#1F3342",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
