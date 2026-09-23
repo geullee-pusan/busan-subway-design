@@ -1,17 +1,20 @@
 // 하루 운행 화면(SPEC 6장 4번). 첫차부터 막차까지 약 60초 동안 보여 준다.
 // 시계가 돌고, 열차 점이 움직이고, 역마다 사람이 차오른다. 건너뛰기 단추가 있다.
+// 열차는 노선마다 배차 간격대로 양쪽 끝에서 떠나고, 역 사이 시간과 서는 시간을 지킨다(src/sim/train-motion.js).
+// 새 노선 열차는 지도에 그린 곡선을 따라 달린다.
 // 기기가 '동작 줄이기'면 점은 움직이지 않고 시계와 막대만 바뀐다(SPEC 7.1).
 import { lineById, stationById } from '../data.js';
 import { NEW_LINE_ID } from '../sim/design-world.js';
+import { pointBetween } from '../sim/line-shape.js';
+import { lineRoutes, trainsAt } from '../sim/train-motion.js';
 import { countText } from './format.js';
-import { CELL, DESIGN_COLOR, createMap } from './map.js';
+import { CELL, DESIGN_COLOR, FUTURE_COLOR, createMap, designShape } from './map.js';
 import { mapCorners, northArrow, scaleBar } from './map-furniture.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const START_HOUR = 5;
 const END_HOUR = 24;
 const SECONDS = 60;
-const DOTS_PER_LINE = 4;
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -33,28 +36,11 @@ function clockText(hour) {
   return `${String(h % 24).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }
 
-/** 노선을 따라가는 길(지도 좌표) */
-function linePolyline(line, positions) {
-  return line.stations.map((id) => positions(id)).filter(Boolean);
-}
-
-function pointOnPath(points, fraction) {
-  if (points.length === 0) return null;
-  if (points.length === 1) return points[0];
-  const clamped = Math.max(0, Math.min(1, fraction));
-  const total = points.length - 1;
-  const position = clamped * total;
-  const index = Math.min(Math.floor(position), total - 1);
-  const t = position - index;
-  const a = points[index];
-  const b = points[index + 1];
-  return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
-}
-
 /**
- * @param {{design: object, result: object, hourShape: number[], onDone: () => void}} p
+ * @param {{design: object, result: object, world: object, hourShape: number[], onDone: () => void}} p
+ *   world는 새 노선을 넣은 세상(withDesign). 노선마다 역 차례와 시간을 여기서 읽는다.
  */
-export function renderRunning(root, { design, result, hourShape, onDone }) {
+export function renderRunning(root, { design, result, world, hourShape, onDone }) {
   root.replaceChildren();
   const screen = element('div', 'screen running');
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -82,7 +68,7 @@ export function renderRunning(root, { design, result, hourShape, onDone }) {
   const progressOuter = element('div', 'budget-bar');
   const progressFill = element('div', 'budget-fill');
   progressOuter.append(progressFill);
-  const note = element('p', 'panel-note', reduceMotion ? '동작을 줄여서 열차 점은 움직이지 않아요.' : '점 하나가 열차 한 대예요.');
+  const note = element('p', 'panel-note', reduceMotion ? '동작을 줄여서 열차 점은 움직이지 않아요.' : '점 하나가 열차 한 대예요. 배차 간격마다 양쪽 끝에서 떠나요.');
   const topBox = element('div', 'run-top');
   panel.append(element('h2', null, '오늘 하루'), clock, progressOuter, counter, note, element('h3', null, '많이 타는 역'), topBox);
   main.append(mapBox, panel);
@@ -116,23 +102,61 @@ export function renderRunning(root, { design, result, hourShape, onDone }) {
     return { station, fill, value };
   });
 
-  // 열차 점
+  // 열차 점: 노선마다 배차 간격대로 달린다.
   const overlay = map.overlay();
-  const positionOf = (id) => {
-    const station = stationById.get(id);
-    if (station) return { x: station.x * CELL, y: station.y * CELL };
-    return null;
-  };
-  const dots = [];
-  if (!reduceMotion) {
-    for (const line of [...lineById.values()]) {
-      const points = linePolyline(line, positionOf);
-      if (points.length < 2) continue;
-      for (let i = 0; i < DOTS_PER_LINE; i++) {
-        const dot = svgEl('circle', { r: 3.5, fill: line.color ?? '#1F3342', stroke: '#FFFFFF', 'stroke-width': 1 });
+  const routes = !reduceMotion && world ? lineRoutes(world) : [];
+  const positionOf = new Map((world?.stations ?? []).map((station) => [station.id, station]));
+  // 새 노선은 지도에 그린 곡선 위로 달린다. 역마다 곡선 위 자리를 찾아 둔다.
+  const shape = designShape(design);
+  const shapeIndexOf = new Map(shape.stops.map((stop) => [`${NEW_LINE_ID}-${stop.cell}`, stop.index]));
+
+  /** 노선 위 자리(역 차례, 소수) → 지도 좌표 */
+  function pointOnRoute(route, at) {
+    const i = Math.max(0, Math.min(Math.floor(at), route.stops.length - 2));
+    const t = at - i;
+    const a = route.stops[i];
+    const b = route.stops[i + 1];
+    if (route.line === NEW_LINE_ID && shapeIndexOf.has(a) && shapeIndexOf.has(b)) {
+      const point = pointBetween(shape.points, shapeIndexOf.get(a), shapeIndexOf.get(b), t);
+      return { x: point.x * CELL, y: point.y * CELL };
+    }
+    const pa = positionOf.get(a);
+    const pb = positionOf.get(b);
+    if (!pa || !pb) return null;
+    return { x: (pa.x + (pb.x - pa.x) * t) * CELL, y: (pa.y + (pb.y - pa.y) * t) * CELL };
+  }
+
+  const trains = routes.map((route) => ({
+    route,
+    color: route.line === NEW_LINE_ID ? DESIGN_COLOR : (lineById.get(route.line)?.color ?? FUTURE_COLOR),
+    // 쓰고 남은 점은 숨겨 두었다가 다시 쓴다.
+    pool: [],
+  }));
+
+  function paintTrains(hour) {
+    for (const item of trains) {
+      const now = trainsAt(item.route, hour);
+      while (item.pool.length < now.length) {
+        const dot = svgEl('circle', {
+          r: item.route.line === NEW_LINE_ID ? 4.5 : 3.5,
+          fill: item.color,
+          stroke: '#FFFFFF',
+          'stroke-width': 1,
+        });
         overlay.append(dot);
-        dots.push({ dot, points, offset: i / DOTS_PER_LINE, direction: i % 2 === 0 ? 1 : -1 });
+        item.pool.push(dot);
       }
+      item.pool.forEach((dot, index) => {
+        const train = now[index];
+        const point = train ? pointOnRoute(item.route, train.at) : null;
+        if (!point) {
+          dot.setAttribute('display', 'none');
+          return;
+        }
+        dot.removeAttribute('display');
+        dot.setAttribute('cx', point.x.toFixed(1));
+        dot.setAttribute('cy', point.y.toFixed(1));
+      });
     }
   }
 
@@ -172,13 +196,7 @@ export function renderRunning(root, { design, result, hourShape, onDone }) {
       const base = 3.2;
       return base + 6 * Math.sqrt((board * share) / maxBoard);
     });
-    for (const item of dots) {
-      const fraction = (item.offset + progress * 3 * item.direction + 10) % 1;
-      const point = pointOnPath(item.points, fraction);
-      if (!point) continue;
-      item.dot.setAttribute('cx', point.x.toFixed(1));
-      item.dot.setAttribute('cy', point.y.toFixed(1));
-    }
+    paintTrains(hour);
   }
 
   function finish() {

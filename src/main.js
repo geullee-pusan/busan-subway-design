@@ -188,6 +188,7 @@ function startRunning() {
     renderRunning(root, {
       design,
       result: after.result,
+      world: after.world,
       hourShape: ridership.shape[options.dayType] ?? ridership.shape['평일'],
       onDone: () =>
         show(() =>

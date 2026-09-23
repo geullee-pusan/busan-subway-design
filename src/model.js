@@ -165,7 +165,8 @@ export function stationNameContext(year = BASE_YEAR) {
   // 설계를 세상에 넣을 때(withDesign)와 같은 방법으로 칸을 정한다.
   const cellOf = (s) => Math.floor(s.y) * grid.cols + Math.floor(s.x);
   const inside = (s) => s.x >= 0 && s.y >= 0 && s.x < grid.cols && s.y < grid.rows;
-  const existing = list.filter(inside).map((s) => ({ name: s.name, cell: cellOf(s) }));
+  // x, y는 갈아타는 새 역을 기존 역 자리에 정확히 겹쳐 그릴 때 쓴다(withDesign과 같은 역을 고른다: 칸마다 처음 나온 역).
+  const existing = list.filter(inside).map((s) => ({ name: s.name, cell: cellOf(s), x: s.x, y: s.y }));
   // 중심지 자리는 지금 역 목록과 행정동에서 찾는다(옛날 부산에도 중심지는 있다).
   const dongByCode = new Map(dongs.map((d) => [d.code, d]));
   const placeSpots = places

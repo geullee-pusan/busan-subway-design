@@ -16,13 +16,19 @@ export function withDesign(world, design, grid, tables) {
   const onPath = design.path.map((cell, order) => ({ cell, order })).filter(({ cell }) => design.stations.includes(cell));
   if (onPath.length < 2) return world;
 
+  // 기존 역과 같은 칸에 놓은 역은 그 역 자리에 둔다(갈아타는 역). 걷는 거리도 그 자리로 센다.
+  const existingAt = new Map();
+  for (const station of world.stations) {
+    const cell = Math.floor(station.y) * grid.cols + Math.floor(station.x);
+    if (!existingAt.has(cell)) existingAt.set(cell, station);
+  }
   const stations = onPath.map(({ cell, order }) => ({
     id: `${NEW_LINE_ID}-${cell}`,
     line: NEW_LINE_ID,
     name: design.stationNames?.[cell] ?? `새 역 ${order + 1}`,
     cell,
-    x: (cell % grid.cols) + 0.5,
-    y: Math.floor(cell / grid.cols) + 0.5,
+    x: existingAt.get(cell)?.x ?? (cell % grid.cols) + 0.5,
+    y: existingAt.get(cell)?.y ?? Math.floor(cell / grid.cols) + 0.5,
   }));
 
   const links = [];

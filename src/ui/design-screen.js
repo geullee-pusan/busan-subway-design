@@ -74,7 +74,19 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
 
   /** 지도와 운행에 넘길 설계: 정한 이름을 함께 싣는다. */
   function withNames(d) {
-    return { ...d, stationNames: Object.fromEntries(namesOf(d).map((entry) => [entry.cell, entry.name])) };
+    return {
+      ...d,
+      stationNames: Object.fromEntries(namesOf(d).map((entry) => [entry.cell, entry.name])),
+      // 기존 역과 같은 칸에 놓은 역은 그 역 자리에 정확히 겹쳐 그린다.
+      stationPoints: Object.fromEntries(
+        d.stations.filter((cell) => transferPoints.has(cell)).map((cell) => [cell, transferPoints.get(cell)]),
+      ),
+    };
+  }
+  /** 칸 → 그 칸에 처음 나온 기존 역의 자리(칸 단위 좌표) */
+  const transferPoints = new Map();
+  for (const station of nameContext.existing) {
+    if (!transferPoints.has(station.cell)) transferPoints.set(station.cell, { x: station.x, y: station.y });
   }
   const history = [];
   let mode = '그리기';

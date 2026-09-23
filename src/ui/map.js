@@ -1,6 +1,7 @@
 // 격자 지도 화면. SVG로 그리고, 한 손가락 끌기와 두 손가락 확대를 지원한다.
 // 보기는 두 가지다: '실제 지도'(격자와 지형)와 '노선도'(단순화).
 import { districts, grid, lineById, lines, schematic, stationById, stations } from '../data.js';
+import { lineShape } from '../sim/line-shape.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 /** 1km 한 칸을 몇 픽셀로 그릴지 (확대 배율 1일 때) */
@@ -214,15 +215,29 @@ function futureLayer(future) {
 }
 
 /** 설계한 노선을 그린다. path와 stations는 칸 번호 목록이다. */
-function designLayer(design, cols) {
+/** 새 노선의 모양(src/sim/line-shape.js). 그릴 때와 누른 곳을 찾을 때 함께 쓴다. */
+export function designShape(design) {
+  if (!design || design.path.length === 0) return { points: [], stops: [] };
+  return lineShape({
+    path: design.path,
+    stations: design.stations,
+    grid,
+    snap: design.stationPoints ?? {},
+    kind: design.kind,
+  });
+}
+
+/** 새 역 동그라미 크기(화면 픽셀). 갈아타는 역은 기존 역 동그라미를 감싸는 고리로 그린다. */
+const DESIGN_STOP_R = 5;
+const DESIGN_TRANSFER_R = 8.5;
+
+function designLayer(design, cols, shape = designShape(design)) {
   const layer = el('g', { 'aria-hidden': 'true' });
   if (!design || design.path.length === 0) return layer;
-  const center = (index) => [((index % cols) + 0.5) * CELL, (Math.floor(index / cols) + 0.5) * CELL];
-  const points = design.path.map(center);
-  if (points.length > 1) {
+  if (shape.points.length > 1) {
     layer.append(
       el('polyline', {
-        points: points.map(([x, y]) => `${x},${y}`).join(' '),
+        points: shape.points.map((p) => `${(p.x * CELL).toFixed(2)},${(p.y * CELL).toFixed(2)}`).join(' '),
         fill: 'none',
         stroke: DESIGN_COLOR,
         'stroke-width': 6,
@@ -232,22 +247,39 @@ function designLayer(design, cols) {
       }),
     );
   }
-  // 길의 끝은 어디에 이어 그릴 수 있는지 보이도록 크게 그린다.
-  const [lx, ly] = center(design.path.at(-1));
-  layer.append(el('circle', { cx: lx, cy: ly, r: 4, fill: DESIGN_COLOR, 'fill-opacity': 0.5 }));
-  for (const cell of design.stations) {
-    const [x, y] = center(cell);
+  // 길의 끝은 어디에 이어 그릴 수 있는지 보이도록 그 칸 가운데에 표시한다(선은 칸으로 긋는다).
+  const last = design.path.at(-1);
+  layer.append(
+    el('circle', { cx: ((last % cols) + 0.5) * CELL, cy: (Math.floor(last / cols) + 0.5) * CELL, r: 4, fill: DESIGN_COLOR, 'fill-opacity': 0.5 }),
+  );
+  for (const stop of shape.stops) {
+    const point = shape.points[stop.index];
+    const x = point.x * CELL;
+    const y = point.y * CELL;
+    const transfer = Boolean(design.stationPoints?.[stop.cell]);
+    // 갈아타는 역: 속을 비운 고리로 기존 역 동그라미를 감싼다(가운데가 정확히 겹친다).
     layer.append(
-      el('circle', { cx: x, cy: y, r: 5, fill: '#FFFFFF', stroke: DESIGN_COLOR, 'stroke-width': 3, 'vector-effect': 'non-scaling-stroke' }),
+      el('circle', {
+        class: 'design-stop',
+        cx: x.toFixed(2),
+        cy: y.toFixed(2),
+        r: transfer ? DESIGN_TRANSFER_R : DESIGN_STOP_R,
+        'data-r': transfer ? DESIGN_TRANSFER_R : DESIGN_STOP_R,
+        fill: transfer ? 'none' : '#FFFFFF',
+        stroke: DESIGN_COLOR,
+        'stroke-width': 3,
+        'vector-effect': 'non-scaling-stroke',
+      }),
     );
     // 역 이름(설계 화면에서 정한 것). 글자 크기는 확대 배율에 맞춰 applyTransform이 고친다.
-    const name = design.stationNames?.[cell];
+    const name = design.stationNames?.[stop.cell];
     if (name) {
       const text = el('text', {
         class: 'design-label',
-        'data-cell': cell,
+        'data-cell': stop.cell,
         'data-x': x,
         'data-y': y,
+        'data-gap': transfer ? DESIGN_TRANSFER_R + 4 : 9,
         fill: DESIGN_COLOR,
         stroke: '#FFFFFF',
         'paint-order': 'stroke',
@@ -262,10 +294,14 @@ function designLayer(design, cols) {
 
 /** 새 역 이름 글자를 확대 배율에 맞춘다. 화면에서 늘 같은 크기로 보인다. */
 function scaleDesignLabels(layer, k) {
+  for (const circle of layer?.querySelectorAll('.design-stop') ?? []) {
+    circle.setAttribute('r', (Number(circle.getAttribute('data-r')) / k).toFixed(2));
+  }
   for (const text of layer?.querySelectorAll('.design-label') ?? []) {
     const x = Number(text.getAttribute('data-x'));
     const y = Number(text.getAttribute('data-y'));
-    text.setAttribute('x', (x + 9 / k).toFixed(2));
+    const gap = Number(text.getAttribute('data-gap') ?? 9);
+    text.setAttribute('x', (x + gap / k).toFixed(2));
     text.setAttribute('y', (y - 7 / k).toFixed(2));
     text.setAttribute('font-size', (DESIGN_LABEL_PX / k).toFixed(2));
     text.setAttribute('stroke-width', (4 / k).toFixed(2));
@@ -303,7 +339,8 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     layers.labels = labelsLayer(state.view, state.network);
     layers.tags = lineTagsLayer(state.view, state.network);
     layers.future = futureLayer(state.future);
-    layers.design = designLayer(state.design, grid.cols);
+    state.designShape = designShape(state.design);
+    layers.design = designLayer(state.design, grid.cols, state.designShape);
     viewport.append(layers.lines, layers.future, layers.stations, layers.design, layers.labels, layers.tags, overlay);
     applySelection();
     applyTransform();
@@ -416,14 +453,16 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     const design = state.design;
     if (!design) return null;
     const px = 1 / (CELL * state.k); // 화면 1픽셀이 몇 칸인가
-    for (const cell of design.stations) {
-      const cx = (cell % grid.cols) + 0.5;
-      const cy = Math.floor(cell / grid.cols) + 0.5;
+    const shape = state.designShape ?? designShape(design);
+    for (const stop of shape.stops) {
+      const cell = stop.cell;
+      const { x: cx, y: cy } = shape.points[stop.index];
       if (Math.hypot(point.x - cx, point.y - cy) <= Math.max(0.45, 16 * px)) return cell;
       const name = design.stationNames?.[cell];
       if (!name) continue;
       // 이름 글자 자리: 동그라미 오른쪽 위(scaleDesignLabels와 같은 자리)
-      const left = cx + 9 * px;
+      const gap = design.stationPoints?.[cell] ? DESIGN_TRANSFER_R + 4 : 9;
+      const left = cx + gap * px;
       const right = left + (name.length * DESIGN_LABEL_PX + 8) * px;
       const top = cy - (7 + DESIGN_LABEL_PX + 4) * px;
       const bottom = cy - 2 * px;
@@ -585,7 +624,8 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     setDesign: (design) => {
       state.design = design;
       if (layers.design) {
-        const next = designLayer(design, grid.cols);
+        state.designShape = designShape(design);
+        const next = designLayer(design, grid.cols, state.designShape);
         layers.design.replaceWith(next);
         layers.design = next;
         scaleDesignLabels(next, state.k);
