@@ -101,13 +101,14 @@ function existingStationCells(list = stations) {
 
 /**
  * @param {{onHome: () => void, onRun: (design: object) => void, onRide?: (design: object) => void,
- *   runsLeft: number|null, mission: object|null, initialDesign?: object|null}} actions
- *   initialDesign: 시승이나 어림하기에서 돌아왔을 때 이어서 고칠 설계
+ *   runsLeft: number|null, mission: object|null, baseYear?: number|null, initialDesign?: object|null}} actions
+ *   baseYear: 옛날 부산에서 고른 해(자유 설계). initialDesign: 시승이나 어림하기에서 돌아왔을 때 이어서 고칠 설계
  */
-export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = null, mission = null, initialDesign = null }) {
+export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = null, mission = null, baseYear: freeYear = null, initialDesign = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen design');
-  const baseYear = mission?.baseYear ?? BASE_YEAR;
+  // 기준 연도: 과제 카드의 해, 옛날 부산에서 고른 해(자유 설계), 아니면 지금
+  const baseYear = mission?.baseYear ?? freeYear ?? BASE_YEAR;
   // 옛날 부산이면 그 해에 있던 역만 이미 있는 역으로 친다.
   const past = baseYear < BASE_YEAR ? networkOfYear(baseYear) : null;
   const existing = existingStationCells(past?.stations ?? stations);
@@ -737,7 +738,12 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       }
       panel.append(card);
     } else {
-      panel.append(element('h2', null, '노선 만들기'));
+      panel.append(element('h2', null, past ? `${baseYear}년 부산에 노선 만들기` : '노선 만들기'));
+      if (past) {
+        const note = past.stations.length === 0 ? `${baseYear}년에는 아직 도시철도가 없어요.` : `지도에 ${baseYear}년 노선만 있어요.`;
+        panel.append(element('p', 'panel-note', note));
+        panel.append(element('p', 'panel-note', '사는 사람과 가는 곳은 지금 자료를 써요. 그때 자료를 구하지 못했어요.'));
+      }
     }
     renderLinePicker();
     panel.append(element('p', 'panel-note guide', '지도에서 칸을 눌러 선을 그어요. 한 칸은 1km예요.'));

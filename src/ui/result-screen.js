@@ -108,7 +108,7 @@ function downloadCard(svg) {
 /**
  * @param {object} p plan(설계 묶음), cost(planCost), result, effect, estimate, newNames, runsLeftText, onHome, onAgain
  */
-export function renderResult(root, { plan, cost, result, effect, estimate, newNames, endingText, onHome, onRide = null, mission, voices = [], onSave, ruleSetName = null }) {
+export function renderResult(root, { plan, cost, result, effect, estimate, year = null, newNames, endingText, onHome, onRide = null, mission, voices = [], onSave, ruleSetName = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen result');
 
@@ -219,7 +219,9 @@ export function renderResult(root, { plan, cost, result, effect, estimate, newNa
   body.append(list);
 
   // 4-1. 옛날 부산과 지금 부산 견주기(과제 7)
-  const pastYear = mission && mission.baseYear < BASE_YEAR ? mission.baseYear : null;
+  // 옛날 부산(과제 카드나 옛날 부산에서 고른 해)이면 그 해와 지금을 견준다.
+  const whichYear = mission?.baseYear ?? year;
+  const pastYear = whichYear && whichYear < BASE_YEAR ? whichYear : null;
   if (pastYear) {
     const then = networkOfYear(pastYear);
     const now = networkOfYear(BASE_YEAR);

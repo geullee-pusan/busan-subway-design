@@ -9,7 +9,8 @@ import { dateText, distanceText, durationText, stationLabel } from './format.js'
 import { createMap } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 
-const FIRST_YEAR = 1985;
+/** 연표의 첫 해. 1호선이 열리기(1985년) 전, 도시철도가 없던 때부터 본다. */
+const FIRST_YEAR = 1980;
 /** 서면역. "서면까지 몇 분?"의 도착지다(SPEC 4.1절 4사04-02). */
 const SEOMYEON = '119';
 /** 출발지로 보여 줄 역: 노포(1), 다대포해수욕장(1), 장산(2), 해운대(2), 수영(3), 안평(4) */
@@ -41,8 +42,8 @@ function rideMinutes(network, fromId, toId) {
   return timeBetween(graph, fromId, toId);
 }
 
-/** @param {{onHome: () => void}} actions */
-export function renderHistory(root, { onHome }) {
+/** @param {{onHome: () => void, onDesign?: (year: number) => void}} actions  onDesign: 그 해 부산에 노선 그리기 */
+export function renderHistory(root, { onHome, onDesign = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen explore');
 
@@ -70,6 +71,7 @@ export function renderHistory(root, { onHome }) {
 
   // 해마다의 길이와 역 수는 한 번만 셈해 둔다.
   const years = [...openingYears(stationInfo).filter((y) => y >= FIRST_YEAR && y <= BASE_YEAR)];
+  if (!years.includes(FIRST_YEAR)) years.unshift(FIRST_YEAR);
   if (!years.includes(BASE_YEAR)) years.push(BASE_YEAR);
   const sizes = years.map((y) => {
     const network = networkOfYear(y);
@@ -102,15 +104,19 @@ export function renderHistory(root, { onHome }) {
   const plus = button('+', 'button round', () => setYear(year + 1));
   plus.setAttribute('aria-label', '한 해 뒤로');
   jump.append(minus, plus);
-  const marks = [1985, 1999, 2011, BASE_YEAR];
+  const marks = [FIRST_YEAR, 1985, 1999, 2011, BASE_YEAR];
   const markButtons = marks.map((mark) => {
     const node = button(`${mark}년`, 'button', () => setYear(mark));
     jump.append(node);
     return node;
   });
 
+  // 그 해 부산에 새 노선 그리기(자유 설계)
+  const designButton = onDesign ? button('', 'button big', () => onDesign(year)) : null;
   const info = element('div');
-  panel.append(title, slider, jump, info);
+  panel.append(title, slider, jump);
+  if (designButton) panel.append(designButton);
+  panel.append(info);
 
   function setYear(next) {
     year = Math.min(BASE_YEAR, Math.max(FIRST_YEAR, next));
@@ -126,6 +132,7 @@ export function renderHistory(root, { onHome }) {
     const network = networkOfYear(year);
     map.setNetwork(network);
     title.textContent = `${year}년 부산`;
+    if (designButton) designButton.textContent = `${year}년 부산에 노선 그리기`;
     info.replaceChildren();
 
     const meters = network.links.reduce((sum, link) => sum + link.distanceM, 0);

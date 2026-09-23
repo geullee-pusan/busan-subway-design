@@ -25,7 +25,8 @@ import './ui/style.css';
 const root = document.getElementById('app');
 let cleanup = null;
 let settings = loadSettings();
-const session = { design: null, estimate: null, mission: null };
+// year: 옛날 부산에서 고른 해(자유 설계를 그 해 부산에서 할 때). 없으면 지금 부산이다.
+const session = { design: null, estimate: null, mission: null, year: null };
 
 // 저장해 둔 "우리 집 규칙"과 숫자 표시 모드를 먼저 켠다.
 applySaved();
@@ -53,6 +54,7 @@ function showHome() {
   session.design = null;
   session.estimate = null;
   session.mission = null;
+  session.year = null;
   show(() =>
     renderHome(root, {
       onExplore: showExplore,
@@ -80,7 +82,21 @@ function showHome() {
 }
 
 function showHistory() {
-  show(() => renderHistory(root, { onHome: showHome }));
+  show(() =>
+    renderHistory(root, {
+      onHome: showHome,
+      // 그 해 부산에 새 노선 그리기
+      onDesign: (year) => {
+        session.year = year;
+        showDesign(null);
+      },
+    }),
+  );
+}
+
+/** 지금 설계의 기준 연도: 과제 카드의 해, 옛날 부산에서 고른 해, 아니면 지금 */
+function designYear() {
+  return session.mission?.baseYear ?? session.year ?? BASE_YEAR;
 }
 
 function showParent() {
@@ -127,7 +143,15 @@ function showAB() {
 }
 
 function showMissions() {
-  show(() => renderMissions(root, { onHome: showHome, onPick: (mission) => showDesign(mission) }));
+  show(() =>
+    renderMissions(root, {
+      onHome: showHome,
+      onPick: (mission) => {
+        session.year = null;
+        showDesign(mission);
+      },
+    }),
+  );
 }
 
 /** @param {object|null} [design] 이어서 고칠 설계(시승이나 어림하기에서 돌아올 때) */
@@ -140,6 +164,7 @@ function showDesign(mission, design = null) {
       onRide: startRide,
       runsLeft: runsLeft(settings),
       mission,
+      baseYear: designYear(),
       initialDesign: design,
     }),
   );
@@ -149,7 +174,7 @@ function showDesign(mission, design = null) {
 function startRide(plan, ran = null) {
   session.design = plan;
   const mission = session.mission;
-  const options = { year: mission?.baseYear ?? 2026, dayType: mission?.dayType ?? '평일' };
+  const options = { year: designYear(), dayType: mission?.dayType ?? '평일' };
   const after = ran ?? runWithDesign(plan, options);
   show(() =>
     renderRide(root, {
@@ -195,7 +220,7 @@ function startRunning() {
   // 설계 묶음(새 노선 여러 개). 화면마다 plan으로 넘긴다.
   const plan = session.design;
   const mission = session.mission;
-  const options = { year: mission?.baseYear ?? 2026, dayType: mission?.dayType ?? '평일' };
+  const options = { year: designYear(), dayType: mission?.dayType ?? '평일' };
   settings = useRun(settings);
 
   const base = worldFor(options);
@@ -228,6 +253,7 @@ function startRunning() {
             result: after.result,
             effect,
             estimate: session.estimate,
+            year: options.year,
             newNames: newStationNames(plan),
             endingText,
             mission,
