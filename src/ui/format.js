@@ -9,8 +9,11 @@ export function roundedCount(value) {
   const n = Math.round(value);
   if (n < 1000) return `${n}명`;
   if (n < 10000) {
-    const thousand = Math.round(n / 100) / 10;
-    return `약 ${thousand.toFixed(1).replace(/\.0$/, '')}천 명`;
+    const rounded = Math.round(n / 100) * 100;
+    const thousand = Math.floor(rounded / 1000);
+    const hundred = (rounded % 1000) / 100;
+    if (thousand === 10) return '약 1만 명';
+    return hundred === 0 ? `약 ${thousand}천 명` : `약 ${thousand}천 ${hundred}백 명`;
   }
   const rounded = Math.round(n / 1000) * 1000;
   const man = Math.floor(rounded / 10000);

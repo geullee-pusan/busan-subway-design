@@ -6,7 +6,10 @@ test('큰 수: 기본 모드는 어림수로 쓴다', () => {
   assert.equal(roundedCount(42380), '약 4만 2천 명');
   assert.equal(roundedCount(35809), '약 3만 6천 명');
   assert.equal(roundedCount(40000), '약 4만 명');
-  assert.equal(roundedCount(9335), '약 9.3천 명');
+  assert.equal(roundedCount(9335), '약 9천 3백 명');
+  assert.equal(roundedCount(1120), '약 1천 1백 명');
+  assert.equal(roundedCount(2000), '약 2천 명');
+  assert.equal(roundedCount(9985), '약 1만 명');
   assert.equal(roundedCount(950), '950명');
   assert.equal(roundedCount(0), '0명');
 });
