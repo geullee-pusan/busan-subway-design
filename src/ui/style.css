@@ -1299,6 +1299,7 @@ body {
 }
 
 .ride-led {
+  font-family: 'Pretendard Sign', monospace;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -1306,7 +1307,6 @@ body {
   border-radius: 8px 8px 0 0;
   background: #111820;
   color: #ffb23f;
-  font-family: monospace;
   font-size: 1.222rem;
   font-weight: 700;
 }
@@ -1345,57 +1345,155 @@ body {
   }
 }
 
+/* 역명판 글꼴: 프리텐다드 굵은체(한글 2,350자 묶음). SIL Open Font License 1.1, Copyright (c) 2021 Kil Hyung-jin.
+ * 이용 허락 전문은 부모 화면 "이 숫자는 어디서 왔나요?"에 있다. 없는 글자는 기기 글꼴로 보인다. */
+@font-face {
+  font-family: 'Pretendard Sign';
+  src: url('../../data/raw/fonts/Pretendard-Bold.subset.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* 역명판 */
 .station-sign {
   margin-top: 12px;
-  border-radius: 10px;
+  border-radius: 6px;
   overflow: hidden;
-  background: var(--paper);
-  border: 2px solid rgba(31, 51, 66, 0.35);
+  background: #ffffff;
+  border: 2px solid #c9d1d9;
+  box-shadow: 0 2px 6px rgba(31, 51, 66, 0.18);
+  font-family: 'Pretendard Sign', sans-serif;
+  font-weight: 700;
+  color: #1f2a33;
 }
 
-.sign-band {
+.sign-top {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
-  border-bottom: 4px solid;
+  padding: 4px 12px;
+  font-size: 1rem;
+}
+
+.sign-line-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 4px;
+  border-radius: 0.75rem;
+  background: #ffffff;
   font-size: 1rem;
 }
 
 .sign-main {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  padding: 10px 12px;
+  gap: 8px 18px;
+  padding: 14px 12px 12px;
 }
 
 .sign-number {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2.2rem;
-  height: 2.2rem;
+  width: 2.8rem;
+  height: 2.8rem;
   border-radius: 50%;
-  border: 3px solid var(--design-ink, #c0392b);
+  border: 5px solid;
   font-size: 1.222rem;
-  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.sign-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
 }
 
 .sign-name {
-  font-size: 2.444rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 2.889rem;
+  letter-spacing: 0.08em;
+}
+
+.sign-name-en {
+  font-size: 1.111rem;
+  color: #56636e;
+  letter-spacing: 0.02em;
+}
+
+.sign-transfer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sign-transfer-label {
+  font-size: 1rem;
+  color: #56636e;
+}
+
+.sign-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 6px;
+  border-radius: 1rem;
+  color: #ffffff;
+  font-size: 1rem;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px rgba(31, 51, 66, 0.3);
 }
 
 .sign-sides {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
-  padding: 6px 12px;
+  padding: 8px 12px;
+}
+
+.sign-prev,
+.sign-next {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.sign-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.sign-side-names {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.sign-side-name {
+  font-size: 1.222rem;
+}
+
+.sign-side-en {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.sign-arrow {
+  font-size: 1.444rem;
+}
+
+.sign-end {
   font-size: 1.111rem;
-  font-weight: 700;
 }
 
 /* 안내 방송 */
@@ -1421,6 +1519,11 @@ body {
   font-size: 1.111rem;
 }
 
+.ride-announce .ride-announce-en {
+  font-size: 1rem;
+  color: #4a5761;
+}
+
 .ride-count {
   font-size: 1.222rem;
   font-weight: 700;
@@ -1436,4 +1539,22 @@ body {
   flex-direction: column;
   gap: 8px;
   margin-top: 16px;
+}
+
+/* 부모 화면: 글꼴 이용 허락 전문 */
+.license-box summary {
+  min-height: 2.667rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.license-text {
+  max-height: 20rem;
+  overflow: auto;
+  padding: 8px;
+  background: #f4f6f8;
+  border-radius: 6px;
+  font-size: 1rem;
+  white-space: pre-wrap;
 }

@@ -73,3 +73,23 @@ test('지나는 역이 없으면 끝 역을 방면으로 쓴다', () => {
   assert.equal(lines[0], '고객 여러분 안녕하십니까. 이 열차는 명지, 명지행 열차입니다.');
   assert.equal(lines[1], '명지 방면으로 가실 고객께서는 이 열차를 이용하시기 바랍니다.');
 });
+
+test('영어 방송: 1호선 서면역과 노포역 실제 영어 방송과 같은 모양', async () => {
+  const { englishLines } = await import('../src/sim/announce.js');
+  assert.deepEqual(englishLines(templates, { type: '도착', name: 'Seomyeon', lineNumbers: ['2'] }), [
+    'This stop is Seomyeon, Seomyeon.',
+    'The doors are on your right.',
+    'You can transfer to line number 2.',
+  ]);
+  assert.deepEqual(englishLines(templates, { type: '종착', name: 'Nopo' }), [
+    'This stop is Nopo, Nopo.',
+    'The last station.',
+    'The doors are on your right.',
+    'Please make sure you have all your belongings with you, when you leave the train.',
+    'Thank you.',
+  ]);
+  assert.deepEqual(englishLines(templates, { type: '출발', name: 'Nopo', end: 'Dadaepo Beach' }), [
+    'This train is for Dadaepo Beach, Dadaepo Beach.',
+    'Thank you.',
+  ]);
+});

@@ -14,7 +14,8 @@
     "calibrate": "node scripts/calibrate.mjs",
     "preview": "vite preview --port 4173 --strictPort",
     "tablet": "vite preview --port 4173 --strictPort --host",
-    "icons": "node scripts/make-icons.mjs"
+    "icons": "node scripts/make-icons.mjs",
+    "ride-assets": "node scripts/ride-assets.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

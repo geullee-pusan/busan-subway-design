@@ -4,6 +4,7 @@ import { sources } from '../data.js';
 import { canInstall, install, installHint, isInstalled, onInstallReady } from './install.js';
 import { TEXT_SCALES, checkPin, clearAll, hasPin, loadView, savePin, saveView } from './storage.js';
 import { applyView } from './view.js';
+import fontLicense from '../../data/build/fonts/Pretendard-OFL.txt?raw';
 
 const NUMBER_MODES = ['기본', '진짜 숫자'];
 /** docs/SPEC.md 13장 '아이와 함께 쓰는 법' */
@@ -225,6 +226,11 @@ export function renderParent(root, { onHome, onRules, settings, onSetting, onCle
       body.append(list);
     }
     body.append(element('p', 'panel-note', '자세한 기록은 저장소의 data/SOURCES.md에 있어요.'));
+    // 역명판 글꼴(프리텐다드)은 OFL에 따라 저작권 표시와 이용 허락 전문을 함께 준다.
+    const license = element('details', 'license-box');
+    license.append(element('summary', null, '글꼴 이용 허락 전문(프리텐다드, SIL Open Font License 1.1)'));
+    license.append(element('pre', 'license-text', fontLicense));
+    body.append(license);
 
     // 4-1. 홈 화면에 설치
     body.append(element('h2', null, '홈 화면에 놓기'));

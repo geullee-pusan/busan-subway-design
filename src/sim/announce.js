@@ -63,3 +63,22 @@ export function announcementLines(templates, { type, name, end = '', via = [], t
   if (type === '종착') lines.push(...templates.terminalClosing);
   return lines;
 }
+
+/**
+ * 영어 안내 방송 문장들(우리말 방송 다음에 나온다).
+ * @param {object} templates src/content/announcements.json
+ * @param {object} p
+ * @param {'출발'|'도착'|'종착'} p.type
+ * @param {string} p.name 이 역의 영어 이름
+ * @param {string} [p.end] 끝 역의 영어 이름(출발)
+ * @param {string[]} [p.lineNumbers] 갈아탈 수 있는 노선 번호("1", "2" …). 번호가 없는 노선은 넣지 않는다.
+ * @returns {string[]}
+ */
+export function englishLines(templates, { type, name, end = '', lineNumbers = [] }) {
+  const en = templates.english;
+  if (type === '출발') return en.departure.map((line) => fillTemplate(line, { end }));
+  const lines = (type === '종착' ? en.terminalArrival : en.arrival).map((line) => fillTemplate(line, { name, door: en.door }));
+  for (const number of lineNumbers) lines.push(fillTemplate(en.transfer, { number }));
+  if (type === '종착') lines.push(...en.terminalClosing);
+  return lines;
+}

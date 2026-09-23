@@ -2,15 +2,17 @@
 // 하행(첫 역 → 끝 역)과 상행(끝 역 → 첫 역), 타는 시간대를 고른다.
 // 역마다 역명판과 안내 방송이 나오고, 열차 안 그림에 타고 있는 사람 수만큼 사람이 보인다.
 // 다음 역으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
-import { grid, ruleTables } from '../data.js';
+import { futureLines, grid, lineById, ruleTables, stationById } from '../data.js';
 import { terrainAt } from '../sim/design.js';
 import { NEW_LINE_ID } from '../sim/design-world.js';
 import announcementsFile from '../content/announcements.json';
-import { announcementLines } from '../sim/announce.js';
+import { announcementLines, englishLines } from '../sim/announce.js';
+import { romanize } from '../sim/romanize.js';
 import { crowdWord, rideTrip, windowScene } from '../sim/ride.js';
 import { lineRoutes } from '../sim/train-motion.js';
 import { countText, durationText, roParticle, stationLabel } from './format.js';
 import { DESIGN_COLOR, labelInk } from './map.js';
+import { localVoice, createRideSound } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
 
@@ -72,15 +74,6 @@ function clockText(seconds) {
   const h = Math.floor(total / 60) % 24;
   const m = total % 60;
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-}
-
-/** 우리말 목소리(기기 안에 있는 것만. 인터넷으로 부르는 목소리는 쓰지 않는다) */
-function localKoreanVoice() {
-  try {
-    return window.speechSynthesis?.getVoices().find((v) => v.lang?.toLowerCase().startsWith('ko') && v.localService) ?? null;
-  } catch {
-    return null;
-  }
 }
 
 /**
@@ -161,6 +154,35 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
   let phase = '고르기'; // '고르기' | '역' | '달리기'
   let timer = null;
   let voiceOn = loadView().rideVoice === true;
+  let soundOn = loadView().rideSound === true;
+  let ledTimer = null;
+  const sound = createRideSound();
+  const futureLineById = new Map(futureLines.lines.map((l) => [l.id, l]));
+
+  /** 영어 이름: 이미 있는 역과 같은 칸이면 그 역의 공식 영어 이름, 아니면 로마자 표기 */
+  function englishName(id) {
+    const group = world.transfers.find((t) => t.stations.includes(id));
+    for (const other of group?.stations ?? []) {
+      const en = stationById.get(other)?.nameEn;
+      if (en) return en.replace(/'+/g, "'");
+    }
+    return romanize(stationOf.get(id)?.name ?? '');
+  }
+
+  /** 갈아탈 노선의 표(번호 글자, 색). 역명판에 동그라미로 붙인다. */
+  function transferMarks(id) {
+    const group = world.transfers.find((t) => t.stations.includes(id));
+    const seen = new Set();
+    const marks = [];
+    for (const other of group?.stations ?? []) {
+      const lineId = stationOf.get(other)?.line;
+      if (!lineId || lineId === NEW_LINE_ID || seen.has(lineId)) continue;
+      seen.add(lineId);
+      const line = lineById.get(lineId) ?? futureLineById.get(lineId);
+      marks.push({ label: line?.label ?? lineNameOf.get(lineId) ?? '', name: line?.name ?? '', color: line?.color ?? '#1F3342' });
+    }
+    return marks;
+  }
 
   const screen = element('div', 'screen ride');
   screen.style.setProperty('--design-color', color);
@@ -172,23 +194,6 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
   const body = element('div', 'ride-body');
   screen.append(body);
   root.append(screen);
-
-  function speak(lines) {
-    if (!voiceOn) return;
-    try {
-      const synth = window.speechSynthesis;
-      const voice = localKoreanVoice();
-      if (!synth || !voice) return;
-      synth.cancel();
-      const say = new SpeechSynthesisUtterance(lines.join(' '));
-      say.voice = voice;
-      say.lang = voice.lang;
-      say.rate = 0.95;
-      synth.speak(say);
-    } catch {
-      // 소리가 안 나도 글자로 볼 수 있다.
-    }
-  }
 
   // ---------- 노선 띠 ----------
   function strip() {
@@ -271,20 +276,29 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     card.append(element('p', 'panel-note guide', '막대가 길수록 그 시간에 타는 사람이 많아요.'));
     card.append(element('p', 'panel-note', `${dayType} 자료로 타요.`));
 
-    // 방송 소리(기기에 우리말 목소리가 있을 때만)
-    if ('speechSynthesis' in window) {
-      const voice = button(voiceOn ? '방송 소리: 켬' : '방송 소리: 끔', () => {
-        voiceOn = !voiceOn;
-        saveView({ rideVoice: voiceOn });
-        renderSetup();
-      });
-      voice.classList.toggle('is-on', voiceOn);
-      voice.setAttribute('aria-pressed', String(voiceOn));
-      card.append(voice);
-      if (voiceOn && !localKoreanVoice()) {
-        card.append(element('p', 'panel-note', '이 기기에서는 우리말 목소리를 못 찾았어요. 방송은 글자로 보여요.'));
-      }
+    // 소리: 방송 목소리(기기 안 목소리), 배경음과 효과음(열차 진입 안내음, 방송 안내음, 달리는 소리)
+    card.append(element('h3', null, '소리'));
+    const soundRow = element('div', 'tool-row');
+    const voiceButton = button(voiceOn ? '방송 목소리: 켬' : '방송 목소리: 끔', () => {
+      voiceOn = !voiceOn;
+      saveView({ rideVoice: voiceOn });
+      renderSetup();
+    });
+    voiceButton.classList.toggle('is-on', voiceOn);
+    voiceButton.setAttribute('aria-pressed', String(voiceOn));
+    const musicButton = button(soundOn ? '배경음·효과음: 켬' : '배경음·효과음: 끔', () => {
+      soundOn = !soundOn;
+      saveView({ rideSound: soundOn });
+      renderSetup();
+    });
+    musicButton.classList.toggle('is-on', soundOn);
+    musicButton.setAttribute('aria-pressed', String(soundOn));
+    soundRow.append(voiceButton, musicButton);
+    card.append(soundRow);
+    if (voiceOn && !localVoice('ko')) {
+      card.append(element('p', 'panel-note', '이 기기에서는 우리말 목소리를 못 찾았어요. 방송은 글자로 보여요.'));
     }
+    if (soundOn) card.append(element('p', 'panel-note', '열차가 들어올 때 부산 지하철 진짜 안내음이 나와요.'));
 
     card.append(button('타기', startTrip, 'button big ride-go'));
     body.append(card);
@@ -302,7 +316,20 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     });
     at = 0;
     phase = '역';
+    sound.wake();
     renderRide();
+    const ride = trip;
+    const entering = soundOn ? sound.trainEntering(direction) : Promise.resolve();
+    entering.then(() => {
+      if (trip === ride && phase === '역' && at === 0) announceNow();
+    });
+  }
+
+  /** 지금 방송을 소리로 낸다(켜 둔 것만). */
+  function announceNow() {
+    if (!voiceOn && !soundOn) return;
+    const { korean, english } = announcement();
+    sound.announce({ korean, english, voice: voiceOn, music: soundOn });
   }
 
   /** 떠난 시각부터 지금 역까지 걸린 시간(초) */
@@ -322,41 +349,90 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
         .slice(0, 2)
         .sort((a, b) => trip.stops.indexOf(a) - trip.stops.indexOf(b))
         .map((s) => s.name);
-      return announcementLines(announcementsFile, { type: '출발', name: stop.name, end: trip.stops.at(-1).name, via });
+      const end = trip.stops.at(-1);
+      return {
+        korean: announcementLines(announcementsFile, { type: '출발', name: stop.name, end: end.name, via }),
+        english: englishLines(announcementsFile, { type: '출발', name: englishName(stop.id), end: englishName(end.id) }),
+      };
     }
-    return announcementLines(announcementsFile, {
-      type: at === trip.stops.length - 1 ? '종착' : '도착',
-      name: stop.name,
-      transfers: transferLines(stop.id),
-      place: nearPlace(stop.id),
-    });
+    const type = at === trip.stops.length - 1 ? '종착' : '도착';
+    const lineNumbers = transferMarks(stop.id)
+      .map((mark) => mark.label)
+      .filter((label) => /^\d+$/.test(label));
+    return {
+      korean: announcementLines(announcementsFile, {
+        type,
+        name: stop.name,
+        transfers: transferLines(stop.id),
+        place: nearPlace(stop.id),
+      }),
+      english: englishLines(announcementsFile, { type, name: englishName(stop.id), lineNumbers }),
+    };
   }
 
   // ---------- 역명판 ----------
+  // 우리나라 도시철도 승강장 역명판의 흔한 짜임: 흰 판, 노선 색 띠, 역 번호 동그라미, 큰 한글 이름과 영어 이름,
+  // 갈아탈 노선 표, 아래 띠에 앞 역과 다음 역(화살표는 가는 쪽). 글꼴은 프리텐다드 굵은체(자유 이용 허락 OFL).
   function stationSign() {
     const stop = trip.stops[at];
-    const sign = element('div', 'station-sign');
-    sign.setAttribute('role', 'img');
     const prev = trip.stops[at - 1];
     const next = trip.stops[at + 1];
+    const sign = element('div', 'station-sign');
+    sign.setAttribute('role', 'img');
     sign.setAttribute(
       'aria-label',
       `역명판: ${stationLabel(stop.name)}${next ? `, 다음 역 ${stationLabel(next.name)}` : ', 마지막 역'}`,
     );
-    const band = element('div', 'sign-band');
-    const tag = element('span', 'line-tag', '새');
-    tag.style.background = color;
-    band.append(tag, element('span', 'sign-line', lineName));
-    band.style.borderColor = color;
+    const top = element('div', 'sign-top');
+    top.style.background = color;
+    const tag = element('span', 'sign-line-tag', '새');
+    tag.style.color = color;
+    top.append(tag, element('span', 'sign-line', lineName));
+    top.style.color = ink === color ? '#FFFFFF' : '#1F3342';
+
     const main = element('div', 'sign-main');
-    main.append(element('span', 'sign-number', String(stops.findIndex((s) => s.id === stop.id) + 1)));
-    main.append(element('span', 'sign-name', stop.name));
+    const number = element('span', 'sign-number', String(stops.findIndex((s) => s.id === stop.id) + 1).padStart(2, '0'));
+    number.style.borderColor = color;
+    const names = element('div', 'sign-names');
+    names.append(element('span', 'sign-name', stop.name));
+    const en = element('span', 'sign-name-en', englishName(stop.id));
+    en.lang = 'en';
+    names.append(en);
+    main.append(number, names);
+    const marks = transferMarks(stop.id);
+    if (marks.length > 0) {
+      const row = element('div', 'sign-transfer');
+      row.append(element('span', 'sign-transfer-label', '환승'));
+      for (const mark of marks) {
+        const b = element('span', 'sign-mark', mark.label);
+        b.style.background = mark.color;
+        // 밝은 노선 색(2호선 연두 등)에는 진한 글자를 쓴다.
+        b.style.color = labelInk(mark.color) === mark.color ? '#FFFFFF' : '#1F3342';
+        b.title = mark.name;
+        row.append(b);
+      }
+      main.append(row);
+    }
+
     const sides = element('div', 'sign-sides');
     sides.style.background = color;
     sides.style.color = ink === color ? '#FFFFFF' : '#1F3342';
-    sides.append(element('span', 'sign-prev', prev ? `◀ ${prev.name}` : ''));
-    sides.append(element('span', 'sign-next', next ? `${next.name} ▶` : '마지막 역'));
-    sign.append(band, main, sides);
+    const side = (item, arrowFirst) => {
+      const box = element('span', arrowFirst ? 'sign-prev' : 'sign-next');
+      if (!item) return box;
+      const text = element('span', 'sign-side-names');
+      text.append(element('span', 'sign-side-name', item.name));
+      const sub = element('span', 'sign-side-en', englishName(item.id));
+      sub.lang = 'en';
+      text.append(sub);
+      const arrow = element('span', 'sign-arrow', arrowFirst ? '◀' : '▶');
+      box.append(...(arrowFirst ? [arrow, text] : [text, arrow]));
+      return box;
+    };
+    sides.append(side(prev, true));
+    if (next) sides.append(side(next, false));
+    else sides.append(element('span', 'sign-next sign-end', '종착 Terminal'));
+    sign.append(top, main, sides);
     return sign;
   }
 
@@ -496,7 +572,23 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
 
     // 열차 안 전광판
     const led = element('div', 'ride-led');
-    led.textContent = moving ? `다음 역: ${stop.name}` : `이번 역: ${stop.name}`;
+    const ledText = element('span', 'ride-led-text');
+    const ledLines = moving
+      ? [`다음 역은 ${stop.name}`, `Next stop ${englishName(stop.id)}`]
+      : [`이번 역은 ${stop.name}`, `This stop ${englishName(stop.id)}`];
+    let ledIndex = 0;
+    ledText.textContent = ledLines[0];
+    clearTimeout(ledTimer);
+    // 3초마다 우리말과 영어를 바꿔 보여 준다(화면이 바뀌면 멈춘다).
+    const turn = () => {
+      ledTimer = setTimeout(() => {
+        ledIndex = (ledIndex + 1) % ledLines.length;
+        ledText.textContent = ledLines[ledIndex];
+        turn();
+      }, 3000);
+    };
+    if (!reduceMotion) turn();
+    led.append(ledText);
     // 달리는 동안은 앞 역을 떠난 시각, 역에서는 도착한 시각
     led.append(element('span', 'ride-clock', clockText(startSeconds + elapsedTo(moving ? at - 1 : at))));
     left.append(led);
@@ -510,13 +602,17 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     if (!moving) left.append(stationSign());
 
     // 방송
-    const lines = announcement();
+    const { korean, english } = announcement();
     const board = element('div', 'ride-announce');
     board.setAttribute('role', 'status');
     board.append(element('span', 'ride-announce-label', '안내 방송'));
-    for (const line of lines) board.append(element('p', null, line));
+    for (const line of korean) board.append(element('p', null, line));
+    for (const line of english) {
+      const p = element('p', 'ride-announce-en', line);
+      p.lang = 'en';
+      board.append(p);
+    }
     right.append(board);
-    if (phase === '달리기' || at === 0) speak(lines);
 
     // 열차 안 사람 수
     right.append(element('h3', null, '열차 안 사람'));
@@ -565,6 +661,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
           startTrip();
         }, 'button big'),
         button('시간 바꿔 다시 타기', () => {
+          clearTimeout(ledTimer);
           phase = '고르기';
           renderSetup();
         }),
@@ -589,12 +686,18 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     if (phase !== '역' || at >= trip.stops.length - 1) return;
     at += 1;
     phase = '달리기';
+    sound.wake();
+    if (soundOn) sound.startRumble();
     renderRide();
+    announceNow();
+    // 방송 목소리를 켜면 방송이 끝날 만큼 조금 더 달린다.
+    const ms = reduceMotion ? 0 : voiceOn ? MOVE_MS * 2 : MOVE_MS;
     timer = setTimeout(() => {
       timer = null;
+      sound.stopRumble();
       phase = '역';
       renderRide();
-    }, reduceMotion ? 0 : MOVE_MS);
+    }, ms);
   }
 
   if (stops.length < 2) {
@@ -605,10 +708,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
 
   return () => {
     if (timer) clearTimeout(timer);
-    try {
-      window.speechSynthesis?.cancel();
-    } catch {
-      // 소리를 끄지 못해도 화면은 바뀐다.
-    }
+    clearTimeout(ledTimer);
+    sound.stopAll();
   };
 }

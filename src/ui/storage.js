@@ -146,7 +146,8 @@ const VIEW_DEFAULTS = {
   textScale: 1,
   autoNames: true, // 새 역 이름을 저절로 짓는다(행정동·중심지·기존 역 이름)
   runScope: '내 노선', // 운행 화면의 탄 사람 수와 많이 타는 역: '내 노선' 또는 '부산 전체'
-  rideVoice: false, // 시승 모드 안내 방송을 소리로 읽는다(기기 안 우리말 목소리만)
+  rideVoice: false, // 시승 모드 안내 방송을 소리로 읽는다(기기 안 목소리만)
+  rideSound: false, // 시승 모드 배경음과 효과음(열차 진입 안내음, 방송 안내음, 달리는 소리)
 };
 
 export function loadView() {
@@ -158,6 +159,7 @@ export function loadView() {
     if (typeof view.autoNames !== 'boolean') view.autoNames = true;
     if (!['내 노선', '부산 전체'].includes(view.runScope)) view.runScope = '내 노선';
     if (typeof view.rideVoice !== 'boolean') view.rideVoice = false;
+    if (typeof view.rideSound !== 'boolean') view.rideSound = false;
     if (view.legendOpen !== null && typeof view.legendOpen !== 'boolean') view.legendOpen = null;
     return view;
   } catch {

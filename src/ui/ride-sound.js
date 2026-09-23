@@ -1,0 +1,286 @@
+// 시승 모드 소리. 파일을 받지 않고 브라우저에서 만든다(Web Audio). 밖으로 나가는 요청이 없다.
+//  - 방송 안내음: 방송 앞에 울리는 짧은 가락(우리가 만든 가락. 실제 부산 음원이 아니다)
+//  - 방송 배경음: 방송이 나오는 동안 작게 깔리는 가락(우리가 만든 것)
+//  - 달리는 소리: 낮게 울리는 소리와 레일 이음매를 지나는 "덜컹" 소리
+//  - 열차 진입 안내음: 부산교통공사 역사 안내방송(공공데이터포털 3033578)의 실제 음원. 상행선과 하행선이 다르다.
+// 목소리는 기기의 음성 합성을 쓴다. 기기 안에 있는 목소리(localService)만 고른다.
+import arrivalDownUrl from '../../data/build/sounds/arrival-down.mp3';
+import arrivalUpUrl from '../../data/build/sounds/arrival-up.mp3';
+
+/** 음 이름 → 주파수 */
+const NOTE = { G4: 392, A4: 440, B4: 493.88, C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A3: 220, F3: 174.61, G3: 196, C4: 261.63, E4: 329.63 };
+/** 방송 안내음: 올라가는 네 음 */
+const CHIME = ['G4', 'C5', 'E5', 'G5'];
+/** 방송 배경음: 한 마디에 네 음, 네 마디를 돈다(C, Am, F, G) */
+const BED = [
+  ['C4', 'E4', 'G4', 'E4'],
+  ['A3', 'C4', 'E4', 'C4'],
+  ['F3', 'A3', 'C4', 'A3'],
+  ['G3', 'B4', 'D5', 'B4'],
+];
+
+/** 기기 안의 목소리 가운데 언어가 맞는 것 */
+export function localVoice(lang) {
+  try {
+    const voices = window.speechSynthesis?.getVoices() ?? [];
+    return voices.find((v) => v.localService && v.lang?.toLowerCase().startsWith(lang)) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** 소리 도구를 만든다. 첫 소리는 누르기(탭) 안에서 나야 브라우저가 막지 않는다. */
+export function createRideSound() {
+  let ctx = null;
+  let master = null;
+  let rumble = null;
+  let bed = null;
+  let clackTimer = null;
+  let playing = null; // 지금 나오는 열차 진입 안내음
+  let token = 0; // 방송 순서가 바뀌면 앞 방송은 그만한다
+
+  function context() {
+    if (ctx) return ctx;
+    const AudioContext = window.AudioContext ?? window.webkitAudioContext;
+    if (!AudioContext) return null;
+    ctx = new AudioContext();
+    master = ctx.createGain();
+    master.gain.value = 0.8;
+    master.connect(ctx.destination);
+    return ctx;
+  }
+
+  /** 누르기 안에서 불러 소리를 깨운다. */
+  function wake() {
+    const c = context();
+    if (c?.state === 'suspended') c.resume().catch(() => {});
+  }
+
+  /** 종 소리 한 번 */
+  function bell(freq, at, length = 1.2, volume = 0.25) {
+    const c = context();
+    if (!c) return;
+    for (const [ratio, gain] of [
+      [1, volume],
+      [2, volume * 0.25],
+      [3, volume * 0.08],
+    ]) {
+      const osc = c.createOscillator();
+      const amp = c.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq * ratio;
+      amp.gain.setValueAtTime(0, at);
+      amp.gain.linearRampToValueAtTime(gain, at + 0.01);
+      amp.gain.exponentialRampToValueAtTime(0.0001, at + length);
+      osc.connect(amp).connect(master);
+      osc.start(at);
+      osc.stop(at + length + 0.05);
+    }
+  }
+
+  /** 방송 안내음. 끝나는 시각(초)을 돌려준다. */
+  function chime() {
+    const c = context();
+    if (!c) return 0;
+    const start = c.currentTime + 0.05;
+    CHIME.forEach((name, i) => bell(NOTE[name], start + i * 0.28, 1.4));
+    return 0.28 * CHIME.length + 0.6;
+  }
+
+  /** 방송 배경음을 켠다(작게). stopBed로 천천히 끈다. */
+  function startBed() {
+    const c = context();
+    if (!c || bed) return;
+    const gain = c.createGain();
+    gain.gain.setValueAtTime(0, c.currentTime);
+    gain.gain.linearRampToValueAtTime(0.35, c.currentTime + 0.8);
+    gain.connect(master);
+    const beat = 0.42;
+    let step = 0;
+    let next = c.currentTime + 0.1;
+    // 0.1초마다 앞으로 0.5초 동안 칠 음을 미리 잡아 둔다.
+    const schedule = () => {
+      while (next < c.currentTime + 0.5) {
+        const bar = BED[Math.floor(step / 4) % BED.length];
+        const freq = NOTE[bar[step % 4]];
+        const osc = c.createOscillator();
+        const amp = c.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        amp.gain.setValueAtTime(0, next);
+        amp.gain.linearRampToValueAtTime(0.12, next + 0.02);
+        amp.gain.exponentialRampToValueAtTime(0.0001, next + beat * 1.8);
+        osc.connect(amp).connect(gain);
+        osc.start(next);
+        osc.stop(next + beat * 2);
+        next += beat;
+        step += 1;
+      }
+      if (bed?.gain === gain) bed.timer = setTimeout(schedule, 100);
+    };
+    bed = { gain, timer: null };
+    schedule();
+  }
+
+  function stopBed() {
+    if (!bed || !ctx) return;
+    const { gain, timer } = bed;
+    bed = null;
+    gain.gain.cancelScheduledValues(ctx.currentTime);
+    gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.2);
+    clearTimeout(timer);
+    setTimeout(() => gain.disconnect(), 1400);
+  }
+
+  /** 달리는 소리를 켠다. */
+  function startRumble() {
+    const c = context();
+    if (!c || rumble) return;
+    // 갈색 잡음(낮은 소리가 많은 잡음)
+    const length = c.sampleRate * 2;
+    const buffer = c.createBuffer(1, length, c.sampleRate);
+    const data = buffer.getChannelData(0);
+    // 잡음은 늘 같은 모양으로 만든다(작은 난수 생성기).
+    let seed = 12345;
+    let last = 0;
+    for (let i = 0; i < length; i++) {
+      seed = (seed * 1103515245 + 12345) % 2147483648;
+      const white = (seed / 2147483648) * 2 - 1;
+      last = (last + 0.02 * white) / 1.02;
+      data[i] = last * 3.5;
+    }
+    const source = c.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+    const filter = c.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 180;
+    const gain = c.createGain();
+    gain.gain.setValueAtTime(0, c.currentTime);
+    gain.gain.linearRampToValueAtTime(0.9, c.currentTime + 1.2);
+    source.connect(filter).connect(gain).connect(master);
+    source.start();
+    rumble = { source, gain };
+    // 덜컹덜컹: 레일 이음매
+    const clack = () => {
+      if (!rumble) return;
+      const t = c.currentTime;
+      for (const offset of [0, 0.12]) {
+        const osc = c.createOscillator();
+        const amp = c.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(90, t + offset);
+        osc.frequency.exponentialRampToValueAtTime(40, t + offset + 0.08);
+        amp.gain.setValueAtTime(0.12, t + offset);
+        amp.gain.exponentialRampToValueAtTime(0.0001, t + offset + 0.09);
+        osc.connect(amp).connect(master);
+        osc.start(t + offset);
+        osc.stop(t + offset + 0.1);
+      }
+    };
+    const again = () => {
+      clack();
+      clackTimer = setTimeout(again, 900);
+    };
+    again();
+  }
+
+  function stopRumble() {
+    clearTimeout(clackTimer);
+    clackTimer = null;
+    if (!rumble || !ctx) return;
+    const { source, gain } = rumble;
+    rumble = null;
+    gain.gain.cancelScheduledValues(ctx.currentTime);
+    gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1);
+    source.stop(ctx.currentTime + 1.1);
+  }
+
+  /** 열차 진입 안내음(실제 음원). 다 울리면 끝나는 약속을 돌려준다(최대 12초). */
+  function trainEntering(direction) {
+    stopEntering();
+    return new Promise((resolve) => {
+      try {
+        const audio = new Audio(direction === 1 ? arrivalDownUrl : arrivalUpUrl);
+        audio.volume = 0.9;
+        playing = audio;
+        const done = () => {
+          clearTimeout(limit);
+          resolve();
+        };
+        const limit = setTimeout(done, 12000);
+        audio.addEventListener('ended', done, { once: true });
+        audio.addEventListener('error', done, { once: true });
+        audio.play().catch(done);
+      } catch {
+        resolve();
+      }
+    });
+  }
+
+  function stopEntering() {
+    if (!playing) return;
+    playing.pause();
+    playing = null;
+  }
+
+  /**
+   * 방송: 안내음 → 우리말 → 영어. 배경음을 켜면 방송 동안 작게 깔린다.
+   * @param {{korean: string[], english: string[], voice: boolean, music: boolean}} p
+   */
+  function announce({ korean, english, voice, music }) {
+    const my = ++token;
+    try {
+      window.speechSynthesis?.cancel();
+    } catch {
+      // 목소리가 없는 기기
+    }
+    const wait = music ? chime() : 0;
+    if (music) startBed();
+    const ko = voice ? localVoice('ko') : null;
+    const en = voice ? localVoice('en') : null;
+    const synth = window.speechSynthesis;
+    if (!synth || (!ko && !en)) {
+      if (music) setTimeout(() => my === token && stopBed(), (wait + 4) * 1000);
+      return;
+    }
+    setTimeout(() => {
+      if (my !== token) return;
+      const queue = [
+        ...(ko ? korean.map((text) => ({ text, voice: ko, rate: 0.95 })) : []),
+        ...(en ? english.map((text) => ({ text, voice: en, rate: 0.9 })) : []),
+      ];
+      queue.forEach((item, index) => {
+        const say = new SpeechSynthesisUtterance(item.text);
+        say.voice = item.voice;
+        say.lang = item.voice.lang;
+        say.rate = item.rate;
+        if (index === queue.length - 1) say.addEventListener('end', () => my === token && stopBed());
+        synth.speak(say);
+      });
+      if (queue.length === 0) stopBed();
+    }, wait * 1000);
+  }
+
+  /** 모두 끈다(화면을 떠날 때). */
+  function stopAll() {
+    token += 1;
+    stopEntering();
+    stopRumble();
+    stopBed();
+    try {
+      window.speechSynthesis?.cancel();
+    } catch {
+      // 목소리가 없는 기기
+    }
+    if (ctx) {
+      const closing = ctx;
+      ctx = null;
+      setTimeout(() => closing.close().catch(() => {}), 1500);
+    }
+  }
+
+  return { wake, announce, startRumble, stopRumble, trainEntering, stopAll };
+}
