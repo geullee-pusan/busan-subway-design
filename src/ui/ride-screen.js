@@ -5,7 +5,10 @@
 import { grid, ruleTables } from '../data.js';
 import { terrainAt } from '../sim/design.js';
 import { NEW_LINE_ID } from '../sim/design-world.js';
+import announcementsFile from '../content/announcements.json';
+import { announcementLines } from '../sim/announce.js';
 import { crowdWord, rideTrip, windowScene } from '../sim/ride.js';
+import { lineRoutes } from '../sim/train-motion.js';
 import { countText, durationText, roParticle, stationLabel } from './format.js';
 import { DESIGN_COLOR, labelInk } from './map.js';
 import { loadView, saveView } from './storage.js';
@@ -106,15 +109,39 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
   const lineNameOf = new Map(world.lines.map((l) => [l.id, l.name]));
   const stationOf = new Map(world.stations.map((s) => [s.id, s]));
 
-  /** 이 역에서 갈아탈 수 있는 노선 이름 */
+  /** 노선마다 양쪽 끝 역 이름(갈아타기 방송의 방면) */
+  const endsOf = new Map(
+    lineRoutes(world).map((route) => [route.line, [route.stops[0], route.stops.at(-1)].map((id) => stationOf.get(id)?.name)]),
+  );
+
+  /** 이 역에서 갈아탈 수 있는 노선: {line: 노선 이름, via: 그 노선의 끝 역(이 역은 뺀다)} */
   function transferLines(id) {
     const group = world.transfers.find((t) => t.stations.includes(id));
     if (!group) return [];
-    const names = group.stations
-      .filter((other) => other !== id)
-      .map((other) => lineNameOf.get(stationOf.get(other)?.line))
-      .filter(Boolean);
-    return [...new Set(names)];
+    const here = stationOf.get(id)?.name;
+    const found = new Map();
+    for (const other of group.stations) {
+      if (other === id) continue;
+      const lineId = stationOf.get(other)?.line;
+      const line = lineNameOf.get(lineId);
+      if (!line || found.has(line)) continue;
+      found.set(line, (endsOf.get(lineId) ?? []).filter((name) => name && name !== here));
+    }
+    return [...found].map(([line, via]) => ({ line, via }));
+  }
+
+  /** 이 역에서 내리면 가까운 중심지(1km 안, 역 이름과 같은 곳은 뺀다) */
+  function nearPlace(id) {
+    const station = stationOf.get(id);
+    if (!station) return null;
+    const name = station.name.replace(/역$/, '');
+    let best = null;
+    for (const center of world.centers) {
+      if (name.includes(center.name) || center.name.includes(name)) continue;
+      const km = Math.hypot(center.x - station.x, center.y - station.y);
+      if (km <= 1 && (!best || km < best.km || (km === best.km && center.name < best.name))) best = { name: center.name, km };
+    }
+    return best?.name ?? null;
   }
 
   /** 두 역 사이 창밖 모습(선이 지나는 칸의 지형) */
@@ -284,27 +311,25 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
   }
 
   // ---------- 방송 ----------
+  // 실제 부산 도시철도 차내 방송의 모양을 따른다(src/content/announcements.json).
+  //  첫 역에서 떠나기 전: 출발 방송. 달리는 동안과 역에 선 뒤: 그 역의 "이번 역은" 방송(종착역은 종착 방송).
   function announcement() {
     const stop = trip.stops[at];
-    const last = trip.stops.at(-1);
-    const lines = [];
-    if (phase === '달리기') {
-      lines.push(`다음 역은 ${stationLabel(stop.name)}이에요.`);
-      return lines;
+    if (phase === '역' && at === 0) {
+      const middle = trip.stops.slice(1, -1);
+      // 방면: 지나는 역 가운데 갈아타는 역을 먼저, 두 곳까지
+      const via = [...middle.filter((s) => transferLines(s.id).length > 0), ...middle.filter((s) => transferLines(s.id).length === 0)]
+        .slice(0, 2)
+        .sort((a, b) => trip.stops.indexOf(a) - trip.stops.indexOf(b))
+        .map((s) => s.name);
+      return announcementLines(announcementsFile, { type: '출발', name: stop.name, end: trip.stops.at(-1).name, via });
     }
-    if (at === 0) lines.push(`이 열차는 ${last.name}행이에요.`);
-    if (at === trip.stops.length - 1) {
-      lines.push(`이번 역은 이 열차의 마지막 역, ${stationLabel(stop.name)}이에요.`);
-      lines.push('모두 내려요.');
-    } else {
-      lines.push(`이번 역은 ${stationLabel(stop.name)}이에요.`);
-    }
-    const transfer = transferLines(stop.id);
-    if (transfer.length > 0) {
-      const names = transfer.join(', ');
-      lines.push(`${names}${roParticle(names)} 갈아탈 수 있어요.`);
-    }
-    return lines;
+    return announcementLines(announcementsFile, {
+      type: at === trip.stops.length - 1 ? '종착' : '도착',
+      name: stop.name,
+      transfers: transferLines(stop.id),
+      place: nearPlace(stop.id),
+    });
   }
 
   // ---------- 역명판 ----------
@@ -491,7 +516,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     board.append(element('span', 'ride-announce-label', '안내 방송'));
     for (const line of lines) board.append(element('p', null, line));
     right.append(board);
-    speak(lines);
+    if (phase === '달리기' || at === 0) speak(lines);
 
     // 열차 안 사람 수
     right.append(element('h3', null, '열차 안 사람'));
