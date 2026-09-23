@@ -145,6 +145,7 @@ const VIEW_DEFAULTS = {
   showGuides: true,
   textScale: 1,
   autoNames: true, // 새 역 이름을 저절로 짓는다(행정동·중심지·기존 역 이름)
+  runScope: '내 노선', // 운행 화면의 탄 사람 수와 많이 타는 역: '내 노선' 또는 '부산 전체'
 };
 
 export function loadView() {
@@ -154,6 +155,7 @@ export function loadView() {
     if (!TEXT_SCALES.some((scale) => scale.value === view.textScale)) view.textScale = 1;
     if (typeof view.showGuides !== 'boolean') view.showGuides = true;
     if (typeof view.autoNames !== 'boolean') view.autoNames = true;
+    if (!['내 노선', '부산 전체'].includes(view.runScope)) view.runScope = '내 노선';
     if (view.legendOpen !== null && typeof view.legendOpen !== 'boolean') view.legendOpen = null;
     return view;
   } catch {

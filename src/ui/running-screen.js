@@ -10,6 +10,7 @@ import { lineRoutes, trainsAt } from '../sim/train-motion.js';
 import { countText } from './format.js';
 import { CELL, DESIGN_COLOR, FUTURE_COLOR, createMap, designShape } from './map.js';
 import { mapCorners, northArrow, scaleBar } from './map-furniture.js';
+import { loadView, saveView } from './storage.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const START_HOUR = 5;
@@ -70,7 +71,27 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
   progressOuter.append(progressFill);
   const note = element('p', 'panel-note', reduceMotion ? '동작을 줄여서 열차 점은 움직이지 않아요.' : '점 하나가 열차 한 대예요. 배차 간격마다 양쪽 끝에서 떠나요.');
   const topBox = element('div', 'run-top');
-  panel.append(element('h2', null, '오늘 하루'), clock, progressOuter, counter, note, element('h3', null, '많이 타는 역'), topBox);
+  // 탄 사람 수와 많이 타는 역을 내 노선만 볼지, 부산 전체를 볼지 고른다(기본은 내 노선).
+  const SCOPES = ['내 노선', '부산 전체'];
+  let scope = loadView().runScope;
+  const scopeRow = element('div', 'tool-row');
+  scopeRow.setAttribute('role', 'group');
+  scopeRow.setAttribute('aria-label', '어느 노선의 사람 수를 볼지 고르기');
+  const scopeButtons = SCOPES.map((name) => {
+    const node = element('button', 'button', name);
+    node.type = 'button';
+    node.addEventListener('click', () => {
+      if (scope === name) return;
+      scope = name;
+      saveView({ runScope: name });
+      buildBars();
+      paint(lastProgress);
+    });
+    scopeRow.append(node);
+    return node;
+  });
+  const topTitle = element('h3', null, '많이 타는 역');
+  panel.append(element('h2', null, '오늘 하루'), clock, progressOuter, scopeRow, counter, note, topTitle, topBox);
   main.append(mapBox, panel);
   screen.append(main);
   root.append(screen);
@@ -84,23 +105,44 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
   // 역마다 하루에 타는 사람 수
   const boardById = new Map(result.stations.map((s) => [s.id, s.board]));
   const maxBoard = Math.max(1, ...boardById.values());
-  const top = [...result.stations].sort((a, b) => b.board - a.board).slice(0, 5);
-  const bars = top.map((station) => {
-    const row = element('div', 'run-bar-row');
-    const cell = station.id.startsWith(`${NEW_LINE_ID}-`) ? station.id.slice(NEW_LINE_ID.length + 1) : null;
-    const name = stationById.get(station.id)?.name ?? design.stationNames?.[cell] ?? '새 역';
-    row.append(element('span', 'run-bar-name', name));
-    const track = element('div', 'run-bar');
-    const fill = element('div', 'run-bar-fill');
-    const color = station.id.startsWith(`${NEW_LINE_ID}-`) ? DESIGN_COLOR : lineById.get(stationById.get(station.id)?.line)?.color;
-    fill.style.background = color ?? '#1F3342';
-    track.append(fill);
-    row.append(track);
-    const value = element('span', 'run-bar-value', '');
-    row.append(value);
-    topBox.append(row);
-    return { station, fill, value };
-  });
+  const isNew = (id) => id.startsWith(`${NEW_LINE_ID}-`);
+  const newStations = result.stations.filter((station) => isNew(station.id));
+  /** 내 노선에 탄 사람(새 노선 역에서 탄 사람을 모두 더한 것) */
+  const newLineBoard = newStations.reduce((sum, station) => sum + station.board, 0);
+
+  let bars = [];
+  let barMax = 1;
+  function buildBars() {
+    const mine = scope === '내 노선';
+    const pool = mine ? newStations : result.stations;
+    const top = [...pool].sort((a, b) => b.board - a.board || a.id.localeCompare(b.id)).slice(0, 5);
+    barMax = Math.max(1, ...top.map((station) => station.board));
+    topTitle.textContent = mine ? '내 노선에서 많이 타는 역' : '부산에서 많이 타는 역';
+    for (const [index, node] of scopeButtons.entries()) {
+      const on = SCOPES[index] === scope;
+      node.classList.toggle('is-on', on);
+      node.setAttribute('aria-pressed', String(on));
+    }
+    topBox.replaceChildren();
+    if (top.length === 0) topBox.append(element('p', 'panel-note', '내 노선에 역이 없어요.'));
+    bars = top.map((station) => {
+      const row = element('div', 'run-bar-row');
+      const cell = isNew(station.id) ? station.id.slice(NEW_LINE_ID.length + 1) : null;
+      const name = stationById.get(station.id)?.name ?? design.stationNames?.[cell] ?? '새 역';
+      row.append(element('span', 'run-bar-name', name));
+      const track = element('div', 'run-bar');
+      const fill = element('div', 'run-bar-fill');
+      const color = isNew(station.id) ? DESIGN_COLOR : lineById.get(stationById.get(station.id)?.line)?.color;
+      fill.style.background = color ?? '#1F3342';
+      track.append(fill);
+      row.append(track);
+      const value = element('span', 'run-bar-value', '');
+      row.append(value);
+      topBox.append(row);
+      return { station, fill, value };
+    });
+  }
+  buildBars();
 
   // 열차 점: 노선마다 배차 간격대로 달린다.
   const overlay = map.overlay();
@@ -179,16 +221,20 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
   let finished = false;
   let frame = null;
 
+  let lastProgress = 0;
   function paint(progress) {
+    lastProgress = progress;
     const hour = START_HOUR + (END_HOUR - START_HOUR) * progress;
     const share = shareUntil(hour);
     clock.textContent = clockText(hour);
     progressFill.style.width = `${(progress * 100).toFixed(1)}%`;
-    const people = result.totals.board * share;
-    counter.textContent = people < 1 ? '아직 아무도 타지 않았어요.' : `지금까지 ${countText(people)}이 탔어요.`;
+    const mine = scope === '내 노선';
+    const people = (mine ? newLineBoard : result.totals.board) * share;
+    const where = mine ? '내 노선에는' : '부산 도시철도에는';
+    counter.textContent = people < 1 ? `${where} 아직 아무도 타지 않았어요.` : `${where} 지금까지 ${countText(people)}이 탔어요.`;
     for (const item of bars) {
       const value = item.station.board * share;
-      item.fill.style.width = `${((item.station.board / maxBoard) * share * 100).toFixed(1)}%`;
+      item.fill.style.width = `${((item.station.board / barMax) * share * 100).toFixed(1)}%`;
       item.value.textContent = countText(value);
     }
     map.setStationSize((id) => {
