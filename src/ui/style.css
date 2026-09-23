@@ -1154,3 +1154,286 @@ body {
 .connect-button {
   font-weight: 700;
 }
+
+/* 시승 */
+.ride-button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.ride-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px 32px;
+}
+
+.ride-setup {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.ride-setup .tool-row .button {
+  flex: 1 1 14rem;
+}
+
+.ride-times {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 8px;
+}
+
+.ride-time {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  min-height: 3.5rem;
+  padding: 8px 12px;
+}
+
+.ride-time-bar {
+  display: block;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(31, 51, 66, 0.12);
+  overflow: hidden;
+}
+
+.ride-time-fill {
+  display: block;
+  height: 100%;
+  background: var(--design-ink, #c0392b);
+}
+
+.ride-go {
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* 노선 띠 */
+.ride-strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+  padding: 10px 0 4px;
+  margin-bottom: 8px;
+}
+
+.ride-rail {
+  position: absolute;
+  top: calc(10px + 0.8rem - 3px);
+  left: calc(50% / var(--count));
+  right: calc(50% / var(--count));
+  height: 6px;
+  border-radius: 3px;
+  background: var(--design-color, #c0392b);
+}
+
+.ride-stop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ride-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--design-color, #c0392b);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.ride-stop-name {
+  font-size: 1rem;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.ride-stop.is-past {
+  opacity: 0.55;
+}
+
+.ride-stop.is-here .ride-dot {
+  background: var(--design-ink, #c0392b);
+  color: var(--paper);
+  transform: scale(1.2);
+}
+
+.ride-stop.is-here .ride-stop-name {
+  font-weight: 700;
+}
+
+.ride-train {
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, -30%);
+  padding: 0 8px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 1rem;
+  font-weight: 700;
+  transition-property: left;
+  transition-timing-function: ease-in-out;
+}
+
+.ride-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(16rem, 2fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .ride-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ride-led {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 14px;
+  border-radius: 8px 8px 0 0;
+  background: #111820;
+  color: #ffb23f;
+  font-family: monospace;
+  font-size: 1.222rem;
+  font-weight: 700;
+}
+
+.ride-clock {
+  color: #9fe3a8;
+}
+
+.ride-car {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0 0 10px 10px;
+}
+
+.ride-scene-move {
+  animation: ride-scene 0.9s linear infinite;
+}
+
+@keyframes ride-scene {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-80px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ride-scene-move {
+    animation: none;
+  }
+
+  .ride-train {
+    transition: none;
+  }
+}
+
+/* 역명판 */
+.station-sign {
+  margin-top: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--paper);
+  border: 2px solid rgba(31, 51, 66, 0.35);
+}
+
+.sign-band {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-bottom: 4px solid;
+  font-size: 1rem;
+}
+
+.sign-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 10px 12px;
+}
+
+.sign-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 3px solid var(--design-ink, #c0392b);
+  font-size: 1.222rem;
+  font-weight: 700;
+}
+
+.sign-name {
+  font-size: 2.444rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.sign-sides {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 12px;
+  font-size: 1.111rem;
+  font-weight: 700;
+}
+
+/* 안내 방송 */
+.ride-announce {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fff8e1;
+  border: 2px solid #e0b64a;
+}
+
+.ride-announce-label {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: #1f3342;
+  color: var(--paper);
+  font-size: 1rem;
+}
+
+.ride-announce p {
+  margin: 4px 0;
+  font-size: 1.111rem;
+}
+
+.ride-count {
+  font-size: 1.222rem;
+  font-weight: 700;
+  margin: 4px 0;
+}
+
+.crowd-icon.empty {
+  opacity: 0.45;
+}
+
+.ride-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}

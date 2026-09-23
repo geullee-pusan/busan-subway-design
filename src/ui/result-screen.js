@@ -108,7 +108,7 @@ function downloadCard(svg) {
 /**
  * @param {object} p design, cost, result, effect, estimate, newNames, runsLeftText, onHome, onAgain
  */
-export function renderResult(root, { design, cost, result, effect, estimate, newNames, endingText, onHome, mission, voices = [], onSave, ruleSetName = null }) {
+export function renderResult(root, { design, cost, result, effect, estimate, newNames, endingText, onHome, onRide = null, mission, voices = [], onSave, ruleSetName = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen result');
 
@@ -344,6 +344,12 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   const print = element('button', 'button', '인쇄');
   print.type = 'button';
   print.addEventListener('click', () => window.print());
+  if (onRide) {
+    const ride = element('button', 'button big ride-button', '내 노선 타 보기');
+    ride.type = 'button';
+    ride.addEventListener('click', onRide);
+    body.append(ride);
+  }
   const end = element('button', 'button big', '오늘 운행 끝');
   end.type = 'button';
   end.addEventListener('click', onHome);

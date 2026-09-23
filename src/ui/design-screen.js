@@ -78,8 +78,12 @@ function existingStationCells(list = stations) {
   return cells;
 }
 
-/** @param {{onHome: () => void, onRun: (design: object) => void, runsLeft: number|null, mission: object|null}} actions */
-export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = null }) {
+/**
+ * @param {{onHome: () => void, onRun: (design: object) => void, onRide?: (design: object) => void,
+ *   runsLeft: number|null, mission: object|null, initialDesign?: object|null}} actions
+ *   initialDesign: 시승이나 어림하기에서 돌아왔을 때 이어서 고칠 설계
+ */
+export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = null, mission = null, initialDesign = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen design');
   const baseYear = mission?.baseYear ?? BASE_YEAR;
@@ -98,6 +102,18 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
     color: DESIGN_COLOR,
     lineName: DEFAULT_LINE_NAME,
   };
+  if (initialDesign) {
+    design = {
+      ...design,
+      path: [...initialDesign.path],
+      stations: [...initialDesign.stations],
+      kind: initialDesign.kind ?? design.kind,
+      trainsPerHour: initialDesign.trainsPerHour ?? design.trainsPerHour,
+      names: { ...(initialDesign.names ?? {}) },
+      color: initialDesign.color ?? design.color,
+      lineName: initialDesign.lineName ?? design.lineName,
+    };
+  }
   /** 역 잇기에서 길을 찾지 못한 역이 있으면 알려 줄 말 */
   let connectNote = null;
   // 새 역 이름을 지을 때 쓰는 자료(그 해의 기존 역, 행정동, 중심지)
@@ -719,6 +735,12 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
     const runButton = button('하루 운행 해 보기', () => onRun(withNames(design)), 'button big');
     runButton.disabled = !check.ok || overBudget || noRuns;
     dock.append(runButton);
+    // 시승: 내 노선 열차를 타 본다. 하루 운행 횟수는 줄지 않는다.
+    if (onRide) {
+      const rideButton = button('시승해 보기', () => onRide(withNames(design)), 'button ride-button');
+      rideButton.disabled = !check.ok || overBudget || noRuns;
+      dock.append(rideButton);
+    }
     if (noRuns) {
       dock.append(element('p', 'warn', '오늘 운행은 모두 끝났어요. 내일 첫차는 05:30이에요.'));
     } else if (runsLeft !== null) {

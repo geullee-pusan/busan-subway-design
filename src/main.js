@@ -7,6 +7,7 @@ import { residentVoices } from './sim/voices.js';
 import { renderAB } from './ui/ab-screen.js';
 import { renderCompare } from './ui/compare-screen.js';
 import { renderDesign } from './ui/design-screen.js';
+import { renderRide } from './ui/ride-screen.js';
 import { renderEstimate } from './ui/estimate-screen.js';
 import { renderExplore } from './ui/explore.js';
 import { renderHistory } from './ui/history-screen.js';
@@ -130,10 +131,37 @@ function showMissions() {
   show(() => renderMissions(root, { onHome: showHome, onPick: (mission) => showDesign(mission) }));
 }
 
-function showDesign(mission) {
+/** @param {object|null} [design] 이어서 고칠 설계(시승이나 어림하기에서 돌아올 때) */
+function showDesign(mission, design = null) {
   session.mission = mission;
   show(() =>
-    renderDesign(root, { onHome: showHome, onRun: startEstimate, runsLeft: runsLeft(settings), mission }),
+    renderDesign(root, {
+      onHome: showHome,
+      onRun: startEstimate,
+      onRide: startRide,
+      runsLeft: runsLeft(settings),
+      mission,
+      initialDesign: design,
+    }),
+  );
+}
+
+/** 시승: 내 노선 열차 한 대를 타 본다. 하루 운행 횟수는 쓰지 않는다. */
+function startRide(design, ran = null) {
+  session.design = design;
+  const mission = session.mission;
+  const options = { year: mission?.baseYear ?? 2026, dayType: mission?.dayType ?? '평일' };
+  const after = ran ?? runWithDesign(design, options);
+  show(() =>
+    renderRide(root, {
+      design,
+      world: after.world,
+      result: after.result,
+      hourShape: ridership.shape[options.dayType] ?? ridership.shape['평일'],
+      dayType: options.dayType,
+      onBack: () => showDesign(mission, design),
+      onHome: showHome,
+    }),
   );
 }
 
@@ -145,7 +173,7 @@ function startEstimate(design) {
         session.estimate = estimate;
         startRunning();
       },
-      onBack: () => showDesign(session.mission),
+      onBack: () => showDesign(session.mission, session.design),
     }),
   );
 }
@@ -206,6 +234,7 @@ function startRunning() {
             onSave: (slot, summary) =>
               saveDesign(slot, { ...summary, title: mission ? mission.title : '자유 설계', design }),
             onHome: showHome,
+            onRide: () => startRide(design, after),
           }),
         ),
     }),
