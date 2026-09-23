@@ -9,9 +9,9 @@ const CREDITS = [
 
 /**
  * @param {HTMLElement} root
- * @param {{onExplore: () => void}} actions
+ * @param {{onExplore: () => void, onCompare: () => void}} actions
  */
-export function renderHome(root, { onExplore }) {
+export function renderHome(root, { onExplore, onCompare }) {
   root.replaceChildren();
 
   const main = document.createElement('main');
@@ -29,6 +29,13 @@ export function renderHome(root, { onExplore }) {
   explore.textContent = '부산 둘러보기';
   explore.addEventListener('click', onExplore);
   buttons.append(explore);
+
+  const compare = document.createElement('button');
+  compare.type = 'button';
+  compare.className = 'button big';
+  compare.textContent = '우리 계산 vs 진짜';
+  compare.addEventListener('click', onCompare);
+  buttons.append(compare);
   main.append(buttons);
 
   const note = document.createElement('p');

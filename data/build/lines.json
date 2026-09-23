@@ -20,7 +20,13 @@
         "lead": "110~113",
         "middle": "120~124"
       },
-      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)"
+      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)",
+      "trainsPerHourPeak": 15,
+      "trainsPerHourTypical": 10,
+      "headwayMin": 6,
+      "serviceSource": "15082980 시각표에서 셈(평일 6~22시, 한 방향)",
+      "capacityPerTrain": 940,
+      "capacitySource": "부산교통공사 전동차 현황·제원에서 계산: 앞칸 2개 110명 + 가운데칸 6개 120명"
     },
     {
       "id": "2",
@@ -42,7 +48,13 @@
         "lead": "113",
         "middle": "124"
       },
-      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)"
+      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)",
+      "trainsPerHourPeak": 14,
+      "trainsPerHourTypical": 9.5,
+      "headwayMin": 6.3,
+      "serviceSource": "15082980 시각표에서 셈(평일 6~22시, 한 방향)",
+      "capacityPerTrain": 722,
+      "capacitySource": "부산교통공사 전동차 현황·제원에서 계산: 앞칸 2개 113명 + 가운데칸 4개 124명"
     },
     {
       "id": "3",
@@ -64,7 +76,13 @@
         "lead": "113",
         "middle": "124"
       },
-      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)"
+      "vehicle": "통근형 직류 전동차(직류 1,500V 가공선)",
+      "trainsPerHourPeak": 11,
+      "trainsPerHourTypical": 8.9,
+      "headwayMin": 6.7,
+      "serviceSource": "15082980 시각표에서 셈(평일 6~22시, 한 방향)",
+      "capacityPerTrain": 474,
+      "capacitySource": "부산교통공사 전동차 현황·제원에서 계산: 앞칸 2개 113명 + 가운데칸 2개 124명"
     },
     {
       "id": "4",
@@ -86,7 +104,13 @@
         "lead": "52",
         "middle": "52~54"
       },
-      "vehicle": "고무차륜 경전철, 무인운전(직류 750V 제3궤조)"
+      "vehicle": "고무차륜 경전철, 무인운전(직류 750V 제3궤조)",
+      "trainsPerHourPeak": 12,
+      "trainsPerHourTypical": 8.5,
+      "headwayMin": 7.1,
+      "serviceSource": "15082980 시각표에서 셈(평일 6~22시, 한 방향)",
+      "capacityPerTrain": 312,
+      "capacitySource": "부산교통공사 전동차 현황·제원에서 계산: 앞칸 2개 52명 + 가운데칸 4개 52명"
     },
     {
       "id": "BGL",
@@ -106,7 +130,12 @@
       "colorSource": "부산교통공사 도시철도 노선도 2024-09-30(공공데이터포털 15054957)의 노선도 그림에서 가장 많이 쓰인 색을 뽑음",
       "carsPerTrain": 2,
       "capacityPerTrain": 184,
-      "vehicle": "철제차륜 경전철, 무인운전(직류 750V 제3궤조)"
+      "vehicle": "철제차륜 경전철, 무인운전(직류 750V 제3궤조)",
+      "trainsPerHourPeak": null,
+      "trainsPerHourTypical": null,
+      "headwayMin": null,
+      "serviceSource": null,
+      "capacitySource": "부산김해경전철 차량 주요사양"
     },
     {
       "id": "DH",
@@ -124,7 +153,13 @@
       "osmRelation": 6708903,
       "color": "#0065B3",
       "colorSource": "부산교통공사 도시철도 노선도 2024-09-30(공공데이터포털 15054957)의 노선도 그림에서 가장 많이 쓰인 색을 뽑음",
-      "carsPerTrain": 4
+      "carsPerTrain": 4,
+      "trainsPerHourPeak": null,
+      "trainsPerHourTypical": null,
+      "headwayMin": null,
+      "serviceSource": null,
+      "capacityPerTrain": null,
+      "capacitySource": null
     }
   ],
   "planned": [

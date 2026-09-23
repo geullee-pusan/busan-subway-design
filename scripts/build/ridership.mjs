@@ -3,7 +3,7 @@
 //  - 김해시 경전철 역사별 시간대별 승하차(15105181, 2025년 부분)
 // 요일 묶음(평일, 토요일, 일요일)마다 하루 평균을 내고, 시간대별 모양도 함께 낸다.
 // 공휴일은 따로 빼지 않는다(자료에 표시가 없다). 그래서 평일 평균에 공휴일이 섞여 있다.
-import { readCsv } from '../lib/csv.mjs';
+import { readCsv, toNumber } from '../lib/csv.mjs';
 import { normalizeName } from './network.mjs';
 
 const DAY_TYPES = ['평일', '토요일', '일요일'];
@@ -72,7 +72,7 @@ export function buildRidership(raw, stations, issues) {
     const t = forStation(id)[dayTypeOfName(row['요일'])];
     t.days.add(row['년월일']);
     const target = row['구분'] === '승차' ? t.board : t.alight;
-    for (const [h, col] of columns.entries()) target[h] += Number(row[col] || 0);
+    for (const [h, col] of columns.entries()) target[h] += toNumber(row[col]);
   }
 
   // 2. 부산김해경전철 (이름으로 맞춘다. 2025년 자료만 쓴다)
@@ -87,7 +87,7 @@ export function buildRidership(raw, stations, issues) {
     const t = forStation(station.id)[dayTypeOfDate(row['영업일자'])];
     t.days.add(row['영업일자']);
     const target = row['분류'] === '승차' ? t.board : t.alight;
-    for (let h = 0; h < 24; h++) target[h] += Number(row[`${String(h).padStart(2, '0')}시 인원`] || 0);
+    for (let h = 0; h < 24; h++) target[h] += toNumber(row[`${String(h).padStart(2, '0')}시 인원`]);
   }
 
   const result = {};
@@ -96,10 +96,24 @@ export function buildRidership(raw, stations, issues) {
     if (tally) result[station.id] = average(tally);
   }
 
+  // 모든 역을 합친 시간대 모양(하루 중 몇 시에 얼마나 타는지). 모델이 하루를 시간대로 나눌 때 쓴다.
+  const shape = {};
+  for (const type of DAY_TYPES) {
+    const hourly = new Array(24).fill(0);
+    for (const station of Object.values(result)) {
+      const day = station[type];
+      if (!day) continue;
+      for (let h = 0; h < 24; h++) hourly[h] += day.hourly.board[h];
+    }
+    const total = hourly.reduce((s, v) => s + v, 0);
+    if (total > 0) shape[type] = hourly.map((v) => Math.round((v / total) * 10000) / 10000);
+  }
+
   // 3. 자료가 없는 역: 게이트가 합쳐진 환승역과 동해선
   const missing = stations.filter((s) => !result[s.id]);
   return {
     stations: result,
+    shape,
     missing: missing.map((s) => s.id),
     unusedRows: [...seen].filter((id) => !stations.some((s) => s.id === id)),
   };

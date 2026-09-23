@@ -90,7 +90,7 @@ const extraPoints = [
   { name: '북정(양산선, OSM)', lon: bukjeong.lon, lat: bukjeong.lat },
   { name: gaya.name, lon: gaya.lon, lat: gaya.lat },
 ];
-const { grid, stats: gridStats, issues: gridIssues, dongs, box } = buildGrid({ raw, config, extraPoints, overrides });
+const { grid, stats: gridStats, issues: gridIssues, dongs, box, dongList } = buildGrid({ raw, config, extraPoints, overrides });
 issues.push(...gridIssues.map((m) => `[격자] ${m}`));
 
 // 구·군 경계선과 해안선(지도에 그릴 선)
@@ -135,6 +135,8 @@ const ridership = {
   source: '부산교통공사 시간대별 승하차인원 2025년(공공데이터포털 3057229), 경상남도 김해시 경전철 역사별 시간대별 승하차 2025년(15105181)',
   note: '요일 묶음별 하루 평균이다. 시간대 값을 반올림하고, 하루 합계는 그 값들을 더한 값이다. 공휴일은 자료에 표시가 없어 평일에 섞여 있다. hourly의 0번은 자정부터 새벽 1시까지다.',
   dayTypes: ['평일', '토요일', '일요일'],
+  shape: ridershipRaw.shape,
+  shapeNote: '모든 역의 승차를 합쳐 만든 시간대 모양이다. 24개 값을 더하면 1이 된다. 모델이 하루를 시간대로 나눌 때 쓴다.',
   stations: ridershipRaw.stations,
   missing: ridershipRaw.missing.map((id) => {
     const station = network.stations.find((s) => s.id === id);
@@ -175,6 +177,46 @@ const service = {
   weekday: summarizeService(trains, humetroOrder, '평일'),
 };
 
+// 5-2. 모델이 쓰는 노선 값: 배차 간격, 가장 바쁜 때의 열차 수, 열차 정원
+const lowNumber = (text) => Number(String(text).split('~')[0]);
+for (const line of network.lines) {
+  const summary = service.weekday.find((s) => s.line === line.id);
+  if (summary) {
+    const counts = summary.directions.flatMap((d) =>
+      Object.entries(d.trainsPerHour)
+        .filter(([hour]) => Number(hour) >= 6 && Number(hour) <= 22)
+        .map(([, n]) => n),
+    );
+    const mean = counts.reduce((s, n) => s + n, 0) / counts.length;
+    line.trainsPerHourPeak = Math.max(...counts);
+    line.trainsPerHourTypical = Math.round(mean * 10) / 10;
+    line.headwayMin = Math.round((60 / mean) * 10) / 10;
+    line.serviceSource = '15082980 시각표에서 셈(평일 6~22시, 한 방향)';
+  } else {
+    line.trainsPerHourPeak = null;
+    line.trainsPerHourTypical = null;
+    line.headwayMin = null;
+    line.serviceSource = null;
+    issues.push(`[노선] ${line.name} 배차 간격: TODO(확인 필요). 시각표 자료가 없어 모델의 기본값을 쓴다.`);
+  }
+
+  const fact = facts.lines?.[line.id] ?? {};
+  if (fact.capacityPerTrain) {
+    line.capacityPerTrain = fact.capacityPerTrain.value;
+    line.capacitySource = fact.capacityPerTrain.source;
+  } else if (fact.capacityPerCar && fact.carsPerTrain) {
+    const lead = lowNumber(fact.capacityPerCar.value.lead);
+    const middle = lowNumber(fact.capacityPerCar.value.middle);
+    const cars = fact.carsPerTrain.value;
+    line.capacityPerTrain = 2 * lead + (cars - 2) * middle;
+    line.capacitySource = `${fact.capacityPerCar.source}에서 계산: 앞칸 2개 ${lead}명 + 가운데칸 ${cars - 2}개 ${middle}명`;
+  } else {
+    line.capacityPerTrain = null;
+    line.capacitySource = null;
+    issues.push(`[노선] ${line.name} 열차 정원: TODO(확인 필요).`);
+  }
+}
+
 // 6. 쓰기
 mkdirSync(OUT, { recursive: true });
 const write = (name, data) => writeFileSync(resolve(OUT, name), typeof data === 'string' ? data : stringify(data));
@@ -193,6 +235,10 @@ write('ridership.json', ridership);
 write('districts.json', districts);
 write('station-info.json', stationInfo);
 write('schematic.json', schematic);
+write('dongs.json', {
+  note: '격자에 걸치는 행정동. x, y는 그 동의 땅 가운데 점(격자 칸 단위)이다. 인구는 행정안전부 2026년 8월 자료다.',
+  dongs: dongList,
+});
 write('build-report.json', { grid: gridStats, stations: network.stations.length, links: network.links.length, issues });
 write(
   'preview.svg',

@@ -6,7 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { metersBetween, normalizeName } from './build/network.mjs';
 import { readTrains, summarizeService } from './build/service.mjs';
-import { readCsv } from './lib/csv.mjs';
+import { readCsv, toNumber } from './lib/csv.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const at = (p) => resolve(ROOT, p);
@@ -130,7 +130,7 @@ const grid = readJson('data/build/grid.json');
 // 4. 칸에 나눈 인구 합계가 공식 부산 인구와 맞는가
 {
   const rows = readCsv(at('data/raw/datagokr/15097972.csv')).records.filter((r) => r['행정기관코드'].startsWith('26'));
-  const official = rows.reduce((s, r) => s + Number(r['계']), 0);
+  const official = rows.reduce((s, r) => s + toNumber(r['계']), 0);
   const inGrid = grid.populationBusan.flat().reduce((s, n) => s + n, 0);
   const all = grid.population.flat().reduce((s, n) => s + n, 0);
   const cellsOk = grid.population.every((row, r) => row.every((n, c) => n >= grid.populationBusan[r][c]));

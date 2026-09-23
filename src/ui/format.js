@@ -64,6 +64,11 @@ export function roParticle(word) {
   return '로';
 }
 
+/** 역 이름 뒤에 "역"을 붙인다. 이미 "역"으로 끝나면 그대로 둔다(부산역 → 부산역). */
+export function stationLabel(name) {
+  return name.endsWith('역') ? name : `${name}역`;
+}
+
 /** 연도만 뽑는다. "1985-07-19" → "1985년" */
 export function yearText(date) {
   return date ? `${date.slice(0, 4)}년` : null;

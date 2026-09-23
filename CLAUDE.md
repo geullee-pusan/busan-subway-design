@@ -40,6 +40,7 @@
 - `npm run fetch`: `scripts/sources.mjs` 목록대로 원본을 `data/raw/`에 받는다(네트워크를 쓴다)
 - `npm run data`: `data/raw/`를 처리해 `data/build/`를 만든다
 - `npm run validate`: 데이터 검증
+- `npm run calibrate`: 모델을 실제 승하차 자료와 맞추고 `docs/calibration.md`를 쓴다
 
 ## 폴더
 - `data/raw/`: 받은 원본. 고치지 않는다.

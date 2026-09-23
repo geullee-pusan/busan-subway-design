@@ -72,6 +72,15 @@ export function parseCsv(text, delimiter = detectDelimiter(text)) {
   return rows.filter((r) => !(r.length === 1 && r[0].trim() === ''));
 }
 
+/**
+ * 칸 값을 숫자로 바꾼다. "1,005"처럼 쉼표가 든 숫자가 있어서 쉼표와 공백을 먼저 지운다.
+ * 빈 칸은 0으로 본다. 숫자가 아니면 NaN을 돌려준다.
+ */
+export function toNumber(text) {
+  const clean = String(text ?? '').replace(/[,\s]/g, '');
+  return clean === '' ? 0 : Number(clean);
+}
+
 /** 파일을 읽어 첫 행을 머리글로 삼은 객체 배열로 돌려준다. 값의 앞뒤 공백은 지운다. */
 export function readCsv(path, { delimiter } = {}) {
   const { text, encoding } = decodeText(readFileSync(path));

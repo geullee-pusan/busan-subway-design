@@ -1,0 +1,24 @@
+{
+  "_설명": "가는 곳(중심지). docs/SPEC.md 5.3절 목록이다. 자리는 역이나 행정동에서 가져오고, 크기는 우리가 정한 값이다(자료가 아니다). 아이와 함께 고쳐도 된다. 크기가 클수록 사람이 더 많이 간다.",
+  "sizeNote": "1에서 5까지. 5가 가장 크다.",
+  "places": [
+    { "id": "seomyeon", "name": "서면", "type": "상업·교통", "size": 5, "at": { "station": "119" } },
+    { "id": "busanstation", "name": "부산역", "type": "교통", "size": 4, "at": { "station": "113" } },
+    { "id": "nampo", "name": "남포·자갈치", "type": "상업·관광", "size": 4, "at": { "station": "111" } },
+    { "id": "centum", "name": "센텀시티·벡스코", "type": "상업·전시", "size": 4, "at": { "station": "206" } },
+    { "id": "yeonsan", "name": "연산·시청", "type": "행정", "size": 3, "at": { "station": "123" } },
+    { "id": "haeundae", "name": "해운대", "type": "관광", "size": 3, "at": { "station": "203" } },
+    { "id": "gwangalli", "name": "광안리", "type": "관광", "size": 3, "at": { "station": "209" } },
+    { "id": "sasang", "name": "사상", "type": "교통·산업", "size": 3, "at": { "station": "227" } },
+    { "id": "dongnae", "name": "동래", "type": "상업", "size": 3, "at": { "station": "125" } },
+    { "id": "pnu", "name": "부산대", "type": "대학", "size": 2, "at": { "station": "128" } },
+    { "id": "ks", "name": "경성대·부경대", "type": "대학", "size": 2, "at": { "station": "212" } },
+    { "id": "airport", "name": "김해공항", "type": "교통", "size": 2, "at": { "station": "BG04" } },
+    { "id": "hadan", "name": "하단", "type": "상업·대학", "size": 2, "at": { "station": "102" } },
+    { "id": "deokcheon", "name": "덕천", "type": "상업", "size": 2, "at": { "station": "233" } },
+    { "id": "noksan", "name": "녹산", "type": "산업", "size": 2, "at": { "dong": "2644056000" } },
+    { "id": "myeongji", "name": "명지", "type": "산업·주거", "size": 2, "at": { "dong": "2644053500" } },
+    { "id": "gimhae", "name": "김해시청", "type": "행정", "size": 2, "at": { "station": "BG14" } },
+    { "id": "yangsan", "name": "양산", "type": "행정", "size": 2, "at": { "station": "243" } }
+  ]
+}

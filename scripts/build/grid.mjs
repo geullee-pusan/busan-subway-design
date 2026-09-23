@@ -9,7 +9,7 @@
 import { readFileSync } from 'node:fs';
 import { assembleRings, projectRing, ringsBBox, bboxOverlaps } from '../lib/geo.mjs';
 import { loadDem } from '../lib/hgt.mjs';
-import { readCsv } from '../lib/csv.mjs';
+import { readCsv, toNumber } from '../lib/csv.mjs';
 import { utm52 } from '../lib/utm.mjs';
 
 export const TERRAIN_TYPES = {
@@ -330,8 +330,8 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
 
   // 8. 인구: 행정동 인구를 살 수 있는 점에 똑같이 나눈다
   const popRows = readCsv(raw('datagokr/15097972.csv')).records;
-  const popByCode = new Map(popRows.map((r) => [r['행정기관코드'], Number(r['계'])]));
-  const busanOfficial = popRows.filter((r) => r['행정기관코드'].startsWith('26')).reduce((s, r) => s + Number(r['계']), 0);
+  const popByCode = new Map(popRows.map((r) => [r['행정기관코드'], toNumber(r['계'])]));
+  const busanOfficial = popRows.filter((r) => r['행정기관코드'].startsWith('26')).reduce((s, r) => s + toNumber(r['계']), 0);
   const counts = inBox.map(() => ({ good: new Map(), mountain: new Map(), any: new Map() }));
   const bump = (map, key) => map.set(key, (map.get(key) ?? 0) + 1);
   for (let j = 0; j < H; j++) {
@@ -458,6 +458,34 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
     populationInGrid: out.population.reduce((s, n) => s + n, 0),
     overrides: overridden.size,
   };
+  // 행정동 목록: 격자에 걸치는 동의 가운데 점(땅 점들의 평균)과 인구. 중심지 좌표와 Phase 2 모델에 쓴다.
+  const dongList = [];
+  inBox.forEach((d, index) => {
+    if (!bboxOverlaps(d.bbox, gridBox)) return;
+    let sx = 0;
+    let sy = 0;
+    let count = 0;
+    for (const [cellIndex, n] of counts[index].any) {
+      const C = cellIndex % exCols;
+      const R = Math.floor(cellIndex / exCols);
+      sx += (C - offCols + 0.5) * n;
+      sy += (R - offRows + 0.5) * n;
+      count += n;
+    }
+    if (count === 0) return;
+    dongList.push({
+      code: d.code,
+      name: d.name,
+      sido: d.sido,
+      sgg: d.sgg,
+      x: Math.round((sx / count) * 100) / 100,
+      y: Math.round((sy / count) * 100) / 100,
+      areaKm2: Math.round((count / (per * per)) * 100) / 100,
+      population: popByCode.get(d.code) ?? null,
+    });
+  });
+  dongList.sort((a, b) => a.code.localeCompare(b.code));
+
   // dongs와 box는 구·군 경계선을 뽑을 때 쓴다(scripts/build/districts.mjs).
-  return { grid, stats, issues, dongs: inBox, box: gridBox };
+  return { grid, stats, issues, dongs: inBox, box: gridBox, dongList };
 }

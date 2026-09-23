@@ -1,7 +1,7 @@
 // 역을 누르면 보여 주는 정보: 이름, 갈아타기, 개통일, 이웃 역, 하루 이용객, 시간대별 이용객, 이름의 유래.
 import { lineById, neighborLinks, ridership, ridershipOf, stationById, stationInfo, transferSiblings } from '../data.js';
 import { barChart, hourlyLineChart } from './chart.js';
-import { countText, dateText, distanceText, durationText, roParticle } from './format.js';
+import { countText, dateText, distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { wordWithCard } from './word-card.js';
 
 const DAY_TYPES = ['평일', '토요일', '일요일'];
@@ -22,6 +22,12 @@ function element(tag, className, text) {
   if (className) node.className = className;
   if (text !== undefined) node.textContent = text;
   return node;
+}
+
+/** "범내골~노포" → "범내골역에서 노포역" */
+function openedWithText(range) {
+  const [from, to] = range.split('~');
+  return `${stationLabel(from)}에서 ${stationLabel(to)}`;
 }
 
 function lineBadge(lineId) {
@@ -57,7 +63,7 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
     // 이름과 노선
     const header = element('div', 'panel-header');
     const title = element('h2', 'panel-title');
-    title.append(lineBadge(station.line), element('span', null, `${station.name}역`));
+    title.append(lineBadge(station.line), element('span', null, stationLabel(station.name)));
     header.append(title);
     if (info?.nameEn) header.append(element('p', 'panel-sub', info.nameEn));
     root.append(header);
@@ -86,7 +92,7 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
     if (info?.openedOn) {
       body.append(element('p', null, `${dateText(info.openedOn)}에 문을 열었어요.`));
       if (info.openedWith && !info.openedWith.startsWith(station.name)) {
-        body.append(element('p', 'panel-note', `그때 ${info.openedWith.replace('~', '역에서 ')}역까지 함께 열었어요.`));
+        body.append(element('p', 'panel-note', `그때 ${openedWithText(info.openedWith)}까지 함께 열었어요.`));
       }
     }
 
@@ -95,7 +101,7 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
     if (neighbors.length > 0) {
       const list = element('ul', 'panel-list');
       for (const n of neighbors) {
-        const text = `${n.other.name}역까지 ${distanceText(n.distanceM)}, ${durationText(n.runS)}`;
+        const text = `${stationLabel(n.other.name)}까지 ${distanceText(n.distanceM)}, ${durationText(n.runS)}`;
         list.append(element('li', null, n.estimated ? `${text} (어림한 값이에요)` : text));
       }
       body.append(element('h3', null, '이웃 역'), list);
@@ -109,7 +115,7 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
       body.append(element('p', 'panel-note', '동해선은 코레일이 운영해서 자료를 구하지 못했어요.'));
     } else {
       if (from) {
-        body.append(element('p', 'panel-note', `${from.name}역(${lineById.get(from.line).name})과 개찰구를 함께 써서, 두 역을 합쳐 센 숫자예요.`));
+        body.append(element('p', 'panel-note', `${stationLabel(from.name)}(${lineById.get(from.line).name})과 개찰구를 함께 써서, 두 역을 합쳐 센 숫자예요.`));
       }
       const picker = element('div', 'day-picker');
       picker.setAttribute('role', 'group');

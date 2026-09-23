@@ -32,6 +32,47 @@ export function barChart(items, { max, width = 320, numberMode = '기본' } = {}
 }
 
 /**
+ * 두 값을 나란히 견주는 막대그래프. rows: [{label, real, model}]
+ * 색만으로 뜻을 전하지 않도록 막대마다 "진짜", "우리 계산" 이름표를 붙인다.
+ */
+export function comparisonChart(rows, { width = 460, numberMode = '기본', color = INK } = {}) {
+  const rowHeight = 74;
+  const height = rows.length * rowHeight + 8;
+  const labelWidth = 110;
+  // 막대 오른쪽에 숫자를 쓸 자리를 남겨 둔다.
+  const barArea = width - labelWidth - 120;
+  const max = Math.max(1, ...rows.flatMap((r) => [r.real, r.model]));
+  const svg = el('svg', { class: 'chart', viewBox: `0 0 ${width} ${height}`, width: '100%', height, role: 'img' });
+  rows.forEach((row, index) => {
+    const y = index * rowHeight + 6;
+    svg.append(el('text', { x: 0, y: y + 20, 'font-size': 16, fill: INK, 'font-weight': 600 }, row.label));
+    const bars = [
+      { name: '진짜', value: row.real, fill: color, opacity: 1 },
+      { name: '우리 계산', value: row.model, fill: color, opacity: 0.45 },
+    ];
+    bars.forEach((bar, i) => {
+      const barY = y + i * 28;
+      svg.append(el('text', { x: 0, y: barY + 34, 'font-size': 14, fill: INK }, bar.name));
+      svg.append(
+        el('rect', {
+          x: labelWidth,
+          y: barY + 20,
+          width: Math.max(2, (barArea * bar.value) / max),
+          height: 18,
+          rx: 4,
+          fill: bar.fill,
+          'fill-opacity': bar.opacity,
+        }),
+      );
+      svg.append(
+        el('text', { x: labelWidth + Math.max(2, (barArea * bar.value) / max) + 6, y: barY + 34, 'font-size': 14, fill: INK }, countText(bar.value, numberMode)),
+      );
+    });
+  });
+  return svg;
+}
+
+/**
  * 시간대별 꺾은선그래프. series: [{label, values(24개), color, dashed}]
  */
 export function hourlyLineChart(series, { width = 340, height = 190, numberMode = '기본' } = {}) {

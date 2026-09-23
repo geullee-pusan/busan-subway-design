@@ -1,5 +1,8 @@
 // data/build/의 게임용 자료를 한곳에서 읽는다. 빌드할 때 파일 안에 함께 들어간다(오프라인).
+import placesFile from './content/places.json';
+import rulesFile from './content/rules.json';
 import districtsFile from '../data/build/districts.json';
+import dongsFile from '../data/build/dongs.json';
 import gridFile from '../data/build/grid.json';
 import linesFile from '../data/build/lines.json';
 import linksFile from '../data/build/links.json';
@@ -21,6 +24,9 @@ export const ridership = ridershipFile;
 export const stationInfo = stationInfoFile.stations;
 export const schematic = schematicFile;
 export const service = serviceFile;
+export const dongs = dongsFile.dongs;
+export const places = placesFile.places;
+export const ruleCards = rulesFile.rules;
 
 /** 역 id → 역 */
 export const stationById = new Map(stations.map((s) => [s.id, s]));

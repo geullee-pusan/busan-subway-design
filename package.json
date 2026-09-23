@@ -10,7 +10,8 @@
     "test": "node --test \"tests/**/*.test.js\"",
     "fetch": "node scripts/fetch.mjs",
     "data": "node scripts/build-data.mjs",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "calibrate": "node scripts/calibrate.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
