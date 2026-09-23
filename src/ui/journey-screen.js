@@ -335,6 +335,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     const side = chimeSide(stationSounds.downEnds, place.lineId, end.ko);
     const chime = side ? stationSounds.chimes[side] : null;
     const spoken = stationSounds.approach[`${place.lineId}|${end.ko}`] ?? null;
+    const spokenEnglish = stationSounds.approachEnglish?.[`${place.lineId}|${end.ko}`] ?? null;
     if (chime || spoken) area.append(element('p', 'panel-note', '승강장 소리는 부산교통공사의 실제 녹음이에요.'));
     const sound = createRideSound();
     rideCleanup = () => sound.stopAll();
@@ -346,7 +347,11 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       // 안내음이 끝나면 열차가 들어오기 시작하고, 진입 방송이 나오는 동안 들어와 선다.
       const chimeDone = soundOn && chime ? sound.playClip(chime) : Promise.resolve();
       await chimeDone;
-      const voice = soundOn && spoken ? sound.playClip(spoken) : Promise.resolve();
+      // 한국어 방송 뒤에 영어 방송
+      const voice = (async () => {
+        if (soundOn && spoken) await sound.playClip(spoken);
+        if (soundOn && spokenEnglish) await sound.playClip(spokenEnglish);
+      })();
       await Promise.all([art.arrive(3000), voice]);
       art.openDoors();
       ledText.textContent = `${end.ko}행 열차가 도착했어요`;

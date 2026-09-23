@@ -35,11 +35,14 @@ test('열차진입 안내음: 하행 끝 역으로 가면 하행, 아니면 상�
   assert.equal(chimeSide(downEnds, 'DH', '태화강'), null);
 });
 
-test('승강장 소리 자료: 안내음 둘, 1~4호선 끝 역 진입 방송 여덟, 모두 MP3', { skip: existsSync(soundsPath) ? false : 'npm run station-sounds를 먼저 돌려요' }, () => {
+test('승강장 소리 자료: 안내음 둘, 1~4호선 끝 역 진입 방송 여덟(한국어, 영어), 모두 MP3', { skip: existsSync(soundsPath) ? false : 'npm run station-sounds를 먼저 돌려요' }, () => {
   const sounds = JSON.parse(readFileSync(soundsPath, 'utf8'));
   const isMp3 = (base64) => Buffer.from(base64.slice(0, 8), 'base64').subarray(0, 3).toString('latin1') === 'ID3';
   assert.ok(isMp3(sounds.chimes.up) && isMp3(sounds.chimes.down));
   assert.deepEqual(Object.keys(sounds.approach).sort(), ['1|노포', '1|다대포해수욕장', '2|양산', '2|장산', '3|대저', '3|수영', '4|미남', '4|안평']);
   assert.ok(Object.values(sounds.approach).every(isMp3));
+  // 영어 방송도 같은 여덟 행선지
+  assert.deepEqual(Object.keys(sounds.approachEnglish).sort(), Object.keys(sounds.approach).sort());
+  assert.ok(Object.values(sounds.approachEnglish).every(isMp3));
   assert.deepEqual(Object.keys(sounds.downEnds).sort(), ['1', '2', '3', '4']);
 });

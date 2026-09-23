@@ -2,7 +2,7 @@
 //
 // 원본: 공공데이터포털 3033578 부산교통공사_부산도시철도 역사 안내방송_20250831(이용허락범위 제한 없음)
 //  - "1. 열차진입 알림음": 상행선(갈매기, 파도 소리), 하행선(뱃고동, 파도 소리)
-//  - "2. 열차진입방송": 호선·행선지별 방송(한국어만 쓴다). 짧게 도는 열차(신평행, 광안행 등)는 뺀다.
+//  - "2. 열차진입방송": 호선·행선지별 방송(한국어와 영어). 짧게 도는 열차(신평행, 광안행 등)는 뺀다.
 // 파일 이름은 .MP4지만 속은 MP3(ID3)다. 게임 한 파일에 넣으려고 base64 글자로 바꾼다.
 //
 // 어느 방향이 상행인지: 운행 정보(15082980)에 상행·하행 칸이 없다. 우리나라 철도에서 흔히 쓰는
@@ -62,37 +62,39 @@ const down = Object.fromEntries(
 // 2. 알림음과 진입 방송
 const zip = unzip(readFileSync(resolve(ROOT, 'data/raw/datagokr/3033578.zip')), (name) => {
   if (name.startsWith('1. 열차진입 알림음/') && name.endsWith('.MP4')) return true;
-  return name.startsWith('2. 열차진입방송/') && name.includes('(한국어)');
+  return name.startsWith('2. 열차진입방송/') && (name.includes('(한국어)') || name.includes('(영어)'));
 });
 /** 긴 노선 끝 역(짧게 도는 열차의 행선지는 뺀다) */
 const MAIN_ENDS = { 1: ['노포', '다대포해수욕장'], 2: ['장산', '양산'], 3: ['수영', '대저'], 4: ['미남', '안평'] };
 const chimes = {};
 const approach = {};
+const approachEnglish = {};
 for (const [name, body] of Object.entries(zip)) {
   if (body.subarray(0, 3).toString('latin1') !== 'ID3') throw new Error(`MP3가 아니에요: ${name}`);
   const base64 = body.toString('base64');
   if (name.includes('상행선')) chimes.up = base64;
   else if (name.includes('하행선')) chimes.down = base64;
   else {
-    const match = /(\d)호선 (.+)행\(한국어\)/.exec(name);
+    const match = /(\d)호선 (.+)행\((한국어|영어)\)/.exec(name);
     if (!match) continue;
-    const [, line, end] = match;
+    const [, line, end, language] = match;
     if (!MAIN_ENDS[line]?.includes(end)) continue;
-    approach[`${line}|${end}`] = base64;
+    (language === '영어' ? approachEnglish : approach)[`${line}|${end}`] = base64;
   }
 }
 if (!chimes.up || !chimes.down) throw new Error('알림음을 찾지 못했어요');
 
 const out = {
   _설명:
-    '승강장 소리(부산교통공사 실제 녹음, MP3를 base64로). chimes: 열차진입 알림음(up = 상행선 갈매기·파도, down = 하행선 뱃고동·파도). approach: "호선|끝 역" → 열차진입 방송(한국어). downEnds: 호선마다 하행으로 보는 끝 역(열차 번호가 홀수인 열차가 가는 끝 역, TODO 확인 필요). 만든 곳: scripts/build-station-sounds.mjs',
+    '승강장 소리(부산교통공사 실제 녹음, MP3를 base64로). chimes: 열차진입 알림음(up = 상행선 갈매기·파도, down = 하행선 뱃고동·파도). approach: "호선|끝 역" → 열차진입 방송(한국어), approachEnglish: 같은 열차의 영어 방송. downEnds: 호선마다 하행으로 보는 끝 역(열차 번호가 홀수인 열차가 가는 끝 역, TODO 확인 필요). 만든 곳: scripts/build-station-sounds.mjs',
   source: '공공데이터포털 3033578 부산교통공사_부산도시철도 역사 안내방송_20250831',
   downEnds: down,
   chimes,
   approach,
+  approachEnglish,
 };
 writeFileSync(resolve(ROOT, 'data/build/station-sounds.json'), JSON.stringify(out));
 const size = Buffer.byteLength(JSON.stringify(out));
 console.log(`하행 끝 역: ${JSON.stringify(down)}`);
-console.log(`진입 방송 ${Object.keys(approach).length}개: ${Object.keys(approach).join(', ')}`);
+console.log(`진입 방송 한국어 ${Object.keys(approach).length}개, 영어 ${Object.keys(approachEnglish).length}개: ${Object.keys(approach).join(', ')}`);
 console.log(`station-sounds.json ${(size / 1024).toFixed(0)}KB`);
