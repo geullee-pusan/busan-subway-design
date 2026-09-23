@@ -87,22 +87,55 @@ export function crowdWord(ratio) {
 }
 
 /**
- * 두 역 사이 칸들의 지형과 노선 종류로 창밖 모습을 고른다.
- * 경전철은 땅 위(높은 다리)로 달린다. 강이나 바다를 지나면 다리 위다.
- * 들판은 높은 다리, 강은 다리, 나머지(도시, 언덕, 산, 바다)는 땅속이나 바다 밑이다(src/content/rules.json 공사비 카드와 같다).
+ * 두 역 사이가 땅 위인지 땅속인지를 가까운 기존 역을 보고 정한다.
+ * 선이 지나는 칸마다 가장 가까운 기존 역(반지름 안)이 땅 위 역인지 땅속 역인지 세어 많은 쪽을 고른다.
+ * 기존 역이 땅 위인지는 역 도로명주소에 "지하"가 있는지로 안다(부산교통공사 역정보).
+ * @param {{x: number, y: number}[]} points 선이 지나는 칸 가운데(칸 단위, 1칸 = 1km)
+ * @param {{x: number, y: number, above: boolean}[]} known 땅 위·땅속을 아는 기존 역
+ * @param {number} [radiusKm] 이보다 먼 역은 보지 않는다
+ * @returns {{level: 'above'|'under'|null, above: number, under: number}} 가까운 역이 없으면 level은 null
+ */
+export function lineLevel(points, known, radiusKm = 1.5) {
+  let above = 0;
+  let under = 0;
+  for (const point of points) {
+    let best = null;
+    let bestKm = Infinity;
+    for (const station of known) {
+      const km = Math.hypot(station.x - point.x, station.y - point.y);
+      if (km < bestKm) {
+        bestKm = km;
+        best = station;
+      }
+    }
+    if (!best || bestKm > radiusKm) continue;
+    if (best.above) above += 1;
+    else under += 1;
+  }
+  const level = above === 0 && under === 0 ? null : above > under ? 'above' : 'under';
+  return { level, above, under };
+}
+
+/**
+ * 두 역 사이 칸들의 지형, 노선 종류, 땅 위·땅속으로 창밖 모습을 고른다.
+ *  - 경전철은 늘 땅 위(높은 다리)로 달린다.
+ *  - 지하철은 가까운 기존 역을 따른다(lineLevel). 가까운 역이 없으면 들판이 많을 때만 땅 위다.
+ *  - 땅 위에서 강이나 바다를 만나면 다리 위, 땅속에서 만나면 그 밑으로 지난다.
  * @param {string[]} terrains 두 역 사이 칸들의 지형(끝 칸 포함)
  * @param {string} [kind] 노선 종류('지하철' 또는 '경전철')
- * @returns {'땅속'|'바다 밑'|'강 위 다리'|'바다 위 다리'|'높은 다리'}
+ * @param {'above'|'under'|null} [level] 가까운 기존 역으로 정한 땅 위·땅속
+ * @returns {'땅속'|'강 밑'|'바다 밑'|'높은 다리'|'강 위 다리'|'바다 위 다리'}
  */
-export function windowScene(terrains, kind = '지하철') {
+export function windowScene(terrains, kind = '지하철', level = null) {
   const count = (name) => terrains.filter((t) => t === name).length;
-  if (kind === '경전철') {
+  const byField = terrains.length > 0 && count('field') * 2 > terrains.length;
+  const aboveGround = kind === '경전철' || level === 'above' || (level === null && byField);
+  if (aboveGround) {
     if (count('sea') > 0) return '바다 위 다리';
     if (count('river') > 0) return '강 위 다리';
     return '높은 다리';
   }
   if (count('sea') > 0) return '바다 밑';
-  if (count('river') > 0) return '강 위 다리';
-  if (terrains.length > 0 && count('field') * 2 > terrains.length) return '높은 다리';
+  if (count('river') > 0) return '강 밑';
   return '땅속';
 }

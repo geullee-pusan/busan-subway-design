@@ -1,7 +1,12 @@
 // 시승 모드 테스트: 열차 한 대의 사람 수, 타고 내린 사람, 창밖 모습
 import assert from 'node:assert/strict';
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
-import { crowdWord, rideTrip, windowScene } from '../src/sim/ride.js';
+import { fileURLToPath } from 'node:url';
+import { crowdWord, lineLevel, rideTrip, windowScene } from '../src/sim/ride.js';
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 const stops = [
   { id: 'A', name: '가' },
@@ -83,13 +88,43 @@ test('붐빔 말과 창밖 모습', () => {
   assert.equal(crowdWord(0.5), '서서 가는 사람이 있어요');
   assert.equal(crowdWord(0.9), '붐벼요');
   assert.equal(crowdWord(1.3), '아주 붐벼요');
+  // 지하철, 가까운 역이 없을 때: 들판이 많으면 땅 위, 아니면 땅속
   assert.equal(windowScene(['flat', 'flat']), '땅속');
-  assert.equal(windowScene(['flat', 'river', 'flat']), '강 위 다리');
+  assert.equal(windowScene(['flat', 'river', 'flat']), '강 밑');
   assert.equal(windowScene(['flat', 'sea', 'river']), '바다 밑');
   assert.equal(windowScene(['field', 'field', 'flat']), '높은 다리');
+  assert.equal(windowScene(['field', 'river', 'field']), '강 위 다리');
+  // 지하철, 가까운 역을 따를 때
+  assert.equal(windowScene(['flat', 'flat'], '지하철', 'above'), '높은 다리');
+  assert.equal(windowScene(['flat', 'river'], '지하철', 'above'), '강 위 다리');
+  assert.equal(windowScene(['field', 'field'], '지하철', 'under'), '땅속');
   // 경전철은 땅 위로 달린다.
   assert.equal(windowScene(['flat', 'hill'], '경전철'), '높은 다리');
   assert.equal(windowScene(['flat', 'river'], '경전철'), '강 위 다리');
   assert.equal(windowScene(['flat', 'sea', 'river'], '경전철'), '바다 위 다리');
   assert.equal(windowScene(['flat', 'hill'], '지하철'), '땅속');
+});
+
+test('땅 위·땅속: 가까운 기존 역을 따라 많은 쪽을 고른다', () => {
+  const known = [
+    { x: 0, y: 0, above: true },
+    { x: 5, y: 0, above: false },
+  ];
+  // 세 칸 모두 땅 위 역이 가장 가깝다.
+  assert.deepEqual(lineLevel([{ x: 0.5, y: 0 }, { x: 1, y: 0 }, { x: 1.4, y: 0 }], known), { level: 'above', above: 3, under: 0 });
+  // 둘은 땅속 역, 하나는 땅 위 역
+  assert.equal(lineLevel([{ x: 1, y: 0 }, { x: 4, y: 0 }, { x: 4.5, y: 0 }], known).level, 'under');
+  // 반지름(1.5km) 밖이면 보지 않는다.
+  assert.deepEqual(lineLevel([{ x: 2.5, y: 3 }], known), { level: null, above: 0, under: 0 });
+  // 같으면 땅속
+  assert.equal(lineLevel([{ x: 1, y: 0 }, { x: 4, y: 0 }], known).level, 'under');
+});
+
+test('땅 위·땅속: 실제 부산 역 주소에서 땅 위 역은 1호선 노포, 3호선 대저 같은 곳이다', { skip: !existsSync(resolve(ROOT, 'data/build/station-info.json')) }, () => {
+  const info = JSON.parse(readFileSync(resolve(ROOT, 'data/build/station-info.json'), 'utf8')).stations;
+  const above = (name, line) => Object.values(info).find((s) => s.name === name && s.line === line)?.address.includes('지하') === false;
+  assert.equal(above('노포', '1'), true);
+  assert.equal(above('대저', '3'), true);
+  assert.equal(above('서면', '1'), false);
+  assert.equal(above('해운대', '2'), false);
 });

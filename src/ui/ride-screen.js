@@ -2,13 +2,13 @@
 // 하행(첫 역 → 끝 역)과 상행(끝 역 → 첫 역), 타는 시간대를 고른다.
 // 역마다 역명판과 안내 방송이 나오고, 열차 안 그림에 타고 있는 사람 수만큼 사람이 보인다.
 // 다음 역으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
-import { futureLines, grid, lineById, ruleTables, stationById } from '../data.js';
+import { futureLines, grid, lineById, ruleTables, stationById, stationInfo, stations as allStations } from '../data.js';
 import { terrainAt } from '../sim/design.js';
 import { NEW_LINE_ID } from '../sim/design-world.js';
 import announcementsFile from '../content/announcements.json';
 import { announcementLines, englishLines } from '../sim/announce.js';
 import { romanize } from '../sim/romanize.js';
-import { crowdWord, rideTrip, windowScene } from '../sim/ride.js';
+import { crowdWord, lineLevel, rideTrip, windowScene } from '../sim/ride.js';
 import { lineRoutes } from '../sim/train-motion.js';
 import { countText, durationText, roParticle, stationLabel } from './format.js';
 import { DESIGN_COLOR, labelInk } from './map.js';
@@ -49,6 +49,7 @@ const SCENE_TEXT = {
   '바다 밑': '지금은 바다 밑을 달려요.',
   '강 위 다리': '지금은 강 위 다리를 건너요.',
   '바다 위 다리': '지금은 바다 위 다리를 건너요.',
+  '강 밑': '지금은 강 밑을 지나요.',
   '높은 다리': '지금은 높은 다리 위를 달려요.',
 };
 
@@ -149,16 +150,33 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     return best?.name ?? null;
   }
 
-  /** 두 역 사이 창밖 모습(선이 지나는 칸의 지형) */
+  /**
+   * 땅 위·땅속을 아는 기존 역(1~4호선). 역 도로명주소에 "지하"가 있으면 땅속 역이다(부산교통공사 역정보).
+   * 부산김해경전철과 동해선은 주소 자료가 없어 뺀다.
+   */
+  const knownLevels = allStations
+    .filter((s) => stationInfo[s.id]?.address)
+    .map((s) => ({ x: s.x, y: s.y, above: !stationInfo[s.id].address.includes('지하') }));
+
+  /** 두 역 사이 창밖 모습과 그렇게 고른 까닭 */
   function sceneBetween(a, b) {
     const i = design.path.indexOf(cellOf.get(a));
     const j = design.path.indexOf(cellOf.get(b));
-    if (i < 0 || j < 0) return '땅속';
+    if (i < 0 || j < 0) return { scene: '땅속', why: null };
     const cells = design.path.slice(Math.min(i, j), Math.max(i, j) + 1);
-    return windowScene(
-      cells.map((cell) => terrainAt(grid, cell)),
-      design.kind,
-    );
+    const terrains = cells.map((cell) => terrainAt(grid, cell));
+    const points = cells.map((cell) => ({ x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5 }));
+    const { level } = design.kind === '경전철' ? { level: null } : lineLevel(points, knownLevels);
+    const scene = windowScene(terrains, design.kind, level);
+    const why =
+      design.kind === '경전철'
+        ? '경전철은 땅 위로 달려요.'
+        : level === 'above'
+          ? '가까운 지하철역이 땅 위에 있어요.'
+          : level === 'under'
+            ? '가까운 지하철역이 땅속에 있어요.'
+            : null;
+    return { scene, why };
   }
 
   // 고른 것과 지금 자리
@@ -624,8 +642,8 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
       return g;
     }
     const moving = svgEl('g', { class: reduceMotion ? '' : 'ride-scene-move' });
-    if (scene === '땅속' || scene === '바다 밑') {
-      g.append(svgEl('rect', { x: 0, y: 40, width: 800, height: 140, fill: scene === '바다 밑' ? '#1C3446' : '#26313A' }));
+    if (scene === '땅속' || scene === '바다 밑' || scene === '강 밑') {
+      g.append(svgEl('rect', { x: 0, y: 40, width: 800, height: 140, fill: scene === '땅속' ? '#26313A' : '#1C3446' }));
       for (let x = 0; x < 1600; x += 80) moving.append(svgEl('rect', { x, y: 96, width: 36, height: 6, rx: 3, fill: '#F3D36B' }));
     } else {
       g.append(svgEl('rect', { x: 0, y: 40, width: 800, height: 140, fill: '#BFE3F5' }));
@@ -684,10 +702,12 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
 
     // 창밖과 열차 안 사람. 역에서는 사람들이 타고 내린 뒤 모습이다.
     const inside = moving ? trip.stops[at - 1].load : isLast ? 0 : stop.load;
-    const scene = moving ? sceneBetween(trip.stops[at - 1].id, stop.id) : null;
+    const view = moving ? sceneBetween(trip.stops[at - 1].id, stop.id) : null;
+    const scene = view?.scene ?? null;
     const car = interior(inside, scene, moving ? null : stop.name);
     left.append(car.svg);
     if (moving) left.append(element('p', 'panel-note', SCENE_TEXT[scene]));
+    if (moving && view.why) left.append(element('p', 'panel-note guide', view.why));
     if (!moving) left.append(stationSign());
 
     // 방송
