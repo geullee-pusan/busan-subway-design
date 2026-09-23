@@ -93,13 +93,15 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
  * 지도 귀퉁이에 도구를 모아 둔다. 한 귀퉁이 안에서는 세로로 쌓아서 서로 겹치지 않는다.
  * 귀퉁이 상자 자체는 손가락을 통과시켜서, 도구 사이 빈 곳으로도 지도를 끌 수 있다.
  */
-export function mapCorners({ topRight = [], bottomRight = [], bottomLeft = [] }) {
+export function mapCorners({ topLeft = [], topRight = [], bottomRight = [], bottomLeft = [] }) {
   const corner = (name, items) => {
     const box = element('div', `map-corner ${name}`);
     box.append(...items);
     return box;
   };
-  return [corner('top-right', topRight), corner('bottom-right', bottomRight), corner('bottom-left', bottomLeft)];
+  const boxes = [corner('top-right', topRight), corner('bottom-right', bottomRight), corner('bottom-left', bottomLeft)];
+  // 왼쪽 위는 쓸 때만 만든다(다른 화면에는 없다).
+  return topLeft.length > 0 ? [corner('top-left', topLeft), ...boxes] : boxes;
 }
 
 /** 축척 막대: 확대 배율에 따라 1, 2, 5, 10, 20km 가운데 알맞은 것을 고른다. */

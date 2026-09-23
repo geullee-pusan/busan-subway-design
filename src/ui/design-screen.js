@@ -1,11 +1,11 @@
 // 설계 화면(docs/SPEC.md 6장 2번, 7.2절).
 // 격자를 따라 선을 긋고 역을 놓는다. 공사비와 예산이 바로 보이고, 되돌리기는 무제한이다.
 import { futureLines, grid, ruleTables, stations } from '../data.js';
-import { BASE_YEAR, networkOfYear, rules, stationNameContext } from '../model.js';
+import { BASE_YEAR, designStationInfo, networkOfYear, rules, stationNameContext } from '../model.js';
 import { TRAINS_PER_HOUR, checkDesign, designCost, headway, stationGaps } from '../sim/design.js';
 import { extendPath } from '../sim/design.js';
 import { cleanStationName, nameStations } from '../sim/station-names.js';
-import { distanceText, durationText, moneyBlocks, moneyText, stationLabel } from './format.js';
+import { countText, distanceText, durationText, moneyBlocks, moneyText, stationLabel } from './format.js';
 import { createMap } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { loadView, saveView } from './storage.js';
@@ -26,6 +26,8 @@ function shownName(entry) {
   return entry.source === '차례' ? entry.name : stationLabel(entry.name);
 }
 const KINDS = ['경전철', '지하철'];
+/** 예상 승객 단계(1~5)를 아이 말로 */
+const RIDER_WORDS = ['', '아주 조금', '조금', '보통', '많이', '아주 많이'];
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -66,6 +68,10 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
   const nameContext = stationNameContext(baseYear);
   /** 지금 이름을 고치고 있는 역의 칸. 없으면 null */
   let editing = null;
+  /** 마지막으로 놓은 역의 칸. 지도 왼쪽 위에 그 역의 정보 단추를 띄운다. */
+  let lastPlaced = null;
+  /** 역 정보는 설계가 바뀔 때만 다시 센다(하루를 한 번 돌린다). */
+  let infoCache = { key: null, info: null };
 
   /** 설계의 역마다 이름을 정한다(선을 따라 차례로). */
   function namesOf(d) {
@@ -110,8 +116,15 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
   legend.append(legendBox({ view: '실제 지도', showDesign: true, future: showFuture }));
   const scale = scaleBar();
   const credit = element('p', 'credit', '© OpenStreetMap contributors');
+  // 마지막으로 놓은 역의 정보 단추(역을 놓으면 뜬다)
+  const infoSpot = element('div', 'map-info-spot');
   mapBox.append(
-    ...mapCorners({ topRight: [northArrow(), zoomButtons(map)], bottomRight: [scale, credit], bottomLeft: [legend] }),
+    ...mapCorners({
+      topLeft: [infoSpot],
+      topRight: [northArrow(), zoomButtons(map)],
+      bottomRight: [scale, credit],
+      bottomLeft: [legend],
+    }),
   );
   map.element.addEventListener('map-zoom', (event) => scale.update(event.detail.k));
   main.append(mapBox, panel);
@@ -155,6 +168,7 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
       if (!design.path.includes(cell)) return;
       remember();
       const has = design.stations.includes(cell);
+      lastPlaced = has ? null : cell;
       design = {
         ...design,
         stations: has ? design.stations.filter((s) => s !== cell) : [...design.stations, cell],
@@ -198,8 +212,128 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
     const kept = Object.fromEntries(Object.entries(names).filter(([cell]) => design.stations.includes(Number(cell))));
     if (Object.keys(kept).length !== Object.keys(names).length) design = { ...design, names: kept };
     if (editing !== null && !design.stations.includes(editing)) editing = null;
+    if (lastPlaced !== null && !design.stations.includes(lastPlaced)) lastPlaced = null;
     map.setDesign(withNames(design));
     renderPanel();
+    renderInfoSpot();
+  }
+
+  /** 지도 왼쪽 위: 마지막으로 놓은 역의 정보 단추 */
+  function renderInfoSpot() {
+    infoSpot.replaceChildren();
+    if (lastPlaced === null) return;
+    const entry = namesOf(design).find((item) => item.cell === lastPlaced);
+    if (!entry) return;
+    const open = button(`ⓘ ${shownName(entry)} 정보`, () => openInfo(entry.cell), 'button info-button');
+    open.setAttribute('aria-label', `${shownName(entry)} 정보 보기`);
+    infoSpot.append(open);
+  }
+
+  /** 설계의 역 정보(칸 → 정보). 같은 설계면 다시 세지 않는다. */
+  function stationInfo() {
+    const key = JSON.stringify([design.path, design.stations, design.kind, design.trainsPerHour]);
+    if (infoCache.key !== key) {
+      infoCache = {
+        key,
+        info: designStationInfo(withNames(design), { year: baseYear, dayType: mission?.dayType ?? '평일' }),
+      };
+    }
+    return infoCache.info;
+  }
+
+  /** 막대 한 줄: 이름, 막대, 값 */
+  function barRow(label, value, max, text) {
+    const row = element('div', 'info-bar-row');
+    const track = element('div', 'run-bar');
+    const fill = element('div', 'run-bar-fill');
+    fill.style.width = `${max > 0 ? Math.min(100, (value / max) * 100).toFixed(1) : 0}%`;
+    fill.style.background = '#c0392b';
+    track.append(fill);
+    row.append(element('span', 'info-bar-name', label), track, element('span', 'info-bar-value', text));
+    return row;
+  }
+
+  /** 역 정보 창을 연다. */
+  function openInfo(cell) {
+    const entry = namesOf(design).find((item) => item.cell === cell);
+    if (!entry) return;
+    const info = stationInfo()[cell];
+    if (!info) return;
+    // 열려 있던 창은 닫는다(한 번에 하나만).
+    for (const old of screen.querySelectorAll('.info-dialog')) old.remove();
+    const dialog = element('dialog', 'info-dialog');
+    const shut = () => {
+      if (dialog.open) dialog.close();
+      dialog.remove();
+    };
+    dialog.setAttribute('aria-label', `${shownName(entry)} 정보`);
+    const head = element('div', 'info-head');
+    head.append(element('span', 'name-order', `${entry.order}`), element('h2', null, shownName(entry)));
+    dialog.append(head);
+
+    if (info.transfers.length > 0) {
+      const line = element('p');
+      const where = info.transfers.map((t) => `${stationLabel(t.name)}(${t.line})`).join(', ');
+      line.append(wordWithCard('환승', '갈아탈'), element('span', null, ` 수 있어요: ${where}`));
+      dialog.append(line);
+    }
+
+    // 둘레에 사는 사람
+    const walkMin = rules.walkMaxMin;
+    dialog.append(element('h3', null, '둘레에 사는 사람'));
+    dialog.append(element('p', 'panel-note guide', `걸어서 ${walkMin}분 안에 사는 사람을 세요.`));
+    const max = info.walkPeople;
+    dialog.append(
+      barRow('걸어서 올 수 있어요', info.walkPeople, max, countText(info.walkPeople)),
+      barRow('이 역이 가장 가까워요', info.closestPeople, max, countText(info.closestPeople)),
+      barRow('처음으로 역이 생겨요', info.newPeople, max, countText(info.newPeople)),
+    );
+    if (info.newPeople === 0 && info.walkPeople > 0) {
+      dialog.append(element('p', 'panel-note', '여기 사는 사람은 이미 걸어갈 역이 있어요.'));
+    }
+
+    // 예상 승객: 숫자 없이 그림으로만(어림하기는 아이가 직접 한다)
+    dialog.append(element('h3', null, '예상 승객'));
+    if (info.riderLevel === null) {
+      dialog.append(element('p', null, '역을 두 개 넘게 놓으면 알 수 있어요.'));
+    } else if (info.riderLevel === 0) {
+      dialog.append(element('p', null, '타는 사람이 거의 없어요.'));
+    } else {
+      const icons = element('div', 'rider-icons');
+      icons.setAttribute('role', 'img');
+      icons.setAttribute('aria-label', `사람 5개 가운데 ${info.riderLevel}개`);
+      for (let i = 1; i <= 5; i++) {
+        const on = i <= info.riderLevel;
+        icons.append(element('span', on ? 'rider-icon on' : 'rider-icon', on ? '●' : '○'));
+      }
+      dialog.append(icons);
+      dialog.append(element('p', null, `부산의 다른 역과 견주면 "${RIDER_WORDS[info.riderLevel]}" 타요.`));
+      dialog.append(element('p', 'panel-note', '몇 명인지는 하루 운행을 해 보면 알 수 있어요.'));
+    }
+
+    // 걸어갈 수 있는 중심지
+    const placesTitle = element('h3');
+    placesTitle.append(element('span', null, '걸어갈 수 있는 '), wordWithCard('중심지', '중심지'));
+    dialog.append(placesTitle);
+    if (info.places.length === 0) {
+      dialog.append(element('p', null, '걸어갈 수 있는 중심지는 없어요.'));
+    } else {
+      for (const place of info.places.slice(0, 4)) {
+        const minutes = Math.max(1, Math.round(place.walkMin));
+        dialog.append(barRow(place.name, minutes, walkMin, `걸어서 ${durationText(minutes * 60)}`));
+      }
+    }
+
+    const close = button('닫기', shut, 'button big');
+    dialog.append(close);
+    dialog.addEventListener('close', () => dialog.remove());
+    // 창 밖(어두운 곳)을 눌러도 닫힌다.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) shut();
+    });
+    screen.append(dialog);
+    dialog.showModal();
+    close.focus();
   }
 
   /** 역 이름 목록. 이름을 누르면 그 자리에서 고칠 수 있다. */
@@ -222,6 +356,7 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
     );
     panel.append(element('p', 'panel-note guide', '이름을 누르면 고칠 수 있어요.'));
     panel.append(element('p', 'panel-note guide', '움직이기를 고르고 지도의 새 역 이름을 눌러도 돼요.'));
+    panel.append(element('p', 'panel-note guide', '정보를 누르면 둘레에 사는 사람과 예상 승객을 볼 수 있어요.'));
 
     const list = element('ol', 'name-list');
     for (const entry of named) {
@@ -229,12 +364,15 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
       if (editing === entry.cell) {
         item.append(nameEditor(entry));
       } else {
+        item.className = 'name-row';
         const open = button('', () => startEditing(entry.cell), 'name-button');
         open.append(element('span', 'name-order', `${entry.order}`), element('span', 'name-text', shownName(entry)));
         const from = NAME_SOURCES[entry.source];
         if (from) open.append(element('span', 'name-source', from));
         open.setAttribute('aria-label', `${entry.order}번째 역 ${shownName(entry)}, 눌러서 이름 고치기`);
-        item.append(open);
+        const info = button('ⓘ 정보', () => openInfo(entry.cell), 'button info-button');
+        info.setAttribute('aria-label', `${shownName(entry)} 정보 보기`);
+        item.append(open, info);
       }
       list.append(item);
     }

@@ -21,9 +21,10 @@ import {
   transfers,
 } from './data.js';
 import { compareToReal, meetsTargets } from './sim/compare.js';
-import { withDesign } from './sim/design-world.js';
+import { NEW_LINE_ID, withDesign } from './sim/design-world.js';
 import { networkAt } from './sim/history.js';
 import { prepareWorld, runDay } from './sim/run.js';
+import { riderLevel, stationSurroundings } from './sim/station-info.js';
 import { buildWorld, rulesFromCards } from './sim/world.js';
 
 /** 지금 쓰는 규칙 값. 부모가 바꾸면 setRules로 갈아 끼운다. */
@@ -181,4 +182,52 @@ export function stationNameContext(year = BASE_YEAR) {
     dongs: dongs.map((d) => ({ name: d.name, x: d.x, y: d.y })),
     places: placeSpots,
   };
+}
+
+/**
+ * 설계 화면의 역 정보(칸 번호 → 정보). 역이 둘 넘으면 하루를 돌려 예상 승객 단계도 구한다.
+ * 예상 승객은 숫자가 아니라 부산의 다른 역과 견준 단계(1~5)로만 돌려준다. 어림하기를 남겨 두려는 것이다.
+ * @param {object} design 설계(stationPoints가 있으면 갈아타는 역 자리를 쓴다)
+ * @param {{year?: number, dayType?: string}} options
+ */
+export function designStationInfo(design, options = {}) {
+  const base = worldFor(options);
+  const { world } = base;
+  const lineName = new Map(world.lines.map((line) => [line.id, line.name]));
+  const cellOf = (s) => Math.floor(s.y) * grid.cols + Math.floor(s.x);
+  const pointOf = (cell) =>
+    design.stationPoints?.[cell] ?? { x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5 };
+
+  // 예상 승객: 새 노선을 넣고 하루를 돌린다(역이 하나뿐이면 노선이 되지 않는다).
+  let riders = null;
+  let references = [];
+  if (design.stations.length >= 2 && design.path.length >= 2) {
+    const after = runWithDesign(design, options);
+    riders = new Map(after.result.stations.map((s) => [s.id, s.board + s.alight]));
+    references = base.result.stations.map((s) => s.board + s.alight).filter((value) => value > 0);
+  }
+
+  const info = {};
+  for (const cell of design.stations) {
+    const point = pointOf(cell);
+    const others = design.stations.filter((other) => other !== cell).map(pointOf);
+    const around = stationSurroundings({
+      point,
+      zones: world.zones,
+      existing: world.stations,
+      others,
+      centers: world.centers,
+      rules: base.rules,
+    });
+    const transfers = world.stations
+      .filter((s) => cellOf(s) === cell)
+      .map((s) => ({ name: s.name, line: lineName.get(s.line) ?? '' }));
+    const value = riders?.get(`${NEW_LINE_ID}-${cell}`) ?? null;
+    info[cell] = {
+      ...around,
+      transfers,
+      riderLevel: value === null ? null : riderLevel(value, references),
+    };
+  }
+  return info;
 }
