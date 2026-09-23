@@ -2,10 +2,11 @@
 // 격자를 따라 선을 긋고 역을 놓는다. 공사비와 예산이 바로 보이고, 되돌리기는 무제한이다.
 import { futureLines, grid, ruleTables, stations } from '../data.js';
 import { BASE_YEAR, designStationInfo, networkOfYear, rules, stationNameContext } from '../model.js';
-import { TRAINS_PER_HOUR, checkDesign, connectStations, designCost, headway, stationGaps } from '../sim/design.js';
+import { TRAINS_PER_HOUR, connectStations, headway, stationGaps } from '../sim/design.js';
+import { MAX_LINES, asPlan, checkPlan, lineIdAt, planCost } from '../sim/plan.js';
 import { extendPath } from '../sim/design.js';
 import { cleanStationName, nameStations } from '../sim/station-names.js';
-import { countText, distanceText, durationText, moneyBlocks, moneyText, stationLabel } from './format.js';
+import { countText, distanceText, durationText, moneyText, stationLabel } from './format.js';
 import { DESIGN_COLOR, createMap, labelInk, looseStations } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { loadView, saveView } from './storage.js';
@@ -30,6 +31,26 @@ const KINDS = ['경전철', '지하철'];
 const RIDER_WORDS = ['', '아주 조금', '조금', '보통', '많이', '아주 많이'];
 /** 새 노선 이름의 기본값과 가장 긴 길이 */
 const DEFAULT_LINE_NAME = '새 노선';
+/** 새 노선마다 처음 색(노선 번호 "새1, 새2 …"도 함께 붙인다. 색만으로 가르지 않는다) */
+const LINE_COLORS = [DESIGN_COLOR, '#1E6FD9', '#2E8B3E', '#8E44AD', '#C77C0E'];
+
+/** 새 노선 하나(빈 것) */
+function emptyLine(index) {
+  return {
+    path: [],
+    stations: [],
+    kind: '경전철',
+    trainsPerHour: 8,
+    names: {},
+    color: LINE_COLORS[index % LINE_COLORS.length],
+    lineName: index === 0 ? DEFAULT_LINE_NAME : `${DEFAULT_LINE_NAME} ${index + 1}`,
+  };
+}
+
+/** 노선 번호 글자: 새1, 새2 … */
+function lineLabel(index) {
+  return `새${index + 1}`;
+}
 const LINE_NAME_MAX = 12;
 /** 색 손잡이: 빨강, 초록, 파랑(0~255) */
 const RGB = [
@@ -93,26 +114,26 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   const budget = mission?.budget100M ?? rules.freeDesignBudget100M;
   const showFuture = baseYear >= 2027;
 
-  let design = {
-    path: [],
-    stations: [],
-    kind: '경전철',
-    trainsPerHour: 8,
-    names: {},
-    color: DESIGN_COLOR,
-    lineName: DEFAULT_LINE_NAME,
-  };
+  // 새 노선 여러 개. design은 지금 고치고 있는 노선(lines[active])이다. 고친 것은 sync()로 lines에 적는다.
+  let lines = [emptyLine(0)];
   if (initialDesign) {
-    design = {
-      ...design,
-      path: [...initialDesign.path],
-      stations: [...initialDesign.stations],
-      kind: initialDesign.kind ?? design.kind,
-      trainsPerHour: initialDesign.trainsPerHour ?? design.trainsPerHour,
-      names: { ...(initialDesign.names ?? {}) },
-      color: initialDesign.color ?? design.color,
-      lineName: initialDesign.lineName ?? design.lineName,
-    };
+    lines = asPlan(initialDesign).lines.map((line, index) => ({
+      ...emptyLine(index),
+      path: [...line.path],
+      stations: [...line.stations],
+      kind: line.kind ?? '경전철',
+      trainsPerHour: line.trainsPerHour ?? 8,
+      names: { ...(line.names ?? {}) },
+      color: line.color ?? LINE_COLORS[index % LINE_COLORS.length],
+      lineName: line.lineName ?? emptyLine(index).lineName,
+    }));
+  }
+  let active = 0;
+  let design = lines[0];
+
+  /** 고치고 있는 노선을 lines에 적는다. */
+  function sync() {
+    lines[active] = design;
   }
   /** 역 잇기에서 길을 찾지 못한 역이 있으면 알려 줄 말 */
   let connectNote = null;
@@ -125,21 +146,51 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   /** 역 정보는 설계가 바뀔 때만 다시 센다(하루를 한 번 돌린다). */
   let infoCache = { key: null, info: null };
 
-  /** 설계의 역마다 이름을 정한다(선을 따라 차례로). */
-  function namesOf(d) {
-    return nameStations({ design: d, ...nameContext, auto: loadView().autoNames });
+  /**
+   * 모든 노선의 역 이름과 자리를 정한다(노선 차례대로).
+   * 뒤 노선의 역이 앞 노선 역과 같은 칸이면 그 이름을 쓰고(갈아타는 역) 그 자리에 겹쳐 그린다.
+   * 이미 쓴 이름은 다른 역이 쓰지 않는다.
+   * @returns {{lines: object[], entries: object[][]}} lines는 지도와 운행에 넘길 노선들, entries는 노선마다 이름 목록
+   */
+  function nameAll() {
+    sync();
+    const extra = []; // 앞 노선의 새 역: {name, cell, x, y}
+    const out = [];
+    const entries = [];
+    const center = (cell) => ({ x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5 });
+    lines.forEach((line, index) => {
+      const named = nameStations({
+        design: line,
+        ...nameContext,
+        existing: [...nameContext.existing, ...extra],
+        auto: loadView().autoNames,
+      });
+      const points = new Map(transferPoints);
+      for (const e of extra) if (!points.has(e.cell)) points.set(e.cell, { x: e.x, y: e.y });
+      const stationPoints = Object.fromEntries(line.stations.filter((cell) => points.has(cell)).map((cell) => [cell, points.get(cell)]));
+      out.push({
+        ...line,
+        id: lineIdAt(index),
+        stationNames: Object.fromEntries(named.map((entry) => [entry.cell, entry.name])),
+        stationPoints,
+      });
+      entries.push(named);
+      for (const entry of named) {
+        const point = stationPoints[entry.cell] ?? center(entry.cell);
+        extra.push({ name: entry.name, cell: entry.cell, x: point.x, y: point.y });
+      }
+    });
+    return { lines: out, entries };
   }
 
-  /** 지도와 운행에 넘길 설계: 정한 이름을 함께 싣는다. */
-  function withNames(d) {
-    return {
-      ...d,
-      stationNames: Object.fromEntries(namesOf(d).map((entry) => [entry.cell, entry.name])),
-      // 기존 역과 같은 칸에 놓은 역은 그 역 자리에 정확히 겹쳐 그린다.
-      stationPoints: Object.fromEntries(
-        d.stations.filter((cell) => transferPoints.has(cell)).map((cell) => [cell, transferPoints.get(cell)]),
-      ),
-    };
+  /** 지금 고치는 노선의 역 이름 목록 */
+  function namesOf() {
+    return nameAll().entries[active];
+  }
+
+  /** 운행과 시승에 넘길 설계 묶음 */
+  function planOut() {
+    return { lines: nameAll().lines };
   }
   /** 칸 → 그 칸에 처음 나온 기존 역의 자리(칸 단위 좌표) */
   const transferPoints = new Map();
@@ -166,6 +217,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   mapBox.append(map.element);
   const legend = element('div', 'legend-holder');
   legend.append(legendBox({ view: '실제 지도', showDesign: true, future: showFuture }));
+  // 새 노선이 여럿이면 paintLineColor가 범례를 다시 그린다.
   const scale = scaleBar();
   const credit = element('p', 'credit', '© OpenStreetMap contributors');
   // 마지막으로 놓은 역의 정보 단추(역을 놓으면 뜬다)
@@ -184,7 +236,11 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   root.append(screen);
 
   function remember() {
-    history.push({ ...design, path: [...design.path], stations: [...design.stations], names: { ...design.names } });
+    sync();
+    history.push({
+      active,
+      lines: lines.map((line) => ({ ...line, path: [...line.path], stations: [...line.stations], names: { ...line.names } })),
+    });
   }
 
   function startEditing(cell) {
@@ -244,8 +300,15 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   function undo() {
     const previous = history.pop();
     if (!previous) return;
+    sync();
     // 노선 이름과 색은 되돌리기와 따로 둔다(색 손잡이를 움직일 때마다 기록하지 않는다).
-    design = { ...previous, color: design.color, lineName: design.lineName };
+    lines = previous.lines.map((line, index) => ({
+      ...line,
+      color: lines[index]?.color ?? line.color,
+      lineName: lines[index]?.lineName ?? line.lineName,
+    }));
+    active = Math.min(previous.active, lines.length - 1);
+    design = lines[active];
     connectNote = null;
     update();
   }
@@ -274,9 +337,82 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   function paintLineColor() {
     screen.style.setProperty('--design-color', design.color);
     screen.style.setProperty('--design-ink', labelInk(design.color));
-    for (const tag of legend.querySelectorAll('.design-line-tag')) tag.style.background = design.color;
-    for (const name of legend.querySelectorAll('.design-line-name')) name.textContent = design.lineName;
-    map.setDesign(withNames(design));
+    sync();
+    legend.replaceChildren(
+      legendBox({
+        view: '실제 지도',
+        future: showFuture,
+        designLines: lines.map((line, index) => ({ label: lineLabel(index), name: line.lineName, color: line.color })),
+      }),
+    );
+    map.setPlan(nameAll().lines, active);
+  }
+
+  /** 노선 고르기, 더하기, 지우기 */
+  function chooseLine(index) {
+    if (index === active) return;
+    sync();
+    active = index;
+    design = lines[active];
+    editing = null;
+    lastPlaced = null;
+    connectNote = null;
+    update();
+  }
+
+  function addLine() {
+    if (lines.length >= MAX_LINES) return;
+    remember();
+    lines = [...lines, emptyLine(lines.length)];
+    active = lines.length - 1;
+    design = lines[active];
+    editing = null;
+    lastPlaced = null;
+    connectNote = null;
+    setMode('그리기');
+  }
+
+  function removeLine() {
+    if (lines.length <= 1) return;
+    remember();
+    lines = lines.filter((_, index) => index !== active);
+    active = Math.max(0, active - 1);
+    design = lines[active];
+    editing = null;
+    lastPlaced = null;
+    connectNote = null;
+    update();
+  }
+
+  /** 패널 위쪽: 새 노선 고르기 */
+  function renderLinePicker() {
+    panel.append(element('h3', null, '내 노선'));
+    const row = element('div', 'tool-row line-picker');
+    row.setAttribute('role', 'group');
+    row.setAttribute('aria-label', '고칠 노선 고르기');
+    lines.forEach((line, index) => {
+      const node = button('', () => chooseLine(index), 'button line-pick');
+      const tag = element('span', 'line-tag', lineLabel(index));
+      tag.style.background = line.color;
+      node.append(tag, element('span', 'line-pick-name', line.lineName));
+      node.classList.toggle('is-on', index === active);
+      node.setAttribute('aria-pressed', String(index === active));
+      row.append(node);
+    });
+    panel.append(row);
+    const tools = element('div', 'tool-row');
+    const add = button('노선 더하기', addLine);
+    add.disabled = lines.length >= MAX_LINES;
+    tools.append(add);
+    if (lines.length > 1) tools.append(button('이 노선 지우기', removeLine));
+    panel.append(tools);
+    panel.append(
+      element(
+        'p',
+        'panel-note guide',
+        lines.length >= MAX_LINES ? `노선은 ${MAX_LINES}개까지 만들 수 있어요.` : '노선을 눌러 고르고, 고른 노선을 고쳐요.',
+      ),
+    );
   }
 
   function setMode(next) {
@@ -326,7 +462,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     // 색 견본: 선 모양 그림과 함께
     const swatch = element('div', 'line-swatch');
     const sample = element('span', 'line-sample');
-    const tag = element('span', 'line-tag design-line-tag', '새');
+    const tag = element('span', 'line-tag design-line-tag', lineLabel(active));
     swatch.append(tag, sample);
     const code = element('span', 'line-code');
     swatch.append(code);
@@ -380,7 +516,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   function renderInfoSpot() {
     infoSpot.replaceChildren();
     if (lastPlaced === null) return;
-    const entry = namesOf(design).find((item) => item.cell === lastPlaced);
+    const entry = namesOf().find((item) => item.cell === lastPlaced);
     if (!entry) return;
     const open = button(`ⓘ ${shownName(entry)} 정보`, () => openInfo(entry.cell), 'button info-button');
     open.setAttribute('aria-label', `${shownName(entry)} 정보 보기`);
@@ -389,11 +525,12 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
 
   /** 설계의 역 정보(칸 → 정보). 같은 설계면 다시 세지 않는다. */
   function stationInfo() {
-    const key = JSON.stringify([design.path, design.stations, design.kind, design.trainsPerHour]);
+    sync();
+    const key = JSON.stringify([active, lines.map((l) => [l.path, l.stations, l.kind, l.trainsPerHour])]);
     if (infoCache.key !== key) {
       infoCache = {
         key,
-        info: designStationInfo(withNames(design), { year: baseYear, dayType: mission?.dayType ?? '평일' }),
+        info: designStationInfo(planOut(), { year: baseYear, dayType: mission?.dayType ?? '평일' }, active),
       };
     }
     return infoCache.info;
@@ -413,7 +550,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
 
   /** 역 정보 창을 연다. */
   function openInfo(cell) {
-    const entry = namesOf(design).find((item) => item.cell === cell);
+    const entry = namesOf().find((item) => item.cell === cell);
     if (!entry) return;
     const info = stationInfo()[cell];
     if (!info) return;
@@ -578,7 +715,11 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
 
   function renderPanel() {
     panel.replaceChildren();
-    const cost = designCost(design, grid, rules, ruleTables, existing);
+    sync();
+    const all = planCost({ lines: nameAll().lines }, grid, rules, ruleTables, existing);
+    /** 모든 노선을 더한 공사비와, 지금 고치는 노선의 공사비 */
+    const totalCost = all.total;
+    const cost = all.lines[active];
 
     // 과제 카드 또는 자유 설계 안내
     if (mission) {
@@ -598,6 +739,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     } else {
       panel.append(element('h2', null, '노선 만들기'));
     }
+    renderLinePicker();
     panel.append(element('p', 'panel-note guide', '지도에서 칸을 눌러 선을 그어요. 한 칸은 1km예요.'));
 
     // 모드 고르기
@@ -633,23 +775,25 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     if (connectNote) panel.append(element('p', 'warn', connectNote));
 
     // 공사비와 예산
-    panel.append(element('h3', null, '공사비'));
-    const used = Math.min(1, cost.total / budget);
+    panel.append(element('h3', null, lines.length > 1 ? '공사비(모든 노선)' : '공사비'));
+    const used = Math.min(1, totalCost / budget);
     const barOuter = element('div', 'budget-bar');
     const barInner = element('div', 'budget-fill');
     barInner.style.width = `${(used * 100).toFixed(1)}%`;
-    if (cost.total > budget) barInner.classList.add('over');
+    if (totalCost > budget) barInner.classList.add('over');
     barOuter.append(barInner);
     panel.append(barOuter);
-    panel.append(element('p', null, `예산 ${moneyText(budget)} 가운데 ${moneyText(cost.total)}을 썼어요.`));
-    if (cost.total > budget) panel.append(element('p', 'warn', '예산을 넘었어요. 선을 줄이거나 역을 빼 보세요.'));
+    panel.append(element('p', null, `예산 ${moneyText(budget)} 가운데 ${moneyText(totalCost)}을 썼어요.`));
+    if (totalCost > budget) panel.append(element('p', 'warn', '예산을 넘었어요. 선을 줄이거나 역을 빼 보세요.'));
 
-    // 벽돌 그림(1블록 = 100억 원)
+    // 벽돌 그림. 예산이 크면 벽돌 한 개를 1,000억 원으로 센다(그림이 너무 많아지지 않게).
+    const brick = budget >= 50000 ? 1000 : 100;
     const blocks = element('div', 'blocks');
-    const count = Math.min(moneyBlocks(cost.total), 200);
+    const count = Math.min(Math.ceil(totalCost / brick), 200);
     for (let i = 0; i < count; i++) blocks.append(element('span', 'block'));
     panel.append(blocks);
-    panel.append(element('p', 'panel-note', '벽돌 한 개는 100억 원이에요.'));
+    panel.append(element('p', 'panel-note', `벽돌 한 개는 ${moneyText(brick)}이에요.`));
+    if (lines.length > 1) panel.append(element('h3', null, `${lineLabel(active)} ${design.lineName} 내역`));
 
     // 내역
     const list = element('ul', 'panel-list');
@@ -658,6 +802,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     list.append(
       element('li', null, `역: ${design.stations.length}개${transfers > 0 ? ` (갈아타는 역 ${transfers}개)` : ''}`),
     );
+    if (lines.length > 1) list.append(element('li', null, `이 노선 공사비: ${moneyText(cost.total)}`));
     list.append(element('li', null, `선 공사비: ${moneyText(cost.lineCost)}`));
     list.append(element('li', null, `역 공사비: ${moneyText(cost.stationCost)}`));
     for (const [terrain, value] of Object.entries(cost.byTerrain)) {
@@ -705,7 +850,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     );
 
     // 역 이름
-    const named = namesOf(design);
+    const named = namesOf();
     if (named.length > 0) renderNames(named);
 
     // 역 사이 거리와 시간
@@ -722,22 +867,22 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     }
 
     // 모자란 곳 알려 주기와 하루 운행
-    const check = checkDesign(design);
+    const check = checkPlan({ lines });
     if (!check.ok) {
       const hints = element('ul', 'panel-list');
       for (const problem of check.problems) hints.append(element('li', null, problem));
       panel.append(element('h3', null, '아직 할 일'), hints);
     }
-    const overBudget = cost.total > budget;
+    const overBudget = totalCost > budget;
     const noRuns = runsLeft === 0;
     // 운행 단추는 패널 아래에 늘 붙여 둔다. 세로 화면에서 패널이 길어도 스크롤하지 않고 누를 수 있다.
     const dock = element('div', 'run-dock');
-    const runButton = button('하루 운행 해 보기', () => onRun(withNames(design)), 'button big');
+    const runButton = button('하루 운행 해 보기', () => onRun(planOut()), 'button big');
     runButton.disabled = !check.ok || overBudget || noRuns;
     dock.append(runButton);
     // 시승: 내 노선 열차를 타 본다. 하루 운행 횟수는 줄지 않는다.
     if (onRide) {
-      const rideButton = button('시승해 보기', () => onRide(withNames(design)), 'button ride-button');
+      const rideButton = button('시승해 보기', () => onRide(planOut()), 'button ride-button');
       rideButton.disabled = !check.ok || overBudget || noRuns;
       dock.append(rideButton);
     }

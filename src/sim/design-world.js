@@ -10,8 +10,9 @@ export const NEW_LINE_ID = 'NEW';
  *   stationNames는 정해 둔 역 이름(칸 번호 → 이름). 없으면 "새 역 n"으로 부른다.
  * @param {{cols: number}} grid
  * @param {object} tables src/content/rules.json의 tables
+ * @param {string} [lineId] 새 노선 번호(NEW, NEW2 …). 새 노선이 여럿이면 노선마다 다르다(src/sim/plan.js).
  */
-export function withDesign(world, design, grid, tables) {
+export function withDesign(world, design, grid, tables, lineId = NEW_LINE_ID) {
   const kind = tables.lineKinds[design.kind] ?? tables.lineKinds['경전철'];
   const onPath = design.path.map((cell, order) => ({ cell, order })).filter(({ cell }) => design.stations.includes(cell));
   if (onPath.length < 2) return world;
@@ -23,8 +24,8 @@ export function withDesign(world, design, grid, tables) {
     if (!existingAt.has(cell)) existingAt.set(cell, station);
   }
   const stations = onPath.map(({ cell, order }) => ({
-    id: `${NEW_LINE_ID}-${cell}`,
-    line: NEW_LINE_ID,
+    id: `${lineId}-${cell}`,
+    line: lineId,
     name: design.stationNames?.[cell] ?? `새 역 ${order + 1}`,
     cell,
     x: existingAt.get(cell)?.x ?? (cell % grid.cols) + 0.5,
@@ -35,7 +36,7 @@ export function withDesign(world, design, grid, tables) {
   for (let i = 0; i + 1 < onPath.length; i++) {
     const km = onPath[i + 1].order - onPath[i].order;
     links.push({
-      line: NEW_LINE_ID,
+      line: lineId,
       from: stations[i].id,
       to: stations[i + 1].id,
       distanceM: km * 1000,
@@ -63,7 +64,7 @@ export function withDesign(world, design, grid, tables) {
   }
 
   const line = {
-    id: NEW_LINE_ID,
+    id: lineId,
     name: design.lineName ?? '새 노선',
     dwellS: 0,
     headwayMin: 60 / design.trainsPerHour,

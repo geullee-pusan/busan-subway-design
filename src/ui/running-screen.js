@@ -4,7 +4,7 @@
 // 새 노선 열차는 지도에 그린 곡선을 따라 달린다.
 // 기기가 '동작 줄이기'면 점은 움직이지 않고 시계와 막대만 바뀐다(SPEC 7.1).
 import { lineById, stationById } from '../data.js';
-import { NEW_LINE_ID } from '../sim/design-world.js';
+import { isNewLineId, isNewStationId, splitNewStationId } from '../sim/plan.js';
 import { pointBetween } from '../sim/line-shape.js';
 import { lineRoutes, trainsAt } from '../sim/train-motion.js';
 import { countText } from './format.js';
@@ -38,12 +38,15 @@ function clockText(hour) {
 }
 
 /**
- * @param {{design: object, result: object, world: object, hourShape: number[], onDone: () => void}} p
+ * @param {{plan: {lines: object[]}, result: object, world: object, hourShape: number[], onDone: () => void}} p
+ *   plan은 설계 묶음(새 노선 여러 개)이다.
  *   world는 새 노선을 넣은 세상(withDesign). 노선마다 역 차례와 시간을 여기서 읽는다.
  */
-export function renderRunning(root, { design, result, world, hourShape, onDone }) {
+export function renderRunning(root, { plan, result, world, hourShape, onDone }) {
   /** 내가 고른 새 노선 색 */
-  const myColor = design.color ?? DESIGN_COLOR;
+  /** 새 노선 번호 → 설계 */
+  const lineOf = new Map(plan.lines.map((line) => [line.id, line]));
+  const colorOf = (lineId) => lineOf.get(lineId)?.color ?? DESIGN_COLOR;
   root.replaceChildren();
   const screen = element('div', 'screen running');
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -100,14 +103,14 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
 
   map.resize();
   map.setView('실제 지도');
-  map.setDesign(design);
+  map.setPlan(plan.lines, -1);
   map.fit();
   scale.update(map.zoom);
 
   // 역마다 하루에 타는 사람 수
   const boardById = new Map(result.stations.map((s) => [s.id, s.board]));
   const maxBoard = Math.max(1, ...boardById.values());
-  const isNew = (id) => id.startsWith(`${NEW_LINE_ID}-`);
+  const isNew = (id) => isNewStationId(id);
   const newStations = result.stations.filter((station) => isNew(station.id));
   /** 내 노선에 탄 사람(새 노선 역에서 탄 사람을 모두 더한 것) */
   const newLineBoard = newStations.reduce((sum, station) => sum + station.board, 0);
@@ -129,12 +132,12 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
     if (top.length === 0) topBox.append(element('p', 'panel-note', '내 노선에 역이 없어요.'));
     bars = top.map((station) => {
       const row = element('div', 'run-bar-row');
-      const cell = isNew(station.id) ? station.id.slice(NEW_LINE_ID.length + 1) : null;
-      const name = stationById.get(station.id)?.name ?? design.stationNames?.[cell] ?? '새 역';
+      const own = splitNewStationId(station.id);
+      const name = stationById.get(station.id)?.name ?? lineOf.get(own?.line)?.stationNames?.[own?.cell] ?? '새 역';
       row.append(element('span', 'run-bar-name', name));
       const track = element('div', 'run-bar');
       const fill = element('div', 'run-bar-fill');
-      const color = isNew(station.id) ? myColor : lineById.get(stationById.get(station.id)?.line)?.color;
+      const color = isNew(station.id) ? colorOf(splitNewStationId(station.id).line) : lineById.get(stationById.get(station.id)?.line)?.color;
       fill.style.background = color ?? '#1F3342';
       track.append(fill);
       row.append(track);
@@ -151,8 +154,13 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
   const routes = !reduceMotion && world ? lineRoutes(world) : [];
   const positionOf = new Map((world?.stations ?? []).map((station) => [station.id, station]));
   // 새 노선은 지도에 그린 곡선 위로 달린다. 역마다 곡선 위 자리를 찾아 둔다.
-  const shape = designShape(design);
-  const shapeIndexOf = new Map(shape.stops.map((stop) => [`${NEW_LINE_ID}-${stop.cell}`, stop.index]));
+  // 새 노선마다: 곡선 모양과, 역 번호 → 곡선 위 자리
+  const shapes = new Map(
+    plan.lines.map((line) => {
+      const shape = designShape(line);
+      return [line.id, { shape, indexOf: new Map(shape.stops.map((stop) => [`${line.id}-${stop.cell}`, stop.index])) }];
+    }),
+  );
 
   /** 노선 위 자리(역 차례, 소수) → 지도 좌표 */
   function pointOnRoute(route, at) {
@@ -160,8 +168,9 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
     const t = at - i;
     const a = route.stops[i];
     const b = route.stops[i + 1];
-    if (route.line === NEW_LINE_ID && shapeIndexOf.has(a) && shapeIndexOf.has(b)) {
-      const point = pointBetween(shape.points, shapeIndexOf.get(a), shapeIndexOf.get(b), t);
+    const own = shapes.get(route.line);
+    if (own && own.indexOf.has(a) && own.indexOf.has(b)) {
+      const point = pointBetween(own.shape.points, own.indexOf.get(a), own.indexOf.get(b), t);
       return { x: point.x * CELL, y: point.y * CELL };
     }
     const pa = positionOf.get(a);
@@ -172,7 +181,7 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
 
   const trains = routes.map((route) => ({
     route,
-    color: route.line === NEW_LINE_ID ? myColor : (lineById.get(route.line)?.color ?? FUTURE_COLOR),
+    color: isNewLineId(route.line) ? colorOf(route.line) : (lineById.get(route.line)?.color ?? FUTURE_COLOR),
     // 쓰고 남은 점은 숨겨 두었다가 다시 쓴다.
     pool: [],
   }));
@@ -182,7 +191,7 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
       const now = trainsAt(item.route, hour);
       while (item.pool.length < now.length) {
         const dot = svgEl('circle', {
-          r: item.route.line === NEW_LINE_ID ? 4.5 : 3.5,
+          r: isNewLineId(item.route.line) ? 4.5 : 3.5,
           fill: item.color,
           stroke: '#FFFFFF',
           'stroke-width': 1,

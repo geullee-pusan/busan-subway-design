@@ -400,11 +400,36 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     layers.labels = labelsLayer(state.view, state.network);
     layers.tags = lineTagsLayer(state.view, state.network);
     layers.future = futureLayer(state.future);
-    state.designShape = designShape(state.design);
-    layers.design = designLayer(state.design, grid.cols, state.designShape);
+    layers.design = designLayers();
     viewport.append(layers.lines, layers.future, layers.stations, layers.design, layers.labels, layers.tags, overlay);
     applySelection();
     applyTransform();
+  }
+
+  /**
+   * 새 노선 여러 개를 그린다. 고치고 있는 노선(active)은 맨 위에 또렷하게, 나머지는 조금 흐리게 그린다.
+   * active가 -1이면(운행 화면) 모두 또렷하게 그린다. 누른 새 역을 찾는 것은 고치고 있는 노선만 본다.
+   */
+  function setPlan(lines, active) {
+    state.design = lines[active] ?? null;
+    state.others = lines.filter((_, index) => index !== active);
+    if (!layers.design) return;
+    const next = designLayers();
+    layers.design.replaceWith(next);
+    layers.design = next;
+    scaleDesignLabels(next, state.k);
+  }
+
+  function designLayers() {
+    const group = el('g');
+    for (const other of state.others ?? []) {
+      const layer = designLayer(other, grid.cols);
+      if (state.design) layer.setAttribute('opacity', '0.55');
+      group.append(layer);
+    }
+    state.designShape = designShape(state.design);
+    group.append(designLayer(state.design, grid.cols, state.designShape));
+    return group;
   }
 
   function size() {
@@ -687,16 +712,8 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       state.future = future;
       draw();
     },
-    setDesign: (design) => {
-      state.design = design;
-      if (layers.design) {
-        state.designShape = designShape(design);
-        const next = designLayer(design, grid.cols, state.designShape);
-        layers.design.replaceWith(next);
-        layers.design = next;
-        scaleDesignLabels(next, state.k);
-      }
-    },
+    setDesign: (design) => setPlan(design ? [design] : [], 0),
+    setPlan: (lines, active = 0) => setPlan(lines, active),
     get zoom() {
       return state.k;
     },

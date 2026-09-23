@@ -1,7 +1,7 @@
 // 새 노선이 무엇을 바꿨는지 센다. 순수 함수만 둔다.
 // "빨라진 사람"은 새 노선 덕분에 도시철도로 가는 시간이 줄어든 사람이다.
 
-import { NEW_LINE_ID } from './design-world.js';
+import { isNewStationId } from './plan.js';
 
 /** 이만큼(분) 넘게 줄어야 "빨라졌다"고 센다. */
 const FASTER_MIN = 0.5;
@@ -33,7 +33,8 @@ export function compareRuns(before, after) {
       savedMinutes += people * (timeBefore - timeAfter);
     }
   }
-  const newLine = after.stations.filter((s) => s.id.startsWith(`${NEW_LINE_ID}-`));
+  // 새 노선이 여럿이면 모두 더한다.
+  const newLine = after.stations.filter((s) => isNewStationId(s.id));
   return {
     fasterPeople,
     savedMinutes,

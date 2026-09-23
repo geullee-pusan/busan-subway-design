@@ -21,7 +21,7 @@ import {
   transfers,
 } from './data.js';
 import { compareToReal, meetsTargets } from './sim/compare.js';
-import { NEW_LINE_ID, withDesign } from './sim/design-world.js';
+import { asPlan, withPlan } from './sim/plan.js';
 import { networkAt } from './sim/history.js';
 import { prepareWorld, runDay } from './sim/run.js';
 import { riderLevel, stationSurroundings } from './sim/station-info.js';
@@ -124,10 +124,10 @@ export function networkOfYear(year) {
   return networkAt(year, { lines, stations, links, transfers, stationInfo });
 }
 
-/** 내가 그린 노선을 넣고 하루를 돌린다. */
+/** 내가 그린 노선(하나 또는 설계 묶음)을 넣고 하루를 돌린다. */
 export function runWithDesign(design, options = {}) {
   const base = worldFor(options);
-  const nextWorld = withDesign(base.world, design, grid, ruleTables);
+  const nextWorld = withPlan(base.world, asPlan(design), grid, ruleTables);
   const prepared = prepareWorld(nextWorld, base.rules);
   return { world: nextWorld, result: runDay(nextWorld, prepared, base.rules), base };
 }
@@ -187,10 +187,13 @@ export function stationNameContext(year = BASE_YEAR) {
 /**
  * 설계 화면의 역 정보(칸 번호 → 정보). 역이 둘 넘으면 하루를 돌려 예상 승객 단계도 구한다.
  * 예상 승객은 숫자가 아니라 부산의 다른 역과 견준 단계(1~5)로만 돌려준다. 어림하기를 남겨 두려는 것이다.
- * @param {object} design 설계(stationPoints가 있으면 갈아타는 역 자리를 쓴다)
+ * @param {object} planOrDesign 설계 묶음(또는 설계 하나). 설계마다 stationPoints가 있으면 갈아타는 역 자리를 쓴다.
  * @param {{year?: number, dayType?: string}} options
+ * @param {number} [lineIndex] 정보를 볼 노선(묶음 안 차례). 하루는 모든 노선을 넣고 돌린다.
  */
-export function designStationInfo(design, options = {}) {
+export function designStationInfo(planOrDesign, options = {}, lineIndex = 0) {
+  const plan = asPlan(planOrDesign);
+  const design = plan.lines[lineIndex];
   const base = worldFor(options);
   const { world } = base;
   const lineName = new Map(world.lines.map((line) => [line.id, line.name]));
@@ -202,7 +205,7 @@ export function designStationInfo(design, options = {}) {
   let riders = null;
   let references = [];
   if (design.stations.length >= 2 && design.path.length >= 2) {
-    const after = runWithDesign(design, options);
+    const after = runWithDesign(plan, options);
     riders = new Map(after.result.stations.map((s) => [s.id, s.board + s.alight]));
     references = base.result.stations.map((s) => s.board + s.alight).filter((value) => value > 0);
   }
@@ -210,7 +213,13 @@ export function designStationInfo(design, options = {}) {
   const info = {};
   for (const cell of design.stations) {
     const point = pointOf(cell);
-    const others = design.stations.filter((other) => other !== cell).map(pointOf);
+    // 다른 새 역: 이 노선의 다른 역과 다른 새 노선의 역
+    const others = [
+      ...design.stations.filter((other) => other !== cell).map(pointOf),
+      ...plan.lines
+        .filter((line) => line !== design)
+        .flatMap((line) => line.stations.filter((other) => other !== cell).map((other) => line.stationPoints?.[other] ?? pointOf(other))),
+    ];
     const around = stationSurroundings({
       point,
       zones: world.zones,
@@ -221,8 +230,14 @@ export function designStationInfo(design, options = {}) {
     });
     const transfers = world.stations
       .filter((s) => cellOf(s) === cell)
-      .map((s) => ({ name: s.name, line: lineName.get(s.line) ?? '' }));
-    const value = riders?.get(`${NEW_LINE_ID}-${cell}`) ?? null;
+      .map((s) => ({ name: s.name, line: lineName.get(s.line) ?? '' }))
+      // 같은 칸을 지나는 다른 새 노선
+      .concat(
+        plan.lines
+          .filter((line) => line !== design && line.stations.includes(cell) && line.path.includes(cell))
+          .map((line) => ({ name: line.stationNames?.[cell] ?? '새 역', line: line.lineName ?? '새 노선' })),
+      );
+    const value = riders?.get(`${design.id}-${cell}`) ?? null;
     info[cell] = {
       ...around,
       transfers,

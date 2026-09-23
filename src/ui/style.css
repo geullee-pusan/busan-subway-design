@@ -1558,3 +1558,21 @@ body {
   font-size: 1rem;
   white-space: pre-wrap;
 }
+
+/* 설계 화면: 새 노선 고르기 */
+.line-picker {
+  flex-wrap: wrap;
+}
+
+.line-pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.line-pick-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

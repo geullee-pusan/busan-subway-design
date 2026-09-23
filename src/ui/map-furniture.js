@@ -24,7 +24,11 @@ function element(tag, className, text) {
 }
 
 /** @param {{view?: string, showDesign?: boolean, future?: boolean}} options */
-export function legendBox({ view = '실제 지도', showDesign = false, future = false } = {}) {
+/**
+ * @param {{view?: string, showDesign?: boolean, future?: boolean, designLines?: {label: string, name: string, color: string}[]}} p
+ *   designLines가 있으면 새 노선마다 한 줄씩 보여 준다(색과 이름은 설계 화면에서 정한 것).
+ */
+export function legendBox({ view = '실제 지도', showDesign = false, future = false, designLines = null } = {}) {
   const outer = element('div', 'legend');
   // 범례는 지도를 가린다. 좁은 화면에서는 접어서 시작하고, 아이가 고른 대로 기억한다.
   const toggle = element('button', 'legend-toggle');
@@ -70,7 +74,15 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
     item.append(tag, element('span', null, line.name));
     lineList.append(item);
   }
-  if (showDesign) {
+  if (designLines) {
+    for (const line of designLines) {
+      const item = element('li');
+      const tag = element('span', 'line-tag design-line-tag', line.label);
+      tag.style.background = line.color;
+      item.append(tag, element('span', 'design-line-name', line.name));
+      lineList.append(item);
+    }
+  } else if (showDesign) {
     const item = element('li');
     const tag = element('span', 'line-tag design-line-tag', '새');
     tag.style.background = DESIGN_COLOR;

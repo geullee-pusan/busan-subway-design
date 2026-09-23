@@ -158,3 +158,28 @@ export function residentVoices({ design, grid, existingStations, rules }) {
     .slice(0, 3)
     .map(({ voice }) => voice);
 }
+
+/**
+ * 새 노선이 여럿일 때: 노선마다 목소리를 모아 같은 목소리끼리 사람 수를 더한다. 세 장까지.
+ * @param {{plan: {lines: object[]}, grid: object, existingStations: {col: number, row: number}[], rules: object}} p
+ */
+export function planVoices({ plan, grid, existingStations, rules }) {
+  const merged = new Map();
+  const order = [];
+  for (const design of plan.lines) {
+    if (design.path.length === 0) continue;
+    for (const voice of residentVoices({ design, grid, existingStations, rules })) {
+      if (!merged.has(voice.id)) {
+        merged.set(voice.id, { ...voice });
+        order.push(voice.id);
+      } else {
+        merged.get(voice.id).people += voice.people;
+      }
+    }
+  }
+  return order
+    .map((id, index) => ({ voice: merged.get(id), index }))
+    .sort((a, b) => b.voice.people - a.voice.people || a.index - b.index)
+    .slice(0, 3)
+    .map(({ voice }) => voice);
+}

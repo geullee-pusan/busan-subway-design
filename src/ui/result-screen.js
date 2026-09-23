@@ -3,7 +3,7 @@
 // 세 문장으로 설명하고, 결과 카드를 그림으로 저장하거나 인쇄할 수 있다.
 import { lineById, planned, ridership, stationById } from '../data.js';
 import { BASE_YEAR, networkOfYear } from '../model.js';
-import { NEW_LINE_ID } from '../sim/design-world.js';
+import { isNewLineId, isNewStationId, splitNewStationId, usedLines } from '../sim/plan.js';
 import { busiestLinks } from '../sim/effect.js';
 import { barChart, hourlyLineChart } from './chart.js';
 import { countText, distanceText, moneyText, stationLabel } from './format.js';
@@ -28,7 +28,7 @@ function svgEl(name, attrs = {}, text) {
 
 /** 역 이름. 새로 그린 역은 설계 화면에서 정한 이름(없으면 "새 역 n")으로 부른다. */
 function nameOf(id, newNames) {
-  if (id.startsWith(`${NEW_LINE_ID}-`)) {
+  if (isNewStationId(id)) {
     // 설계 화면에서 정한 이름. 차례로 부른 '새 역 n'에는 '역'을 붙이지 않는다.
     const name = newNames.get(id) ?? '새 역';
     return name.startsWith('새 역') ? name : stationLabel(name);
@@ -106,9 +106,9 @@ function downloadCard(svg) {
 }
 
 /**
- * @param {object} p design, cost, result, effect, estimate, newNames, runsLeftText, onHome, onAgain
+ * @param {object} p plan(설계 묶음), cost(planCost), result, effect, estimate, newNames, runsLeftText, onHome, onAgain
  */
-export function renderResult(root, { design, cost, result, effect, estimate, newNames, endingText, onHome, onRide = null, mission, voices = [], onSave, ruleSetName = null }) {
+export function renderResult(root, { plan, cost, result, effect, estimate, newNames, endingText, onHome, onRide = null, mission, voices = [], onSave, ruleSetName = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen result');
 
@@ -120,9 +120,15 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   screen.append(body);
   root.append(screen);
 
-  const newStations = result.stations.filter((s) => s.id.startsWith(`${NEW_LINE_ID}-`));
-  /** 내가 고른 새 노선 색(너무 밝으면 막대가 안 보여서 진하게) */
-  const myColor = labelInk(design.color ?? '#C0392B');
+  const newStations = result.stations.filter((s) => isNewStationId(s.id));
+  /** 그린 새 노선들 */
+  const myLines = usedLines(plan);
+  /** 새 노선 색(너무 밝으면 막대가 안 보여서 진하게). 노선이 여럿이면 첫 노선 색 */
+  const colorOf = (line) => labelInk(line?.color ?? '#C0392B');
+  const myColor = colorOf(myLines[0]);
+  /** 노선마다 하루 탄 사람과 내린 사람 */
+  const ridersOf = (line) =>
+    newStations.filter((s) => splitNewStationId(s.id)?.line === line.id).reduce((sum, s) => sum + s.board + s.alight, 0);
   const newRiders = newStations.reduce((sum, s) => sum + s.board + s.alight, 0);
   const dayType = mission?.dayType ?? '평일';
   const shape = ridership.shape[dayType] ?? ridership.shape['평일'];
@@ -135,7 +141,9 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   }
 
   // 1. 새 노선 이용객과 어림 비교
-  body.append(element('h2', null, `내 노선(${design.lineName ?? '새 노선'})에 탄 사람`));
+  const firstName = myLines[0]?.lineName ?? '새 노선';
+  const riderTitle = myLines.length > 1 ? `내 노선 ${myLines.length}개에 탄 사람` : `내 노선(${firstName})에 탄 사람`;
+  body.append(element('h2', null, riderTitle));
   body.append(
     barChart(
       [
@@ -155,6 +163,20 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
     body.append(element('p', null, `내 노선에는 하루에 ${countText(newRiders)}이 타고 내려요.`));
   }
 
+  // 1-1. 노선이 여럿이면 노선마다
+  if (myLines.length > 1) {
+    body.append(element('h3', null, '노선마다 보면'));
+    body.append(
+      barChart(
+        myLines.map((line, index) => ({ label: `새${index + 1}`, value: ridersOf(line), color: colorOf(line) })),
+        {},
+      ),
+    );
+    const names = element('ul', 'panel-list');
+    myLines.forEach((line, index) => names.append(element('li', null, `새${index + 1}: ${line.lineName ?? '새 노선'}, 하루 ${countText(ridersOf(line))}`)));
+    body.append(names);
+  }
+
   // 2. 시간대별
   body.append(element('h2', null, '시간대별로 보면'));
   body.append(hourlyLineChart([{ label: '타는 사람', values: result.byHour.map((v) => v * (newRiders / Math.max(1, result.totals.board))), color: myColor }], {}));
@@ -163,7 +185,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   // 3. 가장 붐빈 곳: 내 노선과 부산 전체
   const allBusiest = busiestLinks(result, 1);
   const mineBusiest = result.crowding
-    .filter((c) => c.line === NEW_LINE_ID && c.ratio !== null)
+    .filter((c) => isNewLineId(c.line) && c.ratio !== null)
     .sort((a, b) => b.ratio - a.ratio)[0];
   const showCrowd = (title, link, extra) => {
     if (!link) return;
@@ -192,7 +214,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   if (effect.newlyReachable > 0) {
     list.append(element('li', null, `도시철도로 처음 갈 수 있게 된 사람: 하루에 ${countText(effect.newlyReachable)}`));
   }
-  list.append(element('li', null, `노선 길이: ${distanceText(cost.lengthKm * 1000)}, 역 ${design.stations.length}개`));
+  list.append(element('li', null, `노선 길이: ${distanceText(cost.lengthKm * 1000)}, 역 ${cost.stations}개${myLines.length > 1 ? `, 노선 ${myLines.length}개` : ''}`));
   list.append(element('li', null, `공사비: ${moneyText(cost.total)}`));
   body.append(list);
 
@@ -230,7 +252,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
     body.append(element('p', null, `부산시가 세운 ${realPlan.name} 계획이에요.`));
     const rows = [
       { label: '노선 길이', mine: cost.lengthKm, real: realPlan.lengthKm, text: (v) => distanceText(v * 1000) },
-      { label: '역 수', mine: design.stations.length, real: realPlan.stations, text: (v) => `${v}개` },
+      { label: '역 수', mine: cost.stations, real: realPlan.stations, text: (v) => `${v}개` },
     ];
     if (realPlan.cost100M) rows.push({ label: '공사비', mine: cost.total, real: realPlan.cost100M, text: (v) => moneyText(v) });
     for (const row of rows) {
@@ -303,7 +325,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
     `결과는 ${inputs[3].value || '___'}.`,
   ];
   const summary = () => [
-    `길이 ${distanceText(cost.lengthKm * 1000)} · 역 ${design.stations.length}개 · ${design.kind}`,
+    `길이 ${distanceText(cost.lengthKm * 1000)} · 역 ${cost.stations}개 · ${myLines.length > 1 ? `노선 ${myLines.length}개` : (myLines[0]?.kind ?? '')}`,
     `공사비 ${moneyText(cost.total)}`,
     `하루에 타고 내린 사람 ${countText(newRiders)}`,
     `빨라진 사람 ${countText(effect.fasterPeople)}`,
@@ -329,7 +351,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
       const node = element('button', 'button', `${slot} 칸에 저장`);
       node.type = 'button';
       node.addEventListener('click', () => {
-        onSave(slot, { newRiders, faster: effect.fasterPeople, cost: cost.total, lengthKm: cost.lengthKm, stations: design.stations.length });
+        onSave(slot, { newRiders, faster: effect.fasterPeople, cost: cost.total, lengthKm: cost.lengthKm, stations: cost.stations });
         saved.textContent = `${slot} 칸에 저장했어요.`;
       });
       saveRow.append(node);

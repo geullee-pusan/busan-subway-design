@@ -4,7 +4,7 @@
 // 다음 역으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
 import { futureLines, grid, lineById, ruleTables, stationById, stationInfo, stations as allStations } from '../data.js';
 import { terrainAt } from '../sim/design.js';
-import { NEW_LINE_ID } from '../sim/design-world.js';
+import { isNewLineId } from '../sim/plan.js';
 import announcementsFile from '../content/announcements.json';
 import { announcementLines, englishLines } from '../sim/announce.js';
 import { romanize } from '../sim/romanize.js';
@@ -90,12 +90,27 @@ function clockText(seconds) {
 }
 
 /**
+ * 시승 화면. 새 노선이 여럿이면 탈 노선을 고른다(고르면 화면을 새로 그린다).
  * @param {HTMLElement} root
- * @param {{design: object, world: object, result: object, hourShape: number[], dayType: string,
+ * @param {{plan: {lines: object[]}, world: object, result: object, hourShape: number[], dayType: string,
  *   onBack: () => void, onHome: () => void}} p
- *   world와 result는 새 노선을 넣고 하루를 돌린 것(runWithDesign)
+ *   plan은 설계 묶음, world와 result는 새 노선을 모두 넣고 하루를 돌린 것(runWithDesign)
  */
-export function renderRide(root, { design, world, result, hourShape, dayType = '평일', onBack, onHome }) {
+export function renderRide(root, props) {
+  // 탈 수 있는 노선: 선 위에 역이 둘 넘게 있는 것
+  const lines = props.plan.lines.filter((line) => line.path.filter((cell) => line.stations.includes(cell)).length >= 2);
+  let cleanup = null;
+  const open = (lineIndex) => {
+    cleanup?.();
+    cleanup = renderRideLine(root, { ...props, lines, lineIndex, onChooseLine: open });
+  };
+  open(0);
+  return () => cleanup?.();
+}
+
+/** 노선 하나 타기. design은 lines[lineIndex]이다. */
+function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, result, hourShape, dayType = '평일', onBack, onHome }) {
+  const design = lines[lineIndex] ?? plan.lines[0];
   root.replaceChildren();
   const color = design.color ?? DESIGN_COLOR;
   const ink = labelInk(color);
@@ -104,13 +119,13 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
   // 새 노선 역과 구간
-  const stops = world.stations.filter((s) => s.line === NEW_LINE_ID).map((s) => ({ id: s.id, name: s.name, cell: s.cell }));
+  const stops = world.stations.filter((s) => s.line === design.id).map((s) => ({ id: s.id, name: s.name, cell: s.cell }));
   const cellOf = new Map(stops.map((s) => [s.id, s.cell]));
   const peopleOf = new Map(
-    result.links.filter((l) => l.line === NEW_LINE_ID).map((l) => [`${l.from}|${l.to}`, l.people]),
+    result.links.filter((l) => l.line === design.id).map((l) => [`${l.from}|${l.to}`, l.people]),
   );
   const links = world.links
-    .filter((l) => l.line === NEW_LINE_ID)
+    .filter((l) => l.line === design.id)
     .map((l) => ({ from: l.from, to: l.to, runS: l.runS, people: peopleOf.get(`${l.from}|${l.to}`) ?? 0 }));
   const lineNameOf = new Map(world.lines.map((l) => [l.id, l.name]));
   const stationOf = new Map(world.stations.map((s) => [s.id, s]));
@@ -213,8 +228,15 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     const marks = [];
     for (const other of group?.stations ?? []) {
       const lineId = stationOf.get(other)?.line;
-      if (!lineId || lineId === NEW_LINE_ID || seen.has(lineId)) continue;
+      if (!lineId || lineId === design.id || seen.has(lineId)) continue;
       seen.add(lineId);
+      // 다른 새 노선: "새2"처럼 부르고 그 노선 색을 쓴다.
+      if (isNewLineId(lineId)) {
+        const index = plan.lines.findIndex((l) => l.id === lineId);
+        const own = plan.lines[index];
+        marks.push({ label: `새${index + 1}`, name: own?.lineName ?? '새 노선', color: own?.color ?? DESIGN_COLOR });
+        continue;
+      }
       const line = lineById.get(lineId) ?? futureLineById.get(lineId);
       marks.push({ label: line?.label ?? lineNameOf.get(lineId) ?? '', name: line?.name ?? '', color: line?.color ?? '#1F3342' });
     }
@@ -270,6 +292,23 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     const first = stationLabel(stops[0].name);
     const last = stationLabel(stops.at(-1).name);
     card.append(element('h2', null, `${lineName}${objectParticle(lineName)} 타 봐요`));
+    if (lines.length > 1) {
+      card.append(element('h3', null, '어느 노선을 탈까요?'));
+      const lineRow = element('div', 'tool-row');
+      lines.forEach((line, index) => {
+        const number = plan.lines.indexOf(line) + 1;
+        const node = button('', () => {
+          if (index !== lineIndex) onChooseLine(index);
+        });
+        const tag = element('span', 'line-tag', `새${number}`);
+        tag.style.background = line.color ?? DESIGN_COLOR;
+        node.append(tag, element('span', null, ` ${line.lineName ?? '새 노선'}`));
+        node.classList.toggle('is-on', index === lineIndex);
+        node.setAttribute('aria-pressed', String(index === lineIndex));
+        lineRow.append(node);
+      });
+      card.append(lineRow);
+    }
     card.append(strip());
 
     const dirTitle = element('h3');
@@ -484,7 +523,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     );
     const top = element('div', 'sign-top');
     top.style.background = color;
-    const tag = element('span', 'sign-line-tag', '새');
+    const tag = element('span', 'sign-line-tag', `새${plan.lines.indexOf(design) + 1}`);
     tag.style.color = color;
     top.append(tag, element('span', 'sign-line', lineName));
     top.style.color = ink === color ? '#FFFFFF' : '#1F3342';

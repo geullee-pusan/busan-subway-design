@@ -1,9 +1,8 @@
 import { grid, ridership, ruleTables, stations } from './data.js';
 import { BASE_YEAR, networkOfYear, rules, runWithDesign, setRules, worldFor } from './model.js';
-import { designCost } from './sim/design.js';
-import { NEW_LINE_ID } from './sim/design-world.js';
+import { planCost } from './sim/plan.js';
 import { compareRuns } from './sim/effect.js';
-import { residentVoices } from './sim/voices.js';
+import { planVoices } from './sim/voices.js';
 import { renderAB } from './ui/ab-screen.js';
 import { renderCompare } from './ui/compare-screen.js';
 import { renderDesign } from './ui/design-screen.js';
@@ -146,20 +145,20 @@ function showDesign(mission, design = null) {
   );
 }
 
-/** 시승: 내 노선 열차 한 대를 타 본다. 하루 운행 횟수는 쓰지 않는다. */
-function startRide(design, ran = null) {
-  session.design = design;
+/** 시승: 내 노선 열차 한 대를 타 본다. 하루 운행 횟수는 쓰지 않는다. plan은 설계 묶음이다. */
+function startRide(plan, ran = null) {
+  session.design = plan;
   const mission = session.mission;
   const options = { year: mission?.baseYear ?? 2026, dayType: mission?.dayType ?? '평일' };
-  const after = ran ?? runWithDesign(design, options);
+  const after = ran ?? runWithDesign(plan, options);
   show(() =>
     renderRide(root, {
-      design,
+      plan,
       world: after.world,
       result: after.result,
       hourShape: ridership.shape[options.dayType] ?? ridership.shape['평일'],
       dayType: options.dayType,
-      onBack: () => showDesign(mission, design),
+      onBack: () => showDesign(mission, plan),
       onHome: showHome,
     }),
   );
@@ -178,32 +177,35 @@ function startEstimate(design) {
   );
 }
 
-/** 새 노선의 역 이름. 설계 화면에서 정한 이름을 쓰고, 없으면 선을 따라 "새 역 1, 2, 3…" */
-function newStationNames(design) {
+/** 새 노선들의 역 이름(역 번호 → 이름). 설계 화면에서 정한 이름을 쓰고, 없으면 선을 따라 "새 역 1, 2, 3…" */
+function newStationNames(plan) {
   const names = new Map();
-  let order = 0;
-  for (const cell of design.path) {
-    if (!design.stations.includes(cell)) continue;
-    order += 1;
-    names.set(`${NEW_LINE_ID}-${cell}`, design.stationNames?.[cell] ?? `새 역 ${order}`);
+  for (const line of plan.lines) {
+    let order = 0;
+    for (const cell of line.path) {
+      if (!line.stations.includes(cell)) continue;
+      order += 1;
+      names.set(`${line.id}-${cell}`, line.stationNames?.[cell] ?? `새 역 ${order}`);
+    }
   }
   return names;
 }
 
 function startRunning() {
-  const design = session.design;
+  // 설계 묶음(새 노선 여러 개). 화면마다 plan으로 넘긴다.
+  const plan = session.design;
   const mission = session.mission;
   const options = { year: mission?.baseYear ?? 2026, dayType: mission?.dayType ?? '평일' };
   settings = useRun(settings);
 
   const base = worldFor(options);
-  const after = runWithDesign(design, options);
+  const after = runWithDesign(plan, options);
   const effect = compareRuns(base.result, after.result);
   const yearStations = options.year < BASE_YEAR ? networkOfYear(options.year).stations : stations;
   const inGridStations = yearStations.filter((s) => s.inGrid);
   const existing = new Set(inGridStations.map((s) => s.row * grid.cols + s.col));
-  const cost = designCost(design, grid, rules, ruleTables, existing);
-  const voices = residentVoices({ design, grid, existingStations: inGridStations, rules });
+  const cost = planCost(plan, grid, rules, ruleTables, existing);
+  const voices = planVoices({ plan, grid, existingStations: inGridStations, rules });
   const left = runsLeft(settings);
   const endingText =
     left === null
@@ -214,27 +216,27 @@ function startRunning() {
 
   show(() =>
     renderRunning(root, {
-      design,
+      plan,
       result: after.result,
       world: after.world,
       hourShape: ridership.shape[options.dayType] ?? ridership.shape['평일'],
       onDone: () =>
         show(() =>
           renderResult(root, {
-            design,
+            plan,
             cost,
             result: after.result,
             effect,
             estimate: session.estimate,
-            newNames: newStationNames(design),
+            newNames: newStationNames(plan),
             endingText,
             mission,
             voices,
             ruleSetName: ruleSetName(),
             onSave: (slot, summary) =>
-              saveDesign(slot, { ...summary, title: mission ? mission.title : '자유 설계', design }),
+              saveDesign(slot, { ...summary, title: mission ? mission.title : '자유 설계', design: plan }),
             onHome: showHome,
-            onRide: () => startRide(design, after),
+            onRide: () => startRide(plan, after),
           }),
         ),
     }),
