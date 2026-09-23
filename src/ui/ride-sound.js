@@ -23,23 +23,50 @@ const BED = [
 const LANG_TAG = { ko: 'ko-KR', en: 'en-US' };
 
 /**
+ * 목소리를 고르는 방법. 기기마다 되는 방법이 달라서 "목소리 들어 보기"로 찾은 방법을 기억해 둔다.
+ *  voice: 목소리를 골라 정한다. lang: 언어만 정하고 기기 음성 엔진에 맡긴다. default: 기기 기본 목소리.
+ */
+export const VOICE_MODES = ['voice', 'lang', 'default'];
+let voiceMode = 'voice';
+
+/** "목소리 들어 보기"에서 찾은 방법을 쓴다(저장해 둔 값을 화면에서 넣어 준다). */
+export function setVoiceMode(mode) {
+  if (VOICE_MODES.includes(mode)) voiceMode = mode;
+}
+
+/** 이 언어의 목소리들 */
+function voicesOf(lang) {
+  const voices = window.speechSynthesis?.getVoices() ?? [];
+  return voices.filter((v) => v.lang?.toLowerCase().replace('_', '-').startsWith(lang));
+}
+
+/**
  * 방송에 쓸 목소리를 고른다.
  *  1. 기기 안 목소리(localService)가 있으면 그것.
  *  2. 안드로이드에서는 언어만 맞으면 쓴다. 안드로이드 Chrome은 기기에 깐 목소리(삼성 TTS, Google)도
  *     localService 표시를 하지 않을 때가 있다. 안드로이드 목소리는 기기의 음성 엔진이 읽는다.
  *  3. 목록이 비어 있으면(안드로이드 Chrome에서 흔하다) 목소리를 고르지 않고 언어만 정한다.
- *     그러면 기기의 기본 음성 엔진이 그 언어로 읽는다.
  *  4. 목록은 있는데 그 언어가 없으면(또는 컴퓨터에서 인터넷 목소리뿐이면) 읽지 않는다.
+ * mode가 lang이나 default이면 목소리를 고르지 않는다(목소리를 정하면 소리가 안 나는 기기가 있다).
  * @returns {{voice: SpeechSynthesisVoice|null, lang: string}|null} null이면 읽을 목소리가 없다.
  */
-export function pickVoice(lang) {
+export function pickVoice(lang, mode = voiceMode) {
   try {
-    const voices = window.speechSynthesis?.getVoices() ?? [];
-    const same = voices.filter((v) => v.lang?.toLowerCase().replace('_', '-').startsWith(lang));
+    const synth = window.speechSynthesis;
+    if (!synth) return null;
+    const voices = synth.getVoices();
+    const same = voicesOf(lang);
+    const tag = LANG_TAG[lang] ?? lang;
+    if (voices.length > 0 && same.length === 0) return null;
+    if (mode === 'lang') return { voice: null, lang: tag };
+    if (mode === 'default') {
+      const fallback = voices.find((v) => v.default) ?? null;
+      return { voice: fallback && voicesOf(lang).includes(fallback) ? fallback : null, lang: tag };
+    }
     const local = same.find((v) => v.localService);
     if (local) return { voice: local, lang: local.lang.replace('_', '-') };
     if (same.length > 0 && isAndroid()) return { voice: same[0], lang: same[0].lang.replace('_', '-') };
-    if (voices.length === 0 && window.speechSynthesis) return { voice: null, lang: LANG_TAG[lang] ?? lang };
+    if (voices.length === 0) return { voice: null, lang: tag };
     return null;
   } catch {
     return null;
@@ -50,7 +77,7 @@ export function pickVoice(lang) {
 export function surelyNoVoice(lang) {
   try {
     const voices = window.speechSynthesis?.getVoices() ?? [];
-    return voices.length > 0 && pickVoice(lang) === null;
+    return voices.length > 0 && voicesOf(lang).length === 0;
   } catch {
     return false;
   }
@@ -62,21 +89,91 @@ function utterance(text, picked, rate) {
   if (picked.voice) say.voice = picked.voice;
   say.lang = picked.lang;
   say.rate = rate;
+  say.volume = 1;
   return say;
 }
 
-/** 목소리 시험: 한 문장을 읽어 본다. */
-export function testVoice() {
-  const picked = pickVoice('ko');
+/** 읽는 중인 말 조각을 붙잡아 둔다. Chrome은 붙잡지 않은 말 조각을 중간에 버려 소리가 안 날 때가 있다. */
+const held = new Set();
+
+/**
+ * 말 조각을 읽기 시작한다. Chrome 버그를 피한다.
+ *  - cancel 바로 뒤의 speak는 무시될 때가 있다: 읽는 중일 때만 멈추고 조금 쉬었다가 읽는다.
+ *  - 멈춤(pause) 상태로 굳어 있을 때가 있다: 읽기 전에 resume을 부른다.
+ * @param {SpeechSynthesisUtterance[]} list
+ */
+export function speakList(list) {
   const synth = window.speechSynthesis;
-  if (!picked || !synth) return false;
-  try {
-    synth.cancel();
-    synth.speak(utterance('이번 역은 서면, 서면역입니다.', picked, 0.95));
-    return true;
-  } catch {
-    return false;
-  }
+  if (!synth || list.length === 0) return;
+  const busy = synth.speaking || synth.pending;
+  if (busy) synth.cancel();
+  const go = () => {
+    try {
+      synth.resume();
+    } catch {
+      // resume이 없는 브라우저
+    }
+    for (const say of list) {
+      held.add(say);
+      const release = () => held.delete(say);
+      say.addEventListener('end', release);
+      say.addEventListener('error', release);
+      synth.speak(say);
+    }
+  };
+  if (busy) setTimeout(go, 250);
+  else go();
+}
+
+/**
+ * 목소리 시험: 한 문장을 읽어 본다. 방법을 바꿔 가며 해 보고, 읽기가 시작된 방법을 알려 준다.
+ * @returns {Promise<{ok: boolean, mode: string|null, log: string[]}>} log는 점검 결과(어른이 읽는다)
+ */
+export function testVoice() {
+  const log = [];
+  const synth = window.speechSynthesis;
+  if (!synth) return Promise.resolve({ ok: false, mode: null, log: ['speechSynthesis 없음'] });
+  const voices = synth.getVoices();
+  log.push(`브라우저: ${navigator.userAgent}`);
+  log.push(`목소리 ${voices.length}개: ${voices.map((v) => `${v.name}(${v.lang}${v.localService ? ', 기기' : ''}${v.default ? ', 기본' : ''})`).join(' / ') || '없음'}`);
+  const order = [voiceMode, ...VOICE_MODES.filter((m) => m !== voiceMode)];
+  const tryMode = (index) =>
+    new Promise((resolve) => {
+      if (index >= order.length) return resolve({ ok: false, mode: null, log });
+      const mode = order[index];
+      const picked = pickVoice('ko', mode);
+      if (!picked) {
+        log.push(`${mode}: 한국어 목소리 없음`);
+        return resolve(tryMode(index + 1));
+      }
+      const say = utterance('이번 역은 서면, 서면역입니다.', picked, 0.95);
+      let settled = false;
+      const finish = (ok, note) => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(limit);
+        log.push(`${mode}(${picked.voice?.name ?? '목소리 안 정함'}, ${picked.lang}): ${note}`);
+        if (ok) {
+          voiceMode = mode;
+          resolve({ ok: true, mode, log });
+        } else {
+          try {
+            synth.cancel();
+          } catch {
+            // 멈추지 못해도 다음 방법을 해 본다.
+          }
+          setTimeout(() => resolve(tryMode(index + 1)), 300);
+        }
+      };
+      const limit = setTimeout(() => finish(false, '3초 동안 시작하지 않음'), 3000);
+      say.addEventListener('start', () => finish(true, '읽기 시작함'));
+      say.addEventListener('error', (event) => {
+        const code = event.error ?? '알 수 없음';
+        finish(false, `오류 ${code}`);
+      });
+      speakList([say]);
+    });
+  return tryMode(0);
 }
 
 /**
@@ -322,11 +419,6 @@ export function createRideSound() {
    */
   function announce({ korean, english, voice, music }) {
     const my = ++token;
-    try {
-      window.speechSynthesis?.cancel();
-    } catch {
-      // 목소리가 없는 기기
-    }
     const wait = music ? chime() : 0;
     if (music) startBed();
     const synth = window.speechSynthesis;
@@ -346,12 +438,10 @@ export function createRideSound() {
         ...(ko ? korean.map((text) => ({ text, voice: ko, rate: 0.95 })) : []),
         ...(en ? english.map((text) => ({ text, voice: en, rate: 0.9 })) : []),
       ];
-      queue.forEach((item, index) => {
-        const say = utterance(item.text, item.voice, item.rate);
-        if (index === queue.length - 1) say.addEventListener('end', () => my === token && stopBed());
-        synth.speak(say);
-      });
-      if (queue.length === 0) stopBed();
+      const list = queue.map((item) => utterance(item.text, item.voice, item.rate));
+      if (list.length > 0) list.at(-1).addEventListener('end', () => my === token && stopBed());
+      speakList(list);
+      if (list.length === 0) stopBed();
     });
   }
 

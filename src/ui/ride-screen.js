@@ -12,7 +12,7 @@ import { crowdWord, rideTrip, windowScene } from '../sim/ride.js';
 import { lineRoutes } from '../sim/train-motion.js';
 import { countText, durationText, roParticle, stationLabel } from './format.js';
 import { DESIGN_COLOR, labelInk } from './map.js';
-import { createRideSound, isAndroid, openVoiceInstall, surelyNoVoice, testVoice, voicesReady } from './ride-sound.js';
+import { createRideSound, isAndroid, openVoiceInstall, setVoiceMode, surelyNoVoice, testVoice, voicesReady } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
 
@@ -155,6 +155,8 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
   let timer = null;
   let voiceOn = loadView().rideVoice === true;
   let soundOn = loadView().rideSound === true;
+  // 이 기기에서 목소리가 나온 방법(목소리 들어 보기에서 찾는다)
+  setVoiceMode(loadView().rideVoiceMode);
   let ledTimer = null;
   const sound = createRideSound();
   const futureLineById = new Map(futureLines.lines.map((l) => [l.id, l]));
@@ -305,8 +307,27 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
         if (!missing) {
           // 목록으로는 알 수 없을 때가 많다(안드로이드). 직접 들어 보게 한다.
           const row = element('div', 'tool-row');
-          row.append(button('목소리 들어 보기', () => testVoice()));
-          voiceBox.append(row);
+          const status = element('p', 'panel-note');
+          status.setAttribute('role', 'status');
+          const report = element('details', 'voice-report');
+          report.hidden = true;
+          const test = button('목소리 들어 보기', () => {
+            test.disabled = true;
+            status.textContent = '들어 보는 중이에요.';
+            testVoice().then((result) => {
+              test.disabled = false;
+              if (result.ok) {
+                saveView({ rideVoiceMode: result.mode });
+                status.textContent = '목소리가 나왔어요. 방송도 이렇게 읽어요.';
+              } else {
+                status.textContent = '목소리를 내지 못했어요. 아래 점검 결과를 어른에게 보여 줘요.';
+              }
+              report.replaceChildren(element('summary', null, '목소리 점검 결과'), element('pre', 'license-text', result.log.join('\n')));
+              report.hidden = false;
+            });
+          });
+          row.append(test);
+          voiceBox.append(row, status, report);
           voiceBox.append(element('p', 'panel-note guide', '소리가 안 나면 기기 소리 크기를 먼저 살펴봐요.'));
         } else {
           voiceBox.append(element('p', 'panel-note', '방송을 읽어 줄 우리말 목소리를 찾지 못했어요.'));
