@@ -39,6 +39,11 @@ export const SOURCES = [
   // 공식 노선 색을 뽑는 노선도 이미지 (공공데이터포털, 큰 파일이라 git에 넣지 않는다)
   { key: 'route-map', file: 'data/raw/datagokr/15054957.zip', url: dataGoKr('FILE_000000003511950'), size: 15372503 },
 
+  // 부산 시내버스 노선별 정류장 차례와 승하차(공공데이터포털 15123610, "_20230731" 판, 1회성, 이용허락범위 제한 없음)
+  { key: 'bus-route-stops', file: 'data/raw/datagokr/15123610.csv', url: dataGoKr('FILE_000000002818223'), size: 4000930 },
+  // 부산 버스 정류소 자리(공공데이터포털 15084251, SHP "_20260912" 판, 이용허락범위 제한 없음)
+  { key: 'bus-stops', file: 'data/raw/datagokr/15084251.zip', url: dataGoKr('FILE_000000002797912'), size: 454474 },
+
   // 시승 모드 역명판 글꼴: 프리텐다드 굵은체 한글 2,350자 묶음 (npm pretendard 1.3.9, SIL OFL 1.1)
   { key: 'pretendard-bold', file: 'data/raw/fonts/Pretendard-Bold.subset.woff2', url: 'https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2-subset/Pretendard-Bold.subset.woff2', size: 270784 },
   { key: 'pretendard-license', file: 'data/raw/fonts/Pretendard-LICENSE.txt', url: 'https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/LICENSE.txt', size: 4419 },

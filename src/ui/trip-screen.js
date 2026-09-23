@@ -3,9 +3,9 @@
 // 가장 좋은 길을 정해 주지 않는다. 시간, 요금, 걷는 거리를 나란히 보여 준다.
 import faresFile from '../content/fares.json';
 import { dongs, grid, lineById, places, stationById, stations } from '../data.js';
-import { BASE_YEAR, rules, worldFor } from '../model.js';
+import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
 import { planTrips } from '../sim/trip.js';
-import { distanceText, durationText, roParticle, stationLabel } from './format.js';
+import { busRouteText, distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { CELL, createMap } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { loadView, saveView } from './storage.js';
@@ -158,7 +158,18 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     chosen = null;
     trips =
       from && to
-        ? planTrips({ from: withTerrain(from), to: withTerrain(to), hour, modes, rider, world, prepared, rules, fares: faresFile })
+        ? planTrips({
+            from: withTerrain(from),
+            to: withTerrain(to),
+            hour,
+            modes,
+            rider,
+            world,
+            prepared,
+            rules,
+            fares: faresFile,
+            busNetwork: busNetwork(),
+          })
         : [];
     chosen = trips.some((t) => t.id === keepChosen) ? keepChosen : (trips[0]?.id ?? null);
     keepChosen = null;
@@ -183,9 +194,14 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
           points = leg.stations.map((id) => world.stations.find((s) => s.id === id)).filter(Boolean);
           style = { stroke: lineById.get(leg.line)?.color ?? '#1F3342', 'stroke-width': 7 };
         } else if (leg.mode === '걷기') {
-          const target = leg.to ? world.stations.find((s) => s.id === leg.to) : to;
+          // 버스 정류장으로 걸어가면 toPoint, 역으로 걸어가면 to(역 id), 아니면 도착지
+          const target = leg.toPoint ?? (leg.to ? world.stations.find((s) => s.id === leg.to) : to);
           points = [cursor, target];
           style = { stroke: '#56636E', 'stroke-width': 4, 'stroke-dasharray': '2 6', 'stroke-linecap': 'round' };
+        } else if (leg.mode === '버스' && leg.stops) {
+          // 실제 버스 노선: 지나는 정류장을 차례로 잇는다.
+          points = leg.stops;
+          style = { stroke: PIECE.버스.color, 'stroke-width': 6, 'stroke-dasharray': '14 6' };
         } else if (leg.mode === '버스' || leg.mode === '택시') {
           const next = trip.legs[trip.legs.indexOf(leg) + 1];
           const target = next?.mode === '갈아타기' ? findStationAfter(trip, leg) : to;
@@ -365,7 +381,9 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
       panel.append(goButton);
       updateGo();
     }
-    panel.append(element('p', 'panel-note', '버스는 실제 노선이 아니라 어림으로 셈해요.'));
+    panel.append(element('p', 'panel-note', '버스 번호와 정류장은 2023년 부산 시내버스 자료예요.'));
+    panel.append(element('p', 'panel-note', '버스를 기다리는 시간은 우리가 정한 값이에요.'));
+    panel.append(element('p', 'panel-note', '가까운 정류장이 없으면 버스 시간을 어림해서 셈해요.'));
     panel.append(element('p', 'panel-note', '택시 속도와 잡는 시간은 우리가 정한 값이에요.'));
   }
 
@@ -433,6 +451,12 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     // 지하철 노선
     const lines = trip.legs.filter((l) => l.mode === '지하철').map((l) => lineById.get(l.line)?.name ?? l.line);
     if (lines.length > 0) card.append(element('p', 'trip-detail', `타는 노선: ${[...new Set(lines)].join(' → ')}`));
+    // 버스 번호와 정류장 수
+    const buses = trip.legs.filter((l) => l.mode === '버스' && l.route);
+    if (buses.length > 0) {
+      const text = buses.map((l) => `${busRouteText(l.route)}(정류장 ${l.stops.length - 1}개)`).join(' → ');
+      card.append(element('p', 'trip-detail', `타는 버스: ${text}`));
+    }
     return card;
   }
 

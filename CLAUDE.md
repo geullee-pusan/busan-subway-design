@@ -43,6 +43,7 @@
 - `npm test`: 시뮬레이션 테스트(결정론, 경로, 공사비, 보정, 성능)
 - `npm run fetch`: `scripts/sources.mjs` 목록대로 원본을 `data/raw/`에 받는다(네트워크를 쓴다)
 - `npm run data`: `data/raw/`를 처리해 `data/build/`를 만든다
+- `npm run bus`: 시내버스 원본으로 `data/build/bus.json`을 만든다(실제 버스 노선과 정류장)
 - `npm run validate`: 데이터 검증
 - `npm run calibrate`: 모델을 실제 승하차 자료와 맞추고 `docs/calibration.md`를 쓴다
 

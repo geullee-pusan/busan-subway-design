@@ -20,6 +20,20 @@
     "sha256": "6165cd9c22f7c620910f767d3ba7f86dc3edc47b531586ffa33223b0b2265a91",
     "fetched": "2026-09-22"
   },
+  "bus-route-stops": {
+    "file": "data/raw/datagokr/15123610.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002818223&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 4000930,
+    "sha256": "fc98249d689691d06a4834ed1374d96ecef7d4d01e95fc4273d7b64d611b0d0f",
+    "fetched": "2026-09-23"
+  },
+  "bus-stops": {
+    "file": "data/raw/datagokr/15084251.zip",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002797912&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 454474,
+    "sha256": "f34a6f1034b479fea6e48c5e5b8fba7de30a52136bac39d2f09b179f8d31d22f",
+    "fetched": "2026-09-23"
+  },
   "dem-N34E128": {
     "file": "data/raw/dem/N34E128.hgt.gz",
     "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N34/N34E128.hgt.gz",

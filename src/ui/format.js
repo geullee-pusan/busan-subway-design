@@ -187,15 +187,30 @@ export function ruleValueText(rule, value = rule.value, mode = numberMode) {
   }
 }
 
+/** 2를 value만큼 거듭제곱한 배수. 딱 떨어지면 "2배", 아니면 "약 1.5배"(소수 한 자리) */
+function doubleText(value) {
+  const times = 2 ** value;
+  const rounded = Math.round(times * 10) / 10;
+  return Math.abs(times - rounded) < 1e-9 ? `${rounded}배` : `약 ${rounded}배`;
+}
+
 /**
  * 규칙 카드 문장. 값이 바뀌면 문장도 같이 바뀐다.
  *  {value}  단위까지 붙인 값("861억 원")
  *  {number} 숫자만("861")
  *  {per10}  1분에 늘어나는 비율을 10분치로("10명 중 8명")
+ *  {double} 2를 값만큼 거듭제곱한 배수("약 1.5배"). 중심지가 2배 크면 사람이 몇 배 오는지
  */
 export function ruleCardText(rule, value = rule.value, mode = numberMode) {
   return rule.card
     .replaceAll('{value}', ruleValueText(rule, value, mode))
     .replaceAll('{number}', shortNumber(value))
-    .replaceAll('{per10}', peopleOutOf(value * 10));
+    .replaceAll('{per10}', peopleOutOf(value * 10))
+    .replaceAll('{double}', doubleText(value));
+}
+
+/** 버스 노선 번호: "20" → "20번", "1003(급행)" → "1003번 급행" */
+export function busRouteText(no) {
+  const match = /^(.+?)\((.+)\)$/.exec(no);
+  return match ? `${match[1]}번 ${match[2]}` : `${no}번`;
 }

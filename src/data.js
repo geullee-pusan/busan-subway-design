@@ -3,6 +3,7 @@ import placesFile from './content/places.json';
 import rulesFile from './content/rules.json';
 import sourcesFile from './content/sources.json';
 import missionsFile from './content/missions.json';
+import busFile from '../data/build/bus.json';
 import districtsFile from '../data/build/districts.json';
 import dongsFile from '../data/build/dongs.json';
 import futureFile from '../data/build/future-lines.json';
@@ -19,6 +20,8 @@ import stationsFile from '../data/build/stations.json';
 import transfersFile from '../data/build/transfers.json';
 
 export const grid = gridFile;
+/** 부산 시내버스 실제 노선과 정류장(scripts/build-bus.mjs). 하루 운행과 여행 모드가 쓴다. */
+export const bus = busFile;
 /** 인구총조사(1980~2000)를 지금 구·군으로 옮긴 것. 옛날 부산 "그때 인구" 선택지가 쓴다. */
 export const historyPopulation = historyPopulationFile;
 export const lines = linesFile.lines;

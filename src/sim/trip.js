@@ -3,10 +3,12 @@
 // 걷기, 지하철, 버스는 이동 모델(src/sim/run.js)과 같은 규칙을 쓴다.
 //  - 걷기: 곧은 거리 ÷ 걷는 속도(언덕이면 느리게)
 //  - 지하철: 가까운 역까지 걷기 + 배차 간격의 절반 기다리기 + 가장 빠른 길(갈아타기 포함) + 걷기
-//  - 버스: 어림 버스(정류장까지 걷고 기다리기 + 곧은 거리 × 우회 계수 ÷ 버스 속도). 실제 노선은 쓰지 않는다.
+//  - 버스: 실제 시내버스 노선(src/sim/bus-network.js)으로 정류장까지 걷기 + 기다리기 + 타기 + 갈아타기 + 걷기.
+//    버스 그래프를 넘기지 않았거나 걸어갈 거리에 정류장이 없으면 어림 버스(곧은 거리 × 우회 계수 ÷ 버스 속도)로 센다.
 //  - 택시: 잡는 시간 + 곧은 거리 × 우회 계수 ÷ 택시 속도. 요금은 부산 중형택시 요금표.
 // 요금은 교통카드 기준(src/content/fares.json). 버스와 지하철을 갈아타면 가장 비싼 요금까지만 내고,
 // 지하철 2구간 요금은 따로 낸다.
+import { busJourney, busReach } from './bus-network.js';
 import { busMinutes } from './demand.js';
 import { pathBetween } from './rail.js';
 import { nearbyStations, straightKm, walkMinutes } from './walk.js';
@@ -93,6 +95,42 @@ function busLegs(rules, a, b) {
 }
 
 /**
+ * 실제 버스 길을 여행 길 조각으로 바꾼다.
+ * 걷기 조각에는 가는 정류장 이름(stop)과 자리(toPoint)를 붙인다. 버스 조각에는 노선 번호와 지나는 정류장을 붙인다.
+ * @param {ReturnType<typeof busJourney>} journey
+ * @param {string|null} endStation 마지막에 걸어가는 곳이 역이면 그 역 id
+ */
+function realBusLegs(journey, endStation = null) {
+  const legs = [];
+  journey.legs.forEach((leg, i) => {
+    if (leg.type === 'walk') {
+      const nextBus = journey.legs.slice(i + 1).find((l) => l.type === 'bus');
+      const last = i === journey.legs.length - 1;
+      legs.push({
+        mode: '걷기',
+        minutes: leg.minutes,
+        meters: meters(leg.km),
+        ...(last ? (endStation ? { to: endStation } : {}) : { stop: leg.to, toPoint: nextBus ? { x: nextBus.stops[0].x, y: nextBus.stops[0].y } : null }),
+      });
+    } else if (leg.type === 'wait') {
+      legs.push({ mode: '기다리기', minutes: leg.minutes, meters: 0, bus: true, route: leg.route });
+    } else {
+      let km = 0;
+      for (let k = 1; k < leg.stops.length; k++) km += straightKm(leg.stops[k - 1], leg.stops[k]);
+      legs.push({ mode: '버스', minutes: leg.minutes, meters: meters(km), route: leg.route, stops: leg.stops, endsAtTerminal: leg.endsAtTerminal });
+    }
+  });
+  return legs;
+}
+
+/** 버스로 가는 길 조각. 실제 노선을 먼저 보고, 없으면 어림 버스. */
+function busTripLegs(network, rules, a, b, endStation = null) {
+  const journey = network ? busJourney(network, a, b, rules) : null;
+  if (journey && journey.legs.some((leg) => leg.type === 'bus')) return realBusLegs(journey, endStation);
+  return null;
+}
+
+/**
  * 버스와 지하철 요금(교통카드). 갈아타면 가장 비싼 요금까지만 내고, 지하철 2구간 요금은 따로 낸다.
  * @param {{bus: boolean, subway: boolean, subwayKm: number}} used
  * @param {'adult'|'child'} rider
@@ -141,9 +179,10 @@ export function taxiFare(fares, km, minutes, hour) {
  * @param {object} p.prepared prepareWorld 결과
  * @param {object} p.rules 규칙 값
  * @param {object} p.fares src/content/fares.json
+ * @param {object} [p.busNetwork] 실제 시내버스 그래프(buildBusNetwork). 없으면 버스를 어림으로 센다.
  * @returns {{id: string, title: string, legs: object[], minutes: number, fare: number, walkMeters: number}[]} 빠른 차례
  */
-export function planTrips({ from, to, hour, modes, rider = 'adult', world, prepared, rules, fares }) {
+export function planTrips({ from, to, hour, modes, rider = 'adult', world, prepared, rules, fares, busNetwork = null }) {
   const km = straightKm(from, to);
   const prep = { ...prepared, indexed: world.stations.map((s, index) => ({ ...s, index })) };
   const options = [];
@@ -164,10 +203,49 @@ export function planTrips({ from, to, hour, modes, rider = 'adult', world, prepa
   }
 
   if (modes.bus) {
-    push('bus', '버스', busLegs(rules, from, to), transitFare(fares, { bus: true }, rider));
+    // 실제 노선으로 못 가면(정류장이 멀거나 부산 밖) 어림 버스로 센다.
+    const real = busTripLegs(busNetwork, rules, from, to);
+    push('bus', '버스', real ?? busLegs(rules, from, to), transitFare(fares, { bus: true }, rider));
   }
 
-  if (modes.bus && modes.subway) {
+  if (modes.bus && modes.subway && busNetwork) {
+    // 실제 버스: 출발지에서 모든 역까지, 모든 역에서 도착지까지 버스 시간을 한 번에 구해 두고 가장 빠른 역을 고른다.
+    const walkable = (point) => new Set(nearbyStations(point, prep.indexed, rules).map((s) => s.station.index));
+    const nearFrom = walkable(from);
+    const nearTo = walkable(to);
+    const busFromStart = busReach(busNetwork, from, rules);
+    const busToEnd = busReach(busNetwork, to, rules, true);
+    let best = null;
+    for (const station of prep.indexed) {
+      if (!nearFrom.has(station.index)) {
+        const busMin = busFromStart(station);
+        const rest = Number.isFinite(busMin) ? subwayTrip(world, prep, rules, station, to) : null;
+        if (rest) {
+          const total = busMin + rest.legs.slice(1).reduce((sum, leg) => sum + leg.minutes, 0);
+          if (!best || total < best.total - 1e-9) best = { total, station, rest, first: 'bus' };
+        }
+      }
+      if (!nearTo.has(station.index)) {
+        const busMin = busToEnd(station);
+        const first = Number.isFinite(busMin) ? subwayTrip(world, prep, rules, from, station) : null;
+        if (first) {
+          const total = first.legs.slice(0, -1).reduce((sum, leg) => sum + leg.minutes, 0) + busMin;
+          if (!best || total < best.total - 1e-9) best = { total, station, rest: first, first: 'subway' };
+        }
+      }
+    }
+    const plain = options.filter((o) => o.id === 'bus' || o.id === 'subway').map((o) => o.minutes);
+    if (best && plain.every((m) => best.total < m - 0.5)) {
+      // 고른 역 하나만 버스 길을 되짚는다. 버스에서 내려 역까지 걷는 것도 버스 길에 들어 있다.
+      const legs =
+        best.first === 'bus'
+          ? [...(busTripLegs(busNetwork, rules, from, best.station, best.station.id) ?? []), ...best.rest.legs.slice(1)]
+          : [...best.rest.legs.slice(0, -1), ...(busTripLegs(busNetwork, rules, best.station, to) ?? [])];
+      if (legs.some((leg) => leg.mode === '버스')) {
+        push('mixed', best.first === 'bus' ? '버스 + 지하철' : '지하철 + 버스', legs, transitFare(fares, { bus: true, subway: true, subwayKm: best.rest.subwayKm }, rider));
+      }
+    }
+  } else if (modes.bus && modes.subway) {
     // 버스로 먼 역까지 가서 지하철을 타거나, 지하철을 타고 가다 버스로 갈아탄다.
     // 걸어서 갈 수 있는 역은 빼고(그러면 지하철 길과 같다) 가장 빠른 길 하나를 고른다.
     const walkable = (point) => new Set(nearbyStations(point, prep.indexed, rules).map((s) => s.station.index));

@@ -9,11 +9,12 @@ import { boardingShare, busMinutes, centerWeight } from '../src/sim/demand.js';
 import { allShortestTimes, buildRailGraph, pathBetween } from '../src/sim/rail.js';
 import { prepareWorld, runDay } from '../src/sim/run.js';
 import { nearbyStations, straightKm, walkMinutes } from '../src/sim/walk.js';
+import { buildBusNetwork, withBusTimes } from '../src/sim/bus-network.js';
 import { buildWorld, rulesFromCards } from '../src/sim/world.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (p) => JSON.parse(readFileSync(resolve(ROOT, p), 'utf8'));
-const dataReady = ['data/build/grid.json', 'data/build/ridership.json', 'data/build/dongs.json'].every((p) =>
+const dataReady = ['data/build/grid.json', 'data/build/ridership.json', 'data/build/dongs.json', 'data/build/bus.json'].every((p) =>
   existsSync(resolve(ROOT, p)),
 );
 const skip = dataReady ? false : 'npm run data를 먼저 돌려요';
@@ -113,8 +114,9 @@ function loadWorld({ year = 2026, dayType = '평일' } = {}) {
   const rules = rulesFromCards(readJson('src/content/rules.json').rules);
   const future = year >= 2027 ? readJson('data/build/future-lines.json') : { stations: [], lines: [], links: [], transfers: [] };
   const stations = [...readJson('data/build/stations.json').stations, ...future.stations];
-  const world = buildWorld({
-    grid: readJson('data/build/grid.json'),
+  const grid = readJson('data/build/grid.json');
+  const plainWorld = buildWorld({
+    grid,
     stations,
     lines: [...readJson('data/build/lines.json').lines, ...future.lines],
     links: [...readJson('data/build/links.json').links, ...future.links],
@@ -124,6 +126,8 @@ function loadWorld({ year = 2026, dayType = '평일' } = {}) {
     hourShape: readJson('data/build/ridership.json').shape[dayType],
     defaultHeadwayMin: rules.defaultHeadwayMin,
   });
+  // 게임과 같이 실제 시내버스 노선으로 버스 시간을 찾는다.
+  const world = withBusTimes(plainWorld, buildBusNetwork(readJson('data/build/bus.json'), grid, rules), rules);
   return { world, rules, stations };
 }
 

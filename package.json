@@ -17,7 +17,8 @@
     "icons": "node scripts/make-icons.mjs",
     "ride-assets": "node scripts/ride-assets.mjs",
     "melodies": "node scripts/make-melodies.mjs",
-    "history-population": "node scripts/build-history-population.mjs"
+    "history-population": "node scripts/build-history-population.mjs",
+    "bus": "node scripts/build-bus.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

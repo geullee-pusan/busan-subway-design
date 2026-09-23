@@ -2,10 +2,12 @@
 //
 // 기준 연도: 2026년은 지금 운행 중인 노선, 2027년은 양산선과 사상–하단선을 더한다.
 //   1985~2025년은 그 해에 문을 연 역까지만 남긴다(src/sim/history.js).
-//   옛날 부산에서도 사는 사람과 가는 곳은 지금 자료를 쓴다. 옛날 인구 자료가 없어서다.
+//   옛날 부산에서도 가는 곳(중심지)은 지금 자료를 쓴다. 사는 사람은 "그때 인구"를 고르면 인구총조사로 어림한다.
+// 버스: 2026년부터는 실제 시내버스 노선(2023년 자료)으로 버스 시간을 찾는다. 옛날 부산은 그때 노선을 몰라서 어림 식을 쓴다.
 // 요일: 평일과 토요일은 시간대 모양이 다르고, 토요일에는 중심지에 오는 사람 수도 다르다(실제 자료).
 // 규칙: 부모가 "우리 집 규칙"으로 값을 바꾸면 setRules로 알려 주고, 저장해 둔 세상을 모두 버린다.
 import {
+  bus,
   dongs,
   futureLines,
   grid,
@@ -24,6 +26,7 @@ import {
 import { compareToReal, meetsTargets } from './sim/compare.js';
 import { asPlan, withPlan } from './sim/plan.js';
 import { networkAt } from './sim/history.js';
+import { buildBusNetwork, withBusTimes } from './sim/bus-network.js';
 import { prepareWorld, runDay } from './sim/run.js';
 import { populationRowsAt } from './sim/history-population.js';
 import { riderLevel, stationSurroundings } from './sim/station-info.js';
@@ -72,6 +75,17 @@ function dayTripFactor(dayType) {
 
 const worlds = new Map();
 
+/** 실제 시내버스 그래프. 규칙이 바뀌면(setRules) 다시 만든다. */
+let busGraph = null;
+let busGraphRules = null;
+export function busNetwork() {
+  if (busGraphRules !== rules) {
+    busGraph = buildBusNetwork(bus, grid, rules);
+    busGraphRules = rules;
+  }
+  return busGraph;
+}
+
 /** 옛날 부산에서 "그때 인구"를 쓸 수 있는 해(인구총조사가 있는 첫 해부터 지금 전까지) */
 export function canUseThenPopulation(year) {
   const first = Math.min(...Object.keys(historyPopulation.census).map(Number));
@@ -104,7 +118,7 @@ export function worldFor({ year = 2026, dayType = '평일', population = 'now' }
 
   // 그 해 인구: 부산 칸마다 구·군 비율을 곱한 격자(src/sim/history-population.js)
   const gridOfYear = useThen ? { ...grid, population: populationRowsAt(grid, year, historyPopulation).population } : grid;
-  const world = buildWorld({
+  const plainWorld = buildWorld({
     grid: gridOfYear,
     stations: allStations,
     lines: allLines,
@@ -117,6 +131,7 @@ export function worldFor({ year = 2026, dayType = '평일', population = 'now' }
     // 옛날 부산에도 중심지는 그대로 있다. 자리는 지금 역 목록에서 찾는다.
     anchorStations: stations,
   });
+  const world = year >= BASE_YEAR ? withBusTimes(plainWorld, busNetwork(), rules) : plainWorld;
 
   const dayRules = { ...rules, tripsPerDay: rules.tripsPerDay * dayTripFactor(dayType) };
   const prepared = prepareWorld(world, dayRules);

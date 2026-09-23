@@ -5,9 +5,13 @@
 //       택시는 미터기(부산 중형택시 요금표)가 달리는 만큼 올라가고 내릴 때 낸다.
 import { lineById } from '../data.js';
 import { taxiFare } from '../sim/trip.js';
-import { distanceText, durationText, stationLabel } from './format.js';
+import { busRouteText, distanceText, durationText, stationLabel } from './format.js';
 import { renderRideSegment } from './ride-screen.js';
-import { busInteriorArt, taxiInteriorArt, walkSceneArt } from './vehicle-art.js';
+import announcementsFile from '../content/announcements.json';
+import { fillTemplate } from '../sim/announce.js';
+import { createRideSound } from './ride-sound.js';
+import { loadView } from './storage.js';
+import { BUS_PEOPLE_MAX, busInteriorArt, taxiInteriorArt, walkSceneArt } from './vehicle-art.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 /** 걷기·버스·택시 그림이 움직이는 시간(밀리초) */
@@ -234,7 +238,12 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
   function renderWalk(area, step) {
     const target = step.to ? stationLabel(stationOf.get(step.to)?.name ?? '역') : step.from ? to.name : to.name;
     const start = step.from ? stationLabel(stationOf.get(step.from)?.name ?? '역') : from.name;
-    area.append(element('h2', null, step.to ? `${target}까지 걸어요` : `${start}에서 ${to.name}까지 걸어요`));
+    const title = step.stop
+      ? `${step.stop} 정류장까지 걸어요`
+      : step.to
+        ? `${target}까지 걸어요`
+        : `${start}에서 ${to.name}까지 걸어요`;
+    area.append(element('h2', null, title));
     // 가로수 사이 넓은 보도를 뒷모습으로 걸어간다(src/ui/vehicle-art.js).
     const scene = walkSceneArt({ reduceMotion });
     area.append(scene.svg);
@@ -326,7 +335,8 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
   }
 
   function renderBusStop(area, step) {
-    area.append(element('h2', null, '버스 정류장에서 기다려요'));
+    const stopName = step.next?.stops?.[0]?.name ?? null;
+    area.append(element('h2', null, step.route ? `${busRouteText(step.route)} 버스를 기다려요` : '버스 정류장에서 기다려요'));
     const svg = sceneSvg(180);
     svg.setAttribute('aria-label', '버스 정류장 그림이에요.');
     svg.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 180, fill: '#DCEEF7' }));
@@ -334,16 +344,34 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     svg.append(svgEl('rect', { x: 120, y: 60, width: 12, height: 90, fill: '#56636E' }));
     svg.append(svgEl('rect', { x: 90, y: 40, width: 72, height: 30, rx: 6, fill: '#2E8B3E' }));
     svg.append(svgEl('text', { x: 126, y: 61, 'text-anchor': 'middle', 'font-size': 18, 'font-weight': 700, fill: '#FFFFFF' }, '버스'));
+    if (stopName) {
+      // 정류장 이름판
+      svg.append(svgEl('rect', { x: 400, y: 30, width: 360, height: 44, rx: 6, fill: '#2E8B3E' }));
+      svg.append(svgEl('text', { x: 580, y: 60, 'text-anchor': 'middle', 'font-size': 22, 'font-weight': 700, fill: '#FFFFFF' }, stopName));
+    }
+    if (step.route) {
+      svg.append(svgEl('rect', { x: 400, y: 84, width: 120, height: 36, rx: 6, fill: '#1D1F22' }));
+      svg.append(svgEl('text', { x: 460, y: 109, 'text-anchor': 'middle', 'font-size': 20, 'font-weight': 700, fill: '#F2A33A' }, busRouteText(step.route)));
+    }
     svg.append(svgEl('rect', { x: 180, y: 70, width: 200, height: 10, fill: '#7A8691' }));
     walker(svg).setAttribute('transform', 'translate(240 -34)');
     area.append(svg);
-    area.append(element('p', null, `정류장까지 걷고 버스를 기다리는 데 약 ${minutesText(step.minutes)} 걸려요.`));
-    area.append(element('p', 'panel-note', '버스는 어림으로 셈해요. 실제 버스 번호와 정류장 이름은 없어요.'));
+    if (step.route) {
+      area.append(element('p', null, `버스를 약 ${minutesText(step.minutes)} 기다려요.`));
+      area.append(element('p', 'panel-note', '기다리는 시간은 우리가 정한 값이에요.'));
+    } else {
+      area.append(element('p', null, `정류장까지 걷고 버스를 기다리는 데 약 ${minutesText(step.minutes)} 걸려요.`));
+      area.append(element('p', 'panel-note', '가까운 정류장이 없어서 버스를 어림으로 셈해요.'));
+    }
     const ready = progress(area, '버스를 기다리는 중이에요.');
     nextButton(area, '버스에 타요', () => done(step), ready);
   }
 
   function renderBus(area, step) {
+    if (step.stops?.length >= 2) {
+      renderRealBus(area, step);
+      return;
+    }
     area.append(element('h2', null, '버스를 타고 가요'));
     payNote(area, step, '탈 때');
     // 버스 안: 몇 명이 탔는지 자료가 없어서 사람 그림은 몇 개만 그린다.
@@ -356,6 +384,85 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     area.append(bottom);
     ready.then(() => payNote(bottom, step, '내릴 때'));
     nextButton(area, '하차벨 누르고 내려요', () => done(step), ready);
+  }
+
+  /**
+   * 실제 노선 버스: 정류장마다 안내 방송(글자, 켜 두면 목소리)과 버스 안 붐빔을 보여 준다.
+   * 붐빔은 하루 승하차 자료로 어림한 것(이 노선에서 가장 붐비는 곳을 가득으로 본다)이다.
+   */
+  function renderRealBus(area, step) {
+    const stops = step.stops;
+    const last = stops.length - 1;
+    const templates = announcementsFile.bus;
+    const voiceOn = loadView().rideVoice === true;
+    const sound = createRideSound();
+    rideCleanup = () => sound.stopAll();
+    let k = 0; // 지금 막 떠난 정류장 차례
+
+    area.append(element('h2', null, `${busRouteText(step.route)} 버스를 타고 가요`));
+    payNote(area, step, '탈 때');
+    const box = element('div');
+    area.append(box);
+
+    /** 지금 방송: 떠난 뒤에는 다음에 설 정류장, 마지막 정류장에 서면 종점 방송 */
+    function lines() {
+      if (k >= last) {
+        const end = templates.terminal.map((line) => fillTemplate(line, { name: stops[last].name }));
+        // 이 버스의 종점이 아니면 "모두 내려 주세요"는 빼고 이번 정류장만 말한다.
+        return step.endsAtTerminal ? end : [fillTemplate(templates.arrival[0], { name: stops[last].name })];
+      }
+      const values = { name: stops[k + 1].name, next: stops[k + 2]?.name ?? '' };
+      return templates.arrival.filter((line) => values.next || !line.includes('{next}')).map((line) => fillTemplate(line, values));
+    }
+
+    function draw() {
+      box.replaceChildren();
+      const led = element('div', 'ride-led');
+      for (const text of lines()) led.append(element('span', 'ride-led-text', text));
+      box.append(led);
+      // 붐빔: 떠난 정류장 뒤 버스 안(사람 그림 수)
+      const load = stops[Math.min(k, last - 1)].load ?? 0;
+      const count = Math.max(1, Math.round(load * BUS_PEOPLE_MAX * 0.8));
+      const art = busInteriorArt({ count, color: '#2E8B3E', label: busRouteText(step.route), reduceMotion });
+      art.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요.`);
+      box.append(art);
+      box.append(element('p', 'panel-note', '붐빔은 하루 승하차 자료로 어림했어요.'));
+      // 지나온 정류장: 네모 하나가 정류장 하나
+      const row = element('div', 'journey-bus-stops');
+      row.setAttribute('role', 'img');
+      row.setAttribute('aria-label', `정류장 ${last}개 가운데 ${Math.min(k + 1, last)}번째로 가요.`);
+      for (let i = 1; i <= last; i++) {
+        const cell = element('span', i <= k ? 'journey-bus-stop is-done' : i === k + 1 ? 'journey-bus-stop is-now' : 'journey-bus-stop');
+        cell.textContent = i <= k ? '■' : '□';
+        row.append(cell);
+      }
+      box.append(row);
+      box.append(
+        element('p', null, k < last ? `${stops[last].name}까지 정류장 ${last - k}개 남았어요.` : `${stops[last].name}에 왔어요.`),
+      );
+      const buttons = element('div', 'journey-buttons');
+      if (k < last) {
+        buttons.append(button('다음 정류장으로', () => go(k + 1), 'button big'));
+        if (k + 1 < last) buttons.append(button('내릴 정류장까지', () => go(last), 'button big'));
+      } else {
+        const bottom = element('div');
+        box.append(bottom);
+        payNote(bottom, step, '내릴 때');
+        buttons.append(button('하차벨 누르고 내려요', () => done(step), 'button big ride-go'));
+      }
+      box.append(buttons);
+    }
+
+    function go(target) {
+      k = target;
+      draw();
+      sound.wake();
+      if (voiceOn) sound.announce({ korean: lines(), english: [], voice: true, music: false });
+    }
+
+    draw();
+    sound.wake();
+    if (voiceOn) sound.announce({ korean: lines(), english: [], voice: true, music: false });
   }
 
   function renderTaxiWait(area, step) {

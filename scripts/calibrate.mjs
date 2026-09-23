@@ -9,6 +9,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compareToReal, meetsTargets } from '../src/sim/compare.js';
 import { prepareWorld, runDay } from '../src/sim/run.js';
+import { buildBusNetwork, withBusTimes } from '../src/sim/bus-network.js';
 import { buildWorld, rulesFromCards } from '../src/sim/world.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -25,7 +26,7 @@ const placesFile = readJson('src/content/places.json');
 const rulesFile = readJson('src/content/rules.json');
 
 const rules = rulesFromCards(rulesFile.rules);
-const world = buildWorld({
+const plainWorld = buildWorld({
   grid,
   stations,
   lines,
@@ -36,6 +37,8 @@ const world = buildWorld({
   hourShape: ridership.shape['평일'],
   defaultHeadwayMin: rules.defaultHeadwayMin,
 });
+// 버스 시간: 실제 시내버스 노선으로 찾는다(게임의 2026년 부산과 같다).
+const world = withBusTimes(plainWorld, buildBusNetwork(readJson('data/build/bus.json'), grid, rules), rules);
 const names = Object.fromEntries(stations.map((s) => [s.id, `${s.name}(${s.line})`]));
 const real = {};
 for (const [id, station] of Object.entries(ridership.stations)) {
@@ -173,7 +176,7 @@ ${worst.map((p) => `| ${p.name} | ${number(p.real)} | ${number(p.model)} | ${p.d
 - 모델은 집에서 중심지로 가는 이동만 만든다. 학교, 병원, 친구 집처럼 중심지가 아닌 곳으로 가는 이동은 빠져 있다.
 - 중심지 목록과 크기는 우리가 정한 값이다(\`src/content/places.json\`). 실제 일자리 수 자료로 바꾸면 더 잘 맞을 수 있다.
 - 환승만 하고 나가지 않는 사람은 승하차에 안 잡히지만, 모델은 타는 역과 내리는 역만 센다.
-- 버스 시간은 곧은 거리로 어림한다. 실제 버스 노선과 정체는 넣지 않았다.
+- 버스 시간은 실제 시내버스 노선(2023년 7월 자료)으로 찾는다. 배차 간격과 막히는 길은 모르므로, 기다리는 시간과 빠르기는 우리가 정한 값이다. 부산 밖과 정류장이 먼 칸은 곧은 거리로 어림한다.
 - 부산 밖(양산, 김해)에서 들어오는 사람은 인구가 있는 칸에서만 만든다. 지도 밖에서 오는 사람은 빠져 있다.
 `;
 

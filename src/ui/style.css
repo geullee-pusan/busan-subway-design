@@ -1872,3 +1872,30 @@ body {
 .bus-stop-sign .sign-name {
   letter-spacing: 0.02em;
 }
+
+/* 실제 노선 버스: 정류장 단추와 지나온 정류장 */
+.journey-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.journey-bus-stops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 8px 0;
+  font-size: 1.111rem;
+  line-height: 1.2;
+  color: #56636e;
+}
+
+.journey-bus-stop.is-done {
+  color: #2e8b3e;
+}
+
+.journey-bus-stop.is-now {
+  color: #1f3342;
+  font-weight: 700;
+}

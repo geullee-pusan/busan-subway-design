@@ -4,6 +4,7 @@
 //   1. 칸에 사는 사람 수로 하루 이동을 만든다(왕복 한 번을 1로 센다).
 //   2. 중심지마다 가고 싶은 마음(중력 모델)으로 이동을 나눈다.
 //   3. 도시철도로 가는 시간과 버스로 가는 시간을 재서, 탑승 규칙으로 타는 사람을 정한다.
+//      버스 시간은 world.busTimes(실제 버스 노선, src/sim/bus-network.js)가 있으면 그것을 쓴다.
 //   4. 타는 사람을 역과 구간에 더한다. 갈 때와 올 때를 모두 센다.
 //   5. 시간대 모양으로 하루를 나누고, 가장 붐비는 때의 붐빔을 잰다.
 import { boardingShare, busMinutes, centerWeight, zoneTrips } from './demand.js';
@@ -71,8 +72,12 @@ export function runDay(world, prepared, rules) {
     for (const [ci, center] of world.centers.entries()) {
       const centerTrips = (fromZone * centerWeights[ci]) / weightSum;
       if (centerTrips < MIN_TRIPS) continue;
-      const km = straightKm(zone, center);
-      const busMin = busMinutes(km, rules, zone.outer && center.outer);
+      const key = zone.index * world.centers.length + ci;
+      // 실제 버스 노선으로 찾은 시간이 있으면 그것을, 없으면(부산 밖, 정류장이 먼 칸, 옛날 부산) 어림 식을 쓴다.
+      const realBus = world.busTimes?.[key];
+      const busMin = Number.isFinite(realBus)
+        ? realBus
+        : busMinutes(straightKm(zone, center), rules, zone.outer && center.outer);
 
       // 가까운 역 3개 가운데 가장 빠른 길 하나를 고른다(SPEC 5.5 구현 조건).
       let best = null;
@@ -90,7 +95,6 @@ export function runDay(world, prepared, rules) {
 
       const share = boardingShare(busMin, best.total, rules);
       const people = centerTrips * share;
-      const key = zone.index * world.centers.length + ci;
       pairTime[key] = best.total;
       if (people < MIN_TRIPS) continue;
       pairPeople[key] = people;
