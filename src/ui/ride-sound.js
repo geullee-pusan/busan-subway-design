@@ -132,7 +132,7 @@ export function speakList(list) {
 export function testVoice() {
   const log = [];
   const synth = window.speechSynthesis;
-  if (!synth) return Promise.resolve({ ok: false, mode: null, log: ['speechSynthesis 없음'] });
+  if (!synth) return Promise.resolve({ ok: false, mode: null, log: ['speechSynthesis 없음', `브라우저: ${navigator.userAgent}`] });
   const voices = synth.getVoices();
   log.push(`브라우저: ${navigator.userAgent}`);
   log.push(`목소리 ${voices.length}개: ${voices.map((v) => `${v.name}(${v.lang}${v.localService ? ', 기기' : ''}${v.default ? ', 기본' : ''})`).join(' / ') || '없음'}`);
@@ -197,6 +197,34 @@ export function voicesReady() {
       resolve();
     }
   });
+}
+
+/** 이 브라우저가 글을 소리로 읽을 수 있는가. 삼성 인터넷, 카카오톡·네이버 앱 안의 브라우저에는 없다. */
+export function speechSupported() {
+  return typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined';
+}
+
+/** 어떤 브라우저로 열었는지 아이 말로(알 수 없으면 null) */
+export function browserName() {
+  const ua = navigator.userAgent ?? '';
+  if (/SamsungBrowser/i.test(ua)) return '삼성 인터넷';
+  if (/KAKAOTALK/i.test(ua)) return '카카오톡';
+  if (/NAVER/i.test(ua)) return '네이버 앱';
+  if (/; wv\)/.test(ua)) return '다른 앱 안의 브라우저';
+  return null;
+}
+
+/**
+ * 지금 페이지를 안드로이드 Chrome으로 다시 연다. 주소는 지금 연 주소를 그대로 쓴다(바깥 주소를 적어 두지 않는다).
+ * Chrome이 없으면 기기가 Play 스토어의 Chrome을 보여 준다.
+ */
+export function openInChrome() {
+  try {
+    const { host, pathname, search, hash } = window.location;
+    window.location.href = `intent://${host}${pathname}${search}${hash}#Intent;scheme=https;package=com.android.chrome;end`;
+  } catch {
+    // 열지 못하면 화면 안내대로 Chrome에서 직접 연다.
+  }
 }
 
 /** 안드로이드인가(목소리 받는 화면을 바로 열 수 있다) */

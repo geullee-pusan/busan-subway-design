@@ -235,6 +235,7 @@ export function renderParent(root, { onHome, onRules, settings, onSetting, onCle
     // 4-1. 홈 화면에 설치
     body.append(element('h2', null, '홈 화면에 놓기'));
     body.append(element('p', null, '홈 화면에 놓으면 앱처럼 열리고, 인터넷이 없어도 돼요.'));
+    body.append(element('p', 'panel-note', '시승 모드의 방송 목소리는 Chrome에서만 나와요. 삼성 인터넷이나 카카오톡 안에서 열면 나오지 않아요. 홈 화면에도 Chrome에서 놓아 주세요.'));
     const hint = element('p', 'panel-note', installHint());
     body.append(hint);
     if (canInstall()) {

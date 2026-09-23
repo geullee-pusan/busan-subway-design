@@ -12,7 +12,18 @@ import { crowdWord, rideTrip, windowScene } from '../sim/ride.js';
 import { lineRoutes } from '../sim/train-motion.js';
 import { countText, durationText, roParticle, stationLabel } from './format.js';
 import { DESIGN_COLOR, labelInk } from './map.js';
-import { createRideSound, isAndroid, openVoiceInstall, setVoiceMode, surelyNoVoice, testVoice, voicesReady } from './ride-sound.js';
+import {
+  browserName,
+  createRideSound,
+  isAndroid,
+  openInChrome,
+  openVoiceInstall,
+  setVoiceMode,
+  speechSupported,
+  surelyNoVoice,
+  testVoice,
+  voicesReady,
+} from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
 
@@ -298,7 +309,18 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     soundRow.append(voiceButton, musicButton);
     card.append(soundRow);
     // 우리말 목소리가 없으면 받는 곳을 연다. 목록은 조금 늦게 올라오므로 기다렸다가 본다.
-    if (voiceOn) {
+    if (voiceOn && !speechSupported()) {
+      // 브라우저에 글 읽기 기능이 없다(삼성 인터넷, 카카오톡 안 브라우저 등). Chrome에서 열면 된다.
+      const voiceBox = element('div', 'voice-get');
+      const where = browserName();
+      voiceBox.append(element('p', 'panel-note', where ? `${where}에서는 방송을 소리로 읽지 못해요.` : '이 브라우저는 방송을 소리로 읽지 못해요.'));
+      voiceBox.append(element('p', 'panel-note', '크롬(Chrome)에서 열면 목소리가 나와요.'));
+      if (isAndroid()) {
+        voiceBox.append(button('크롬으로 열기', openInChrome, 'button big'));
+        voiceBox.append(element('p', 'panel-note guide', '홈 화면에 놓을 때도 크롬에서 놓아요.'));
+      }
+      card.append(voiceBox);
+    } else if (voiceOn) {
       const voiceBox = element('div', 'voice-get');
       card.append(voiceBox);
       voicesReady().then(() => {
