@@ -29,6 +29,46 @@ export function localVoice(lang) {
   }
 }
 
+/**
+ * 목소리 목록이 다 올라올 때까지 기다린다. 브라우저는 처음에 빈 목록을 주고 나중에 voiceschanged로 알려 준다.
+ * 목록이 비어 있지 않거나, 알려 주거나, 3초가 지나면 끝난다.
+ */
+export function voicesReady() {
+  return new Promise((resolve) => {
+    const synth = window.speechSynthesis;
+    if (!synth) return resolve();
+    try {
+      if (synth.getVoices().length > 0) return resolve();
+      const done = () => {
+        clearTimeout(limit);
+        synth.removeEventListener?.('voiceschanged', done);
+        resolve();
+      };
+      const limit = setTimeout(done, 3000);
+      synth.addEventListener?.('voiceschanged', done);
+    } catch {
+      resolve();
+    }
+  });
+}
+
+/** 안드로이드인가(목소리 받는 화면을 바로 열 수 있다) */
+export function isAndroid() {
+  return /Android/i.test(navigator.userAgent ?? '');
+}
+
+/**
+ * 기기의 음성 데이터 설치 화면을 연다(안드로이드 Chrome). 웹 페이지가 목소리를 직접 깔 수는 없어서,
+ * 기기의 "음성 데이터 설치" 화면을 열어 사람이 고르게 한다. 인터넷 주소가 아니라 기기 설정 화면이다.
+ */
+export function openVoiceInstall() {
+  try {
+    window.location.href = 'intent:#Intent;action=android.speech.tts.engine.INSTALL_TTS_DATA;end';
+  } catch {
+    // 열지 못하면 화면의 안내를 따라 설정에서 받는다.
+  }
+}
+
 /** 소리 도구를 만든다. 첫 소리는 누르기(탭) 안에서 나야 브라우저가 막지 않는다. */
 export function createRideSound() {
   let ctx = null;
@@ -239,15 +279,19 @@ export function createRideSound() {
     }
     const wait = music ? chime() : 0;
     if (music) startBed();
-    const ko = voice ? localVoice('ko') : null;
-    const en = voice ? localVoice('en') : null;
     const synth = window.speechSynthesis;
-    if (!synth || (!ko && !en)) {
+    if (!voice || !synth) {
       if (music) setTimeout(() => my === token && stopBed(), (wait + 4) * 1000);
       return;
     }
-    setTimeout(() => {
+    Promise.all([voicesReady(), new Promise((r) => setTimeout(r, wait * 1000))]).then(() => {
       if (my !== token) return;
+      const ko = localVoice('ko');
+      const en = localVoice('en');
+      if (!ko && !en) {
+        if (music) setTimeout(() => my === token && stopBed(), 4000);
+        return;
+      }
       const queue = [
         ...(ko ? korean.map((text) => ({ text, voice: ko, rate: 0.95 })) : []),
         ...(en ? english.map((text) => ({ text, voice: en, rate: 0.9 })) : []),
@@ -261,7 +305,7 @@ export function createRideSound() {
         synth.speak(say);
       });
       if (queue.length === 0) stopBed();
-    }, wait * 1000);
+    });
   }
 
   /** 모두 끈다(화면을 떠날 때). */

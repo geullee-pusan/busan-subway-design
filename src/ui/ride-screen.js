@@ -12,7 +12,7 @@ import { crowdWord, rideTrip, windowScene } from '../sim/ride.js';
 import { lineRoutes } from '../sim/train-motion.js';
 import { countText, durationText, roParticle, stationLabel } from './format.js';
 import { DESIGN_COLOR, labelInk } from './map.js';
-import { localVoice, createRideSound } from './ride-sound.js';
+import { createRideSound, isAndroid, localVoice, openVoiceInstall, voicesReady } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
 
@@ -295,8 +295,20 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     musicButton.setAttribute('aria-pressed', String(soundOn));
     soundRow.append(voiceButton, musicButton);
     card.append(soundRow);
-    if (voiceOn && !localVoice('ko')) {
-      card.append(element('p', 'panel-note', '이 기기에서는 우리말 목소리를 못 찾았어요. 방송은 글자로 보여요.'));
+    // 우리말 목소리가 없으면 받는 곳을 연다. 목록은 조금 늦게 올라오므로 기다렸다가 본다.
+    if (voiceOn) {
+      const voiceBox = element('div', 'voice-get');
+      card.append(voiceBox);
+      voicesReady().then(() => {
+        if (localVoice('ko') || !voiceBox.isConnected) return;
+        voiceBox.append(element('p', 'panel-note', '방송을 읽어 줄 우리말 목소리가 기기에 없어요.'));
+        if (isAndroid()) {
+          voiceBox.append(button('우리말 목소리 받기', openVoiceInstall, 'button big'));
+          voiceBox.append(element('p', 'panel-note guide', '어른과 함께 "한국어"를 골라 받아요. 받은 뒤 이 화면으로 돌아오면 돼요.'));
+        } else {
+          voiceBox.append(element('p', 'panel-note guide', '어른과 함께 기기 설정의 "음성" 메뉴에서 한국어 목소리를 받아요.'));
+        }
+      });
     }
     if (soundOn) card.append(element('p', 'panel-note', '열차가 들어올 때 부산 지하철 진짜 안내음이 나와요.'));
 
@@ -700,6 +712,15 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     }, ms);
   }
 
+  const onVoices = () => {
+    if (phase === '고르기' && stops.length >= 2) renderSetup();
+  };
+  try {
+    window.speechSynthesis?.addEventListener?.('voiceschanged', onVoices);
+  } catch {
+    // 목소리를 쓰지 못하는 기기
+  }
+
   if (stops.length < 2) {
     body.append(element('p', null, '역이 두 개 넘게 있어야 탈 수 있어요.'));
   } else {
@@ -710,5 +731,10 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     if (timer) clearTimeout(timer);
     clearTimeout(ledTimer);
     sound.stopAll();
+    try {
+      window.speechSynthesis?.removeEventListener?.('voiceschanged', onVoices);
+    } catch {
+      // 목소리를 쓰지 못하는 기기
+    }
   };
 }
