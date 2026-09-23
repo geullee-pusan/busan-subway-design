@@ -174,6 +174,13 @@
     "sha256": "6b09f4e9e5637dcaeb091e21cc3336007bdbeac2dd4a55426abdba29c09d41f6",
     "fetched": "2026-09-22"
   },
+  "station-broadcast": {
+    "file": "data/raw/datagokr/3033578.zip",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003514100&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 190493128,
+    "sha256": "2ba4949de410557b3930ec13f2fa9d78a9f9eceb0320e1d550e51c0d5d282233",
+    "fetched": "2026-09-23"
+  },
   "station-detail": {
     "file": "data/raw/datagokr/15050408.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002540193&fileDetailSn=1&insertDataPrcus=N",

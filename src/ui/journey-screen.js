@@ -3,14 +3,19 @@
 // 다음 구간으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
 // 요금: 버스·지하철은 처음 탈 때 그 요금을 내고, 마지막에 내릴 때 모자란 요금(2구간 등)을 더 낸다.
 //       택시는 미터기(부산 중형택시 요금표)가 달리는 만큼 올라가고 내릴 때 낸다.
-import { lineById } from '../data.js';
+import { lineById, stationById, stationSounds } from '../data.js';
+import { chimeSide, platformInfo } from '../sim/platform.js';
+import { romanize } from '../sim/romanize.js';
+import { lineRoutes } from '../sim/train-motion.js';
+import { labelInk } from './map.js';
+import { concourseArt, concourseSign, platformArt, platformSigns } from './station-scenes.js';
 import { taxiFare } from '../sim/trip.js';
 import { busRouteText, distanceText, durationText, stationLabel } from './format.js';
 import { renderRideSegment } from './ride-screen.js';
 import announcementsFile from '../content/announcements.json';
 import { fillTemplate } from '../sim/announce.js';
 import { createRideSound } from './ride-sound.js';
-import { loadView } from './storage.js';
+import { loadView, saveView } from './storage.js';
 import { BUS_PEOPLE_MAX, busInteriorArt, taxiInteriorArt, walkSceneArt } from './vehicle-art.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -171,11 +176,15 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     render();
   }
 
+  /** 이미 교통카드를 찍은 단계 */
+  const tapped = new Set();
+
   /** 교통카드 찍기: 처음 탈 때 그 탈것 요금, 마지막에 내릴 때 모자란 요금 */
   function payNote(area, step, when) {
     if (step.kind !== '지하철' && step.kind !== '버스') return;
     const own = step.kind === '버스' ? fares.bus[rider === 'child' ? 'child' : 'adult'] : fares.subway[rider === 'child' ? 'child' : 'adult'][0];
-    if (when === '탈 때' && step === firstTransit) {
+    if (when === '탈 때' && step === firstTransit && !tapped.has(step)) {
+      tapped.add(step);
       paid += Math.min(own, trip.fare);
       area.append(
         element('p', 'journey-pay', rider === 'child' ? '교통카드를 찍어요. 어린이라 0원이에요.' : `교통카드를 찍어요. ${wonText(Math.min(own, trip.fare))}을 내요.`),
@@ -267,7 +276,107 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     return sign;
   }
 
+  /** 역 이름(한국어, 영어). 영어는 부산교통공사 자료, 없으면 로마자 표기 */
+  function namesOf(id) {
+    const ko = stationOf.get(id)?.name ?? '';
+    const en = stationById.get(id)?.nameEn?.replace(/'+/g, "'") ?? romanize(ko);
+    return { ko, en };
+  }
+
+  /** 지하철 구간을 탈 승강장: 노선, 방향, 끝 역, 앞뒤 역. 알 수 없으면 null */
+  function platformPlace(ride) {
+    if (!ride?.stations || ride.stations.length < 2) return null;
+    const route = lineRoutes(world).find((r) => r.line === ride.line);
+    const info = route ? platformInfo(route.stops, ride.stations[0], ride.stations[1]) : null;
+    if (!info) return null;
+    const line = lineById.get(ride.line);
+    const color = line?.color ?? '#1F3342';
+    const ink = labelInk(color) === color ? '#FFFFFF' : '#1F3342';
+    return { ...info, line, lineId: ride.line, color, ink, hereId: ride.stations[0] };
+  }
+
+  /**
+   * 승강장: 표지판 아래에서 열차를 기다린다. 다 기다리면 열차진입 안내음과 진입 방송(실제 녹음)이 나오고,
+   * 열차가 들어와 서고 안전문이 열린다. "열차에 타요"를 누르면 다음 단계로 간다.
+   * @param {string|null} waitText 기다리는 시간 문장(갈아타기에서는 이미 말해서 null)
+   */
+  function platformPhase(area, step, place, waitText) {
+    area.replaceChildren();
+    const end = namesOf(place.terminusId);
+    const here = namesOf(place.hereId);
+    area.append(element('h2', null, `${end.ko}행 열차를 기다려요`));
+    area.append(
+      platformSigns({
+        label: place.line?.label ?? '',
+        color: place.color,
+        ink: place.ink,
+        here,
+        prev: place.prevId ? namesOf(place.prevId) : null,
+        next: namesOf(place.nextId),
+        end,
+      }),
+    );
+    const led = element('div', 'ride-led');
+    const ledText = element('span', 'ride-led-text', `${end.ko}행 열차가 곧 들어와요`);
+    led.append(ledText);
+    area.append(led);
+    const art = platformArt({ color: place.color, reduceMotion });
+    area.append(art.svg);
+    if (waitText) area.append(element('p', null, waitText));
+
+    // 소리: 켜 두면 실제 녹음(안내음, 진입 방송)이 나온다. 시승 모드의 소리 설정과 같다.
+    let soundOn = loadView().rideSound === true;
+    const soundButton = button(soundOn ? '소리: 켬' : '소리: 끔', () => {
+      soundOn = !soundOn;
+      saveView({ rideSound: soundOn });
+      soundButton.textContent = soundOn ? '소리: 켬' : '소리: 끔';
+    });
+    area.append(soundButton);
+    const side = chimeSide(stationSounds.downEnds, place.lineId, end.ko);
+    const chime = side ? stationSounds.chimes[side] : null;
+    const spoken = stationSounds.approach[`${place.lineId}|${end.ko}`] ?? null;
+    if (chime || spoken) area.append(element('p', 'panel-note', '승강장 소리는 부산교통공사의 실제 녹음이에요.'));
+    const sound = createRideSound();
+    rideCleanup = () => sound.stopAll();
+
+    const board = nextButton(area, '열차에 타요', () => done(step), new Promise(() => {}));
+    progress(area, '열차를 기다리는 중이에요.').then(async () => {
+      ledText.textContent = `${end.ko}행 열차가 들어오고 있어요`;
+      sound.wake();
+      // 안내음이 끝나면 열차가 들어오기 시작하고, 진입 방송이 나오는 동안 들어와 선다.
+      const chimeDone = soundOn && chime ? sound.playClip(chime) : Promise.resolve();
+      await chimeDone;
+      const voice = soundOn && spoken ? sound.playClip(spoken) : Promise.resolve();
+      await Promise.all([art.arrive(3000), voice]);
+      art.openDoors();
+      ledText.textContent = `${end.ko}행 열차가 도착했어요`;
+      board.disabled = false;
+    });
+  }
+
   function renderPlatform(area, step) {
+    const place = platformPlace(step.next);
+    const subwayStep = steps[index + 1];
+    if (place) {
+      // 역 안: 방향 표지판을 보고, 개찰구에서 교통카드를 찍고, 타는 곳으로 걸어간다.
+      const here = namesOf(place.hereId);
+      area.append(element('h2', null, `${stationLabel(here.ko)} 안을 걸어 타는 곳으로 가요`));
+      area.append(
+        concourseSign({
+          label: place.line?.label ?? '',
+          color: place.color,
+          ink: place.ink,
+          sides: place.sides.map((s) => ({ next: namesOf(s.next), end: namesOf(s.toward), take: s.toward === place.terminusId })),
+        }),
+      );
+      const art = concourseArt({ reduceMotion });
+      area.append(art.svg);
+      if (subwayStep) payNote(area, subwayStep, '탈 때');
+      const walked = progress(area, '타는 곳으로 걸어가는 중이에요.', (t) => art.setProgress(t));
+      const waitText = `열차는 ${minutesText(step.minutes * 2)}마다 와요. 평균 ${minutesText(step.minutes)} 기다려요.`;
+      nextButton(area, '승강장으로 내려가요', () => platformPhase(area, step, place, waitText), walked);
+      return;
+    }
     const ride = step.next;
     const boardId = ride?.stations?.[0];
     const line = lineById.get(step.line);
@@ -326,6 +435,12 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       svg.append(svgEl('text', { x: 400, y: 54, 'text-anchor': 'middle', 'font-size': 26, 'font-weight': 700, fill: '#FFFFFF' }, `${line?.label ?? ''}호선 타는 곳 →`));
       area.append(svg);
       area.append(element('p', null, `통로를 걷고 열차를 기다려요. 약 ${minutesText(step.minutes)} 걸려요.`));
+      const place = platformPlace(step.next);
+      if (place) {
+        const walked = progress(area, '갈아타는 통로를 걷는 중이에요.');
+        nextButton(area, '승강장으로 가요', () => platformPhase(area, step, place, null), walked);
+        return;
+      }
     } else {
       area.append(element('h2', null, step.next?.mode === '기다리기' && step.next?.bus ? '역에서 나와 버스 정류장으로 가요' : '버스에서 내려 역으로 가요'));
       area.append(element('p', null, `약 ${minutesText(step.minutes)} 걸어요.`));

@@ -487,8 +487,40 @@ export function createRideSound() {
   }
 
   /** 모두 끈다(화면을 떠날 때). */
+  /** 지금 나오는 녹음 소리 */
+  const clips = new Set();
+
+  /**
+   * 녹음된 소리(MP3를 base64로 적은 글자)를 낸다. 끝나면(또는 못 내면) 풀리는 약속을 돌려준다.
+   * 게임 파일 안의 글자로 소리를 만들어서 네트워크를 쓰지 않는다.
+   */
+  function playClip(base64) {
+    return new Promise((resolve) => {
+      let audio;
+      try {
+        audio = new Audio(`data:audio/mpeg;base64,${base64}`);
+      } catch {
+        resolve();
+        return;
+      }
+      clips.add(audio);
+      const finish = () => {
+        clearTimeout(limit);
+        clips.delete(audio);
+        resolve();
+      };
+      // 끝났다는 소식이 오지 않아도 20초 뒤에는 넘어간다.
+      const limit = setTimeout(finish, 20000);
+      audio.addEventListener('ended', finish);
+      audio.addEventListener('error', finish);
+      audio.addEventListener('pause', finish);
+      audio.play().catch(finish);
+    });
+  }
+
   function stopAll() {
     token += 1;
+    for (const audio of clips) audio.pause();
     stopRumble();
     stopMelody();
     try {
@@ -503,5 +535,5 @@ export function createRideSound() {
     }
   }
 
-  return { wake, announce, playMelody, startRumble, stopRumble, stopAll };
+  return { wake, announce, playMelody, playClip, startRumble, stopRumble, stopAll };
 }

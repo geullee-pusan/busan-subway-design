@@ -16,10 +16,13 @@ import ridershipFile from '../data/build/ridership.json';
 import schematicFile from '../data/build/schematic.json';
 import serviceFile from '../data/build/service.json';
 import stationInfoFile from '../data/build/station-info.json';
+import stationSoundsFile from '../data/build/station-sounds.json';
 import stationsFile from '../data/build/stations.json';
 import transfersFile from '../data/build/transfers.json';
 
 export const grid = gridFile;
+/** 승강장 소리: 열차진입 안내음과 진입 방송(부산교통공사 실제 녹음, scripts/build-station-sounds.mjs) */
+export const stationSounds = stationSoundsFile;
 /** 부산 시내버스 실제 노선과 정류장(scripts/build-bus.mjs). 하루 운행과 여행 모드가 쓴다. */
 export const bus = busFile;
 /** 인구총조사(1980~2000)를 지금 구·군으로 옮긴 것. 옛날 부산 "그때 인구" 선택지가 쓴다. */

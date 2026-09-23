@@ -42,6 +42,8 @@ export const SOURCES = [
   // 부산 시내버스 노선별 정류장 차례와 승하차(공공데이터포털 15123610, "_20230731" 판, 1회성, 이용허락범위 제한 없음)
   { key: 'bus-route-stops', file: 'data/raw/datagokr/15123610.csv', url: dataGoKr('FILE_000000002818223'), size: 4000930 },
   // 부산 버스 정류소 자리(공공데이터포털 15084251, SHP "_20260912" 판, 이용허락범위 제한 없음)
+  // 부산도시철도 역사 안내방송(공공데이터포털 3033578, 이용허락범위 제한 없음). 190MB라 git에 넣지 않는다.
+  { key: 'station-broadcast', file: 'data/raw/datagokr/3033578.zip', url: dataGoKr('FILE_000000003514100'), size: 190493128 },
   { key: 'bus-stops', file: 'data/raw/datagokr/15084251.zip', url: dataGoKr('FILE_000000002797912'), size: 454474 },
 
   // 시승 모드 역명판 글꼴: 프리텐다드 굵은체 한글 2,350자 묶음 (npm pretendard 1.3.9, SIL OFL 1.1)

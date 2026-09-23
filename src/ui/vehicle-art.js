@@ -249,10 +249,11 @@ function busStanding(svg, spot, shirt) {
   svg.append(backOfPerson(400 + spot.off * half, p.floor - 4 - 116 * scale, shirt, scale, false));
 }
 
-/** 뒤에서 본 사람: 머리카락이 보이고, 서 있으면 한 손을 들어 손잡이를 잡는다. */
-function backOfPerson(x, y, shirt, scale, seated) {
+/** 뒤에서 본 사람: 머리카락이 보이고, 서 있으면 한 손을 들어 손잡이를 잡는다. (0, 0)이 머리 가운데다. */
+export function backOfPerson(x, y, shirt, scale, seated, holding = true) {
   const g = svgEl('g', { transform: `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${scale.toFixed(3)})` });
-  if (!seated) g.append(svgEl('line', { x1: 9, y1: 16, x2: 15, y2: -34, stroke: shirt, 'stroke-width': 6, 'stroke-linecap': 'round' }));
+  // 서 있으면 한 손을 들어 손잡이를 잡는다(holding). 승강장처럼 잡을 곳이 없으면 팔을 내린다.
+  if (!seated && holding) g.append(svgEl('line', { x1: 9, y1: 16, x2: 15, y2: -34, stroke: shirt, 'stroke-width': 6, 'stroke-linecap': 'round' }));
   g.append(svgEl('rect', { x: -14, y: 12, width: 28, height: seated ? 40 : 56, rx: 10, fill: shirt, stroke: '#1F3342', 'stroke-width': 1.5 }));
   g.append(svgEl('circle', { cx: -11, cy: 1, r: 3, fill: '#F2C9A0' }));
   g.append(svgEl('circle', { cx: 11, cy: 1, r: 3, fill: '#F2C9A0' }));
@@ -473,16 +474,7 @@ export function walkSceneArt({ reduceMotion = false, shirt = '#D9CBB5' } = {}) {
 
   // 뒷모습으로 걷는 사람: 긴 머리, 어깨에 멘 가방
   const who = svgEl('g');
-  const body = svgEl('g', { class: reduceMotion ? '' : 'journey-walker' });
-  body.append(svgEl('rect', { x: -10, y: -58, width: 9, height: 58, rx: 3, fill: '#1F2328', class: 'leg-a' }));
-  body.append(svgEl('rect', { x: 1, y: -58, width: 9, height: 58, rx: 3, fill: '#1F2328', class: 'leg-b' }));
-  body.append(svgEl('rect', { x: -17, y: -112, width: 34, height: 58, rx: 10, fill: shirt, stroke: '#1F3342', 'stroke-width': 1.2 }));
-  body.append(svgEl('rect', { x: -22, y: -108, width: 7, height: 44, rx: 3, fill: shirt, stroke: '#1F3342', 'stroke-width': 1 }));
-  body.append(svgEl('rect', { x: 15, y: -108, width: 7, height: 44, rx: 3, fill: shirt, stroke: '#1F3342', 'stroke-width': 1 }));
-  body.append(svgEl('line', { x1: 12, y1: -110, x2: 20, y2: -74, stroke: '#1F2328', 'stroke-width': 2.5 }));
-  body.append(svgEl('rect', { x: 14, y: -80, width: 14, height: 22, rx: 5, fill: '#2B3440' }));
-  body.append(svgEl('ellipse', { cx: 0, cy: -124, rx: 12, ry: 13, fill: '#2A2320' }));
-  body.append(svgEl('rect', { x: -12, y: -124, width: 24, height: 28, rx: 8, fill: '#2A2320' }));
+  const body = walkerFigure({ shirt, reduceMotion });
   who.append(body);
   svg.append(who);
   const setProgress = (t) => {
@@ -493,4 +485,22 @@ export function walkSceneArt({ reduceMotion = false, shirt = '#D9CBB5' } = {}) {
   };
   setProgress(0);
   return { svg, setProgress };
+}
+
+/**
+ * 뒷모습으로 걷는 사람(긴 머리, 어깨에 멘 가방). (0, 0)이 발밑이고 키는 약 137이다. 걸으면 두 다리가 번갈아 움직인다.
+ * 걷는 길과 역 안 그림이 함께 쓴다.
+ */
+export function walkerFigure({ shirt = '#D9CBB5', reduceMotion = false } = {}) {
+  const body = svgEl('g', { class: reduceMotion ? '' : 'journey-walker' });
+  body.append(svgEl('rect', { x: -10, y: -58, width: 9, height: 58, rx: 3, fill: '#1F2328', class: 'leg-a' }));
+  body.append(svgEl('rect', { x: 1, y: -58, width: 9, height: 58, rx: 3, fill: '#1F2328', class: 'leg-b' }));
+  body.append(svgEl('rect', { x: -17, y: -112, width: 34, height: 58, rx: 10, fill: shirt, stroke: '#1F3342', 'stroke-width': 1.2 }));
+  body.append(svgEl('rect', { x: -22, y: -108, width: 7, height: 44, rx: 3, fill: shirt, stroke: '#1F3342', 'stroke-width': 1 }));
+  body.append(svgEl('rect', { x: 15, y: -108, width: 7, height: 44, rx: 3, fill: shirt, stroke: '#1F3342', 'stroke-width': 1 }));
+  body.append(svgEl('line', { x1: 12, y1: -110, x2: 20, y2: -74, stroke: '#1F2328', 'stroke-width': 2.5 }));
+  body.append(svgEl('rect', { x: 14, y: -80, width: 14, height: 22, rx: 5, fill: '#2B3440' }));
+  body.append(svgEl('ellipse', { cx: 0, cy: -124, rx: 12, ry: 13, fill: '#2A2320' }));
+  body.append(svgEl('rect', { x: -12, y: -124, width: 24, height: 28, rx: 8, fill: '#2A2320' }));
+  return body;
 }

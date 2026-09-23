@@ -1917,3 +1917,164 @@ body {
   font-size: 1rem;
   font-weight: 700;
 }
+
+/* 역 안과 승강장 표지판(여행 모드 지하철 기다리기) */
+.st-sign {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  line-height: 1.2;
+}
+
+.st-sign-dark {
+  background: #1d2733;
+  color: #ffffff;
+}
+
+.st-side {
+  position: relative;
+  display: flex;
+  flex: 1 1 220px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border: 3px solid transparent;
+  border-radius: 6px;
+}
+
+.st-side:not(.is-left) {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.st-side.is-take {
+  border-color: #f2c230;
+}
+
+.st-take {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 8px;
+  border-radius: 4px;
+  background: #f2c230;
+  color: #1f3342;
+  font-size: 0.889rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.st-arrow {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.st-mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  font-size: 1.111rem;
+  font-weight: 800;
+}
+
+.st-names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.st-next {
+  font-size: 1.556rem;
+  font-weight: 800;
+}
+
+.st-end {
+  font-size: 1.111rem;
+  font-weight: 700;
+}
+
+.st-en {
+  font-size: 0.889rem;
+  opacity: 0.85;
+}
+
+.st-middle {
+  display: flex;
+  flex: 1 1 160px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  border-left: 2px solid #3d4a5a;
+  border-right: 2px solid #3d4a5a;
+}
+
+.st-title {
+  font-size: 1.556rem;
+  font-weight: 800;
+}
+
+.st-sub {
+  font-size: 0.889rem;
+  opacity: 0.85;
+}
+
+.st-sign-yellow {
+  align-items: center;
+  background: #f5c518;
+  color: #1a1a1a;
+  border-bottom: 6px solid #1a1a1a;
+}
+
+.st-sign-yellow .st-mark {
+  border-color: #1a1a1a;
+}
+
+.st-sign-yellow .st-names {
+  flex: 1;
+}
+
+.st-strip {
+  justify-content: space-between;
+  align-items: center;
+  background: #fbfbf8;
+  color: #1f3342;
+  border: 1px solid #c9ccc4;
+  border-top: 8px solid #1f3342;
+}
+
+.st-strip-side,
+.st-strip-here {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 120px;
+}
+
+.st-strip-side.is-next {
+  text-align: right;
+}
+
+.st-strip-here {
+  align-items: center;
+  text-align: center;
+}
+
+.st-strip-here .st-strip-ko {
+  font-size: 1.778rem;
+  font-weight: 800;
+}
+
+.st-strip-ko {
+  font-size: 1.111rem;
+  font-weight: 700;
+}

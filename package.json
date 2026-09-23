@@ -18,7 +18,8 @@
     "ride-assets": "node scripts/ride-assets.mjs",
     "melodies": "node scripts/make-melodies.mjs",
     "history-population": "node scripts/build-history-population.mjs",
-    "bus": "node scripts/build-bus.mjs"
+    "bus": "node scripts/build-bus.mjs",
+    "station-sounds": "node scripts/build-station-sounds.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
