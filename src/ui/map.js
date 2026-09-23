@@ -257,6 +257,8 @@ function designLayer(design, cols, shape = designShape(design)) {
   if (!design) return layer;
   const DESIGN_COLOR = design.color ?? DEFAULT_DESIGN_COLOR;
   const ink = labelInk(DESIGN_COLOR);
+  /** 버스 노선: 선은 점선, 정류장은 네모 */
+  const isBus = design.kind === '버스';
   // 떨어진 역: 점선 고리로 그린다(선 위 역과 모양이 다르다).
   for (const cell of looseStations(design)) {
     const point = loosePoint(design, cell);
@@ -303,7 +305,8 @@ function designLayer(design, cols, shape = designShape(design)) {
         stroke: DESIGN_COLOR,
         'stroke-width': 6,
         'stroke-linejoin': 'round',
-        'stroke-linecap': 'round',
+        'stroke-linecap': isBus ? 'butt' : 'round',
+        ...(isBus ? { 'stroke-dasharray': '12 6' } : {}),
         'vector-effect': 'non-scaling-stroke',
       }),
     );
@@ -319,18 +322,35 @@ function designLayer(design, cols, shape = designShape(design)) {
     const y = point.y * CELL;
     const transfer = Boolean(design.stationPoints?.[stop.cell]);
     // 갈아타는 역: 속을 비운 고리로 기존 역 동그라미를 감싼다(가운데가 정확히 겹친다).
+    const r = transfer ? DESIGN_TRANSFER_R : DESIGN_STOP_R;
     layer.append(
-      el('circle', {
-        class: 'design-stop',
-        cx: x.toFixed(2),
-        cy: y.toFixed(2),
-        r: transfer ? DESIGN_TRANSFER_R : DESIGN_STOP_R,
-        'data-r': transfer ? DESIGN_TRANSFER_R : DESIGN_STOP_R,
-        fill: transfer ? 'none' : '#FFFFFF',
-        stroke: DESIGN_COLOR,
-        'stroke-width': 3,
-        'vector-effect': 'non-scaling-stroke',
-      }),
+      isBus
+        ? el('rect', {
+            class: 'design-stop',
+            'data-shape': 'square',
+            'data-cx': x,
+            'data-cy': y,
+            'data-r': r,
+            x: (x - r).toFixed(2),
+            y: (y - r).toFixed(2),
+            width: 2 * r,
+            height: 2 * r,
+            fill: transfer ? 'none' : '#FFFFFF',
+            stroke: DESIGN_COLOR,
+            'stroke-width': 3,
+            'vector-effect': 'non-scaling-stroke',
+          })
+        : el('circle', {
+            class: 'design-stop',
+            cx: x.toFixed(2),
+            cy: y.toFixed(2),
+            r,
+            'data-r': r,
+            fill: transfer ? 'none' : '#FFFFFF',
+            stroke: DESIGN_COLOR,
+            'stroke-width': 3,
+            'vector-effect': 'non-scaling-stroke',
+          }),
     );
     // 역 이름(설계 화면에서 정한 것). 글자 크기는 확대 배율에 맞춰 applyTransform이 고친다.
     const name = design.stationNames?.[stop.cell];
@@ -355,8 +375,16 @@ function designLayer(design, cols, shape = designShape(design)) {
 
 /** 새 역 이름 글자를 확대 배율에 맞춘다. 화면에서 늘 같은 크기로 보인다. */
 function scaleDesignLabels(layer, k) {
-  for (const circle of layer?.querySelectorAll('.design-stop') ?? []) {
-    circle.setAttribute('r', (Number(circle.getAttribute('data-r')) / k).toFixed(2));
+  for (const stop of layer?.querySelectorAll('.design-stop') ?? []) {
+    const r = Number(stop.getAttribute('data-r')) / k;
+    if (stop.getAttribute('data-shape') === 'square') {
+      stop.setAttribute('x', (Number(stop.getAttribute('data-cx')) - r).toFixed(2));
+      stop.setAttribute('y', (Number(stop.getAttribute('data-cy')) - r).toFixed(2));
+      stop.setAttribute('width', (2 * r).toFixed(2));
+      stop.setAttribute('height', (2 * r).toFixed(2));
+    } else {
+      stop.setAttribute('r', r.toFixed(2));
+    }
   }
   for (const text of layer?.querySelectorAll('.design-label') ?? []) {
     const x = Number(text.getAttribute('data-x'));

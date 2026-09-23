@@ -189,13 +189,17 @@ export function renderRunning(root, { plan, result, world, hourShape, onDone }) 
   function paintTrains(hour) {
     for (const item of trains) {
       const now = trainsAt(item.route, hour);
+      const isBus = lineOf.get(item.route.line)?.kind === '버스';
       while (item.pool.length < now.length) {
-        const dot = svgEl('circle', {
-          r: isNewLineId(item.route.line) ? 4.5 : 3.5,
-          fill: item.color,
-          stroke: '#FFFFFF',
-          'stroke-width': 1,
-        });
+        // 버스는 네모, 열차는 동그라미(색만으로 가르지 않는다)
+        const dot = isBus
+          ? svgEl('rect', { width: 9, height: 9, fill: item.color, stroke: '#FFFFFF', 'stroke-width': 1 })
+          : svgEl('circle', {
+              r: isNewLineId(item.route.line) ? 4.5 : 3.5,
+              fill: item.color,
+              stroke: '#FFFFFF',
+              'stroke-width': 1,
+            });
         overlay.append(dot);
         item.pool.push(dot);
       }
@@ -207,8 +211,13 @@ export function renderRunning(root, { plan, result, world, hourShape, onDone }) 
           return;
         }
         dot.removeAttribute('display');
-        dot.setAttribute('cx', point.x.toFixed(1));
-        dot.setAttribute('cy', point.y.toFixed(1));
+        if (isBus) {
+          dot.setAttribute('x', (point.x - 4.5).toFixed(1));
+          dot.setAttribute('y', (point.y - 4.5).toFixed(1));
+        } else {
+          dot.setAttribute('cx', point.x.toFixed(1));
+          dot.setAttribute('cy', point.y.toFixed(1));
+        }
       });
     }
   }

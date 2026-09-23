@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { checkDesign, designCost, extendPath, headway, isNextTo, stationGaps } from '../src/sim/design.js';
+import { busFleet, checkDesign, designCost, extendPath, headway, isNextTo, stationGaps } from '../src/sim/design.js';
 import { rulesFromCards } from '../src/sim/world.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -93,4 +93,23 @@ test('결정론: 같은 설계는 늘 같은 공사비', () => {
   const design = { path: [0, 1, 2], stations: [0, 2], kind: '지하철', trainsPerHour: 10 };
   const run = () => JSON.stringify(designCost(design, grid, rules, tables, new Set([2])));
   assert.equal(run(), run());
+});
+
+test('버스 노선: 선·정류장 공사비는 없고 버스 대수 × 한 대 값이 든다', () => {
+  const kind = tables.lineKinds['버스'];
+  assert.equal(kind.capacityPerTrain, 49);
+  assert.equal(kind.costFactor, 0);
+  // 3칸(3km) 노선, 시속 17km → 한 바퀴(6km) 약 21분 11초. 한 시간 6대(10분마다) → 3대
+  const design = { path: [0, 1, 2, 3], stations: [0, 3], kind: '버스', trainsPerHour: 6 };
+  const fleet = busFleet(design, tables, rules);
+  assert.equal(fleet.buses, 3);
+  const cost = designCost(design, grid, rules, tables);
+  assert.equal(cost.lineCost, 0);
+  assert.equal(cost.stationCost, 0);
+  assert.equal(cost.vehicleCost, 3 * rules.busPrice100M);
+  assert.equal(cost.total, cost.vehicleCost);
+  // 자주 오게 하면 버스가 더 든다.
+  assert.ok(busFleet({ ...design, trainsPerHour: 12 }, tables, rules).buses > fleet.buses);
+  // 지하철은 버스 값이 없다.
+  assert.equal(designCost({ ...design, kind: '지하철' }, grid, rules, tables).vehicleCost, 0);
 });

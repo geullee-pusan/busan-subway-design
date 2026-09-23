@@ -6,7 +6,7 @@ import { futureLines, grid, lineById, ruleTables, stationById, stationInfo, stat
 import { terrainAt } from '../sim/design.js';
 import { isNewLineId } from '../sim/plan.js';
 import announcementsFile from '../content/announcements.json';
-import { announcementLines, englishLines } from '../sim/announce.js';
+import { announcementLines, englishLines, fillTemplate } from '../sim/announce.js';
 import { lineNameEnglish, romanize } from '../sim/romanize.js';
 import { crowdWord, lineLevel, rideTrip, windowScene } from '../sim/ride.js';
 import { lineRoutes } from '../sim/train-motion.js';
@@ -50,6 +50,7 @@ const SCENE_TEXT = {
   '강 위 다리': '지금은 강 위 다리를 건너요.',
   '바다 위 다리': '지금은 바다 위 다리를 건너요.',
   '강 밑': '지금은 강 밑을 지나요.',
+  도로: '지금은 거리를 달려요.',
   '높은 다리': '지금은 높은 다리 위를 달려요.',
 };
 
@@ -140,6 +141,10 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   const ink = labelInk(color);
   const lineName = design.lineName ?? '새 노선';
   const kindTable = ruleTables.lineKinds[design.kind] ?? ruleTables.lineKinds['경전철'];
+  /** 버스 노선이면 열차 대신 버스, 역 대신 정류장으로 부른다. */
+  const isBus = design.kind === '버스';
+  const vehicle = isBus ? '버스' : '열차';
+  const stopLabel = (name) => (isBus ? `${String(name).replace(/역$/, '')} 정류장` : stationLabel(name));
   const kind = { ...kindTable, capacityPerTrain: design.capacityPerTrain ?? kindTable.capacityPerTrain };
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
@@ -229,6 +234,14 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 두 역 사이 창밖 모습과 그렇게 고른 까닭 */
   function sceneBetween(a, b) {
     if (segment) return sceneFromStations(a, b);
+    if (isBus) {
+      const i = design.path.indexOf(cellOf.get(a));
+      const j = design.path.indexOf(cellOf.get(b));
+      const cells = i < 0 || j < 0 ? [] : design.path.slice(Math.min(i, j), Math.max(i, j) + 1);
+      const terrains = cells.map((cell) => terrainAt(grid, cell));
+      const scene = terrains.includes('sea') ? '바다 위 다리' : terrains.includes('river') ? '강 위 다리' : '도로';
+      return { scene, why: '버스는 찻길로 달려요.' };
+    }
     const i = design.path.indexOf(cellOf.get(a));
     const j = design.path.indexOf(cellOf.get(b));
     if (i < 0 || j < 0) return { scene: '땅속', why: null };
@@ -343,7 +356,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       box.append(item);
     }
     if (phase !== '고르기') {
-      const train = element('div', 'ride-train', '열차');
+      const train = element('div', 'ride-train', vehicle);
       train.setAttribute('aria-hidden', 'true');
       const place = (index) => `${((index + 0.5) / order.length) * 100}%`;
       train.style.left = place(phase === '달리기' ? at - 1 : at);
@@ -360,8 +373,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   function renderSetup() {
     body.replaceChildren();
     const card = element('div', 'ride-setup');
-    const first = stationLabel(stops[0].name);
-    const last = stationLabel(stops.at(-1).name);
+    const first = stopLabel(stops[0].name);
+    const last = stopLabel(stops.at(-1).name);
     card.append(element('h2', null, `${lineName}${objectParticle(lineName)} 타 봐요`));
     if (lines.length > 1) {
       card.append(element('h3', null, '어느 노선을 탈까요?'));
@@ -546,6 +559,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
 
   /** 지금 방송 앞에 나올 가락. 출발 방송과 보통 역에는 없다. */
   function melodyHere() {
+    if (isBus) return null;
     if (phase === '역' && at === boardIndex) return null;
     if (at === trip.stops.length - 1) return 'terminal';
     return transferLines(trip.stops[at].id).length > 0 ? 'transfer' : null;
@@ -561,6 +575,16 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   //  첫 역에서 떠나기 전: 출발 방송. 달리는 동안과 역에 선 뒤: 그 역의 "이번 역은" 방송(종착역은 종착 방송).
   function announcement() {
     const stop = trip.stops[at];
+    if (isBus) {
+      const bus = announcementsFile.bus;
+      const end = trip.stops.at(-1);
+      const next = trip.stops[at + 1];
+      if (phase === '역' && at === boardIndex) {
+        return { korean: bus.departure.map((line) => fillTemplate(line, { end: end.name, line: lineName })), english: [] };
+      }
+      const lines = at === trip.stops.length - 1 ? bus.terminal : bus.arrival;
+      return { korean: lines.map((line) => fillTemplate(line, { name: stop.name, next: next?.name ?? '' })), english: [] };
+    }
     if (phase === '역' && at === boardIndex) {
       const middle = trip.stops.slice(1, -1);
       // 방면: 지나는 역 가운데 갈아타는 역을 먼저, 두 곳까지
@@ -601,6 +625,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   // 우리나라 도시철도 승강장 역명판의 흔한 짜임: 흰 판, 노선 색 띠, 역 번호 동그라미, 큰 한글 이름과 영어 이름,
   // 갈아탈 노선 표, 아래 띠에 앞 역과 다음 역(화살표는 가는 쪽). 글꼴은 프리텐다드 굵은체(자유 이용 허락 OFL).
   function stationSign() {
+    if (isBus) return busStopSign();
     const stop = trip.stops[at];
     const prev = trip.stops[at - 1];
     const next = trip.stops[at + 1];
@@ -608,7 +633,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     sign.setAttribute('role', 'img');
     sign.setAttribute(
       'aria-label',
-      `역명판: ${stationLabel(stop.name)}${next ? `, 다음 역 ${stationLabel(next.name)}` : ', 마지막 역'}`,
+      `역명판: ${stopLabel(stop.name)}${next ? `, 다음 역 ${stopLabel(next.name)}` : ', 마지막 역'}`,
     );
     const top = element('div', 'sign-top');
     top.style.background = color;
@@ -663,8 +688,99 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     return sign;
   }
 
+  // ---------- 버스 안 ----------
+  // 옆에서 본 버스 안: 창문 셋, 앞문과 뒷문, 자리 10개, 기둥과 하차벨. 사람 그림 20개가 정원(49명)이다.
+  const BUS_SEATS = 10;
+  const BUS_SPOTS = 20;
+  function busInterior(load, scene, stationName) {
+    const svg = svgEl('svg', { class: 'ride-car', viewBox: '0 0 800 340', role: 'img' });
+    const count = load <= 0 ? 0 : Math.max(1, Math.min(BUS_SPOTS + 6, Math.round((load / kind.capacityPerTrain) * BUS_SPOTS)));
+    const perIcon = Math.max(1, Math.round(kind.capacityPerTrain / BUS_SPOTS));
+    svg.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요. 그림 하나는 약 ${perIcon}명이에요.`);
+    svg.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 340, fill: '#F1EFE8' }));
+    svg.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 30, fill: '#D9D4C7' }));
+    svg.append(svgEl('rect', { x: 0, y: 30, width: 800, height: 8, fill: color }));
+    const clip = svgEl('clipPath', { id: 'ride-windows' });
+    const windows = [
+      [110, 50, 230],
+      [470, 50, 130],
+      [620, 50, 160],
+    ];
+    for (const [x, y, w] of windows) clip.append(svgEl('rect', { x, y, width: w, height: 110, rx: 8 }));
+    const defs = svgEl('defs');
+    defs.append(clip);
+    svg.append(defs);
+    const view = svgEl('g', { 'clip-path': 'url(#ride-windows)' });
+    view.append(windowView(scene, stationName));
+    svg.append(view);
+    for (const [x, y, w] of windows) svg.append(svgEl('rect', { x, y, width: w, height: 110, rx: 8, fill: 'none', stroke: '#8A8676', 'stroke-width': 4 }));
+    // 앞문(왼쪽)과 뒷문(가운데)
+    for (const x of [20, 360]) {
+      svg.append(svgEl('rect', { x, y: 50, width: 90, height: 240, fill: '#CFCAB9', stroke: '#8A8676', 'stroke-width': 3 }));
+      svg.append(svgEl('line', { x1: x + 45, y1: 50, x2: x + 45, y2: 290, stroke: '#8A8676', 'stroke-width': 3 }));
+      svg.append(svgEl('rect', { x: x + 10, y: 70, width: 26, height: 120, rx: 4, fill: '#FFFFFF', 'fill-opacity': 0.5 }));
+      svg.append(svgEl('rect', { x: x + 54, y: 70, width: 26, height: 120, rx: 4, fill: '#FFFFFF', 'fill-opacity': 0.5 }));
+    }
+    // 기둥과 하차벨
+    for (const x of [120, 350, 460, 790 - 30]) {
+      svg.append(svgEl('rect', { x, y: 38, width: 8, height: 252, fill: '#E0B64A' }));
+      svg.append(svgEl('circle', { cx: x + 4, cy: 170, r: 7, fill: '#D1495B', stroke: '#FFFFFF', 'stroke-width': 2 }));
+    }
+    // 자리 10개(뒷문 앞 5, 뒤 5)
+    const seats = [];
+    for (const start of [130, 470]) {
+      // 자리 폭 40, 사이 6: 뒷문(x 360) 앞에 다섯 자리가 들어간다.
+      for (let i = 0; i < 5; i++) {
+        const x = start + i * 46;
+        svg.append(svgEl('rect', { x, y: 176, width: 40, height: 62, rx: 8, fill: '#3F6C9E' }));
+        svg.append(svgEl('rect', { x: x - 2, y: 232, width: 44, height: 16, rx: 5, fill: '#2F5580' }));
+        seats.push(x + 20);
+      }
+    }
+    svg.append(svgEl('rect', { x: 0, y: 290, width: 800, height: 50, fill: '#8C8C8C' }));
+    const seatOrder = [2, 7, 0, 5, 9, 4, 1, 8, 3, 6];
+    const stand = [];
+    for (let i = 0; i < 10; i++) stand.push({ x: 150 + i * 62, y: 0, scale: 1 });
+    for (let i = 0; i < 6; i++) stand.push({ x: 180 + i * 90, y: 16, scale: 1.08 });
+    const people = svgEl('g');
+    for (let n = 0; n < count; n++) {
+      const shirt = SHIRTS[(n * 5) % SHIRTS.length];
+      if (n < BUS_SEATS) people.append(person(seats[seatOrder[n]], 150, shirt, 1, true));
+      else {
+        const spot = stand[n - BUS_SEATS];
+        if (spot) people.append(person(spot.x, 286 + spot.y * 0.5 - 116 * spot.scale, shirt, spot.scale, false));
+      }
+    }
+    svg.append(people);
+    return { svg, count, perIcon };
+  }
+
+  /** 버스 정류장 표지: 초록 판에 정류장 이름과 다음 정류장 */
+  function busStopSign() {
+    const stop = trip.stops[at];
+    const next = trip.stops[at + 1];
+    const sign = element('div', 'station-sign bus-stop-sign');
+    sign.setAttribute('role', 'img');
+    sign.setAttribute('aria-label', `버스 정류장: ${stop.name}${next ? `, 다음 정류장 ${next.name}` : ', 종점'}`);
+    const top = element('div', 'sign-top');
+    top.style.background = '#2E8B3E';
+    top.style.color = '#FFFFFF';
+    const tag = element('span', 'sign-line-tag', `새${plan.lines.indexOf(design) + 1}`);
+    tag.style.color = '#2E8B3E';
+    top.append(tag, element('span', 'sign-line', `${lineName} 버스 정류장`));
+    const main = element('div', 'sign-main');
+    main.append(element('span', 'sign-name', stop.name));
+    const sides = element('div', 'sign-sides');
+    sides.style.background = color;
+    sides.style.color = ink === color ? '#FFFFFF' : '#1F3342';
+    sides.append(element('span', 'sign-next', next ? `다음 정류장 ${next.name} ▶` : '종점'));
+    sign.append(top, main, sides);
+    return sign;
+  }
+
   // ---------- 열차 안 ----------
   function interior(load, scene, stationName) {
+    if (isBus) return busInterior(load, scene, stationName);
     const svg = svgEl('svg', { class: 'ride-car', viewBox: '0 0 800 340', role: 'img' });
     const count = load <= 0 ? 0 : Math.max(1, Math.min(SPOTS + EXTRA, Math.round((load / kind.capacityPerTrain) * SPOTS)));
     const perIcon = Math.max(1, Math.round(kind.capacityPerTrain / SPOTS));
@@ -760,6 +876,16 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 창밖: 역이면 승강장, 달리면 지형에 따라 땅속·바다 밑·다리 */
   function windowView(scene, stationName) {
     const g = svgEl('g');
+    if (stationName && isBus) {
+      g.append(svgEl('rect', { x: 0, y: 40, width: 800, height: 140, fill: '#BFE3F5' }));
+      g.append(svgEl('rect', { x: 0, y: 140, width: 800, height: 40, fill: '#9AA5AE' }));
+      for (const x of [170, 510]) {
+        g.append(svgEl('rect', { x, y: 70, width: 120, height: 70, rx: 6, fill: 'none', stroke: '#56636E', 'stroke-width': 4 }));
+        g.append(svgEl('rect', { x: x + 10, y: 78, width: 100, height: 26, rx: 4, fill: '#2E8B3E' }));
+        g.append(svgEl('text', { x: x + 60, y: 97, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 700, fill: '#FFFFFF' }, stationName));
+      }
+      return g;
+    }
     if (stationName) {
       g.append(svgEl('rect', { x: 0, y: 40, width: 800, height: 140, fill: '#F4F1E8' }));
       g.append(svgEl('rect', { x: 0, y: 140, width: 800, height: 30, fill: '#D8D2C2' }));
@@ -770,6 +896,21 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       return g;
     }
     const moving = svgEl('g', { class: reduceMotion ? '' : 'ride-scene-move' });
+    if (scene === '도로') {
+      // 찻길: 하늘, 지나가는 건물과 가로수, 찻길 선
+      g.append(svgEl('rect', { x: 0, y: 40, width: 800, height: 140, fill: '#BFE3F5' }));
+      for (let x = 0; x < 1600; x += 80) {
+        const h = 40 + ((x * 11) % 50);
+        moving.append(svgEl('rect', { x, y: 140 - h, width: 60, height: h, fill: '#AEB9C4' }));
+        moving.append(svgEl('circle', { cx: x + 70, cy: 128, r: 10, fill: '#6FAE5E' }));
+      }
+      g.append(moving);
+      g.append(svgEl('rect', { x: 0, y: 140, width: 800, height: 40, fill: '#7D8A96' }));
+      const lane = svgEl('g', { class: reduceMotion ? '' : 'ride-scene-move' });
+      for (let x = 0; x < 1600; x += 80) lane.append(svgEl('rect', { x, y: 158, width: 40, height: 4, fill: '#F2F2F2' }));
+      g.append(lane);
+      return g;
+    }
     if (scene === '땅속' || scene === '바다 밑' || scene === '강 밑') {
       g.append(svgEl('rect', { x: 0, y: 40, width: 800, height: 140, fill: scene === '땅속' ? '#26313A' : '#1C3446' }));
       for (let x = 0; x < 1600; x += 80) moving.append(svgEl('rect', { x, y: 96, width: 36, height: 6, rx: 3, fill: '#F3D36B' }));
@@ -809,8 +950,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const led = element('div', 'ride-led');
     const ledText = element('span', 'ride-led-text');
     const ledLines = moving
-      ? [`다음 역은 ${stop.name}`, `Next stop ${englishName(stop.id)}`]
-      : [`이번 역은 ${stop.name}`, `This stop ${englishName(stop.id)}`];
+      ? [`다음 ${isBus ? '정류장' : '역'}은 ${stop.name}`, `Next stop ${englishName(stop.id)}`]
+      : [`이번 ${isBus ? '정류장' : '역'}은 ${stop.name}`, `This stop ${englishName(stop.id)}`];
     let ledIndex = 0;
     ledText.textContent = ledLines[0];
     clearTimeout(ledTimer);
@@ -852,7 +993,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     right.append(board);
 
     // 열차 안 사람 수
-    right.append(element('h3', null, '열차 안 사람'));
+    right.append(element('h3', null, `${vehicle} 안 사람`));
     const count = element('p', 'ride-count', inside > 0 ? countText(inside) : '아무도 없어요');
     right.append(count);
     const ratio = inside / kind.capacityPerTrain;
@@ -867,7 +1008,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const note = element('p', 'panel-note');
     note.append(element('span', null, `${crowdWord(ratio)}. 아이콘 10개가 `), wordWithCard('정원'), element('span', null, '이에요.'));
     right.append(note);
-    right.append(element('p', 'panel-note guide', `열차 안 그림에서 사람 하나는 약 ${car.perIcon}명이에요.`));
+    right.append(element('p', 'panel-note guide', `${vehicle} 안 그림에서 사람 하나는 약 ${car.perIcon}명이에요.`));
 
     // 타고 내린 사람(역에서만)
     if (!moving) {
@@ -890,12 +1031,12 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       const next = trip.stops[at + 1];
       const longest = Math.max(...trip.stops.map((s) => s.runS ?? 0), 1);
       right.append(element('h3', null, '다음 역까지'));
-      right.append(barRow(stationLabel(next.name), stop.runS, longest, durationText(stop.runS)));
-      const target = stationLabel(next.name);
+      right.append(barRow(stopLabel(next.name), stop.runS, longest, durationText(stop.runS)));
+      const target = stopLabel(next.name);
       controls.append(button(`${target}${roParticle(target)} 출발`, depart, 'button big ride-go'));
       // 역이 많으면 내릴 역까지 한 번에 간다(가운데 역 방송은 건너뛴다).
       if (segment && alightIndex - at > 1) {
-        const goal = stationLabel(trip.stops[alightIndex].name);
+        const goal = stopLabel(trip.stops[alightIndex].name);
         controls.append(button(`${goal}까지 가기`, () => depart(alightIndex)));
       }
     } else {

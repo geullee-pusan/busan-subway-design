@@ -1850,3 +1850,8 @@ body {
   font-size: 1.111rem;
   color: #9fe3a8;
 }
+
+/* 버스 정류장 표지 */
+.bus-stop-sign .sign-name {
+  letter-spacing: 0.02em;
+}

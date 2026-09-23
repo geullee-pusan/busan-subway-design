@@ -58,8 +58,22 @@ export function terrainFactor(grid, index, tables) {
 }
 
 /**
+ * 버스 노선에 필요한 버스 대수. 한 바퀴(갔다 오기) 도는 시간 동안 배차 간격마다 한 대씩 떠나야 한다.
+ * @returns {{buses: number, roundTripMin: number, headwayMin: number, cost: number}} cost는 억 원
+ */
+export function busFleet(design, tables, rules) {
+  const kind = tables.lineKinds[design.kind] ?? tables.lineKinds['버스'];
+  const km = Math.max(0, design.path.length - 1);
+  const roundTripMin = ((2 * km) / kind.speedKmh) * 60;
+  const headwayMin = 60 / design.trainsPerHour;
+  const buses = km === 0 ? 0 : Math.max(1, Math.ceil(roundTripMin / headwayMin - 1e-9));
+  return { buses, roundTripMin, headwayMin, cost: buses * (rules.busPrice100M ?? 0) };
+}
+
+/**
  * 공사비(억 원). 구간마다 두 칸의 지형 계수를 평균 내어 쓴다.
  * 역은 한 곳마다 정해진 값이고, 이미 역이 있는 칸이면 두 배다(환승역).
+ * 버스 노선은 선과 정류장 공사비가 없고(costFactor 0), 버스 대수만큼 버스 값이 든다(busFleet).
  */
 export function designCost(design, grid, rules, tables, existingStationCells = new Set()) {
   const kind = tables.lineKinds[design.kind] ?? tables.lineKinds['경전철'];
@@ -81,6 +95,8 @@ export function designCost(design, grid, rules, tables, existingStationCells = n
   });
   const lineCost = segments.reduce((sum, s) => sum + s.cost, 0);
   const stationCost = stations.reduce((sum, s) => sum + s.cost, 0);
+  const fleet = design.kind === '버스' ? busFleet(design, tables, rules) : null;
+  const vehicleCost = fleet ? fleet.cost : 0;
 
   const byTerrain = {};
   for (const segment of segments) {
@@ -91,7 +107,9 @@ export function designCost(design, grid, rules, tables, existingStationCells = n
     stations,
     lineCost,
     stationCost,
-    total: lineCost + stationCost,
+    vehicleCost,
+    buses: fleet ? fleet.buses : 0,
+    total: lineCost + stationCost + vehicleCost,
     byTerrain,
     lengthKm: Math.max(0, design.path.length - 1),
   };

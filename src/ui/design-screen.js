@@ -22,11 +22,12 @@ const NAME_SOURCES = {
   차례: '',
 };
 
-/** 화면에 쓰는 역 이름. "새 역 1"처럼 차례로 부른 이름에는 "역"을 붙이지 않는다. */
-function shownName(entry) {
+/** 화면에 쓰는 역 이름. "새 역 1"처럼 차례로 부른 이름에는 "역"을 붙이지 않는다. 버스 노선이면 "○○ 정류장" */
+function shownNameOf(entry, kind) {
+  if (kind === '버스') return entry.source === '차례' ? entry.name.replace('새 역', '새 정류장') : `${entry.name.replace(/역$/, '')} 정류장`;
   return entry.source === '차례' ? entry.name : stationLabel(entry.name);
 }
-const KINDS = ['경전철', '지하철'];
+const KINDS = ['경전철', '지하철', '버스'];
 /** 예상 승객 단계(1~5)를 아이 말로 */
 const RIDER_WORDS = ['', '아주 조금', '조금', '보통', '많이', '아주 많이'];
 /** 새 노선 이름의 기본값과 가장 긴 길이 */
@@ -136,6 +137,8 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   function sync() {
     lines[active] = design;
   }
+  /** 지금 고치는 노선의 역 이름(버스면 정류장) */
+  const shownName = (entry) => shownNameOf(entry, design.kind);
   /** 역 잇기에서 길을 찾지 못한 역이 있으면 알려 줄 말 */
   let connectNote = null;
   // 새 역 이름을 지을 때 쓰는 자료(그 해의 기존 역, 행정동, 중심지)
@@ -701,7 +704,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
         item.className = 'name-row';
         const open = button('', () => startEditing(entry.cell), 'name-button');
         open.append(element('span', 'name-order', `${entry.order}`), element('span', 'name-text', shownName(entry)));
-        const from = design.path.includes(entry.cell) ? NAME_SOURCES[entry.source] : '선로 없음';
+        const from = !design.path.includes(entry.cell) ? '선로 없음' : design.kind === '버스' && entry.source === '갈아타는 역' ? '갈아타는 곳' : NAME_SOURCES[entry.source];
         if (from) open.append(element('span', 'name-source', from));
         open.setAttribute('aria-label', `${entry.order}번째 역 ${shownName(entry)}, 눌러서 이름 고치기`);
         const info = button('ⓘ 정보', () => openInfo(entry.cell), 'button info-button');
@@ -842,14 +845,27 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     list.append(element('li', null, `길이: ${distanceText(cost.lengthKm * 1000)} (${cost.lengthKm}칸)`));
     const transfers = cost.stations.filter((s) => s.transfer).length;
     list.append(
-      element('li', null, `역: ${design.stations.length}개${transfers > 0 ? ` (갈아타는 역 ${transfers}개)` : ''}`),
+      element(
+        'li',
+        null,
+        design.kind === '버스'
+          ? `정류장: ${design.stations.length}개${transfers > 0 ? ` (갈아타는 곳 ${transfers}개)` : ''}`
+          : `역: ${design.stations.length}개${transfers > 0 ? ` (갈아타는 역 ${transfers}개)` : ''}`,
+      ),
     );
     if (lines.length > 1) list.append(element('li', null, `이 노선 공사비: ${moneyText(cost.total)}`));
     list.append(element('li', null, `선 공사비: ${moneyText(cost.lineCost)}`));
     list.append(element('li', null, `역 공사비: ${moneyText(cost.stationCost)}`));
+    if (design.kind === '버스') {
+      // 버스 값은 작은 수라 어림하지 않고 그대로 쓴다.
+      const eok = (value) => `${value.toLocaleString('ko-KR')}억 원`;
+      list.append(element('li', null, `버스 ${cost.buses}대 × ${eok(rules.busPrice100M)} = ${eok(cost.vehicleCost)}`));
+      list.append(element('li', 'panel-note', '버스가 한 바퀴 도는 동안 배차 간격마다 한 대씩 떠나야 해요.'));
+      list.append(element('li', 'panel-note', '버스 한 대 값은 우리가 정한 값이에요.'));
+    }
     for (const [terrain, value] of Object.entries(cost.byTerrain)) {
       const card = ruleTables.terrainCost[terrain];
-      if (!card) continue;
+      if (!card || value === 0) continue;
       list.append(element('li', 'panel-note', `${card.card} → ${moneyText(value)}`));
     }
     panel.append(list);
@@ -873,7 +889,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     panel.append(element('p', 'panel-note', ruleTables.lineKinds[design.kind].card));
 
     // 열차 수와 배차 간격
-    panel.append(element('h3', null, '한 시간에 오는 열차'));
+    panel.append(element('h3', null, design.kind === '버스' ? '한 시간에 오는 버스' : '한 시간에 오는 열차'));
     const trainBox = element('div', 'tool-row');
     for (const count of TRAINS_PER_HOUR) {
       const node = button(`${count}대`, () => {
