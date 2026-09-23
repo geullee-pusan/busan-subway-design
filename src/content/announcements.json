@@ -13,14 +13,18 @@
     {
       "what": "영어 방송(This stop is …, The doors are on your right, You can transfer to line number …, The last station, This train is for …)",
       "page": "부산교통공사 열차안내방송 1호선 서면역, 노포역의 영어 방송"
+    },
+    {
+      "what": "번호 없는 노선의 영어 이름과 갈아타기 문장('You can transfer to Busan Gimhae Light Rail Transit.', '… can transfer to Donghae Line.')",
+      "page": "부산교통공사 열차안내방송 2호선 사상역, 1호선 교대역의 영어 방송(2026-09-24 확인)"
     }
   ],
   "notes": [
     "공식 페이지에는 '다음 역은' 방송이 없다. 실제로는 역에 닿기 전에 '이번 역은' 방송이 나오므로, 달리는 동안 다음에 설 역의 '이번 역은' 방송을 보여 준다.",
     "내리실 문의 방향은 역마다 다르다(1호선 서면·노포는 오른쪽, 4호선 미남은 왼쪽). 내가 만든 노선의 역은 모두 옆에 승강장이 있다고 보고 오른쪽으로 둔다. 이것은 게임에서 정한 값이다.",
     "방면: 출발 방송은 이 열차가 지나는 역 두 곳, 갈아타기 방송은 갈아탈 노선의 양쪽 끝 역을 쓴다. 실제 방송도 큰 역이나 끝 역 이름으로 방면을 말한다.",
-    "영어 방송은 우리말 방송 다음에 나온다. 새 역 이름은 국어의 로마자 표기법으로 바꾼다(src/sim/romanize.js). 중심지 안내와 번호가 없는 노선(동해선, 부산김해경전철)의 갈아타기는 공식 영어 문구를 확인하지 못해 영어로는 말하지 않는다.",
-    "영어 갈아타기 안내는 공식 페이지에 번호 노선('line number 2')만 있다. 내가 만든 새 노선처럼 번호가 없는 노선은 우리가 정한 문장 'You can transfer to the New Line 2.'로 안내한다. 새 노선의 영어 이름은 기본 이름이면 New Line n, 직접 지은 이름이면 로마자 + Line이다(src/sim/romanize.js lineNameEnglish)."
+    "영어 방송은 우리말 방송 다음에 나온다. 새 역 이름은 국어의 로마자 표기법으로 바꾼다(src/sim/romanize.js). 중심지 안내는 공식 영어 문구를 확인하지 못해 영어로는 말하지 않는다.",
+    "영어 갈아타기 안내: 번호 노선은 'line number 2'(서면역), 부산김해경전철과 동해선은 공식 영어 이름(사상역, 교대역)을 쓴다. 공식 방송은 이름 앞에 the를 붙이지 않는다. 내가 만든 새 노선도 같은 모양으로 'You can transfer to New Line 2.'라고 한다. 새 노선 영어 이름은 기본 이름이면 New Line n, 직접 지은 이름이면 로마자 + Line이다(src/sim/romanize.js lineNameEnglish)."
   ],
   "departure": [
     "고객 여러분 안녕하십니까. 이 열차는 {end}, {end}행 열차입니다.",
@@ -63,6 +67,10 @@
       "Thank you."
     ],
     "door": "right",
-    "transferNamed": "You can transfer to the {line}."
+    "transferNamed": "You can transfer to {line}.",
+    "lineNames": {
+      "BGL": "Busan Gimhae Light Rail Transit",
+      "DH": "Donghae Line"
+    }
   }
 }

@@ -173,6 +173,7 @@
 | 차내 안내 방송 문구의 모양(도착, 갈아타기, 내리실 분, 종착, 출발) | 부산교통공사 누리집 열차안내방송(1호선 서면·동래·부산·노포·다대포해수욕장, 2호선 장산, 4호선 미남) https://www.humetro.busan.kr/homepage/default/broadcast/list.do?SUB_CODE=1&CODE=119 | 2026-09-23 | `src/content/announcements.json`, 시승 화면 |
 
 | 영어 방송 문구의 모양(This stop is …, The doors are on your right, You can transfer to line number …, The last station, This train is for …) | 같은 페이지의 영어 방송(1호선 서면, 노포) | 2026-09-23 | `src/content/announcements.json` english |
+| 부산김해경전철, 동해선의 영어 이름과 갈아타기 영어 문장 | 부산교통공사 열차안내방송 2호선 사상역(https://www.humetro.busan.kr/homepage/default/broadcast/list.do?SUB_CODE=2&CODE=227) "You can transfer to Busan Gimhae Light Rail Transit.", 1호선 교대역(https://www.humetro.busan.kr/homepage/default/broadcast/list.do?SUB_CODE=1&CODE=124) "… can transfer to Donghae Line." | 2026-09-24 | `src/content/announcements.json` english.lineNames |
 | 역명판 글꼴 프리텐다드 굵은체(한글 2,350자 묶음) | npm pretendard 1.3.9 `dist/web/static/woff2-subset/Pretendard-Bold.subset.woff2`, SIL Open Font License 1.1. `data/raw/fonts/` | 2026-09-23 | 시승 화면 역명판과 전광판 |
 
 - 공공데이터포털 3033578(부산도시철도 역사 안내방송)은 승강장 방송(열차 진입, 막차, 종료, 계도)뿐이고 차내 환승역·종착역 멜로디가 없다. 승강장 소리는 차내 시승에 맞지 않아 쓰지 않는다. 받아 둔 ZIP은 지워도 된다.

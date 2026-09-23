@@ -243,7 +243,13 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
         continue;
       }
       const line = lineById.get(lineId) ?? futureLineById.get(lineId);
-      marks.push({ label: line?.label ?? lineNameOf.get(lineId) ?? '', name: line?.name ?? '', color: line?.color ?? '#1F3342' });
+      marks.push({
+        label: line?.label ?? lineNameOf.get(lineId) ?? '',
+        name: line?.name ?? '',
+        color: line?.color ?? '#1F3342',
+        // 번호가 없는 노선의 공식 영어 이름(부산김해경전철, 동해선). 번호 노선은 "line number n"으로 말한다.
+        english: /^\d+$/.test(line?.label ?? '') ? null : (announcementsFile.english.lineNames[lineId] ?? null),
+      });
     }
     return marks;
   }

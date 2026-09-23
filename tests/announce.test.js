@@ -100,6 +100,16 @@ test('영어 방송: 번호가 없는 새 노선으로 갈아타는 역도 안�
     'This stop is Danggam, Danggam.',
     'The doors are on your right.',
     'You can transfer to line number 2.',
-    'You can transfer to the New Line 2.',
+    'You can transfer to New Line 2.',
   ]);
+});
+
+test('영어 방송: 부산김해경전철과 동해선은 공식 영어 이름으로 안내한다', async () => {
+  const { englishLines } = await import('../src/sim/announce.js');
+  const names = templates.english.lineNames;
+  assert.equal(names.BGL, 'Busan Gimhae Light Rail Transit');
+  assert.equal(names.DH, 'Donghae Line');
+  // 실제 사상역 영어 방송: "You can transfer to Busan Gimhae Light Rail Transit."
+  const lines = englishLines(templates, { type: '도착', name: 'Sasang', lineNumbers: ['2'], lineNames: [names.BGL] });
+  assert.equal(lines.at(-1), 'You can transfer to Busan Gimhae Light Rail Transit.');
 });
