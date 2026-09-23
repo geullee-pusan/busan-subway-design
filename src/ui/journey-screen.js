@@ -7,6 +7,7 @@ import { lineById } from '../data.js';
 import { taxiFare } from '../sim/trip.js';
 import { distanceText, durationText, stationLabel } from './format.js';
 import { renderRideSegment } from './ride-screen.js';
+import { busInteriorArt, taxiInteriorArt, walkSceneArt } from './vehicle-art.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 /** 걷기·버스·택시 그림이 움직이는 시간(밀리초) */
@@ -234,20 +235,12 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     const target = step.to ? stationLabel(stationOf.get(step.to)?.name ?? '역') : step.from ? to.name : to.name;
     const start = step.from ? stationLabel(stationOf.get(step.from)?.name ?? '역') : from.name;
     area.append(element('h2', null, step.to ? `${target}까지 걸어요` : `${start}에서 ${to.name}까지 걸어요`));
-    const svg = sceneSvg();
-    svg.setAttribute('aria-label', '길을 걷는 그림이에요.');
-    svg.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 200, fill: '#DCEEF7' }));
-    for (let x = 0; x < 800; x += 110) {
-      const h = 50 + ((x * 13) % 70);
-      svg.append(svgEl('rect', { x: x + 10, y: 170 - h, width: 90, height: h, fill: '#B8C4CE' }));
-      svg.append(svgEl('rect', { x: x + 25, y: 185 - h, width: 18, height: 14, fill: '#EEF3F6' }));
-    }
-    svg.append(svgEl('rect', { x: 0, y: 170, width: 800, height: 30, fill: '#9AA5AE' }));
-    const who = walker(svg);
-    area.append(svg);
+    // 가로수 사이 넓은 보도를 뒷모습으로 걸어간다(src/ui/vehicle-art.js).
+    const scene = walkSceneArt({ reduceMotion });
+    area.append(scene.svg);
     area.append(element('p', null, `${distanceText(step.meters)}, 약 ${minutesText(step.minutes)} 걸려요.`));
     if (!step.from && from.hilly) area.append(element('p', 'panel-note', '언덕길이라 천천히 걸어요.'));
-    const ready = progress(area, '걷는 중이에요.', (t) => who.setAttribute('transform', `translate(${40 + t * 700} 0)`));
+    const ready = progress(area, '걷는 중이에요.', (t) => scene.setProgress(t));
     nextButton(area, '다 걸었어요', () => done(step), ready);
   }
 
@@ -350,32 +343,13 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     nextButton(area, '버스에 타요', () => done(step), ready);
   }
 
-  function vehicleInside(kind) {
-    const svg = sceneSvg(220);
-    svg.setAttribute('aria-label', kind === '버스' ? '버스 안 그림이에요.' : '택시 안 그림이에요.');
-    const outside = svgEl('g', { class: reduceMotion ? '' : 'ride-scene-move' });
-    svg.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 220, fill: '#DCEEF7' }));
-    for (let x = 0; x < 1600; x += 100) {
-      const h = 40 + ((x * 7) % 60);
-      outside.append(svgEl('rect', { x, y: 120 - h, width: 70, height: h, fill: '#AEB9C4' }));
-    }
-    svg.append(outside);
-    svg.append(svgEl('rect', { x: 0, y: 120, width: 800, height: 100, fill: kind === '버스' ? '#5C6F87' : '#2B2B2B' }));
-    if (kind === '버스') {
-      for (const x of [60, 260, 460, 660]) svg.append(svgEl('rect', { x, y: 140, width: 120, height: 60, rx: 10, fill: '#71849C' }));
-      svg.append(svgEl('circle', { cx: 740, cy: 60, r: 14, fill: '#D1495B', stroke: '#FFFFFF', 'stroke-width': 3 }));
-      svg.append(svgEl('text', { x: 740, y: 95, 'text-anchor': 'middle', 'font-size': 16, fill: '#1F3342' }, '하차벨'));
-    } else {
-      svg.append(svgEl('rect', { x: 60, y: 135, width: 680, height: 70, rx: 18, fill: '#3A3A3A' }));
-      svg.append(svgEl('circle', { cx: 220, cy: 170, r: 40, fill: 'none', stroke: '#888', 'stroke-width': 8 }));
-    }
-    return svg;
-  }
-
   function renderBus(area, step) {
     area.append(element('h2', null, '버스를 타고 가요'));
     payNote(area, step, '탈 때');
-    area.append(vehicleInside('버스'));
+    // 버스 안: 몇 명이 탔는지 자료가 없어서 사람 그림은 몇 개만 그린다.
+    const bus = busInteriorArt({ count: 6, color: '#2E8B3E', label: '시내버스', reduceMotion });
+    bus.setAttribute('aria-label', '버스 안 그림이에요. 뒤에서 앞을 바라봐요.');
+    area.append(bus);
     area.append(element('p', null, `약 ${distanceText(step.meters)}, ${minutesText(step.minutes)} 가요.`));
     const ready = progress(area, '버스가 달리는 중이에요.');
     const bottom = element('div');
@@ -394,7 +368,9 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
 
   function renderTaxi(area, step) {
     area.append(element('h2', null, '택시를 타고 가요'));
-    area.append(vehicleInside('택시'));
+    // 뒷자리에서 본 택시 안. 그림 속 미터기도 함께 올라간다.
+    const taxi = taxiInteriorArt({ reduceMotion, meterText: fares.taxi.baseFare.toLocaleString('ko-KR') });
+    area.append(taxi.svg);
     // 요금 미터기: 달린 거리만큼 부산 택시 요금표대로 올라간다.
     const meter = element('div', 'taxi-meter');
     meter.setAttribute('role', 'status');
@@ -405,7 +381,9 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     const clockHour = hour + elapsed / 60;
     const ready = progress(area, '택시가 달리는 중이에요.', (t) => {
       const km = (step.meters / 1000) * t;
-      fareNode.textContent = wonText(t === 0 ? fares.taxi.baseFare : taxiFare(fares, km, step.minutes * t, clockHour));
+      const fare = t === 0 ? fares.taxi.baseFare : taxiFare(fares, km, step.minutes * t, clockHour);
+      fareNode.textContent = wonText(fare);
+      taxi.setMeter(fare.toLocaleString('ko-KR'));
       kmNode.textContent = distanceText(km * 1000);
     });
     area.append(element('p', 'panel-note', '처음 2km는 기본요금이에요. 그다음 132m마다 100원씩 올라가요.'));

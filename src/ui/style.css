@@ -1335,8 +1335,25 @@ body {
   }
 }
 
+/* 앞 유리 너머 찻길 선이 다가오는 느낌(버스, 택시) */
+.road-ahead {
+  animation: road-ahead 0.6s linear infinite;
+}
+
+@keyframes road-ahead {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(6px);
+    opacity: 0.4;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ride-scene-move {
+  .ride-scene-move,
+  .road-ahead {
     animation: none;
   }
 

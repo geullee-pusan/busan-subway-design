@@ -25,6 +25,7 @@ import {
   voicesReady,
 } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
+import { BUS_PEOPLE_MAX, busInteriorArt } from './vehicle-art.js';
 import { wordWithCard } from './word-card.js';
 
 /** 고를 수 있는 시간대 */
@@ -689,69 +690,13 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   }
 
   // ---------- 버스 안 ----------
-  // 옆에서 본 버스 안: 창문 셋, 앞문과 뒷문, 자리 10개, 기둥과 하차벨. 사람 그림 20개가 정원(49명)이다.
-  const BUS_SEATS = 10;
+  // 뒤에서 앞을 바라본 저상 버스 안(src/ui/vehicle-art.js). 사람 그림 20개가 정원(49명)이다.
   const BUS_SPOTS = 20;
   function busInterior(load, scene, stationName) {
-    const svg = svgEl('svg', { class: 'ride-car', viewBox: '0 0 800 340', role: 'img' });
-    const count = load <= 0 ? 0 : Math.max(1, Math.min(BUS_SPOTS + 6, Math.round((load / kind.capacityPerTrain) * BUS_SPOTS)));
+    const count = load <= 0 ? 0 : Math.max(1, Math.min(BUS_PEOPLE_MAX, Math.round((load / kind.capacityPerTrain) * BUS_SPOTS)));
     const perIcon = Math.max(1, Math.round(kind.capacityPerTrain / BUS_SPOTS));
+    const svg = busInteriorArt({ count, color, label: lineName, outside: windowView(scene, stationName), reduceMotion });
     svg.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요. 그림 하나는 약 ${perIcon}명이에요.`);
-    svg.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 340, fill: '#F1EFE8' }));
-    svg.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 30, fill: '#D9D4C7' }));
-    svg.append(svgEl('rect', { x: 0, y: 30, width: 800, height: 8, fill: color }));
-    const clip = svgEl('clipPath', { id: 'ride-windows' });
-    const windows = [
-      [110, 50, 230],
-      [470, 50, 130],
-      [620, 50, 160],
-    ];
-    for (const [x, y, w] of windows) clip.append(svgEl('rect', { x, y, width: w, height: 110, rx: 8 }));
-    const defs = svgEl('defs');
-    defs.append(clip);
-    svg.append(defs);
-    const view = svgEl('g', { 'clip-path': 'url(#ride-windows)' });
-    view.append(windowView(scene, stationName));
-    svg.append(view);
-    for (const [x, y, w] of windows) svg.append(svgEl('rect', { x, y, width: w, height: 110, rx: 8, fill: 'none', stroke: '#8A8676', 'stroke-width': 4 }));
-    // 앞문(왼쪽)과 뒷문(가운데)
-    for (const x of [20, 360]) {
-      svg.append(svgEl('rect', { x, y: 50, width: 90, height: 240, fill: '#CFCAB9', stroke: '#8A8676', 'stroke-width': 3 }));
-      svg.append(svgEl('line', { x1: x + 45, y1: 50, x2: x + 45, y2: 290, stroke: '#8A8676', 'stroke-width': 3 }));
-      svg.append(svgEl('rect', { x: x + 10, y: 70, width: 26, height: 120, rx: 4, fill: '#FFFFFF', 'fill-opacity': 0.5 }));
-      svg.append(svgEl('rect', { x: x + 54, y: 70, width: 26, height: 120, rx: 4, fill: '#FFFFFF', 'fill-opacity': 0.5 }));
-    }
-    // 기둥과 하차벨
-    for (const x of [120, 350, 460, 790 - 30]) {
-      svg.append(svgEl('rect', { x, y: 38, width: 8, height: 252, fill: '#E0B64A' }));
-      svg.append(svgEl('circle', { cx: x + 4, cy: 170, r: 7, fill: '#D1495B', stroke: '#FFFFFF', 'stroke-width': 2 }));
-    }
-    // 자리 10개(뒷문 앞 5, 뒤 5)
-    const seats = [];
-    for (const start of [130, 470]) {
-      // 자리 폭 40, 사이 6: 뒷문(x 360) 앞에 다섯 자리가 들어간다.
-      for (let i = 0; i < 5; i++) {
-        const x = start + i * 46;
-        svg.append(svgEl('rect', { x, y: 176, width: 40, height: 62, rx: 8, fill: '#3F6C9E' }));
-        svg.append(svgEl('rect', { x: x - 2, y: 232, width: 44, height: 16, rx: 5, fill: '#2F5580' }));
-        seats.push(x + 20);
-      }
-    }
-    svg.append(svgEl('rect', { x: 0, y: 290, width: 800, height: 50, fill: '#8C8C8C' }));
-    const seatOrder = [2, 7, 0, 5, 9, 4, 1, 8, 3, 6];
-    const stand = [];
-    for (let i = 0; i < 10; i++) stand.push({ x: 150 + i * 62, y: 0, scale: 1 });
-    for (let i = 0; i < 6; i++) stand.push({ x: 180 + i * 90, y: 16, scale: 1.08 });
-    const people = svgEl('g');
-    for (let n = 0; n < count; n++) {
-      const shirt = SHIRTS[(n * 5) % SHIRTS.length];
-      if (n < BUS_SEATS) people.append(person(seats[seatOrder[n]], 150, shirt, 1, true));
-      else {
-        const spot = stand[n - BUS_SEATS];
-        if (spot) people.append(person(spot.x, 286 + spot.y * 0.5 - 116 * spot.scale, shirt, spot.scale, false));
-      }
-    }
-    svg.append(people);
     return { svg, count, perIcon };
   }
 
