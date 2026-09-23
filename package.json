@@ -15,7 +15,8 @@
     "preview": "vite preview --port 4173 --strictPort",
     "tablet": "vite preview --port 4173 --strictPort --host",
     "icons": "node scripts/make-icons.mjs",
-    "ride-assets": "node scripts/ride-assets.mjs"
+    "ride-assets": "node scripts/ride-assets.mjs",
+    "melodies": "node scripts/make-melodies.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

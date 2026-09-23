@@ -87,4 +87,9 @@ test('붐빔 말과 창밖 모습', () => {
   assert.equal(windowScene(['flat', 'river', 'flat']), '강 위 다리');
   assert.equal(windowScene(['flat', 'sea', 'river']), '바다 밑');
   assert.equal(windowScene(['field', 'field', 'flat']), '높은 다리');
+  // 경전철은 땅 위로 달린다.
+  assert.equal(windowScene(['flat', 'hill'], '경전철'), '높은 다리');
+  assert.equal(windowScene(['flat', 'river'], '경전철'), '강 위 다리');
+  assert.equal(windowScene(['flat', 'sea', 'river'], '경전철'), '바다 위 다리');
+  assert.equal(windowScene(['flat', 'hill'], '지하철'), '땅속');
 });

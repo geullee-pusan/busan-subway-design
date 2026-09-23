@@ -87,13 +87,20 @@ export function crowdWord(ratio) {
 }
 
 /**
- * 두 역 사이 칸들의 지형으로 창밖 모습을 고른다.
+ * 두 역 사이 칸들의 지형과 노선 종류로 창밖 모습을 고른다.
+ * 경전철은 땅 위(높은 다리)로 달린다. 강이나 바다를 지나면 다리 위다.
  * 들판은 높은 다리, 강은 다리, 나머지(도시, 언덕, 산, 바다)는 땅속이나 바다 밑이다(src/content/rules.json 공사비 카드와 같다).
  * @param {string[]} terrains 두 역 사이 칸들의 지형(끝 칸 포함)
- * @returns {'땅속'|'바다 밑'|'강 위 다리'|'높은 다리'}
+ * @param {string} [kind] 노선 종류('지하철' 또는 '경전철')
+ * @returns {'땅속'|'바다 밑'|'강 위 다리'|'바다 위 다리'|'높은 다리'}
  */
-export function windowScene(terrains) {
+export function windowScene(terrains, kind = '지하철') {
   const count = (name) => terrains.filter((t) => t === name).length;
+  if (kind === '경전철') {
+    if (count('sea') > 0) return '바다 위 다리';
+    if (count('river') > 0) return '강 위 다리';
+    return '높은 다리';
+  }
   if (count('sea') > 0) return '바다 밑';
   if (count('river') > 0) return '강 위 다리';
   if (terrains.length > 0 && count('field') * 2 > terrains.length) return '높은 다리';

@@ -148,7 +148,7 @@ const VIEW_DEFAULTS = {
   runScope: '내 노선', // 운행 화면의 탄 사람 수와 많이 타는 역: '내 노선' 또는 '부산 전체'
   rideVoice: false, // 시승 모드 안내 방송을 소리로 읽는다(기기 안 목소리만)
   rideVoiceMode: 'voice', // 이 기기에서 목소리가 나온 방법: 'voice' | 'lang' | 'default'
-  rideSound: false, // 시승 모드 배경음과 효과음(열차 진입 안내음, 방송 안내음, 달리는 소리)
+  rideSound: false, // 시승 모드 가락과 열차 소리(환승역·종착역 가락, 달리는 소리)
 };
 
 export function loadView() {

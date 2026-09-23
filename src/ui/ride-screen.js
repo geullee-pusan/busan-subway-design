@@ -48,6 +48,7 @@ const SCENE_TEXT = {
   땅속: '지금은 땅속을 달려요.',
   '바다 밑': '지금은 바다 밑을 달려요.',
   '강 위 다리': '지금은 강 위 다리를 건너요.',
+  '바다 위 다리': '지금은 바다 위 다리를 건너요.',
   '높은 다리': '지금은 높은 다리 위를 달려요.',
 };
 
@@ -154,7 +155,10 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     const j = design.path.indexOf(cellOf.get(b));
     if (i < 0 || j < 0) return '땅속';
     const cells = design.path.slice(Math.min(i, j), Math.max(i, j) + 1);
-    return windowScene(cells.map((cell) => terrainAt(grid, cell)));
+    return windowScene(
+      cells.map((cell) => terrainAt(grid, cell)),
+      design.kind,
+    );
   }
 
   // 고른 것과 지금 자리
@@ -169,6 +173,8 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
   // 이 기기에서 목소리가 나온 방법(목소리 들어 보기에서 찾는다)
   setVoiceMode(loadView().rideVoiceMode);
   let ledTimer = null;
+  /** 역 사이 한 번 달리기의 번호. 화면을 떠나거나 다시 타면 앞 달리기의 도착을 무시한다. */
+  let legToken = 0;
   const sound = createRideSound();
   const futureLineById = new Map(futureLines.lines.map((l) => [l.id, l]));
 
@@ -289,7 +295,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     card.append(element('p', 'panel-note guide', '막대가 길수록 그 시간에 타는 사람이 많아요.'));
     card.append(element('p', 'panel-note', `${dayType} 자료로 타요.`));
 
-    // 소리: 방송 목소리(기기 안 목소리), 배경음과 효과음(열차 진입 안내음, 방송 안내음, 달리는 소리)
+    // 소리: 방송 목소리(기기 목소리), 가락과 열차 소리(환승역·종착역 가락, 달리는 소리)
     card.append(element('h3', null, '소리'));
     const soundRow = element('div', 'tool-row');
     const voiceButton = button(voiceOn ? '방송 목소리: 켬' : '방송 목소리: 끔', () => {
@@ -305,7 +311,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
       voiceButton.disabled = true;
       voiceButton.classList.remove('is-on');
     }
-    const musicButton = button(soundOn ? '배경음·효과음: 켬' : '배경음·효과음: 끔', () => {
+    const musicButton = button(soundOn ? '가락·열차 소리: 켬' : '가락·열차 소리: 끔', () => {
       soundOn = !soundOn;
       saveView({ rideSound: soundOn });
       renderSetup();
@@ -368,7 +374,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
         }
       });
     }
-    if (soundOn) card.append(element('p', 'panel-note', '열차가 들어올 때 부산 지하철 진짜 안내음이 나와요.'));
+    if (soundOn) card.append(element('p', 'panel-note', '환승역과 종착역에서는 방송 앞에 가락이 나와요.'));
 
     card.append(button('타기', startTrip, 'button big ride-go'));
     body.append(card);
@@ -386,20 +392,25 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     });
     at = 0;
     phase = '역';
+    legToken += 1;
     sound.wake();
     renderRide();
-    const ride = trip;
-    const entering = soundOn ? sound.trainEntering(direction) : Promise.resolve();
-    entering.then(() => {
-      if (trip === ride && phase === '역' && at === 0) announceNow();
-    });
+    announceNow();
   }
 
   /** 지금 방송을 소리로 낸다(켜 둔 것만). */
+  /** 지금 방송을 소리로 낸다(켜 둔 것만). 방송이 끝나면 풀리는 약속을 돌려준다. */
   function announceNow() {
-    if (!voiceOn && !soundOn) return;
+    if (!voiceOn && !soundOn) return Promise.resolve();
     const { korean, english } = announcement();
-    sound.announce({ korean, english, voice: voiceOn, music: soundOn });
+    return sound.announce({ korean, english, voice: voiceOn, music: soundOn, melody: melodyHere() });
+  }
+
+  /** 지금 방송 앞에 나올 가락. 출발 방송과 보통 역에는 없다. */
+  function melodyHere() {
+    if (phase === '역' && at === 0) return null;
+    if (at === trip.stops.length - 1) return 'terminal';
+    return transferLines(trip.stops[at].id).length > 0 ? 'transfer' : null;
   }
 
   /** 떠난 시각부터 지금 역까지 걸린 시간(초) */
@@ -618,7 +629,15 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
       for (let x = 0; x < 1600; x += 80) moving.append(svgEl('rect', { x, y: 96, width: 36, height: 6, rx: 3, fill: '#F3D36B' }));
     } else {
       g.append(svgEl('rect', { x: 0, y: 40, width: 800, height: 140, fill: '#BFE3F5' }));
-      g.append(svgEl('rect', { x: 0, y: 128, width: 800, height: 60, fill: scene === '강 위 다리' ? '#6FA8CF' : '#9CC58A' }));
+      const water = { '강 위 다리': '#6FA8CF', '바다 위 다리': '#3F7FB3' }[scene];
+      g.append(svgEl('rect', { x: 0, y: 128, width: 800, height: 60, fill: water ?? '#9CC58A' }));
+      // 높은 다리 위: 멀리 건물들이 지나간다.
+      if (!water) {
+        for (let x = 0; x < 1600; x += 90) {
+          const h = 30 + ((x * 7) % 50);
+          moving.append(svgEl('rect', { x: x + 20, y: 128 - h, width: 50, height: h, fill: '#AEB9C4' }));
+        }
+      }
       for (let x = 0; x < 1600; x += 100) moving.append(svgEl('rect', { x, y: 60, width: 8, height: 120, fill: '#7D8A96' }));
     }
     g.append(moving);
@@ -759,15 +778,18 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     sound.wake();
     if (soundOn) sound.startRumble();
     renderRide();
-    announceNow();
-    // 방송 목소리를 켜면 방송이 끝날 만큼 조금 더 달린다.
-    const ms = reduceMotion ? 0 : voiceOn ? MOVE_MS * 2 : MOVE_MS;
-    timer = setTimeout(() => {
+    // 방송이 나오는 동안은 계속 달린다. 가장 짧게 달리는 시간과 방송이 모두 끝나면 역에 선다.
+    const leg = ++legToken;
+    const shortest = new Promise((resolve) => {
+      timer = setTimeout(resolve, reduceMotion ? 0 : MOVE_MS);
+    });
+    Promise.all([shortest, announceNow()]).then(() => {
+      if (leg !== legToken || phase !== '달리기') return;
       timer = null;
       sound.stopRumble();
       phase = '역';
       renderRide();
-    }, ms);
+    });
   }
 
   const onVoices = () => {
@@ -786,6 +808,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
   }
 
   return () => {
+    legToken += 1;
     if (timer) clearTimeout(timer);
     clearTimeout(ledTimer);
     sound.stopAll();

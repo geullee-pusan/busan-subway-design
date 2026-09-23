@@ -173,13 +173,13 @@
 | 차내 안내 방송 문구의 모양(도착, 갈아타기, 내리실 분, 종착, 출발) | 부산교통공사 누리집 열차안내방송(1호선 서면·동래·부산·노포·다대포해수욕장, 2호선 장산, 4호선 미남) https://www.humetro.busan.kr/homepage/default/broadcast/list.do?SUB_CODE=1&CODE=119 | 2026-09-23 | `src/content/announcements.json`, 시승 화면 |
 
 | 영어 방송 문구의 모양(This stop is …, The doors are on your right, You can transfer to line number …, The last station, This train is for …) | 같은 페이지의 영어 방송(1호선 서면, 노포) | 2026-09-23 | `src/content/announcements.json` english |
-| 열차 진입 알림음 2개(상행선 갈매기·파도소리, 하행선 뱃고동·파도소리) | 공공데이터포털 3033578 부산교통공사_부산도시철도 역사 안내방송(2025-08-31 판), 이용허락범위 제한 없음. `data/raw/datagokr/3033578.zip`(190,493,128바이트, git에 넣지 않음) | 2026-09-23 | `npm run ride-assets` → `data/build/sounds/` |
 | 역명판 글꼴 프리텐다드 굵은체(한글 2,350자 묶음) | npm pretendard 1.3.9 `dist/web/static/woff2-subset/Pretendard-Bold.subset.woff2`, SIL Open Font License 1.1. `data/raw/fonts/` | 2026-09-23 | 시승 화면 역명판과 전광판 |
 
-- 알림음 파일은 이름이 .MP4지만 속은 MP3다. 소리는 고치지 않고 이름만 .mp3로 바꿔 꺼낸다.
+- 공공데이터포털 3033578(부산도시철도 역사 안내방송)은 승강장 방송(열차 진입, 막차, 종료, 계도)뿐이고 차내 환승역·종착역 멜로디가 없다. 승강장 소리는 차내 시승에 맞지 않아 쓰지 않는다. 받아 둔 ZIP은 지워도 된다.
+- 환승역 가락(가야금 느낌, 오음계)과 종착역 로고송(비브라폰 느낌, 다장조)은 우리가 새로 지었다(`src/content/melodies.json`). 부산 차내 멜로디는 이용 허락을 찾지 못해 옮기지 않는다. `npm run melodies`가 `docs/melodies/*.mid`를 만든다.
 - 부산교통공사 역명판 글꼴(휴메트로체, 새 디자인의 코레일체)은 쓰지 않는다. 코레일체는 공공누리 제4유형(상업적 이용 금지, 변경 금지)이고 무단 배포를 금지해서 게임에 넣어 배포할 수 없다. 그래서 자유 이용 허락(OFL) 고딕 글꼴을 쓴다.
 - OFL에 따라 저작권 표시와 이용 허락 전문을 부모 화면에서 보여 준다(`data/build/fonts/Pretendard-OFL.txt`, 머리글의 주소만 뺀 전문).
-- 방송 앞 가락, 방송 배경음, 달리는 소리는 우리가 브라우저에서 만든 소리다(`src/ui/ride-sound.js`). 실제 부산 차내 음원이 아니다.
+- 가락과 달리는 소리는 브라우저에서 만든 소리다(`src/ui/ride-sound.js`). 실제 부산 차내 음원이 아니다.
 - 새 역의 영어 이름은 국어의 로마자 표기법으로 만든다(`src/sim/romanize.js`). 이미 있는 역은 부산교통공사 자료의 영어 이름을 쓴다.
 - 공식 페이지에는 "다음 역은" 방송이 없다. 달리는 동안에는 다음에 설 역의 "이번 역은" 방송을 보여 준다.
 - 내리실 문 방향은 역마다 다르다. 내가 만든 노선은 모두 "오른쪽"으로 둔다(게임에서 정한 값).

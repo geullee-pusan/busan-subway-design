@@ -39,9 +39,6 @@ export const SOURCES = [
   // 공식 노선 색을 뽑는 노선도 이미지 (공공데이터포털, 큰 파일이라 git에 넣지 않는다)
   { key: 'route-map', file: 'data/raw/datagokr/15054957.zip', url: dataGoKr('FILE_000000003511950'), size: 15372503 },
 
-  // 역사 안내방송 음원 (공공데이터포털 3033578, 이용허락범위 제한 없음). 시승 모드 열차 진입 알림음을 잘라 쓴다. 큰 파일이라 git에 넣지 않는다.
-  { key: 'station-broadcast', file: 'data/raw/datagokr/3033578.zip', url: dataGoKr('FILE_000000003514100'), size: 190493128 },
-
   // 시승 모드 역명판 글꼴: 프리텐다드 굵은체 한글 2,350자 묶음 (npm pretendard 1.3.9, SIL OFL 1.1)
   { key: 'pretendard-bold', file: 'data/raw/fonts/Pretendard-Bold.subset.woff2', url: 'https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2-subset/Pretendard-Bold.subset.woff2', size: 270784 },
   { key: 'pretendard-license', file: 'data/raw/fonts/Pretendard-LICENSE.txt', url: 'https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/LICENSE.txt', size: 4419 },
