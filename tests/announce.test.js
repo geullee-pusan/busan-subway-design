@@ -12,7 +12,11 @@ const templates = JSON.parse(readFileSync(resolve(ROOT, 'src/content/announcemen
 test('방송 틀에는 출처와 확인한 날짜가 있다', () => {
   assert.match(templates.checkedOn, /^\d{4}-\d{2}-\d{2}$/);
   assert.ok(templates.sources.length > 0);
-  for (const source of templates.sources) assert.match(source.url, /^https:\/\/www\.humetro\.busan\.kr\//);
+  for (const source of templates.sources) assert.match(source.page, /^부산교통공사 열차안내방송/);
+  // 주소는 게임 파일에 넣지 않고 data/SOURCES.md에 둔다(오프라인, 바깥 주소 없음).
+  const md = readFileSync(resolve(ROOT, 'data/SOURCES.md'), 'utf8');
+  assert.match(md, /humetro\.busan\.kr\/homepage\/default\/broadcast/);
+  assert.ok(!JSON.stringify(templates).includes('http'));
 });
 
 test('도착 방송: 1호선 서면역 실제 방송과 같은 문장이 된다', () => {
