@@ -9,6 +9,7 @@ import {
   dongs,
   futureLines,
   grid,
+  historyPopulation,
   stationInfo,
   lines,
   links,
@@ -24,6 +25,7 @@ import { compareToReal, meetsTargets } from './sim/compare.js';
 import { asPlan, withPlan } from './sim/plan.js';
 import { networkAt } from './sim/history.js';
 import { prepareWorld, runDay } from './sim/run.js';
+import { populationRowsAt } from './sim/history-population.js';
 import { riderLevel, stationSurroundings } from './sim/station-info.js';
 import { buildWorld, rulesFromCards } from './sim/world.js';
 
@@ -70,12 +72,20 @@ function dayTripFactor(dayType) {
 
 const worlds = new Map();
 
+/** 옛날 부산에서 "그때 인구"를 쓸 수 있는 해(인구총조사가 있는 첫 해부터 지금 전까지) */
+export function canUseThenPopulation(year) {
+  const first = Math.min(...Object.keys(historyPopulation.census).map(Number));
+  return year >= first && year < BASE_YEAR;
+}
+
 /**
  * 기준 연도와 요일에 맞는 세상을 만든다.
- * @param {{year?: number, dayType?: string}} options
+ * @param {{year?: number, dayType?: string, population?: 'now'|'then'}} options
+ *   population: 사는 사람 자료. now(기본) = 지금 인구, then = 그 해 인구(인구총조사로 어림, 옛날 부산만)
  */
-export function worldFor({ year = 2026, dayType = '평일' } = {}) {
-  const key = `${year}-${dayType}`;
+export function worldFor({ year = 2026, dayType = '평일', population = 'now' } = {}) {
+  const useThen = population === 'then' && canUseThenPopulation(year);
+  const key = `${year}-${dayType}${useThen ? '-then' : ''}`;
   if (worlds.has(key)) return worlds.get(key);
 
   const useFuture = year >= 2027;
@@ -92,8 +102,10 @@ export function worldFor({ year = 2026, dayType = '평일' } = {}) {
     size: dayType === '평일' ? place.size : place.size * weekendFactor(place),
   }));
 
+  // 그 해 인구: 부산 칸마다 구·군 비율을 곱한 격자(src/sim/history-population.js)
+  const gridOfYear = useThen ? { ...grid, population: populationRowsAt(grid, year, historyPopulation).population } : grid;
   const world = buildWorld({
-    grid,
+    grid: gridOfYear,
     stations: allStations,
     lines: allLines,
     links: allLinks,

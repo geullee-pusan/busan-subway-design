@@ -8,6 +8,7 @@ import dongsFile from '../data/build/dongs.json';
 import futureFile from '../data/build/future-lines.json';
 import standardsFile from '../data/standards.json';
 import gridFile from '../data/build/grid.json';
+import historyPopulationFile from '../data/build/history-population.json';
 import linesFile from '../data/build/lines.json';
 import linksFile from '../data/build/links.json';
 import ridershipFile from '../data/build/ridership.json';
@@ -18,6 +19,8 @@ import stationsFile from '../data/build/stations.json';
 import transfersFile from '../data/build/transfers.json';
 
 export const grid = gridFile;
+/** 인구총조사(1980~2000)를 지금 구·군으로 옮긴 것. 옛날 부산 "그때 인구" 선택지가 쓴다. */
+export const historyPopulation = historyPopulationFile;
 export const lines = linesFile.lines;
 export const planned = linesFile.planned;
 export const stations = stationsFile.stations;

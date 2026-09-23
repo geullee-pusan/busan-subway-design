@@ -1,7 +1,7 @@
 // 설계 화면(docs/SPEC.md 6장 2번, 7.2절).
 // 격자를 따라 선을 긋고 역을 놓는다. 공사비와 예산이 바로 보이고, 되돌리기는 무제한이다.
 import { futureLines, grid, ruleTables, stations } from '../data.js';
-import { BASE_YEAR, designStationInfo, networkOfYear, rules, stationNameContext } from '../model.js';
+import { BASE_YEAR, canUseThenPopulation, designStationInfo, networkOfYear, rules, stationNameContext } from '../model.js';
 import { TRAINS_PER_HOUR, connectStations, headway, stationGaps } from '../sim/design.js';
 import { MAX_LINES, asPlan, checkPlan, lineIdAt, planCost } from '../sim/plan.js';
 import { extendPath } from '../sim/design.js';
@@ -385,6 +385,42 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     update();
   }
 
+  /** 옛날 부산: 사는 사람 자료 고르기(기본은 지금 인구) */
+  function renderPopulationChoice() {
+    if (!canUseThenPopulation(baseYear)) {
+      panel.append(element('p', 'panel-note', '사는 사람과 가는 곳은 지금 자료를 써요. 그때 자료를 구하지 못했어요.'));
+      return;
+    }
+    const choice = loadView().historyPopulation;
+    panel.append(element('h3', null, '사는 사람'));
+    const row = element('div', 'tool-row');
+    row.setAttribute('role', 'group');
+    row.setAttribute('aria-label', '사는 사람 자료 고르기');
+    for (const [value, label] of [
+      ['now', '지금 인구'],
+      ['then', `${baseYear}년 인구`],
+    ]) {
+      const node = button(label, () => {
+        if (choice === value) return;
+        saveView({ historyPopulation: value });
+        infoCache = { key: null, info: null };
+        update();
+      });
+      node.classList.toggle('is-on', choice === value);
+      node.setAttribute('aria-pressed', String(choice === value));
+      row.append(node);
+    }
+    panel.append(row);
+    panel.append(
+      element(
+        'p',
+        'panel-note',
+        choice === 'then' ? '인구총조사로 구마다 그때 사람 수를 어림했어요.' : '지금 사는 사람으로 계산해요.',
+      ),
+    );
+    if (choice === 'then') panel.append(element('p', 'panel-note', '가는 곳(중심지)은 지금 자료를 써요.'));
+  }
+
   /** 패널 위쪽: 새 노선 고르기 */
   function renderLinePicker() {
     panel.append(element('h3', null, '내 노선'));
@@ -527,11 +563,11 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   /** 설계의 역 정보(칸 → 정보). 같은 설계면 다시 세지 않는다. */
   function stationInfo() {
     sync();
-    const key = JSON.stringify([active, lines.map((l) => [l.path, l.stations, l.kind, l.trainsPerHour])]);
+    const key = JSON.stringify([active, loadView().historyPopulation, lines.map((l) => [l.path, l.stations, l.kind, l.trainsPerHour])]);
     if (infoCache.key !== key) {
       infoCache = {
         key,
-        info: designStationInfo(planOut(), { year: baseYear, dayType: mission?.dayType ?? '평일' }, active),
+        info: designStationInfo(planOut(), { year: baseYear, dayType: mission?.dayType ?? '평일', population: loadView().historyPopulation }, active),
       };
     }
     return infoCache.info;
@@ -742,7 +778,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       if (past) {
         const note = past.stations.length === 0 ? `${baseYear}년에는 아직 도시철도가 없어요.` : `지도에 ${baseYear}년 노선만 있어요.`;
         panel.append(element('p', 'panel-note', note));
-        panel.append(element('p', 'panel-note', '사는 사람과 가는 곳은 지금 자료를 써요. 그때 자료를 구하지 못했어요.'));
+        renderPopulationChoice();
       }
     }
     renderLinePicker();

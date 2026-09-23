@@ -19,7 +19,7 @@ import { renderMissions } from './ui/mission-screen.js';
 import { renderResult } from './ui/result-screen.js';
 import { renderRunning } from './ui/running-screen.js';
 import { setNumberMode } from './ui/format.js';
-import { activeRuleSet, loadDesigns, loadSettings, runsLeft, saveDesign, saveSettings, useRun } from './ui/storage.js';
+import { activeRuleSet, loadDesigns, loadSettings, runsLeft, saveDesign, saveSettings, useRun, loadView } from './ui/storage.js';
 import './ui/style.css';
 
 const root = document.getElementById('app');
@@ -174,7 +174,7 @@ function showDesign(mission, design = null) {
 function startRide(plan, ran = null) {
   session.design = plan;
   const mission = session.mission;
-  const options = { year: designYear(), dayType: mission?.dayType ?? '평일' };
+  const options = { year: designYear(), dayType: mission?.dayType ?? '평일', population: loadView().historyPopulation };
   const after = ran ?? runWithDesign(plan, options);
   show(() =>
     renderRide(root, {
@@ -220,7 +220,7 @@ function startRunning() {
   // 설계 묶음(새 노선 여러 개). 화면마다 plan으로 넘긴다.
   const plan = session.design;
   const mission = session.mission;
-  const options = { year: designYear(), dayType: mission?.dayType ?? '평일' };
+  const options = { year: designYear(), dayType: mission?.dayType ?? '평일', population: loadView().historyPopulation };
   settings = useRun(settings);
 
   const base = worldFor(options);
