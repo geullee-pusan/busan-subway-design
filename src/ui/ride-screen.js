@@ -12,7 +12,7 @@ import { crowdWord, rideTrip, windowScene } from '../sim/ride.js';
 import { lineRoutes } from '../sim/train-motion.js';
 import { countText, durationText, roParticle, stationLabel } from './format.js';
 import { DESIGN_COLOR, labelInk } from './map.js';
-import { createRideSound, isAndroid, localVoice, openVoiceInstall, voicesReady } from './ride-sound.js';
+import { createRideSound, isAndroid, openVoiceInstall, surelyNoVoice, testVoice, voicesReady } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
 
@@ -300,12 +300,21 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
       const voiceBox = element('div', 'voice-get');
       card.append(voiceBox);
       voicesReady().then(() => {
-        if (localVoice('ko') || !voiceBox.isConnected) return;
-        voiceBox.append(element('p', 'panel-note', '방송을 읽어 줄 우리말 목소리가 기기에 없어요.'));
-        if (isAndroid()) {
-          voiceBox.append(button('우리말 목소리 받기', openVoiceInstall, 'button big'));
-          voiceBox.append(element('p', 'panel-note guide', '어른과 함께 "한국어"를 골라 받아요. 받은 뒤 이 화면으로 돌아오면 돼요.'));
+        if (!voiceBox.isConnected) return;
+        const missing = surelyNoVoice('ko');
+        if (!missing) {
+          // 목록으로는 알 수 없을 때가 많다(안드로이드). 직접 들어 보게 한다.
+          const row = element('div', 'tool-row');
+          row.append(button('목소리 들어 보기', () => testVoice()));
+          voiceBox.append(row);
+          voiceBox.append(element('p', 'panel-note guide', '소리가 안 나면 기기 소리 크기를 먼저 살펴봐요.'));
         } else {
+          voiceBox.append(element('p', 'panel-note', '방송을 읽어 줄 우리말 목소리를 찾지 못했어요.'));
+        }
+        if (isAndroid()) {
+          voiceBox.append(button('우리말 목소리 받기', openVoiceInstall, missing ? 'button big' : 'button'));
+          voiceBox.append(element('p', 'panel-note guide', '어른과 함께 "한국어"를 골라 받아요. 받은 뒤 이 화면으로 돌아오면 돼요.'));
+        } else if (missing) {
           voiceBox.append(element('p', 'panel-note guide', '어른과 함께 기기 설정의 "음성" 메뉴에서 한국어 목소리를 받아요.'));
         }
       });
