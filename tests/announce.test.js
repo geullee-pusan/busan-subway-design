@@ -93,3 +93,13 @@ test('영어 방송: 1호선 서면역과 노포역 실제 영어 방송과 같�
     'Thank you.',
   ]);
 });
+
+test('영어 방송: 번호가 없는 새 노선으로 갈아타는 역도 안내한다', async () => {
+  const { englishLines } = await import('../src/sim/announce.js');
+  assert.deepEqual(englishLines(templates, { type: '도착', name: 'Danggam', lineNumbers: ['2'], lineNames: ['New Line 2'] }), [
+    'This stop is Danggam, Danggam.',
+    'The doors are on your right.',
+    'You can transfer to line number 2.',
+    'You can transfer to the New Line 2.',
+  ]);
+});

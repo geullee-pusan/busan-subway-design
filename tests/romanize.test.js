@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { romanize } from '../src/sim/romanize.js';
+import { lineNameEnglish, romanize } from '../src/sim/romanize.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -36,4 +36,11 @@ test('로마자 표기: 부산 역 이름 가운데 소리대로 적은 공식 �
   for (const [name, en] of pairs) if (norm(romanize(name)) === norm(en)) same += 1;
   // 다른 것은 뜻으로 옮긴 이름(Dadaepo Beach, City Hall)이나 예전 표기(Dongeui)다.
   assert.ok(same / pairs.size >= 0.85, `${same}/${pairs.size}`);
+});
+
+test('새 노선 영어 이름: 기본 이름은 New Line, 지은 이름은 로마자 + Line', () => {
+  assert.equal(lineNameEnglish('새 노선'), 'New Line');
+  assert.equal(lineNameEnglish('새 노선 2'), 'New Line 2');
+  assert.equal(lineNameEnglish('낙동강선'), 'Nakdonggang Line');
+  assert.equal(lineNameEnglish('바다'), 'Bada Line');
 });

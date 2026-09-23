@@ -71,14 +71,16 @@ export function announcementLines(templates, { type, name, end = '', via = [], t
  * @param {'출발'|'도착'|'종착'} p.type
  * @param {string} p.name 이 역의 영어 이름
  * @param {string} [p.end] 끝 역의 영어 이름(출발)
- * @param {string[]} [p.lineNumbers] 갈아탈 수 있는 노선 번호("1", "2" …). 번호가 없는 노선은 넣지 않는다.
+ * @param {string[]} [p.lineNumbers] 갈아탈 수 있는 노선 번호("1", "2" …)
+ * @param {string[]} [p.lineNames] 번호가 없는 노선의 영어 이름(내가 만든 새 노선: "New Line 2")
  * @returns {string[]}
  */
-export function englishLines(templates, { type, name, end = '', lineNumbers = [] }) {
+export function englishLines(templates, { type, name, end = '', lineNumbers = [], lineNames = [] }) {
   const en = templates.english;
   if (type === '출발') return en.departure.map((line) => fillTemplate(line, { end }));
   const lines = (type === '종착' ? en.terminalArrival : en.arrival).map((line) => fillTemplate(line, { name, door: en.door }));
   for (const number of lineNumbers) lines.push(fillTemplate(en.transfer, { number }));
+  for (const line of lineNames) lines.push(fillTemplate(en.transferNamed, { line }));
   if (type === '종착') lines.push(...en.terminalClosing);
   return lines;
 }

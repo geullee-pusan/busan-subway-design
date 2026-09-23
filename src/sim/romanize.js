@@ -138,3 +138,17 @@ export function romanize(name) {
     })
     .join(' ');
 }
+
+/**
+ * 새 노선의 영어 이름. 기본 이름("새 노선", "새 노선 2")이면 New Line, New Line 2,
+ * 직접 지은 이름이면 로마자에 Line을 붙인다. 끝의 "선"은 Line과 겹치니 뗀다("낙동강선" → "Nakdonggang Line").
+ * @param {string} name 새 노선 이름
+ */
+export function lineNameEnglish(name) {
+  const text = String(name ?? '').trim();
+  const plain = /^새\s*노선(?:\s*(\d+))?$/.exec(text);
+  if (plain) return plain[1] ? `New Line ${plain[1]}` : 'New Line';
+  const base = text.length > 1 && text.endsWith('선') ? text.slice(0, -1) : text;
+  const roman = romanize(base);
+  return /line$/i.test(roman) ? roman : `${roman} Line`;
+}

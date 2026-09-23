@@ -7,7 +7,7 @@ import { terrainAt } from '../sim/design.js';
 import { isNewLineId } from '../sim/plan.js';
 import announcementsFile from '../content/announcements.json';
 import { announcementLines, englishLines } from '../sim/announce.js';
-import { romanize } from '../sim/romanize.js';
+import { lineNameEnglish, romanize } from '../sim/romanize.js';
 import { crowdWord, lineLevel, rideTrip, windowScene } from '../sim/ride.js';
 import { lineRoutes } from '../sim/train-motion.js';
 import { countText, durationText, roParticle, stationLabel } from './format.js';
@@ -234,7 +234,12 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       if (isNewLineId(lineId)) {
         const index = plan.lines.findIndex((l) => l.id === lineId);
         const own = plan.lines[index];
-        marks.push({ label: `새${index + 1}`, name: own?.lineName ?? '새 노선', color: own?.color ?? DESIGN_COLOR });
+        marks.push({
+          label: `새${index + 1}`,
+          name: own?.lineName ?? '새 노선',
+          color: own?.color ?? DESIGN_COLOR,
+          english: lineNameEnglish(own?.lineName ?? '새 노선'),
+        });
         continue;
       }
       const line = lineById.get(lineId) ?? futureLineById.get(lineId);
@@ -504,7 +509,15 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
         transfers: transferLines(stop.id),
         place: nearPlace(stop.id),
       }),
-      english: englishLines(announcementsFile, { type, name: englishName(stop.id), lineNumbers }),
+      english: englishLines(announcementsFile, {
+        type,
+        name: englishName(stop.id),
+        lineNumbers,
+        // 번호가 없는 새 노선은 영어 이름으로 안내한다.
+        lineNames: transferMarks(stop.id)
+          .map((mark) => mark.english)
+          .filter(Boolean),
+      }),
     };
   }
 
