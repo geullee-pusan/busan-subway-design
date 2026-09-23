@@ -35,8 +35,8 @@ function existingStationCells() {
   return cells;
 }
 
-/** @param {{onHome: () => void}} actions */
-export function renderDesign(root, { onHome }) {
+/** @param {{onHome: () => void, onRun: (design: object) => void, runsLeft: number|null}} actions */
+export function renderDesign(root, { onHome, onRun, runsLeft = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen design');
   const existing = existingStationCells();
@@ -232,18 +232,24 @@ export function renderDesign(root, { onHome }) {
       panel.append(gapList);
     }
 
-    // 모자란 곳 알려 주기
+    // 모자란 곳 알려 주기와 하루 운행
     const check = checkDesign(design);
     if (!check.ok) {
       const hints = element('ul', 'panel-list');
       for (const problem of check.problems) hints.append(element('li', null, problem));
       panel.append(element('h3', null, '아직 할 일'), hints);
-    } else {
-      const done = element('p');
-      done.append(element('span', null, '노선이 다 그려졌어요. 하루 '));
-      done.append(wordWithCard('운행', '운행'));
-      done.append(element('span', null, '은 다음에 만들어요.'));
-      panel.append(done);
+    }
+    const overBudget = cost.total > budget;
+    const noRuns = runsLeft === 0;
+    const runButton = button('하루 운행 해 보기', () => onRun(design), 'button big');
+    runButton.disabled = !check.ok || overBudget || noRuns;
+    panel.append(runButton);
+    if (noRuns) {
+      panel.append(element('p', 'warn', '오늘 운행은 모두 끝났어요. 내일 첫차는 05:30이에요.'));
+    } else if (runsLeft !== null) {
+      const left = element('p', 'panel-note');
+      left.append(element('span', null, '오늘 남은 '), wordWithCard('운행', '운행'), element('span', null, `: ${runsLeft}번`));
+      panel.append(left);
     }
   }
 

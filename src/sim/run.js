@@ -44,6 +44,10 @@ export function runDay(world, prepared, rules) {
   const board = new Float64Array(n);
   const alight = new Float64Array(n);
   const flow = new Float64Array(n * n);
+  // 칸 × 중심지마다 도시철도로 걸린 시간과 탄 사람 수. 노선을 새로 그렸을 때 견주는 데 쓴다.
+  const pairCount = world.zones.length * world.centers.length;
+  const pairTime = new Float64Array(pairCount).fill(Infinity);
+  const pairPeople = new Float64Array(pairCount);
   let trips = 0;
   let railTrips = 0;
 
@@ -86,7 +90,10 @@ export function runDay(world, prepared, rules) {
 
       const share = boardingShare(busMin, best.total, rules);
       const people = centerTrips * share;
+      const key = zone.index * world.centers.length + ci;
+      pairTime[key] = best.total;
       if (people < MIN_TRIPS) continue;
+      pairPeople[key] = people;
       railTrips += people;
 
       const a = best.start.station.index;
@@ -132,5 +139,5 @@ export function runDay(world, prepared, rules) {
     };
   });
 
-  return { stations, links, byHour, totals: { trips, railTrips, board: totalBoard }, crowding };
+  return { stations, links, byHour, totals: { trips, railTrips, board: totalBoard }, crowding, pairTime, pairPeople };
 }

@@ -30,12 +30,12 @@ function openedWithText(range) {
   return `${stationLabel(from)}에서 ${stationLabel(to)}`;
 }
 
-function lineBadge(lineId) {
+function lineTag(lineId) {
   const line = lineById.get(lineId);
-  const badge = element('span', 'line-badge', line.label);
-  badge.style.background = line.color ?? '#1F3342';
-  badge.title = line.name;
-  return badge;
+  const tag = element('span', 'line-tag', line.label);
+  tag.style.background = line.color ?? '#1F3342';
+  tag.title = line.name;
+  return tag;
 }
 
 export function createStationPanel({ numberMode = '기본' } = {}) {
@@ -63,7 +63,7 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
     // 이름과 노선
     const header = element('div', 'panel-header');
     const title = element('h2', 'panel-title');
-    title.append(lineBadge(station.line), element('span', null, stationLabel(station.name)));
+    title.append(lineTag(station.line), element('span', null, stationLabel(station.name)));
     header.append(title);
     if (info?.nameEn) header.append(element('p', 'panel-sub', info.nameEn));
     root.append(header);
@@ -78,7 +78,7 @@ export function createStationPanel({ numberMode = '기본' } = {}) {
       p.append(wordWithCard('환승', '갈아타기'), element('span', null, ': 여기서 '));
       siblings.forEach((sibling, index) => {
         const siblingLine = lineById.get(sibling.line);
-        p.append(lineBadge(sibling.line), element('span', null, ` ${siblingLine.name}`));
+        p.append(lineTag(sibling.line), element('span', null, ` ${siblingLine.name}`));
         if (index < siblings.length - 1) p.append(element('span', null, ', '));
       });
       const last = lineById.get(siblings.at(-1).line).name;

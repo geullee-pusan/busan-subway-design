@@ -42,16 +42,16 @@ export function legendBox({ view = '실제 지도', showDesign = false } = {}) {
   const lineList = element('ul', 'legend-lines');
   for (const line of lines) {
     const item = element('li');
-    const badge = element('span', 'line-badge', line.label);
-    badge.style.background = line.color ?? '#1F3342';
-    item.append(badge, element('span', null, line.name));
+    const tag = element('span', 'line-tag', line.label);
+    tag.style.background = line.color ?? '#1F3342';
+    item.append(tag, element('span', null, line.name));
     lineList.append(item);
   }
   if (showDesign) {
     const item = element('li');
-    const badge = element('span', 'line-badge', '새');
-    badge.style.background = DESIGN_COLOR;
-    item.append(badge, element('span', null, '내가 그린 노선'));
+    const tag = element('span', 'line-tag', '새');
+    tag.style.background = DESIGN_COLOR;
+    item.append(tag, element('span', null, '내가 그린 노선'));
     lineList.append(item);
   }
   box.append(lineList);

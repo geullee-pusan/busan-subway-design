@@ -1,6 +1,7 @@
 // 화면에서 모델을 돌린다. 한 번 돌린 결과는 저장해 두고 다시 쓴다.
-import { dongs, grid, lines, links, places, ridership, ruleCards, stationById, stations, transfers } from './data.js';
+import { dongs, grid, lines, links, places, ridership, ruleCards, ruleTables, stationById, stations, transfers } from './data.js';
 import { compareToReal, meetsTargets } from './sim/compare.js';
+import { withDesign } from './sim/design-world.js';
 import { prepareWorld, runDay } from './sim/run.js';
 import { buildWorld, rulesFromCards } from './sim/world.js';
 
@@ -26,6 +27,14 @@ export function todayRun() {
   const result = runDay(world, prepared, rules);
   cached = { world, prepared, result };
   return cached;
+}
+
+/** 내가 그린 노선을 넣고 하루를 돌린다. */
+export function runWithDesign(design) {
+  const { world } = todayRun();
+  const nextWorld = withDesign(world, design, grid, ruleTables);
+  const prepared = prepareWorld(nextWorld, rules);
+  return { world: nextWorld, result: runDay(nextWorld, prepared, rules) };
 }
 
 /** 실제 평일 하루 승하차(역 id → 사람 수) */

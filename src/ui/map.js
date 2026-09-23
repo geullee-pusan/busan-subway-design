@@ -148,7 +148,7 @@ function labelsLayer(view) {
 }
 
 /** 노선 번호표(색만으로 뜻을 전하지 않기 위해) */
-function lineBadgesLayer(view) {
+function lineTagsLayer(view) {
   const layer = el('g', { 'aria-hidden': 'true' });
   for (const line of lines) {
     const first = stationById.get(line.stations[0]);
@@ -213,6 +213,8 @@ export function createMap({ onSelect, onCell }) {
 
   const svg = el('svg', { class: 'map-svg', xmlns: NS });
   const viewport = el('g', {});
+  // 운행 애니메이션처럼 위에 덧그릴 때 쓰는 층. 지도를 다시 그려도 그대로 남는다.
+  const overlay = el('g', { 'aria-hidden': 'true' });
   svg.append(viewport);
   root.append(svg);
 
@@ -228,9 +230,9 @@ export function createMap({ onSelect, onCell }) {
     layers.lines = linesLayer(state.view);
     layers.stations = stationsLayer(state.view);
     layers.labels = labelsLayer(state.view);
-    layers.badges = lineBadgesLayer(state.view);
+    layers.tags = lineTagsLayer(state.view);
     layers.design = designLayer(state.design, grid.cols);
-    viewport.append(layers.lines, layers.stations, layers.design, layers.labels, layers.badges);
+    viewport.append(layers.lines, layers.stations, layers.design, layers.labels, layers.tags, overlay);
     applySelection();
     applyTransform();
   }
@@ -259,10 +261,10 @@ export function createMap({ onSelect, onCell }) {
       text.setAttribute('font-size', (11 / state.k).toFixed(2));
       text.setAttribute('stroke-width', (3 / state.k).toFixed(2));
     }
-    for (const badge of layers.badges?.children ?? []) {
-      const x = badge.getAttribute('data-x');
-      const y = badge.getAttribute('data-y');
-      badge.setAttribute('transform', `translate(${x} ${y}) scale(${(1 / state.k).toFixed(3)})`);
+    for (const tag of layers.tags?.children ?? []) {
+      const x = tag.getAttribute('data-x');
+      const y = tag.getAttribute('data-y');
+      tag.setAttribute('transform', `translate(${x} ${y}) scale(${(1 / state.k).toFixed(3)})`);
     }
     for (const circle of layers.stations?.children ?? []) {
       const station = stationById.get(circle.getAttribute('data-station'));
@@ -443,6 +445,18 @@ export function createMap({ onSelect, onCell }) {
     /** '역'이면 역을 고르고, '칸'이면 칸을 알려 준다(선 그리기). */
     setMode: (mode) => {
       state.mode = mode;
+    },
+    /** 위에 덧그리는 층(지도 좌표: 한 칸 = CELL). 운행 애니메이션이 쓴다. */
+    overlay: () => overlay,
+    /** 역 동그라미 크기를 바꾼다. sizeOf(역 id) → 반지름(픽셀), null이면 원래대로 */
+    setStationSize: (sizeOf) => {
+      for (const circle of layers.stations?.children ?? []) {
+        const id = circle.getAttribute('data-station');
+        const station = stationById.get(id);
+        const base = station?.transfer ? 5 : 3.2;
+        const size = sizeOf ? sizeOf(id) : null;
+        circle.setAttribute('r', ((size ?? base) / state.k).toFixed(2));
+      }
     },
     setDesign: (design) => {
       state.design = design;
