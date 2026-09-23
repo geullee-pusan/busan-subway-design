@@ -173,6 +173,8 @@ function lineTagsLayer(view, network) {
 
 /** 새로 그리는 노선의 색과 이름표 */
 export const DESIGN_COLOR = '#C0392B';
+/** 새 노선 기본 색. 설계 화면에서 바꾸면 design.color를 쓴다. */
+const DEFAULT_DESIGN_COLOR = DESIGN_COLOR;
 /** 새 역 이름 글자 크기(화면 픽셀). 기존 역 이름(11px)보다 크게 해서 눈에 띄게 한다. */
 const DESIGN_LABEL_PX = 15;
 /** 앞으로 생길 노선(양산선, 사상–하단선)의 색 */
@@ -230,10 +232,69 @@ export function designShape(design) {
 /** 새 역 동그라미 크기(화면 픽셀). 갈아타는 역은 기존 역 동그라미를 감싸는 고리로 그린다. */
 const DESIGN_STOP_R = 5;
 const DESIGN_TRANSFER_R = 8.5;
+const DESIGN_LOOSE_R = 6;
+
+/** 노선 색이 너무 밝으면 역 이름 글자는 진한 색으로 쓴다(흰 테두리 위에서 읽히게). */
+export function labelInk(color) {
+  const hex = /^#([0-9a-f]{6})$/i.exec(color ?? '')?.[1];
+  if (!hex) return color;
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.6 ? '#1F3342' : color;
+}
+
+/** 아직 선로로 잇지 않은 역(칸 번호 목록) */
+export function looseStations(design) {
+  return (design?.stations ?? []).filter((cell) => !design.path.includes(cell));
+}
+
+/** 떨어진 역의 자리(칸 단위). 기존 역과 같은 칸이면 그 역 자리 */
+function loosePoint(design, cell) {
+  return design.stationPoints?.[cell] ?? { x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5 };
+}
 
 function designLayer(design, cols, shape = designShape(design)) {
   const layer = el('g', { 'aria-hidden': 'true' });
-  if (!design || design.path.length === 0) return layer;
+  if (!design) return layer;
+  const DESIGN_COLOR = design.color ?? DEFAULT_DESIGN_COLOR;
+  const ink = labelInk(DESIGN_COLOR);
+  // 떨어진 역: 점선 고리로 그린다(선 위 역과 모양이 다르다).
+  for (const cell of looseStations(design)) {
+    const point = loosePoint(design, cell);
+    const x = point.x * CELL;
+    const y = point.y * CELL;
+    layer.append(
+      el('circle', {
+        class: 'design-stop',
+        cx: x.toFixed(2),
+        cy: y.toFixed(2),
+        r: DESIGN_LOOSE_R,
+        'data-r': DESIGN_LOOSE_R,
+        fill: '#FFFFFF',
+        'fill-opacity': 0.8,
+        stroke: DESIGN_COLOR,
+        'stroke-width': 3,
+        'stroke-dasharray': '3 3',
+        'vector-effect': 'non-scaling-stroke',
+      }),
+    );
+    const name = design.stationNames?.[cell];
+    if (name) {
+      const text = el('text', {
+        class: 'design-label',
+        'data-cell': cell,
+        'data-x': x,
+        'data-y': y,
+        'data-gap': DESIGN_LOOSE_R + 4,
+        fill: ink,
+        stroke: '#FFFFFF',
+        'paint-order': 'stroke',
+        'font-weight': 700,
+      });
+      text.textContent = name;
+      layer.append(text);
+    }
+  }
+  if (design.path.length === 0) return layer;
   if (shape.points.length > 1) {
     layer.append(
       el('polyline', {
@@ -280,7 +341,7 @@ function designLayer(design, cols, shape = designShape(design)) {
         'data-x': x,
         'data-y': y,
         'data-gap': transfer ? DESIGN_TRANSFER_R + 4 : 9,
-        fill: DESIGN_COLOR,
+        fill: ink,
         stroke: '#FFFFFF',
         'paint-order': 'stroke',
         'font-weight': 700,
@@ -467,6 +528,11 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       const top = cy - (7 + DESIGN_LABEL_PX + 4) * px;
       const bottom = cy - 2 * px;
       if (point.x >= left - 4 * px && point.x <= right && point.y >= top && point.y <= bottom + 6 * px) return cell;
+    }
+    // 떨어진 역(동그라미만)
+    for (const cell of looseStations(design)) {
+      const { x: cx, y: cy } = loosePoint(design, cell);
+      if (Math.hypot(point.x - cx, point.y - cy) <= Math.max(0.45, 16 * px)) return cell;
     }
     return null;
   }

@@ -42,6 +42,8 @@ function clockText(hour) {
  *   world는 새 노선을 넣은 세상(withDesign). 노선마다 역 차례와 시간을 여기서 읽는다.
  */
 export function renderRunning(root, { design, result, world, hourShape, onDone }) {
+  /** 내가 고른 새 노선 색 */
+  const myColor = design.color ?? DESIGN_COLOR;
   root.replaceChildren();
   const screen = element('div', 'screen running');
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -132,7 +134,7 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
       row.append(element('span', 'run-bar-name', name));
       const track = element('div', 'run-bar');
       const fill = element('div', 'run-bar-fill');
-      const color = isNew(station.id) ? DESIGN_COLOR : lineById.get(stationById.get(station.id)?.line)?.color;
+      const color = isNew(station.id) ? myColor : lineById.get(stationById.get(station.id)?.line)?.color;
       fill.style.background = color ?? '#1F3342';
       track.append(fill);
       row.append(track);
@@ -170,7 +172,7 @@ export function renderRunning(root, { design, result, world, hourShape, onDone }
 
   const trains = routes.map((route) => ({
     route,
-    color: route.line === NEW_LINE_ID ? DESIGN_COLOR : (lineById.get(route.line)?.color ?? FUTURE_COLOR),
+    color: route.line === NEW_LINE_ID ? myColor : (lineById.get(route.line)?.color ?? FUTURE_COLOR),
     // 쓰고 남은 점은 숨겨 두었다가 다시 쓴다.
     pool: [],
   }));

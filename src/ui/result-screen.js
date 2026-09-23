@@ -7,6 +7,7 @@ import { NEW_LINE_ID } from '../sim/design-world.js';
 import { busiestLinks } from '../sim/effect.js';
 import { barChart, hourlyLineChart } from './chart.js';
 import { countText, distanceText, moneyText, stationLabel } from './format.js';
+import { labelInk } from './map.js';
 import { wordWithCard } from './word-card.js';
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -120,6 +121,8 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   root.append(screen);
 
   const newStations = result.stations.filter((s) => s.id.startsWith(`${NEW_LINE_ID}-`));
+  /** 내가 고른 새 노선 색(너무 밝으면 막대가 안 보여서 진하게) */
+  const myColor = labelInk(design.color ?? '#C0392B');
   const newRiders = newStations.reduce((sum, s) => sum + s.board + s.alight, 0);
   const dayType = mission?.dayType ?? '평일';
   const shape = ridership.shape[dayType] ?? ridership.shape['평일'];
@@ -132,11 +135,11 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   }
 
   // 1. 새 노선 이용객과 어림 비교
-  body.append(element('h2', null, '내 노선에 탄 사람'));
+  body.append(element('h2', null, `내 노선(${design.lineName ?? '새 노선'})에 탄 사람`));
   body.append(
     barChart(
       [
-        { label: '내 노선', value: newRiders, color: '#C0392B' },
+        { label: '내 노선', value: newRiders, color: myColor },
         ...(estimate !== null ? [{ label: '내 어림', value: estimate, color: '#1F3342' }] : []),
       ],
       {},
@@ -154,7 +157,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
 
   // 2. 시간대별
   body.append(element('h2', null, '시간대별로 보면'));
-  body.append(hourlyLineChart([{ label: '타는 사람', values: result.byHour.map((v) => v * (newRiders / Math.max(1, result.totals.board))), color: '#C0392B' }], {}));
+  body.append(hourlyLineChart([{ label: '타는 사람', values: result.byHour.map((v) => v * (newRiders / Math.max(1, result.totals.board))), color: myColor }], {}));
   body.append(element('p', 'panel-note', `아침 ${peakHour}시쯤이 가장 붐벼요. 시간대 모양은 2025년 실제 자료에서 가져왔어요.`));
 
   // 3. 가장 붐빈 곳: 내 노선과 부산 전체

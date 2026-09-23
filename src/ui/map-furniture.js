@@ -72,9 +72,9 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
   }
   if (showDesign) {
     const item = element('li');
-    const tag = element('span', 'line-tag', '새');
+    const tag = element('span', 'line-tag design-line-tag', '새');
     tag.style.background = DESIGN_COLOR;
-    item.append(tag, element('span', null, '내가 그린 노선'));
+    item.append(tag, element('span', 'design-line-name', '내가 그린 노선'));
     lineList.append(item);
   }
   if (future) {

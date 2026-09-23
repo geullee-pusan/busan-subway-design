@@ -991,7 +991,7 @@ body {
   min-width: 1.556rem;
   height: 1.556rem;
   border-radius: 0.778rem;
-  background: #c0392b;
+  background: var(--design-ink, #c0392b);
   color: var(--paper);
   font-weight: 700;
   font-size: 0.889rem;
@@ -1093,4 +1093,64 @@ body {
   gap: 6px;
   font-size: 1.667rem;
   color: #c0392b;
+}
+
+/* 새 노선 이름과 색 */
+.line-name-row .text-input {
+  width: 100%;
+}
+
+.line-swatch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.line-sample {
+  flex: 1;
+  height: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(31, 51, 66, 0.35);
+}
+
+.line-code {
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.rgb-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr 2.5rem;
+  align-items: center;
+  gap: 8px;
+  min-height: 2.667rem;
+  font-size: 1rem;
+}
+
+.rgb-slider {
+  width: 100%;
+  height: 2.667rem;
+  margin: 0;
+}
+
+.rgb-r {
+  accent-color: #d62828;
+}
+
+.rgb-g {
+  accent-color: #2a9d3f;
+}
+
+.rgb-b {
+  accent-color: #1d5fd1;
+}
+
+.rgb-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.connect-button {
+  font-weight: 700;
 }

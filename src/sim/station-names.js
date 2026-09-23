@@ -94,7 +94,11 @@ export function nameCandidates(cell, { cols, dongs, places }) {
  */
 export function nameStations({ design, cols, existing, dongs, places, auto = true }) {
   const custom = design.names ?? {};
-  const onPath = design.path.filter((cell) => design.stations.includes(cell));
+  // 선 위 역은 선을 따라, 떨어진 역(아직 잇지 않은 역)은 그 뒤에 놓은 차례대로
+  const onPath = [
+    ...design.path.filter((cell) => design.stations.includes(cell)),
+    ...design.stations.filter((cell) => !design.path.includes(cell)),
+  ];
   const existingByCell = new Map(existing.map((station) => [station.cell, station.name]));
   const result = onPath.map((cell, index) => ({ cell, order: index + 1, name: null, source: null }));
 

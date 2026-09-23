@@ -86,7 +86,7 @@ test('배차 간격: 60분 ÷ 8대 = 7분 30초', () => {
 test('설계 검사: 선과 역이 모자라면 알려 준다', () => {
   assert.equal(checkDesign({ path: [], stations: [] }).ok, false);
   assert.equal(checkDesign({ path: [0, 1], stations: [0, 1] }).ok, true);
-  assert.deepEqual(checkDesign({ path: [0, 1], stations: [0, 3] }).problems, ['역은 선 위에만 놓을 수 있어요.']);
+  assert.deepEqual(checkDesign({ path: [0, 1], stations: [0, 3] }).problems, ['선로로 잇지 않은 역이 있어요. 역 잇기를 눌러요.']);
 });
 
 test('결정론: 같은 설계는 늘 같은 공사비', () => {
