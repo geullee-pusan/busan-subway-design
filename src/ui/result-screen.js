@@ -124,7 +124,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   if (mission) {
     body.append(element('h2', null, '오늘의 질문'));
     body.append(element('p', 'mission-question', mission.question));
-    body.append(element('p', 'panel-note', '아래 숫자를 보고 생각해 보세요. 정답은 없어요.'));
+    body.append(element('p', 'panel-note guide', '아래 숫자를 보고 생각해 보세요. 정답은 없어요.'));
   }
 
   // 1. 새 노선 이용객과 어림 비교
@@ -169,7 +169,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   };
   showCrowd('내 노선에서 가장 붐빈 곳', mineBusiest);
   if (mineBusiest) {
-    const tip = element('p', 'panel-note');
+    const tip = element('p', 'panel-note guide');
     tip.append(element('span', null, '열차를 더 자주 오게 하면('), wordWithCard('배차 간격', '배차 간격'), element('span', null, '을 줄이면) 덜 붐벼요.'));
     body.append(tip);
   }
@@ -238,7 +238,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
         ),
       );
     }
-    body.append(element('p', 'panel-note', '어느 쪽이 맞다는 뜻은 아니에요. 무엇이 다른지 보고 까닭을 생각해 보세요.'));
+    body.append(element('p', 'panel-note guide', '어느 쪽이 맞다는 뜻은 아니에요. 무엇이 다른지 보고 까닭을 생각해 보세요.'));
   }
 
   // 4-3. 주민 목소리
@@ -315,7 +315,7 @@ export function renderResult(root, { design, cost, result, effect, estimate, new
   // 6-1. 설계 저장(가 칸, 나 칸) — 나중에 둘을 나란히 견준다
   if (onSave) {
     body.append(element('h2', null, '이 설계를 저장해요'));
-    body.append(element('p', 'panel-note', '가 칸과 나 칸에 하나씩 저장하면, 처음 화면에서 둘을 나란히 볼 수 있어요.'));
+    body.append(element('p', 'panel-note guide', '가 칸과 나 칸에 하나씩 저장하면, 처음 화면에서 둘을 나란히 볼 수 있어요.'));
     const saveRow = element('div', 'tool-row');
     const saved = element('p', 'panel-note', '');
     for (const slot of ['가', '나']) {

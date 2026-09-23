@@ -128,6 +128,48 @@ export function activeRuleSet() {
   return sets.find((set) => set.name === activeName) ?? null;
 }
 
+// --- 화면 설정: 범례 펼침, 안내 보이기, 글자 크기 ---
+// 설정(KEY)과 따로 둔다. main.js가 들고 있는 설정을 저장할 때 이 값을 덮어쓰지 않게 하려는 것이다.
+
+const VIEW_KEY = 'busan-subway-design-view';
+
+/** 글자 크기 고르기. 자동으로 정한 크기에 이 배율을 곱한다. */
+export const TEXT_SCALES = [
+  { label: '보통', value: 1 },
+  { label: '크게', value: 1.15 },
+  { label: '더 크게', value: 1.3 },
+];
+
+const VIEW_DEFAULTS = {
+  legendOpen: null, // null이면 화면 크기를 보고 정한다
+  showGuides: true,
+  textScale: 1,
+};
+
+export function loadView() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(VIEW_KEY) ?? '{}');
+    const view = { ...VIEW_DEFAULTS, ...saved };
+    if (!TEXT_SCALES.some((scale) => scale.value === view.textScale)) view.textScale = 1;
+    if (typeof view.showGuides !== 'boolean') view.showGuides = true;
+    if (view.legendOpen !== null && typeof view.legendOpen !== 'boolean') view.legendOpen = null;
+    return view;
+  } catch {
+    return { ...VIEW_DEFAULTS };
+  }
+}
+
+/** 바꾼 것만 넣으면 나머지는 그대로 둔다. */
+export function saveView(patch) {
+  const next = { ...loadView(), ...patch };
+  try {
+    localStorage.setItem(VIEW_KEY, JSON.stringify(next));
+  } catch {
+    // 저장이 안 되어도 이번에는 그대로 보인다.
+  }
+  return next;
+}
+
 // --- 부모 화면 잠금 (SPEC 9.2) ---
 //
 // 네 자리 숫자는 아이가 잘못 눌러 들어가지 않게 막는 잠금이다. 보안 장치가 아니다.
@@ -162,9 +204,9 @@ export function checkPin(pin) {
   }
 }
 
-/** 저장한 것을 모두 지운다(설정, 설계, 규칙 묶음, 잠금). */
+/** 저장한 것을 모두 지운다(설정, 설계, 규칙 묶음, 화면 설정, 잠금). */
 export function clearAll() {
-  for (const key of [KEY, DESIGN_KEY, RULES_KEY, PIN_KEY]) {
+  for (const key of [KEY, DESIGN_KEY, RULES_KEY, VIEW_KEY, PIN_KEY]) {
     try {
       localStorage.removeItem(key);
     } catch {

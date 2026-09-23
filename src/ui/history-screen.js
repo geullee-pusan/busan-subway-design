@@ -7,7 +7,7 @@ import { buildRailGraph, timeBetween } from '../sim/rail.js';
 import { yearLineChart } from './chart.js';
 import { dateText, distanceText, durationText, stationLabel } from './format.js';
 import { createMap } from './map.js';
-import { legendBox, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
+import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 
 const FIRST_YEAR = 1985;
 /** 서면역. "서면까지 몇 분?"의 도착지다(SPEC 4.1절 4사04-02). */
@@ -59,7 +59,9 @@ export function renderHistory(root, { onHome }) {
   legend.append(legendBox({ view: '실제 지도' }));
   const scale = scaleBar();
   const credit = element('p', 'credit', '© OpenStreetMap contributors');
-  mapBox.append(legend, northArrow(), scale, zoomButtons(map), credit);
+  mapBox.append(
+    ...mapCorners({ topRight: [northArrow(), zoomButtons(map)], bottomRight: [scale, credit], bottomLeft: [legend] }),
+  );
 
   const panel = element('aside', 'panel');
   main.append(mapBox, panel);

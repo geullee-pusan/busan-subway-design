@@ -23,7 +23,7 @@ export function renderMissions(root, { onPick, onHome }) {
   screen.append(bar);
 
   const body = element('div', 'compare-body');
-  body.append(element('p', null, '하고 싶은 과제를 골라요. 정답은 없어요.'));
+  body.append(element('p', 'guide', '하고 싶은 과제를 골라요. 정답은 없어요.'));
 
   const list = element('div', 'mission-list');
   for (const mission of missions) {

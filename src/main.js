@@ -12,6 +12,7 @@ import { renderExplore } from './ui/explore.js';
 import { renderHistory } from './ui/history-screen.js';
 import { renderHome } from './ui/home.js';
 import { setupInstall } from './ui/install.js';
+import { applyView, guideToggle } from './ui/view.js';
 import { renderParent } from './ui/parent-screen.js';
 import { renderRules } from './ui/rules-screen.js';
 import { renderMissions } from './ui/mission-screen.js';
@@ -32,6 +33,7 @@ applySaved();
 function applySaved() {
   setNumberMode(settings.numberMode);
   setRules(activeRuleSet()?.values);
+  applyView();
 }
 
 /** 지금 쓰는 규칙 묶음 이름. 없으면 null. */
@@ -42,6 +44,9 @@ function ruleSetName() {
 function show(render) {
   cleanup?.();
   cleanup = render() ?? null;
+  // 모든 화면의 위쪽 줄 오른쪽 끝에 "안내 숨기기" 단추를 둔다.
+  const bar = root.querySelector('.top-bar, .home-head');
+  if (bar && !bar.querySelector('.guide-toggle')) bar.append(guideToggle());
 }
 
 function showHome() {

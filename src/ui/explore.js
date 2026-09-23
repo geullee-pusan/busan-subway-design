@@ -2,7 +2,7 @@
 // 기준 연도를 2026년과 2027년으로 바꿔 볼 수 있다(2027년에는 양산선과 사상–하단선이 있다).
 import { futureLines } from '../data.js';
 import { createMap } from './map.js';
-import { legendBox, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
+import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { createStationPanel } from './station-panel.js';
 
 const VIEWS = ['실제 지도', '노선도'];
@@ -46,7 +46,9 @@ export function renderExplore(root, { onHome }) {
   const legend = element('div', 'legend-holder');
   const scale = scaleBar();
   const credit = element('p', 'credit', '© OpenStreetMap contributors');
-  mapBox.append(legend, northArrow(), scale, zoomButtons(map), credit);
+  mapBox.append(
+    ...mapCorners({ topRight: [northArrow(), zoomButtons(map)], bottomRight: [scale, credit], bottomLeft: [legend] }),
+  );
   main.append(mapBox, panel.element);
   screen.append(main);
   root.append(screen);

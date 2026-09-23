@@ -91,7 +91,7 @@ export function renderRules(root, { onBack, canEdit = false, onApply }) {
   );
   body.append(intro);
 
-  if (!canEdit) body.append(element('p', 'panel-note', '값은 부모 화면에서 바꿀 수 있어요.'));
+  if (!canEdit) body.append(element('p', 'panel-note guide', '값은 부모 화면에서 바꿀 수 있어요.'));
 
   const status = element('p', 'panel-note');
   body.append(status);

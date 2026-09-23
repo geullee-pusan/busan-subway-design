@@ -5,7 +5,7 @@ import { lineById, stationById } from '../data.js';
 import { NEW_LINE_ID } from '../sim/design-world.js';
 import { countText } from './format.js';
 import { CELL, DESIGN_COLOR, createMap } from './map.js';
-import { northArrow, scaleBar } from './map-furniture.js';
+import { mapCorners, northArrow, scaleBar } from './map-furniture.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const START_HOUR = 5;
@@ -71,7 +71,9 @@ export function renderRunning(root, { design, result, hourShape, onDone }) {
   const map = createMap({ onSelect: () => {} });
   mapBox.append(map.element);
   const scale = scaleBar();
-  mapBox.append(northArrow(), scale, element('p', 'credit', '© OpenStreetMap contributors'));
+  mapBox.append(
+    ...mapCorners({ topRight: [northArrow()], bottomRight: [scale, element('p', 'credit', '© OpenStreetMap contributors')] }),
+  );
   map.element.addEventListener('map-zoom', (event) => scale.update(event.detail.k));
 
   const panel = element('aside', 'panel');

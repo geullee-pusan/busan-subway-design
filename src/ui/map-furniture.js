@@ -1,7 +1,11 @@
 // 지도에 늘 붙어 있는 것들: 범례, 방위표, 축척 막대(SPEC 12장 Phase 1 완료 기준).
 import { lines } from '../data.js';
 import { CELL, DESIGN_COLOR, FUTURE_COLOR, TERRAIN_COLORS } from './map.js';
+import { legendStartsOpen, rememberLegend } from './view.js';
 import { wordWithCard } from './word-card.js';
+
+/** 범례마다 다른 id를 붙이려고 센다(접기 단추가 가리키는 곳). */
+let legendCount = 0;
 
 const TERRAIN_LABELS = [
   ['sea', '바다'],
@@ -21,8 +25,27 @@ function element(tag, className, text) {
 
 /** @param {{view?: string, showDesign?: boolean, future?: boolean}} options */
 export function legendBox({ view = '실제 지도', showDesign = false, future = false } = {}) {
-  const box = element('div', 'legend');
-  box.append(element('h3', null, '지도 보는 법'));
+  const outer = element('div', 'legend');
+  // 범례는 지도를 가린다. 좁은 화면에서는 접어서 시작하고, 아이가 고른 대로 기억한다.
+  const toggle = element('button', 'legend-toggle');
+  toggle.type = 'button';
+  const box = element('div', 'legend-body');
+  legendCount += 1;
+  box.id = `legend-${legendCount}`;
+  toggle.setAttribute('aria-controls', box.id);
+  const setOpen = (open) => {
+    box.hidden = !open;
+    outer.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? '지도 보는 법 ▾' : '지도 보는 법 ▸';
+  };
+  toggle.addEventListener('click', () => {
+    const open = box.hidden;
+    setOpen(open);
+    rememberLegend(open);
+  });
+  outer.append(toggle, box);
+  setOpen(legendStartsOpen());
   if (view === '실제 지도') {
     const terrain = element('ul', 'legend-terrain');
     for (const [key, label] of TERRAIN_LABELS) {
@@ -63,7 +86,20 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
   }
   box.append(lineList);
   box.append(element('p', 'legend-note', '지형: SRTM(USGS) · 경계: 통계청 SGIS · 역: 공공데이터포털'));
-  return box;
+  return outer;
+}
+
+/**
+ * 지도 귀퉁이에 도구를 모아 둔다. 한 귀퉁이 안에서는 세로로 쌓아서 서로 겹치지 않는다.
+ * 귀퉁이 상자 자체는 손가락을 통과시켜서, 도구 사이 빈 곳으로도 지도를 끌 수 있다.
+ */
+export function mapCorners({ topRight = [], bottomRight = [], bottomLeft = [] }) {
+  const corner = (name, items) => {
+    const box = element('div', `map-corner ${name}`);
+    box.append(...items);
+    return box;
+  };
+  return [corner('top-right', topRight), corner('bottom-right', bottomRight), corner('bottom-left', bottomLeft)];
 }
 
 /** 축척 막대: 확대 배율에 따라 1, 2, 5, 10, 20km 가운데 알맞은 것을 고른다. */

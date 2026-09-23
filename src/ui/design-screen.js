@@ -6,7 +6,7 @@ import { TRAINS_PER_HOUR, checkDesign, designCost, headway, stationGaps } from '
 import { extendPath } from '../sim/design.js';
 import { distanceText, durationText, moneyBlocks, moneyText } from './format.js';
 import { createMap } from './map.js';
-import { legendBox, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
+import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { wordWithCard } from './word-card.js';
 
 const MODES = ['그리기', '역 놓기', '지우기', '움직이기'];
@@ -67,7 +67,9 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
   legend.append(legendBox({ view: '실제 지도', showDesign: true, future: showFuture }));
   const scale = scaleBar();
   const credit = element('p', 'credit', '© OpenStreetMap contributors');
-  mapBox.append(legend, northArrow(), scale, zoomButtons(map), credit);
+  mapBox.append(
+    ...mapCorners({ topRight: [northArrow(), zoomButtons(map)], bottomRight: [scale, credit], bottomLeft: [legend] }),
+  );
   map.element.addEventListener('map-zoom', (event) => scale.update(event.detail.k));
   main.append(mapBox, panel);
   screen.append(main);
@@ -138,7 +140,7 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
       const card = element('div', 'mission-brief');
       card.append(element('h2', null, mission.title));
       card.append(element('p', 'mission-question', mission.question));
-      card.append(element('p', 'panel-note', mission.hint));
+      card.append(element('p', 'panel-note guide', mission.hint));
       if (showFuture) card.append(element('p', 'panel-note', '점선은 앞으로 생길 노선이에요.'));
       if (mission.dayType !== '평일') {
         card.append(element('p', 'panel-note', `이 과제는 ${mission.dayType} 자료로 하루를 돌려요.`));
@@ -151,7 +153,7 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
     } else {
       panel.append(element('h2', null, '노선 만들기'));
     }
-    panel.append(element('p', 'panel-note', '지도에서 칸을 눌러 선을 그어요. 한 칸은 1km예요.'));
+    panel.append(element('p', 'panel-note guide', '지도에서 칸을 눌러 선을 그어요. 한 칸은 1km예요.'));
 
     // 모드 고르기
     const modeBox = element('div', 'tool-row');
@@ -261,16 +263,19 @@ export function renderDesign(root, { onHome, onRun, runsLeft = null, mission = n
     }
     const overBudget = cost.total > budget;
     const noRuns = runsLeft === 0;
+    // 운행 단추는 패널 아래에 늘 붙여 둔다. 세로 화면에서 패널이 길어도 스크롤하지 않고 누를 수 있다.
+    const dock = element('div', 'run-dock');
     const runButton = button('하루 운행 해 보기', () => onRun(design), 'button big');
     runButton.disabled = !check.ok || overBudget || noRuns;
-    panel.append(runButton);
+    dock.append(runButton);
     if (noRuns) {
-      panel.append(element('p', 'warn', '오늘 운행은 모두 끝났어요. 내일 첫차는 05:30이에요.'));
+      dock.append(element('p', 'warn', '오늘 운행은 모두 끝났어요. 내일 첫차는 05:30이에요.'));
     } else if (runsLeft !== null) {
       const left = element('p', 'panel-note');
       left.append(element('span', null, '오늘 남은 '), wordWithCard('운행', '운행'), element('span', null, `: ${runsLeft}번`));
-      panel.append(left);
+      dock.append(left);
     }
+    panel.append(dock);
   }
 
   map.resize();

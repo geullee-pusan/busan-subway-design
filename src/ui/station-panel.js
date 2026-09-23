@@ -49,8 +49,8 @@ export function createStationPanel({ numberMode = getNumberMode() } = {}) {
     root.replaceChildren();
     const box = element('div', 'panel-empty');
     box.append(element('h2', null, '역을 눌러 보세요'));
-    box.append(element('p', null, '지도에서 역을 누르면 이름과 하루 이용객을 볼 수 있어요.'));
-    box.append(element('p', 'panel-hint', '한 손가락으로 끌면 지도가 움직여요. 두 손가락을 벌리면 커져요.'));
+    box.append(element('p', 'guide', '지도에서 역을 누르면 이름과 하루 이용객을 볼 수 있어요.'));
+    box.append(element('p', 'panel-hint guide', '한 손가락으로 끌면 지도가 움직여요. 두 손가락을 벌리면 커져요.'));
     if (note) box.append(element('p', 'panel-note', note));
     root.append(box);
   }

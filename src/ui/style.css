@@ -5,8 +5,18 @@
   --ink: #1f3342;
   --line: #c8d6bd;
   --paper: #ffffff;
+  /* 부모 화면에서 고른 배율(보통 1, 크게 1.15, 더 크게 1.3). src/ui/view.js가 바꾼다. */
+  --text-scale: 1;
+  /*
+   * 글자 크기는 화면의 짧은 변(vmin)을 보고 정한다. 태블릿을 돌려도 글자 크기가 그대로다.
+   *  폰(짧은 변 390px)         → 18px
+   *  태블릿(짧은 변 768~800px) → 약 20px
+   *  큰 화면(짧은 변 1080px~)  → 22px
+   * 18px 아래로는 절대 내려가지 않는다. 다른 크기는 모두 rem이라 이 값을 따라간다.
+   */
+  --base-font: clamp(18px, 12px + 1vmin, 22px);
+  font-size: calc(var(--base-font) * var(--text-scale));
   font-family: sans-serif;
-  font-size: 18px;
   color: var(--ink);
   background: var(--land);
 }
@@ -32,10 +42,10 @@ body {
 
 /* 단추 */
 .button {
-  min-height: 48px;
-  min-width: 48px;
+  min-height: 2.667rem;
+  min-width: 2.667rem;
   padding: 0 16px;
-  font-size: 18px;
+  font-size: 1rem;
   font-family: inherit;
   color: var(--ink);
   background: var(--paper);
@@ -55,15 +65,15 @@ body {
 }
 
 .button.big {
-  min-height: 72px;
-  font-size: 24px;
+  min-height: 4rem;
+  font-size: 1.333rem;
   font-weight: 700;
   padding: 0 32px;
 }
 
 .button.round {
   padding: 0;
-  font-size: 26px;
+  font-size: 1.444rem;
   line-height: 1;
 }
 
@@ -76,13 +86,25 @@ body {
 }
 
 .home h1 {
-  font-size: 32px;
+  font-size: 1.778rem;
   margin: 0;
 }
 
 .home-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
+}
+
+/* 좁은 화면에서는 큰 단추가 한 줄씩 꽉 차게 */
+@media (max-width: 600px) {
+  .home {
+    padding: 24px 16px;
+  }
+
+  .home-buttons .button.big {
+    flex: 1 1 100%;
+  }
 }
 
 .home-note {
@@ -93,42 +115,83 @@ body {
   margin: auto 0 0;
   padding: 0;
   list-style: none;
-  font-size: 18px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 
-/* 위쪽 줄 */
+/* 위쪽 줄. 넘치면 두 줄로 내려간다(한 글자씩 세로로 쌓이지 않게). */
 .top-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 8px 12px;
   padding: 8px 12px;
   background: var(--paper);
   border-bottom: 2px solid rgba(31, 51, 66, 0.2);
 }
 
+.top-bar .button,
+.home-head .button {
+  white-space: nowrap;
+}
+
 .top-title {
-  font-size: 22px;
+  font-size: 1.222rem;
   margin: 0 auto 0 0;
+  white-space: nowrap;
 }
 
 .view-group {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+
+/* 좁은 화면: 제목은 한 줄을 다 쓰고, 단추들은 그 아래에 촘촘히 모인다. 단추 높이 48px은 그대로다. */
+@media (max-width: 600px) {
+  .top-bar {
+    gap: 6px;
+    padding: 6px 8px;
+  }
+
+  .top-title {
+    flex: 1 0 100%;
+    white-space: normal;
+  }
+
+  .top-bar .button {
+    padding: 0 10px;
+  }
+
+  .view-group {
+    gap: 6px;
+  }
+}
+
+/* 안내 숨기기 단추는 오른쪽 끝에. 글자는 다른 단추처럼 18px 이상(SPEC 3장). */
+.guide-toggle {
+  padding: 0 12px;
+}
+
+/* 안내를 숨기면 사용법 안내(.guide)만 사라진다. 경고·숫자·정직 문구·출처는 그대로 둔다. */
+.hide-guides .guide {
+  display: none !important;
 }
 
 /* 지도와 패널 */
 .explore-main {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr minmax(300px, 380px);
+  /* 패널은 글자가 커지면 같이 넓어진다. 지도는 적어도 화면의 절반을 쓴다. */
+  grid-template-columns: minmax(50%, 1fr) minmax(17rem, 21rem);
   min-height: 0;
 }
 
+/* 세로 화면: 지도를 위에 크게, 패널은 아래에. 역을 눌러도 지도 크기가 흔들리지 않게 비율을 고정한다. */
 @media (orientation: portrait), (max-width: 760px) {
   .explore-main {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr minmax(240px, 45%);
+    grid-template-rows: minmax(0, 1fr) minmax(12rem, 38%);
   }
 }
 
@@ -152,27 +215,80 @@ body {
   stroke-width: 4;
 }
 
-/* 지도 위에 늘 보이는 것들 */
-.legend-holder {
+/* 지도 위에 늘 보이는 것들
+ * 네 귀퉁이 상자에 모아 세로로 쌓는다. 한 귀퉁이 안에서는 서로 겹치지 않는다.
+ * 상자는 손가락을 통과시키고, 안의 도구만 누를 수 있다. 그래서 도구 사이 빈 곳으로도 지도를 끌 수 있다.
+ */
+.map-corner {
   position: absolute;
-  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.map-corner > * {
+  pointer-events: auto;
+}
+
+.map-corner.top-right {
+  top: 12px;
+  right: 12px;
+  align-items: flex-end;
+}
+
+.map-corner.bottom-right {
   bottom: 12px;
-  max-width: 320px;
+  right: 12px;
+  align-items: flex-end;
+}
+
+/* 범례는 왼쪽 아래. 오른쪽 도구 자리(약 6rem)를 비워 둔다. */
+.map-corner.bottom-left {
+  bottom: 12px;
+  left: 12px;
+  max-width: min(20rem, calc(100% - 7.5rem));
   max-height: calc(100% - 24px);
+}
+
+.legend-holder {
+  max-height: 100%;
   overflow-y: auto;
+  border-radius: 10px;
 }
 
 .legend {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   border: 2px solid rgba(31, 51, 66, 0.25);
   border-radius: 10px;
-  padding: 8px 10px;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
-.legend h3 {
-  margin: 0 0 6px;
-  font-size: 18px;
+/* 범례를 접고 펴는 단추. 접으면 이 단추만 남는다. */
+.legend-toggle {
+  display: block;
+  width: 100%;
+  min-height: 2.667rem;
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.legend-body {
+  padding: 0 10px 8px;
+}
+
+.legend-body[hidden] {
+  display: none;
 }
 
 .legend ul {
@@ -196,58 +312,54 @@ body {
 
 .legend-lines {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
   gap: 4px 10px;
   margin-top: 6px !important;
 }
 
 .legend-note {
   margin: 6px 0 0;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .swatch {
-  width: 20px;
-  height: 20px;
+  width: 1.111rem;
+  height: 1.111rem;
   border: 1px solid rgba(31, 51, 66, 0.3);
   border-radius: 4px;
   display: inline-block;
+  flex: none;
 }
 
 .line-tag {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 28px;
-  height: 28px;
+  min-width: 1.556rem;
+  height: 1.556rem;
   padding: 0 8px;
-  border-radius: 14px;
+  border-radius: 0.778rem;
   color: var(--paper);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 0.889rem;
+  flex: none;
 }
 
 .north {
-  position: absolute;
-  right: 16px;
-  top: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 16px;
+  font-size: 0.889rem;
   background: rgba(255, 255, 255, 0.85);
   border-radius: 8px;
   padding: 4px 8px;
 }
 
 .scale-bar {
-  position: absolute;
-  right: 16px;
-  bottom: 52px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   padding: 6px 10px;
-  font-size: 16px;
+  font-size: 0.889rem;
   text-align: center;
 }
 
@@ -259,23 +371,35 @@ body {
 }
 
 .zoom-box {
-  position: absolute;
-  right: 16px;
-  top: 76px;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 8px;
 }
 
+/* OSM 표기는 늘 보여야 한다(CLAUDE.md). 가리는 것이 없도록 오른쪽 아래 맨 밑에 둔다. */
 .credit {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
   margin: 0;
-  font-size: 16px;
-  background: rgba(255, 255, 255, 0.85);
+  font-size: 0.889rem;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 6px;
   padding: 2px 8px;
+  white-space: nowrap;
+}
+
+/* 좁은 지도: 범례와 오른쪽 아래(축척·OSM 표기)가 한 줄에 다 들어가지 않는다.
+ * OSM 표기는 CLAUDE.md가 정한 글이라 줄이지 않고, 범례를 그 위로 올린다. */
+@media (max-width: 600px) {
+  .map-corner.bottom-left {
+    bottom: calc(12px + 2rem);
+  }
+}
+
+/* 낮은 지도(세로 화면·폰): 확대 단추를 가로로 눕혀 지도를 덜 가린다. */
+@media (max-height: 560px), (orientation: portrait) and (max-width: 600px) {
+  .zoom-box {
+    flex-direction: row;
+  }
 }
 
 /* 설계 화면 */
@@ -347,7 +471,7 @@ body {
 }
 
 .mission-card h2 {
-  font-size: 22px;
+  font-size: 1.222rem;
   margin: 0;
 }
 
@@ -371,7 +495,7 @@ body {
 }
 
 .mission-brief h2 {
-  font-size: 20px;
+  font-size: 1.111rem;
   margin: 0 0 4px;
 }
 
@@ -391,7 +515,7 @@ body {
 }
 
 .voice-text {
-  font-size: 20px;
+  font-size: 1.111rem;
   font-weight: 700;
   margin: 0 0 6px;
 }
@@ -406,7 +530,7 @@ body {
 }
 
 .parent-card h2 {
-  font-size: 20px;
+  font-size: 1.111rem;
   margin: 0 0 8px;
 }
 
@@ -431,19 +555,19 @@ body {
 }
 
 .estimate-value {
-  font-size: 22px;
+  font-size: 1.222rem;
   font-weight: 700;
 }
 
 /* 하루 운행 */
 .run-clock {
-  font-size: 40px;
+  font-size: 2.222rem;
   font-weight: 700;
   margin: 8px 0;
 }
 
 .run-count {
-  font-size: 20px;
+  font-size: 1.111rem;
 }
 
 .run-bar-row {
@@ -452,7 +576,7 @@ body {
   align-items: center;
   gap: 8px;
   margin: 6px 0;
-  font-size: 16px;
+  font-size: 0.889rem;
 }
 
 .run-bar {
@@ -472,7 +596,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  font-size: 22px;
+  font-size: 1.222rem;
   margin: 8px 0;
 }
 
@@ -486,15 +610,15 @@ body {
 
 .explain {
   line-height: 2.2;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .explain-input {
-  font-size: 18px;
+  font-size: 1rem;
   font-family: inherit;
   padding: 6px 8px;
-  min-height: 44px;
-  min-width: 160px;
+  min-height: 2.444rem;
+  min-width: 8.889rem;
   border: 2px solid rgba(31, 51, 66, 0.35);
   border-radius: 8px;
 }
@@ -535,7 +659,7 @@ body {
 }
 
 .compare-body h2 {
-  font-size: 22px;
+  font-size: 1.222rem;
   margin: 24px 0 8px;
 }
 
@@ -560,12 +684,12 @@ body {
 }
 
 .panel h2 {
-  font-size: 26px;
+  font-size: 1.444rem;
   margin: 0;
 }
 
 .panel h3 {
-  font-size: 20px;
+  font-size: 1.111rem;
   margin: 20px 0 8px;
 }
 
@@ -582,18 +706,18 @@ body {
 
 .panel-sub {
   margin: 4px 0 0;
-  font-size: 18px;
+  font-size: 1rem;
   opacity: 0.8;
 }
 
 .panel-note {
-  font-size: 18px;
+  font-size: 1rem;
   opacity: 0.85;
 }
 
 .panel-source {
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 0.889rem;
   opacity: 0.75;
   line-height: 1.4;
 }
@@ -609,7 +733,7 @@ body {
 }
 
 .panel-empty h2 {
-  font-size: 22px;
+  font-size: 1.222rem;
 }
 
 .panel-hint {
@@ -623,9 +747,9 @@ body {
 }
 
 .day-button {
-  min-height: 48px;
-  min-width: 72px;
-  font-size: 18px;
+  min-height: 2.667rem;
+  min-width: 4rem;
+  font-size: 1rem;
   font-family: inherit;
   color: var(--ink);
   background: var(--paper);
@@ -640,9 +764,9 @@ body {
 }
 
 .more-button {
-  min-height: 48px;
+  min-height: 2.667rem;
   padding: 0 16px;
-  font-size: 18px;
+  font-size: 1rem;
   font-family: inherit;
   background: var(--paper);
   color: var(--ink);
@@ -663,10 +787,10 @@ body {
 
 .word-button {
   /* 글 속에 들어가는 작은 단추라 48px 규칙에서 뺀다. 대신 누르기 쉽게 키웠다(tests/words.test.js). */
-  min-width: 36px;
-  min-height: 36px;
+  min-width: 2rem;
+  min-height: 2rem;
   margin-left: 4px;
-  font-size: 16px;
+  font-size: 0.889rem;
   font-family: inherit;
   color: var(--ink);
   background: var(--land);
@@ -681,7 +805,7 @@ body {
   padding: 8px 10px;
   background: var(--land);
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .word-card[hidden] {
@@ -709,19 +833,25 @@ body {
 
 .home-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 8px 12px;
+}
+
+/* 제목은 왼쪽, 단추들(부모, 안내 숨기기)은 오른쪽에 모은다. */
+.home-head h1 {
+  margin-right: auto;
 }
 
 .home-wipe {
   margin-top: 24px;
 }
 
+/* 눈에 덜 띄게 흐린 색으로 둔다. 크기는 다른 단추와 같은 규칙(48px)을 지킨다. 실수로 누르는 것은 두 번 묻기로 막는다. */
 .quiet-button {
-  min-height: 44px;
+  min-height: 2.667rem;
   padding: 0 12px;
-  font-size: 15px;
+  font-size: 1rem;
   font-family: inherit;
   color: rgba(31, 51, 66, 0.7);
   background: none;
@@ -749,7 +879,7 @@ body {
 
 .rule-text {
   margin: 0 0 6px;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 600;
 }
 
@@ -769,9 +899,9 @@ body {
 }
 
 .text-input {
-  min-height: 48px;
+  min-height: 2.667rem;
   padding: 0 12px;
-  font-size: 18px;
+  font-size: 1rem;
   font-family: inherit;
   color: var(--ink);
   background: var(--paper);
@@ -794,7 +924,7 @@ body {
 
 .year-slider {
   width: 100%;
-  min-height: 48px;
+  min-height: 2.667rem;
   margin: 8px 0;
   accent-color: var(--ink);
 }
@@ -802,4 +932,23 @@ body {
 /* 규칙 묶음 목록의 단추 사이를 띄운다 */
 .panel-list li > button {
   margin: 4px 4px 0 0;
+}
+
+/* 설계 화면의 운행 단추: 패널 아래에 늘 붙어 있다. 패널이 길어도 스크롤 없이 누를 수 있다. */
+.run-dock {
+  position: sticky;
+  bottom: -16px; /* 패널 안쪽 여백(16px)만큼 내려 패널 바닥에 딱 붙인다 */
+  margin: 16px -16px -16px;
+  padding: 12px 16px 16px;
+  background: var(--paper);
+  border-top: 2px solid rgba(31, 51, 66, 0.15);
+  z-index: 1;
+}
+
+.run-dock .button {
+  width: 100%;
+}
+
+.run-dock p {
+  margin: 8px 0 0;
 }

@@ -76,6 +76,17 @@ export function setupInstall() {
   }
 
   if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
+
+  // 개발 서버(npm run dev)에서는 켜지 않는다. 코드가 여러 파일로 나뉘어 있어서 캐시가 방해가 된다.
+  // 전에 깔린 것이 있으면 지운다.
+  if (import.meta.env?.DEV) {
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+      .catch(() => {});
+    return;
+  }
+
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {
       // 서비스 워커를 못 깔아도 게임은 그대로 돼요. 인터넷 없이 쓰기만 안 될 뿐이에요.

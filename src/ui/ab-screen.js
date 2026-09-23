@@ -86,7 +86,7 @@ export function renderAB(root, { designs, onHome }) {
       aPer === bPer ? '둘이 비슷해요.' : `${aPer > bPer ? '가' : '나'} 설계가 같은 돈으로 더 많은 사람을 태워요.`,
     ),
   );
-  body.append(element('p', 'panel-note', '어느 쪽이 더 좋은 노선인지는 사람마다 생각이 달라요.'));
+  body.append(element('p', 'panel-note guide', '어느 쪽이 더 좋은 노선인지는 사람마다 생각이 달라요.'));
 
   return () => {};
 }

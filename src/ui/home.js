@@ -71,7 +71,7 @@ export function renderHome(root, {
   main.append(more);
   if (ruleSetName) main.append(element('p', 'home-note', `지금은 "${ruleSetName}" 규칙으로 돌려요.`));
 
-  main.append(element('p', 'home-note', '지도에서 역을 눌러 보세요. 노선을 그려서 하루 운행도 해 볼 수 있어요.'));
+  main.append(element('p', 'home-note guide', '지도에서 역을 눌러 보세요. 노선을 그려서 하루 운행도 해 볼 수 있어요.'));
 
   // 하루 운행 횟수: 처음 실행할 때 부모가 정한다.
   if (settings.runsPerDay === null) {

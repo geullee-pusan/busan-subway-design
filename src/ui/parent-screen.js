@@ -2,7 +2,8 @@
 // 이 잠금은 아이가 잘못 눌러 들어가지 않게 막는 것이지 보안 장치가 아니다. 화면에도 그렇게 적는다.
 import { sources } from '../data.js';
 import { canInstall, install, installHint, isInstalled, onInstallReady } from './install.js';
-import { checkPin, clearAll, hasPin, savePin } from './storage.js';
+import { TEXT_SCALES, checkPin, clearAll, hasPin, loadView, savePin, saveView } from './storage.js';
+import { applyView } from './view.js';
 
 const NUMBER_MODES = ['기본', '진짜 숫자'];
 /** docs/SPEC.md 13장 '아이와 함께 쓰는 법' */
@@ -161,6 +162,26 @@ export function renderParent(root, { onHome, onRules, settings, onSetting, onCle
           : '지금은 "약 4만 2천 명", "약 1조 1천억 원"처럼 보여 줘요. 3학년쯤에 맞아요.',
       ),
     );
+
+    // 1-1. 글자 크기
+    body.append(element('h2', null, '글자 크기'));
+    body.append(element('p', null, '글자는 화면 크기에 맞춰 저절로 커져요. 더 크게 하고 싶으면 골라 주세요.'));
+    const textRow = element('div', 'tool-row');
+    textRow.setAttribute('role', 'group');
+    textRow.setAttribute('aria-label', '글자 크기 고르기');
+    const { textScale } = loadView();
+    for (const scale of TEXT_SCALES) {
+      const node = button(scale.label, 'button', () => {
+        applyView(saveView({ textScale: scale.value }));
+        showMenu();
+      });
+      const on = textScale === scale.value;
+      node.classList.toggle('is-on', on);
+      node.setAttribute('aria-pressed', String(on));
+      textRow.append(node);
+    }
+    body.append(textRow);
+    body.append(element('p', 'panel-note', '가장 작아도 18px이에요. 초등 3~4학년이 읽기 좋은 크기예요.'));
 
     // 2. 하루 운행 횟수
     body.append(element('h2', null, '하루 운행 횟수'));

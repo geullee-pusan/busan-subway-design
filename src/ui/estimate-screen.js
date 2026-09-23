@@ -63,7 +63,7 @@ export function renderEstimate(root, { onDone, onBack }) {
   skip.addEventListener('click', () => onDone(null));
   buttons.append(go, skip);
   body.append(buttons);
-  body.append(element('p', 'panel-note', '어림한 값과 계산한 값을 나중에 나란히 보여 줄게요.'));
+  body.append(element('p', 'panel-note guide', '어림한 값과 계산한 값을 나중에 나란히 보여 줄게요.'));
 
   screen.append(body);
   root.append(screen);
