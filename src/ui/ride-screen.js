@@ -108,18 +108,46 @@ export function renderRide(root, props) {
   return () => cleanup?.();
 }
 
-/** 노선 하나 타기. design은 lines[lineIndex]이다. */
-function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, result, hourShape, dayType = '평일', onBack, onHome }) {
+/**
+ * 기존 노선의 한 구간 타기(여행 모드). 탄 역에서 내릴 역까지 가고, 내릴 역에서 "내려요"를 누르면 onArrive를 부른다.
+ * 화면 위쪽 줄은 만들지 않는다(여행 화면 안에 들어간다).
+ * @param {HTMLElement} root 넣을 자리
+ * @param {{lineId: string, fromId: string, toId: string, hour: number, world: object, result: object,
+ *   hourShape: number[], onArrive: (seconds: number) => void}} p
+ */
+export function renderRideSegment(root, { lineId, fromId, toId, hour, world, result, hourShape, onArrive }) {
+  const line = lineById.get(lineId) ?? futureLineById.get(lineId);
+  const modelLine = world.lines.find((l) => l.id === lineId);
+  const design = {
+    id: lineId,
+    label: line?.label ?? lineId,
+    color: line?.color ?? DESIGN_COLOR,
+    lineName: line?.name ?? lineId,
+    // 고무바퀴 경전철(4호선, 부산김해경전철)과 나머지. 정원은 자료가 있으면 그 노선 값을 쓴다.
+    kind: ['4', 'BGL'].includes(lineId) ? '경전철' : '지하철',
+    capacityPerTrain: modelLine?.capacityPerTrain ?? null,
+    trainsPerHour: 60 / (modelLine?.headwayMin ?? 10),
+    path: [],
+  };
+  return renderRideLine(root, { plan: { lines: [design] }, lines: [design], lineIndex: 0, world, result, hourShape, segment: { fromId, toId, hour, onArrive } });
+}
+
+/** 노선 하나 타기. design은 lines[lineIndex]이다. segment가 있으면 한 구간만 탄다(여행 모드). */
+function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, result, hourShape, dayType = '평일', onBack, onHome, segment = null }) {
   const design = lines[lineIndex] ?? plan.lines[0];
   root.replaceChildren();
   const color = design.color ?? DESIGN_COLOR;
   const ink = labelInk(color);
   const lineName = design.lineName ?? '새 노선';
-  const kind = ruleTables.lineKinds[design.kind] ?? ruleTables.lineKinds['경전철'];
+  const kindTable = ruleTables.lineKinds[design.kind] ?? ruleTables.lineKinds['경전철'];
+  const kind = { ...kindTable, capacityPerTrain: design.capacityPerTrain ?? kindTable.capacityPerTrain };
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
   // 새 노선 역과 구간
-  const stops = world.stations.filter((s) => s.line === design.id).map((s) => ({ id: s.id, name: s.name, cell: s.cell }));
+  const routeOfLine = segment ? lineRoutes(world).find((r) => r.line === design.id) : null;
+  const stops = routeOfLine
+    ? routeOfLine.stops.map((id) => world.stations.find((st) => st.id === id)).map((st) => ({ id: st.id, name: st.name, cell: st.cell }))
+    : world.stations.filter((st) => st.line === design.id).map((st) => ({ id: st.id, name: st.name, cell: st.cell }));
   const cellOf = new Map(stops.map((s) => [s.id, s.cell]));
   const peopleOf = new Map(
     result.links.filter((l) => l.line === design.id).map((l) => [`${l.from}|${l.to}`, l.people]),
@@ -173,8 +201,34 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     .filter((s) => stationInfo[s.id]?.address)
     .map((s) => ({ x: s.x, y: s.y, above: !stationInfo[s.id].address.includes('지하') }));
 
+/** 기존 노선: 두 역이 땅 위 역인지(도로명주소에 "지하"가 없으면 땅 위) 보고 정한다. 모르면 가까운 역을 본다. */
+  function sceneFromStations(a, b) {
+    const sa = stationOf.get(a);
+    const sb = stationOf.get(b);
+    const above = (id) => {
+      const address = stationInfo[id]?.address;
+      return address ? !address.includes('지하') : null;
+    };
+    const known = [above(a), above(b)];
+    let level = null;
+    if (known.every((v) => v !== null)) level = known.every(Boolean) ? 'above' : 'under';
+    else if (sa && sb) level = lineLevel([sa, sb], knownLevels).level;
+    // 두 역 사이 칸의 지형(곧게 이어 1km마다)
+    const steps = sa && sb ? Math.max(1, Math.ceil(Math.hypot(sb.x - sa.x, sb.y - sa.y))) : 0;
+    const terrains = [];
+    for (let i = 0; i <= steps; i++) {
+      const x = sa.x + ((sb.x - sa.x) * i) / steps;
+      const y = sa.y + ((sb.y - sa.y) * i) / steps;
+      terrains.push(grid.terrain[Math.floor(y)]?.[Math.floor(x)] ?? 'flat');
+    }
+    const scene = windowScene(terrains, '지하철', level);
+    const why = level === 'above' ? '이 구간은 땅 위로 달려요.' : level === 'under' ? '이 구간은 땅속으로 달려요.' : null;
+    return { scene, why };
+  }
+
   /** 두 역 사이 창밖 모습과 그렇게 고른 까닭 */
   function sceneBetween(a, b) {
+    if (segment) return sceneFromStations(a, b);
     const i = design.path.indexOf(cellOf.get(a));
     const j = design.path.indexOf(cellOf.get(b));
     if (i < 0 || j < 0) return { scene: '땅속', why: null };
@@ -208,6 +262,9 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   let ledTimer = null;
   /** 역 사이 한 번 달리기의 번호. 화면을 떠나거나 다시 타면 앞 달리기의 도착을 무시한다. */
   let legToken = 0;
+  /** 탄 역과 내릴 역(한 구간 타기). 처음부터 끝까지 타면 0과 끝 */
+  let boardIndex = 0;
+  let alightIndex = -1;
   const sound = createRideSound();
   const futureLineById = new Map(futureLines.lines.map((l) => [l.id, l]));
 
@@ -257,10 +314,12 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   const screen = element('div', 'screen ride');
   screen.style.setProperty('--design-color', color);
   screen.style.setProperty('--design-ink', ink);
-  const bar = element('header', 'top-bar');
-  bar.append(element('h1', 'top-title', `시승: ${lineName}`));
-  bar.append(button('설계로', onBack), button('처음으로', onHome));
-  screen.append(bar);
+  if (!segment) {
+    const bar = element('header', 'top-bar');
+    bar.append(element('h1', 'top-title', `시승: ${lineName}`));
+    bar.append(button('설계로', onBack), button('처음으로', onHome));
+    screen.append(bar);
+  }
   const body = element('div', 'ride-body');
   screen.append(body);
   root.append(screen);
@@ -276,6 +335,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       const item = element('div', 'ride-stop');
       if (phase !== '고르기') {
         if (index < at) item.classList.add('is-past');
+        if (segment && index === alightIndex) item.classList.add('is-target');
         if (index === at && phase === '역') item.classList.add('is-here');
       }
       const number = stops.indexOf(stop) + 1;
@@ -448,17 +508,27 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     body.append(card);
   }
 
+  /** 떠나는 시각(시). 한 구간 타기면 여행에서 받은 시각 */
+  function startHour() {
+    return segment ? segment.hour : TIMES[timeIndex].hour;
+  }
+
   function startTrip() {
     trip = rideTrip({
       stops,
       links,
       stations: result.stations,
-      hourShare: hourShape[TIMES[timeIndex].hour] ?? 0,
+      hourShare: hourShape[Math.floor(startHour()) % 24] ?? 0,
       trainsPerHour: design.trainsPerHour,
       capacity: kind.capacityPerTrain,
       direction,
     });
     at = 0;
+    if (segment) {
+      boardIndex = trip.stops.findIndex((st) => st.id === segment.fromId);
+      alightIndex = trip.stops.findIndex((st) => st.id === segment.toId);
+      at = boardIndex;
+    }
     phase = '역';
     legToken += 1;
     sound.wake();
@@ -476,7 +546,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
 
   /** 지금 방송 앞에 나올 가락. 출발 방송과 보통 역에는 없다. */
   function melodyHere() {
-    if (phase === '역' && at === 0) return null;
+    if (phase === '역' && at === boardIndex) return null;
     if (at === trip.stops.length - 1) return 'terminal';
     return transferLines(trip.stops[at].id).length > 0 ? 'transfer' : null;
   }
@@ -491,7 +561,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   //  첫 역에서 떠나기 전: 출발 방송. 달리는 동안과 역에 선 뒤: 그 역의 "이번 역은" 방송(종착역은 종착 방송).
   function announcement() {
     const stop = trip.stops[at];
-    if (phase === '역' && at === 0) {
+    if (phase === '역' && at === boardIndex) {
       const middle = trip.stops.slice(1, -1);
       // 방면: 지나는 역 가운데 갈아타는 역을 먼저, 두 곳까지
       const via = [...middle.filter((s) => transferLines(s.id).length > 0), ...middle.filter((s) => transferLines(s.id).length === 0)]
@@ -542,7 +612,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     );
     const top = element('div', 'sign-top');
     top.style.background = color;
-    const tag = element('span', 'sign-line-tag', `새${plan.lines.indexOf(design) + 1}`);
+    const tag = element('span', 'sign-line-tag', segment ? design.label : `새${plan.lines.indexOf(design) + 1}`);
     tag.style.color = color;
     top.append(tag, element('span', 'sign-line', lineName));
     top.style.color = ink === color ? '#FFFFFF' : '#1F3342';
@@ -726,7 +796,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const stop = trip.stops[at];
     const isLast = at === trip.stops.length - 1;
     const moving = phase === '달리기';
-    const startSeconds = TIMES[timeIndex].hour * 3600;
+    const startSeconds = startHour() * 3600 - elapsedTo(boardIndex);
 
     body.append(strip());
     const layout = element('div', 'ride-layout');
@@ -813,6 +883,9 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       const wait = button('달리는 중…', () => {}, 'button big');
       wait.disabled = true;
       controls.append(wait);
+    } else if (segment && at === alightIndex) {
+      right.append(element('p', null, `${durationText(elapsedTo(at) - elapsedTo(boardIndex))} 동안 탔어요.`));
+      controls.append(button('내려요', () => segment.onArrive(elapsedTo(at) - elapsedTo(boardIndex)), 'button big ride-go'));
     } else if (!isLast) {
       const next = trip.stops[at + 1];
       const longest = Math.max(...trip.stops.map((s) => s.runS ?? 0), 1);
@@ -820,6 +893,11 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       right.append(barRow(stationLabel(next.name), stop.runS, longest, durationText(stop.runS)));
       const target = stationLabel(next.name);
       controls.append(button(`${target}${roParticle(target)} 출발`, depart, 'button big ride-go'));
+      // 역이 많으면 내릴 역까지 한 번에 간다(가운데 역 방송은 건너뛴다).
+      if (segment && alightIndex - at > 1) {
+        const goal = stationLabel(trip.stops[alightIndex].name);
+        controls.append(button(`${goal}까지 가기`, () => depart(alightIndex)));
+      }
     } else {
       right.append(element('p', null, `${clockText(startSeconds)}에 떠나서 ${durationText(elapsedTo(at))} 걸렸어요.`));
       controls.append(
@@ -849,9 +927,10 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     return row;
   }
 
-  function depart() {
+  /** 다음 역(또는 goal 역)으로 떠난다. */
+  function depart(goal = null) {
     if (phase !== '역' || at >= trip.stops.length - 1) return;
-    at += 1;
+    at = typeof goal === 'number' ? goal : at + 1;
     phase = '달리기';
     sound.wake();
     if (soundOn) sound.startRumble();
@@ -881,6 +960,11 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
 
   if (stops.length < 2) {
     body.append(element('p', null, '역이 두 개 넘게 있어야 탈 수 있어요.'));
+  } else if (segment) {
+    const from = stops.findIndex((st) => st.id === segment.fromId);
+    const to = stops.findIndex((st) => st.id === segment.toId);
+    direction = to >= from ? 1 : -1;
+    startTrip();
   } else {
     renderSetup();
   }

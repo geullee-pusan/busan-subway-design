@@ -5,7 +5,7 @@ import faresFile from '../content/fares.json';
 import { dongs, grid, lineById, places, stationById, stations } from '../data.js';
 import { BASE_YEAR, rules, worldFor } from '../model.js';
 import { planTrips } from '../sim/trip.js';
-import { distanceText, durationText, stationLabel } from './format.js';
+import { distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { CELL, createMap } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { loadView, saveView } from './storage.js';
@@ -91,16 +91,19 @@ function choices() {
   return { placeList, stationList };
 }
 
-/** @param {{onHome: () => void}} actions */
-export function renderTrip(root, { onHome }) {
+/**
+ * @param {{onHome: () => void, onGo?: (p: object) => void, initial?: {from: object, to: object, chosen: string}|null}} actions
+ *   onGo: 고른 길로 가 보기(C단계). initial: 가 보기에서 돌아왔을 때 고른 것
+ */
+export function renderTrip(root, { onHome, onGo = null, initial = null }) {
   root.replaceChildren();
-  const { world, prepared } = worldFor({ year: BASE_YEAR, dayType: '평일' });
+  const { world, prepared, result } = worldFor({ year: BASE_YEAR, dayType: '평일' });
   const { placeList, stationList } = choices();
   const all = new Map([...placeList, ...stationList].map((c) => [c.key, c]));
 
   const saved = loadView().trip ?? {};
-  let from = null;
-  let to = null;
+  let from = initial?.from ?? null;
+  let to = initial?.to ?? null;
   let picking = '출발';
   let hour = HOURS.some((h) => h.hour === saved.hour) ? saved.hour : 8;
   let rider = saved.rider === 'child' ? 'child' : 'adult';
@@ -157,10 +160,13 @@ export function renderTrip(root, { onHome }) {
       from && to
         ? planTrips({ from: withTerrain(from), to: withTerrain(to), hour, modes, rider, world, prepared, rules, fares: faresFile })
         : [];
-    chosen = trips[0]?.id ?? null;
+    chosen = trips.some((t) => t.id === keepChosen) ? keepChosen : (trips[0]?.id ?? null);
+    keepChosen = null;
     draw();
     renderPanel();
   }
+  /** 돌아왔을 때 전에 고른 길 */
+  let keepChosen = initial?.chosen ?? null;
 
   // ---------- 지도 ----------
   function draw() {
@@ -351,8 +357,25 @@ export function renderTrip(root, { onHome }) {
     const list = element('div', 'trip-list');
     for (const trip of trips) list.append(tripCard(trip, longest));
     panel.append(list);
+    if (onGo) {
+      goButton = button('', () => {
+        const trip = trips.find((t) => t.id === chosen);
+        if (trip) onGo({ trip, from: withTerrain(from), to: withTerrain(to), hour, rider, world, result, chosen });
+      }, 'button big ride-go trip-go');
+      panel.append(goButton);
+      updateGo();
+    }
     panel.append(element('p', 'panel-note', '버스는 실제 노선이 아니라 어림으로 셈해요.'));
     panel.append(element('p', 'panel-note', '택시 속도와 잡는 시간은 우리가 정한 값이에요.'));
+  }
+
+  let goButton = null;
+  /** 가 보기 단추 글자: 고른 길 이름 */
+  function updateGo() {
+    if (!goButton) return;
+    const trip = trips.find((t) => t.id === chosen);
+    goButton.textContent = trip ? `${trip.title}${roParticle(trip.title)} 가 보기` : '길을 골라요';
+    goButton.disabled = !trip;
   }
 
   function tripCard(trip, longest) {
@@ -360,6 +383,7 @@ export function renderTrip(root, { onHome }) {
       chosen = trip.id;
       draw();
       for (const node of panel.querySelectorAll('.trip-card')) node.classList.toggle('is-on', node === card);
+      updateGo();
     }, 'trip-card');
     card.classList.toggle('is-on', trip.id === chosen);
     card.setAttribute('aria-pressed', String(trip.id === chosen));
@@ -417,7 +441,8 @@ export function renderTrip(root, { onHome }) {
   map.setMode('칸');
   map.fit();
   scale.update(map.zoom);
-  renderPanel();
+  if (from && to) plan();
+  else renderPanel();
   draw();
   map.element.addEventListener('map-zoom', () => draw());
 

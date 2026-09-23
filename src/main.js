@@ -1,3 +1,4 @@
+import faresFile from './content/fares.json';
 import { grid, ridership, ruleTables, stations } from './data.js';
 import { BASE_YEAR, networkOfYear, rules, runWithDesign, setRules, worldFor } from './model.js';
 import { planCost } from './sim/plan.js';
@@ -7,6 +8,7 @@ import { renderAB } from './ui/ab-screen.js';
 import { renderCompare } from './ui/compare-screen.js';
 import { renderDesign } from './ui/design-screen.js';
 import { renderRide } from './ui/ride-screen.js';
+import { renderJourney } from './ui/journey-screen.js';
 import { renderTrip } from './ui/trip-screen.js';
 import { renderEstimate } from './ui/estimate-screen.js';
 import { renderExplore } from './ui/explore.js';
@@ -64,7 +66,7 @@ function showHome() {
       onMissions: showMissions,
       onAB: showAB,
       onHistory: showHistory,
-      onTrip: showTrip,
+      onTrip: () => showTrip(),
       onRules: () => showRules(false),
       onParent: showParent,
       onCleared: () => {
@@ -83,9 +85,27 @@ function showHome() {
   );
 }
 
-/** 여행하기: 걷기, 버스, 지하철, 택시로 가는 길 견주기 */
-function showTrip() {
-  show(() => renderTrip(root, { onHome: showHome }));
+/** 여행하기: 걷기, 버스, 지하철, 택시로 가는 길 견주기. initial은 가 보기에서 돌아왔을 때 고른 것 */
+function showTrip(initial = null) {
+  show(() => renderTrip(root, { onHome: showHome, onGo: showJourney, initial }));
+}
+
+/** 고른 길로 가 보기(구간마다 따라가기) */
+function showJourney({ trip, from, to, hour, rider, world, result, chosen }) {
+  show(() =>
+    renderJourney(root, {
+      trip,
+      from,
+      to,
+      hour,
+      rider,
+      world,
+      result,
+      hourShape: ridership.shape['평일'],
+      fares: faresFile,
+      onBack: () => showTrip({ from, to, chosen }),
+    }),
+  );
 }
 
 function showHistory() {
