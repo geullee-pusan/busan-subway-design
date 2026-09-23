@@ -9,8 +9,8 @@ import { melodyNotes, midiFile, midiToHz } from '../src/sim/melody.js';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const { melodies } = JSON.parse(readFileSync(resolve(ROOT, 'src/content/melodies.json'), 'utf8'));
 
-test('가락: 환승역과 종착역 두 개가 있고, 줄마다 길이가 같다', () => {
-  assert.deepEqual(Object.keys(melodies).sort(), ['terminal', 'transfer']);
+test('가락: 환승역, 종착역, 버스 안내 차임, 하차벨이 있고, 줄마다 길이가 같다', () => {
+  assert.deepEqual(Object.keys(melodies).sort(), ['busChime', 'stopBell', 'terminal', 'transfer']);
   for (const melody of Object.values(melodies)) {
     const lengths = melody.tracks.map((track) => track.reduce((sum, [, beats]) => sum + beats, 0));
     assert.ok(lengths.every((n) => n === lengths[0]), `${melody.name}: ${lengths}`);
@@ -66,4 +66,15 @@ test('MIDI 파일: 머리와 트랙이 맞고, 켠 음은 모두 끈다', () => 
     assert.equal(off, notes);
     assert.deepEqual(midiFile(melody), bytes, '늘 같은 파일');
   }
+});
+
+test('버스 안내 차임은 높은 음에서 낮은 음으로 "딩동", 하차벨은 "띵동" 두 번이고 모두 짧다', () => {
+  const chime = melodies.busChime.tracks[0].map(([midi]) => midi);
+  assert.equal(chime.length, 2);
+  assert.ok(chime[0] > chime[1]);
+  const bell = melodies.stopBell.tracks[0].map(([midi]) => midi);
+  assert.deepEqual(bell, [bell[0], bell[1], bell[0], bell[1]]);
+  assert.ok(bell[0] > bell[1]);
+  assert.ok(melodyNotes(melodies.busChime).seconds <= 1.5);
+  assert.ok(melodyNotes(melodies.stopBell).seconds <= 1.5);
 });

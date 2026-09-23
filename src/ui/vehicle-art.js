@@ -74,8 +74,9 @@ export function streetView(reduceMotion) {
  * @param {string} p.label 앞 전광판 글자(노선 이름이나 번호)
  * @param {SVGElement} [p.outside] 창밖 그림(y 40~180 띠). 없으면 거리
  * @param {boolean} [p.reduceMotion]
+ * @param {boolean} [p.bellLit] 하차벨을 눌렀으면 true: 기둥의 하차벨이 모두 빨갛게 켜지고 앞에 "하차" 등이 켜진다.
  */
-export function busInteriorArt({ count, color, label, outside, reduceMotion = false }) {
+export function busInteriorArt({ count, color, label, outside, reduceMotion = false, bellLit = false }) {
   const svg = svgEl('svg', { class: 'ride-car', viewBox: '0 0 800 340', role: 'img' });
 
   // 창밖(옆 창문과 뒷문 유리로 보인다)
@@ -109,7 +110,7 @@ export function busInteriorArt({ count, color, label, outside, reduceMotion = fa
   svg.append(svgEl('polygon', { points: busPanel(BUS_DOOR.from, BUS_DOOR.to, 0.08, 1, 1), fill: 'none', stroke: '#2B2F36', 'stroke-width': 8 }));
   svg.append(svgEl('polygon', { points: busPanel(BUS_DOOR.from + 0.15, BUS_DOOR.from + 0.16, 0.1, 0.98, 1), fill: '#2B2F36' }));
 
-  busFront(svg, label, reduceMotion);
+  busFront(svg, label, reduceMotion, bellLit);
   busRails(svg);
 
   // 깊이 순서로 그린다: 먼 것부터 가까운 것까지(의자와 앉은 사람, 서 있는 사람, 기둥)
@@ -134,16 +135,16 @@ export function busInteriorArt({ count, color, label, outside, reduceMotion = fa
     }
   }
   for (const [i, seat] of seats.entries()) items.push({ t: seat.t, draw: () => busSeat(svg, seat, seatedAt.get(i)) });
-  for (const t of [0.18, 0.52, 0.86]) items.push({ t: t + 0.001, draw: () => busPole(svg, t, -1) });
-  for (const t of [0.18, 0.52]) items.push({ t: t + 0.001, draw: () => busPole(svg, t, 1) });
-  items.push({ t: BUS_DOOR.from - 0.02, draw: () => busPole(svg, BUS_DOOR.from - 0.02, 1, true) });
+  for (const t of [0.18, 0.52, 0.86]) items.push({ t: t + 0.001, draw: () => busPole(svg, t, -1, false, bellLit) });
+  for (const t of [0.18, 0.52]) items.push({ t: t + 0.001, draw: () => busPole(svg, t, 1, false, bellLit) });
+  items.push({ t: BUS_DOOR.from - 0.02, draw: () => busPole(svg, BUS_DOOR.from - 0.02, 1, true, bellLit) });
   items.sort((a, b) => a.t - b.t);
   for (const item of items) item.draw();
   return svg;
 }
 
 /** 맨 앞: 앞 유리 너머 찻길, 행선지 전광판, 운전석 칸막이, 요금통 */
-function busFront(svg, label, reduceMotion) {
+function busFront(svg, label, reduceMotion, bellLit) {
   svg.append(svgEl('rect', { x: 250, y: 110, width: 300, height: 105, fill: '#C9CBC4' }));
   svg.append(svgEl('rect', { x: 262, y: 128, width: 276, height: 64, fill: '#BFE3F5' }));
   for (const [x, y, w, h] of [
@@ -170,6 +171,9 @@ function busFront(svg, label, reduceMotion) {
   // 행선지 전광판(검은 판에 주황 글자)
   svg.append(svgEl('rect', { x: 320, y: 113, width: 160, height: 13, rx: 2, fill: '#1D1F22' }));
   svg.append(svgEl('text', { x: 400, y: 123, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#F2A33A' }, label));
+  // 하차 등: 하차벨을 누르면 켜진다(꺼져 있으면 어두운 판).
+  svg.append(svgEl('rect', { x: 488, y: 113, width: 40, height: 13, rx: 2, fill: bellLit ? '#E5322D' : '#4A2A2C' }));
+  svg.append(svgEl('text', { x: 508, y: 123, 'text-anchor': 'middle', 'font-size': 9, 'font-weight': 700, fill: bellLit ? '#FFFFFF' : '#7A5A5C' }, '하차'));
   // 계기판, 운전석 의자와 칸막이, 요금통과 카드 찍는 기계
   svg.append(svgEl('rect', { x: 262, y: 188, width: 276, height: 12, fill: '#55595F' }));
   svg.append(svgEl('rect', { x: 282, y: 172, width: 38, height: 43, rx: 6, fill: '#2B2F36' }));
@@ -208,15 +212,18 @@ function busRails(svg) {
   }
 }
 
-/** 세로 기둥 하나. 하차벨(빨간 단추)이 달려 있고, 문 옆 기둥에는 카드 찍는 기계가 있다. */
-function busPole(svg, t, side, reader = false) {
+/** 세로 기둥 하나. 하차벨(빨간 단추)이 달려 있고, 문 옆 기둥에는 카드 찍는 기계가 있다. 눌렀으면 하차벨이 켜진다. */
+function busPole(svg, t, side, reader = false, bellLit = false) {
   const p = busAt(t);
   const x = side < 0 ? railEdge(p) : 800 - railEdge(p);
   const width = 9 * p.s;
   const top = p.ceil + 14 * p.s;
   svg.append(svgEl('rect', { x: x - width / 2, y: top, width, height: p.floor - top, fill: BUS_POLE, stroke: BUS_POLE_DARK, 'stroke-width': 1 }));
   const bellY = p.ceil + (p.floor - p.ceil) * 0.5;
-  svg.append(svgEl('circle', { cx: x, cy: bellY, r: 7 * p.s, fill: '#D1495B', stroke: '#FFFFFF', 'stroke-width': 2 * p.s }));
+  if (bellLit) svg.append(svgEl('circle', { cx: x, cy: bellY, r: 14 * p.s, fill: '#FF3B30', 'fill-opacity': 0.35 }));
+  svg.append(
+    svgEl('circle', { cx: x, cy: bellY, r: 7 * p.s, fill: bellLit ? '#FF3B30' : '#9E3B47', stroke: '#FFFFFF', 'stroke-width': 2 * p.s }),
+  );
   if (reader) {
     const y = p.ceil + (p.floor - p.ceil) * 0.58;
     svg.append(svgEl('rect', { x: x - 16 * p.s, y, width: 32 * p.s, height: 58 * p.s, rx: 8 * p.s, fill: '#2F6FC0', stroke: '#1D3F73', 'stroke-width': 2 }));

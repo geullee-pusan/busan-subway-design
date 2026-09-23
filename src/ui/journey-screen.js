@@ -395,7 +395,10 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     const last = stops.length - 1;
     const templates = announcementsFile.bus;
     const voiceOn = loadView().rideVoice === true;
+    const soundOn = loadView().rideSound === true;
     const sound = createRideSound();
+    /** 내릴 정류장 앞에서 하차벨을 눌렀는지 */
+    let bellRung = false;
     rideCleanup = () => sound.stopAll();
     let k = 0; // 지금 막 떠난 정류장 차례
 
@@ -423,7 +426,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       // 붐빔: 떠난 정류장 뒤 버스 안(사람 그림 수)
       const load = stops[Math.min(k, last - 1)].load ?? 0;
       const count = Math.max(1, Math.round(load * BUS_PEOPLE_MAX * 0.8));
-      const art = busInteriorArt({ count, color: '#2E8B3E', label: busRouteText(step.route), reduceMotion });
+      const art = busInteriorArt({ count, color: '#2E8B3E', label: busRouteText(step.route), reduceMotion, bellLit: bellRung && k < last });
       art.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요.`);
       box.append(art);
       box.append(element('p', 'panel-note', '붐빔은 하루 승하차 자료로 어림했어요.'));
@@ -441,28 +444,56 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
         element('p', null, k < last ? `${stops[last].name}까지 정류장 ${last - k}개 남았어요.` : `${stops[last].name}에 왔어요.`),
       );
       const buttons = element('div', 'journey-buttons');
-      if (k < last) {
-        buttons.append(button('다음 정류장으로', () => go(k + 1), 'button big'));
+      if (k + 1 === last && !bellRung) {
+        // 다음이 내릴 정류장: 하차벨을 눌러야 버스가 선다.
+        box.append(element('p', null, '다음 정류장에서 내려요. 하차벨을 눌러요.'));
+        buttons.append(button('하차벨 누르기', ringBell, 'button big ride-go'));
+      } else if (k < last) {
+        buttons.append(button(k + 1 === last ? '내릴 정류장으로' : '다음 정류장으로', () => go(k + 1), 'button big'));
         if (k + 1 < last) buttons.append(button('내릴 정류장까지', () => go(last), 'button big'));
       } else {
         const bottom = element('div');
         box.append(bottom);
         payNote(bottom, step, '내릴 때');
-        buttons.append(button('하차벨 누르고 내려요', () => done(step), 'button big ride-go'));
+        buttons.append(button('내려요', () => done(step), 'button big ride-go'));
       }
       box.append(buttons);
     }
 
+    /** 하차벨: "띵동~띵동~" 소리와 함께 버스 안 하차벨이 켜진다. */
+    function ringBell() {
+      bellRung = true;
+      sound.wake();
+      if (soundOn) sound.playMelody('stopBell');
+      draw();
+    }
+
+    /** 방송: 딩동 차임 뒤에 정류장 방송(소리와 목소리는 시승 모드에서 켜 둔 대로) */
+    function speak() {
+      sound.announce({ korean: lines(), english: [], voice: voiceOn, music: soundOn, melody: 'busChime' });
+    }
+
     function go(target) {
+      sound.wake();
+      // "내릴 정류장까지"로 건너뛰면 가는 길에 하차벨을 누른다.
+      if (target === last && !bellRung) {
+        bellRung = true;
+        if (soundOn) {
+          const seconds = sound.playMelody('stopBell');
+          k = target;
+          draw();
+          later(speak, seconds * 1000);
+          return;
+        }
+      }
       k = target;
       draw();
-      sound.wake();
-      if (voiceOn) sound.announce({ korean: lines(), english: [], voice: true, music: false });
+      speak();
     }
 
     draw();
     sound.wake();
-    if (voiceOn) sound.announce({ korean: lines(), english: [], voice: true, music: false });
+    speak();
   }
 
   function renderTaxiWait(area, step) {

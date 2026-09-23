@@ -280,6 +280,47 @@ export function createRideSound() {
     }
   }
 
+  /** 버스 안내 차임: 스피커로 나오는 맑은 종소리. 떨림 없이 길게 사그라진다. */
+  function bell(out, freq, at, length, volume) {
+    const c = ctx;
+    for (const [ratio, gain] of [
+      [1, volume],
+      [2, volume * 0.3],
+      [3, volume * 0.1],
+    ]) {
+      const osc = c.createOscillator();
+      const amp = c.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq * ratio;
+      const end = at + Math.max(0.9, length * 2.2);
+      amp.gain.setValueAtTime(0, at);
+      amp.gain.linearRampToValueAtTime(gain, at + 0.004);
+      amp.gain.exponentialRampToValueAtTime(0.0001, end);
+      osc.connect(amp).connect(out);
+      osc.start(at);
+      osc.stop(end + 0.05);
+    }
+  }
+
+  /** 하차벨: 작은 스피커에서 나는 짧은 전자음(띵, 동) */
+  function buzzer(out, freq, at, length, volume) {
+    const c = ctx;
+    const osc = c.createOscillator();
+    const soft = c.createBiquadFilter();
+    const amp = c.createGain();
+    osc.type = 'square';
+    osc.frequency.value = freq;
+    soft.type = 'lowpass';
+    soft.frequency.value = freq * 3;
+    const end = at + length * 1.3;
+    amp.gain.setValueAtTime(0, at);
+    amp.gain.linearRampToValueAtTime(volume * 0.45, at + 0.005);
+    amp.gain.exponentialRampToValueAtTime(0.0001, end);
+    osc.connect(soft).connect(amp).connect(out);
+    osc.start(at);
+    osc.stop(end + 0.05);
+  }
+
   /** 비브라폰 같은 소리: 맑은 종소리가 길게 울리고 살짝 떨린다. */
   function vibes(out, freq, at, length, volume) {
     const c = ctx;
@@ -326,7 +367,7 @@ export function createRideSound() {
     melodyGain = out;
     const { notes, seconds } = melodyNotes(melody);
     const start = c.currentTime + 0.05;
-    const voice = melody.instrument === '가야금' ? pluck : vibes;
+    const voice = { 가야금: pluck, 차임: bell, 하차벨: buzzer }[melody.instrument] ?? vibes;
     for (const note of notes) {
       // 가장 높은 줄(가락)은 크게, 받침은 작게
       const volume = note.midi >= 67 ? 0.22 : 0.1;

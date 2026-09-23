@@ -1899,3 +1899,21 @@ body {
   color: #1f3342;
   font-weight: 700;
 }
+
+/* 시승 모드 버스 정류장 표지: 가까이 서는 실제 시내버스 번호판 */
+.sign-buses {
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  margin-top: 6px;
+}
+
+.sign-bus {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #1f3342;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+}

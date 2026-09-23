@@ -135,9 +135,16 @@ export function buildBusNetwork(bus, grid, rules) {
     return list.map((value) => value / most);
   });
 
+  // 정류장마다 서는 노선(차례 번호)
+  const routesAt = stops.map(() => []);
+  for (const [r, route] of bus.routes.entries()) {
+    for (const [index] of route.stops) if (routesAt[index].at(-1) !== r) routesAt[index].push(r);
+  }
+
   return {
     stops,
     routes: bus.routes,
+    routesAt,
     loads,
     nodeRoute,
     nodePos,
@@ -331,4 +338,18 @@ export function busReach(network, point, rules, backward = false) {
     for (const near of stopsNear(network, other, rules)) best = Math.min(best, near.minutes + dist[near.node]);
     return best;
   };
+}
+
+/**
+ * 한 점 가까이(km 안) 정류장에 서는 실제 시내버스 번호. 번호 차례(숫자 크기)로 늘어놓는다.
+ * 시승 모드에서 아이가 만든 버스 정류장 표지에 "가까이 서는 시내버스"로 보여 준다.
+ * @param {{x: number, y: number}} point
+ */
+export function routesNear(network, point, km = 0.3) {
+  const found = new Set();
+  for (const stop of network.stops) {
+    if (straightKm(point, stop) > km) continue;
+    for (const r of network.routesAt[stop.index]) found.add(network.routes[r].no);
+  }
+  return [...found].sort((a, b) => a.localeCompare(b, 'ko', { numeric: true }));
 }

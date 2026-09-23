@@ -210,6 +210,7 @@ function startRide(plan, ran = null) {
       result: after.result,
       hourShape: ridership.shape[options.dayType] ?? ridership.shape['평일'],
       dayType: options.dayType,
+      year: options.year,
       onBack: () => showDesign(mission, plan),
       onHome: showHome,
     }),

@@ -26,6 +26,8 @@ import {
 } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { BUS_PEOPLE_MAX, busInteriorArt } from './vehicle-art.js';
+import { BASE_YEAR, busNetwork } from '../model.js';
+import { routesNear } from '../sim/bus-network.js';
 import { wordWithCard } from './word-card.js';
 
 /** 고를 수 있는 시간대 */
@@ -135,7 +137,7 @@ export function renderRideSegment(root, { lineId, fromId, toId, hour, world, res
 }
 
 /** 노선 하나 타기. design은 lines[lineIndex]이다. segment가 있으면 한 구간만 탄다(여행 모드). */
-function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, result, hourShape, dayType = '평일', onBack, onHome, segment = null }) {
+function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, result, hourShape, dayType = '평일', year = BASE_YEAR, onBack, onHome, segment = null }) {
   const design = lines[lineIndex] ?? plan.lines[0];
   root.replaceChildren();
   const color = design.color ?? DESIGN_COLOR;
@@ -279,6 +281,9 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 탄 역과 내릴 역(한 구간 타기). 처음부터 끝까지 타면 0과 끝 */
   let boardIndex = 0;
   let alightIndex = -1;
+  /** 버스: 하차벨을 눌렀는지, 눌러서 내렸는지 */
+  let bellRung = false;
+  let gotOff = false;
   const sound = createRideSound();
   const futureLineById = new Map(futureLines.lines.map((l) => [l.id, l]));
 
@@ -538,6 +543,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       direction,
     });
     at = 0;
+    bellRung = false;
+    gotOff = false;
     if (segment) {
       boardIndex = trip.stops.findIndex((st) => st.id === segment.fromId);
       alightIndex = trip.stops.findIndex((st) => st.id === segment.toId);
@@ -560,7 +567,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
 
   /** 지금 방송 앞에 나올 가락. 출발 방송과 보통 역에는 없다. */
   function melodyHere() {
-    if (isBus) return null;
+    if (isBus) return 'busChime';
     if (phase === '역' && at === boardIndex) return null;
     if (at === trip.stops.length - 1) return 'terminal';
     return transferLines(trip.stops[at].id).length > 0 ? 'transfer' : null;
@@ -695,18 +702,33 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   function busInterior(load, scene, stationName) {
     const count = load <= 0 ? 0 : Math.max(1, Math.min(BUS_PEOPLE_MAX, Math.round((load / kind.capacityPerTrain) * BUS_SPOTS)));
     const perIcon = Math.max(1, Math.round(kind.capacityPerTrain / BUS_SPOTS));
-    const svg = busInteriorArt({ count, color, label: lineName, outside: windowView(scene, stationName), reduceMotion });
+    const svg = busInteriorArt({ count, color, label: lineName, outside: windowView(scene, stationName), reduceMotion, bellLit: bellRung && !gotOff });
     svg.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요. 그림 하나는 약 ${perIcon}명이에요.`);
     return { svg, count, perIcon };
   }
 
-  /** 버스 정류장 표지: 초록 판에 정류장 이름과 다음 정류장 */
+  /** 이 정류장 가까이(300m 안) 서는 실제 시내버스 번호. 옛날 부산에서는 그때 노선을 몰라서 보여 주지 않는다. */
+  const realRoutesAt = new Map();
+  function realRoutes(id) {
+    if (year < BASE_YEAR) return [];
+    if (!realRoutesAt.has(id)) {
+      const station = stationOf.get(id);
+      realRoutesAt.set(id, station ? routesNear(busNetwork(), station) : []);
+    }
+    return realRoutesAt.get(id);
+  }
+
+  /** 버스 정류장 표지: 초록 판에 정류장 이름과 다음 정류장, 가까이 서는 시내버스 번호 */
   function busStopSign() {
     const stop = trip.stops[at];
     const next = trip.stops[at + 1];
     const sign = element('div', 'station-sign bus-stop-sign');
     sign.setAttribute('role', 'img');
-    sign.setAttribute('aria-label', `버스 정류장: ${stop.name}${next ? `, 다음 정류장 ${next.name}` : ', 종점'}`);
+    const nearby = realRoutes(stop.id);
+    sign.setAttribute(
+      'aria-label',
+      `버스 정류장: ${stop.name}${next ? `, 다음 정류장 ${next.name}` : ', 종점'}${nearby.length > 0 ? `, 가까이 서는 시내버스 ${nearby.length}개` : ''}`,
+    );
     const top = element('div', 'sign-top');
     top.style.background = '#2E8B3E';
     top.style.color = '#FFFFFF';
@@ -715,6 +737,15 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     top.append(tag, element('span', 'sign-line', `${lineName} 버스 정류장`));
     const main = element('div', 'sign-main');
     main.append(element('span', 'sign-name', stop.name));
+    // 가까이 서는 실제 시내버스: 번호판처럼 늘어놓는다. 너무 많으면 12개까지 보이고 나머지는 수로 알린다.
+    const real = realRoutes(stop.id);
+    if (real.length > 0) {
+      const row = element('div', 'sign-transfer sign-buses');
+      row.append(element('span', 'sign-transfer-label', '가까이 서는 시내버스'));
+      for (const no of real.slice(0, 12)) row.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
+      if (real.length > 12) row.append(element('span', 'sign-transfer-label', `그 밖에 ${real.length - 12}개`));
+      main.append(row);
+    }
     const sides = element('div', 'sign-sides');
     sides.style.background = color;
     sides.style.color = ink === color ? '#FFFFFF' : '#1F3342';
@@ -880,7 +911,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   function renderRide() {
     body.replaceChildren();
     const stop = trip.stops[at];
-    const isLast = at === trip.stops.length - 1;
+    const isLast = at === trip.stops.length - 1 || gotOff;
     const moving = phase === '달리기';
     const startSeconds = startHour() * 3600 - elapsedTo(boardIndex);
 
@@ -969,6 +1000,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       const wait = button('달리는 중…', () => {}, 'button big');
       wait.disabled = true;
       controls.append(wait);
+      if (isBus && !segment && at < trip.stops.length - 1) controls.append(bellButton());
     } else if (segment && at === alightIndex) {
       right.append(element('p', null, `${durationText(elapsedTo(at) - elapsedTo(boardIndex))} 동안 탔어요.`));
       controls.append(button('내려요', () => segment.onArrive(elapsedTo(at) - elapsedTo(boardIndex)), 'button big ride-go'));
@@ -979,12 +1011,15 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       right.append(barRow(stopLabel(next.name), stop.runS, longest, durationText(stop.runS)));
       const target = stopLabel(next.name);
       controls.append(button(`${target}${roParticle(target)} 출발`, depart, 'button big ride-go'));
+      // 버스: 내리고 싶은 정류장 앞에서 하차벨을 누른다(종점 바로 앞에서는 누르지 않아도 모두 내린다).
+      if (isBus && !segment && at + 1 < trip.stops.length - 1) controls.append(bellButton());
       // 역이 많으면 내릴 역까지 한 번에 간다(가운데 역 방송은 건너뛴다).
       if (segment && alightIndex - at > 1) {
         const goal = stopLabel(trip.stops[alightIndex].name);
         controls.append(button(`${goal}까지 가기`, () => depart(alightIndex)));
       }
     } else {
+      if (gotOff) right.append(element('p', null, `하차벨을 눌러서 ${stopLabel(stop.name)}에서 내렸어요.`));
       right.append(element('p', null, `${clockText(startSeconds)}에 떠나서 ${durationText(elapsedTo(at))} 걸렸어요.`));
       controls.append(
         button('반대 방향으로 타기', () => {
@@ -1000,6 +1035,19 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       );
     }
     right.append(controls);
+  }
+
+  /** 하차벨 단추: 누르면 "띵동~띵동~" 소리가 나고 버스 안 하차벨이 켜진다. 다음 정류장에서 내린다. */
+  function bellButton() {
+    const node = button(bellRung ? '하차벨이 켜졌어요' : '하차벨 누르기', () => {
+      if (bellRung) return;
+      bellRung = true;
+      sound.wake();
+      if (soundOn) sound.playMelody('stopBell');
+      renderRide();
+    }, 'button big');
+    node.disabled = bellRung;
+    return node;
   }
 
   function barRow(label, value, max, text) {
@@ -1031,6 +1079,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       timer = null;
       sound.stopRumble();
       phase = '역';
+      if (isBus && bellRung && !segment) gotOff = true;
       renderRide();
     });
   }
