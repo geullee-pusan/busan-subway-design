@@ -299,6 +299,12 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     });
     voiceButton.classList.toggle('is-on', voiceOn);
     voiceButton.setAttribute('aria-pressed', String(voiceOn));
+    // 글 읽기 기능이 없는 브라우저에서는 켜도 소용없다. 단추를 막고 아래에 크롬 안내를 늘 보여 준다.
+    if (!speechSupported()) {
+      voiceButton.textContent = '방송 목소리: 못 써요';
+      voiceButton.disabled = true;
+      voiceButton.classList.remove('is-on');
+    }
     const musicButton = button(soundOn ? '배경음·효과음: 켬' : '배경음·효과음: 끔', () => {
       soundOn = !soundOn;
       saveView({ rideSound: soundOn });
@@ -309,7 +315,7 @@ export function renderRide(root, { design, world, result, hourShape, dayType = '
     soundRow.append(voiceButton, musicButton);
     card.append(soundRow);
     // 우리말 목소리가 없으면 받는 곳을 연다. 목록은 조금 늦게 올라오므로 기다렸다가 본다.
-    if (voiceOn && !speechSupported()) {
+    if (!speechSupported()) {
       // 브라우저에 글 읽기 기능이 없다(삼성 인터넷, 카카오톡 안 브라우저 등). Chrome에서 열면 된다.
       const voiceBox = element('div', 'voice-get');
       const where = browserName();
