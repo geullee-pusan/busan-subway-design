@@ -2,7 +2,8 @@
 // 하행(첫 역 → 끝 역)과 상행(끝 역 → 첫 역), 타는 시간대를 고른다.
 // 역마다 역명판과 안내 방송이 나오고, 열차 안 그림에 타고 있는 사람 수만큼 사람이 보인다.
 // 다음 역으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
-import { futureLines, grid, lineById, ruleTables, stationById, stationInfo, stations as allStations } from '../data.js';
+import { futureLines, grid, lineById, ruleTables, stationById, stationInfo, stationSounds, stations as allStations } from '../data.js';
+import { concourseArt, concourseSign, platformArt, platformSigns } from './station-scenes.js';
 import { terrainAt } from '../sim/design.js';
 import { isNewLineId } from '../sim/plan.js';
 import announcementsFile from '../content/announcements.json';
@@ -269,7 +270,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   let timeIndex = 0;
   let trip = null;
   let at = 0;
-  let phase = '고르기'; // '고르기' | '역' | '달리기'
+  let phase = '고르기'; // '고르기' | '역 안' | '승강장' | '역' | '달리기'
   let timer = null;
   let voiceOn = loadView().rideVoice === true;
   let soundOn = loadView().rideSound === true;
@@ -355,13 +356,14 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       if (phase !== '고르기') {
         if (index < at) item.classList.add('is-past');
         if (segment && index === alightIndex) item.classList.add('is-target');
-        if (index === at && phase === '역') item.classList.add('is-here');
+        if (index === at && (phase === '역' || phase === '역 안' || phase === '승강장')) item.classList.add('is-here');
       }
       const number = stops.indexOf(stop) + 1;
       item.append(element('span', 'ride-dot', String(number)), element('span', 'ride-stop-name', stop.name));
       box.append(item);
     }
-    if (phase !== '고르기') {
+    // 역 안과 승강장에서는 열차가 아직 들어오지 않았다.
+    if (phase !== '고르기' && phase !== '역 안' && phase !== '승강장') {
       const train = element('div', 'ride-train', vehicle);
       train.setAttribute('aria-hidden', 'true');
       const place = (index) => `${((index + 0.5) / order.length) * 100}%`;
@@ -550,14 +552,121 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       alightIndex = trip.stops.findIndex((st) => st.id === segment.toId);
       at = boardIndex;
     }
-    phase = '역';
     legToken += 1;
     sound.wake();
+    // 내 열차 노선은 역 안을 걸어 승강장에서 기다린 뒤 탄다. 버스와 여행 모드 한 구간 타기는 바로 탄다.
+    if (!segment && !isBus) {
+      renderConcourse();
+      return;
+    }
+    boardTrain();
+  }
+
+  /** 열차에 탄다: 첫 역에서 출발 방송 */
+  function boardTrain() {
+    phase = '역';
     renderRide();
     announceNow();
   }
 
-  /** 지금 방송을 소리로 낸다(켜 둔 것만). */
+  /** 역 이름(한국어, 영어) */
+  const namesOf = (stop) => ({ ko: stop.name, en: englishName(stop.id) });
+  /** 역 안과 승강장의 노선 표시(새 노선은 "새1"처럼) */
+  const markText = () => design.label ?? `새${plan.lines.indexOf(design) + 1}`;
+
+  /** 역 안: 방향 표지판을 보고 타는 곳으로 걸어간다. */
+  function renderConcourse() {
+    phase = '역 안';
+    body.replaceChildren(strip());
+    const here = trip.stops[at];
+    const next = trip.stops[at + 1];
+    const end = trip.stops.at(-1);
+    const box = element('div', 'ride-station');
+    box.append(element('h2', null, `${stopLabel(here.name)} 안을 걸어 타는 곳으로 가요`));
+    box.append(
+      concourseSign({
+        label: markText(),
+        color,
+        ink: ink === color ? '#FFFFFF' : '#1F3342',
+        sides: [{ next: namesOf(next), end: namesOf(end), take: true }],
+      }),
+    );
+    const art = concourseArt({ reduceMotion });
+    box.append(art.svg);
+    const go = button('승강장으로 내려가요', () => renderPlatform(), 'button big ride-go');
+    go.disabled = true;
+    box.append(go);
+    body.append(box);
+    // 걸어가는 그림: 짧게 걸은 뒤 단추가 켜진다.
+    const leg = legToken;
+    const steps = reduceMotion ? 1 : 20;
+    let n = 0;
+    const walk = () => {
+      if (leg !== legToken || phase !== '역 안') return;
+      n += 1;
+      art.setProgress(n / steps);
+      if (n >= steps) go.disabled = false;
+      else timer = setTimeout(walk, 2400 / steps);
+    };
+    timer = setTimeout(walk, reduceMotion ? 0 : 2400 / steps);
+  }
+
+  /**
+   * 승강장: 열차를 기다리면 열차진입 안내음(부산교통공사 실제 녹음)과 방송 글이 나오고, 열차가 들어와 안전문이 열린다.
+   * 새 노선은 진입 방송 녹음이 없어서 방송은 글(켜 두면 기기 목소리)로 낸다.
+   */
+  function renderPlatform() {
+    phase = '승강장';
+    body.replaceChildren(strip());
+    const here = trip.stops[at];
+    const next = trip.stops[at + 1];
+    const end = trip.stops.at(-1);
+    const box = element('div', 'ride-station');
+    box.append(element('h2', null, `${end.name}행 열차를 기다려요`));
+    box.append(
+      platformSigns({
+        label: markText(),
+        color,
+        ink: ink === color ? '#FFFFFF' : '#1F3342',
+        here: namesOf(here),
+        prev: null,
+        next: namesOf(next),
+        end: namesOf(end),
+      }),
+    );
+    const led = element('div', 'ride-led');
+    const ledText = element('span', 'ride-led-text', `${end.name}행 열차가 곧 들어와요`);
+    led.append(ledText);
+    box.append(led);
+    const art = platformArt({ color, reduceMotion });
+    box.append(art.svg);
+    const gap = 60 / (design.trainsPerHour || 1);
+    box.append(element('p', null, `열차는 ${durationText(Math.round(gap * 60))}마다 와요.`));
+    if (soundOn) box.append(element('p', 'panel-note', '열차가 들어올 때 나오는 안내음은 부산교통공사의 실제 녹음이에요.'));
+    const board = button('열차에 타요', boardTrain, 'button big ride-go');
+    board.disabled = true;
+    box.append(board);
+    body.append(box);
+
+    const leg = legToken;
+    timer = setTimeout(async () => {
+      if (leg !== legToken || phase !== '승강장') return;
+      const text = `${end.name}행 열차가 들어오고 있어요.`;
+      ledText.textContent = text;
+      sound.wake();
+      // 새 노선의 안내음 방향은 게임에서 정한다: 첫 역에서 끝 역 쪽(하행)은 뱃고동, 거꾸로(상행)는 갈매기.
+      const chime = soundOn ? stationSounds.chimes[direction === 1 ? 'down' : 'up'] : null;
+      if (chime) await sound.playClip(chime);
+      if (leg !== legToken || phase !== '승강장') return;
+      const spoken = voiceOn ? sound.announce({ korean: [text], english: [], voice: true, music: false }) : Promise.resolve();
+      await Promise.all([art.arrive(3000), spoken]);
+      if (leg !== legToken || phase !== '승강장') return;
+      art.openDoors();
+      ledText.textContent = `${end.name}행 열차가 도착했어요`;
+      board.disabled = false;
+    }, reduceMotion ? 0 : 2500);
+  }
+
   /** 지금 방송을 소리로 낸다(켜 둔 것만). 방송이 끝나면 풀리는 약속을 돌려준다. */
   function announceNow() {
     if (!voiceOn && !soundOn) return Promise.resolve();
