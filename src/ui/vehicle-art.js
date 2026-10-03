@@ -7,6 +7,8 @@
 // 택시: 뒷자리에서 본 앞쪽. 왼쪽에 운전하는 사람의 뒷모습과 운전대, 가운데 길 안내 화면,
 //   오른쪽에 요금 미터기, 위에 앞 유리 너머 앞차들과 뒷거울.
 
+import { backPassenger, makeTappable } from './passengers.js';
+
 const NS = 'http://www.w3.org/2000/svg';
 
 function svgEl(tag, attrs = {}, text) {
@@ -75,8 +77,10 @@ export function streetView(reduceMotion) {
  * @param {SVGElement} [p.outside] 창밖 그림(y 40~180 띠). 없으면 거리
  * @param {boolean} [p.reduceMotion]
  * @param {boolean} [p.bellLit] 하차벨을 눌렀으면 true: 기둥의 하차벨이 모두 빨갛게 켜지고 앞에 "하차" 등이 켜진다.
+ * @param {object[]} [p.people] 승객(src/ui/passengers.js). 있으면 사람마다 외모대로 그리고, 누르면 onPerson을 부른다.
+ * @param {(person: object) => void} [p.onPerson]
  */
-export function busInteriorArt({ count, color, label, outside, reduceMotion = false, bellLit = false }) {
+export function busInteriorArt({ count, color, label, outside, reduceMotion = false, bellLit = false, people = null, onPerson = null }) {
   const svg = svgEl('svg', { class: 'ride-car', viewBox: '0 0 800 340', role: 'img' });
 
   // 창밖(옆 창문과 뒷문 유리로 보인다)
@@ -127,14 +131,15 @@ export function busInteriorArt({ count, color, label, outside, reduceMotion = fa
   // 서는 자리도 먼 곳과 가까운 곳이 섞이게 차례를 흩는다(늘 같은 차례).
   const standOrder = stand.map((_, i) => i).sort((x, y) => ((x * 7) % stand.length) - ((y * 7) % stand.length));
   for (let n = 0; n < Math.min(count, BUS_PEOPLE_MAX); n++) {
-    const shirt = SHIRTS[(n * 5) % SHIRTS.length];
-    if (n < seats.length) seatedAt.set(seatOrder[n], shirt);
+    // 승객이 있으면 그 사람, 없으면 옷 색만
+    const who = people?.[n] ?? SHIRTS[(n * 5) % SHIRTS.length];
+    if (n < seats.length) seatedAt.set(seatOrder[n], who);
     else {
       const spot = stand[standOrder[n - seats.length]];
-      items.push({ t: spot.t, draw: () => busStanding(svg, spot, shirt) });
+      items.push({ t: spot.t, draw: () => busStanding(svg, spot, who, onPerson) });
     }
   }
-  for (const [i, seat] of seats.entries()) items.push({ t: seat.t, draw: () => busSeat(svg, seat, seatedAt.get(i)) });
+  for (const [i, seat] of seats.entries()) items.push({ t: seat.t, draw: () => busSeat(svg, seat, seatedAt.get(i), onPerson) });
   for (const t of [0.18, 0.52, 0.86]) items.push({ t: t + 0.001, draw: () => busPole(svg, t, -1, false, bellLit) });
   for (const t of [0.18, 0.52]) items.push({ t: t + 0.001, draw: () => busPole(svg, t, 1, false, bellLit) });
   items.push({ t: BUS_DOOR.from - 0.02, draw: () => busPole(svg, BUS_DOOR.from - 0.02, 1, true, bellLit) });
@@ -231,22 +236,33 @@ function busPole(svg, t, side, reader = false, bellLit = false) {
   }
 }
 
-/** 의자 하나와 앉은 사람(뒤에서 보여서 머리와 어깨만 보인다) */
-function busSeat(svg, seat, shirt) {
+/** 의자 하나와 앉은 사람(뒤에서 보여서 머리와 어깨만 보인다). who는 승객이나 옷 색 */
+function busSeat(svg, seat, who, onPerson) {
   const p = busAt(seat.t);
   const x = seat.side < 0 ? p.wall + 58 * p.s : 800 - p.wall - 58 * p.s;
-  if (shirt) svg.append(backOfPerson(x, p.floor - 100 * p.s, shirt, p.s, true));
+  if (typeof who === 'string') svg.append(backOfPerson(x, p.floor - 100 * p.s, who, p.s, true));
+  else if (who) {
+    // 어린이는 작아서 머리가 조금 아래에 있다.
+    const g = backPassenger(who, { x, y: p.floor - 100 * p.s * who.size, scale: p.s * who.size, seated: true });
+    svg.append(onPerson ? makeTappable(g, who, onPerson, true) : g);
+  }
   svg.append(svgEl('rect', { x: x - 26 * p.s, y: p.floor - 86 * p.s, width: 52 * p.s, height: 62 * p.s, rx: 10 * p.s, fill: '#2B2F36' }));
   svg.append(svgEl('rect', { x: x - 26 * p.s, y: p.floor - 86 * p.s, width: 52 * p.s, height: 8 * p.s, rx: 4 * p.s, fill: '#454B53' }));
   svg.append(svgEl('rect', { x: x - 30 * p.s, y: p.floor - 26 * p.s, width: 60 * p.s, height: 22 * p.s, rx: 4 * p.s, fill: '#24272C' }));
 }
 
-/** 통로에 서 있는 사람 */
-function busStanding(svg, spot, shirt) {
+/** 통로에 서 있는 사람. who는 승객이나 옷 색 */
+function busStanding(svg, spot, who, onPerson) {
   const p = busAt(spot.t);
   const half = 400 - railEdge(p);
-  const scale = p.s * 1.05;
-  svg.append(backOfPerson(400 + spot.off * half, p.floor - 4 - 116 * scale, shirt, scale, false));
+  if (typeof who === 'string') {
+    const scale = p.s * 1.05;
+    svg.append(backOfPerson(400 + spot.off * half, p.floor - 4 - 116 * scale, who, scale, false));
+    return;
+  }
+  const scale = p.s * 1.05 * who.size;
+  const g = backPassenger(who, { x: 400 + spot.off * half, y: p.floor - 4 - 116 * scale, scale, seated: false });
+  svg.append(onPerson ? makeTappable(g, who, onPerson, false) : g);
 }
 
 /** 뒤에서 본 사람: 머리카락이 보이고, 서 있으면 한 손을 들어 손잡이를 잡는다. (0, 0)이 머리 가운데다. */

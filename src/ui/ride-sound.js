@@ -605,3 +605,64 @@ export function createRideSound() {
 
   return { wake, announce, playMelody, playClip, startRumble, stopRumble, stopAll };
 }
+
+/** 목소리 이름으로 성별을 짐작하는 단서(기기마다 이름이 다르다). 여자 단서를 먼저 본다(female 안에 male이 있다). */
+const FEMALE_HINT = /female|woman|여성|여자|heami|yuna|sunhi|seoyeon|jimin|sora|nara/i;
+const MALE_HINT = /\bmale\b|(^|[^e])male|\bman\b|남성|남자|injoon|minsu|hyunsu|seojun|gook/i;
+
+/**
+ * 나이대와 성별에 맞춘 목소리 높이와 빠르기. 기기 목소리가 하나뿐이어도 높낮이로 다르게 들린다.
+ * (우리가 정한 값이다.)
+ */
+const VOICE_SHAPE = {
+  어린이: { 여자: { pitch: 1.7, rate: 1.08 }, 남자: { pitch: 1.55, rate: 1.08 } },
+  청소년: { 여자: { pitch: 1.35, rate: 1.05 }, 남자: { pitch: 1.0, rate: 1.05 } },
+  어른: { 여자: { pitch: 1.15, rate: 1.0 }, 남자: { pitch: 0.8, rate: 0.98 } },
+  어르신: { 여자: { pitch: 1.0, rate: 0.85 }, 남자: { pitch: 0.7, rate: 0.85 } },
+};
+
+/**
+ * 승객 한 사람의 말을 그 사람에게 맞는 목소리로 읽는다(대화창).
+ * 기기의 우리말 목소리 가운데 이름에 성별 단서가 맞는 것을 먼저 고르고, 나이대와 성별로 높낮이와 빠르기를 정한다.
+ * 목소리를 쓸 수 없는 기기에서는 아무것도 하지 않는다(글은 대화창에 그대로 있다).
+ * @param {string[]} lines
+ * @param {{gender: '여자'|'남자', ageGroup: '어린이'|'청소년'|'어른'|'어르신'}} who
+ * @returns {Promise<boolean>} 읽기를 시작했으면 true
+ */
+export async function speakAs(lines, who) {
+  try {
+    const synth = window.speechSynthesis;
+    if (!synth || lines.length === 0) return false;
+    await voicesReady();
+    const base = pickVoice('ko');
+    if (!base) return false;
+    let voice = base.voice;
+    // 목소리를 골라 정해도 되는 기기(voice 방법)에서만 성별 단서로 다시 고른다.
+    if (voiceMode === 'voice' && voice) {
+      const same = voicesOf('ko').filter((v) => v.localService || isAndroid());
+      const female = same.filter((v) => FEMALE_HINT.test(v.name));
+      const male = same.filter((v) => !FEMALE_HINT.test(v.name) && MALE_HINT.test(v.name));
+      const wanted = who.gender === '여자' ? female : male;
+      if (wanted.length > 0) voice = wanted[0];
+    }
+    const shape = VOICE_SHAPE[who.ageGroup]?.[who.gender] ?? { pitch: 1, rate: 1 };
+    const list = lines.map((text) => {
+      const say = utterance(text, { voice, lang: voice?.lang?.replace('_', '-') ?? base.lang }, shape.rate);
+      say.pitch = shape.pitch;
+      return say;
+    });
+    speakList(list);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** 읽던 말을 멈춘다(대화창을 닫을 때). */
+export function stopSpeaking() {
+  try {
+    window.speechSynthesis?.cancel();
+  } catch {
+    // 목소리가 없는 기기
+  }
+}

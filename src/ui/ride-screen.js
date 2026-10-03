@@ -27,6 +27,7 @@ import {
 } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { BUS_PEOPLE_MAX, busInteriorArt } from './vehicle-art.js';
+import { createCrowd, frontPassenger, makeTappable, openTalk, talkLines } from './passengers.js';
 import { BASE_YEAR, busNetwork } from '../model.js';
 import { routesAtStop, routesNear } from '../sim/bus-network.js';
 import { wordWithCard } from './word-card.js';
@@ -45,7 +46,6 @@ const SEATS = 14;
 const STANDS = 36;
 const EXTRA = 12;
 const SPOTS = SEATS + STANDS;
-const SHIRTS = ['#2F6690', '#D1495B', '#EDAE49', '#3A7D44', '#6D597A', '#00798C', '#9C6644', '#4F5D75'];
 const SVG_NS = 'http://www.w3.org/2000/svg';
 /** 달릴 때 창밖 모습을 알려 주는 말 */
 const SCENE_TEXT = {
@@ -282,6 +282,9 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 탄 역과 내릴 역(한 구간 타기). 처음부터 끝까지 타면 0과 끝 */
   let boardIndex = 0;
   let alightIndex = -1;
+  /** 이번에 탄 승객들(src/ui/passengers.js)과, 몇 번째 역까지 타고 내림을 반영했는지 */
+  let crowd = null;
+  let crowdAt = -1;
   /** 버스: 하차벨을 눌렀는지, 눌러서 내렸는지 */
   let bellRung = false;
   let gotOff = false;
@@ -592,6 +595,9 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       alightIndex = trip.stops.findIndex((st) => st.id === segment.toId);
       at = boardIndex;
     }
+    // 탈 때마다 다른 사람들이 타고 있다(씨앗을 아무거나 정한다. 화면에서만 쓰는 무작위다).
+    crowd = createCrowd(Math.floor(Math.random() * 2147483647));
+    crowdAt = at;
     legToken += 1;
     sound.wake();
     // 내 열차 노선은 역 안을 걸어 승강장에서 기다린 뒤 탄다. 버스와 여행 모드 한 구간 타기는 바로 탄다.
@@ -851,7 +857,18 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   function busInterior(load, scene, stationName) {
     const count = load <= 0 ? 0 : Math.max(1, Math.min(BUS_PEOPLE_MAX, Math.round((load / kind.capacityPerTrain) * BUS_SPOTS)));
     const perIcon = Math.max(1, Math.round(kind.capacityPerTrain / BUS_SPOTS));
-    const svg = busInteriorArt({ count, color, label: lineName, outside: windowView(scene, stationName), reduceMotion, bellLit: bellRung && !gotOff });
+    const people = Array.from({ length: count }, (_, n) => crowd?.personAt(n)).filter(Boolean);
+    const svg = busInteriorArt({
+      count,
+      color,
+      label: lineName,
+      outside: windowView(scene, stationName),
+      reduceMotion,
+      bellLit: bellRung && !gotOff,
+      people,
+      onPerson: talkTo,
+    });
+    if (count > 0) svg.setAttribute('role', 'group');
     svg.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요. 그림 하나는 약 ${perIcon}명이에요.`);
     return { svg, count, perIcon };
   }
@@ -908,6 +925,47 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     sides.append(element('span', 'sign-next', next ? `다음 정류장 ${next.name} ▶` : '종점'));
     sign.append(top, main, sides);
     return sign;
+  }
+
+  // ---------- 승객 ----------
+  /** 열차·버스 안 사람 그림 수(그림 하나가 몇 명인지는 정원으로 정한다) */
+  function peopleCount(load) {
+    if (load <= 0) return 0;
+    if (isBus) return Math.max(1, Math.min(BUS_PEOPLE_MAX, Math.round((load / kind.capacityPerTrain) * BUS_SPOTS)));
+    return Math.max(1, Math.min(SPOTS + EXTRA, Math.round((load / kind.capacityPerTrain) * SPOTS)));
+  }
+
+  /** 승객을 target 역까지 맞춘다: 역마다 내린 사람 비율만큼 사람이 바뀌고, 빈 자리에 새 사람이 탄다. */
+  function syncCrowd(target) {
+    if (!crowd || !trip) return;
+    while (crowdAt < target) {
+      const k = crowdAt + 1;
+      const before = trip.stops[k - 1];
+      const here = trip.stops[k];
+      if (!before || !here) break;
+      const offShare = before.load > 0 ? Math.min(1, here.off / before.load) : 0;
+      crowd.arrive(k, peopleCount(before.load), peopleCount(here.load), offShare);
+      crowdAt = k;
+    }
+  }
+
+  /** 승객을 누르면: 그 사람이 내릴 역과 지금 상황에 맞는 말을 대화창에 띄운다. */
+  function talkTo(person) {
+    const moving = phase === '달리기';
+    const ahead = trip.stops.slice(moving ? at : at + 1);
+    const load = moving ? trip.stops[at - 1]?.load ?? 0 : trip.stops[at]?.load ?? 0;
+    const target = ahead.length > 0 ? ahead[person.id % ahead.length].name : null;
+    // "새 역 3"처럼 차례로 부른 이름에는 "역"을 붙이지 않는다.
+    const destination = target === null ? null : /^새 역 \d+$/.test(target) && !isBus ? target : stopLabel(target);
+    const lines = talkLines(person, {
+      vehicle: isBus ? '버스' : '열차',
+      destination,
+      terminal: ahead.length === 0,
+      crowdRatio: load / kind.capacityPerTrain,
+      hour: startHour() + elapsedTo(at) / 3600,
+      newLine: isNewLineId(design.id),
+    });
+    openTalk(person, lines);
   }
 
   // ---------- 열차 안 ----------
@@ -974,35 +1032,24 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const standOrder = standSpots.map((_, i) => i).sort((a, b) => ((a * 7) % 37) - ((b * 7) % 37) || a - b);
     const people = svgEl('g');
     for (let n = 0; n < count; n++) {
-      const shirt = SHIRTS[(n * 5) % SHIRTS.length];
+      const who = crowd?.personAt(n);
+      if (!who) continue;
       if (n < SEATS) {
-        people.append(person(seats[seatOrder[n]], 150, shirt, 1, true));
+        // 어린이는 작아서 앉으면 머리가 조금 아래에 있다.
+        const g = frontPassenger(who, { x: seats[seatOrder[n]], y: 150 + 88 * (1 - who.size), scale: who.size, seated: true });
+        people.append(makeTappable(g, who, talkTo, true));
       } else {
         const spot = standSpots[standOrder[n - SEATS]];
+        if (!spot) continue;
         // 발이 바닥(y 290)에 닿게 세운다. 앞줄일수록 조금 크고 아래에 있다.
-        if (spot) people.append(person(spot.x, 286 + spot.y * 0.5 - 116 * spot.scale, shirt, spot.scale, false));
+        const scale = spot.scale * who.size;
+        const g = frontPassenger(who, { x: spot.x, y: 286 + spot.y * 0.5 - 116 * scale, scale, seated: false });
+        people.append(makeTappable(g, who, talkTo, false));
       }
     }
     svg.append(people);
+    if (count > 0) svg.setAttribute('role', 'group');
     return { svg, count, perIcon };
-  }
-
-  function person(x, y, shirt, scale, seated) {
-    const g = svgEl('g', { transform: `translate(${x} ${y}) scale(${scale})` });
-    g.append(svgEl('circle', { cx: 0, cy: 0, r: 11, fill: '#F2C9A0', stroke: '#1F3342', 'stroke-width': 1.5 }));
-    if (seated) {
-      g.append(svgEl('rect', { x: -13, y: 12, width: 26, height: 40, rx: 9, fill: shirt, stroke: '#1F3342', 'stroke-width': 1.5 }));
-      g.append(svgEl('rect', { x: -11, y: 50, width: 22, height: 14, rx: 4, fill: '#34495E' }));
-      g.append(svgEl('rect', { x: -10, y: 62, width: 8, height: 26, rx: 3, fill: '#34495E' }));
-      g.append(svgEl('rect', { x: 2, y: 62, width: 8, height: 26, rx: 3, fill: '#34495E' }));
-    } else {
-      // 손을 들어 손잡이를 잡는다.
-      g.append(svgEl('line', { x1: 8, y1: 16, x2: 14, y2: -36, stroke: shirt, 'stroke-width': 6, 'stroke-linecap': 'round' }));
-      g.append(svgEl('rect', { x: -13, y: 12, width: 26, height: 56, rx: 9, fill: shirt, stroke: '#1F3342', 'stroke-width': 1.5 }));
-      g.append(svgEl('rect', { x: -11, y: 66, width: 9, height: 50, rx: 3, fill: '#34495E' }));
-      g.append(svgEl('rect', { x: 2, y: 66, width: 9, height: 50, rx: 3, fill: '#34495E' }));
-    }
-    return g;
   }
 
   /** 창밖: 역이면 승강장, 달리면 지형에 따라 땅속·바다 밑·다리 */
@@ -1105,6 +1152,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const inside = moving ? trip.stops[at - 1].load : isLast ? 0 : stop.load;
     const view = moving ? sceneBetween(trip.stops[at - 1].id, stop.id) : null;
     const scene = view?.scene ?? null;
+    syncCrowd(moving ? at - 1 : at);
     const car = interior(inside, scene, moving ? null : stop.name);
     left.append(car.svg);
     if (moving) left.append(element('p', 'panel-note', SCENE_TEXT[scene]));

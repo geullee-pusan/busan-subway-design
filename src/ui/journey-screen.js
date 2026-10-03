@@ -17,6 +17,7 @@ import { fillTemplate } from '../sim/announce.js';
 import { createRideSound } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { BUS_PEOPLE_MAX, busInteriorArt, taxiInteriorArt, walkSceneArt } from './vehicle-art.js';
+import { createCrowd, openTalk, talkLines } from './passengers.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 /** 걷기·버스·택시 그림이 움직이는 시간(밀리초) */
@@ -523,6 +524,33 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     const sound = createRideSound();
     /** 내릴 정류장 앞에서 하차벨을 눌렀는지 */
     let bellRung = false;
+    // 이 버스의 승객들(탈 때마다 다르다). 정류장마다 내리는 만큼 사람이 바뀐다.
+    const crowd = createCrowd(Math.floor(Math.random() * 2147483647));
+    const countAt = (i) => Math.max(1, Math.round((stops[Math.min(i, last - 1)].load ?? 0) * BUS_PEOPLE_MAX * 0.8));
+    let crowdAt = 0;
+    const syncCrowd = (target) => {
+      while (crowdAt < target) {
+        const i = crowdAt + 1;
+        const here = stops[i];
+        // 내린 사람 비율: 이 정류장 하차 수를 (하차 + 승차 + 1)로 나눠 어림한다(하루 합계 자료라 한 대의 수는 모른다).
+        const offShare = Math.min(0.6, (here.alight ?? 0) / ((here.alight ?? 0) + (here.board ?? 0) + 1));
+        crowd.arrive(i, countAt(i - 1), countAt(i), offShare);
+        crowdAt = i;
+      }
+    };
+    /** 승객을 누르면: 내릴 정류장과 상황에 맞는 말 */
+    const talkTo = (person) => {
+      const ahead = stops.slice(k + 1);
+      const lines = talkLines(person, {
+        vehicle: '버스',
+        destination: ahead.length > 0 ? `${ahead[person.id % ahead.length].name} 정류장` : null,
+        terminal: ahead.length === 0,
+        crowdRatio: stops[Math.min(k, last - 1)].load ?? 0,
+        hour: hour + elapsed / 60,
+        newLine: false,
+      });
+      openTalk(person, lines);
+    };
     rideCleanup = () => sound.stopAll();
     let k = 0; // 지금 막 떠난 정류장 차례
 
@@ -548,10 +576,20 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       for (const text of lines()) led.append(element('span', 'ride-led-text', text));
       box.append(led);
       // 붐빔: 떠난 정류장 뒤 버스 안(사람 그림 수)
-      const load = stops[Math.min(k, last - 1)].load ?? 0;
-      const count = Math.max(1, Math.round(load * BUS_PEOPLE_MAX * 0.8));
-      const art = busInteriorArt({ count, color: '#2E8B3E', label: busRouteText(step.route), reduceMotion, bellLit: bellRung && k < last });
-      art.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요.`);
+      syncCrowd(Math.min(k, last - 1));
+      const count = countAt(k);
+      const people = Array.from({ length: count }, (_, n) => crowd.personAt(n));
+      const art = busInteriorArt({
+        count,
+        color: '#2E8B3E',
+        label: busRouteText(step.route),
+        reduceMotion,
+        bellLit: bellRung && k < last,
+        people,
+        onPerson: talkTo,
+      });
+      art.setAttribute('role', 'group');
+      art.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요. 사람을 누르면 이야기를 들을 수 있어요.`);
       box.append(art);
       box.append(element('p', 'panel-note', '붐빔은 하루 승하차 자료로 어림했어요.'));
       // 지나온 정류장: 네모 하나가 정류장 하나

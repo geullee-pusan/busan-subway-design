@@ -2179,3 +2179,75 @@ body {
 .ride-stop.is-more .ride-stop-name {
   color: #56636e;
 }
+
+/* 승객: 누르면 대화창 */
+.passenger {
+  cursor: pointer;
+}
+
+.passenger:focus {
+  outline: none;
+}
+
+.passenger:focus-visible > rect:first-child {
+  stroke: #f2c230;
+  stroke-width: 3;
+}
+
+.talk-dialog {
+  width: min(92vw, 520px);
+  padding: 20px;
+  border: 3px solid #1f3342;
+  border-radius: 16px;
+  background: var(--paper, #ffffff);
+  color: var(--ink, #1f3342);
+}
+
+.talk-dialog::backdrop {
+  background: rgba(31, 51, 66, 0.45);
+}
+
+.talk-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.talk-face {
+  flex: none;
+  width: 120px;
+  height: 120px;
+}
+
+.talk-who h2 {
+  margin: 0;
+}
+
+.talk-info {
+  margin: 4px 0 0;
+  font-size: 1.111rem;
+}
+
+.talk-bubble {
+  position: relative;
+  margin: 16px 0 8px;
+  padding: 12px 16px;
+  border: 2px solid #1f3342;
+  border-radius: 14px;
+  background: #fffaf0;
+  font-size: 1.222rem;
+}
+
+.talk-bubble::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 48px;
+  border: 10px solid transparent;
+  border-top: 0;
+  border-bottom-color: #1f3342;
+}
+
+.talk-bubble p {
+  margin: 4px 0;
+}
