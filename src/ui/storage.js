@@ -151,6 +151,7 @@ const VIEW_DEFAULTS = {
   trip: null, // 여행 모드에서 고른 것 {hour, rider, modes}. 출발지와 도착지는 저장하지 않는다.
   historyPopulation: 'now', // 옛날 부산 자유 설계의 사는 사람 자료: 'now'(지금 인구) 또는 'then'(그때 인구, 어림)
   rideSound: false, // 시승 모드 가락과 열차 소리(환승역·종착역 가락, 달리는 소리)
+  busStopPick: '직접 고르기', // 버스 노선 정류장 놓는 방법: '직접 고르기'(목록, 한 칸에 여러 개) 또는 '알아서 놓기'(아무거나 하나, 한 칸에 하나)
 };
 
 export function loadView() {

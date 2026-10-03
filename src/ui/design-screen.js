@@ -334,6 +334,29 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       if (next === design.path) return;
       remember();
       design = { ...design, path: next };
+    } else if (mode === '역 놓기' && realStopsHere(design) && stopPick() === '알아서 놓기') {
+      // 알아서 놓기: 묻지 않고 그 칸의 정류장 가운데 하나를 아무거나 골라 놓는다. 한 칸에 하나만. 있으면 뺀다.
+      if (design.stations.includes(cell)) {
+        remember();
+        const busStops = { ...(design.busStops ?? {}) };
+        delete busStops[cell];
+        design = { ...design, stations: design.stations.filter((s) => s !== cell), busStops };
+        lastPlaced = null;
+        autoNote = null;
+      } else {
+        const list = stopsInCell(busNetwork(), grid, cell);
+        if (list.length === 0) {
+          autoNote = '이 칸에는 실제 버스 정류장이 없어요. 정류장이 있는 칸을 눌러 봐요.';
+          update();
+          return;
+        }
+        remember();
+        // 아무거나 하나(화면에서만 고른다. 계산 코드 src/sim에는 무작위가 없다)
+        const pick = list[Math.floor(Math.random() * list.length)];
+        design = { ...design, stations: [...design.stations, cell], busStops: { ...(design.busStops ?? {}), [cell]: [pick.index] } };
+        lastPlaced = cell;
+        autoNote = `${pick.name} 정류장을 골라 놓았어요.`;
+      }
     } else if (mode === '역 놓기' && realStopsHere(design)) {
       // 버스 노선: 그 칸의 실제 정류장과 노선을 보여 주고, 고른 정류장에 놓는다.
       stopChoice = cell;
@@ -604,6 +627,56 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     );
     box.append(tools);
     panel.append(box);
+  }
+
+  /** 버스 정류장 놓는 방법(저장해 둔다) */
+  const stopPick = () => (loadView().busStopPick === '알아서 놓기' ? '알아서 놓기' : '직접 고르기');
+  /** 알아서 놓기에서 마지막으로 한 일 */
+  let autoNote = null;
+
+  /** 정류장 놓는 방법 고르기: 직접 고르기, 알아서 놓기 */
+  function renderStopPick() {
+    panel.append(element('h3', null, '정류장 놓는 방법'));
+    const row = element('div', 'tool-row');
+    row.setAttribute('role', 'group');
+    row.setAttribute('aria-label', '정류장 놓는 방법 고르기');
+    for (const name of ['직접 고르기', '알아서 놓기']) {
+      const node = button(name, () => changeStopPick(name), 'button tool');
+      node.setAttribute('aria-pressed', String(name === stopPick()));
+      if (name === stopPick()) node.classList.add('is-on');
+      row.append(node);
+    }
+    panel.append(row);
+    panel.append(
+      element(
+        'p',
+        'panel-note guide',
+        stopPick() === '알아서 놓기'
+          ? '칸을 누르면 그 칸의 정류장 하나를 아무거나 골라 놓아요. 한 칸에 하나만 놓아요. 다시 누르면 빼요.'
+          : '칸을 누르면 그 칸의 정류장 목록이 나와요. 골라서 놓아요. 한 칸에 여러 개 놓아도 돼요.',
+      ),
+    );
+    if (autoNote && stopPick() === '알아서 놓기') panel.append(element('p', 'panel-note', autoNote));
+  }
+
+  /** 정류장 놓는 방법을 바꾼다. 알아서 놓기로 바꾸면 정류장이 여럿인 칸은 첫 정류장만 남긴다. */
+  function changeStopPick(name) {
+    if (name === stopPick()) return;
+    saveView({ busStopPick: name });
+    stopChoice = null;
+    autoNote = null;
+    if (name === '알아서 놓기') {
+      const chosen = realBusStops(design);
+      const crowded = Object.entries(chosen).filter(([, list]) => list.length > 1);
+      if (crowded.length > 0) {
+        remember();
+        const busStops = { ...(design.busStops ?? {}) };
+        for (const [cell, list] of crowded) busStops[cell] = [list[0].index];
+        design = { ...design, busStops };
+        autoNote = `정류장이 여럿인 칸 ${crowded.length}곳은 첫 정류장만 남겼어요. 되돌리기로 돌아갈 수 있어요.`;
+      }
+    }
+    update();
   }
 
   function setMode(next) {
@@ -1008,6 +1081,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       modeBox.append(node);
     }
     panel.append(modeBox);
+    if (realStopsHere(design)) renderStopPick();
 
     const undoRow = element('div', 'tool-row');
     const undoButton = button(`되돌리기${history.length ? ` (${history.length})` : ''}`, undo);
