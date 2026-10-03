@@ -239,6 +239,8 @@ function newStationNames(plan) {
       if (!line.stations.includes(cell)) continue;
       order += 1;
       names.set(`${line.id}-${cell}`, line.stationNames?.[cell] ?? `새 역 ${order}`);
+      // 한 칸에 실제 정류장이 여럿이면(버스) 둘째부터는 그 정류장 이름(역 번호 끝에 -2, -3 …)
+      (line.busStopList?.[cell] ?? []).slice(1).forEach((stop, k) => names.set(`${line.id}-${cell}-${k + 2}`, stop.name));
     }
   }
   return names;

@@ -2164,3 +2164,9 @@ body {
 .stop-search-results .stop-choice-item:first-of-type {
   border-top: none;
 }
+
+/* 같은 칸의 둘째 정류장부터 */
+.name-more {
+  padding-left: 2.4em;
+  color: #56636e;
+}

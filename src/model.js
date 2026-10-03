@@ -264,7 +264,12 @@ export function designStationInfo(planOrDesign, options = {}, lineIndex = 0) {
           .filter((line) => line !== design && line.stations.includes(cell) && line.path.includes(cell))
           .map((line) => ({ name: line.stationNames?.[cell] ?? '새 역', line: line.lineName ?? '새 노선' })),
       );
-    const value = riders?.get(`${design.id}-${cell}`) ?? null;
+    // 한 칸에 정류장이 여럿이면(버스) 그 칸의 역을 모두 더한다.
+    const base = `${design.id}-${cell}`;
+    let value = null;
+    for (const [id, count] of riders ?? []) {
+      if (id === base || id.startsWith(`${base}-`)) value = (value ?? 0) + count;
+    }
     info[cell] = {
       ...around,
       transfers,

@@ -5,7 +5,7 @@ import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { buildBusNetwork, busJourney, busReach, busTimeTable, routesAtStop, stopGroup, stopPlace, stopsInCell, stopsNear, withBusTimes } from '../src/sim/bus-network.js';
-import { withDesign } from '../src/sim/design-world.js';
+import { orderStopsInCell, withDesign } from '../src/sim/design-world.js';
 import { planTrips } from '../src/sim/trip.js';
 import { prepareWorld, runDay } from '../src/sim/run.js';
 import { buildWorld, rulesFromCards } from '../src/sim/world.js';
@@ -213,4 +213,32 @@ test('고른 정류장에서 갈 버스가 없으면 다른 정류장으로 걸�
   // 라에서 타면 B로 바로 간다.
   const trip = busJourney(network, { x: 5.1, y: 1.1, stopIndex: 3 }, { x: 5.1, y: 5, stopIndex: 4 }, rules);
   assert.deepEqual(trip.legs.filter((leg) => leg.type === 'bus').map((leg) => leg.route), ['B']);
+});
+
+test('한 칸에 정류장 여러 개: 선 방향 차례로 모두 역이 되고, 같은 칸 정류장 사이는 곧은 거리', () => {
+  const world = { stations: [], links: [], transfers: [], lines: [] };
+  const tables = { lineKinds: { 버스: { speedKmh: 12, capacityPerTrain: 49 } } };
+  // 선: 칸 11 → 12 → 13(동쪽으로). 칸 12에 정류장 둘을 거꾸로 넣어도 서쪽부터 선다.
+  const two = orderStopsInCell([11, 12, 13], 12, [
+    { index: 8, name: '동쪽', x: 2.8, y: 1.5 },
+    { index: 7, name: '서쪽', x: 2.2, y: 1.5 },
+  ], 10);
+  assert.deepEqual(two.map((s) => s.name), ['서쪽', '동쪽']);
+  const design = {
+    path: [11, 12, 13],
+    stations: [11, 12, 13],
+    kind: '버스',
+    trainsPerHour: 6,
+    stationNames: { 12: '서쪽' },
+    busStopPoints: { 12: { x: 2.2, y: 1.5 } },
+    busStopList: { 12: two },
+  };
+  const next = withDesign(world, design, { cols: 10 }, tables);
+  assert.deepEqual(next.stations.map((s) => s.id), ['NEW-11', 'NEW-12', 'NEW-12-2', 'NEW-13']);
+  assert.deepEqual(next.stations.map((s) => s.name), ['새 역 1', '서쪽', '동쪽', '새 역 3']);
+  assert.equal(next.stations[2].stopIndex, 8);
+  // 같은 칸 정류장 사이 600m, 칸 사이는 칸 수(1km)
+  assert.deepEqual(next.links.map((l) => l.distanceM), [1000, 600, 1000]);
+  // 반대로 가는 선이면 동쪽부터
+  assert.deepEqual(orderStopsInCell([13, 12, 11], 12, two, 10).map((s) => s.name), ['동쪽', '서쪽']);
 });

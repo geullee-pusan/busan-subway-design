@@ -825,7 +825,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     if (!realRoutesAt.has(id)) {
       const station = stationOf.get(id);
       // 실제 정류장을 골랐으면 그 정류장에 서는 노선, 아니면 300m 안 정류장에 서는 노선
-      const stopIndex = station ? design.busStopIds?.[station.cell] : undefined;
+      const stopIndex = station?.stopIndex ?? (station ? design.busStopIds?.[station.cell] : undefined);
       const network = busNetwork();
       const exact = stopIndex !== undefined ? routesAtStop(network, stopIndex) : null;
       realRoutesAt.set(id, exact ?? (station ? routesNear(network, station) : []));

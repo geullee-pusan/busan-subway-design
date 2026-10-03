@@ -317,6 +317,41 @@ function designLayer(design, cols, shape = designShape(design)) {
   layer.append(
     el('circle', { cx: ((last % cols) + 0.5) * CELL, cy: (Math.floor(last / cols) + 0.5) * CELL, r: 4, fill: DESIGN_COLOR, 'fill-opacity': 0.5 }),
   );
+  // 한 칸에 실제 정류장이 여럿이면(버스) 첫 정류장 다음 정류장들을 이어 그린다.
+  for (const list of Object.values(design.busStopList ?? {})) {
+    if (list.length < 2) continue;
+    layer.append(
+      el('polyline', {
+        points: list.map((stop) => `${(stop.x * CELL).toFixed(1)},${(stop.y * CELL).toFixed(1)}`).join(' '),
+        fill: 'none',
+        stroke: DESIGN_COLOR,
+        'stroke-width': 4,
+        'stroke-dasharray': '6 4',
+        'vector-effect': 'non-scaling-stroke',
+      }),
+    );
+    for (const stop of list.slice(1)) {
+      const x = stop.x * CELL;
+      const y = stop.y * CELL;
+      layer.append(
+        el('rect', {
+          class: 'design-stop',
+          'data-shape': 'square',
+          'data-cx': x,
+          'data-cy': y,
+          'data-r': DESIGN_STOP_R,
+          x: (x - DESIGN_STOP_R).toFixed(2),
+          y: (y - DESIGN_STOP_R).toFixed(2),
+          width: 2 * DESIGN_STOP_R,
+          height: 2 * DESIGN_STOP_R,
+          fill: '#FFFFFF',
+          stroke: DESIGN_COLOR,
+          'stroke-width': 3,
+          'vector-effect': 'non-scaling-stroke',
+        }),
+      );
+    }
+  }
   for (const stop of shape.stops) {
     const point = shape.points[stop.index];
     const x = point.x * CELL;

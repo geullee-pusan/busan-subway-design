@@ -12,6 +12,7 @@ import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-
 import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
 import { stopPlace, stopsInCell } from '../sim/bus-network.js';
+import { orderStopsInCell } from '../sim/design-world.js';
 
 /** 지도 위에 그릴 SVG 조각 */
 function svgNode(tag, attrs) {
@@ -52,7 +53,7 @@ function emptyLine(index) {
     kind: '경전철',
     trainsPerHour: 8,
     names: {},
-    // 버스 노선: 칸 번호 → 고른 실제 버스 정류장 번호(data/build/bus.json)
+    // 버스 노선: 칸 번호 → 그 칸에 고른 실제 버스 정류장 번호들(data/build/bus.json). 한 칸에 여럿 놓을 수 있다.
     busStops: {},
     color: LINE_COLORS[index % LINE_COLORS.length],
     lineName: index === 0 ? DEFAULT_LINE_NAME : `${DEFAULT_LINE_NAME} ${index + 1}`,
@@ -137,7 +138,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       kind: line.kind ?? '경전철',
       trainsPerHour: line.trainsPerHour ?? 8,
       names: { ...(line.names ?? {}) },
-      busStops: { ...(line.busStops ?? {}) },
+      busStops: Object.fromEntries(Object.entries(line.busStops ?? {}).map(([cell, value]) => [cell, [].concat(value)])),
       color: line.color ?? LINE_COLORS[index % LINE_COLORS.length],
       lineName: line.lineName ?? emptyLine(index).lineName,
     }));
@@ -186,16 +187,19 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       const stationPoints = Object.fromEntries(line.stations.filter((cell) => points.has(cell)).map((cell) => [cell, points.get(cell)]));
       const chosen = realBusStops(line);
       for (const entry of named) {
-        const stop = chosen[entry.cell];
+        const stop = chosen[entry.cell]?.[0];
         if (stop && entry.source !== '직접') Object.assign(entry, { name: stop.name, source: '정류장' });
+        // 같은 칸의 둘째 정류장부터(목록에 함께 보인다)
+        entry.more = (chosen[entry.cell] ?? []).slice(1).map((place) => place.name);
       }
       out.push({
         ...line,
         id: lineIdAt(index),
         stationNames: Object.fromEntries(named.map((entry) => [entry.cell, entry.name])),
         stationPoints,
-        busStopPoints: Object.fromEntries(Object.entries(chosen).map(([cell, stop]) => [cell, { x: stop.x, y: stop.y }])),
-        busStopIds: Object.fromEntries(Object.entries(chosen).map(([cell, stop]) => [cell, stop.index])),
+        busStopPoints: Object.fromEntries(Object.entries(chosen).map(([cell, list]) => [cell, { x: list[0].x, y: list[0].y }])),
+        busStopIds: Object.fromEntries(Object.entries(chosen).map(([cell, list]) => [cell, list[0].index])),
+        busStopList: chosen,
       });
       entries.push(named);
       for (const entry of named) {
@@ -209,16 +213,27 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   /** 실제 시내버스 정류장을 쓸 수 있는지: 버스 노선이고, 지금 부산(2023년 노선 자료가 맞는 때)일 때 */
   const realStopsHere = (line) => line.kind === '버스' && baseYear >= BASE_YEAR;
 
-  /** 노선에서 고른 실제 정류장(칸 번호 → 정류장). 역이 있는 칸만 */
+  /** 칸에 고른 실제 정류장 번호들 */
+  const cellStops = (line, cell) => [].concat(line.busStops?.[cell] ?? []);
+
+  /** 노선에서 고른 실제 정류장(칸 번호 → 정류장들, 선 방향 차례). 역이 있는 칸만 */
   function realBusStops(line) {
     if (!realStopsHere(line)) return {};
     const network = busNetwork();
     const out = {};
-    for (const [cell, index] of Object.entries(line.busStops ?? {})) {
-      const place = stopPlace(network, index);
-      if (line.stations.includes(Number(cell)) && place) out[cell] = place;
+    for (const key of Object.keys(line.busStops ?? {})) {
+      const cell = Number(key);
+      if (!line.stations.includes(cell)) continue;
+      const places = cellStops(line, cell).map((index) => stopPlace(network, index)).filter(Boolean);
+      if (places.length > 0) out[cell] = orderStopsInCell(line.path, cell, places, grid.cols);
     }
     return out;
+  }
+
+  /** 노선의 정류장 수: 실제 정류장은 하나하나, 실제 정류장이 없는 칸은 하나로 센다. */
+  function stopCount(line) {
+    const chosen = realBusStops(line);
+    return line.stations.reduce((sum, cell) => sum + (chosen[cell]?.length || 1), 0);
   }
 
   /** 지금 고치는 노선의 역 이름 목록 */
@@ -285,7 +300,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
         path: [...line.path],
         stations: [...line.stations],
         names: { ...line.names },
-        busStops: { ...(line.busStops ?? {}) },
+        busStops: Object.fromEntries(Object.entries(line.busStops ?? {}).map(([cell, list]) => [cell, [].concat(list)])),
       })),
     });
   }
@@ -517,7 +532,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     const row = Math.floor(stopChoice / grid.cols);
     layer.append(svgNode('rect', { x: col * CELL, y: row * CELL, width: CELL, height: CELL, fill: 'none', stroke: '#1F3342', 'stroke-width': 2, 'stroke-dasharray': '6 4', 'vector-effect': 'non-scaling-stroke' }));
     for (const [i, stop] of stopsInCell(busNetwork(), grid, stopChoice).entries()) {
-      const chosen = design.busStops?.[stopChoice] === stop.index;
+      const chosen = cellStops(design, stopChoice).includes(stop.index);
       const g = svgNode('g', {});
       g.append(svgNode('circle', { cx: stop.x * CELL, cy: stop.y * CELL, r: 9 / k, fill: chosen ? '#1F3342' : '#FFFFFF', stroke: '#1F3342', 'stroke-width': 2, 'vector-effect': 'non-scaling-stroke' }));
       const label = svgNode('text', { x: stop.x * CELL, y: stop.y * CELL + 4 / k, 'text-anchor': 'middle', 'font-size': 11 / k, 'font-weight': 700, fill: chosen ? '#FFFFFF' : '#1F3342' });
@@ -527,7 +542,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     }
   }
 
-  /** 정류장 고르기 칸: 그 칸의 실제 버스 정류장마다 이름, 서는 노선, 놓기 단추 */
+  /** 정류장 고르기 칸: 그 칸의 실제 버스 정류장마다 이름, 방면, 서는 노선, 놓기·빼기 단추. 한 칸에 여러 개 놓을 수 있다. */
   function renderStopChoice() {
     if (stopChoice === null) return;
     const cell = stopChoice;
@@ -540,11 +555,28 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       box.append(element('p', 'panel-note', '정류장이 있는 칸을 눌러 봐요.'));
     } else {
       box.append(element('p', 'panel-note guide', '지도의 번호와 목록의 번호가 같아요. 정류장을 골라요.'));
+      box.append(element('p', 'panel-note guide', '한 칸에 정류장을 여러 개 놓아도 돼요. 버스는 선을 따라 차례로 서요.'));
       box.append(element('p', 'panel-note', `정류장 ${list.length}곳이 있어요.`));
     }
-    const current = design.busStops?.[cell];
+    const mine = cellStops(design, cell);
+    if (mine.length > 0) box.append(element('p', 'stop-choice-here', `이 칸에 놓은 정류장: ${mine.length}개`));
+    /** 이 칸의 정류장 목록을 바꾼다(비면 역도 뺀다). */
+    const setCellStops = (next) => {
+      remember();
+      const busStops = { ...(design.busStops ?? {}) };
+      if (next.length > 0) busStops[cell] = next;
+      else delete busStops[cell];
+      let stations = design.stations;
+      if (next.length > 0 && !stations.includes(cell)) stations = [...stations, cell];
+      if (next.length === 0) stations = stations.filter((s) => s !== cell);
+      lastPlaced = next.length > 0 ? cell : null;
+      design = { ...design, stations, busStops };
+      connectNote = null;
+      update();
+    };
     for (const [i, stop] of list.entries()) {
-      const item = element('div', `stop-choice-item${current === stop.index ? ' is-chosen' : ''}`);
+      const chosen = mine.includes(stop.index);
+      const item = element('div', `stop-choice-item${chosen ? ' is-chosen' : ''}`);
       const head = element('div', 'stop-choice-head');
       head.append(element('span', 'name-order', String(i + 1)), element('span', 'stop-choice-name', `${stop.name} 정류장`));
       item.append(head);
@@ -554,39 +586,16 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       routes.append(element('span', 'stop-choice-count', `시내버스 ${stop.routes.length}개`));
       for (const no of stop.routes) routes.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
       item.append(routes);
-      if (current === stop.index) {
+      if (chosen) {
         item.append(element('p', 'stop-choice-here', '내 노선 정류장이에요.'));
+        item.append(button('이 정류장 빼기', () => setCellStops(mine.filter((index) => index !== stop.index))));
       } else {
-        item.append(
-          button(current === undefined ? '여기에 정류장 놓기' : '이 정류장으로 바꾸기', () => {
-            remember();
-            lastPlaced = cell;
-            design = {
-              ...design,
-              stations: design.stations.includes(cell) ? design.stations : [...design.stations, cell],
-              busStops: { ...(design.busStops ?? {}), [cell]: stop.index },
-            };
-            stopChoice = null;
-            connectNote = null;
-            update();
-          }, 'button big'),
-        );
+        item.append(button(mine.length === 0 ? '여기에 정류장 놓기' : '이 정류장도 놓기', () => setCellStops([...mine, stop.index]), 'button big'));
       }
       box.append(item);
     }
     const tools = element('div', 'tool-row');
-    if (design.stations.includes(cell)) {
-      tools.append(
-        button('정류장 빼기', () => {
-          remember();
-          const busStops = { ...(design.busStops ?? {}) };
-          delete busStops[cell];
-          design = { ...design, stations: design.stations.filter((s) => s !== cell), busStops };
-          stopChoice = null;
-          update();
-        }),
-      );
-    }
+    if (design.stations.includes(cell)) tools.append(button('이 칸 정류장 모두 빼기', () => setCellStops([])));
     tools.append(
       button('닫기', () => {
         stopChoice = null;
@@ -907,6 +916,11 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
         item.append(open, info);
       }
       list.append(item);
+      for (const name of entry.more ?? []) {
+        const more = element('li', 'name-row name-more');
+        more.append(element('span', 'name-text', `↳ ${name} 정류장`), element('span', 'name-source', '같은 칸'));
+        list.append(more);
+      }
     }
     panel.append(list);
   }
@@ -1045,7 +1059,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
         'li',
         null,
         design.kind === '버스'
-          ? `정류장: ${design.stations.length}개${transfers > 0 ? ` (갈아타는 곳 ${transfers}개)` : ''}`
+          ? `정류장: ${stopCount(design)}개${transfers > 0 ? ` (갈아타는 곳이 있는 칸 ${transfers}개)` : ''}`
           : `역: ${design.stations.length}개${transfers > 0 ? ` (갈아타는 역 ${transfers}개)` : ''}`,
       ),
     );
