@@ -335,6 +335,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       remember();
       design = { ...design, path: next };
     } else if (mode === '역 놓기' && realStopsHere(design) && stopPick() === '알아서 놓기') {
+      emptyCell = null;
       // 알아서 놓기: 묻지 않고 그 칸의 정류장 가운데 하나를 아무거나 골라 놓는다. 한 칸에 하나만. 있으면 뺀다.
       if (design.stations.includes(cell)) {
         remember();
@@ -346,7 +347,8 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       } else {
         const list = stopsInCell(busNetwork(), grid, cell);
         if (list.length === 0) {
-          autoNote = '이 칸에는 실제 버스 정류장이 없어요. 정류장이 있는 칸을 눌러 봐요.';
+          autoNote = '이 칸에는 실제 버스 정류장이 없어요. 새 정류장을 만들 수 있어요.';
+          emptyCell = cell;
           update();
           return;
         }
@@ -575,7 +577,12 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     const list = stopsInCell(busNetwork(), grid, cell);
     if (list.length === 0) {
       box.append(element('p', null, '이 칸에는 실제 버스 정류장이 없어요.'));
-      box.append(element('p', 'panel-note', '정류장이 있는 칸을 눌러 봐요.'));
+      if (design.stations.includes(cell)) {
+        box.append(element('p', 'stop-choice-here', '이 칸에 새로 만든 정류장이 있어요.'));
+      } else {
+        box.append(element('p', 'panel-note', '새 정류장을 만들 수 있어요. 칸 가운데에 놓여요.'));
+        box.append(button('새 정류장 만들기', () => makeNewStop(cell), 'button big'));
+      }
     } else {
       box.append(element('p', 'panel-note guide', '지도의 번호와 목록의 번호가 같아요. 정류장을 골라요.'));
       box.append(element('p', 'panel-note guide', '한 칸에 정류장을 여러 개 놓아도 돼요. 버스는 선을 따라 차례로 서요.'));
@@ -633,6 +640,26 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   const stopPick = () => (loadView().busStopPick === '알아서 놓기' ? '알아서 놓기' : '직접 고르기');
   /** 알아서 놓기에서 마지막으로 한 일 */
   let autoNote = null;
+  /** 알아서 놓기에서 누른, 실제 정류장이 없는 칸(새 정류장을 만들 수 있다). 없으면 null */
+  let emptyCell = null;
+
+  /**
+   * 실제 버스 정류장이 하나도 없는 칸에 새 정류장을 만든다. 칸 가운데에 놓이고 이름은 새 역처럼 짓는다.
+   * (실제 정류장이 있는 칸에서는 만들지 않는다.)
+   */
+  function makeNewStop(cell) {
+    if (stopsInCell(busNetwork(), grid, cell).length > 0 || design.stations.includes(cell)) return;
+    remember();
+    const busStops = { ...(design.busStops ?? {}) };
+    delete busStops[cell];
+    design = { ...design, stations: [...design.stations, cell], busStops };
+    lastPlaced = cell;
+    stopChoice = null;
+    emptyCell = null;
+    autoNote = '새 정류장을 만들었어요.';
+    connectNote = null;
+    update();
+  }
 
   /** 정류장 놓는 방법 고르기: 직접 고르기, 알아서 놓기 */
   function renderStopPick() {
@@ -657,6 +684,10 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       ),
     );
     if (autoNote && stopPick() === '알아서 놓기') panel.append(element('p', 'panel-note', autoNote));
+    if (emptyCell !== null && stopPick() === '알아서 놓기' && !design.stations.includes(emptyCell)) {
+      const cell = emptyCell;
+      panel.append(button('이 칸에 새 정류장 만들기', () => makeNewStop(cell), 'button big'));
+    }
   }
 
   /** 정류장 놓는 방법을 바꾼다. 알아서 놓기로 바꾸면 정류장이 여럿인 칸은 첫 정류장만 남긴다. */
@@ -981,7 +1012,15 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
         item.className = 'name-row';
         const open = button('', () => startEditing(entry.cell), 'name-button');
         open.append(element('span', 'name-order', `${entry.order}`), element('span', 'name-text', shownName(entry)));
-        const from = !design.path.includes(entry.cell) ? '선로 없음' : design.kind === '버스' && entry.source === '갈아타는 역' ? '갈아타는 곳' : NAME_SOURCES[entry.source];
+        // 실제 정류장을 쓰는 버스 노선에서 실제 정류장이 아닌 칸은 새로 만든 정류장이다.
+        const newStop = realStopsHere(design) && cellStops(design, entry.cell).length === 0;
+        const from = !design.path.includes(entry.cell)
+          ? '선로 없음'
+          : newStop
+            ? '새로 만든 정류장'
+            : design.kind === '버스' && entry.source === '갈아타는 역'
+              ? '갈아타는 곳'
+              : NAME_SOURCES[entry.source];
         if (from) open.append(element('span', 'name-source', from));
         open.setAttribute('aria-label', `${entry.order}번째 역 ${shownName(entry)}, 눌러서 이름 고치기`);
         const info = button('ⓘ 정보', () => openInfo(entry.cell), 'button info-button');
