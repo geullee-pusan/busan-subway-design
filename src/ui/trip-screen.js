@@ -4,6 +4,7 @@
 import faresFile from '../content/fares.json';
 import { dongs, grid, lineById, places, stationById, stations } from '../data.js';
 import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
+import { stopDirectory, stopsInCell } from '../sim/bus-network.js';
 import { planTrips } from '../sim/trip.js';
 import { busRouteText, distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { CELL, createMap } from './map.js';
@@ -105,6 +106,8 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
   let from = initial?.from ?? null;
   let to = initial?.to ?? null;
   let picking = '출발';
+  /** 지도에서 누른 칸(그 칸의 실제 버스 정류장을 고르는 중). 없으면 null */
+  let cellChoice = null;
   let hour = HOURS.some((h) => h.hour === saved.hour) ? saved.hour : 8;
   let rider = saved.rider === 'child' ? 'child' : 'adult';
   const modes = { walk: true, bus: true, subway: true, taxi: true, ...(saved.modes ?? {}) };
@@ -135,13 +138,113 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     saveView({ trip: { hour, rider, modes: { ...modes } } });
   }
 
-  /** 지도에서 칸을 누르면 그 칸 가운데를 출발지나 도착지로 한다. */
+  /** 지도에서 칸을 누르면 그 칸의 실제 버스 정류장과 칸 가운데 가운데서 고른다. */
   function pickCell(cell) {
+    cellChoice = cell;
+    renderPanel();
+    draw();
+  }
+
+  /** 칸 가운데 점(가까운 역이 있으면 "○○역 둘레") */
+  function cellPoint(cell) {
     const point = { x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5, name: '지도에서 고른 곳' };
-    // 가까운 역이 1칸 안에 있으면 그 이름을 붙인다.
     const near = stationList.find((s) => Math.hypot(s.x - point.x, s.y - point.y) < 0.5);
     if (near) point.name = `${near.name} 둘레`;
-    setPoint(picking, point);
+    return point;
+  }
+
+  /** 실제 버스 정류장 점. 방면(toward)은 같은 이름 정류장을 가르는 데 쓴다(출발·도착 줄에 함께 보인다). */
+  function stopPoint(stop) {
+    return { x: stop.x, y: stop.y, stopIndex: stop.index, name: `${stop.name} 정류장`, toward: stop.toward };
+  }
+
+  /** 정류장 한 줄: 번호, 이름, 방면, 서는 버스, 고르기 단추 */
+  function stopItem(stop, number, onChoose) {
+    const item = element('div', 'stop-choice-item');
+    const head = element('div', 'stop-choice-head');
+    if (number) head.append(element('span', 'name-order', String(number)));
+    head.append(element('span', 'stop-choice-name', `${stop.name} 정류장`));
+    item.append(head);
+    if (stop.toward) item.append(element('p', 'stop-choice-toward', `${stop.toward} 방면으로 가는 버스가 서요.`));
+    const routes = element('div', 'stop-choice-routes');
+    routes.setAttribute('aria-label', `서는 시내버스 ${stop.routes.length}개: ${stop.routes.join(', ')}`);
+    routes.append(element('span', 'stop-choice-count', `시내버스 ${stop.routes.length}개`));
+    for (const no of stop.routes) routes.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
+    item.append(routes);
+    item.append(button(`${picking}지로 고르기`, onChoose, 'button big'));
+    return item;
+  }
+
+  /** 누른 칸에서 고르기: 칸 가운데, 또는 그 칸의 실제 버스 정류장 */
+  function renderCellChoice() {
+    if (cellChoice === null) return;
+    const cell = cellChoice;
+    const box = element('section', 'stop-choice');
+    box.setAttribute('aria-label', '누른 칸에서 고르기');
+    box.append(element('h3', null, `이 칸에서 ${picking}지를 골라요`));
+    const center = cellPoint(cell);
+    box.append(
+      button(`칸 가운데(${center.name})`, () => {
+        cellChoice = null;
+        setPoint(picking, center);
+      }),
+    );
+    const list = stopsInCell(busNetwork(), grid, cell);
+    if (list.length === 0) box.append(element('p', 'panel-note', '이 칸에는 실제 버스 정류장이 없어요.'));
+    else box.append(element('p', 'panel-note guide', `버스 정류장 ${list.length}곳이 있어요. 지도의 번호와 같아요.`));
+    for (const [i, stop] of list.entries()) {
+      box.append(
+        stopItem(stop, i + 1, () => {
+          cellChoice = null;
+          setPoint(picking, stopPoint(stop));
+        }),
+      );
+    }
+    box.append(
+      button('닫기', () => {
+        cellChoice = null;
+        renderPanel();
+        draw();
+      }),
+    );
+    panel.append(box);
+  }
+
+  /** 정류장 이름으로 찾기(출발, 도착 칸마다) */
+  function stopSearch(which) {
+    const box = element('div', 'stop-search');
+    const input = document.createElement('input');
+    input.type = 'search';
+    input.className = 'text-input';
+    input.placeholder = '버스 정류장 이름으로 찾기';
+    input.setAttribute('aria-label', `${which}지 버스 정류장 찾기`);
+    const results = element('div', 'stop-search-results');
+    results.setAttribute('aria-live', 'polite');
+    input.addEventListener('input', () => {
+      results.replaceChildren();
+      const words = input.value.replace(/\s/g, '');
+      if (words.length < 2) {
+        if (words.length === 1) results.append(element('p', 'panel-note', '두 글자 넘게 써 봐요.'));
+        return;
+      }
+      const found = stopDirectory(busNetwork(), grid).filter((stop) => stop.name.replace(/\s/g, '').includes(words));
+      if (found.length === 0) {
+        results.append(element('p', 'panel-note', '그런 이름의 정류장이 없어요.'));
+        return;
+      }
+      results.append(element('p', 'panel-note', found.length > 8 ? `${found.length}곳 가운데 8곳을 보여 줘요.` : `${found.length}곳을 찾았어요.`));
+      for (const stop of found.slice(0, 8)) {
+        const item = stopItem(stop, null, () => {
+          picking = which;
+          setPoint(which, stopPoint(stop));
+        });
+        // 단추 글은 이 칸(출발, 도착)에 맞춘다.
+        item.querySelector('button').textContent = `${which}지로 고르기`;
+        results.append(item);
+      }
+    });
+    box.append(input, results);
+    return box;
   }
 
   function setPoint(which, point) {
@@ -225,6 +328,18 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
         }
       }
     }
+    if (cellChoice !== null) {
+      const k = map.zoom || 1;
+      const col = cellChoice % grid.cols;
+      const row = Math.floor(cellChoice / grid.cols);
+      layer.append(svgEl('rect', { x: col * CELL, y: row * CELL, width: CELL, height: CELL, fill: 'none', stroke: '#1F3342', 'stroke-width': 2, 'stroke-dasharray': '6 4', 'vector-effect': 'non-scaling-stroke' }));
+      for (const [i, stop] of stopsInCell(busNetwork(), grid, cellChoice).entries()) {
+        layer.append(svgEl('circle', { cx: stop.x * CELL, cy: stop.y * CELL, r: 9 / k, fill: '#FFFFFF', stroke: '#1F3342', 'stroke-width': 2, 'vector-effect': 'non-scaling-stroke' }));
+        const label = svgEl('text', { x: stop.x * CELL, y: stop.y * CELL + 4 / k, 'text-anchor': 'middle', 'font-size': 11 / k, 'font-weight': 700, fill: '#1F3342' });
+        label.textContent = String(i + 1);
+        layer.append(label);
+      }
+    }
     for (const [point, label] of [
       [from, '출발'],
       [to, '도착'],
@@ -294,8 +409,10 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
 
   function renderPanel() {
     panel.replaceChildren();
+    renderCellChoice();
     panel.append(element('h2', null, '어디로 갈까요?'));
-    panel.append(element('p', 'panel-note guide', '목록에서 고르거나, 지도를 눌러 골라요.'));
+    panel.append(element('p', 'panel-note guide', '목록에서 고르거나, 정류장 이름으로 찾거나, 지도를 눌러 골라요.'));
+    panel.append(element('p', 'panel-note guide', '지도에서 칸을 누르면 그 칸의 버스 정류장도 고를 수 있어요.'));
 
     for (const which of ['출발', '도착']) {
       const box = element('div', 'trip-point');
@@ -306,7 +423,8 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
       pickButton.classList.toggle('is-on', picking === which);
       pickButton.setAttribute('aria-pressed', String(picking === which));
       const current = which === '출발' ? from : to;
-      box.append(element('h3', null, `${which}: ${current?.name ?? '아직 안 골랐어요'}`), choiceSelect(which), pickButton);
+      const label = current ? `${current.name}${current.toward ? ` (${current.toward} 방면)` : ''}` : '아직 안 골랐어요';
+      box.append(element('h3', null, `${which}: ${label}`), choiceSelect(which), stopSearch(which), pickButton);
       panel.append(box);
     }
     if (from && to) {
@@ -369,6 +487,10 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
       return;
     }
     panel.append(element('p', 'panel-note', '정답은 없어요. 시간, 요금, 걷는 거리를 견줘 봐요.'));
+    const pickedStop = from.stopIndex !== undefined || to.stopIndex !== undefined;
+    if (modes.bus && pickedStop && !trips.some((t) => t.id === 'bus')) {
+      panel.append(element('p', 'panel-note', '고른 정류장에서는 버스로 갈 수 없어요. 그 정류장에 서는 버스가 그쪽으로 가지 않아요.'));
+    }
     const longest = Math.max(...trips.map((t) => t.minutes), 1);
     const list = element('div', 'trip-list');
     for (const trip of trips) list.append(tripCard(trip, longest));

@@ -117,7 +117,7 @@ function realBusLegs(journey, endStation = null) {
     } else {
       let km = 0;
       for (let k = 1; k < leg.stops.length; k++) km += straightKm(leg.stops[k - 1], leg.stops[k]);
-      legs.push({ mode: '버스', minutes: leg.minutes, meters: meters(km), route: leg.route, stops: leg.stops, endsAtTerminal: leg.endsAtTerminal });
+      legs.push({ mode: '버스', minutes: leg.minutes, meters: meters(km), route: leg.route, stops: leg.stops, endsAtTerminal: leg.endsAtTerminal, toward: leg.toward });
     }
   });
   return legs;
@@ -204,8 +204,10 @@ export function planTrips({ from, to, hour, modes, rider = 'adult', world, prepa
 
   if (modes.bus) {
     // 실제 노선으로 못 가면(정류장이 멀거나 부산 밖) 어림 버스로 센다.
+    // 정류장을 골랐는데 그 정류장에서 갈 버스가 없으면 버스 길을 내지 않는다(어림으로 채우지 않는다).
     const real = busTripLegs(busNetwork, rules, from, to);
-    push('bus', '버스', real ?? busLegs(rules, from, to), transitFare(fares, { bus: true }, rider));
+    const pickedStop = from.stopIndex !== undefined || to.stopIndex !== undefined;
+    if (real || !(busNetwork && pickedStop)) push('bus', '버스', real ?? busLegs(rules, from, to), transitFare(fares, { bus: true }, rider));
   }
 
   if (modes.bus && modes.subway && busNetwork) {

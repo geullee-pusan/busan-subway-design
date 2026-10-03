@@ -456,6 +456,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
 
   function renderBusStop(area, step) {
     const stopName = step.next?.stops?.[0]?.name ?? null;
+    const toward = step.next?.toward ?? null;
     area.append(element('h2', null, step.route ? `${busRouteText(step.route)} 버스를 기다려요` : '버스 정류장에서 기다려요'));
     const svg = sceneSvg(180);
     svg.setAttribute('aria-label', '버스 정류장 그림이에요.');
@@ -472,11 +473,14 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     if (step.route) {
       svg.append(svgEl('rect', { x: 400, y: 84, width: 120, height: 36, rx: 6, fill: '#1D1F22' }));
       svg.append(svgEl('text', { x: 460, y: 109, 'text-anchor': 'middle', 'font-size': 20, 'font-weight': 700, fill: '#F2A33A' }, busRouteText(step.route)));
+      // 정류장 표지의 방면(이 버스가 다음에 서는 정류장)
+      if (toward) svg.append(svgEl('text', { x: 540, y: 109, 'font-size': 18, 'font-weight': 700, fill: '#1F3342' }, `${toward} 방면 ▶`));
     }
     svg.append(svgEl('rect', { x: 180, y: 70, width: 200, height: 10, fill: '#7A8691' }));
     walker(svg).setAttribute('transform', 'translate(240 -34)');
     area.append(svg);
     if (step.route) {
+      if (toward) area.append(element('p', null, `${toward} 방면으로 가는 버스를 타요.`));
       area.append(element('p', null, `버스를 약 ${minutesText(step.minutes)} 기다려요.`));
       area.append(element('p', 'panel-note', '기다리는 시간은 우리가 정한 값이에요.'));
     } else {

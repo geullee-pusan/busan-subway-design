@@ -245,37 +245,78 @@ export function busTimeTable(network, zones, centers, rules) {
 
 /**
  * 두 점 사이 버스 길을 찾는다(여행 모드).
- * @param {{x: number, y: number, hilly?: boolean}} from
- * @param {{x: number, y: number, hilly?: boolean}} to
+ * @param {{x: number, y: number, hilly?: boolean, stopIndex?: number}} from stopIndex가 있으면 그 정류장에서 탄다
+ * @param {{x: number, y: number, hilly?: boolean, stopIndex?: number}} to stopIndex가 있으면 그 정류장에서 내린다
  * @returns {null | {
  *   minutes: number,
  *   legs: ({type: 'walk', minutes: number, km: number, to: string|null}
  *     | {type: 'wait', minutes: number, route: string}
- *     | {type: 'bus', route: string, minutes: number, endsAtTerminal: boolean,
+ *     | {type: 'bus', route: string, minutes: number, endsAtTerminal: boolean, toward: string|null,
  *        stops: {name: string, x: number, y: number, board: number, alight: number, load: number}[]})[]
  *   load: 이 노선에서 가장 붐비는 곳을 1로 둔 붐빔(하루 승하차로 어림한 값, 버스 한 대에 탄 사람 수가 아니다)
  * }} 걸어갈 거리에 정류장이 없거나 버스로 갈 수 없으면 null
  */
 export function busJourney(network, from, to, rules) {
-  const seeds = stopsNear(network, from, rules);
-  const ends = stopsNear(network, to, rules);
-  if (seeds.length === 0 || ends.length === 0) return null;
-  const { dist, prev } = shortest(network, network.forward, seeds);
+  // 정류장을 골랐으면(stopIndex) 그 정류장(같은 정류장 묶음)에 서는 버스에 바로 타고, 그 정류장에서 내린다.
+  // 다른 정류장으로 걸어가 타거나, 다른 정류장에 내려 걸어오지 않는다(중간에 갈아탈 때는 걸어도 된다).
+  const { forward, backward } = network;
+  const fromGroup = from.stopIndex === undefined ? null : stopGroup(network, from.stopIndex);
+  const toGroup = to.stopIndex === undefined ? null : stopGroup(network, to.stopIndex);
+  /** 출발: 노선 자리 점에서 시작(기다리는 시간부터 센다) → 탄 정류장 */
+  const boardStop = new Map();
+  let seeds;
+  if (fromGroup) {
+    seeds = [];
+    for (const index of fromGroup) {
+      for (let e = forward.start[index]; e < forward.start[index + 1]; e++) {
+        if (forward.target[e] < network.stopCount) continue;
+        seeds.push({ node: forward.target[e], minutes: forward.weight[e] });
+        boardStop.set(forward.target[e], index);
+      }
+    }
+  } else {
+    seeds = stopsNear(network, from, rules);
+  }
+  if (seeds.length === 0) return null;
+  const { dist, prev } = shortest(network, forward, seeds);
+
+  // 도착: 정류장을 골랐으면 그 정류장에 내리는 노선 자리 점에서 끝난다.
   let best = null;
-  for (const end of ends) {
-    const total = dist[end.node] + end.minutes;
-    if (!best || total < best.total - 1e-9) best = { total, end };
+  if (toGroup) {
+    for (const index of toGroup) {
+      for (let e = backward.start[index]; e < backward.start[index + 1]; e++) {
+        const node = backward.target[e];
+        if (node < network.stopCount || fromGroup?.includes(index) && boardStop.has(node)) continue;
+        const total = dist[node];
+        if (!best || total < best.total - 1e-9) best = { total, last: node, stop: index, walk: 0 };
+      }
+    }
+  } else {
+    for (const end of stopsNear(network, to, rules)) {
+      const total = dist[end.node] + end.minutes;
+      if (!best || total < best.total - 1e-9) best = { total, last: end.node, stop: end.node, walk: end.minutes };
+    }
   }
   if (!best || !Number.isFinite(best.total)) return null;
+  const ends = [{ node: best.stop, minutes: best.walk }];
+  best.end = ends[0];
 
-  // 되짚어 온 점들
+  // 되짚어 온 점들. 정류장을 고른 출발·도착은 탄 정류장과 내린 정류장을 앞뒤에 붙인다.
   const nodes = [];
-  for (let node = best.end.node; node !== -1; node = prev[node]) nodes.push(node);
+  for (let node = best.last; node !== -1; node = prev[node]) nodes.push(node);
   nodes.reverse();
+  if (fromGroup) {
+    const stop = boardStop.get(nodes[0]);
+    dist[stop] = 0;
+    nodes.unshift(stop);
+  }
+  if (toGroup) nodes.push(best.stop);
   const isStop = (node) => node < network.stopCount;
+  // 정류장 이름은 칸의 정류장 목록과 같은 이름(같은 자리 정류장들의 대표 이름)을 쓴다.
+  const nameOf = (index) => stopPlace(network, index).name;
   const firstStop = network.stops[nodes[0]];
   const legs = [
-    { type: 'walk', minutes: dist[nodes[0]], km: straightKm(from, firstStop), to: firstStop.name },
+    { type: 'walk', minutes: dist[nodes[0]], km: straightKm(from, firstStop), to: nameOf(nodes[0]) },
   ];
   let i = 0;
   while (i < nodes.length - 1) {
@@ -285,7 +326,7 @@ export function busJourney(network, from, to, rules) {
       // 가까운 정류장으로 걸어서 옮긴다.
       const sa = network.stops[a];
       const sb = network.stops[b];
-      legs.push({ type: 'walk', minutes: dist[b] - dist[a], km: straightKm(sa, sb), to: sb.name });
+      legs.push({ type: 'walk', minutes: dist[b] - dist[a], km: straightKm(sa, sb), to: nameOf(b) });
       i += 1;
       continue;
     }
@@ -299,11 +340,13 @@ export function busJourney(network, from, to, rules) {
     const r = network.nodeRoute[b - network.stopCount];
     const stops = route.stops.slice(fromPos, toPos + 1).map(([index, board, alight], k) => {
       const stop = network.stops[index];
-      return { name: stop.name, x: stop.x, y: stop.y, board, alight, load: network.loads[r][fromPos + k] };
+      return { name: nameOf(index), x: stop.x, y: stop.y, board, alight, load: network.loads[r][fromPos + k] };
     });
     // 이 버스의 마지막 정류장(종점)에서 내리면 종점 방송을 한다.
     const endsAtTerminal = toPos === route.stops.length - 1;
-    legs.push({ type: 'bus', route: route.no, stops, minutes: dist[nodes[j]] - dist[b], endsAtTerminal });
+    // 탈 때 보는 방면: 이 버스가 다음에 서는 정류장
+    const toward = route.stops[fromPos + 1] ? nameOf(route.stops[fromPos + 1][0]) : null;
+    legs.push({ type: 'bus', route: route.no, stops, minutes: dist[nodes[j]] - dist[b], endsAtTerminal, toward });
     i = j + 1; // 내린 정류장
   }
   const lastStop = network.stops[best.end.node];
@@ -330,7 +373,11 @@ export function withBusTimes(world, network, rules) {
  * @returns {(other: {x: number, y: number, hilly?: boolean}) => number}
  */
 export function busReach(network, point, rules, backward = false) {
-  const seeds = stopsNear(network, point, rules);
+  // 정류장을 골랐으면 그 정류장(묶음)에서 타고 내린다(busJourney와 같다).
+  const seeds =
+    point.stopIndex === undefined
+      ? stopsNear(network, point, rules)
+      : stopGroup(network, point.stopIndex).map((index) => ({ node: index, minutes: 0 }));
   if (seeds.length === 0) return () => Infinity;
   const { dist } = shortest(network, backward ? network.backward : network.forward, seeds);
   return (other) => {
@@ -397,6 +444,25 @@ export function routesAtStop(network, stopIndex) {
 const SAME_STOP_KM = 0.04;
 
 /**
+ * 정류장 하나가 속한 묶음(같은 자리 정류장, 그리고 같은 이름으로 40m 안 정류장)의 정류장 번호들.
+ * 칸의 정류장 목록(stopsInCell)과 같은 기준이다.
+ */
+export function stopGroup(network, stopIndex) {
+  const stop = network.stops[stopIndex];
+  if (!stop) return [];
+  const name = stopPlace(network, stopIndex).name;
+  const out = [];
+  for (const indices of samePlaceGroups(network).values()) {
+    const other = network.stops[indices[0]];
+    if (Math.abs(other.x - stop.x) > SAME_STOP_KM || Math.abs(other.y - stop.y) > SAME_STOP_KM) continue;
+    if (straightKm(other, stop) > SAME_STOP_KM) continue;
+    const same = other.x === stop.x && other.y === stop.y;
+    if (same || placeName(network, indices) === name) out.push(...indices);
+  }
+  return out.sort((a, b) => a - b);
+}
+
+/**
  * 한 칸(1km 블록) 안의 실제 버스 정류장과 거기 서는 노선, 버스가 다음에 서는 정류장(방면).
  * 같은 자리, 그리고 같은 이름으로 40m 안에 있는 정류장은 하나로 묶는다.
  * 이름 차례, 같은 이름이면 서쪽·북쪽 먼저.
@@ -445,4 +511,19 @@ export function stopPlace(network, stopIndex) {
   if (!stop) return null;
   const indices = samePlaceGroups(network).get(`${stop.x}|${stop.y}`) ?? [stopIndex];
   return { index: stopIndex, name: placeName(network, indices), x: stop.x, y: stop.y };
+}
+
+const directoryCache = new WeakMap();
+/**
+ * 모든 실제 버스 정류장(칸마다 stopsInCell로 묶은 것). 여행 모드에서 정류장 이름으로 찾을 때 쓴다.
+ * @returns {{index: number, name: string, x: number, y: number, routes: string[], toward: string|null}[]} 이름 차례
+ */
+export function stopDirectory(network, grid) {
+  if (!directoryCache.has(network)) {
+    const cells = new Set(network.stops.map((stop) => Math.floor(stop.y) * grid.cols + Math.floor(stop.x)));
+    const list = [...cells].sort((a, b) => a - b).flatMap((cell) => stopsInCell(network, grid, cell));
+    list.sort((a, b) => a.name.localeCompare(b.name, 'ko') || a.x - b.x || a.y - b.y);
+    directoryCache.set(network, list);
+  }
+  return directoryCache.get(network);
 }

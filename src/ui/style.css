@@ -2151,3 +2151,16 @@ body {
   margin: 2px 0 0;
   color: #56636e;
 }
+
+/* 여행 모드: 버스 정류장 이름으로 찾기 */
+.stop-search {
+  margin: 6px 0;
+}
+
+.stop-search .text-input {
+  width: 100%;
+}
+
+.stop-search-results .stop-choice-item:first-of-type {
+  border-top: none;
+}

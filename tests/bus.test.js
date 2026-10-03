@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { buildBusNetwork, busJourney, busReach, busTimeTable, routesAtStop, stopPlace, stopsInCell, stopsNear, withBusTimes } from '../src/sim/bus-network.js';
+import { buildBusNetwork, busJourney, busReach, busTimeTable, routesAtStop, stopGroup, stopPlace, stopsInCell, stopsNear, withBusTimes } from '../src/sim/bus-network.js';
 import { withDesign } from '../src/sim/design-world.js';
 import { planTrips } from '../src/sim/trip.js';
 import { prepareWorld, runDay } from '../src/sim/run.js';
@@ -189,4 +189,28 @@ test('버스 노선 설계: 고른 실제 정류장 자리에 역을 둔다', ()
   assert.deepEqual([a.x, a.y], [1.23, 1.77]);
   // 고르지 않은 칸은 칸 가운데
   assert.deepEqual([b.x, b.y], [3.5, 1.5]);
+});
+
+test('정류장을 고른 출발·도착: 그 정류장에서 타고 내리고, 걷기는 0분이다', () => {
+  const network = buildBusNetwork(tiny, flat, rules);
+  // 정류장 1(나)에서 타서 정류장 2(다)에서 내린다: 둘레의 정류장 0(가)에서 타지 않는다.
+  const trip = busJourney(network, { x: 3, y: 1, stopIndex: 1 }, { x: 5, y: 1, stopIndex: 2 }, rules);
+  assert.ok(trip);
+  const ride = trip.legs.find((leg) => leg.type === 'bus');
+  assert.deepEqual(ride.stops.map((stop) => stop.name), ['나', '다']);
+  assert.equal(ride.toward, '다');
+  assert.equal(trip.legs[0].minutes, 0);
+  assert.equal(trip.legs.at(-1).minutes, 0);
+  assert.deepEqual(stopGroup(network, 2), [2]);
+});
+
+test('고른 정류장에서 갈 버스가 없으면 다른 정류장으로 걸어가 타지 않는다', () => {
+  const network = buildBusNetwork(tiny, flat, rules);
+  // 정류장 2(다)는 노선 A의 끝이라 다에서 타는 버스가 없다(옆 정류장 라로 걸어가면 B를 탈 수 있지만 그러지 않는다).
+  assert.equal(busJourney(network, { x: 5, y: 1, stopIndex: 2 }, { x: 5.1, y: 5, stopIndex: 4 }, rules), null);
+  // 정류장을 고르지 않으면 걸어서 갈아탄다.
+  assert.ok(busJourney(network, { x: 5, y: 1 }, { x: 5.1, y: 5 }, rules));
+  // 라에서 타면 B로 바로 간다.
+  const trip = busJourney(network, { x: 5.1, y: 1.1, stopIndex: 3 }, { x: 5.1, y: 5, stopIndex: 4 }, rules);
+  assert.deepEqual(trip.legs.filter((leg) => leg.type === 'bus').map((leg) => leg.route), ['B']);
 });
