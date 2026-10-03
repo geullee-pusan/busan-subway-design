@@ -345,13 +345,49 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   root.append(screen);
 
   // ---------- 노선 띠 ----------
+  /** 위쪽 역 띠에서 지금 역 앞뒤로 보여 줄 역 수 */
+  const STRIP_SIDE = 3;
+
+  /**
+   * 위쪽 역 띠. 역이 많으면 다 넣지 않고 지금 역 앞뒤로 3개씩만 보여 주고, 잘린 쪽은 "N개 더"로 알린다.
+   * 아직 타기 전(고르기)에는 처음 3개와 마지막 3개를 보여 준다.
+   */
   function strip() {
     const order = direction === 1 ? stops : [...stops].reverse();
+    // 칸: {stop: 역 차례} 또는 {more: 잘린 역 수}
+    const cells = [];
+    const pushStops = (from, to) => {
+      for (let i = from; i <= to; i++) cells.push({ stop: i });
+    };
+    const last = order.length - 1;
+    if (order.length <= STRIP_SIDE * 2 + 1) {
+      pushStops(0, last);
+    } else if (phase === '고르기') {
+      pushStops(0, STRIP_SIDE - 1);
+      cells.push({ more: order.length - STRIP_SIDE * 2 });
+      pushStops(last - STRIP_SIDE + 1, last);
+    } else {
+      const from = Math.max(0, at - STRIP_SIDE);
+      const to = Math.min(last, at + STRIP_SIDE);
+      if (from > 0) cells.push({ more: from });
+      pushStops(from, to);
+      if (to < last) cells.push({ more: last - to });
+    }
+
     const box = element('div', 'ride-strip');
-    box.style.setProperty('--count', String(order.length));
+    box.style.setProperty('--count', String(cells.length));
     const rail = element('div', 'ride-rail');
     box.append(rail);
-    for (const [index, stop] of order.entries()) {
+    for (const cell of cells) {
+      if (cell.more !== undefined) {
+        const item = element('div', 'ride-stop is-more');
+        item.setAttribute('aria-label', `${isBus ? '정류장' : '역'} ${cell.more}개를 줄였어요`);
+        item.append(element('span', 'ride-dot', '⋯'), element('span', 'ride-stop-name', `${cell.more}개 더`));
+        box.append(item);
+        continue;
+      }
+      const index = cell.stop;
+      const stop = order[index];
       const item = element('div', 'ride-stop');
       if (phase !== '고르기') {
         if (index < at) item.classList.add('is-past');
@@ -366,7 +402,11 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     if (phase !== '고르기' && phase !== '역 안' && phase !== '승강장') {
       const train = element('div', 'ride-train', vehicle);
       train.setAttribute('aria-hidden', 'true');
-      const place = (index) => `${((index + 0.5) / order.length) * 100}%`;
+      /** 역 차례 → 띠 위 자리(보이는 칸 기준) */
+      const place = (index) => {
+        const slot = cells.findIndex((cell) => cell.stop === index);
+        return `${((Math.max(0, slot) + 0.5) / cells.length) * 100}%`;
+      };
       train.style.left = place(phase === '달리기' ? at - 1 : at);
       box.append(train);
       if (phase === '달리기') {
@@ -460,7 +500,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       voiceButton.disabled = true;
       voiceButton.classList.remove('is-on');
     }
-    const musicButton = button(soundOn ? '가락·열차 소리: 켬' : '가락·열차 소리: 끔', () => {
+    const musicButton = button(soundOn ? `가락·${vehicle} 소리: 켬` : `가락·${vehicle} 소리: 끔`, () => {
       soundOn = !soundOn;
       saveView({ rideSound: soundOn });
       renderSetup();
@@ -1183,7 +1223,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     at = typeof goal === 'number' ? goal : at + 1;
     phase = '달리기';
     sound.wake();
-    if (soundOn) sound.startRumble();
+    // 버스는 전기버스 소리, 열차는 레일 위 소리
+    if (soundOn) sound.startRumble(isBus ? 'bus' : 'train');
     renderRide();
     // 방송이 나오는 동안은 계속 달린다. 가장 짧게 달리는 시간과 방송이 모두 끝나면 역에 선다.
     const leg = ++legToken;

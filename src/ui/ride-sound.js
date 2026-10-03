@@ -386,8 +386,15 @@ export function createRideSound() {
     setTimeout(() => gain.disconnect(), 600);
   }
 
-  /** 달리는 소리를 켠다. */
-  function startRumble() {
+  /**
+   * 달리는 소리를 켠다.
+   * @param {'train'|'bus'} [kind] train: 레일 위 열차(낮은 울림과 덜컹덜컹), bus: 전기버스(모터 위잉 소리와 타이어 소리)
+   */
+  function startRumble(kind = 'train') {
+    if (kind === 'bus') {
+      startElectricBus();
+      return;
+    }
     const c = context();
     if (!c || rumble) return;
     // 갈색 잡음(낮은 소리가 많은 잡음). 늘 같은 모양으로 만든다(작은 난수 생성기).
@@ -413,7 +420,7 @@ export function createRideSound() {
     gain.gain.linearRampToValueAtTime(0.9, c.currentTime + 1.2);
     source.connect(filter).connect(gain).connect(master);
     source.start();
-    rumble = { source, gain };
+    rumble = { sources: [source], gain, motor: [] };
     // 덜컹덜컹: 레일 이음매
     const clack = () => {
       if (!rumble) return;
@@ -438,16 +445,77 @@ export function createRideSound() {
     again();
   }
 
+  /**
+   * 전기버스 달리는 소리: 모터가 "위잉" 하고 빨라질수록 음이 올라가고, 타이어가 길에 닿는 "쉬익" 소리가 난다.
+   * 레일 이음매 소리(덜컹덜컹)는 없다. 브라우저에서 만든 소리이고 실제 녹음이 아니다.
+   */
+  function startElectricBus() {
+    const c = context();
+    if (!c || rumble) return;
+    const t = c.currentTime;
+    const speedUp = 2.6; // 출발해서 다 빨라지기까지(초)
+    const gain = c.createGain();
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(1, t + 0.5);
+    gain.connect(master);
+    // 모터: 기본음과 배음. 낮은 음에서 높은 음으로 올라간다.
+    const motor = [
+      [1, 0.045],
+      [2, 0.018],
+      [3.02, 0.007],
+    ].map(([ratio, volume]) => {
+      const osc = c.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(170 * ratio, t);
+      osc.frequency.exponentialRampToValueAtTime(600 * ratio, t + speedUp);
+      const amp = c.createGain();
+      amp.gain.value = volume;
+      osc.connect(amp).connect(gain);
+      osc.start(t);
+      osc.ratio = ratio;
+      return osc;
+    });
+    // 타이어와 바람: 가운데 높이 잡음(늘 같은 모양, 작은 난수 생성기)
+    const length = c.sampleRate * 2;
+    const buffer = c.createBuffer(1, length, c.sampleRate);
+    const data = buffer.getChannelData(0);
+    let seed = 67890;
+    for (let i = 0; i < length; i++) {
+      seed = (seed * 1103515245 + 12345) % 2147483648;
+      data[i] = (seed / 2147483648) * 2 - 1;
+    }
+    const noise = c.createBufferSource();
+    noise.buffer = buffer;
+    noise.loop = true;
+    const band = c.createBiquadFilter();
+    band.type = 'bandpass';
+    band.frequency.value = 700;
+    band.Q.value = 0.7;
+    const road = c.createGain();
+    road.gain.setValueAtTime(0.02, t);
+    road.gain.linearRampToValueAtTime(0.12, t + speedUp);
+    noise.connect(band).connect(road).connect(gain);
+    noise.start(t);
+    rumble = { sources: [...motor, noise], gain, motor };
+  }
+
   function stopRumble() {
     clearTimeout(clackTimer);
     clackTimer = null;
     if (!rumble || !ctx) return;
-    const { source, gain } = rumble;
+    const { sources, gain, motor } = rumble;
     rumble = null;
-    gain.gain.cancelScheduledValues(ctx.currentTime);
-    gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1);
-    source.stop(ctx.currentTime + 1.1);
+    const t = ctx.currentTime;
+    // 전기버스는 설 때 모터 음이 내려간다.
+    for (const osc of motor) {
+      osc.frequency.cancelScheduledValues(t);
+      osc.frequency.setValueAtTime(osc.frequency.value, t);
+      osc.frequency.exponentialRampToValueAtTime(150 * osc.ratio, t + 1.1);
+    }
+    gain.gain.cancelScheduledValues(t);
+    gain.gain.setValueAtTime(gain.gain.value, t);
+    gain.gain.linearRampToValueAtTime(0, t + 1.1);
+    for (const source of sources) source.stop(t + 1.2);
   }
 
   /**

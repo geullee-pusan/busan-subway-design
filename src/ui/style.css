@@ -2170,3 +2170,12 @@ body {
   padding-left: 2.4em;
   color: #56636e;
 }
+
+/* 위쪽 역 띠에서 줄인 역 */
+.ride-stop.is-more .ride-dot {
+  border-style: dashed;
+}
+
+.ride-stop.is-more .ride-stop-name {
+  color: #56636e;
+}
