@@ -13,7 +13,7 @@ import { speakAs, stopSpeaking } from './ride-sound.js';
 /** 한 사람 만들기(재료는 passengers.json) */
 export const makePerson = (seed, slot, generation = 0) => crowdModel.makePerson(passengersFile, seed, slot, generation);
 /** 한 번 타는 동안의 승객들 */
-export const createCrowd = (seed) => crowdModel.createCrowd(passengersFile, seed);
+export const createCrowd = (seed, route) => crowdModel.createCrowd(passengersFile, seed, route);
 /** 대화창에서 할 말 */
 export const talkLines = (person, ctx) => crowdModel.talkLines(passengersFile, person, ctx);
 const { personLabel } = crowdModel;

@@ -10,7 +10,7 @@ const file = JSON.parse(readFileSync(resolve(ROOT, 'src/content/passengers.json'
 import * as model from '../src/sim/passengers.js';
 
 const makePerson = (seed, slot, generation) => model.makePerson(file, seed, slot, generation);
-const createCrowd = (seed) => model.createCrowd(file, seed);
+const createCrowd = (seed, route) => model.createCrowd(file, seed, route);
 const talkLines = (person, ctx) => model.talkLines(file, person, ctx);
 
 test('승객: 같은 씨앗과 자리는 같은 사람, 나이는 나이대 안', () => {
@@ -26,18 +26,28 @@ test('승객: 같은 씨앗과 자리는 같은 사람, 나이는 나이대 안'
   }
 });
 
-test('승객 무리: 역에서 내린 자리와 새로 찬 자리만 사람이 바뀐다', () => {
-  const crowd = createCrowd(99);
-  const first = [0, 1, 2, 3, 4].map((slot) => crowd.personAt(slot).id);
-  // 5명 → 3명: 3, 4번 자리는 내렸다. 내린 비율 0이면 0~2번은 그대로
-  crowd.arrive(1, 5, 3, 0);
-  assert.deepEqual([0, 1, 2].map((slot) => crowd.personAt(slot).id), first.slice(0, 3));
-  // 3명 → 5명: 3, 4번 자리에 새 사람
-  crowd.arrive(2, 3, 5, 0);
-  assert.notEqual(crowd.personAt(3).id, first[3]);
-  // 모두 내리면(비율 1) 모두 바뀐다
-  crowd.arrive(3, 5, 5, 1);
-  assert.notEqual(crowd.personAt(0).id, first[0]);
+test('승객 무리: 내릴 정류장은 탈 때 정해져 바뀌지 않고, 그 정류장에서 내린다', () => {
+  const crowd = createCrowd(99, { startStop: 0, lastStop: 10 });
+  const people = Array.from({ length: 8 }, (_, slot) => crowd.personAt(slot));
+  for (const p of people) assert.ok(p.alightStop >= 1 && p.alightStop <= 10, String(p.alightStop));
+  // 정류장을 하나씩 지나도 아직 안 내린 사람은 같은 사람이고, 내릴 정류장도 같다.
+  for (let stop = 1; stop <= 10; stop++) {
+    crowd.arrive(stop, 8, 8);
+    for (const [slot, p] of people.entries()) {
+      const now = crowd.personAt(slot);
+      if (p.alightStop > stop) {
+        assert.equal(now.id, p.id);
+        assert.equal(now.alightStop, p.alightStop);
+      } else {
+        assert.notEqual(now.id, p.id);
+      }
+    }
+  }
+  // 그림 수가 줄면 뒤 자리 사람은 내린다.
+  const fewer = createCrowd(5, { startStop: 0, lastStop: 3 });
+  const third = fewer.personAt(2).id;
+  fewer.arrive(1, 3, 2);
+  assert.notEqual(fewer.personAt(2).id, third);
 });
 
 test('대사: ~요로 끝나는 짧은 문장, 내릴 역을 말한다', () => {
@@ -48,6 +58,11 @@ test('대사: ~요로 끝나는 짧은 문장, 내릴 역을 말한다', () => {
       { vehicle: '열차', destination: null, terminal: true, crowdRatio: 0.1, hour: 22, newLine: false },
     ]) {
       const lines = talkLines(person, ctx);
+      // 가는 까닭은 시간이 바뀌어도 같다.
+      if (ctx.destination) {
+        const at = lines.indexOf(`${ctx.destination}에서 내려요.`);
+        assert.equal(talkLines(person, { ...ctx, hour: ctx.hour + 3 })[at + 1], lines[at + 1]);
+      }
       assert.ok(lines.length >= 2 && lines.length <= 4);
       for (const line of lines) {
         assert.ok(/[요!?]$|요\.$/.test(line) || /\.$/.test(line), line);

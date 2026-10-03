@@ -525,26 +525,25 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     /** 내릴 정류장 앞에서 하차벨을 눌렀는지 */
     let bellRung = false;
     // 이 버스의 승객들(탈 때마다 다르다). 정류장마다 내리는 만큼 사람이 바뀐다.
-    const crowd = createCrowd(Math.floor(Math.random() * 2147483647));
+    const crowd = createCrowd(Math.floor(Math.random() * 2147483647), { startStop: 0, lastStop: last });
     const countAt = (i) => Math.max(1, Math.round((stops[Math.min(i, last - 1)].load ?? 0) * BUS_PEOPLE_MAX * 0.8));
     let crowdAt = 0;
     const syncCrowd = (target) => {
       while (crowdAt < target) {
         const i = crowdAt + 1;
-        const here = stops[i];
-        // 내린 사람 비율: 이 정류장 하차 수를 (하차 + 승차 + 1)로 나눠 어림한다(하루 합계 자료라 한 대의 수는 모른다).
-        const offShare = Math.min(0.6, (here.alight ?? 0) / ((here.alight ?? 0) + (here.board ?? 0) + 1));
-        crowd.arrive(i, countAt(i - 1), countAt(i), offShare);
+        // 여기서 내릴 사람이 내리고 빈 자리에 새 사람이 탄다.
+        crowd.arrive(i, countAt(i - 1), countAt(i));
         crowdAt = i;
       }
     };
     /** 승객을 누르면: 내릴 정류장과 상황에 맞는 말 */
     const talkTo = (person) => {
-      const ahead = stops.slice(k + 1);
+      // 내릴 정류장은 그 사람이 탈 때 정해 둔 곳이다.
+      const atEnd = k >= last;
       const lines = talkLines(person, {
         vehicle: '버스',
-        destination: ahead.length > 0 ? `${ahead[person.id % ahead.length].name} 정류장` : null,
-        terminal: ahead.length === 0,
+        destination: atEnd ? null : `${stops[person.alightStop]?.name ?? stops[last].name} 정류장`,
+        terminal: atEnd,
         crowdRatio: stops[Math.min(k, last - 1)].load ?? 0,
         hour: hour + elapsed / 60,
         newLine: false,

@@ -596,7 +596,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       at = boardIndex;
     }
     // 탈 때마다 다른 사람들이 타고 있다(씨앗을 아무거나 정한다. 화면에서만 쓰는 무작위다).
-    crowd = createCrowd(Math.floor(Math.random() * 2147483647));
+    crowd = createCrowd(Math.floor(Math.random() * 2147483647), { startStop: at, lastStop: trip.stops.length - 1 });
     crowdAt = at;
     legToken += 1;
     sound.wake();
@@ -935,7 +935,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     return Math.max(1, Math.min(SPOTS + EXTRA, Math.round((load / kind.capacityPerTrain) * SPOTS)));
   }
 
-  /** 승객을 target 역까지 맞춘다: 역마다 내린 사람 비율만큼 사람이 바뀌고, 빈 자리에 새 사람이 탄다. */
+  /** 승객을 target 역까지 맞춘다: 역마다 거기서 내릴 사람이 내리고, 빈 자리에 새 사람이 탄다. */
   function syncCrowd(target) {
     if (!crowd || !trip) return;
     while (crowdAt < target) {
@@ -943,8 +943,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       const before = trip.stops[k - 1];
       const here = trip.stops[k];
       if (!before || !here) break;
-      const offShare = before.load > 0 ? Math.min(1, here.off / before.load) : 0;
-      crowd.arrive(k, peopleCount(before.load), peopleCount(here.load), offShare);
+      crowd.arrive(k, peopleCount(before.load), peopleCount(here.load));
       crowdAt = k;
     }
   }
@@ -952,15 +951,16 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 승객을 누르면: 그 사람이 내릴 역과 지금 상황에 맞는 말을 대화창에 띄운다. */
   function talkTo(person) {
     const moving = phase === '달리기';
-    const ahead = trip.stops.slice(moving ? at : at + 1);
     const load = moving ? trip.stops[at - 1]?.load ?? 0 : trip.stops[at]?.load ?? 0;
-    const target = ahead.length > 0 ? ahead[person.id % ahead.length].name : null;
+    // 내릴 정류장은 그 사람이 탈 때 정해 둔 곳이다(정류장을 지나도 바뀌지 않는다).
+    const atEnd = !moving && at >= trip.stops.length - 1;
+    const target = atEnd ? null : trip.stops[person.alightStop]?.name ?? null;
     // "새 역 3"처럼 차례로 부른 이름에는 "역"을 붙이지 않는다.
     const destination = target === null ? null : /^새 역 \d+$/.test(target) && !isBus ? target : stopLabel(target);
     const lines = talkLines(person, {
       vehicle: isBus ? '버스' : '열차',
       destination,
-      terminal: ahead.length === 0,
+      terminal: atEnd || target === null,
       crowdRatio: load / kind.capacityPerTrain,
       hour: startHour() + elapsedTo(at) / 3600,
       newLine: isNewLineId(design.id),

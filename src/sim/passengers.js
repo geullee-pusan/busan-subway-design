@@ -81,37 +81,50 @@ export function makePerson(data, seed, slot, generation = 0) {
 }
 
 /**
- * 한 번 타는 동안의 승객들. 자리마다 사람이 있고, 역에서 내리고 타면 그 자리 사람이 바뀐다.
+ * 한 번 타는 동안의 승객들. 자리마다 사람이 있고, 사람마다 탄 정류장과 내릴 정류장이 있다.
+ * 사람은 처음 나타날 때 내릴 정류장을 한 번 정하고(바뀌지 않는다), 그 정류장에 서면 내린다. 빈 자리에는 새 사람이 탄다.
  * (자리마다 몇 번째 사람인지 기억하는 작은 상태를 가진다. 같은 씨앗과 같은 차례의 arrive면 늘 같은 사람이다.)
+ * @param {object} data src/content/passengers.json
  * @param {number} seed 탈 때 아무거나 정한 수
+ * @param {{startStop?: number, lastStop?: number}} [route] 처음 서 있는 정류장 차례와 마지막(종점) 정류장 차례
  */
-export function createCrowd(data, seed) {
+export function createCrowd(data, seed, { startStop = 0, lastStop = Infinity } = {}) {
   const generation = [];
   const cache = new Map();
+  let stopNow = startStop;
+  /** 자리 slot의 지금 사람(탄 정류장과 내릴 정류장이 붙어 있다) */
+  const personAt = (slot) => {
+    const g = generation[slot] ?? 0;
+    const key = `${slot}|${g}`;
+    if (!cache.has(key)) {
+      const person = makePerson(data, seed, slot, g);
+      // 내릴 정류장: 다음 정류장부터 종점 가운데 하나(사람마다 한 번 정한다)
+      const left = Number.isFinite(lastStop) ? Math.max(1, lastStop - stopNow) : 5;
+      const alightStop = Math.min(lastStop, stopNow + 1 + Math.floor(seededRandom(mix(person.id, 23))() * left));
+      cache.set(key, { ...person, boardStop: stopNow, alightStop });
+    }
+    return cache.get(key);
+  };
   return {
     seed,
-    /** 자리 slot의 지금 사람 */
-    personAt(slot) {
-      const g = generation[slot] ?? 0;
-      const key = `${slot}|${g}`;
-      if (!cache.has(key)) cache.set(key, makePerson(data, seed, slot, g));
-      return cache.get(key);
-    },
+    personAt,
     /**
-     * 역에 섰다: 내린 사람 비율만큼 자리 사람이 바뀌고, 빈 자리에는 새 사람이 탄다.
-     * @param {number} stopKey 역(정류장) 번호(같은 역이면 같은 사람이 내린다)
+     * 정류장에 섰다: 여기서 내릴 사람이 내리고, 사람 그림 수가 줄면 뒤 자리 사람도 내린다.
+     * 빈 자리(그림 수 안)에는 이 정류장에서 새 사람이 탄다.
+     * @param {number} stopKey 선 정류장 차례
      * @param {number} before 서기 전 사람 그림 수
      * @param {number} after 선 뒤 사람 그림 수
-     * @param {number} offShare 서기 전 사람 가운데 내린 비율(0~1)
      */
-    arrive(stopKey, before, after, offShare) {
-      const rng = seededRandom(mix(seed, stopKey, 7));
+    arrive(stopKey, before, after) {
       const top = Math.max(before, after);
+      const changed = [];
       for (let slot = 0; slot < top; slot++) {
-        const leaves = slot < before && (slot >= after || rng() < offShare);
+        const leaves = slot < before && (slot >= after || personAt(slot).alightStop <= stopKey);
         const boards = slot >= before && slot < after;
-        if (leaves || boards) generation[slot] = (generation[slot] ?? 0) + 1;
+        if (leaves || boards) changed.push(slot);
       }
+      stopNow = stopKey;
+      for (const slot of changed) generation[slot] = (generation[slot] ?? 0) + 1;
     },
   };
 }
@@ -123,15 +136,18 @@ export function createCrowd(data, seed) {
  * @param {{vehicle: '버스'|'열차', destination: string|null, terminal: boolean, crowdRatio: number, hour: number, newLine: boolean}} ctx
  */
 export function talkLines(data, person, ctx) {
-  const rng = seededRandom(mix(person.id, Math.round(ctx.hour * 10), ctx.destination?.length ?? 0, 11));
+  // 그 사람 것(인사말, 가는 까닭)은 늘 같고, 상황 한 마디만 시간과 붐빔에 따라 바뀐다.
+  const own = seededRandom(mix(person.id, 11));
+  const rng = seededRandom(mix(person.id, Math.round(ctx.hour * 10), Math.round(ctx.crowdRatio * 10), 13));
   const { reasons, lines } = data;
   const out = [];
-  if (rng() < 0.4 && lines[person.ageGroup]) out.push(pick(rng, lines[person.ageGroup]));
+  if (own() < 0.4 && lines[person.ageGroup]) out.push(pick(own, lines[person.ageGroup]));
+  const reason = pick(own, reasons[person.ageGroup]);
   if (ctx.terminal) {
     out.push(pick(rng, lines.종점));
   } else if (ctx.destination) {
     out.push(`${ctx.destination}에서 내려요.`);
-    out.push(pick(rng, reasons[person.ageGroup]));
+    out.push(reason);
   }
   // 상황 한 마디: 붐빔, 시간, 탈것, 새 노선 가운데 하나
   const pool = [];
