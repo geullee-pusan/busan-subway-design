@@ -214,3 +214,14 @@ export function busRouteText(no) {
   const match = /^(.+?)\((.+)\)$/.exec(no);
   return match ? `${match[1]}번 ${match[2]}` : `${no}번`;
 }
+
+/**
+ * 손으로 쓴 색 코드를 "#RRGGBB"로 바꾼다. 못 읽으면 null.
+ * "#e8732c", "E8732C", "#F80"(세 글자 줄임 → "#FF8800")처럼 써도 된다. 앞뒤 빈칸은 뺀다.
+ */
+export function parseHexColor(text) {
+  const value = String(text ?? '').trim().replace(/^#/, '');
+  if (/^[0-9a-f]{6}$/i.test(value)) return `#${value.toUpperCase()}`;
+  if (/^[0-9a-f]{3}$/i.test(value)) return `#${[...value].map((c) => c + c).join('').toUpperCase()}`;
+  return null;
+}

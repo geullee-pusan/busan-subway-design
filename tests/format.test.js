@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
+  parseHexColor,
   countText,
   dateText,
   distanceText,
@@ -66,4 +67,13 @@ test('날짜는 연도와 긴 날짜로 쓴다', () => {
   assert.equal(yearText('1985-07-19'), '1985년');
   assert.equal(dateText('1985-07-19'), '1985년 7월 19일');
   assert.equal(yearText(null), null);
+});
+
+test('색 코드: # 다음 6글자(또는 3글자 줄임)를 읽고, 못 읽으면 null', () => {
+  assert.equal(parseHexColor('#e8732c'), '#E8732C');
+  assert.equal(parseHexColor(' E8732C '), '#E8732C');
+  assert.equal(parseHexColor('#F80'), '#FF8800');
+  assert.equal(parseHexColor('#12345'), null);
+  assert.equal(parseHexColor('#GG0000'), null);
+  assert.equal(parseHexColor(''), null);
 });

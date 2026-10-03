@@ -6,7 +6,7 @@ import { TRAINS_PER_HOUR, connectStations, headway, stationGaps } from '../sim/d
 import { MAX_LINES, asPlan, checkPlan, lineIdAt, planCost } from '../sim/plan.js';
 import { extendPath } from '../sim/design.js';
 import { cleanStationName, nameStations } from '../sim/station-names.js';
-import { countText, distanceText, durationText, moneyText, stationLabel } from './format.js';
+import { countText, distanceText, durationText, moneyText, stationLabel, parseHexColor } from './format.js';
 import { DESIGN_COLOR, createMap, labelInk, looseStations } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { loadView, saveView } from './storage.js';
@@ -525,10 +525,56 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
         value.textContent = slider.value;
         design = { ...design, color: rgbToHex(rgb) };
         showColor();
+        hexInput.value = design.color;
+        hexHelp.textContent = '';
       });
       panel.append(row);
       return slider;
     });
+    // 색 코드로 정하기: "#E8732C"처럼 써 넣는다. 앞 두 글자는 빨강, 가운데는 초록, 끝은 파랑이다.
+    const hexRow = element('label', 'hex-row');
+    hexRow.append(element('span', 'rgb-label', '색 코드'));
+    const hexInput = document.createElement('input');
+    hexInput.type = 'text';
+    hexInput.className = 'text-input hex-input';
+    hexInput.maxLength = 7;
+    hexInput.value = design.color;
+    hexInput.placeholder = '#E8732C';
+    hexInput.spellcheck = false;
+    hexInput.autocapitalize = 'characters';
+    hexInput.setAttribute('aria-label', '색 코드');
+    hexRow.append(hexInput);
+    panel.append(hexRow);
+    const hexHelp = element('p', 'panel-note hex-help');
+    hexHelp.setAttribute('aria-live', 'polite');
+    panel.append(hexHelp);
+    /** 써 넣은 색 코드를 읽어 손잡이와 색을 바꾼다. done이면 못 읽은 글을 지금 색으로 되돌린다. */
+    const applyHex = (done) => {
+      const hex = parseHexColor(hexInput.value);
+      if (!hex) {
+        hexHelp.textContent = '# 다음에 숫자와 A~F를 6글자로 써요. 예: #E8732C';
+        if (done) {
+          hexInput.value = design.color;
+          hexHelp.textContent = '';
+        }
+        return;
+      }
+      hexHelp.textContent = '';
+      Object.assign(rgb, hexToRgb(hex));
+      sliders.forEach((slider, index) => {
+        slider.value = String(rgb[RGB[index].key]);
+        slider.parentElement.querySelector('.rgb-value').textContent = slider.value;
+      });
+      design = { ...design, color: hex };
+      showColor();
+      if (done) hexInput.value = hex;
+    };
+    hexInput.addEventListener('input', () => applyHex(false));
+    hexInput.addEventListener('change', () => applyHex(true));
+    hexInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') hexInput.blur();
+    });
+
     function showColor() {
       tag.style.background = design.color;
       sample.style.background = design.color;
@@ -546,9 +592,12 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
         });
         design = { ...design, color: DESIGN_COLOR };
         showColor();
+        hexInput.value = DESIGN_COLOR;
+        hexHelp.textContent = '';
       }),
     );
     panel.append(element('p', 'panel-note guide', '세 가지 빛(빨강, 초록, 파랑)을 섞어서 색을 만들어요.'));
+    panel.append(element('p', 'panel-note guide', '색 코드는 # 다음 두 글자씩 빨강, 초록, 파랑이에요.'));
     showColor();
   }
 

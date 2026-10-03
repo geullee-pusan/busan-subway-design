@@ -2085,3 +2085,17 @@ body {
   margin: 0 auto;
   padding: 8px 16px 24px;
 }
+
+/* 색 코드 써 넣기 */
+.hex-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.hex-input {
+  width: 9em;
+  font-family: monospace;
+  text-transform: uppercase;
+}
