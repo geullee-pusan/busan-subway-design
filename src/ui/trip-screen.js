@@ -158,6 +158,41 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     return { x: stop.x, y: stop.y, stopIndex: stop.index, name: `${stop.name} 정류장`, toward: stop.toward };
   }
 
+  /** 칸 안의 지하철역(이름이 같은 역은 하나로). 목록 상자의 역과 같은 것을 쓴다. */
+  function stationsInCell(cell) {
+    const col = cell % grid.cols;
+    const row = Math.floor(cell / grid.cols);
+    return stationList.filter((st) => Math.floor(st.x) === col && Math.floor(st.y) === row);
+  }
+
+  /** 지하철역 한 줄: 이름, 지나는 노선, 고르기 단추 */
+  function stationItem(station, which) {
+    const item = element('div', 'stop-choice-item');
+    const head = element('div', 'stop-choice-head');
+    head.append(element('span', 'name-order', '역'), element('span', 'stop-choice-name', station.name));
+    item.append(head);
+    const lines = linesAt(station);
+    if (lines.length > 0) item.append(element('p', 'stop-choice-toward', `지나는 노선: ${lines.join(', ')}`));
+    item.append(
+      button(`${which}지로 고르기`, () => {
+        cellChoice = null;
+        picking = which;
+        setPoint(which, { ...all.get(station.key) });
+      }, 'button big'),
+    );
+    return item;
+  }
+
+  /** 이 역 이름으로 지나는 노선 이름들(갈아타는 역이면 여럿) */
+  function linesAt(station) {
+    const base = station.name.replace(/역$/, '');
+    const names = new Set();
+    for (const st of stations) {
+      if (st.name.replace(/역$/, '') === base) names.add(lineById.get(st.line)?.name ?? st.line);
+    }
+    return [...names];
+  }
+
   /** 정류장 한 줄: 번호, 이름, 방면, 서는 버스, 고르기 단추 */
   function stopItem(stop, number, onChoose) {
     const item = element('div', 'stop-choice-item');
@@ -189,6 +224,11 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
         setPoint(picking, center);
       }),
     );
+    const subway = stationsInCell(cell);
+    if (subway.length > 0) {
+      box.append(element('p', 'panel-note guide', `지하철역 ${subway.length}곳이 있어요.`));
+      for (const station of subway) box.append(stationItem(station, picking));
+    }
     const list = stopsInCell(busNetwork(), grid, cell);
     if (list.length === 0) box.append(element('p', 'panel-note', '이 칸에는 실제 버스 정류장이 없어요.'));
     else box.append(element('p', 'panel-note guide', `버스 정류장 ${list.length}곳이 있어요. 지도의 번호와 같아요.`));
@@ -216,8 +256,8 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     const input = document.createElement('input');
     input.type = 'search';
     input.className = 'text-input';
-    input.placeholder = '버스 정류장 이름으로 찾기';
-    input.setAttribute('aria-label', `${which}지 버스 정류장 찾기`);
+    input.placeholder = '역이나 버스 정류장 이름으로 찾기';
+    input.setAttribute('aria-label', `${which}지 역이나 버스 정류장 찾기`);
     const results = element('div', 'stop-search-results');
     results.setAttribute('aria-live', 'polite');
     input.addEventListener('input', () => {
@@ -227,12 +267,15 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
         if (words.length === 1) results.append(element('p', 'panel-note', '두 글자 넘게 써 봐요.'));
         return;
       }
+      // 지하철역이 먼저, 그다음 버스 정류장
+      const foundStations = stationList.filter((st) => st.name.replace(/\s/g, '').includes(words));
+      for (const station of foundStations.slice(0, 4)) results.append(stationItem(station, which));
       const found = stopDirectory(busNetwork(), grid).filter((stop) => stop.name.replace(/\s/g, '').includes(words));
       if (found.length === 0) {
-        results.append(element('p', 'panel-note', '그런 이름의 정류장이 없어요.'));
+        if (foundStations.length === 0) results.append(element('p', 'panel-note', '그런 이름의 역이나 정류장이 없어요.'));
         return;
       }
-      results.append(element('p', 'panel-note', found.length > 8 ? `${found.length}곳 가운데 8곳을 보여 줘요.` : `${found.length}곳을 찾았어요.`));
+      results.append(element('p', 'panel-note', found.length > 8 ? `버스 정류장 ${found.length}곳 가운데 8곳을 보여 줘요.` : `버스 정류장 ${found.length}곳을 찾았어요.`));
       for (const stop of found.slice(0, 8)) {
         const item = stopItem(stop, null, () => {
           picking = which;
@@ -412,7 +455,7 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     renderCellChoice();
     panel.append(element('h2', null, '어디로 갈까요?'));
     panel.append(element('p', 'panel-note guide', '목록에서 고르거나, 정류장 이름으로 찾거나, 지도를 눌러 골라요.'));
-    panel.append(element('p', 'panel-note guide', '지도에서 칸을 누르면 그 칸의 버스 정류장도 고를 수 있어요.'));
+    panel.append(element('p', 'panel-note guide', '지도에서 칸을 누르면 그 칸의 지하철역과 버스 정류장을 고를 수 있어요.'));
 
     for (const which of ['출발', '도착']) {
       const box = element('div', 'trip-point');
