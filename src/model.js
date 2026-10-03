@@ -226,7 +226,7 @@ export function designStationInfo(planOrDesign, options = {}, lineIndex = 0) {
   const lineName = new Map(world.lines.map((line) => [line.id, line.name]));
   const cellOf = (s) => Math.floor(s.y) * grid.cols + Math.floor(s.x);
   const pointOf = (cell) =>
-    design.stationPoints?.[cell] ?? { x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5 };
+    design.busStopPoints?.[cell] ?? design.stationPoints?.[cell] ?? { x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5 };
 
   // 예상 승객: 새 노선을 넣고 하루를 돌린다(역이 하나뿐이면 노선이 되지 않는다).
   let riders = null;

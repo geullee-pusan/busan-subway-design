@@ -28,7 +28,7 @@ import {
 import { loadView, saveView } from './storage.js';
 import { BUS_PEOPLE_MAX, busInteriorArt } from './vehicle-art.js';
 import { BASE_YEAR, busNetwork } from '../model.js';
-import { routesNear } from '../sim/bus-network.js';
+import { routesAtStop, routesNear } from '../sim/bus-network.js';
 import { wordWithCard } from './word-card.js';
 
 /** 고를 수 있는 시간대 */
@@ -818,11 +818,18 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
 
   /** 이 정류장 가까이(300m 안) 서는 실제 시내버스 번호. 옛날 부산에서는 그때 노선을 몰라서 보여 주지 않는다. */
   const realRoutesAt = new Map();
+  /** 실제 정류장을 고른 역(그 정류장에 서는 노선을 그대로 보여 준다) */
+  const exactStops = new Set();
   function realRoutes(id) {
     if (year < BASE_YEAR) return [];
     if (!realRoutesAt.has(id)) {
       const station = stationOf.get(id);
-      realRoutesAt.set(id, station ? routesNear(busNetwork(), station) : []);
+      // 실제 정류장을 골랐으면 그 정류장에 서는 노선, 아니면 300m 안 정류장에 서는 노선
+      const stopIndex = station ? design.busStopIds?.[station.cell] : undefined;
+      const network = busNetwork();
+      const exact = stopIndex !== undefined ? routesAtStop(network, stopIndex) : null;
+      realRoutesAt.set(id, exact ?? (station ? routesNear(network, station) : []));
+      if (exact) exactStops.add(id);
     }
     return realRoutesAt.get(id);
   }
@@ -836,7 +843,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const nearby = realRoutes(stop.id);
     sign.setAttribute(
       'aria-label',
-      `버스 정류장: ${stop.name}${next ? `, 다음 정류장 ${next.name}` : ', 종점'}${nearby.length > 0 ? `, 가까이 서는 시내버스 ${nearby.length}개` : ''}`,
+      `버스 정류장: ${stop.name}${next ? `, 다음 정류장 ${next.name}` : ', 종점'}${nearby.length > 0 ? `, ${exactStops.has(stop.id) ? '이 정류장에' : '가까이'} 서는 시내버스 ${nearby.length}개` : ''}`,
     );
     const top = element('div', 'sign-top');
     top.style.background = '#2E8B3E';
@@ -850,7 +857,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const real = realRoutes(stop.id);
     if (real.length > 0) {
       const row = element('div', 'sign-transfer sign-buses');
-      row.append(element('span', 'sign-transfer-label', '가까이 서는 시내버스'));
+      row.append(element('span', 'sign-transfer-label', exactStops.has(stop.id) ? '이 정류장에 서는 시내버스' : '가까이 서는 시내버스'));
       for (const no of real.slice(0, 12)) row.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
       if (real.length > 12) row.append(element('span', 'sign-transfer-label', `그 밖에 ${real.length - 12}개`));
       main.append(row);

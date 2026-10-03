@@ -8,6 +8,7 @@ export const NEW_LINE_ID = 'NEW';
  * @param {object} world buildWorld가 만든 세상
  * @param {{path: number[], stations: number[], kind: string, trainsPerHour: number, stationNames?: Record<string, string>, lineName?: string}} design
  *   stationNames는 정해 둔 역 이름(칸 번호 → 이름). 없으면 "새 역 n"으로 부른다.
+ *   busStopPoints(버스 노선): 칸 번호 → 고른 실제 버스 정류장 자리. 있으면 역을 그 자리에 둔다(걷는 거리도 그 자리로 센다).
  * @param {{cols: number}} grid
  * @param {object} tables src/content/rules.json의 tables
  * @param {string} [lineId] 새 노선 번호(NEW, NEW2 …). 새 노선이 여럿이면 노선마다 다르다(src/sim/plan.js).
@@ -28,8 +29,8 @@ export function withDesign(world, design, grid, tables, lineId = NEW_LINE_ID) {
     line: lineId,
     name: design.stationNames?.[cell] ?? `새 역 ${order + 1}`,
     cell,
-    x: existingAt.get(cell)?.x ?? (cell % grid.cols) + 0.5,
-    y: existingAt.get(cell)?.y ?? Math.floor(cell / grid.cols) + 0.5,
+    x: design.busStopPoints?.[cell]?.x ?? existingAt.get(cell)?.x ?? (cell % grid.cols) + 0.5,
+    y: design.busStopPoints?.[cell]?.y ?? existingAt.get(cell)?.y ?? Math.floor(cell / grid.cols) + 0.5,
   }));
 
   const links = [];

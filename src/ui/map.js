@@ -224,7 +224,8 @@ export function designShape(design) {
     path: design.path,
     stations: design.stations,
     grid,
-    snap: design.stationPoints ?? {},
+    // 기존 역 자리(갈아타는 역)와 고른 실제 버스 정류장 자리를 지나게 그린다.
+    snap: { ...(design.stationPoints ?? {}), ...(design.busStopPoints ?? {}) },
     kind: design.kind,
   });
 }
@@ -249,7 +250,7 @@ export function looseStations(design) {
 
 /** 떨어진 역의 자리(칸 단위). 기존 역과 같은 칸이면 그 역 자리 */
 function loosePoint(design, cell) {
-  return design.stationPoints?.[cell] ?? { x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5 };
+  return design.busStopPoints?.[cell] ?? design.stationPoints?.[cell] ?? { x: (cell % grid.cols) + 0.5, y: Math.floor(cell / grid.cols) + 0.5 };
 }
 
 function designLayer(design, cols, shape = designShape(design)) {

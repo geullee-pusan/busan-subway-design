@@ -1,20 +1,29 @@
 // 설계 화면(docs/SPEC.md 6장 2번, 7.2절).
 // 격자를 따라 선을 긋고 역을 놓는다. 공사비와 예산이 바로 보이고, 되돌리기는 무제한이다.
 import { futureLines, grid, ruleTables, stations } from '../data.js';
-import { BASE_YEAR, canUseThenPopulation, designStationInfo, networkOfYear, rules, stationNameContext } from '../model.js';
+import { BASE_YEAR, canUseThenPopulation, designStationInfo, networkOfYear, rules, stationNameContext, busNetwork } from '../model.js';
 import { TRAINS_PER_HOUR, connectStations, headway, stationGaps } from '../sim/design.js';
 import { MAX_LINES, asPlan, checkPlan, lineIdAt, planCost } from '../sim/plan.js';
 import { extendPath } from '../sim/design.js';
 import { cleanStationName, nameStations } from '../sim/station-names.js';
 import { countText, distanceText, durationText, moneyText, stationLabel, parseHexColor } from './format.js';
-import { DESIGN_COLOR, createMap, labelInk, looseStations } from './map.js';
+import { CELL, DESIGN_COLOR, createMap, labelInk, looseStations } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
 import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
+import { stopPlace, stopsInCell } from '../sim/bus-network.js';
+
+/** 지도 위에 그릴 SVG 조각 */
+function svgNode(tag, attrs) {
+  const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, String(value));
+  return node;
+}
 
 const MODES = ['그리기', '역 놓기', '지우기', '움직이기'];
 /** 이름을 어디서 가져왔는지 아이 말로 */
 const NAME_SOURCES = {
+  정류장: '실제 정류장',
   동네: '동네 이름',
   중심지: '중심지 이름',
   '갈아타는 역': '갈아타는 역',
@@ -43,6 +52,8 @@ function emptyLine(index) {
     kind: '경전철',
     trainsPerHour: 8,
     names: {},
+    // 버스 노선: 칸 번호 → 고른 실제 버스 정류장 번호(data/build/bus.json)
+    busStops: {},
     color: LINE_COLORS[index % LINE_COLORS.length],
     lineName: index === 0 ? DEFAULT_LINE_NAME : `${DEFAULT_LINE_NAME} ${index + 1}`,
   };
@@ -126,6 +137,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       kind: line.kind ?? '경전철',
       trainsPerHour: line.trainsPerHour ?? 8,
       names: { ...(line.names ?? {}) },
+      busStops: { ...(line.busStops ?? {}) },
       color: line.color ?? LINE_COLORS[index % LINE_COLORS.length],
       lineName: line.lineName ?? emptyLine(index).lineName,
     }));
@@ -172,11 +184,18 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       const points = new Map(transferPoints);
       for (const e of extra) if (!points.has(e.cell)) points.set(e.cell, { x: e.x, y: e.y });
       const stationPoints = Object.fromEntries(line.stations.filter((cell) => points.has(cell)).map((cell) => [cell, points.get(cell)]));
+      const chosen = realBusStops(line);
+      for (const entry of named) {
+        const stop = chosen[entry.cell];
+        if (stop && entry.source !== '직접') Object.assign(entry, { name: stop.name, source: '정류장' });
+      }
       out.push({
         ...line,
         id: lineIdAt(index),
         stationNames: Object.fromEntries(named.map((entry) => [entry.cell, entry.name])),
         stationPoints,
+        busStopPoints: Object.fromEntries(Object.entries(chosen).map(([cell, stop]) => [cell, { x: stop.x, y: stop.y }])),
+        busStopIds: Object.fromEntries(Object.entries(chosen).map(([cell, stop]) => [cell, stop.index])),
       });
       entries.push(named);
       for (const entry of named) {
@@ -185,6 +204,21 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       }
     });
     return { lines: out, entries };
+  }
+
+  /** 실제 시내버스 정류장을 쓸 수 있는지: 버스 노선이고, 지금 부산(2023년 노선 자료가 맞는 때)일 때 */
+  const realStopsHere = (line) => line.kind === '버스' && baseYear >= BASE_YEAR;
+
+  /** 노선에서 고른 실제 정류장(칸 번호 → 정류장). 역이 있는 칸만 */
+  function realBusStops(line) {
+    if (!realStopsHere(line)) return {};
+    const network = busNetwork();
+    const out = {};
+    for (const [cell, index] of Object.entries(line.busStops ?? {})) {
+      const place = stopPlace(network, index);
+      if (line.stations.includes(Number(cell)) && place) out[cell] = place;
+    }
+    return out;
   }
 
   /** 지금 고치는 노선의 역 이름 목록 */
@@ -234,7 +268,10 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       bottomLeft: [legend],
     }),
   );
-  map.element.addEventListener('map-zoom', (event) => scale.update(event.detail.k));
+  map.element.addEventListener('map-zoom', (event) => {
+    scale.update(event.detail.k);
+    drawStopMarks();
+  });
   main.append(mapBox, panel);
   screen.append(main);
   root.append(screen);
@@ -243,7 +280,13 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     sync();
     history.push({
       active,
-      lines: lines.map((line) => ({ ...line, path: [...line.path], stations: [...line.stations], names: { ...line.names } })),
+      lines: lines.map((line) => ({
+        ...line,
+        path: [...line.path],
+        stations: [...line.stations],
+        names: { ...line.names },
+        busStops: { ...(line.busStops ?? {}) },
+      })),
     });
   }
 
@@ -276,6 +319,12 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       if (next === design.path) return;
       remember();
       design = { ...design, path: next };
+    } else if (mode === '역 놓기' && realStopsHere(design)) {
+      // 버스 노선: 그 칸의 실제 정류장과 노선을 보여 주고, 고른 정류장에 놓는다.
+      stopChoice = cell;
+      renderPanel();
+      drawStopMarks();
+      return;
     } else if (mode === '역 놓기') {
       // 선이 없는 칸에도 놓을 수 있다. 나중에 역 잇기로 선로를 놓는다.
       remember();
@@ -455,6 +504,99 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     );
   }
 
+  /** 실제 정류장을 고르고 있는 칸(버스 노선, 정류장 놓기). 없으면 null */
+  let stopChoice = null;
+
+  /** 고르는 칸의 실제 정류장 자리에 번호 동그라미를 그린다(목록 번호와 같다). */
+  function drawStopMarks() {
+    const layer = map.overlay();
+    layer.replaceChildren();
+    if (stopChoice === null) return;
+    const k = map.zoom || 1;
+    const col = stopChoice % grid.cols;
+    const row = Math.floor(stopChoice / grid.cols);
+    layer.append(svgNode('rect', { x: col * CELL, y: row * CELL, width: CELL, height: CELL, fill: 'none', stroke: '#1F3342', 'stroke-width': 2, 'stroke-dasharray': '6 4', 'vector-effect': 'non-scaling-stroke' }));
+    for (const [i, stop] of stopsInCell(busNetwork(), grid, stopChoice).entries()) {
+      const chosen = design.busStops?.[stopChoice] === stop.index;
+      const g = svgNode('g', {});
+      g.append(svgNode('circle', { cx: stop.x * CELL, cy: stop.y * CELL, r: 9 / k, fill: chosen ? '#1F3342' : '#FFFFFF', stroke: '#1F3342', 'stroke-width': 2, 'vector-effect': 'non-scaling-stroke' }));
+      const label = svgNode('text', { x: stop.x * CELL, y: stop.y * CELL + 4 / k, 'text-anchor': 'middle', 'font-size': 11 / k, 'font-weight': 700, fill: chosen ? '#FFFFFF' : '#1F3342' });
+      label.textContent = String(i + 1);
+      g.append(label);
+      layer.append(g);
+    }
+  }
+
+  /** 정류장 고르기 칸: 그 칸의 실제 버스 정류장마다 이름, 서는 노선, 놓기 단추 */
+  function renderStopChoice() {
+    if (stopChoice === null) return;
+    const cell = stopChoice;
+    const box = element('section', 'stop-choice');
+    box.setAttribute('aria-label', '이 칸의 버스 정류장');
+    box.append(element('h3', null, '이 칸의 버스 정류장'));
+    const list = stopsInCell(busNetwork(), grid, cell);
+    if (list.length === 0) {
+      box.append(element('p', null, '이 칸에는 실제 버스 정류장이 없어요.'));
+      box.append(element('p', 'panel-note', '정류장이 있는 칸을 눌러 봐요.'));
+    } else {
+      box.append(element('p', 'panel-note guide', '지도의 번호와 목록의 번호가 같아요. 정류장을 골라요.'));
+      box.append(element('p', 'panel-note', `정류장 ${list.length}곳이 있어요.`));
+    }
+    const current = design.busStops?.[cell];
+    for (const [i, stop] of list.entries()) {
+      const item = element('div', `stop-choice-item${current === stop.index ? ' is-chosen' : ''}`);
+      const head = element('div', 'stop-choice-head');
+      head.append(element('span', 'name-order', String(i + 1)), element('span', 'stop-choice-name', `${stop.name} 정류장`));
+      item.append(head);
+      if (stop.toward) item.append(element('p', 'stop-choice-toward', `${stop.toward} 방면으로 가는 버스가 서요.`));
+      const routes = element('div', 'stop-choice-routes');
+      routes.setAttribute('aria-label', `서는 시내버스 ${stop.routes.length}개: ${stop.routes.join(', ')}`);
+      routes.append(element('span', 'stop-choice-count', `시내버스 ${stop.routes.length}개`));
+      for (const no of stop.routes) routes.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
+      item.append(routes);
+      if (current === stop.index) {
+        item.append(element('p', 'stop-choice-here', '내 노선 정류장이에요.'));
+      } else {
+        item.append(
+          button(current === undefined ? '여기에 정류장 놓기' : '이 정류장으로 바꾸기', () => {
+            remember();
+            lastPlaced = cell;
+            design = {
+              ...design,
+              stations: design.stations.includes(cell) ? design.stations : [...design.stations, cell],
+              busStops: { ...(design.busStops ?? {}), [cell]: stop.index },
+            };
+            stopChoice = null;
+            connectNote = null;
+            update();
+          }, 'button big'),
+        );
+      }
+      box.append(item);
+    }
+    const tools = element('div', 'tool-row');
+    if (design.stations.includes(cell)) {
+      tools.append(
+        button('정류장 빼기', () => {
+          remember();
+          const busStops = { ...(design.busStops ?? {}) };
+          delete busStops[cell];
+          design = { ...design, stations: design.stations.filter((s) => s !== cell), busStops };
+          stopChoice = null;
+          update();
+        }),
+      );
+    }
+    tools.append(
+      button('닫기', () => {
+        stopChoice = null;
+        update();
+      }),
+    );
+    box.append(tools);
+    panel.append(box);
+  }
+
   function setMode(next) {
     mode = next;
     map.setMode(next === '움직이기' ? '역' : '칸');
@@ -466,6 +608,10 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     const names = design.names ?? {};
     const kept = Object.fromEntries(Object.entries(names).filter(([cell]) => design.stations.includes(Number(cell))));
     if (Object.keys(kept).length !== Object.keys(names).length) design = { ...design, names: kept };
+    const stopsKept = Object.fromEntries(Object.entries(design.busStops ?? {}).filter(([cell]) => design.stations.includes(Number(cell))));
+    if (Object.keys(stopsKept).length !== Object.keys(design.busStops ?? {}).length) design = { ...design, busStops: stopsKept };
+    if (mode !== '역 놓기' || !realStopsHere(design)) stopChoice = null;
+    drawStopMarks();
     if (editing !== null && !design.stations.includes(editing)) editing = null;
     if (lastPlaced !== null && !design.stations.includes(lastPlaced)) lastPlaced = null;
     paintLineColor();
@@ -805,6 +951,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   function renderPanel() {
     panel.replaceChildren();
     sync();
+    renderStopChoice();
     const all = planCost({ lines: nameAll().lines }, grid, rules, ruleTables, existing);
     /** 모든 노선을 더한 공사비와, 지금 고치는 노선의 공사비 */
     const totalCost = all.total;

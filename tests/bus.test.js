@@ -4,7 +4,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { buildBusNetwork, busJourney, busReach, busTimeTable, stopsNear, withBusTimes } from '../src/sim/bus-network.js';
+import { buildBusNetwork, busJourney, busReach, busTimeTable, routesAtStop, stopPlace, stopsInCell, stopsNear, withBusTimes } from '../src/sim/bus-network.js';
+import { withDesign } from '../src/sim/design-world.js';
 import { planTrips } from '../src/sim/trip.js';
 import { prepareWorld, runDay } from '../src/sim/run.js';
 import { buildWorld, rulesFromCards } from '../src/sim/world.js';
@@ -156,4 +157,36 @@ test('여행 모드: 버스 길에 노선 번호와 정류장이 붙는다', { s
   assert.ok(rides.length > 0 && rides.every((leg) => leg.route && leg.stops.length >= 2));
   // 첫 걷기는 첫 정류장으로 간다.
   assert.equal(bus.legs[0].stop, rides[0].stops[0].name);
+});
+
+test('칸의 실제 정류장: 같은 자리는 하나로, 서는 노선과 방면(다음 정류장)이 붙는다', () => {
+  // 정류장 2와 3은 같은 이름이 아니고 10m 떨어져 있다. 같은 자리 정류장 하나를 더 둔다.
+  const bus = {
+    names: ['가', '나', '다', '라', '마', '다'],
+    stops: [...tiny.stops, [500, 100, 5]],
+    routes: [...tiny.routes, { no: 'C', stops: [[5, 1, 0], [4, 0, 1]] }],
+  };
+  const network = buildBusNetwork(bus, flat, rules);
+  const grid = { cols: 10 };
+  // 칸 (5, 1): 정류장 2(다), 3(라), 5(다, 2와 같은 자리)
+  const list = stopsInCell(network, grid, 1 * 10 + 5);
+  assert.deepEqual(list.map((s) => s.name), ['다', '라']);
+  const da = list[0];
+  assert.deepEqual(da.routes, ['A', 'C']);
+  assert.equal(da.toward, '마');
+  assert.deepEqual(routesAtStop(network, 5), ['A', 'C']);
+  assert.equal(stopPlace(network, 2).name, '다');
+  // 정류장이 없는 칸
+  assert.deepEqual(stopsInCell(network, grid, 9 * 10 + 9), []);
+});
+
+test('버스 노선 설계: 고른 실제 정류장 자리에 역을 둔다', () => {
+  const world = { stations: [], links: [], transfers: [], lines: [] };
+  const tables = { lineKinds: { 버스: { speedKmh: 17, capacityPerTrain: 49 } } };
+  const design = { path: [11, 12, 13], stations: [11, 13], kind: '버스', trainsPerHour: 8, busStopPoints: { 11: { x: 1.23, y: 1.77 } } };
+  const next = withDesign(world, design, { cols: 10 }, tables);
+  const [a, b] = next.stations;
+  assert.deepEqual([a.x, a.y], [1.23, 1.77]);
+  // 고르지 않은 칸은 칸 가운데
+  assert.deepEqual([b.x, b.y], [3.5, 1.5]);
 });

@@ -353,3 +353,96 @@ export function routesNear(network, point, km = 0.3) {
   }
   return [...found].sort((a, b) => a.localeCompare(b, 'ko', { numeric: true }));
 }
+
+/**
+ * 같은 자리 정류장 묶음. 승하차 자료는 노선마다 정류장 이름을 조금씩 다르게 써서(예: "서면역.롯데호텔백화점",
+ * "롯데호텔백화점.서면역") 한 정류장이 여러 개로 나뉜다. 자리가 같으면 한 정류장으로 본다.
+ * @returns {Map<string, number[]>} "x|y" → 정류장 번호들
+ */
+const samePlaceCache = new WeakMap();
+function samePlaceGroups(network) {
+  if (!samePlaceCache.has(network)) {
+    const groups = new Map();
+    for (const stop of network.stops) {
+      const key = `${stop.x}|${stop.y}`;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(stop.index);
+    }
+    samePlaceCache.set(network, groups);
+  }
+  return samePlaceCache.get(network);
+}
+
+/** 같은 자리 정류장들 가운데 가장 많은 노선이 쓰는 이름 */
+function placeName(network, indices) {
+  const count = new Map();
+  for (const index of indices) {
+    const name = network.stops[index].name;
+    count.set(name, (count.get(name) ?? 0) + network.routesAt[index].length);
+  }
+  return [...count].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))[0][0];
+}
+
+/** 한 정류장(같은 자리 정류장 모두)에 서는 실제 시내버스 번호(번호 차례). 정류장 번호가 없으면 null */
+export function routesAtStop(network, stopIndex) {
+  const stop = network.stops[stopIndex];
+  if (!stop) return null;
+  const indices = samePlaceGroups(network).get(`${stop.x}|${stop.y}`) ?? [stopIndex];
+  const numbers = new Set();
+  for (const index of indices) for (const r of network.routesAt[index]) numbers.add(network.routes[r].no);
+  return [...numbers].sort((a, b) => a.localeCompare(b, 'ko', { numeric: true }));
+}
+
+/** 같은 이름이고 이만큼 가까우면 한 정류장으로 본다(km). */
+const SAME_STOP_KM = 0.04;
+
+/**
+ * 한 칸(1km 블록) 안의 실제 버스 정류장과 거기 서는 노선, 버스가 다음에 서는 정류장(방면).
+ * 같은 자리, 그리고 같은 이름으로 40m 안에 있는 정류장은 하나로 묶는다.
+ * 이름 차례, 같은 이름이면 서쪽·북쪽 먼저.
+ * @param {{cols: number}} grid
+ * @returns {{index: number, name: string, x: number, y: number, routes: string[], toward: string|null}[]}
+ */
+export function stopsInCell(network, grid, cell) {
+  const col = cell % grid.cols;
+  const row = Math.floor(cell / grid.cols);
+  const groups = [];
+  for (const indices of samePlaceGroups(network).values()) {
+    const stop = network.stops[indices[0]];
+    if (Math.floor(stop.x) !== col || Math.floor(stop.y) !== row) continue;
+    if (indices.every((index) => network.routesAt[index].length === 0)) continue;
+    const name = placeName(network, indices);
+    const near = groups.find((g) => g.name === name && straightKm(g, stop) <= SAME_STOP_KM);
+    if (near) near.indices.push(...indices);
+    else groups.push({ name, x: stop.x, y: stop.y, indices: [...indices] });
+  }
+  return groups
+    .map((g) => {
+      // 노선마다 이 정류장 다음에 서는 정류장 이름을 세어, 가장 많은 것을 방면으로 쓴다.
+      const next = new Map();
+      const numbers = new Set();
+      for (const index of g.indices) {
+        for (const r of network.routesAt[index]) {
+          const route = network.routes[r];
+          numbers.add(route.no);
+          route.stops.forEach(([stopIndex], i) => {
+            if (stopIndex !== index || i + 1 >= route.stops.length) return;
+            const name = network.stops[route.stops[i + 1][0]].name;
+            if (name !== g.name) next.set(name, (next.get(name) ?? 0) + 1);
+          });
+        }
+      }
+      const toward = [...next].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))[0]?.[0] ?? null;
+      const routes = [...numbers].sort((a, b) => a.localeCompare(b, 'ko', { numeric: true }));
+      return { index: g.indices[0], name: g.name, x: g.x, y: g.y, routes, toward };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, 'ko') || a.x - b.x || a.y - b.y);
+}
+
+/** 정류장 하나의 이름과 자리(같은 자리 정류장들 가운데 가장 많이 쓰는 이름). 번호가 없으면 null */
+export function stopPlace(network, stopIndex) {
+  const stop = network.stops[stopIndex];
+  if (!stop) return null;
+  const indices = samePlaceGroups(network).get(`${stop.x}|${stop.y}`) ?? [stopIndex];
+  return { index: stopIndex, name: placeName(network, indices), x: stop.x, y: stop.y };
+}
