@@ -1,5 +1,7 @@
 /* 색은 docs/SPEC.md 7.1절을 따른다. 글자는 18px 이상, 단추는 48px 이상(3장). */
 :root {
+  /* 밝은 화면으로만 그린다(크롬의 자동 어두운 테마가 지도 글자 색을 바꾸지 않게). */
+  color-scheme: only light;
   --land: #edf1ec;
   --sea: #b9d4e6;
   --ink: #1f3342;
