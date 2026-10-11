@@ -2251,3 +2251,26 @@ body {
 .talk-bubble p {
   margin: 4px 0;
 }
+
+/* 지도 바탕이 행정구역일 때: 범례는 도시 색 설명을 보여 준다 */
+.legend-district {
+  display: none;
+}
+
+.base-district .legend-terrain:not(.legend-district),
+.base-district .legend-note-terrain {
+  display: none;
+}
+
+.base-district ul.legend-district {
+  display: flex;
+}
+
+.base-district p.legend-district {
+  display: block;
+}
+
+.district-labels {
+  pointer-events: none;
+  user-select: none;
+}

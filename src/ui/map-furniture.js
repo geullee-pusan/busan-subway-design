@@ -1,6 +1,7 @@
 // 지도에 늘 붙어 있는 것들: 범례, 방위표, 축척 막대(SPEC 12장 Phase 1 완료 기준).
 import { lines } from '../data.js';
-import { CELL, DESIGN_COLOR, FUTURE_COLOR, TERRAIN_COLORS } from './map.js';
+import { CELL, CITY_COLORS, DESIGN_COLOR, FUTURE_COLOR, TERRAIN_COLORS } from './map.js';
+import { saveView } from './storage.js';
 import { legendStartsOpen, rememberLegend } from './view.js';
 import { wordWithCard } from './word-card.js';
 
@@ -60,7 +61,26 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
       terrain.append(item);
     }
     box.append(terrain);
-    box.append(element('p', 'legend-note', '한 칸은 1km예요. 점선은 구·군 경계예요.'));
+    box.append(element('p', 'legend-note legend-note-terrain', '한 칸은 1km예요. 점선은 구·군 경계예요.'));
+    // 행정구역 바탕일 때 보이는 설명(지도 상자의 base-district 표시로 바꿔 보여 준다)
+    const cities = element('ul', 'legend-terrain legend-district');
+    for (const [city, label] of [
+      ['부산', '부산'],
+      ['울산', '울산'],
+      ['창원', '창원'],
+      ['김해', '김해'],
+      ['양산', '양산'],
+      ['이웃', '이웃 시·군'],
+    ]) {
+      const item = element('li');
+      const swatch = element('span', 'swatch');
+      swatch.style.background = CITY_COLORS[city][0];
+      item.append(swatch, element('span', null, label));
+      cities.append(item);
+    }
+    box.append(cities);
+    box.append(element('p', 'legend-note legend-district', '도시마다 색이 달라요. 이름이 지도에 적혀 있어요.'));
+    box.append(element('p', 'legend-note legend-district', '크게 보면 구·군 이름도 보여요. 선은 구·군 경계예요.'));
   } else {
     const note = element('p', 'legend-note');
     note.append(wordWithCard('노선도', '노선도'), element('span', null, '는 역 사이를 고르게 편 지도예요. 실제 거리와 달라요.'));
@@ -154,5 +174,21 @@ export function zoomButtons(map) {
     make('−', '작게 보기', () => map.zoomOut()),
     make('전체', null, () => map.fit(), 'button'),
   );
+  // 바탕 바꾸기: 지형(산, 평지, 바다) ↔ 행정구역(도시와 구·군 이름). 고른 것을 기억한다.
+  if (map.setBase) {
+    const base = make('행정구역', '지도 바탕을 행정구역으로 보기', () => {
+      const next = map.base === '행정구역' ? '지형' : '행정구역';
+      map.setBase(next);
+      saveView({ mapBase: next });
+      show();
+    }, 'button');
+    const show = () => {
+      const on = map.base === '행정구역';
+      base.classList.toggle('is-on', on);
+      base.setAttribute('aria-pressed', String(on));
+    };
+    show();
+    box.append(base);
+  }
   return box;
 }

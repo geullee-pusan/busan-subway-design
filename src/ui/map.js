@@ -1,7 +1,9 @@
 // 격자 지도 화면. SVG로 그리고, 한 손가락 끌기와 두 손가락 확대를 지원한다.
 // 보기는 두 가지다: '실제 지도'(격자와 지형)와 '노선도'(단순화).
+// 실제 지도의 바탕은 두 가지다: '지형'(산, 평지, 바다)과 '행정구역'(도시와 구·군을 색과 이름으로).
 import { districts, grid, lineById, lines, schematic, stationById, stations } from '../data.js';
 import { lineShape } from '../sim/line-shape.js';
+import { loadView } from './storage.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 /** 1km 한 칸을 몇 픽셀로 그릴지 (확대 배율 1일 때) */
@@ -52,6 +54,119 @@ function terrainLayer() {
   return layer;
 }
 
+/** 행정구역 바탕: 도시마다 색 계열이 다르고, 구·군마다 밝기가 조금씩 다르다. 색만으로 가르지 않고 이름을 적는다. */
+const CITY_COLORS = {
+  부산: ['#CFE0F5', '#B7D0EE', '#E0EAF8'],
+  울산: ['#F8DDC2', '#F3CCA6', '#FBE9D8'],
+  창원: ['#CDE8CF', '#B5DCB8', '#DFF1E0'],
+  김해: ['#E2D5F0', '#D2C0E8'],
+  양산: ['#F6D3DD', '#EFBFCD'],
+  이웃: ['#E6E6E0', '#DADAD2', '#EEEEE8'],
+};
+
+/** 구·군 이름("부산광역시 해운대구", "경상남도 창원시의창구") → 도시와 짧은 이름 */
+function districtParts(name) {
+  const [, rest = name] = /^\S+\s+(.+)$/.exec(name) ?? [];
+  if (name.startsWith('부산광역시')) return { city: '부산', short: rest, main: true };
+  if (name.startsWith('울산광역시')) return { city: '울산', short: rest, main: true };
+  if (rest.startsWith('창원시')) return { city: '창원', short: rest.replace('창원시', ''), main: true };
+  if (rest === '김해시') return { city: '김해', short: rest, main: true };
+  if (rest === '양산시') return { city: '양산', short: rest, main: true };
+  // 지도 네모 안에 함께 들어온 이웃 시·군
+  return { city: rest, short: rest, main: false };
+}
+
+/** 구·군마다 색과 이름표 자리(그 구·군 칸들의 가운데)를 한 번 구해 둔다. */
+let districtInfoCache = null;
+function districtInfo() {
+  if (districtInfoCache) return districtInfoCache;
+  const sums = grid.districts.map(() => ({ x: 0, y: 0, n: 0 }));
+  for (let r = 0; r < grid.rows; r++) {
+    for (let c = 0; c < grid.cols; c++) {
+      const d = grid.district[r * grid.cols + c] ?? grid.district[r]?.[c];
+      if (d === undefined || d < 0 || !sums[d]) continue;
+      sums[d].x += c + 0.5;
+      sums[d].y += r + 0.5;
+      sums[d].n += 1;
+    }
+  }
+  const seen = {};
+  const list = grid.districts.map((district, i) => {
+    const parts = districtParts(district.name);
+    const palette = CITY_COLORS[parts.main ? parts.city : '이웃'];
+    const order = (seen[parts.main ? parts.city : '이웃'] = (seen[parts.main ? parts.city : '이웃'] ?? -1) + 1);
+    return { ...parts, color: palette[order % palette.length], x: sums[i].n ? sums[i].x / sums[i].n : 0, y: sums[i].n ? sums[i].y / sums[i].n : 0, cells: sums[i].n };
+  });
+  // 도시 이름표: 구·군이 여럿인 도시는 칸 수로 무게를 준 가운데
+  const cities = new Map();
+  for (const d of list) {
+    if (!cities.has(d.city)) cities.set(d.city, { name: d.city, x: 0, y: 0, n: 0, parts: 0, main: d.main });
+    const city = cities.get(d.city);
+    city.x += d.x * d.cells;
+    city.y += d.y * d.cells;
+    city.n += d.cells;
+    city.parts += 1;
+  }
+  for (const city of cities.values()) {
+    city.x /= city.n || 1;
+    city.y /= city.n || 1;
+  }
+  districtInfoCache = { list, cities: [...cities.values()] };
+  return districtInfoCache;
+}
+
+/** 칸의 구·군 번호(없으면 -1) */
+function districtAt(r, c) {
+  const row = grid.district[r];
+  return Array.isArray(row) ? row[c] : grid.district[r * grid.cols + c];
+}
+
+/** 행정구역 바탕: 땅은 구·군 색, 물은 물색. 같은 색이 이어지는 칸은 하나의 네모로 묶는다. */
+function districtLayer() {
+  const { list } = districtInfo();
+  const colorOf = (r, c) => {
+    const kind = grid.terrain[r][c];
+    if (kind === 'sea' || kind === 'river') return TERRAIN_COLORS[kind];
+    const d = districtAt(r, c);
+    return d >= 0 && list[d] ? list[d].color : CITY_COLORS.이웃[0];
+  };
+  const layer = el('g', { 'aria-hidden': 'true' });
+  for (let r = 0; r < grid.rows; r++) {
+    let start = 0;
+    let color = colorOf(r, 0);
+    for (let c = 1; c <= grid.cols; c++) {
+      const next = c < grid.cols ? colorOf(r, c) : null;
+      if (next !== color) {
+        layer.append(el('rect', { x: start * CELL, y: r * CELL, width: (c - start) * CELL, height: CELL, fill: color }));
+        start = c;
+        color = next;
+      }
+    }
+  }
+  return layer;
+}
+
+/** 행정구역 이름표: 도시 이름(늘 보인다)과 구·군 이름(조금 확대하면 보인다) */
+function districtLabelsLayer() {
+  const { list, cities } = districtInfo();
+  const layer = el('g', { class: 'district-labels', 'aria-hidden': 'true', 'text-anchor': 'middle', 'paint-order': 'stroke', stroke: '#FFFFFF', 'stroke-linejoin': 'round' });
+  const add = (text, x, y, level, main) => {
+    const node = el('text', { x: (x * CELL).toFixed(1), y: (y * CELL).toFixed(1), 'data-level': level, fill: INK, 'fill-opacity': main ? 0.85 : 0.55, 'font-weight': level === 'city' ? 800 : 600 });
+    node.textContent = text;
+    layer.append(node);
+  };
+  for (const city of cities) {
+    // 구·군이 하나뿐인 도시(김해시, 양산시, 이웃 시·군)는 도시 이름표가 곧 구·군 이름표다.
+    add(city.parts > 1 ? city.name : (list.find((d) => d.city === city.name)?.short ?? city.name), city.x, city.y, 'city', city.main);
+  }
+  for (const d of list) {
+    const city = cities.find((c) => c.name === d.city);
+    // 부산과 울산에 같은 이름의 구(북구, 중구 …)가 있어서 도시 이름을 붙여 적는다.
+    if (d.cells > 0 && city.parts > 1) add(d.city + ' ' + d.short, d.x, d.y, 'district', d.main);
+  }
+  return layer;
+}
+
 /** 5칸마다 옅은 격자선 */
 function gridLinesLayer() {
   const layer = el('g', { 'aria-hidden': 'true', stroke: INK, 'stroke-opacity': 0.12, 'stroke-width': 1, 'vector-effect': 'non-scaling-stroke' });
@@ -64,9 +179,18 @@ function polyline(points, attrs) {
   return el('polyline', { points: points.map(([x, y]) => `${(x * CELL).toFixed(1)},${(y * CELL).toFixed(1)}`).join(' '), fill: 'none', ...attrs });
 }
 
-/** 해안선과 구·군 경계 */
-function boundaryLayer() {
+/** 해안선과 구·군 경계. strong이면(행정구역 바탕) 경계를 진한 실선으로 그린다. */
+function boundaryLayer(strong = false) {
   const layer = el('g', { 'aria-hidden': 'true', 'vector-effect': 'non-scaling-stroke' });
+  if (strong) {
+    for (const line of districts.coastline) {
+      layer.append(polyline(line, { stroke: INK, 'stroke-opacity': 0.6, 'stroke-width': 1, 'vector-effect': 'non-scaling-stroke' }));
+    }
+    for (const line of districts.boundaries) {
+      layer.append(polyline(line, { stroke: INK, 'stroke-opacity': 0.75, 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }));
+    }
+    return layer;
+  }
   for (const line of districts.coastline) {
     layer.append(polyline(line, { stroke: INK, 'stroke-opacity': 0.5, 'stroke-width': 1, 'vector-effect': 'non-scaling-stroke' }));
   }
@@ -450,15 +574,32 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
   svg.append(viewport);
   root.append(svg);
 
-  const state = { view: '실제 지도', k: 1, tx: 0, ty: 0, selected: null, mode: '역', design: null, future: null, network: NOW_NETWORK };
+  const state = {
+    view: '실제 지도',
+    // 실제 지도의 바탕: '지형' 또는 '행정구역'(고른 것을 기억해 둔다)
+    base: loadView().mapBase === '행정구역' ? '행정구역' : '지형',
+    k: 1,
+    tx: 0,
+    ty: 0,
+    selected: null,
+    mode: '역',
+    design: null,
+    future: null,
+    network: NOW_NETWORK,
+  };
   let layers = {};
 
   function draw() {
     viewport.replaceChildren();
     layers = {};
     if (state.view === '실제 지도') {
-      viewport.append(terrainLayer(), gridLinesLayer(), boundaryLayer());
+      const byDistrict = state.base === '행정구역';
+      viewport.append(byDistrict ? districtLayer() : terrainLayer(), gridLinesLayer(), boundaryLayer(byDistrict));
+      // 구·군 이름은 노선 아래에 깐다(노선과 역 이름을 가리지 않게).
+      layers.districtLabels = byDistrict ? districtLabelsLayer() : null;
+      if (layers.districtLabels) viewport.append(layers.districtLabels);
     }
+
     layers.lines = linesLayer(state.view, state.network);
     layers.stations = stationsLayer(state.view, state.network);
     layers.labels = labelsLayer(state.view, state.network);
@@ -519,6 +660,15 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       text.style.display = showAll || important ? '' : 'none';
       text.setAttribute('font-size', (11 / state.k).toFixed(2));
       text.setAttribute('stroke-width', (3 / state.k).toFixed(2));
+    }
+    // 범례가 바탕에 맞는 설명을 보이도록 지도 상자에 표시해 둔다.
+    root.parentElement?.classList.toggle('base-district', state.view === '실제 지도' && state.base === '행정구역');
+    // 행정구역 이름표: 도시 이름은 늘 보이고, 구·군 이름은 조금 확대하면 보인다. 글자 크기는 화면에서 늘 같다.
+    for (const text of layers.districtLabels?.children ?? []) {
+      const city = text.getAttribute('data-level') === 'city';
+      text.style.display = city || state.k >= 1 ? '' : 'none';
+      text.setAttribute('font-size', ((city ? 18 : 12) / state.k).toFixed(2));
+      text.setAttribute('stroke-width', ((city ? 4 : 3) / state.k).toFixed(2));
     }
     for (const tag of layers.tags?.children ?? []) {
       const x = tag.getAttribute('data-x');
@@ -748,6 +898,14 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       state.view = view;
       draw();
     },
+    /** 실제 지도의 바탕을 바꾼다: '지형' 또는 '행정구역' */
+    setBase: (base) => {
+      state.base = base === '행정구역' ? '행정구역' : '지형';
+      draw();
+    },
+    get base() {
+      return state.base;
+    },
     /** '역'이면 역을 고르고, '칸'이면 칸을 알려 준다(선 그리기). */
     setMode: (mode) => {
       state.mode = mode;
@@ -788,4 +946,4 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
 }
 
 /** 지도에 쓰는 색(범례에서도 쓴다) */
-export { TERRAIN_COLORS, INK };
+export { CITY_COLORS, TERRAIN_COLORS, INK };
