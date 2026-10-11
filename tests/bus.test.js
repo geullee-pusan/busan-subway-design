@@ -242,3 +242,23 @@ test('한 칸에 정류장 여러 개: 선 방향 차례로 모두 역이 되고
   // 반대로 가는 선이면 동쪽부터
   assert.deepEqual(orderStopsInCell([13, 12, 11], 12, two, 10).map((s) => s.name), ['동쪽', '서쪽']);
 });
+
+test('노선 자료가 없는 정류소: 칸 목록에는 보이지만, 걸어가 탈 정류장으로는 쓰지 않는다', () => {
+  // 정류장 5는 울산·창원·김해 정류소처럼 자리와 이름만 있다(방면 힌트가 있다).
+  const bus = { ...tiny, names: [...tiny.names, '바', '사'], stops: [...tiny.stops, [800, 800, 5, 6]], extraFrom: 5 };
+  const network = buildBusNetwork(bus, flat, rules);
+  const list = stopsInCell(network, { cols: 10 }, 8 * 10 + 8);
+  assert.equal(list.length, 1);
+  assert.deepEqual([list[0].name, list[0].noRoutes, list[0].toward, list[0].routes.length], ['바', true, '사', 0]);
+  // 버스를 탈 수 있는 정류장만 걸어갈 곳으로 본다.
+  assert.deepEqual(stopsNear(network, { x: 8, y: 8 }, rules), []);
+  // 노선이 서는 정류장은 noRoutes가 아니다.
+  assert.equal(stopsInCell(network, { cols: 10 }, 1 * 10 + 1)[0].noRoutes, false);
+});
+
+test('부산 버스 자료: 울산·창원·김해 정류소가 부산 정류장 뒤에 붙어 있다', { skip }, () => {
+  const bus = readJson('data/build/bus.json');
+  assert.ok(bus.extraFrom > 2000 && bus.stops.length - bus.extraFrom > 5000);
+  // 노선은 부산 정류장만 지난다.
+  for (const route of bus.routes) for (const [index] of route.stops) assert.ok(index < bus.extraFrom);
+});

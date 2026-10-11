@@ -12,6 +12,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateRawSync } from 'node:zlib';
+import { readCsv } from './lib/csv.mjs';
 import { makeUtm } from './lib/utm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -231,19 +232,61 @@ for (const [no, rows] of [...routeRows].sort((a, b) => a[0].localeCompare(b[0], 
   routes.push({ no, stops: seq });
 }
 
+// 3. 울산·창원·김해 정류소(자리와 이름만 있다. 어느 노선이 서는지는 자료가 없다)
+//    부산 정류장 뒤에 붙인다(부산 정류장 번호는 그대로다). 격자 밖과, 부산 자료에 이미 있는 곳(같은 이름, 40m 안)은 뺀다.
+const busanCount = stops.length;
+const nameId = (name) => {
+  if (!nameIndex.has(name)) {
+    nameIndex.set(name, names.length);
+    names.push(name);
+  }
+  return nameIndex.get(name);
+};
+const taken = new Map(); // 이름 → 이미 넣은 자리들
+for (const [x, y, n] of stops) {
+  if (!taken.has(names[n])) taken.set(names[n], []);
+  taken.get(names[n]).push([x, y]);
+}
+const extraCounts = {};
+const extraSeen = new Set();
+function addExtra(city, name, lon, lat, toward) {
+  if (!name || !Number.isFinite(lon) || !Number.isFinite(lat) || lon === 0) return;
+  const [e, n] = utm.forward(lon, lat);
+  const x = Math.round((e - grid.origin.easting) / 10);
+  const y = Math.round((grid.origin.northing - n) / 10);
+  if (x < 0 || y < 0 || x >= grid.cols * 100 || y >= grid.rows * 100) return;
+  // 부산 자료에 이미 있는 곳(같은 이름, 40m 안)은 뺀다. 세 도시 안에서는 똑같은 자리만 뺀다(길 건너편 정류장은 따로 둔다).
+  if ((taken.get(name) ?? []).some(([sx, sy]) => Math.hypot(sx - x, sy - y) <= 4)) return;
+  const key = `${name}|${x}|${y}`;
+  if (extraSeen.has(key)) return;
+  extraSeen.add(key);
+  stops.push(toward ? [x, y, nameId(name), nameId(toward)] : [x, y, nameId(name)]);
+  extraCounts[city] = (extraCounts[city] ?? 0) + 1;
+}
+const rawCsv = (file) => readCsv(resolve(ROOT, 'data/raw/datagokr', file)).records;
+for (const r of rawCsv('15052671.csv')) addExtra('울산', r['정류장명']?.trim(), Number(r['경도']), Number(r['위도']), null);
+for (const r of rawCsv('15037805.csv')) addExtra('창원', r['정류소명']?.trim(), Number(r['경도']), Number(r['위도']), r['방면']?.trim().replace(/\s*방면$/, '') || null); // 값 끝의 "방면"은 뗀다(화면에서 붙인다)
+// 김해: 정류소 현황(15105200)에는 좌표가 없어서, 좌표가 있는 단말기 설치 현황(15104697)의 정류장만 넣는다.
+for (const r of rawCsv('15104697.csv')) addExtra('김해', r['정류소명']?.trim(), Number(r['경도']), Number(r['위도']), null);
+const gimhaeAll = rawCsv('15105200.csv').length;
+
 const out = {
   _설명:
-    '부산 시내버스 노선(심야 노선 뺌). stops는 [x×100, y×100, 이름 번호](격자 칸 단위), routes의 stops는 [정류장 번호, 승차 합계, 하차 합계](2023-07-31 판 자료. 하루치인지 기간 합계인지는 자료 설명에 없다). 만든 곳: scripts/build-bus.mjs',
+    '부산 시내버스 노선(심야 노선 뺌)과 울산·창원·김해 정류소. stops는 [x×100, y×100, 이름 번호, (있으면) 방면 이름 번호](격자 칸 단위), routes의 stops는 [정류장 번호, 승차 합계, 하차 합계](2023-07-31 판 자료. 하루치인지 기간 합계인지는 자료 설명에 없다). extraFrom번부터의 정류장은 울산·창원·김해 정류소로, 자리와 이름만 있고 서는 노선 자료가 없다. 만든 곳: scripts/build-bus.mjs',
   date: '2023-07-31',
   stopsDate: '2026-09-12',
   source: '공공데이터포털 15123610 부산광역시_버스노선별 승하차 정보, 15084251 부산광역시_버스 정류소 정보',
+  extraFrom: busanCount,
+  extraSource:
+    '공공데이터포털 15052671 울산광역시_버스 정류소 위치 정보_20260522, 15037805 경상남도 창원시_버스정류소 위치정보_20251231, 15104697 경상남도 김해시_버스정보 안내 단말기(BIT) 설치 현황_20251031',
   names,
   stops,
   routes,
 };
 writeFileSync(resolve(ROOT, 'data/build/bus.json'), JSON.stringify(out));
 const size = Buffer.byteLength(JSON.stringify(out));
-console.log(`노선 ${routes.length}개(뺀 노선 ${skipped.length}개), 정류장 ${stops.length}곳, 이름 ${names.length}개`);
+console.log(`노선 ${routes.length}개(뺀 노선 ${skipped.length}개), 부산 정류장 ${busanCount}곳, 이름 ${names.length}개`);
+console.log(`노선 자료가 없는 정류소: ${Object.entries(extraCounts).map(([city, n]) => `${city} ${n}곳`).join(', ')} (김해는 좌표가 있는 단말기 설치 정류장만. 김해 정류소 현황은 ${gimhaeAll}곳)`);
 console.log(`자리를 찾은 정류장 차례 ${rowsKept}/${rowsAll}(${((rowsKept / rowsAll) * 100).toFixed(1)}%), 승차 ${((boardKept / boardAll) * 100).toFixed(1)}%`);
 console.log(`bus.json ${(size / 1024).toFixed(0)}KB`);
 if (skipped.length) console.log(`뺀 노선: ${skipped.join(', ')}`);

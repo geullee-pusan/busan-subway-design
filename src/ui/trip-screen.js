@@ -155,6 +155,8 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
 
   /** 실제 버스 정류장 점. 방면(toward)은 같은 이름 정류장을 가르는 데 쓴다(출발·도착 줄에 함께 보인다). */
   function stopPoint(stop) {
+    // 노선 자료가 없는 정류소는 그 정류장에서 타는 길을 찾을 수 없어서, 자리만 쓴다(버스 시간은 어림으로 센다).
+    if (stop.noRoutes) return { x: stop.x, y: stop.y, name: `${stop.name} 정류장`, toward: stop.toward };
     return { x: stop.x, y: stop.y, stopIndex: stop.index, name: `${stop.name} 정류장`, toward: stop.toward };
   }
 
@@ -201,11 +203,16 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     head.append(element('span', 'stop-choice-name', `${stop.name} 정류장`));
     item.append(head);
     if (stop.toward) item.append(element('p', 'stop-choice-toward', `${stop.toward} 방면으로 가는 버스가 서요.`));
-    const routes = element('div', 'stop-choice-routes');
-    routes.setAttribute('aria-label', `서는 시내버스 ${stop.routes.length}개: ${stop.routes.join(', ')}`);
-    routes.append(element('span', 'stop-choice-count', `시내버스 ${stop.routes.length}개`));
-    for (const no of stop.routes) routes.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
-    item.append(routes);
+    if (stop.noRoutes) {
+      // 울산·창원·김해 정류소: 자리와 이름만 안다. 버스 시간은 어림으로 센다.
+      item.append(element('p', 'stop-choice-toward', '이 정류장은 버스 노선 자료가 아직 없어요.'));
+    } else {
+      const routes = element('div', 'stop-choice-routes');
+      routes.setAttribute('aria-label', `서는 시내버스 ${stop.routes.length}개: ${stop.routes.join(', ')}`);
+      routes.append(element('span', 'stop-choice-count', `시내버스 ${stop.routes.length}개`));
+      for (const no of stop.routes) routes.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
+      item.append(routes);
+    }
     item.append(button(`${picking}지로 고르기`, onChoose, 'button big'));
     return item;
   }
@@ -549,6 +556,7 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     panel.append(element('p', 'panel-note', '버스 번호와 정류장은 2023년 부산 시내버스 자료예요.'));
     panel.append(element('p', 'panel-note', '버스를 기다리는 시간은 우리가 정한 값이에요.'));
     panel.append(element('p', 'panel-note', '가까운 정류장이 없으면 버스 시간을 어림해서 셈해요.'));
+    panel.append(element('p', 'panel-note', '울산·창원·김해는 버스 노선 자료가 아직 없어서 어림해서 셈해요.'));
     panel.append(element('p', 'panel-note', '택시 속도와 잡는 시간은 우리가 정한 값이에요.'));
   }
 

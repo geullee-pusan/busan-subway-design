@@ -20,6 +20,13 @@
     "sha256": "6165cd9c22f7c620910f767d3ba7f86dc3edc47b531586ffa33223b0b2265a91",
     "fetched": "2026-09-22"
   },
+  "bus-bit-gimhae": {
+    "file": "data/raw/datagokr/15104697.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003534016&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 76376,
+    "sha256": "9ef1a6ca577d94926af618ac12c37dcc3f5c297c7ef29dfc60f08b99d0512262",
+    "fetched": "2026-10-11"
+  },
   "bus-route-stops": {
     "file": "data/raw/datagokr/15123610.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002818223&fileDetailSn=1&insertDataPrcus=N",
@@ -33,6 +40,27 @@
     "bytes": 454474,
     "sha256": "f34a6f1034b479fea6e48c5e5b8fba7de30a52136bac39d2f09b179f8d31d22f",
     "fetched": "2026-09-23"
+  },
+  "bus-stops-changwon": {
+    "file": "data/raw/datagokr/15037805.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003634298&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 310093,
+    "sha256": "908810b0968956c2cfee39691ee17a5735e9c2f9b2655736c18a42442eda346d",
+    "fetched": "2026-10-11"
+  },
+  "bus-stops-gimhae": {
+    "file": "data/raw/datagokr/15105200.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003661635&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 156998,
+    "sha256": "9f1a7fc8cd6d018850c8a188e82606b2e29bfa18dac1dbef39ecaaf778e98f36",
+    "fetched": "2026-10-11"
+  },
+  "bus-stops-ulsan": {
+    "file": "data/raw/datagokr/15052671.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003644754&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 275927,
+    "sha256": "f30a97f542e2d9f3b5557f83ddae302b189b3945b5fc2970d8b88f1609fc5385",
+    "fetched": "2026-10-11"
   },
   "dem-N34E128": {
     "file": "data/raw/dem/N34E128.hgt.gz",

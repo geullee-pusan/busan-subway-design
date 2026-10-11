@@ -44,6 +44,12 @@ export const SOURCES = [
   // 부산 버스 정류소 자리(공공데이터포털 15084251, SHP "_20260912" 판, 이용허락범위 제한 없음)
   // 부산도시철도 역사 안내방송(공공데이터포털 3033578, 이용허락범위 제한 없음). 190MB라 git에 넣지 않는다.
   { key: 'station-broadcast', file: 'data/raw/datagokr/3033578.zip', url: dataGoKr('FILE_000000003514100'), size: 190493128 },
+  // 울산·창원·김해 버스 정류소 자리(공공데이터포털, 이용허락범위는 받을 때 확인). 지도 범위를 넓히면서 더했다.
+  { key: 'bus-stops-ulsan', file: 'data/raw/datagokr/15052671.csv', url: dataGoKr('FILE_000000003644754') },
+  { key: 'bus-stops-changwon', file: 'data/raw/datagokr/15037805.csv', url: dataGoKr('FILE_000000003634298') },
+  { key: 'bus-stops-gimhae', file: 'data/raw/datagokr/15105200.csv', url: dataGoKr('FILE_000000003661635') },
+  // 김해 정류소 현황(15105200)에는 좌표가 없다. 좌표는 버스정보 안내 단말기 설치 현황(단말기가 있는 정류장만)에서 가져온다.
+  { key: 'bus-bit-gimhae', file: 'data/raw/datagokr/15104697.csv', url: dataGoKr('FILE_000000003534016') },
   { key: 'bus-stops', file: 'data/raw/datagokr/15084251.zip', url: dataGoKr('FILE_000000002797912'), size: 454474 },
 
   // 시승 모드 역명판 글꼴: 프리텐다드 굵은체 한글 2,350자 묶음 (npm pretendard 1.3.9, SIL OFL 1.1)

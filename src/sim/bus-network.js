@@ -68,11 +68,16 @@ class Heap {
  * @param {object} rules busStopWaitMin, busSpeedCityKmh, busSpeedOuterKmh, walkSpeedKmh, walkHill
  */
 export function buildBusNetwork(bus, grid, rules) {
-  const stops = bus.stops.map(([x, y, name], index) => {
+  // extraFrom번부터는 자리와 이름만 아는 정류소(울산·창원·김해)다. 어느 노선이 서는지 자료가 없다.
+  const extraFrom = bus.extraFrom ?? bus.stops.length;
+  const stops = bus.stops.map(([x, y, name, toward], index) => {
     const px = x / 100;
     const py = y / 100;
     const terrain = grid.terrain[Math.floor(py)]?.[Math.floor(px)];
-    return { index, x: px, y: py, name: bus.names[name], hilly: terrain === 'hill', outer: terrain === 'field' };
+    const stop = { index, x: px, y: py, name: bus.names[name], hilly: terrain === 'hill', outer: terrain === 'field' };
+    if (index >= extraFrom) stop.noRoutes = true;
+    if (toward !== undefined) stop.towardHint = bus.names[toward];
+    return stop;
   });
   const stopCount = stops.length;
   // 노선 자리 점 번호: stopCount부터 차례로
@@ -143,6 +148,8 @@ export function buildBusNetwork(bus, grid, rules) {
 
   return {
     stops,
+    // 버스를 탈 수 있는 정류장(노선이 서는 곳). 걸어갈 정류장을 찾을 때 이것만 본다.
+    served: stops.filter((stop) => routesAt[stop.index].length > 0),
     routes: bus.routes,
     routesAt,
     loads,
@@ -209,7 +216,7 @@ function shortest(network, adj, seeds) {
 export function stopsNear(network, point, rules) {
   const maxKm = (rules.busWalkMaxMin / 60) * rules.walkSpeedKmh;
   const found = [];
-  for (const stop of network.stops) {
+  for (const stop of network.served ?? network.stops) {
     const km = straightKm(point, stop);
     if (km > maxKm) continue;
     const walkMin = walkMinutes(km, rules, point.hilly);
@@ -467,7 +474,7 @@ export function stopGroup(network, stopIndex) {
  * 같은 자리, 그리고 같은 이름으로 40m 안에 있는 정류장은 하나로 묶는다.
  * 이름 차례, 같은 이름이면 서쪽·북쪽 먼저.
  * @param {{cols: number}} grid
- * @returns {{index: number, name: string, x: number, y: number, routes: string[], toward: string|null}[]}
+ * @returns {{index: number, name: string, x: number, y: number, routes: string[], toward: string|null, noRoutes: boolean}[]}
  */
 export function stopsInCell(network, grid, cell) {
   const col = cell % grid.cols;
@@ -476,7 +483,8 @@ export function stopsInCell(network, grid, cell) {
   for (const indices of samePlaceGroups(network).values()) {
     const stop = network.stops[indices[0]];
     if (Math.floor(stop.x) !== col || Math.floor(stop.y) !== row) continue;
-    if (indices.every((index) => network.routesAt[index].length === 0)) continue;
+    // 노선도 없고 정류소 자료도 아닌 것은 뺀다. 울산·창원·김해 정류소(noRoutes)는 노선이 없어도 보여 준다.
+    if (indices.every((index) => network.routesAt[index].length === 0 && !network.stops[index].noRoutes)) continue;
     const name = placeName(network, indices);
     const near = groups.find((g) => g.name === name && straightKm(g, stop) <= SAME_STOP_KM);
     if (near) near.indices.push(...indices);
@@ -498,9 +506,12 @@ export function stopsInCell(network, grid, cell) {
           });
         }
       }
-      const toward = [...next].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))[0]?.[0] ?? null;
+      // 방면: 노선 자료로 구한 다음 정류장. 없으면 정류소 자료의 "방면"(창원)
+      const hint = g.indices.map((index) => network.stops[index].towardHint).find(Boolean) ?? null;
+      const toward = [...next].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))[0]?.[0] ?? hint;
       const routes = [...numbers].sort((a, b) => a.localeCompare(b, 'ko', { numeric: true }));
-      return { index: g.indices[0], name: g.name, x: g.x, y: g.y, routes, toward };
+      // noRoutes: 서는 노선 자료가 없는 정류소(이 정류장에서 타는 길은 찾을 수 없다)
+      return { index: g.indices[0], name: g.name, x: g.x, y: g.y, routes, toward, noRoutes: routes.length === 0 };
     })
     .sort((a, b) => a.name.localeCompare(b.name, 'ko') || a.x - b.x || a.y - b.y);
 }

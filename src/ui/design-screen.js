@@ -611,11 +611,16 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
       head.append(element('span', 'name-order', String(i + 1)), element('span', 'stop-choice-name', `${stop.name} 정류장`));
       item.append(head);
       if (stop.toward) item.append(element('p', 'stop-choice-toward', `${stop.toward} 방면으로 가는 버스가 서요.`));
-      const routes = element('div', 'stop-choice-routes');
-      routes.setAttribute('aria-label', `서는 시내버스 ${stop.routes.length}개: ${stop.routes.join(', ')}`);
-      routes.append(element('span', 'stop-choice-count', `시내버스 ${stop.routes.length}개`));
-      for (const no of stop.routes) routes.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
-      item.append(routes);
+      if (stop.noRoutes) {
+        // 울산·창원·김해 정류소: 자리와 이름만 안다.
+        item.append(element('p', 'stop-choice-toward', '이 정류장은 버스 노선 자료가 아직 없어요.'));
+      } else {
+        const routes = element('div', 'stop-choice-routes');
+        routes.setAttribute('aria-label', `서는 시내버스 ${stop.routes.length}개: ${stop.routes.join(', ')}`);
+        routes.append(element('span', 'stop-choice-count', `시내버스 ${stop.routes.length}개`));
+        for (const no of stop.routes) routes.append(element('span', 'sign-bus', no.replace(/\((.+)\)$/, ' $1')));
+        item.append(routes);
+      }
       if (chosen) {
         item.append(element('p', 'stop-choice-here', '내 노선 정류장이에요.'));
         item.append(button('이 정류장 빼기', () => setCellStops(mine.filter((index) => index !== stop.index))));
