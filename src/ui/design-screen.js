@@ -1113,6 +1113,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
     }
     renderLinePicker();
     panel.append(element('p', 'panel-note guide', '지도에서 칸을 눌러 선을 그어요. 한 칸은 1km예요.'));
+    panel.append(element('p', 'panel-note guide', '두 손가락으로 끌면 지도가 움직여요.'));
 
     // 모드 고르기
     const modeBox = element('div', 'tool-row');

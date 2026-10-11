@@ -21,7 +21,8 @@ const TERRAIN_COLORS = {
 const INK = '#1F3342';
 /** 기본으로 그리는 노선망. setNetwork로 옛날 부산으로 바꿀 수 있다. */
 const NOW_NETWORK = { lines, stations, stationById };
-const MIN_ZOOM = 0.6;
+// 지도가 105 × 85칸으로 커져서, 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
+const MIN_ZOOM = 0.15;
 const MAX_ZOOM = 6;
 
 function el(name, attrs = {}) {
@@ -730,6 +731,11 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
   const pointers = new Map();
   let pinchStart = null;
   let moved = 0;
+  // 두 손가락을 댄 적이 있으면, 손가락을 모두 뗄 때까지 누르기나 선 그리기로 치지 않는다.
+  let twoFingers = false;
+  // 선 그리기(칸 모드)는 손가락이 이만큼(픽셀) 움직인 뒤에 시작한다. 두 손가락을 대는 사이에 칸이 찍히지 않게 한다.
+  const DRAW_START = 8;
+  let downAt = null;
 
   svg.addEventListener('pointerdown', (event) => {
     try {
@@ -739,9 +745,15 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     }
     pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     moved = 0;
+    if (pointers.size === 1) {
+      twoFingers = false;
+      downAt = { x: event.clientX, y: event.clientY };
+    }
     if (pointers.size === 2) {
+      twoFingers = true;
+      lastCell = null;
       const [a, b] = [...pointers.values()];
-      pinchStart = { distance: Math.hypot(a.x - b.x, a.y - b.y), k: state.k };
+      pinchStart = { distance: Math.hypot(a.x - b.x, a.y - b.y), k: state.k, center: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 } };
     }
   });
 
@@ -792,8 +804,11 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     if (!previous) return;
     const next = { x: event.clientX, y: event.clientY };
     pointers.set(event.pointerId, next);
-    if (pointers.size === 1 && state.mode === '칸') {
+    if (twoFingers && pointers.size === 1) {
+      // 두 손가락으로 옮기다가 한 손가락만 남았다. 아무것도 하지 않는다.
+    } else if (pointers.size === 1 && state.mode === '칸') {
       // 손가락을 끌면 지나가는 칸마다 알려 준다(선 그리기).
+      if (lastCell === null && downAt && Math.hypot(next.x - downAt.x, next.y - downAt.y) < DRAW_START) return;
       const cell = cellAt(next.x, next.y);
       if (cell !== null && cell !== lastCell) {
         lastCell = cell;
@@ -809,6 +824,10 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       const [a, b] = [...pointers.values()];
       const distance = Math.hypot(a.x - b.x, a.y - b.y);
       const center = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+      // 두 손가락을 함께 끌면 지도가 따라온다(어느 모드에서나).
+      state.tx += center.x - pinchStart.center.x;
+      state.ty += center.y - pinchStart.center.y;
+      pinchStart.center = center;
       const target = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, (pinchStart.k * distance) / pinchStart.distance));
       zoomAt(center.x, center.y, target / state.k);
       moved += 20;
@@ -821,7 +840,14 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     if (pointers.size < 2) pinchStart = null;
     const wasDrawing = state.mode === '칸' && lastCell !== null;
     lastCell = null;
-    if (!start || wasDrawing) return;
+    if (!start || wasDrawing || twoFingers) return;
+    if (state.mode === '칸 고르기') {
+      // 끌면 지도가 움직이고, 살짝 누르면 그 칸을 알려 준다.
+      if (moved > 10) return;
+      const cell = cellAt(event.clientX, event.clientY);
+      if (cell !== null) onCell?.(cell);
+      return;
+    }
     if (state.mode === '칸') {
       const cell = cellAt(event.clientX, event.clientY);
       if (cell !== null) onCell?.(cell);
@@ -906,7 +932,7 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     get base() {
       return state.base;
     },
-    /** '역'이면 역을 고르고, '칸'이면 칸을 알려 준다(선 그리기). */
+    /** '역'이면 역을 고르고, '칸'이면 칸을 알려 준다(선 그리기). '칸 고르기'는 누른 칸만 알려 주고, 끌면 지도가 움직인다. */
     setMode: (mode) => {
       state.mode = mode;
     },

@@ -635,7 +635,7 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
 
   map.resize();
   map.setView('실제 지도');
-  map.setMode('칸');
+  map.setMode('칸 고르기');
   map.fit();
   scale.update(map.zoom);
   if (from && to) plan();
