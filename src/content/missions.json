@@ -14,8 +14,8 @@
       "baseYear": 2027,
       "dayType": "평일",
       "focus": {
-        "col": 25,
-        "row": 9
+        "col": 66,
+        "row": 46
       },
       "hint": "양산선은 지도에 이미 그려져 있어요. 사람이 많은 곳과 이어 보세요.",
       "standards": [
@@ -36,8 +36,8 @@
       "baseYear": 2027,
       "dayType": "평일",
       "focus": {
-        "col": 18,
-        "row": 26
+        "col": 59,
+        "row": 63
       },
       "hint": "사상역에서 가고 싶은 곳까지 선을 이어 보세요.",
       "standards": [
@@ -57,8 +57,8 @@
       "baseYear": 2026,
       "dayType": "평일",
       "focus": {
-        "col": 23,
-        "row": 35
+        "col": 64,
+        "row": 72
       },
       "hint": "남포역이나 자갈치역에서 바다를 건너 보세요. 공사비 막대를 잘 보세요.",
       "standards": [
@@ -79,8 +79,8 @@
       "baseYear": 2026,
       "dayType": "평일",
       "focus": {
-        "col": 21,
-        "row": 34
+        "col": 62,
+        "row": 71
       },
       "hint": "역을 더 놓으면 걷는 시간은 줄지만 공사비가 늘어요. 둘을 견줘 보세요.",
       "standards": [
@@ -100,8 +100,8 @@
       "baseYear": 2026,
       "dayType": "평일",
       "focus": {
-        "col": 12,
-        "row": 32
+        "col": 53,
+        "row": 69
       },
       "hint": "하단역에서 명지와 녹산 쪽으로 이어 보세요. 강과 들판은 공사비가 달라요.",
       "compareWith": "HN",
@@ -122,8 +122,8 @@
       "baseYear": 2026,
       "dayType": "토요일",
       "focus": {
-        "col": 32,
-        "row": 26
+        "col": 73,
+        "row": 63
       },
       "hint": "바닷가로 가는 사람이 많아요. 역을 어디에 두면 좋을까요?",
       "standards": [
@@ -143,8 +143,8 @@
       "baseYear": 1985,
       "dayType": "평일",
       "focus": {
-        "col": 23,
-        "row": 30
+        "col": 64,
+        "row": 67
       },
       "hint": "1호선이 닿지 않는 동네를 찾아보세요.",
       "standards": [
@@ -164,8 +164,8 @@
       "baseYear": 2026,
       "dayType": "평일",
       "focus": {
-        "col": 25,
-        "row": 27
+        "col": 66,
+        "row": 64
       },
       "hint": "사람이 많은 칸과 중심지를 이어 보세요.",
       "standards": []

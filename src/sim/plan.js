@@ -83,3 +83,51 @@ export function checkPlan(plan) {
   }
   return { ok: problems.length === 0, problems };
 }
+
+/**
+ * 설계 묶음을 다른 격자로 옮긴다(지도 범위가 넓어져 칸 번호가 달라졌을 때 저장해 둔 설계를 살린다).
+ * 칸 번호(선, 역, 칸으로 적은 이름과 자리)와 칸 단위 좌표(x, y)를 모두 옮긴다. 새 격자 밖으로 나가는 칸은 뺀다.
+ * @param {{lines: object[]}} plan
+ * @param {{cols: number, easting: number, northing: number}} from 설계를 만든 격자(가로 칸 수, 왼쪽 위 모서리 m)
+ * @param {{cols: number, rows?: number, easting: number, northing: number}} to 옮길 격자
+ */
+export function movePlan(plan, from, to) {
+  const dCol = Math.round((from.easting - to.easting) / 1000);
+  const dRow = Math.round((to.northing - from.northing) / 1000);
+  if (dCol === 0 && dRow === 0 && from.cols === to.cols) return plan;
+  const moveCell = (cell) => {
+    const col = (Number(cell) % from.cols) + dCol;
+    const row = Math.floor(Number(cell) / from.cols) + dRow;
+    if (col < 0 || col >= to.cols || row < 0 || (to.rows !== undefined && row >= to.rows)) return null;
+    return row * to.cols + col;
+  };
+  const movePoint = (value) => {
+    if (Array.isArray(value)) return value.map(movePoint);
+    if (value && typeof value === 'object' && typeof value.x === 'number' && typeof value.y === 'number') {
+      return { ...value, x: value.x + dCol, y: value.y + dRow };
+    }
+    return value;
+  };
+  const moveKeys = (object) => {
+    if (!object) return object;
+    const out = {};
+    for (const [cell, value] of Object.entries(object)) {
+      const next = moveCell(cell);
+      if (next !== null) out[next] = movePoint(value);
+    }
+    return out;
+  };
+  const byCell = ['names', 'stationNames', 'stationPoints', 'busStops', 'busStopPoints', 'busStopIds', 'busStopList'];
+  return {
+    ...plan,
+    lines: asPlan(plan).lines.map((line) => {
+      const next = {
+        ...line,
+        path: (line.path ?? []).map(moveCell).filter((cell) => cell !== null),
+        stations: (line.stations ?? []).map(moveCell).filter((cell) => cell !== null),
+      };
+      for (const key of byCell) if (line[key]) next[key] = moveKeys(line[key]);
+      return next;
+    }),
+  };
+}

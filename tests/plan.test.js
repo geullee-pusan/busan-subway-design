@@ -16,6 +16,7 @@ import {
   planCost,
   splitNewStationId,
   withPlan,
+  movePlan,
 } from '../src/sim/plan.js';
 import { prepareWorld, runDay } from '../src/sim/run.js';
 import { buildWorld, rulesFromCards } from '../src/sim/world.js';
@@ -82,7 +83,8 @@ test('세상에 넣기: 노선마다 번호가 다르고, 같은 칸의 새 역�
     hourShape: readJson('data/build/ridership.json').shape['평일'],
     defaultHeadwayMin: rules.defaultHeadwayMin,
   });
-  const cell = (c, r) => r * grid.cols + c;
+  // 이 시험의 칸은 부산만 있던 옛 격자(왼쪽 위 480km, 3918km) 기준으로 적었다. 지금 격자의 칸으로 옮긴다.
+  const cell = (c, r) => (r + (grid.origin.northing - 3918000) / 1000) * grid.cols + c + (480000 - grid.origin.easting) / 1000;
   // 사상–당감–서면 가로선과, 당감 칸(21, 26)에서 만나는 세로선. 당감 칸에는 기존 역이 없다.
   const across = [...[18, 19, 20, 21, 22, 23, 24, 25].map((c) => cell(c, 26)), cell(25, 27)];
   const down = [26, 25, 24, 23, 22].map((r) => cell(21, r));
@@ -101,4 +103,33 @@ test('세상에 넣기: 노선마다 번호가 다르고, 같은 칸의 새 역�
   const riders = (prefix) => result.stations.filter((s) => s.id.startsWith(prefix)).reduce((sum, s) => sum + s.board, 0);
   assert.ok(riders('NEW') > 0);
   assert.deepEqual(runDay(next, prepareWorld(next, rules), rules).stations, result.stations);
+});
+
+test('설계 옮기기: 격자가 넓어져도 같은 곳을 가리킨다(칸 번호, 칸으로 적은 이름, 좌표)', () => {
+  const from = { cols: 49, easting: 480000, northing: 3918000 };
+  const to = { cols: 105, rows: 85, easting: 439000, northing: 3955000 };
+  const cellOld = (c, r) => r * 49 + c;
+  const cellNew = (c, r) => (r + 37) * 105 + c + 41;
+  const plan = {
+    lines: [
+      {
+        path: [cellOld(3, 4), cellOld(4, 4)],
+        stations: [cellOld(3, 4)],
+        names: { [cellOld(3, 4)]: '우리 역' },
+        busStops: { [cellOld(3, 4)]: [7, 9] },
+        busStopPoints: { [cellOld(3, 4)]: { x: 3.2, y: 4.7 } },
+        busStopList: { [cellOld(3, 4)]: [{ index: 7, name: '가', x: 3.2, y: 4.7 }] },
+        kind: '버스',
+      },
+    ],
+  };
+  const moved = movePlan(plan, from, to).lines[0];
+  assert.deepEqual(moved.path, [cellNew(3, 4), cellNew(4, 4)]);
+  assert.deepEqual(moved.stations, [cellNew(3, 4)]);
+  assert.equal(moved.names[cellNew(3, 4)], '우리 역');
+  assert.deepEqual(moved.busStops[cellNew(3, 4)], [7, 9]);
+  assert.deepEqual(moved.busStopPoints[cellNew(3, 4)], { x: 44.2, y: 41.7 });
+  assert.deepEqual(moved.busStopList[cellNew(3, 4)][0], { index: 7, name: '가', x: 44.2, y: 41.7 });
+  // 같은 격자면 그대로
+  assert.equal(movePlan(plan, to, to), plan);
 });

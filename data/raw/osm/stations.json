@@ -2,7 +2,7 @@
   "version": 0.6,
   "generator": "Overpass API 0.7.62.11 87bfad18",
   "osm3s": {
-    "timestamp_osm_base": "2026-09-22T07:42:51Z",
+    "timestamp_osm_base": "2026-10-11T05:35:06Z",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
   },
   "elements": [
@@ -1834,6 +1834,158 @@
 },
 {
   "type": "node",
+  "id": 355173915,
+  "lat": 35.8094126,
+  "lon": 128.5125079,
+  "tags": {
+    "name": "대곡",
+    "name:en": "Daegok",
+    "name:ja": "テゴク(大谷)",
+    "name:ko": "대곡",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "117",
+    "subway": "yes",
+    "wikidata": "Q625028",
+    "wikipedia": "ko:대곡역 (대구)"
+  }
+},
+{
+  "type": "node",
+  "id": 355173919,
+  "lat": 35.8161096,
+  "lon": 128.5304345,
+  "tags": {
+    "name": "월배",
+    "name:en": "Wolbae",
+    "name:ja": "ウォルベ(月背)",
+    "name:ko": "월배",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "119",
+    "subway": "yes",
+    "wikidata": "Q707960",
+    "wikipedia": "ko:월배역"
+  }
+},
+{
+  "type": "node",
+  "id": 355173931,
+  "lat": 35.8489970,
+  "lon": 128.5288891,
+  "tags": {
+    "name": "용산",
+    "name:en": "Yongsan",
+    "name:ja": "ヨンサン(龍山)",
+    "name:ko": "용산",
+    "name:ko-Latn": "Yongsanyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "223",
+    "subway": "yes",
+    "wikidata": "Q624836"
+  }
+},
+{
+  "type": "node",
+  "id": 355173958,
+  "lat": 35.8367886,
+  "lon": 128.7160117,
+  "tags": {
+    "name": "사월",
+    "name:en": "Sawol",
+    "name:ja": "サウォル(沙月)",
+    "name:ko": "사월",
+    "name:ko-Latn": "Sawol",
+    "name:zh": "沙月",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "241",
+    "subway": "yes",
+    "wikidata": "Q625426"
+  }
+},
+{
+  "type": "node",
+  "id": 355173960,
+  "lat": 35.8407648,
+  "lon": 128.7049547,
+  "tags": {
+    "name": "신매",
+    "name:en": "Sinmae",
+    "name:ja": "シンメ(新梅)",
+    "name:ko": "신매",
+    "name:ko-Latn": "Sinmaeyeok",
+    "name:zh": "新梅",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "240",
+    "subway": "yes",
+    "wikidata": "Q708357"
+  }
+},
+{
+  "type": "node",
+  "id": 355173962,
+  "lat": 35.8428572,
+  "lon": 128.6934096,
+  "tags": {
+    "name": "고산",
+    "name:en": "Gosan",
+    "name:ja": "コサン(孤山)",
+    "name:ko": "고산",
+    "name:ko-Latn": "Gosanyeok",
+    "name:zh": "孤山",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "239",
+    "subway": "yes",
+    "wikidata": "Q708278",
+    "wikipedia": "ko:고산역 (대구)"
+  }
+},
+{
+  "type": "node",
+  "id": 355173965,
+  "lat": 35.8425943,
+  "lon": 128.6799597,
+  "tags": {
+    "name": "수성알파시티",
+    "name:en": "Suseong Alpha City",
+    "name:ja": "スソンアルパシティ(寿城アルファシティ)",
+    "name:ko": "수성알파시티",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "238",
+    "subway": "yes",
+    "wikidata": "Q695096",
+    "wikipedia": "ko:수성알파시티역"
+  }
+},
+{
+  "type": "node",
+  "id": 355173967,
+  "lat": 35.8463576,
+  "lon": 128.6719606,
+  "tags": {
+    "name": "연호",
+    "name:en": "Yeonho",
+    "name:ja": "ヨノ(蓮湖)",
+    "name:ko": "연호",
+    "name:ko-Latn": "Yeonhoyeok",
+    "name:zh": "蓮湖",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "237",
+    "subway": "yes",
+    "wikidata": "Q708373",
+    "wikipedia": "ko:연호역"
+  }
+},
+{
+  "type": "node",
   "id": 355173971,
   "lat": 35.1766404,
   "lon": 129.0858394,
@@ -1982,6 +2134,183 @@
     "ref": "306",
     "subway": "yes",
     "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 355174017,
+  "lat": 35.8392258,
+  "lon": 128.5650316,
+  "tags": {
+    "name": "대명",
+    "name:en": "Daemyeong",
+    "name:ja": "テミョン(大明)",
+    "name:ko": "대명",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "124",
+    "subway": "yes",
+    "wikidata": "Q707762",
+    "wikipedia": "ko:대명역"
+  }
+},
+{
+  "type": "node",
+  "id": 355174018,
+  "lat": 35.8391616,
+  "lon": 128.5738399,
+  "tags": {
+    "name": "안지랑",
+    "name:en": "Anjirang",
+    "name:ja": "アンジラン",
+    "name:ko": "안지랑",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "125",
+    "subway": "yes",
+    "wikidata": "Q707789",
+    "wikipedia": "ko:안지랑역"
+  }
+},
+{
+  "type": "node",
+  "id": 355174020,
+  "lat": 35.8312484,
+  "lon": 128.5519764,
+  "tags": {
+    "name": "송현",
+    "name:en": "Songhyeon",
+    "name:ja": "ソンヒョン(松峴)",
+    "name:ko": "송현",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "122",
+    "subway": "yes",
+    "wikidata": "Q707937",
+    "wikipedia": "ko:송현역"
+  }
+},
+{
+  "type": "node",
+  "id": 355174022,
+  "lat": 35.8369013,
+  "lon": 128.5571566,
+  "tags": {
+    "name": "서부정류장",
+    "name:en": "Seobu Bus Terminal",
+    "name:ja": "ソブジョンリュジャン(西部停留場)",
+    "name:ko": "서부정류장",
+    "name:zh": "西部客运站",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "123",
+    "subway": "yes",
+    "wikidata": "Q625295",
+    "wikipedia": "ko:서부정류장역"
+  }
+},
+{
+  "type": "node",
+  "id": 355174026,
+  "lat": 35.8407964,
+  "lon": 128.5813354,
+  "tags": {
+    "name": "현충로",
+    "name:en": "Hyeonchungno",
+    "name:ja": "ヒョンチュンロ(顕忠路)",
+    "name:ko": "현충로",
+    "name:zh": "显忠路",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "126",
+    "subway": "yes",
+    "wikidata": "Q625022",
+    "wikipedia": "ko:현충로역"
+  }
+},
+{
+  "type": "node",
+  "id": 355174027,
+  "lat": 35.8443850,
+  "lon": 128.5886490,
+  "tags": {
+    "name": "영대병원",
+    "name:en": "Yeungnam University Hospital",
+    "name:ja": "ヨンデビョンウォン(嶺大病院)",
+    "name:ko": "영대병원",
+    "name:zh": "岭大医院",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "127",
+    "subway": "yes",
+    "wheelchair": "limited",
+    "wikidata": "Q707812",
+    "wikipedia": "ko:영대병원역"
+  }
+},
+{
+  "type": "node",
+  "id": 366677068,
+  "lat": 35.8193291,
+  "lon": 128.7276119,
+  "tags": {
+    "alt_name": "경산역",
+    "alt_name:en": "Gyeongsan station",
+    "name": "경산",
+    "name:en": "Gyeongsan",
+    "name:ja": "慶山",
+    "name:ko": "경산",
+    "name:ko-Latn": "Gyeongsan",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "subway",
+    "subway": "yes",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q477071",
+    "wikipedia": "ko:경산역"
+  }
+},
+{
+  "type": "node",
+  "id": 368636558,
+  "lat": 35.5388089,
+  "lon": 129.3540107,
+  "tags": {
+    "alt_name": "태화강역",
+    "alt_name:en": "Taehwagang Station",
+    "name": "태화강",
+    "name:en": "Taehwagang",
+    "name:ja": "太和江",
+    "name:ja-Hira": "テファガン",
+    "name:ko": "태화강",
+    "name:ko-Hani": "太和江",
+    "name:ko-Latn": "Taehwagang",
+    "name:zh": "太和江",
+    "name:zh-Hans": "太和江",
+    "name:zh-Hant": "太和江",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "not:network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "start_date": "1921-10-25",
+    "station": "train",
+    "subway": "yes",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q626465",
+    "wikipedia": "ko:태화강역"
   }
 },
 {
@@ -2206,6 +2535,22 @@
     "train": "yes",
     "wikidata": "Q477507",
     "wikipedia": "ko:구포역 (한국철도공사)"
+  }
+},
+{
+  "type": "node",
+  "id": 436702174,
+  "lat": 35.8189392,
+  "lon": 128.5378522,
+  "tags": {
+    "name": "상인",
+    "name:en": "Sangin",
+    "name:ja": "サンイン(上仁)",
+    "name:ko": "상인",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "120",
+    "subway": "yes"
   }
 },
 {
@@ -2883,6 +3228,83 @@
     "station": "subway",
     "subway": "yes",
     "wikidata": "Q4865427"
+  }
+},
+{
+  "type": "node",
+  "id": 1657629122,
+  "lat": 35.5513139,
+  "lon": 129.1379303,
+  "tags": {
+    "alt_name": "울산역(통도사)",
+    "highspeed": "yes",
+    "name": "울산",
+    "name:af": "Ulsan",
+    "name:ar": "أولسان",
+    "name:bg": "Улсан",
+    "name:bi": "Ulsan",
+    "name:ca": "Ulsan",
+    "name:cs": "Ulsan",
+    "name:da": "Ulsan",
+    "name:de": "Ulsan",
+    "name:el": "Ούλσαν",
+    "name:en": "Ulsan",
+    "name:eo": "Ulsan",
+    "name:es": "Ulsan",
+    "name:et": "Ulsan",
+    "name:eu": "Ulsan",
+    "name:fa": "اولسان",
+    "name:fi": "Ulsan",
+    "name:fr": "Ulsan",
+    "name:he": "אולסן",
+    "name:hu": "Ulszan",
+    "name:id": "Ulsan",
+    "name:io": "Ulsan",
+    "name:it": "Ulsan",
+    "name:ja": "蔚山",
+    "name:ja-Hira": "ウルサン",
+    "name:kl": "Ulsan",
+    "name:ko": "울산",
+    "name:ko-Hani": "蔚山",
+    "name:ko-Latn": "Ulsan",
+    "name:lt": "Ulsanas",
+    "name:mi": "Ulsan",
+    "name:mn": "Үлсан",
+    "name:mr": "उल्सान",
+    "name:nl": "Ulsan",
+    "name:no": "Ulsan",
+    "name:pl": "Ulsan",
+    "name:pt": "Ulsan",
+    "name:ro": "Ulsan",
+    "name:ru": "Ульсан",
+    "name:sv": "Ulsan",
+    "name:sw": "Ulsan",
+    "name:th": "อุลซัน",
+    "name:tl": "Ulsan",
+    "name:vi": "Ulsan",
+    "name:zh": "蔚山",
+    "name:zh-Hans": "蔚山",
+    "name:zh-Hant": "蔚山",
+    "network": "KTX",
+    "network:wikidata": "Q167674",
+    "not:network:wikidata": "Q18169",
+    "note": "--역 이름에 기입 금지",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "울산",
+    "service": "highspeed",
+    "station": "train",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q54295",
+    "wikipedia": "ko:울산역"
   }
 },
 {
@@ -3716,6 +4138,79 @@
 },
 {
   "type": "node",
+  "id": 1869478577,
+  "lat": 35.8340509,
+  "lon": 128.7410260,
+  "tags": {
+    "name": "임당",
+    "name:en": "Imdang",
+    "name:ja": "イムダン(臨堂)",
+    "name:ko": "임당",
+    "name:ko-Latn": "Imdang",
+    "name:zh": "臨堂",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "243",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1869478584,
+  "lat": 35.8365664,
+  "lon": 128.7535757,
+  "tags": {
+    "name": "영남대",
+    "name:en": "Yeungnam University",
+    "name:ja": "ヨンナムデ(嶺南大)",
+    "name:ko": "영남대",
+    "name:ko-Latn": "Yeungnamdae",
+    "name:zh": "嶺南大",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "244",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1869478585,
+  "lat": 35.8340264,
+  "lon": 128.7282908,
+  "tags": {
+    "name": "정평",
+    "name:en": "Jeongpyeong",
+    "name:ja": "チョンピョン(正坪)",
+    "name:ko": "정평",
+    "name:ko-Latn": "Jeongpyeong",
+    "name:zh": "正坪",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "242",
+    "subway": "yes",
+    "wikidata": "Q492199"
+  }
+},
+{
+  "type": "node",
+  "id": 2889129928,
+  "lat": 35.8240106,
+  "lon": 128.5458898,
+  "tags": {
+    "name": "월촌",
+    "name:en": "Wolchon",
+    "name:ja": "ウォルチョン(月村)",
+    "name:ko": "월촌",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "121",
+    "subway": "yes",
+    "wikidata": "Q707983",
+    "wikipedia": "ko:월촌역"
+  }
+},
+{
+  "type": "node",
   "id": 3218281362,
   "lat": 35.2383318,
   "lon": 129.0881053,
@@ -3766,6 +4261,127 @@
     "name:ko": "안평기지간이",
     "public_transport": "stop_position",
     "railway": "stop"
+  }
+},
+{
+  "type": "node",
+  "id": 3478855920,
+  "lat": 35.8390370,
+  "lon": 128.6239008,
+  "tags": {
+    "monorail": "yes",
+    "name": "황금",
+    "name:en": "Hwanggeum",
+    "name:ja": "ファングム(黄金)",
+    "name:ko": "황금",
+    "name:ko-Latn": "Hwanggeumyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "337",
+    "wikidata": "Q15985367"
+  }
+},
+{
+  "type": "node",
+  "id": 3478855924,
+  "lat": 35.8451556,
+  "lon": 128.6244446,
+  "tags": {
+    "monorail": "yes",
+    "name": "어린이세상",
+    "name:en": "Children's World",
+    "name:ja": "オリニフェグァン(こども世上)",
+    "name:ko": "어린이세상",
+    "name:zh": "어린이世上",
+    "old_name": "어린이회관",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "336",
+    "wikidata": "Q15985366"
+  }
+},
+{
+  "type": "node",
+  "id": 3495256581,
+  "lat": 35.8314130,
+  "lon": 128.6231880,
+  "tags": {
+    "addr:city": "대구광역시",
+    "addr:district": "수성구",
+    "addr:housenumber": "14",
+    "addr:postcode": "42186",
+    "addr:street": "동대구로",
+    "addr:subdistrict": "지산동",
+    "monorail": "yes",
+    "name": "수성못",
+    "name:en": "Suseongmot",
+    "name:ja": "スソンモッ(寿城池)",
+    "name:ko": "수성못",
+    "name:ko-Latn": "Suseongmonnyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "338",
+    "wikidata": "Q15985368",
+    "wikipedia": "ko:수성못역"
+  }
+},
+{
+  "type": "node",
+  "id": 3495256589,
+  "lat": 35.8209511,
+  "lon": 128.6400131,
+  "tags": {
+    "monorail": "yes",
+    "name": "범물",
+    "name:en": "Beommul",
+    "name:ja": "ポンムル(凡勿)",
+    "name:ko": "범물",
+    "name:ko-Latn": "Beommulnyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "340",
+    "wikidata": "Q15985370",
+    "wikipedia": "ko:범물역"
+  }
+},
+{
+  "type": "node",
+  "id": 3495257796,
+  "lat": 35.8252520,
+  "lon": 128.6318186,
+  "tags": {
+    "monorail": "yes",
+    "name": "지산",
+    "name:en": "Jisan",
+    "name:ja": "チサン(池山)",
+    "name:ko": "지산",
+    "name:ko-Latn": "Jisanyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "339",
+    "wikidata": "Q15985369",
+    "wikipedia": "ko:지산역"
+  }
+},
+{
+  "type": "node",
+  "id": 3495257797,
+  "lat": 35.8182651,
+  "lon": 128.6464356,
+  "tags": {
+    "addr:housenumber": "83",
+    "addr:street": "범안로",
+    "monorail": "yes",
+    "name": "용지",
+    "name:en": "Yongji",
+    "name:ja": "ヨンジ(龍池)",
+    "name:ko": "용지",
+    "name:ko-Latn": "Yongjiyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "341",
+    "wikidata": "Q15985371",
+    "wikipedia": "ko:용지역"
   }
 },
 {
@@ -3852,6 +4468,53 @@
     "public_transport": "stop_position",
     "railway": "stop",
     "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4092335459,
+  "lat": 35.7982689,
+  "lon": 129.1389632,
+  "tags": {
+    "air_conditioning": "yes",
+    "alt_name": "경주역",
+    "alt_name:en": "Gyeongju Station",
+    "changing_table": "yes",
+    "name": "경주",
+    "name:de": "Gyeongju",
+    "name:el": "Γκιόνγκτζου",
+    "name:en": "Gyeongju",
+    "name:ja": "慶州",
+    "name:ja-Hira": "ギョンジュ",
+    "name:ko": "경주",
+    "name:ko-Hani": "慶州",
+    "name:zh": "庆州",
+    "name:zh-Hans": "庆州",
+    "name:zh-Hant": "慶州",
+    "network": "ITX-마음",
+    "network:en": "ITX-Maum",
+    "network:ko": "ITX-마음",
+    "network:wikidata": "Q122238452",
+    "old_name": "신경주역",
+    "old_name:de": "Bf SinGyeongju",
+    "old_name:en": "Singyeongju",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "경주",
+    "station": "train",
+    "toilets": "yes",
+    "toilets:wheelchair": "yes",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q54294",
+    "wikipedia": "ko:경주역"
   }
 },
 {
@@ -4001,6 +4664,20 @@
 },
 {
   "type": "node",
+  "id": 4497184215,
+  "lat": 35.5553608,
+  "lon": 128.7603704,
+  "tags": {
+    "name": "상동",
+    "name:en": "Sangdong",
+    "name:ko": "상동",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 4523391984,
   "lat": 35.1956849,
   "lon": 129.2076568,
@@ -4017,6 +4694,73 @@
     "operator:wikipedia": "en:Korail",
     "public_transport": "stop_position",
     "railway": "stop",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4550135662,
+  "lat": 35.7048337,
+  "lon": 128.7162166,
+  "tags": {
+    "alt_name": "남성현역",
+    "alt_name:en": "Namseonghyeon station",
+    "name": "남성현",
+    "name:en": "Namseonghyeon",
+    "name:ja": "南省峴",
+    "name:ko": "남성현",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q477078",
+    "wikipedia": "ko:남성현역"
+  }
+},
+{
+  "type": "node",
+  "id": 4608994466,
+  "lat": 35.8186777,
+  "lon": 128.7275972,
+  "tags": {
+    "name": "경산",
+    "name:en": "Gyeongsan",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "K119",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4631762762,
+  "lat": 35.8042787,
+  "lon": 128.5003930,
+  "tags": {
+    "name": "화원",
+    "name:en": "Hwawon",
+    "name:ja": "ファウォン(花園)",
+    "name:ko": "화원",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "116",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4631762763,
+  "lat": 35.7986759,
+  "lon": 128.4893370,
+  "tags": {
+    "name": "설화명곡",
+    "name:en": "Seolhwa·Myeonggok",
+    "name:ja": "ソルファミョンゴク(舌化ミョン谷)",
+    "name:ko": "설화명곡",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "115",
     "subway": "yes"
   }
 },
@@ -4114,6 +4858,53 @@
 },
 {
   "type": "node",
+  "id": 4691563267,
+  "lat": 35.2521048,
+  "lon": 128.3520264,
+  "tags": {
+    "name": "군북",
+    "name:en": "Gunbuk",
+    "name:ja": "郡北",
+    "name:ko": "군북",
+    "name:ko-Latn": "Gunbukyeok",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "군북",
+    "wikidata": "Q1332422"
+  }
+},
+{
+  "type": "node",
+  "id": 4691566557,
+  "lat": 35.1748106,
+  "lon": 128.2582437,
+  "tags": {
+    "name": "반성",
+    "name:en": "Banseong",
+    "name:ja": "班城",
+    "name:ko": "반성",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "반성",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q1597026"
+  }
+},
+{
+  "type": "node",
   "id": 4903097243,
   "lat": 35.1712130,
   "lon": 129.1368167,
@@ -4132,6 +4923,24 @@
     "public_transport": "stop_position",
     "railway": "stop",
     "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4938601811,
+  "lat": 35.8137562,
+  "lon": 128.5226822,
+  "tags": {
+    "name": "진천",
+    "name:en": "Jincheon",
+    "name:ja": "チンチョン(辰泉)",
+    "name:ko": "진천",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "118",
+    "subway": "yes",
+    "wikidata": "Q708021",
+    "wikipedia": "ko:진천역"
   }
 },
 {
@@ -6962,6 +7771,40 @@
 },
 {
   "type": "node",
+  "id": 6132712618,
+  "lat": 35.6148687,
+  "lon": 129.3724491,
+  "tags": {
+    "name": "북울산",
+    "name:en": "Bugulsan",
+    "name:ja": "北蔚山",
+    "name:ja-Hira": "プグルサン",
+    "name:ko": "북울산",
+    "name:ko-Hani": "北蔚山",
+    "name:zh": "北蔚山",
+    "name:zh-Hans": "北蔚山",
+    "name:zh-Hant": "北蔚山",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "not:network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "start_date": "2021-12-28",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 6480269468,
   "lat": 35.1794562,
   "lon": 129.1245187,
@@ -7086,6 +7929,53 @@
 },
 {
   "type": "node",
+  "id": 7625777281,
+  "lat": 35.5403259,
+  "lon": 129.3546502,
+  "tags": {
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7660226015,
+  "lat": 35.5078991,
+  "lon": 129.3211169,
+  "tags": {
+    "alt_name": "개운포역",
+    "alt_name:en": "Gaeunpo Station",
+    "name": "개운포",
+    "name:en": "Gaeunpo",
+    "name:ja": "開雲浦",
+    "name:ja-Hira": "ケウンポ",
+    "name:ko": "개운포",
+    "name:ko-Hani": "開雲浦",
+    "name:zh": "開雲浦",
+    "name:zh-Hans": "开云浦",
+    "name:zh-Hant": "開雲浦",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "개운포",
+    "ref": "K131",
+    "ref:ARS": "0457",
+    "ref:KROIS": "750678",
+    "ref:XROIS": "3900638",
+    "start_date": "2021-12-28",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 7686530868,
   "lat": 35.4565132,
   "lon": 129.2878274,
@@ -7117,6 +8007,32 @@
     "start_date": "2021-12-28",
     "station": "train",
     "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8153431901,
+  "lat": 35.2363635,
+  "lon": 128.5767280,
+  "tags": {
+    "name": "마산",
+    "name:en": "Masan",
+    "name:ja": "馬山",
+    "name:ko": "마산",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "마산",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q624162",
+    "wikipedia": "ko:마산역"
   }
 },
 {
@@ -7175,6 +8091,136 @@
     "railway": "station",
     "station": "light_rail",
     "wikidata": "Q4869302"
+  }
+},
+{
+  "type": "node",
+  "id": 8288809752,
+  "lat": 35.8451281,
+  "lon": 128.6244164,
+  "tags": {
+    "monorail": "yes",
+    "name": "어린이세상",
+    "name:en": "Children's World",
+    "name:ja": "オリニフェグァン(こども会館)",
+    "name:ko": "어린이세상",
+    "name:zh": "어린이會館",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "monorail",
+    "wikidata": "Q15985366"
+  }
+},
+{
+  "type": "node",
+  "id": 8288809753,
+  "lat": 35.8390942,
+  "lon": 128.6238980,
+  "tags": {
+    "addr:city": "대구광역시",
+    "addr:district": "수성구",
+    "addr:housenumber": "100",
+    "addr:street": "동대구로",
+    "monorail": "yes",
+    "name": "황금",
+    "name:en": "Hwanggeum",
+    "name:ja": "ファングム(黄金)",
+    "name:ko": "황금",
+    "name:ko-Latn": "Hwanggeumyeok",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "monorail",
+    "wikidata": "Q15985367"
+  }
+},
+{
+  "type": "node",
+  "id": 8288809754,
+  "lat": 35.8313319,
+  "lon": 128.6231953,
+  "tags": {
+    "addr:city": "대구광역시",
+    "addr:district": "수성구",
+    "addr:housenumber": "14",
+    "addr:postcode": "42186",
+    "addr:street": "동대구로",
+    "addr:subdistrict": "지산동",
+    "monorail": "yes",
+    "name": "수성못",
+    "name:en": "Suseongmot",
+    "name:ja": "スソンモッ(寿城池)",
+    "name:ko": "수성못",
+    "name:ko-Latn": "Suseongmonnyeok",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "monorail",
+    "wikidata": "Q15985368",
+    "wikipedia": "ko:수성못역"
+  }
+},
+{
+  "type": "node",
+  "id": 8288809755,
+  "lat": 35.8251867,
+  "lon": 128.6319028,
+  "tags": {
+    "monorail": "yes",
+    "name": "지산",
+    "name:en": "Jisan",
+    "name:ja": "チサン(池山)",
+    "name:ko": "지산",
+    "name:ko-Latn": "Jisanyeok",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "monorail",
+    "wikidata": "Q15985369",
+    "wikipedia": "ko:지산역"
+  }
+},
+{
+  "type": "node",
+  "id": 8288809756,
+  "lat": 35.8208664,
+  "lon": 128.6401269,
+  "tags": {
+    "monorail": "yes",
+    "name": "범물",
+    "name:en": "Beommul",
+    "name:ja": "ポンムル(凡勿)",
+    "name:ko": "범물",
+    "name:ko-Latn": "Beommulnyeok",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "monorail",
+    "wikidata": "Q15985370",
+    "wikipedia": "ko:범물역"
+  }
+},
+{
+  "type": "node",
+  "id": 8288809757,
+  "lat": 35.8182320,
+  "lon": 128.6464130,
+  "tags": {
+    "addr:housenumber": "83",
+    "addr:street": "범안로",
+    "monorail": "yes",
+    "name": "용지",
+    "name:en": "Yongji",
+    "name:ja": "ヨンジ(龍池)",
+    "name:ko": "용지",
+    "name:ko-Latn": "Yongjiyeok",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "station": "monorail",
+    "wikidata": "Q15985371",
+    "wikipedia": "ko:용지역"
   }
 },
 {
@@ -7585,6 +8631,18 @@
 },
 {
   "type": "node",
+  "id": 9179210164,
+  "lat": 35.5262941,
+  "lon": 129.3316038,
+  "tags": {
+    "name": "야음사거리역",
+    "proposed:railway": "station",
+    "railway": "proposed",
+    "tram": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 9375901242,
   "lat": 35.3123821,
   "lon": 129.2457726,
@@ -7861,6 +8919,120 @@
 },
 {
   "type": "node",
+  "id": 9375902246,
+  "lat": 35.5082220,
+  "lon": 129.3219351,
+  "tags": {
+    "name": "개운포",
+    "name:en": "Gaeunpo",
+    "name:ko": "개운포",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "K131",
+    "start_date": "2021-12-28",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9375902249,
+  "lat": 35.5075848,
+  "lon": 129.3204023,
+  "tags": {
+    "name": "개운포",
+    "name:en": "Gaeunpo",
+    "name:ko": "개운포",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "K131",
+    "start_date": "2021-12-28",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9375902259,
+  "lat": 35.5382759,
+  "lon": 129.3536926,
+  "tags": {
+    "name": "태화강",
+    "name:en": "Taehwagang",
+    "name:ko": "태화강",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "K132",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9375902260,
+  "lat": 35.5382157,
+  "lon": 129.3538592,
+  "tags": {
+    "name": "태화강",
+    "name:en": "Taehwagang",
+    "name:ko": "태화강",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "K132",
+    "start_date": "2021-12-28",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9375902261,
+  "lat": 35.5382628,
+  "lon": 129.3537415,
+  "tags": {
+    "name": "태화강",
+    "name:en": "Taehwagang",
+    "name:ko": "태화강",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "K132",
+    "start_date": "2021-12-28",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 9376048215,
   "lat": 35.1806057,
   "lon": 129.0688136,
@@ -7909,6 +9081,18 @@
     "ref": "K111",
     "subway": "yes",
     "wikidata": "Q1598277"
+  }
+},
+{
+  "type": "node",
+  "id": 9435437902,
+  "lat": 34.8657977,
+  "lon": 128.6149793,
+  "tags": {
+    "monorail": "yes",
+    "name": "상부승강장",
+    "public_transport": "station",
+    "railway": "station"
   }
 },
 {
@@ -8032,6 +9216,29 @@
     "name:en": "Bukjeong",
     "name:ko": "북정",
     "operator": "우진메트로양산"
+  }
+},
+{
+  "type": "node",
+  "id": 10066780211,
+  "lat": 35.5383270,
+  "lon": 129.3535779,
+  "tags": {
+    "name": "태화강",
+    "name:en": "Taehwagang",
+    "name:ko": "태화강",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "K132",
+    "start_date": "2021-12-28",
+    "subway": "yes"
   }
 },
 {
@@ -8243,6 +9450,95 @@
 },
 {
   "type": "node",
+  "id": 10566861525,
+  "lat": 35.2581253,
+  "lon": 128.6070336,
+  "tags": {
+    "name": "창원",
+    "name:en": "Changwon",
+    "name:ja": "昌原",
+    "name:ko": "창원",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "창원",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q626193",
+    "wikipedia": "ko:창원역"
+  }
+},
+{
+  "type": "node",
+  "id": 10694582694,
+  "lat": 35.6398546,
+  "lon": 128.7461654,
+  "tags": {
+    "addr:city": "청도군",
+    "addr:housenumber": "214",
+    "addr:street": "청화로",
+    "alt_name": "청도역",
+    "alt_name:en": "Cheongdo station",
+    "name": "청도",
+    "name:en": "Cheongdo",
+    "name:ja": "清道",
+    "name:ko": "청도",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "청도",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q477082",
+    "wikipedia": "ko:청도역"
+  }
+},
+{
+  "type": "node",
+  "id": 10694582728,
+  "lat": 35.5557169,
+  "lon": 128.7604039,
+  "tags": {
+    "alt_name": "상동역",
+    "alt_name:en": "Sangdong Station",
+    "name": "상동",
+    "name:en": "Sangdong",
+    "name:ja": "上東",
+    "name:ko": "상동",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "상동",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q624589",
+    "wikipedia": "ko:상동역 (밀양)"
+  }
+},
+{
+  "type": "node",
   "id": 11865737568,
   "lat": 35.2047222,
   "lon": 129.0772975,
@@ -8375,6 +9671,108 @@
     "ref": "B5",
     "station": "tram",
     "tram": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12223134695,
+  "lat": 35.8182844,
+  "lon": 128.6464340,
+  "tags": {
+    "addr:housenumber": "83",
+    "addr:street": "범안로",
+    "monorail": "yes",
+    "name": "용지",
+    "name:en": "Yongji",
+    "name:ja": "ヨンジ(龍池)",
+    "name:ko": "용지",
+    "name:ko-Latn": "Yongjiyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "341",
+    "wikidata": "Q15985371",
+    "wikipedia": "ko:용지역"
+  }
+},
+{
+  "type": "node",
+  "id": 12223151407,
+  "lat": 35.8209617,
+  "lon": 128.6400227,
+  "tags": {
+    "monorail": "yes",
+    "name": "범물",
+    "name:en": "Beommul",
+    "name:ja": "ポンムル(凡勿)",
+    "name:ko": "범물",
+    "name:ko-Latn": "Beommulnyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "340",
+    "wikidata": "Q15985370",
+    "wikipedia": "ko:범물역"
+  }
+},
+{
+  "type": "node",
+  "id": 12223151418,
+  "lat": 35.8252784,
+  "lon": 128.6318422,
+  "tags": {
+    "monorail": "yes",
+    "name": "지산",
+    "name:en": "Jisan",
+    "name:ja": "チサン(池山)",
+    "name:ko": "지산",
+    "name:ko-Latn": "Jisanyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "339",
+    "wikidata": "Q15985369",
+    "wikipedia": "ko:지산역"
+  }
+},
+{
+  "type": "node",
+  "id": 12223151437,
+  "lat": 35.8314053,
+  "lon": 128.6232190,
+  "tags": {
+    "addr:city": "대구광역시",
+    "addr:district": "수성구",
+    "addr:housenumber": "14",
+    "addr:postcode": "42186",
+    "addr:street": "동대구로",
+    "addr:subdistrict": "지산동",
+    "monorail": "yes",
+    "name": "수성못",
+    "name:en": "Suseongmot",
+    "name:ja": "スソンモッ(寿城池)",
+    "name:ko": "수성못",
+    "name:ko-Latn": "Suseongmonnyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "338",
+    "wikidata": "Q15985368",
+    "wikipedia": "ko:수성못역"
+  }
+},
+{
+  "type": "node",
+  "id": 12223151445,
+  "lat": 35.8390309,
+  "lon": 128.6239335,
+  "tags": {
+    "monorail": "yes",
+    "name": "황금",
+    "name:en": "Hwanggeum",
+    "name:ja": "ファングム(黄金)",
+    "name:ko": "황금",
+    "name:ko-Latn": "Hwanggeumyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "337",
+    "wikidata": "Q15985367"
   }
 },
 {
@@ -8778,6 +10176,20 @@
 },
 {
   "type": "node",
+  "id": 12475888591,
+  "lat": 35.8190675,
+  "lon": 128.7274263,
+  "tags": {
+    "name": "경산",
+    "name:en": "Gyeongsan",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "K119",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 12766397643,
   "lat": 35.2124642,
   "lon": 128.9693722,
@@ -9156,6 +10568,84 @@
 },
 {
   "type": "node",
+  "id": 13068613120,
+  "lat": 35.7991837,
+  "lon": 129.1372230,
+  "tags": {
+    "name": "경주",
+    "name:ko": "경주",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13068613121,
+  "lat": 35.7986947,
+  "lon": 129.1378012,
+  "tags": {
+    "name": "경주",
+    "name:ko": "경주",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13068613122,
+  "lat": 35.7975502,
+  "lon": 129.1403533,
+  "tags": {
+    "name": "경주",
+    "name:ko": "경주",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13068613123,
+  "lat": 35.7981699,
+  "lon": 129.1398093,
+  "tags": {
+    "name": "경주",
+    "name:ko": "경주",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13071030780,
+  "lat": 35.5494444,
+  "lon": 129.1379564,
+  "tags": {
+    "name": "울산",
+    "name:ko": "울산",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13071030781,
+  "lat": 35.5521787,
+  "lon": 129.1379531,
+  "tags": {
+    "name": "울산",
+    "name:ko": "울산",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 13376351311,
   "lat": 35.2425536,
   "lon": 128.7015957,
@@ -9419,6 +10909,28 @@
 },
 {
   "type": "node",
+  "id": 13472835117,
+  "lat": 35.2496799,
+  "lon": 128.5191791,
+  "tags": {
+    "name": "중리",
+    "name:en": "Jung-ri",
+    "name:ko": "중리",
+    "not:network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "중리",
+    "ref:ARS": "0234",
+    "ref:KROIS": "880408",
+    "ref:XROIS": "3900687",
+    "start_date": "1923-12-01",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 13483260154,
   "lat": 35.3350472,
   "lon": 129.0355875,
@@ -9454,6 +10966,69 @@
 },
 {
   "type": "node",
+  "id": 13503605213,
+  "lat": 35.8042950,
+  "lon": 128.5003815,
+  "tags": {
+    "name": "화원",
+    "name:en": "Hwawon",
+    "name:ja": "ファウォン(花園)",
+    "name:ko": "화원",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "116",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q21060851",
+    "wikipedia": "ko:화원역"
+  }
+},
+{
+  "type": "node",
+  "id": 13503605214,
+  "lat": 35.8189545,
+  "lon": 128.5378401,
+  "tags": {
+    "name": "상인",
+    "name:en": "Sangin",
+    "name:ja": "サンイン(上仁)",
+    "name:ko": "상인",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "120",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q707960",
+    "wikipedia": "ko:월배역"
+  }
+},
+{
+  "type": "node",
+  "id": 13503605215,
+  "lat": 35.7987045,
+  "lon": 128.4893210,
+  "tags": {
+    "name": "설화명곡",
+    "name:en": "Seolhwa·Myeonggok",
+    "name:ja": "ソルファミョンゴク(舌化ミョン谷)",
+    "name:ko": "설화명곡",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "115",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q24000612",
+    "wikipedia": "ko:설화명곡역"
+  }
+},
+{
+  "type": "node",
   "id": 13504579312,
   "lat": 35.0712157,
   "lon": 129.0578090,
@@ -9472,6 +11047,861 @@
     "monorail": "yes",
     "public_transport": "stop_position",
     "railway": "stop"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872502,
+  "lat": 35.8365895,
+  "lon": 128.7535295,
+  "tags": {
+    "name": "영남대",
+    "name:en": "Yeungnam University",
+    "name:ja": "ヨンナムデ(嶺南大)",
+    "name:ko": "영남대",
+    "name:ko-Latn": "Yeungnamdae",
+    "name:zh": "嶺南大",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "244",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872503,
+  "lat": 35.8341215,
+  "lon": 128.7410331,
+  "tags": {
+    "name": "임당",
+    "name:en": "Imdang",
+    "name:ja": "イムダン(臨堂)",
+    "name:ko": "임당",
+    "name:ko-Latn": "Imdang",
+    "name:zh": "臨堂",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "243",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872504,
+  "lat": 35.8340736,
+  "lon": 128.7283355,
+  "tags": {
+    "name": "정평",
+    "name:en": "Jeongpyeong",
+    "name:ja": "チョンピョン(正坪)",
+    "name:ko": "정평",
+    "name:ko-Latn": "Jeongpyeong",
+    "name:zh": "正坪",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "242",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q492199"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872505,
+  "lat": 35.8368591,
+  "lon": 128.7160751,
+  "tags": {
+    "name": "사월",
+    "name:en": "Sawol",
+    "name:ja": "サウォル(沙月)",
+    "name:ko": "사월",
+    "name:ko-Latn": "Sawol",
+    "name:zh": "沙月",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "241",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q625426"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872506,
+  "lat": 35.8408448,
+  "lon": 128.7049788,
+  "tags": {
+    "name": "신매",
+    "name:en": "Sinmae",
+    "name:ja": "シンメ(新梅)",
+    "name:ko": "신매",
+    "name:ko-Latn": "Sinmaeyeok",
+    "name:zh": "新梅",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "240",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q708357"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872507,
+  "lat": 35.8429560,
+  "lon": 128.6933541,
+  "tags": {
+    "name": "고산",
+    "name:en": "Gosan",
+    "name:ja": "コサン(孤山)",
+    "name:ko": "고산",
+    "name:ko-Latn": "Gosanyeok",
+    "name:zh": "孤山",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "239",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q708278",
+    "wikipedia": "ko:고산역 (대구)"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872522,
+  "lat": 35.8426299,
+  "lon": 128.6802649,
+  "tags": {
+    "name": "수성알파시티",
+    "name:en": "Suseong Alpha City",
+    "name:ja": "スソンアルパシティ(寿城アルファシティ)",
+    "name:ko": "수성알파시티",
+    "name:zh": "蓮湖",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "238",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q695096",
+    "wikipedia": "ko:수성알파시티역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872523,
+  "lat": 35.8464217,
+  "lon": 128.6720627,
+  "tags": {
+    "name": "연호",
+    "name:en": "Yeonho",
+    "name:ja": "ヨノ(蓮湖)",
+    "name:ko": "연호",
+    "name:ko-Latn": "Yeonhoyeok",
+    "name:zh": "蓮湖",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "237",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q708373",
+    "wikipedia": "ko:연호역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872536,
+  "lat": 35.8490698,
+  "lon": 128.5288811,
+  "tags": {
+    "name": "용산",
+    "name:en": "Yongsan",
+    "name:ja": "ヨンサン(龍山)",
+    "name:ko": "용산",
+    "name:ko-Latn": "Yongsanyeok",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "223",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q624836"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872566,
+  "lat": 35.8444141,
+  "lon": 128.5886249,
+  "tags": {
+    "name": "영대병원",
+    "name:en": "Yeungnam University Hospital",
+    "name:ja": "ヨンデビョンウォン(嶺大病院)",
+    "name:ko": "영대병원",
+    "name:zh": "岭大医院",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "127",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q707812",
+    "wikipedia": "ko:영대병원역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872567,
+  "lat": 35.8408415,
+  "lon": 128.5812968,
+  "tags": {
+    "name": "현충로",
+    "name:en": "Hyeonchungno",
+    "name:ja": "ヒョンチュンロ(顕忠路)",
+    "name:ko": "현충로",
+    "name:zh": "显忠路",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "126",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q625022",
+    "wikipedia": "ko:현충로역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872568,
+  "lat": 35.8392020,
+  "lon": 128.5738215,
+  "tags": {
+    "name": "안지랑",
+    "name:en": "Anjirang",
+    "name:ja": "アンジラン",
+    "name:ko": "안지랑",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "125",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q707789",
+    "wikipedia": "ko:안지랑역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872569,
+  "lat": 35.8392684,
+  "lon": 128.5650212,
+  "tags": {
+    "name": "대명",
+    "name:en": "Daemyeong",
+    "name:ja": "テミョン(大明)",
+    "name:ko": "대명",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "124",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q707762",
+    "wikipedia": "ko:대명역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872570,
+  "lat": 35.8369461,
+  "lon": 128.5571033,
+  "tags": {
+    "name": "서부정류장",
+    "name:en": "Seobu Bus Terminal",
+    "name:ja": "ソブジョンリュジャン(西部停留場)",
+    "name:ko": "서부정류장",
+    "name:zh": "西部客运站",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "123",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q625295",
+    "wikipedia": "ko:서부정류장역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872571,
+  "lat": 35.8312772,
+  "lon": 128.5519226,
+  "tags": {
+    "name": "송현",
+    "name:en": "Songhyeon",
+    "name:ja": "ソンヒョン(松峴)",
+    "name:ko": "송현",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "122",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q707937",
+    "wikipedia": "ko:송현역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872572,
+  "lat": 35.8240268,
+  "lon": 128.5458273,
+  "tags": {
+    "name": "월촌",
+    "name:en": "Wolchon",
+    "name:ja": "ウォルチョン(月村)",
+    "name:ko": "월촌",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "121",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q707983",
+    "wikipedia": "ko:월촌역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872574,
+  "lat": 35.8161591,
+  "lon": 128.5304193,
+  "tags": {
+    "name": "월배",
+    "name:en": "Wolbae",
+    "name:ja": "ウォルベ(月背)",
+    "name:ko": "월배",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "119",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q707960",
+    "wikipedia": "ko:월배역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872575,
+  "lat": 35.8138155,
+  "lon": 128.5226852,
+  "tags": {
+    "name": "진천",
+    "name:en": "Jincheon",
+    "name:ja": "チンチョン(辰泉)",
+    "name:ko": "진천",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "118",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q708021",
+    "wikipedia": "ko:진천역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872576,
+  "lat": 35.8094261,
+  "lon": 128.5124592,
+  "tags": {
+    "name": "대곡",
+    "name:en": "Daegok",
+    "name:ja": "テゴク(大谷)",
+    "name:ko": "대곡",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "117",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q625028",
+    "wikipedia": "ko:대곡역 (대구)"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872585,
+  "lat": 35.8189657,
+  "lon": 128.5377446,
+  "tags": {
+    "name": "상인",
+    "name:en": "Sangin",
+    "name:ja": "サンイン(上仁)",
+    "name:ko": "상인",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "120",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872590,
+  "lat": 35.8161807,
+  "lon": 128.5303779,
+  "tags": {
+    "name": "월배",
+    "name:en": "Wolbae",
+    "name:ja": "ウォルベ(月背)",
+    "name:ko": "월배",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "119",
+    "subway": "yes",
+    "wikidata": "Q707960",
+    "wikipedia": "ko:월배역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872596,
+  "lat": 35.8138284,
+  "lon": 128.5225531,
+  "tags": {
+    "name": "진천",
+    "name:en": "Jincheon",
+    "name:ja": "チンチョン(辰泉)",
+    "name:ko": "진천",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "118",
+    "subway": "yes",
+    "wikidata": "Q708021",
+    "wikipedia": "ko:진천역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892608,
+  "lat": 35.8094391,
+  "lon": 128.5124003,
+  "tags": {
+    "name": "대곡",
+    "name:en": "Daegok",
+    "name:ja": "テゴク(大谷)",
+    "name:ko": "대곡",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "117",
+    "subway": "yes",
+    "wikidata": "Q625028",
+    "wikipedia": "ko:대곡역 (대구)"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892621,
+  "lat": 35.8043052,
+  "lon": 128.5002854,
+  "tags": {
+    "name": "화원",
+    "name:en": "Hwawon",
+    "name:ja": "ファウォン(花園)",
+    "name:ko": "화원",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "116",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892633,
+  "lat": 35.7987024,
+  "lon": 128.4892294,
+  "tags": {
+    "name": "설화명곡",
+    "name:en": "Seolhwa·Myeonggok",
+    "name:ja": "ソルファミョンゴク(舌化ミョン谷)",
+    "name:ko": "설화명곡",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "115",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892634,
+  "lat": 35.8408853,
+  "lon": 128.5812530,
+  "tags": {
+    "name": "현충로",
+    "name:en": "Hyeonchungno",
+    "name:ja": "ヒョンチュンロ(顕忠路)",
+    "name:ko": "현충로",
+    "name:zh": "显忠路",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "126",
+    "subway": "yes",
+    "wikidata": "Q625022",
+    "wikipedia": "ko:현충로역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892642,
+  "lat": 35.8392342,
+  "lon": 128.5737602,
+  "tags": {
+    "name": "안지랑",
+    "name:en": "Anjirang",
+    "name:ja": "アンジラン",
+    "name:ko": "안지랑",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "125",
+    "subway": "yes",
+    "wikidata": "Q707789",
+    "wikipedia": "ko:안지랑역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892647,
+  "lat": 35.8392983,
+  "lon": 128.5649519,
+  "tags": {
+    "name": "대명",
+    "name:en": "Daemyeong",
+    "name:ja": "テミョン(大明)",
+    "name:ko": "대명",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "124",
+    "subway": "yes",
+    "wikidata": "Q707762",
+    "wikipedia": "ko:대명역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892657,
+  "lat": 35.8369738,
+  "lon": 128.5570769,
+  "tags": {
+    "name": "서부정류장",
+    "name:en": "Seobu Bus Terminal",
+    "name:ja": "ソブジョンリュジャン(西部停留場)",
+    "name:ko": "서부정류장",
+    "name:zh": "西部客运站",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "123",
+    "subway": "yes",
+    "wikidata": "Q625295",
+    "wikipedia": "ko:서부정류장역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892668,
+  "lat": 35.8313209,
+  "lon": 128.5518968,
+  "tags": {
+    "name": "송현",
+    "name:en": "Songhyeon",
+    "name:ja": "ソンヒョン(松峴)",
+    "name:ko": "송현",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "122",
+    "subway": "yes",
+    "wikidata": "Q707937",
+    "wikipedia": "ko:송현역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892671,
+  "lat": 35.8240570,
+  "lon": 128.5457511,
+  "tags": {
+    "name": "월촌",
+    "name:en": "Wolchon",
+    "name:ja": "ウォルチョン(月村)",
+    "name:ko": "월촌",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "121",
+    "subway": "yes",
+    "wikidata": "Q707983",
+    "wikipedia": "ko:월촌역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892687,
+  "lat": 35.8444144,
+  "lon": 128.5885364,
+  "tags": {
+    "name": "영대병원",
+    "name:en": "Yeungnam University Hospital",
+    "name:ja": "ヨンデビョンウォン(嶺大病院)",
+    "name:ko": "영대병원",
+    "name:zh": "岭大医院",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "127",
+    "subway": "yes",
+    "wheelchair": "limited",
+    "wikidata": "Q707812",
+    "wikipedia": "ko:영대병원역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892739,
+  "lat": 35.8366301,
+  "lon": 128.7535120,
+  "tags": {
+    "name": "영남대",
+    "name:en": "Yeungnam University",
+    "name:ja": "ヨンナムデ(嶺南大)",
+    "name:ko": "영남대",
+    "name:ko-Latn": "Yeungnamdae",
+    "name:zh": "嶺南大",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "244",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892746,
+  "lat": 35.8341755,
+  "lon": 128.7409998,
+  "tags": {
+    "name": "임당",
+    "name:en": "Imdang",
+    "name:ja": "イムダン(臨堂)",
+    "name:ko": "임당",
+    "name:ko-Latn": "Imdang",
+    "name:zh": "臨堂",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "243",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892751,
+  "lat": 35.8341162,
+  "lon": 128.7283719,
+  "tags": {
+    "name": "정평",
+    "name:en": "Jeongpyeong",
+    "name:ja": "チョンピョン(正坪)",
+    "name:ko": "정평",
+    "name:ko-Latn": "Jeongpyeong",
+    "name:zh": "正坪",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "242",
+    "subway": "yes",
+    "wikidata": "Q492199"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892756,
+  "lat": 35.8369480,
+  "lon": 128.7160928,
+  "tags": {
+    "name": "사월",
+    "name:en": "Sawol",
+    "name:ja": "サウォル(沙月)",
+    "name:ko": "사월",
+    "name:ko-Latn": "Sawol",
+    "name:zh": "沙月",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "241",
+    "subway": "yes",
+    "wikidata": "Q625426"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892760,
+  "lat": 35.8409155,
+  "lon": 128.7049822,
+  "tags": {
+    "name": "신매",
+    "name:en": "Sinmae",
+    "name:ja": "シンメ(新梅)",
+    "name:ko": "신매",
+    "name:ko-Latn": "Sinmaeyeok",
+    "name:zh": "新梅",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "240",
+    "subway": "yes",
+    "wikidata": "Q708357"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892764,
+  "lat": 35.8430383,
+  "lon": 128.6933941,
+  "tags": {
+    "name": "고산",
+    "name:en": "Gosan",
+    "name:ja": "コサン(孤山)",
+    "name:ko": "고산",
+    "name:ko-Latn": "Gosanyeok",
+    "name:zh": "孤山",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "239",
+    "subway": "yes",
+    "wikidata": "Q708278",
+    "wikipedia": "ko:고산역 (대구)"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892769,
+  "lat": 35.8427624,
+  "lon": 128.6800516,
+  "tags": {
+    "name": "수성알파시티",
+    "name:en": "Suseong Alpha City",
+    "name:ja": "スソンアルパシティ(寿城アルファシティ)",
+    "name:ko": "수성알파시티",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "238",
+    "subway": "yes",
+    "wikidata": "Q695096",
+    "wikipedia": "ko:수성알파시티역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892770,
+  "lat": 35.8464909,
+  "lon": 128.6720900,
+  "tags": {
+    "name": "연호",
+    "name:en": "Yeonho",
+    "name:ja": "ヨノ(蓮湖)",
+    "name:ko": "연호",
+    "name:ko-Latn": "Yeonhoyeok",
+    "name:zh": "蓮湖",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "237",
+    "subway": "yes",
+    "wikidata": "Q708373",
+    "wikipedia": "ko:연호역"
+  }
+},
+{
+  "type": "node",
+  "id": 13505892837,
+  "lat": 35.8491433,
+  "lon": 128.5288629,
+  "tags": {
+    "name": "용산",
+    "name:en": "Yongsan",
+    "name:ja": "ヨンサン(龍山)",
+    "name:ko": "용산",
+    "name:ko-Latn": "Yongsanyeok",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "223",
+    "subway": "yes",
+    "wikidata": "Q624836"
+  }
+},
+{
+  "type": "node",
+  "id": 13512085620,
+  "lat": 35.8451532,
+  "lon": 128.6244752,
+  "tags": {
+    "monorail": "yes",
+    "name": "어린이세상",
+    "name:en": "Children's World",
+    "name:ja": "オリニフェグァン(こども世上)",
+    "name:ko": "어린이세상",
+    "name:zh": "어린이世上",
+    "old_name": "어린이회관",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "336",
+    "wikidata": "Q15985366"
+  }
+},
+{
+  "type": "node",
+  "id": 13676737826,
+  "lat": 35.2493254,
+  "lon": 128.4246585,
+  "tags": {
+    "name": "함안",
+    "name:en": "Haman",
+    "name:ko": "함안",
+    "network:wikidata": "Q122238452",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "함안",
+    "station": "train",
+    "train": "yes"
   }
 },
 {
@@ -11442,6 +13872,51 @@
   }
 },
 {
+  "type": "node",
+  "id": 14152396199,
+  "lat": 34.9818905,
+  "lon": 128.3330722,
+  "tags": {
+    "construction:railway": "station",
+    "name": "고성",
+    "name:en": "Goseong",
+    "name:ko": "고성",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 14152412035,
+  "lat": 34.8710633,
+  "lon": 128.4230629,
+  "tags": {
+    "construction:railway": "station",
+    "name": "통영",
+    "name:en": "Tongyeong",
+    "name:ko": "통영",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 14152412086,
+  "lat": 34.9008287,
+  "lon": 128.5561955,
+  "tags": {
+    "construction:railway": "station",
+    "name": "거제",
+    "name:en": "Geoje",
+    "name:ko": "거제",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
   "type": "way",
   "id": 165484182,
   "center": {
@@ -11596,6 +14071,176 @@
     "light_rail": "yes",
     "public_transport": "station",
     "station": "light_rail"
+  }
+},
+{
+  "type": "way",
+  "id": 889577329,
+  "center": {
+    "lat": 35.8451555,
+    "lon": 128.6244532
+  },
+  "nodes": [
+    8270262977,
+    8270262978,
+    8270262979,
+    8270262980,
+    8270262977
+  ],
+  "tags": {
+    "addr:city": "대구광역시",
+    "addr:district": "수성구",
+    "addr:housenumber": "166",
+    "addr:postcode": "42110",
+    "addr:street": "동대구로",
+    "building": "train_station",
+    "layer": "1",
+    "monorail": "yes",
+    "note": "--\"역\" 이름 기입 금지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 889577331,
+  "center": {
+    "lat": 35.8390733,
+    "lon": 128.6239039
+  },
+  "nodes": [
+    8270262988,
+    8270262989,
+    8270262990,
+    8270262991,
+    8270262988
+  ],
+  "tags": {
+    "addr:city": "대구광역시",
+    "addr:district": "수성구",
+    "addr:housenumber": "100",
+    "addr:postcode": "42176",
+    "addr:street": "동대구로",
+    "building": "yes",
+    "layer": "1",
+    "monorail": "yes",
+    "note": "--\"역\" 이름 기입 금지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 889577332,
+  "center": {
+    "lat": 35.8313290,
+    "lon": 128.6231940
+  },
+  "nodes": [
+    8270262992,
+    8270262993,
+    8270262994,
+    8270262995,
+    8270262992
+  ],
+  "tags": {
+    "building": "train_station",
+    "layer": "1",
+    "monorail": "yes",
+    "note": "--\"역\" 이름 기입 금지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 889577333,
+  "center": {
+    "lat": 35.8251950,
+    "lon": 128.6319108
+  },
+  "nodes": [
+    8270262996,
+    8270262997,
+    8270262998,
+    8270262999,
+    8270262996
+  ],
+  "tags": {
+    "building": "train_station",
+    "layer": "1",
+    "monorail": "yes",
+    "note": "--\"역\" 이름 기입 금지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 889577334,
+  "center": {
+    "lat": 35.8208748,
+    "lon": 128.6401273
+  },
+  "nodes": [
+    8270263000,
+    8270263001,
+    8270263002,
+    8270263003,
+    8270263000
+  ],
+  "tags": {
+    "building": "yes",
+    "layer": "1",
+    "monorail": "yes",
+    "note": "--\"역\" 이름 기입 금지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 889577335,
+  "center": {
+    "lat": 35.8182322,
+    "lon": 128.6464045
+  },
+  "nodes": [
+    8270263004,
+    12223134696,
+    8270263012,
+    8270263005,
+    8270263006,
+    8666175758,
+    8666175763,
+    8666175762,
+    8270263007,
+    8270263004
+  ],
+  "tags": {
+    "building": "train_station",
+    "layer": "1",
+    "monorail": "yes",
+    "note": "--\"역\" 이름 기입 금지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1537908866,
+  "center": {
+    "lat": 35.1534615,
+    "lon": 128.6601496
+  },
+  "nodes": [
+    14007991149,
+    14007991150,
+    14007991151,
+    14007991152,
+    14007991153,
+    14007991154,
+    14007991149
+  ],
+  "tags": {
+    "name": "진해역",
+    "public_transport": "station",
+    "railway": "station",
+    "train": "yes"
   }
 },
 {
@@ -12160,6 +14805,184 @@
   "tags": {
     "name": "서부산 유통지구",
     "name:en": "Seobusan Yutongjigu",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7700584,
+  "center": {
+    "lat": 35.8137861,
+    "lon": 128.5225868
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872575,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4938601811,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13505872596,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 4213310289,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4929882253,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4929882255,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4213310789,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246326111,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246326110,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246326109,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "진천",
+    "name:en": "Jincheon",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7700585,
+  "center": {
+    "lat": 35.8491723,
+    "lon": 128.5287141
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872536,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892837,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355173931,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250537974,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250537975,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250537976,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250537977,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250537978,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250537979,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "용산",
+    "name:en": "Yongsan",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7700588,
+  "center": {
+    "lat": 35.8340967,
+    "lon": 128.7281792
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872504,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892751,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 1869478585,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 4689934414,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4689934413,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4689934410,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4689934412,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "정평",
+    "name:en": "Jeongpyeong",
     "public_transport": "stop_area",
     "type": "public_transport"
   }
@@ -12920,6 +15743,57 @@
   "tags": {
     "name": "호포",
     "name:en": "Hopo Station",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7728107,
+  "center": {
+    "lat": 35.8371151,
+    "lon": 128.5571101
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872570,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892657,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355174022,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 3790969571,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246406807,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246406809,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246406808,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "서부정류장",
+    "name:en": "Seongdangmot",
     "public_transport": "stop_area",
     "type": "public_transport"
   }
@@ -14954,7 +17828,7 @@
   "id": 8040047,
   "center": {
     "lat": 35.1147132,
-    "lon": 129.0394764
+    "lon": 129.0394418
   },
   "members": [
     {
@@ -18217,6 +21091,1298 @@
 },
 {
   "type": "relation",
+  "id": 12045613,
+  "center": {
+    "lat": 35.7988704,
+    "lon": 128.4896280
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13503605215,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4631762763,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13505892633,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246333149,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246333150,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246333151,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246333152,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246333153,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246333154,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246333155,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246333156,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "설화명곡",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045620,
+  "center": {
+    "lat": 35.8042058,
+    "lon": 128.5002353
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13503605213,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4631762762,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13505892621,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246332253,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246332254,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246332255,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246332256,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "화원",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045624,
+  "center": {
+    "lat": 35.8094304,
+    "lon": 128.5125838
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872576,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173915,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13505892608,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246336633,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246336634,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246336636,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246336635,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "대곡",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045635,
+  "center": {
+    "lat": 35.8161209,
+    "lon": 128.5303074
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872574,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173919,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13505872590,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246316904,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246316905,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246316906,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246316907,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "월배",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045662,
+  "center": {
+    "lat": 35.8189949,
+    "lon": 128.5378958
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13503605214,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 436702174,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13505872585,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246357014,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246357015,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 10132892300,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246386717,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246386718,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246386719,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246386720,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246386721,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "상인",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045691,
+  "center": {
+    "lat": 35.8236962,
+    "lon": 128.5455099
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872572,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 2889129928,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13505892671,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246400636,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246400638,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246400639,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246400640,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246400641,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246400642,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246400643,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246400637,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "월촌",
+    "name:en": "Wolchon",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045704,
+  "center": {
+    "lat": 35.8309638,
+    "lon": 128.5516519
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872571,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892668,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355174020,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246410236,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246410237,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246410238,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246410239,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "송현",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045727,
+  "center": {
+    "lat": 35.8392807,
+    "lon": 128.5652349
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872569,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892647,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355174017,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246434030,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246434033,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246434032,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246434031,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "대명",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045793,
+  "center": {
+    "lat": 35.8391850,
+    "lon": 128.5741777
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872568,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892642,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355174018,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246429893,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246429894,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246429896,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246429895,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "안지랑",
+    "name:en": "Anjirang",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045884,
+  "center": {
+    "lat": 35.8406685,
+    "lon": 128.5809706
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872567,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892634,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355174026,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246603335,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246603338,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246603337,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246603336,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "현충로",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12045887,
+  "center": {
+    "lat": 35.8444387,
+    "lon": 128.5885844
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872566,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892687,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355174027,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8246589215,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246589216,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8246614517,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "영대병원",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12075370,
+  "center": {
+    "lat": 35.8502651,
+    "lon": 128.5378971
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872535,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892831,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355173933,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250641983,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250641984,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250641985,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250641986,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "죽전",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12075521,
+  "center": {
+    "lat": 35.8465435,
+    "lon": 128.6717289
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872523,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892770,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355173967,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250904951,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250904952,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250904953,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250904954,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "연호",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12075527,
+  "center": {
+    "lat": 35.8424034,
+    "lon": 128.6799031
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872522,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892769,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355173965,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250911940,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250911941,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250911942,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250911943,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250911944,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "대공원",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12075529,
+  "center": {
+    "lat": 35.8429329,
+    "lon": 128.6933222
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872507,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892764,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355173962,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250917217,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250917218,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250917219,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250917220,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "고산",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12075530,
+  "center": {
+    "lat": 35.8407988,
+    "lon": 128.7050025
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872506,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892760,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355173960,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250912391,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250912392,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250912393,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250912394,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250912395,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250912396,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250912397,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "신매",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12075544,
+  "center": {
+    "lat": 35.8369732,
+    "lon": 128.7156126
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872505,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892756,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355173958,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250940729,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250940730,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250940731,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250940732,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "사월",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12075583,
+  "center": {
+    "lat": 35.8341268,
+    "lon": 128.7410900
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872503,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892746,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 1869478577,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250952292,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250952293,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250952294,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250952295,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250952296,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250952297,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250952298,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250952299,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "임당",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12075604,
+  "center": {
+    "lat": 35.8362654,
+    "lon": 128.7530505
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13505872502,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13505892739,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 1869478584,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8250984306,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250984307,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250984308,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250984309,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8250984310,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "영남대",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12079773,
+  "center": {
+    "lat": 35.8454115,
+    "lon": 128.6244884
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 8288809752,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 3478855924,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13512085620,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253371495,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "어린이세상",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12079775,
+  "center": {
+    "lat": 35.8392799,
+    "lon": 128.6239405
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 8288809753,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 3478855920,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12223151445,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253390296,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "황금",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12079776,
+  "center": {
+    "lat": 35.8315531,
+    "lon": 128.6232771
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 8288809754,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 12223151437,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 3495256581,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253393389,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "수성못",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12079781,
+  "center": {
+    "lat": 35.8252829,
+    "lon": 128.6316671
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 8288809755,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 12223151418,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 3495257796,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253398747,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "지산",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12079784,
+  "center": {
+    "lat": 35.8208421,
+    "lon": 128.6399614
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 8288809756,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 3495256589,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12223151407,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253384273,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253384274,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253384275,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253384276,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "범물",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12079795,
+  "center": {
+    "lat": 35.8182786,
+    "lon": 128.6467629
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 8288809757,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 3495257797,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12223134695,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253412502,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253412503,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253412504,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253412505,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "용지",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
   "id": 12102437,
   "center": {
     "lat": 35.1860107,
@@ -20884,6 +25050,103 @@
 },
 {
   "type": "relation",
+  "id": 13288117,
+  "center": {
+    "lat": 35.5389469,
+    "lon": 129.3540196
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 674021829,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 674021830,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 368636558,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9375902259,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9375902261,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 10066780211,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9375902260,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 11959857787,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 999444305,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "태화강",
+    "name:en": "Taehwagang",
+    "operator": "한국철도공사",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 13556294,
+  "center": {
+    "lat": 35.5515766,
+    "lon": 129.1388668
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9342774583,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9342774584,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9342774587,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9342774588,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "울산역",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
   "id": 13610518,
   "center": {
     "lat": 35.3280664,
@@ -21187,6 +25450,60 @@
 },
 {
   "type": "relation",
+  "id": 13610523,
+  "center": {
+    "lat": 35.5079065,
+    "lon": 129.3211756
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 7660226015,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 1016525260,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 1016525259,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 9375902246,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9375902249,
+      "role": "stop_position"
+    },
+    {
+      "type": "node",
+      "ref": 13065540698,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13065540699,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "개운포",
+    "name:en": "Gaeunpo Station",
+    "name:ko": "개운포",
+    "operator": "한국철도공사",
+    "public_transport": "stop_area",
+    "start_date": "2021-12-28",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
   "id": 13610777,
   "center": {
     "lat": 35.1640922,
@@ -21217,6 +25534,77 @@
   "tags": {
     "name": "기차 부전역",
     "name:ko": "기차 부전역",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 13610866,
+  "center": {
+    "lat": 35.7982995,
+    "lon": 129.1388800
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 4092335459,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 175745977,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 175745972,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 407204553,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 407204555,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13065540700,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13065557401,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13068613120,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13068613121,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13068613122,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13068613123,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "경주",
+    "name:ko": "경주",
     "public_transport": "stop_area",
     "type": "public_transport"
   }
@@ -21254,6 +25642,144 @@
     "name": "암남동주민센터",
     "name:ja": "岩南洞バス停",
     "name:ko": "암남동주민센터",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 17830732,
+  "center": {
+    "lat": 35.5565465,
+    "lon": 129.1129267
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12050265372,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12050265371,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8447894873,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 8447894874,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "서부노인복지관",
+    "name:ko": "서부노인복지관",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 18502692,
+  "center": {
+    "lat": 35.8190295,
+    "lon": 128.7276201
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 366677068,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4608994466,
+      "role": "stop"
+    },
+    {
+      "type": "way",
+      "ref": 1348547119,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 12475888591,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 13065386716,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13065386715,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "대경선 경산",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 18502693,
+  "center": {
+    "lat": 35.8196827,
+    "lon": 128.7273654
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 466005134,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 366677068,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 466005133,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "경산",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 18738314,
+  "center": {
+    "lat": 35.8309849,
+    "lon": 129.1596873
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12609268746,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 12609268747,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "신경주대학교",
+    "name:en": "Shingyeongju University",
+    "name:ko": "신경주대학교",
     "public_transport": "stop_area",
     "type": "public_transport"
   }
@@ -21398,6 +25924,114 @@
 },
 {
   "type": "relation",
+  "id": 19455383,
+  "center": {
+    "lat": 35.6147567,
+    "lon": 129.3721021
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 821338638,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 821338639,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 6132712618,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 1289575589,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 11957850591,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "북울산",
+    "name:ko": "북울산",
+    "operator": "한국철도공사",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19462556,
+  "center": {
+    "lat": 35.5507543,
+    "lon": 129.1381685
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13071030781,
+      "role": "stop"
+    },
+    {
+      "type": "way",
+      "ref": 407204554,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 407204556,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 13071030780,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 183419095,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 1937883424,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 1937883384,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 1937883429,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13071030782,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 1657629122,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "울산",
+    "name:ko": "울산",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
   "id": 19543567,
   "center": {
     "lat": 35.2428364,
@@ -21462,6 +26096,40 @@
     "public_transport": "stop_area",
     "type": "public_transport",
     "wikidata": "Q1332399"
+  }
+},
+{
+  "type": "relation",
+  "id": 19543568,
+  "center": {
+    "lat": 35.2521433,
+    "lon": 128.3521114
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 1426069718,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 1426069719,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 4691563267,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "군북",
+    "name:en": "Gunbuk",
+    "name:ko": "군북",
+    "name:ko-Latn": "Gunbukyeok",
+    "public_transport": "stop_area",
+    "type": "public_transport",
+    "wikidata": "Q1332422"
   }
 }
 

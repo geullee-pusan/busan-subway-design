@@ -13,8 +13,8 @@ const ADMDONG_COMMIT = '7360288277dfd12d74e54b959c59bdd66f852e3a';
 const ADMDONG_BASE = `https://raw.githubusercontent.com/vuski/admdongkor/${ADMDONG_COMMIT}`;
 const SKADI_BASE = 'https://s3.amazonaws.com/elevation-tiles-prod/skadi';
 
-// Overpass에 보낼 범위(남, 서, 북, 동). 격자 범위보다 넉넉하게 잡는다.
-export const OSM_BBOX = '34.85,128.70,35.50,129.40';
+// Overpass에 보낼 범위(남, 서, 북, 동). 격자 범위(부산·울산·김해·창원·양산)보다 넉넉하게 잡는다.
+export const OSM_BBOX = '34.85,128.20,35.85,129.60';
 
 export const SOURCES = [
   // 부산교통공사 (공공데이터포털)

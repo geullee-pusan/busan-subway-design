@@ -164,8 +164,9 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
     lonLat: lonLatBBox(f.geometry),
   }));
 
-  // 2. 지도 범위: 부산 행정동 전체 + 추가 점 + 여유 칸
-  const busan = allDongs.filter((d) => d.code.startsWith('26'));
+  // 2. 지도 범위: 대상 지역(config.area: 부산·울산·김해·양산·창원) 행정동 전체 + 추가 점 + 여유 칸
+  const prefixes = config.area?.codePrefixes ?? ['26'];
+  const busan = allDongs.filter((d) => prefixes.some((prefix) => d.code.startsWith(prefix)));
   let minX = Infinity;
   let minY = Infinity;
   let maxX = -Infinity;

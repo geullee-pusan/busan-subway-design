@@ -106,7 +106,8 @@ test('실제 부산: 하단 서쪽 새 노선의 역 정보가 늘 같고 말이
     hourShape: readJson('data/build/ridership.json').shape['평일'],
     defaultHeadwayMin: allRules.defaultHeadwayMin,
   });
-  const cell = (col, row) => row * grid.cols + col;
+  // 이 시험의 칸은 부산만 있던 옛 격자(왼쪽 위 480km, 3918km) 기준으로 적었다. 지금 격자의 칸으로 옮긴다.
+  const cell = (c, r) => (r + (grid.origin.northing - 3918000) / 1000) * grid.cols + c + (480000 - grid.origin.easting) / 1000;
   // 과제 5처럼 하단 칸에서 서쪽으로 네 칸
   const path = [cell(16, 33), cell(15, 33), cell(14, 33), cell(13, 33), cell(12, 33)];
   const design = { path, stations: [path[0], path[2], path[4]], kind: '경전철', trainsPerHour: 8 };

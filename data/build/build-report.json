@@ -1,37 +1,37 @@
 {
   "grid": {
     "extent": {
-      "cols": 49,
-      "rows": 48,
-      "x0": 480000,
-      "y0": 3918000,
-      "minLonLat": [128.7797347827038,34.9721437215374],
-      "maxLonLat": [129.31938340404702,35.40518212954369]
+      "cols": 105,
+      "rows": 85,
+      "x0": 439000,
+      "y0": 3955000,
+      "minLonLat": [128.3254187954854,34.9707207131514],
+      "maxLonLat": [129.4865904122478,35.73801272627895]
     },
     "extended": {
-      "cols": 63,
-      "rows": 63,
-      "offCols": 9,
-      "offRows": 15
+      "cols": 115,
+      "rows": 114,
+      "offCols": 10,
+      "offRows": 17
     },
-    "dongsInExtended": 247,
+    "dongsInExtended": 445,
     "busanOfficial": 3229467,
     "busanInGrid": 3229467,
     "unmatchedBoundary": [],
     "unmatchedPopulation": [],
     "fallback": {
-      "mountainToHill": ["부산광역시 서구 초장동","부산광역시 서구 남부민2동","부산광역시 금정구 금성동"],
+      "mountainToHill": ["부산광역시 서구 초장동","부산광역시 서구 남부민2동","부산광역시 금정구 금성동","경상북도 경주시 산내면"],
       "waterOnly": []
     },
     "terrainCounts": {
-      "sea": 844,
-      "river": 26,
-      "mountain": 447,
-      "hill": 506,
-      "flat": 379,
-      "field": 150
+      "sea": 2106,
+      "river": 46,
+      "mountain": 2560,
+      "hill": 2246,
+      "flat": 1314,
+      "field": 653
     },
-    "populationInGrid": 4074457,
+    "populationInGrid": 6560754,
     "overrides": 0
   },
   "stations": 158,

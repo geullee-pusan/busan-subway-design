@@ -1,7 +1,7 @@
 import faresFile from './content/fares.json';
 import { grid, ridership, ruleTables, stations } from './data.js';
 import { BASE_YEAR, networkOfYear, rules, runWithDesign, setRules, worldFor } from './model.js';
-import { planCost } from './sim/plan.js';
+import { planCost, movePlan } from './sim/plan.js';
 import { compareRuns } from './sim/effect.js';
 import { planVoices } from './sim/voices.js';
 import { renderAB } from './ui/ab-screen.js';
@@ -166,7 +166,7 @@ function showCompare() {
 }
 
 function showAB() {
-  show(() => renderAB(root, { designs: loadDesigns(), onHome: showHome }));
+  show(() => renderAB(root, { designs: designsHere(), onHome: showHome }));
 }
 
 function showMissions() {
@@ -230,6 +230,25 @@ function startEstimate(design) {
   );
 }
 
+/** 지금 격자의 표식(가로 칸 수와 왼쪽 위 모서리). 저장한 설계가 어느 격자에서 만든 것인지 알아보는 데 쓴다. */
+function gridMark() {
+  return { cols: grid.cols, rows: grid.rows, easting: grid.origin.easting, northing: grid.origin.northing };
+}
+
+/** 부산만 있던 옛 격자(표식 없이 저장한 설계는 이 격자에서 만든 것이다) */
+const OLD_GRID = { cols: 49, rows: 48, easting: 480000, northing: 3918000 };
+
+/** 저장한 설계를 읽어 지금 격자로 옮긴다(지도 범위가 넓어지기 전에 저장한 설계도 그대로 쓸 수 있다). */
+function designsHere() {
+  const designs = loadDesigns();
+  for (const slot of Object.keys(designs)) {
+    const saved = designs[slot];
+    if (!saved?.design) continue;
+    designs[slot] = { ...saved, design: movePlan(saved.design, saved.grid ?? OLD_GRID, gridMark()), grid: gridMark() };
+  }
+  return designs;
+}
+
 /** 새 노선들의 역 이름(역 번호 → 이름). 설계 화면에서 정한 이름을 쓰고, 없으면 선을 따라 "새 역 1, 2, 3…" */
 function newStationNames(plan) {
   const names = new Map();
@@ -290,7 +309,7 @@ function startRunning() {
             voices,
             ruleSetName: ruleSetName(),
             onSave: (slot, summary) =>
-              saveDesign(slot, { ...summary, title: mission ? mission.title : '자유 설계', design: plan }),
+              saveDesign(slot, { ...summary, title: mission ? mission.title : '자유 설계', design: plan, grid: gridMark() }),
             onHome: showHome,
             onRide: () => startRide(plan, after),
           }),
