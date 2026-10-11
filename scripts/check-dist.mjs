@@ -58,8 +58,9 @@ for (const name of [APP, 'sw.js']) {
   }
 }
 
-// 이번 판의 번호를 서비스 워커에 박는다. index.html이 바뀌면 번호도 바뀐다.
-const version = createHash('sha256').update(html).digest('hex').slice(0, 12);
+// 이번 판의 번호를 서비스 워커에 박는다. index.html이나 서비스 워커(sw.js)가 바뀌면 번호도 바뀐다.
+const swSource = files.includes('sw.js') ? readFileSync(resolve(DIST, 'sw.js'), 'utf8') : '';
+const version = createHash('sha256').update(html).update(swSource).digest('hex').slice(0, 12);
 if (files.includes('sw.js')) {
   const sw = readFileSync(resolve(DIST, 'sw.js'), 'utf8');
   if (!sw.includes('__VERSION__')) problems.push('sw.js에 판 번호를 박을 자리(__VERSION__)가 없어요.');

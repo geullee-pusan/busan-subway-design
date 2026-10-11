@@ -25,7 +25,10 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE)
-      .then((cache) => cache.addAll(FILES))
+      // 브라우저가 갖고 있던 파일(HTTP 캐시)을 쓰지 않고 서버에서 새로 받는다(cache: 'reload').
+      // 그러지 않으면, 올린 지 얼마 안 된 새 판을 깔 때 브라우저가 조금 전에 받은 예전 index.html을 건네줘서
+      // 새 판 번호 아래에 예전 게임이 저장되고, 그 뒤로는 다시 받지 않아 계속 예전 판이 뜬다.
+      .then((cache) => cache.addAll(FILES.map((file) => new Request(file, { cache: 'reload' }))))
       .then(() => self.skipWaiting()),
   );
 });
