@@ -70,6 +70,10 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
       ['창원', '창원'],
       ['김해', '김해'],
       ['양산', '양산'],
+      ['대구', '대구'],
+      ['구미', '구미'],
+      ['경산', '경산'],
+      ['칠곡', '칠곡'],
       ['이웃', '이웃 시·군'],
     ]) {
       const item = element('li');

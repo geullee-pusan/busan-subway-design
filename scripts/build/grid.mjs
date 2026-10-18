@@ -242,7 +242,7 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
   }
 
   // 6. 고도와 경사
-  const dem = loadDem(['N34E128', 'N34E129', 'N35E128', 'N35E129'].map((t) => raw(`dem/${t}.hgt.gz`)));
+  const dem = loadDem(['N34E128', 'N34E129', 'N35E127', 'N35E128', 'N35E129', 'N36E127', 'N36E128', 'N36E129'].map((t) => raw(`dem/${t}.hgt.gz`)));
   const elev = new Float32Array(W * H).fill(NaN);
   for (let j = 0; j < H; j++) {
     const y = lattice.y0 - 50 - 100 * j;

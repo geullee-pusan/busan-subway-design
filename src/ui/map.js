@@ -21,7 +21,7 @@ const TERRAIN_COLORS = {
 const INK = '#1F3342';
 /** 기본으로 그리는 노선망. setNetwork로 옛날 부산으로 바꿀 수 있다. */
 const NOW_NETWORK = { lines, stations, stationById };
-// 지도가 105 × 85칸으로 커져서, 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
+// 지도가 123 × 156칸으로 커져서, 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
 const MIN_ZOOM = 0.15;
 const MAX_ZOOM = 6;
 
@@ -62,6 +62,10 @@ const CITY_COLORS = {
   창원: ['#CDE8CF', '#B5DCB8', '#DFF1E0'],
   김해: ['#E2D5F0', '#D2C0E8'],
   양산: ['#F6D3DD', '#EFBFCD'],
+  대구: ['#F5EBB5', '#EFE09A', '#F9F2CF'],
+  구미: ['#C8E8E6', '#B2DEDB'],
+  경산: ['#E0EDB8', '#D2E5A0'],
+  칠곡: ['#EAD9C4', '#E0CBB0'],
   이웃: ['#E6E6E0', '#DADAD2', '#EEEEE8'],
 };
 
@@ -73,6 +77,10 @@ function districtParts(name) {
   if (rest.startsWith('창원시')) return { city: '창원', short: rest.replace('창원시', ''), main: true };
   if (rest === '김해시') return { city: '김해', short: rest, main: true };
   if (rest === '양산시') return { city: '양산', short: rest, main: true };
+  if (name.startsWith('대구광역시')) return { city: '대구', short: rest, main: true };
+  if (rest === '구미시') return { city: '구미', short: rest, main: true };
+  if (rest === '경산시') return { city: '경산', short: rest, main: true };
+  if (rest === '칠곡군') return { city: '칠곡', short: rest, main: true };
   // 지도 네모 안에 함께 들어온 이웃 시·군
   return { city: rest, short: rest, main: false };
 }

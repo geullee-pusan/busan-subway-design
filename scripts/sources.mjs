@@ -14,7 +14,7 @@ const ADMDONG_BASE = `https://raw.githubusercontent.com/vuski/admdongkor/${ADMDO
 const SKADI_BASE = 'https://s3.amazonaws.com/elevation-tiles-prod/skadi';
 
 // Overpass에 보낼 범위(남, 서, 북, 동). 격자 범위(부산·울산·김해·창원·양산)보다 넉넉하게 잡는다.
-export const OSM_BBOX = '34.85,128.20,35.85,129.60';
+export const OSM_BBOX = '34.85,127.80,36.65,129.70';
 
 export const SOURCES = [
   // 부산교통공사 (공공데이터포털)
@@ -68,6 +68,11 @@ export const SOURCES = [
   { key: 'dem-N34E129', file: 'data/raw/dem/N34E129.hgt.gz', url: `${SKADI_BASE}/N34/N34E129.hgt.gz`, size: 1973798 },
   { key: 'dem-N35E128', file: 'data/raw/dem/N35E128.hgt.gz', url: `${SKADI_BASE}/N35/N35E128.hgt.gz`, size: 12836160 },
   { key: 'dem-N35E129', file: 'data/raw/dem/N35E129.hgt.gz', url: `${SKADI_BASE}/N35/N35E129.hgt.gz`, size: 6095710 },
+  // 지도 범위 넓히기 3(대구·구미·경산·칠곡): 북쪽과 서쪽 타일
+  { key: 'dem-N35E127', file: 'data/raw/dem/N35E127.hgt.gz', url: `${SKADI_BASE}/N35/N35E127.hgt.gz`, size: 14668974 },
+  { key: 'dem-N36E127', file: 'data/raw/dem/N36E127.hgt.gz', url: `${SKADI_BASE}/N36/N36E127.hgt.gz`, size: 13093831 },
+  { key: 'dem-N36E128', file: 'data/raw/dem/N36E128.hgt.gz', url: `${SKADI_BASE}/N36/N36E128.hgt.gz`, size: 13521169 },
+  { key: 'dem-N36E129', file: 'data/raw/dem/N36E129.hgt.gz', url: `${SKADI_BASE}/N36/N36E129.hgt.gz`, size: 8473868 },
 
   // OpenStreetMap (Overpass API). 받을 때마다 내용이 바뀔 수 있어 git에 넣어 둔다.
   {

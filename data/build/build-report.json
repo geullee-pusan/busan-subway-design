@@ -1,37 +1,37 @@
 {
   "grid": {
     "extent": {
-      "cols": 105,
-      "rows": 85,
-      "x0": 439000,
-      "y0": 3955000,
-      "minLonLat": [128.3254187954854,34.9707207131514],
-      "maxLonLat": [129.4865904122478,35.73801272627895]
+      "cols": 123,
+      "rows": 156,
+      "x0": 421000,
+      "y0": 4026000,
+      "minLonLat": [128.11927716573777,34.96947566955169],
+      "maxLonLat": [129.49054722441622,36.37811519424943]
     },
     "extended": {
-      "cols": 115,
-      "rows": 114,
+      "cols": 139,
+      "rows": 184,
       "offCols": 10,
-      "offRows": 17
+      "offRows": 16
     },
-    "dongsInExtended": 445,
+    "dongsInExtended": 805,
     "busanOfficial": 3229467,
     "busanInGrid": 3229467,
     "unmatchedBoundary": [],
     "unmatchedPopulation": [],
     "fallback": {
-      "mountainToHill": ["부산광역시 서구 초장동","부산광역시 서구 남부민2동","부산광역시 금정구 금성동","경상북도 경주시 산내면"],
+      "mountainToHill": ["부산광역시 서구 초장동","부산광역시 서구 남부민2동","부산광역시 금정구 금성동","경상북도 포항시북구 죽장면","경상북도 경주시 산내면","경상북도 의성군 옥산면","경상북도 청송군 청송읍","경상북도 청송군 주왕산면","경상북도 청송군 부남면","경상북도 청송군 현동면","경상북도 청송군 현서면","경상북도 청송군 안덕면","경상남도 합천군 가야면"],
       "waterOnly": []
     },
     "terrainCounts": {
-      "sea": 2106,
-      "river": 46,
-      "mountain": 2560,
-      "hill": 2246,
-      "flat": 1314,
-      "field": 653
+      "sea": 2469,
+      "river": 71,
+      "mountain": 5811,
+      "hill": 6173,
+      "flat": 3822,
+      "field": 842
     },
-    "populationInGrid": 6560754,
+    "populationInGrid": 10685849,
     "overrides": 0
   },
   "stations": 158,
