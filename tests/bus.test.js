@@ -262,3 +262,19 @@ test('부산 버스 자료: 울산·창원·김해 정류소가 부산 정류장
   // 노선은 부산 정류장만 지난다.
   for (const route of bus.routes) for (const [index] of route.stops) assert.ok(index < bus.extraFrom);
 });
+
+test('폐선된 노선은 없고, 남은 노선은 2025년 노선 목록에 있거나 남긴 까닭이 적혀 있다', { skip }, () => {
+  const bus = readJson('data/build/bus.json');
+  const edits = readJson('data/edits/bus-routes.json');
+  const numbers = bus.routes.map((r) => r.no);
+  for (const r of edits.remove) assert.ok(!numbers.includes(r.no), `${r.no}는 빠져야 한다`);
+  for (const r of [...edits.remove, ...edits.keep]) assert.ok(r.reason && r.sources?.length, `${r.no}에 까닭과 출처가 있어야 한다`);
+  const rawPath = resolve(ROOT, 'data/raw/datagokr/15095329.csv');
+  if (!existsSync(rawPath)) return;
+  const text = new TextDecoder('euc-kr').decode(readFileSync(rawPath));
+  const key = (no) => no.replace(/\((통합|급행|공항|용원)\)$/, '').replace(/\(([AB])\)$/, '$1');
+  const running = new Set(text.split(/\r?\n/).slice(1).map((line) => key(line.split(',')[0].trim())));
+  const kept = new Set(edits.keep.map((r) => r.no));
+  const unexplained = numbers.filter((no) => !running.has(key(no)) && !kept.has(no));
+  assert.deepEqual(unexplained, []);
+});

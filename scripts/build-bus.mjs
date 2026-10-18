@@ -7,6 +7,8 @@
 // 두 자료의 정류장 코드가 서로 달라서 정류장 이름으로 잇는다. 같은 이름이 여러 곳(길 건너편, 다른 동네)에 있으면
 // 노선을 따라 앞뒤 정류장과 가장 가깝게 이어지는 곳을 고른다(모든 차례를 한꺼번에 보는 최소 거리 고르기).
 // 심야 노선은 낮 시간 여행과 하루 운행에 쓰지 않으므로 뺀다.
+// 폐선된 노선은 뺀다(data/edits/bus-routes.json). 2025년에 실제로 다닌 노선 목록(15095329)과 견주어
+// 목록에 없는데 고침 파일에도 적히지 않은 노선이 있으면 알린다.
 // 좌표는 격자 단위(1칸 = 1km, UTM 52N)로 바꾸고 0.01칸(10m)까지만 둔다.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -200,6 +202,13 @@ let rowsKept = 0;
 let boardAll = 0;
 let boardKept = 0;
 const skipped = [];
+const routeEdits = JSON.parse(readFileSync(resolve(ROOT, 'data/edits/bus-routes.json'), 'utf8'));
+const removed = new Map(routeEdits.remove.map((r) => [r.no, r]));
+const kept = new Set(routeEdits.keep.map((r) => r.no));
+/** 노선 이름 꼬리표를 떼고 견준다: 9(통합) → 9, 88-1(A) → 88-1A */
+const routeKey = (no) => no.replace(/\((통합|급행|공항|용원)\)$/, '').replace(/\(([AB])\)$/, '$1');
+const running2025 = new Set(readCsv(resolve(ROOT, 'data/raw/datagokr/15095329.csv')).records.map((r) => routeKey(r['노선'])));
+const unexplained = [];
 for (const [no, rows] of [...routeRows].sort((a, b) => a[0].localeCompare(b[0], 'ko', { numeric: true }))) {
   rows.sort((a, b) => a.order - b.order);
   const allBoard = rows.reduce((sum, r) => sum + r.board, 0);
@@ -209,6 +218,11 @@ for (const [no, rows] of [...routeRows].sort((a, b) => a[0].localeCompare(b[0], 
     skipped.push(no);
     continue;
   }
+  if (removed.has(no)) {
+    skipped.push(`${no}(폐선)`);
+    continue;
+  }
+  if (!running2025.has(routeKey(no)) && !kept.has(no)) unexplained.push(no);
   const placed = placeStops(rows);
   if (placed.length < rows.length * 0.6) {
     skipped.push(`${no}(자리를 찾은 정류장 ${placed.length}/${rows.length})`);
@@ -272,7 +286,7 @@ const gimhaeAll = rawCsv('15105200.csv').length;
 
 const out = {
   _설명:
-    '부산 시내버스 노선(심야 노선 뺌)과 울산·창원·김해 정류소. stops는 [x×100, y×100, 이름 번호, (있으면) 방면 이름 번호](격자 칸 단위), routes의 stops는 [정류장 번호, 승차 합계, 하차 합계](2023-07-31 판 자료. 하루치인지 기간 합계인지는 자료 설명에 없다). extraFrom번부터의 정류장은 울산·창원·김해 정류소로, 자리와 이름만 있고 서는 노선 자료가 없다. 만든 곳: scripts/build-bus.mjs',
+    '부산 시내버스 노선(심야 노선과 폐선된 노선 뺌. 폐선은 data/edits/bus-routes.json)과 울산·창원·김해 정류소. stops는 [x×100, y×100, 이름 번호, (있으면) 방면 이름 번호](격자 칸 단위), routes의 stops는 [정류장 번호, 승차 합계, 하차 합계](2023-07-31 판 자료. 하루치인지 기간 합계인지는 자료 설명에 없다). extraFrom번부터의 정류장은 울산·창원·김해 정류소로, 자리와 이름만 있고 서는 노선 자료가 없다. 만든 곳: scripts/build-bus.mjs',
   date: '2023-07-31',
   stopsDate: '2026-09-12',
   source: '공공데이터포털 15123610 부산광역시_버스노선별 승하차 정보, 15084251 부산광역시_버스 정류소 정보',
@@ -290,3 +304,4 @@ console.log(`노선 자료가 없는 정류소: ${Object.entries(extraCounts).ma
 console.log(`자리를 찾은 정류장 차례 ${rowsKept}/${rowsAll}(${((rowsKept / rowsAll) * 100).toFixed(1)}%), 승차 ${((boardKept / boardAll) * 100).toFixed(1)}%`);
 console.log(`bus.json ${(size / 1024).toFixed(0)}KB`);
 if (skipped.length) console.log(`뺀 노선: ${skipped.join(', ')}`);
+if (unexplained.length) console.log(`2025년 노선 목록(15095329)에 없는데 data/edits/bus-routes.json에 적히지 않은 노선: ${unexplained.join(', ')}`);

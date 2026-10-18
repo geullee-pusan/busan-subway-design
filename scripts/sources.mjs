@@ -50,6 +50,7 @@ export const SOURCES = [
   { key: 'bus-stops-gimhae', file: 'data/raw/datagokr/15105200.csv', url: dataGoKr('FILE_000000003661635') },
   // 김해 정류소 현황(15105200)에는 좌표가 없다. 좌표는 버스정보 안내 단말기 설치 현황(단말기가 있는 정류장만)에서 가져온다.
   { key: 'bus-bit-gimhae', file: 'data/raw/datagokr/15104697.csv', url: dataGoKr('FILE_000000003534016') },
+  { key: 'bus-route-use-2025', file: 'data/raw/datagokr/15095329.csv', url: dataGoKr('FILE_000000003617805'), size: 20763 },
   { key: 'bus-stops', file: 'data/raw/datagokr/15084251.zip', url: dataGoKr('FILE_000000002797912'), size: 454474 },
 
   // 대구 도시철도(대구교통공사, 지도 범위 넓히기 3단계 다음의 대구권 전철)
