@@ -1,7 +1,7 @@
 // 격자 지도 화면. SVG로 그리고, 한 손가락 끌기와 두 손가락 확대를 지원한다.
 // 보기는 두 가지다: '실제 지도'(격자와 지형)와 '노선도'(단순화).
 // 실제 지도의 바탕은 두 가지다: '지형'(산, 평지, 바다)과 '행정구역'(도시와 구·군을 색과 이름으로).
-import { districts, grid, lineById, lines, schematic, stationById, stations } from '../data.js';
+import { districts, grid, lineById, lines, rail, schematic, stationById, stations } from '../data.js';
 import { lineShape } from '../sim/line-shape.js';
 import { loadView } from './storage.js';
 
@@ -256,6 +256,70 @@ function stationsLayer(view, network) {
       'data-station': station.id,
     });
     layer.append(node);
+  }
+  return layer;
+}
+
+/**
+ * 일반·고속 철도(코레일) 선로: 검은 선 위에 흰 줄무늬(철도 지도에서 흔히 쓰는 모양).
+ * 고속철도는 줄무늬가 길고 선이 굵다(색만으로 가르지 않는다. 범례에 적는다).
+ */
+export const RAIL_STYLE = {
+  고속: { width: 4, dash: '10 6', inner: 1.8 },
+  일반: { width: 3, dash: '4 4', inner: 1.4 },
+};
+function railLayer() {
+  const layer = el('g', { 'aria-hidden': 'true', class: 'rail-lines' });
+  for (const kind of ['일반', '고속']) {
+    const style = RAIL_STYLE[kind];
+    for (const line of rail.lines.filter((l) => l.kind === kind)) {
+      for (const path of line.paths) {
+        const points = path.map(([x, y]) => [x / 100, y / 100]);
+        layer.append(polyline(points, { stroke: '#3B3B3B', 'stroke-width': style.width, 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke' }));
+        layer.append(
+          polyline(points, { stroke: '#FFFFFF', 'stroke-width': style.inner, 'stroke-dasharray': style.dash, 'vector-effect': 'non-scaling-stroke' }),
+        );
+      }
+    }
+  }
+  return layer;
+}
+
+/** 기차역: 작은 흰 네모. 크기는 화면에서 늘 같다(applyTransform). */
+function railStationsLayer() {
+  const layer = el('g', { class: 'rail-stations' });
+  for (const station of rail.stations) {
+    layer.append(
+      el('rect', {
+        'data-rail-station': station.id,
+        'data-x': (station.x * CELL).toFixed(1),
+        'data-y': (station.y * CELL).toFixed(1),
+        fill: '#FFFFFF',
+        stroke: '#3B3B3B',
+        'stroke-width': 2,
+        'vector-effect': 'non-scaling-stroke',
+      }),
+    );
+  }
+  return layer;
+}
+
+/** 기차역 이름. 고속철도역은 늘, 나머지는 조금 크게 보면 보인다. */
+function railLabelsLayer() {
+  const layer = el('g', { 'aria-hidden': 'true', class: 'rail-labels' });
+  const fast = new Set(rail.lines.filter((l) => l.kind === '고속').flatMap((l) => l.stations));
+  for (const station of rail.stations) {
+    const text = el('text', {
+      'data-x': (station.x * CELL).toFixed(1),
+      'data-y': (station.y * CELL).toFixed(1),
+      'data-important': fast.has(station.id) ? 'yes' : 'no',
+      fill: '#3B3B3B',
+      stroke: '#FFFFFF',
+      'paint-order': 'stroke',
+      'font-weight': 700,
+    });
+    text.textContent = station.name + '역';
+    layer.append(text);
   }
   return layer;
 }
@@ -609,13 +673,19 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       if (layers.districtLabels) viewport.append(layers.districtLabels);
     }
 
+    // 기차 길과 기차역: 실제 지도에서, 지금 노선망을 보일 때만(옛날 부산 연표에서는 그리지 않는다)
+    const showRail = state.view === '실제 지도' && state.network === NOW_NETWORK;
+    layers.rail = showRail ? railLayer() : null;
+    layers.railStations = showRail ? railStationsLayer() : null;
+    layers.railLabels = showRail ? railLabelsLayer() : null;
+    if (layers.rail) viewport.append(layers.rail);
     layers.lines = linesLayer(state.view, state.network);
     layers.stations = stationsLayer(state.view, state.network);
     layers.labels = labelsLayer(state.view, state.network);
     layers.tags = lineTagsLayer(state.view, state.network);
     layers.future = futureLayer(state.future);
     layers.design = designLayers();
-    viewport.append(layers.lines, layers.future, layers.stations, layers.design, layers.labels, layers.tags, overlay);
+    viewport.append(layers.lines, layers.future, ...[layers.railStations, layers.railLabels].filter(Boolean), layers.stations, layers.design, layers.labels, layers.tags, overlay);
     applySelection();
     applyTransform();
   }
@@ -689,6 +759,22 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       const base = station.transfer ? 5 : 3.2;
       circle.setAttribute('r', (base / state.k).toFixed(2));
     }
+    // 기차역 네모와 이름: 화면에서 늘 같은 크기
+    const half = 4 / state.k;
+    for (const rect of layers.railStations?.children ?? []) {
+      rect.setAttribute('x', (Number(rect.getAttribute('data-x')) - half).toFixed(2));
+      rect.setAttribute('y', (Number(rect.getAttribute('data-y')) - half).toFixed(2));
+      rect.setAttribute('width', (half * 2).toFixed(2));
+      rect.setAttribute('height', (half * 2).toFixed(2));
+    }
+    for (const text of layers.railLabels?.children ?? []) {
+      const important = text.getAttribute('data-important') === 'yes';
+      text.style.display = important || state.k >= 1.4 ? '' : 'none';
+      text.setAttribute('x', (Number(text.getAttribute('data-x')) + 7 / state.k).toFixed(2));
+      text.setAttribute('y', (Number(text.getAttribute('data-y')) - 6 / state.k).toFixed(2));
+      text.setAttribute('font-size', (11 / state.k).toFixed(2));
+      text.setAttribute('stroke-width', (3 / state.k).toFixed(2));
+    }
     scaleDesignLabels(layers.design, state.k);
     root.dispatchEvent(new CustomEvent('map-zoom', { detail: { k: state.k } }));
   }
@@ -697,6 +783,9 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     for (const circle of layers.stations?.children ?? []) {
       const on = circle.getAttribute('data-station') === state.selected;
       circle.classList.toggle('is-selected', on);
+    }
+    for (const rect of layers.railStations?.children ?? []) {
+      rect.classList.toggle('is-selected', rect.getAttribute('data-rail-station') === state.selected);
     }
   }
 
@@ -707,6 +796,19 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       x: (clientX - rect.left - state.tx) / state.k / CELL,
       y: (clientY - rect.top - state.ty) / state.k / CELL,
     };
+  }
+
+  function nearestRailStation(point, maxCells) {
+    let best = null;
+    let bestDistance = maxCells;
+    for (const station of rail.stations) {
+      const d = Math.hypot(station.x - point.x, station.y - point.y);
+      if (d < bestDistance) {
+        best = station;
+        bestDistance = d;
+      }
+    }
+    return best;
   }
 
   function nearestStation(point, maxCells) {
@@ -868,8 +970,11 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
       onDesignStation(designCell);
       return;
     }
-    const station = nearestStation(point, Math.max(0.5, 12 / (CELL * state.k)) + 0.35);
-    select(station ? station.id : null);
+    const reach = Math.max(0.5, 12 / (CELL * state.k)) + 0.35;
+    const station = nearestStation(point, reach);
+    // 지하철역이 없으면 기차역(지도에 그렸을 때만)
+    const railStation = !station && layers.railStations ? nearestRailStation(point, reach) : null;
+    select(station ? station.id : railStation ? railStation.id : null);
   }
   svg.addEventListener('pointerup', endPointer);
   svg.addEventListener('pointercancel', (event) => pointers.delete(event.pointerId));

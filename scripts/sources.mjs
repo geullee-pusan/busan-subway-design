@@ -146,4 +146,15 @@ out geom;`,
 );
 out center;`,
   },
+  {
+    // 일반·고속 철도 선로(본선). 측선·차량기지 선로(service 태그)는 뺀다. 지도 범위 안 것만 받는다.
+    key: 'osm-rail-lines',
+    file: 'data/raw/osm/rail-lines.json',
+    overpass: `[out:json][timeout:300][bbox:${OSM_BBOX}];
+way["railway"="rail"][!"service"];
+out geom;`,
+  },
+  // 코레일(한국철도공사) 기차역 자리와 선구별 거리표
+  { key: 'korail-stations', file: 'data/raw/datagokr/15127532.csv', url: dataGoKr('FILE_000000002898194'), size: 7453 },
+  { key: 'korail-distances', file: 'data/raw/datagokr/15137040.xlsx', url: dataGoKr('FILE_000000003025367'), size: 267464 },
 ];

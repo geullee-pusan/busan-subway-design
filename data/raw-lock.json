@@ -307,6 +307,20 @@
     "sha256": "349bf4be3c0bfdd53876d464042d977998171632ccbe5780f80fad7684f7a725",
     "fetched": "2026-09-22"
   },
+  "korail-distances": {
+    "file": "data/raw/datagokr/15137040.xlsx",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003025367&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 267464,
+    "sha256": "5514e0eefde06d44171c34c69553328b7d93db1cd5611d8dacf79888e12e4697",
+    "fetched": "2026-10-18"
+  },
+  "korail-stations": {
+    "file": "data/raw/datagokr/15127532.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002898194&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 7453,
+    "sha256": "5efb7af37f800b6632c19bb050ce81dce4ab0ae54998b718e581c377e2f232aa",
+    "fetched": "2026-10-18"
+  },
   "krna-line1": {
     "file": "data/raw/datagokr/15041165.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002646360&fileDetailSn=1&insertDataPrcus=N",
@@ -341,6 +355,13 @@
     "bytes": 3515,
     "sha256": "7f913662cb61c16e7648dcb5024e6d9ff60a66bdae6860ec5cb6731f0b970916",
     "fetched": "2026-09-22"
+  },
+  "osm-rail-lines": {
+    "file": "data/raw/osm/rail-lines.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 5439022,
+    "sha256": "f3e149f98a0528ccab984eb62dd7de2a6cdd33ad48eedd46c21d4befa9604250",
+    "fetched": "2026-10-18"
   },
   "osm-routes": {
     "file": "data/raw/osm/routes.json",

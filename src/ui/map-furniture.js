@@ -1,6 +1,6 @@
 // 지도에 늘 붙어 있는 것들: 범례, 방위표, 축척 막대(SPEC 12장 Phase 1 완료 기준).
 import { lines } from '../data.js';
-import { CELL, CITY_COLORS, DESIGN_COLOR, FUTURE_COLOR, TERRAIN_COLORS } from './map.js';
+import { CELL, CITY_COLORS, DESIGN_COLOR, FUTURE_COLOR, RAIL_STYLE, TERRAIN_COLORS } from './map.js';
 import { saveView } from './storage.js';
 import { legendStartsOpen, rememberLegend } from './view.js';
 import { wordWithCard } from './word-card.js';
@@ -85,6 +85,25 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
     box.append(cities);
     box.append(element('p', 'legend-note legend-district', '도시마다 색이 달라요. 이름이 지도에 적혀 있어요.'));
     box.append(element('p', 'legend-note legend-district', '크게 보면 구·군 이름도 보여요. 선은 구·군 경계예요.'));
+    // 기차 길(코레일): 색이 아니라 줄무늬 모양으로 고속철도와 일반 철도를 가른다
+    const railList = element('ul', 'legend-rail');
+    for (const [kind, label] of [
+      ['고속', '고속철도(KTX가 다니는 길)'],
+      ['일반', '일반 철도'],
+    ]) {
+      const style = RAIL_STYLE[kind];
+      const item = element('li');
+      const sample = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      sample.setAttribute('viewBox', '0 0 40 10');
+      sample.setAttribute('width', '40');
+      sample.setAttribute('height', '10');
+      sample.setAttribute('aria-hidden', 'true');
+      sample.innerHTML = `<line x1="0" y1="5" x2="40" y2="5" stroke="#3B3B3B" stroke-width="${style.width}"/><line x1="0" y1="5" x2="40" y2="5" stroke="#FFFFFF" stroke-width="${style.inner}" stroke-dasharray="${style.dash}"/>`;
+      item.append(sample, element('span', null, label));
+      railList.append(item);
+    }
+    box.append(railList);
+    box.append(element('p', 'legend-note', '흰 네모는 기차역이에요.'));
   } else {
     const note = element('p', 'legend-note');
     note.append(wordWithCard('노선도', '노선도'), element('span', null, '는 역 사이를 고르게 편 지도예요. 실제 거리와 달라요.'));

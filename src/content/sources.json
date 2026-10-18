@@ -78,6 +78,27 @@
           "from": "대구교통공사 연혁, 코레일 보도자료, 언론 보도",
           "when": "2026년 10월 18일 확인",
           "license": "출처는 data/facts.json에 적어 두었어요"
+        },
+        {
+          "what": "기차 길의 역 차례와 역 사이 거리",
+          "from": "한국철도공사 철도운행거리(각 선구별 거리표)",
+          "when": "2024년 9월 1일 판",
+          "license": "공공데이터포털, 이용허락범위 제한 없음",
+          "lockKey": "korail-distances"
+        },
+        {
+          "what": "기차역 목록(여객역)",
+          "from": "한국철도공사 역 위치 정보",
+          "when": "2024년 4월 1일 판",
+          "license": "공공데이터포털, 이용허락범위 제한 없음",
+          "lockKey": "korail-stations"
+        },
+        {
+          "what": "기차 길 모양과 기차역 자리",
+          "from": "OpenStreetMap 철도 선로와 역",
+          "when": "2026년 10월 18일 받음",
+          "license": "© OpenStreetMap contributors (ODbL)",
+          "lockKey": "osm-rail-lines"
         }
       ]
     },

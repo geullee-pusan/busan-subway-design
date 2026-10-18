@@ -1,4 +1,4 @@
-// npm run api-key: 공공데이터포털 인증키를 저장하고, 열차 API 두 개가 되는지 시험한다(네트워크를 쓴다).
+// npm run api-key: 공공데이터포털 인증키를 저장하고, 열차·버스 API가 되는지 시험한다(네트워크를 쓴다).
 //
 //   npm run api-key            키를 물어보고 저장한 뒤 시험한다(이미 저장했으면 엔터만 쳐도 시험만 한다)
 //   npm run api-key -- --test  저장한 키로 시험만 한다
@@ -9,7 +9,16 @@ import { writeFileSync } from 'node:fs';
 import { createInterface } from 'node:readline/promises';
 import { KEY_FILE, readApiKey } from './lib/api-key.mjs';
 
-/** 시험할 API: 공공데이터포털 인증키 하나로 둘 다 쓴다. */
+/** TAGO 도시 코드 목록 응답을 짧게 줄인다(지도 안 도시가 있는지 본다). */
+function cityCodes(json) {
+  const items = json?.response?.body?.items?.item;
+  const list = Array.isArray(items) ? items : items ? [items] : [];
+  if (!list.length) return null;
+  const ours = list.filter((i) => /부산|대구|울산|창원|김해|양산|구미|경산|칠곡|밀양/.test(i.cityname));
+  return `도시 ${list.length}곳(지도 안: ${ours.map((i) => i.cityname).join(', ')})`;
+}
+
+/** 시험할 API: 공공데이터포털 인증키 하나로 모두 쓴다. */
 const CHECKS = [
   {
     name: '국토교통부 TAGO 열차정보(15098552)',
@@ -20,6 +29,18 @@ const CHECKS = [
       const list = Array.isArray(items) ? items : items ? [items] : [];
       return list.length ? `열차 종류 ${list.length}가지: ${list.map((i) => i.vehiclekndnm).join(', ')}` : null;
     },
+  },
+  {
+    name: '국토교통부 TAGO 버스노선정보(15098529)',
+    page: 'https://www.data.go.kr/data/15098529/openapi.do',
+    url: (key) => `https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getCtyCodeList?serviceKey=${encodeURIComponent(key)}&_type=json`,
+    read: (json) => cityCodes(json),
+  },
+  {
+    name: '국토교통부 TAGO 버스정류소정보(15098534)',
+    page: 'https://www.data.go.kr/data/15098534/openapi.do',
+    url: (key) => `https://apis.data.go.kr/1613000/BusSttnInfoInqireService/getCtyCodeList?serviceKey=${encodeURIComponent(key)}&_type=json`,
+    read: (json) => cityCodes(json),
   },
   {
     name: '한국철도공사 열차운행정보(15125762)',
@@ -91,7 +112,7 @@ if (!key) {
   console.log('저장한 인증키가 없어요. npm run api-key 로 먼저 저장해요.');
   process.exit(1);
 }
-console.log('\n열차 API를 시험해요.');
+console.log('\n열차·버스 API를 시험해요.');
 const ok = await check(key);
-console.log(ok ? '\n두 API 모두 돼요. 이제 열차 시각표를 받을 수 있어요.' : '\n안 되는 API가 있어요. 위 안내를 보고 다시 해 봐요.');
+console.log(ok ? '\nAPI가 모두 돼요. 이제 열차 시각표와 버스 노선을 받을 수 있어요.' : '\n안 되는 API가 있어요. 위 안내를 보고 다시 해 봐요.');
 process.exit(ok ? 0 : 1);

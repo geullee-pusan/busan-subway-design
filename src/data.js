@@ -12,6 +12,7 @@ import gridFile from '../data/build/grid.json';
 import historyPopulationFile from '../data/build/history-population.json';
 import linesFile from '../data/build/lines.json';
 import linksFile from '../data/build/links.json';
+import railFile from '../data/build/rail.json';
 import ridershipFile from '../data/build/ridership.json';
 import schematicFile from '../data/build/schematic.json';
 import serviceFile from '../data/build/service.json';
@@ -27,6 +28,10 @@ export const stationSounds = stationSoundsFile;
 export const bus = busFile;
 /** 인구총조사(1980~2000)를 지금 구·군으로 옮긴 것. 옛날 부산 "그때 인구" 선택지가 쓴다. */
 export const historyPopulation = historyPopulationFile;
+/** 일반·고속 철도(코레일) 노선과 기차역(scripts/build-rail.mjs). 지금은 지도와 역 정보에만 쓴다. */
+export const rail = railFile;
+export const railStationById = new Map(railFile.stations.map((s) => [s.id, s]));
+export const railLineById = new Map(railFile.lines.map((l) => [l.id, l]));
 export const lines = linesFile.lines;
 export const planned = linesFile.planned;
 export const stations = stationsFile.stations;

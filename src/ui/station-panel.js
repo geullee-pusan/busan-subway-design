@@ -1,5 +1,5 @@
 // 역을 누르면 보여 주는 정보: 이름, 갈아타기, 개통일, 이웃 역, 하루 이용객, 시간대별 이용객, 이름의 유래.
-import { lineById, neighborLinks, ridershipOf, stationById, stationInfo, transferSiblings } from '../data.js';
+import { lineById, neighborLinks, rail, railLineById, railStationById, ridershipOf, stationById, stationInfo, stations, transferSiblings } from '../data.js';
 import { barChart, hourlyLineChart } from './chart.js';
 import { countText, dateText, distanceText, durationText, getNumberMode, roParticle, stationLabel } from './format.js';
 import { wordWithCard } from './word-card.js';
@@ -55,8 +55,61 @@ export function createStationPanel({ numberMode = getNumberMode() } = {}) {
     root.append(box);
   }
 
+  /** 기차역(코레일): 지나는 노선, 이웃 기차역까지 거리, 걸어서 갈아탈 수 있는 도시철도역 */
+  function renderRail(station) {
+    root.replaceChildren();
+    const header = element('div', 'panel-header');
+    const title = element('h2', 'panel-title');
+    const mark = element('span', 'line-tag rail-tag', '기차');
+    title.append(mark, element('span', null, stationLabel(station.name)));
+    header.append(title);
+    root.append(header);
+    const body = element('div', 'panel-body');
+    root.append(body);
+    body.append(element('p', null, '코레일 기차가 서는 역이에요.'));
+
+    const lineNames = [...new Set(station.lines.map((id) => railLineById.get(id).name))];
+    body.append(element('h3', null, '지나는 기차 길'));
+    const list = element('ul', 'panel-list');
+    for (const name of lineNames) {
+      const kind = rail.lines.find((l) => l.name === name).kind;
+      list.append(element('li', null, `${name}(${kind === '고속' ? '고속철도' : '일반 철도'})`));
+    }
+    body.append(list);
+
+    // 이웃 기차역: 노선마다 앞뒤 역까지 거리(코레일 거리표)
+    const neighbors = element('ul', 'panel-list');
+    for (const id of station.lines) {
+      for (const link of railLineById.get(id).links) {
+        const other = link.from === station.id ? link.to : link.to === station.id ? link.from : null;
+        if (!other) continue;
+        neighbors.append(element('li', null, `${stationLabel(railStationById.get(other).name)}까지 ${distanceText(Math.round(link.km * 1000))}`));
+      }
+    }
+    if (neighbors.children.length) body.append(element('h3', null, '이웃 기차역'), neighbors);
+
+    // 걸어서 갈아탈 수 있는 도시철도역(500m 안)
+    const near = stations
+      .map((s) => ({ s, km: Math.hypot(s.x - station.x, s.y - station.y) }))
+      .filter((n) => n.km <= 0.5)
+      .sort((a, b) => a.km - b.km);
+    if (near.length) {
+      body.append(element('h3', null, '가까운 도시철도역'));
+      const metro = element('ul', 'panel-list');
+      for (const { s: m, km } of near) {
+        const item = element('li');
+        item.append(lineTag(m.line), element('span', null, ` ${stationLabel(m.name)}, ${distanceText(Math.round(km * 1000))}`));
+        metro.append(item);
+      }
+      body.append(metro);
+    }
+    body.append(element('p', 'panel-note', '기차 시각과 종류는 아직 없어요.'));
+    body.append(element('p', 'panel-source', `자료: ${rail.source}`));
+  }
+
   function render() {
     if (!current) return showEmpty();
+    if (railStationById.has(current)) return renderRail(railStationById.get(current));
     const station = stationById.get(current);
     const info = stationInfo[station.id];
     const line = lineById.get(station.line);

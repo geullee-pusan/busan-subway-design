@@ -20,7 +20,8 @@
     "history-population": "node scripts/build-history-population.mjs",
     "bus": "node scripts/build-bus.mjs",
     "station-sounds": "node scripts/build-station-sounds.mjs",
-    "api-key": "node scripts/api-key.mjs"
+    "api-key": "node scripts/api-key.mjs",
+    "rail": "node scripts/build-rail.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

@@ -305,7 +305,14 @@ body {
   gap: 4px 12px;
 }
 
+.legend-rail {
+  display: grid;
+  gap: 4px;
+  margin-top: 6px !important;
+}
+
 .legend-terrain li,
+.legend-rail li,
 .legend-lines li {
   display: flex;
   align-items: center;
@@ -2275,4 +2282,22 @@ body {
 .district-labels {
   pointer-events: none;
   user-select: none;
+}
+
+/* 기차역(코레일): 고른 역은 굵은 테두리 */
+.rail-stations rect.is-selected {
+  stroke: var(--ink);
+  stroke-width: 4;
+}
+
+.rail-labels {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 기차역 표시(코레일). 흰 바탕에 검은 테두리로 지하철 노선 번호표와 다르게 */
+.line-tag.rail-tag {
+  background: #ffffff;
+  color: #3b3b3b;
+  border: 2px solid #3b3b3b;
 }
