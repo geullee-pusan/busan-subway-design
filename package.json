@@ -19,7 +19,8 @@
     "melodies": "node scripts/make-melodies.mjs",
     "history-population": "node scripts/build-history-population.mjs",
     "bus": "node scripts/build-bus.mjs",
-    "station-sounds": "node scripts/build-station-sounds.mjs"
+    "station-sounds": "node scripts/build-station-sounds.mjs",
+    "api-key": "node scripts/api-key.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
