@@ -1,7 +1,7 @@
 // 역을 누르면 보여 주는 정보: 이름, 갈아타기, 개통일, 이웃 역, 하루 이용객, 시간대별 이용객, 이름의 유래.
-import { lineById, neighborLinks, rail, railLineById, railStationById, ridershipOf, stationById, stationInfo, stations, transferSiblings } from '../data.js';
+import { lineById, neighborLinks, rail, railLineById, railStationById, ridershipOf, stationById, stationInfo, stations, trains, transferSiblings } from '../data.js';
 import { barChart, hourlyLineChart } from './chart.js';
-import { countText, dateText, distanceText, durationText, getNumberMode, roParticle, stationLabel } from './format.js';
+import { clockText, countText, dateText, distanceText, durationText, getNumberMode, roParticle, stationLabel } from './format.js';
 import { wordWithCard } from './word-card.js';
 
 const DAY_TYPES = ['평일', '토요일', '일요일'];
@@ -103,8 +103,32 @@ export function createStationPanel({ numberMode = getNumberMode() } = {}) {
       }
       body.append(metro);
     }
-    body.append(element('p', 'panel-note', '기차 시각과 종류는 아직 없어요.'));
-    body.append(element('p', 'panel-source', `자료: ${rail.source}`));
+    // 하루에 서는 기차: 종류별 막대(코레일 열차운행정보, 정한 하루)
+    const counts = trains.perStation[station.id] ?? {};
+    const kinds = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    if (kinds.length) {
+      const total = kinds.reduce((s, [, n]) => s + n, 0);
+      body.append(element('h3', null, '하루에 서는 기차'));
+      body.append(
+        barChart(
+          kinds.map(([kind, n]) => ({ label: kind, value: n, text: `${n}번`, color: '#3B3B3B' })),
+          { numberMode, labelWidth: 112 },
+        ),
+      );
+      body.append(element('p', null, `두 방향을 합쳐 하루에 ${total}번 서요.`));
+      // 첫 기차와 마지막 기차(이 역을 떠나는 시각)
+      const times = trains.trains
+        .flatMap((t) => t.stops.filter(([id, , dep]) => id === station.id && dep !== null).map(([, , dep]) => dep))
+        .sort((a, b) => a - b);
+      if (times.length) {
+        body.append(element('p', null, `첫 기차는 ${clockText(times[0])}에 떠나요.`));
+        body.append(element('p', null, `마지막 기차는 ${clockText(times.at(-1))}에 떠나요.`));
+      }
+      body.append(element('p', 'panel-note', `${trains.runDate.slice(0, 4)}년 ${Number(trains.runDate.slice(4, 6))}월 ${Number(trains.runDate.slice(6))}일 하루 기록이에요.`));
+    } else {
+      body.append(element('p', 'panel-note', '이 역에 서는 기차 기록을 찾지 못했어요.'));
+    }
+    body.append(element('p', 'panel-source', `자료: ${rail.source}. 기차 시각: ${trains.source}`));
   }
 
   function render() {
@@ -141,6 +165,21 @@ export function createStationPanel({ numberMode = getNumberMode() } = {}) {
       body.append(p);
     } else {
       body.append(element('p', null, `${line.name} 역이에요.`));
+    }
+
+    // 걸어서 갈 수 있는 기차역(코레일, 500m 안): 누르면 그 기차역 정보를 본다
+    const nearRail = rail.stations
+      .map((s) => ({ s, km: Math.hypot(s.x - station.x, s.y - station.y) }))
+      .filter((n) => n.km <= 0.5)
+      .sort((a, b) => a.km - b.km)[0];
+    if (nearRail) {
+      const go = element('button', 'more-button', `${stationLabel(nearRail.s.name)}(기차역) 보기`);
+      go.type = 'button';
+      go.addEventListener('click', () => {
+        current = nearRail.s.id;
+        render();
+      });
+      body.append(go);
     }
 
     // 개통일

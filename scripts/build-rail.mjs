@@ -8,7 +8,7 @@
 //    역과 역 사이 가장 짧은 선로를 따라 선 모양을 그린다(선로 이름에 기대지 않는다).
 // 거리표 차례 가운데 여객역(코레일 목록에 있거나 data/edits/rail-stations.json에 넣은 역)이고 OSM 역 노드가 있는 것만 역으로 둔다.
 // 신호장·분기점·화물역은 거리만 더한다. 열차(종류, 시각)는 아직 없다(열차 2단계).
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readCsv } from './lib/csv.mjs';
@@ -66,6 +66,15 @@ const passenger = new Set(korailRows.map((r) => key(r['역명'])));
 // 코레일 좌표(대략)로 지도 안에 있을 법한 역. OSM에 없을 때만 알리려고 쓴다(좌표가 틀린 역이 있어 자리로는 쓰지 않는다).
 const koreanInGrid = new Set(korailRows.filter((r) => inGrid(toGrid(Number(r['경도']), Number(r['위도'])))).map((r) => key(r['역명'])));
 for (const add of edits.add ?? []) passenger.add(key(add.name));
+// 열차운행정보(npm run trains로 받은 것)가 있으면, 그날 여객 열차가 실제로 선 역도 여객역으로 본다
+// (센텀·신해운대·기장처럼 코레일 역 목록에 없지만 ITX-마음·무궁화호가 서는 역).
+const RUN_INFO = raw('korail/run-info-20261014.json');
+if (existsSync(RUN_INFO)) {
+  const runInfo = JSON.parse(readFileSync(RUN_INFO, 'utf8'));
+  for (const list of Object.values(runInfo.runs)) {
+    for (const r of list) if (['01', '02', '05', '11'].includes(r.stop_se_cd)) passenger.add(key(r.stn_nm));
+  }
+}
 const osmStations = JSON.parse(readFileSync(raw('osm/stations.json'), 'utf8')).elements.filter(
   (e) => /^(station|halt)$/.test(e.tags?.railway ?? '') && (e.tags?.train === 'yes' || /철도공사|코레일|Korail/i.test(e.tags?.operator ?? '')),
 );

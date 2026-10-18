@@ -16,10 +16,9 @@ function el(name, attrs = {}, text) {
  * 막대그래프. items: [{label, value, color, text}]
  * text를 주면 막대 아래에 그 글을 쓴다(사람 수가 아닌 값일 때 쓴다).
  */
-export function barChart(items, { max, width = 320, numberMode = getNumberMode() } = {}) {
+export function barChart(items, { max, width = 320, numberMode = getNumberMode(), labelWidth = 56 } = {}) {
   const rowHeight = 44;
   const height = items.length * rowHeight + 8;
-  const labelWidth = 56;
   const top = max ?? Math.max(1, ...items.map((i) => i.value));
   const svg = el('svg', { class: 'chart', viewBox: `0 0 ${width} ${height}`, width: '100%', height, role: 'img' });
   items.forEach((item, index) => {

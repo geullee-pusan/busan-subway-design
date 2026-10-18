@@ -53,3 +53,27 @@ test('선로 모양의 길이가 거리표와 크게 다르지 않다(중앙선 
     });
   }
 });
+
+test('열차 시각표: 시각이 차례대로 늘고, 정차역은 지도 안 기차역이며, 종류가 붙어 있다', { skip }, () => {
+  const trainsPath = resolve(ROOT, 'data/build/trains.json');
+  if (!existsSync(trainsPath)) return;
+  const trains = JSON.parse(readFileSync(trainsPath, 'utf8'));
+  const rail = load();
+  const ids = new Set(rail.stations.map((s) => s.id));
+  assert.ok(trains.trains.length > 100);
+  for (const train of trains.trains) {
+    assert.ok(train.stops.length >= 2, `${train.no} 정차역이 둘 넘어야 한다`);
+    let last = -Infinity;
+    for (const [station, arr, dep] of train.stops) {
+      assert.ok(ids.has(station), `${train.no} ${station}`);
+      const at = arr ?? dep;
+      assert.ok(at >= last, `${train.no} 시각이 거꾸로 간다`);
+      last = dep ?? arr;
+    }
+  }
+  for (const kind of ['KTX', 'KTX-산천', 'KTX-청룡', 'KTX-이음', 'ITX-마음', '무궁화호']) {
+    assert.ok(trains.kinds.includes(kind), `${kind}가 있어야 한다`);
+  }
+  const known = trains.trains.filter((x) => x.kind).length / trains.trains.length;
+  assert.ok(known > 0.95, `종류를 아는 열차 ${(known * 100).toFixed(1)}%`);
+});

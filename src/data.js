@@ -13,6 +13,7 @@ import historyPopulationFile from '../data/build/history-population.json';
 import linesFile from '../data/build/lines.json';
 import linksFile from '../data/build/links.json';
 import railFile from '../data/build/rail.json';
+import trainsFile from '../data/build/trains.json';
 import ridershipFile from '../data/build/ridership.json';
 import schematicFile from '../data/build/schematic.json';
 import serviceFile from '../data/build/service.json';
@@ -32,6 +33,8 @@ export const historyPopulation = historyPopulationFile;
 export const rail = railFile;
 export const railStationById = new Map(railFile.stations.map((s) => [s.id, s]));
 export const railLineById = new Map(railFile.lines.map((l) => [l.id, l]));
+/** 일반·고속 열차 시각표(scripts/build-trains.mjs, 코레일 열차운행정보 + TAGO 열차정보) */
+export const trains = trainsFile;
 export const lines = linesFile.lines;
 export const planned = linesFile.planned;
 export const stations = stationsFile.stations;

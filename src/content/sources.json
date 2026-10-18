@@ -171,6 +171,20 @@
           "from": "코레일 보도자료, 경북매일 2025-12-11",
           "when": "2026년 10월 18일 확인",
           "license": "출처는 data/facts.json에 적어 두었어요"
+        },
+        {
+          "what": "기차역마다 하루에 서는 기차와 시각",
+          "from": "한국철도공사 열차운행정보",
+          "when": "2026년 10월 14일 하루",
+          "license": "공공데이터포털 오픈API, 이용허락범위 제한 없음",
+          "lockKey": "korail-run-info"
+        },
+        {
+          "what": "기차 종류(KTX, KTX-산천, ITX-마음, 무궁화호 등)",
+          "from": "국토교통부 TAGO 열차정보",
+          "when": "2026년 10월 21일 시각표",
+          "license": "공공데이터포털 오픈API, 이용허락범위 제한 없음",
+          "lockKey": "tago-train-info"
         }
       ]
     },

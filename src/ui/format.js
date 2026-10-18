@@ -56,6 +56,22 @@ export function durationText(seconds) {
 }
 
 /** m → "1km 600m". 1km가 안 되면 "600m", 딱 떨어지면 "2km". */
+/** 하루 시작부터 분 → "아침 6시 55분"(다음 날 새벽은 1440을 넘는다) */
+export function clockText(minutes) {
+  const total = ((Math.round(minutes) % 1440) + 1440) % 1440;
+  const hour = Math.floor(total / 60);
+  const minute = total % 60;
+  let word;
+  if (hour === 0) word = '밤 12시';
+  else if (hour < 6) word = `새벽 ${hour}시`;
+  else if (hour < 12) word = `아침 ${hour}시`;
+  else if (hour === 12) word = '낮 12시';
+  else if (hour < 18) word = `오후 ${hour - 12}시`;
+  else if (hour < 21) word = `저녁 ${hour - 12}시`;
+  else word = `밤 ${hour - 12}시`;
+  return minute ? `${word} ${minute}분` : word;
+}
+
 export function distanceText(meters) {
   const m = Math.round(meters);
   const km = Math.floor(m / 1000);

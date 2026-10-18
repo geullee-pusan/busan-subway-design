@@ -44,7 +44,8 @@
 - `npm run fetch`: `scripts/sources.mjs` 목록대로 원본을 `data/raw/`에 받는다(네트워크를 쓴다)
 - `npm run data`: `data/raw/`를 처리해 `data/build/`를 만든다
 - `npm run bus`: 시내버스 원본으로 `data/build/bus.json`을 만든다(실제 버스 노선과 정류장)
-- `npm run rail`: 코레일 거리표·역 목록과 OSM 선로로 일반·고속 철도 노선과 기차역을 `data/build/rail.json`으로 만든다
+- `npm run trains`: 저장한 인증키로 코레일 열차운행정보와 TAGO 열차정보를 받아 `data/raw/korail/`에 둔다(네트워크를 쓴다)
+- `npm run rail`: 코레일 거리표·역 목록과 OSM 선로로 일반·고속 철도 노선과 기차역(`data/build/rail.json`), 받아 둔 열차 기록으로 시각표(`data/build/trains.json`)를 만든다
 - `npm run station-sounds`: 역사 안내방송 원본에서 승강장 소리(열차진입 안내음, 진입 방송)를 `data/build/station-sounds.json`으로 만든다
 - `npm run api-key`: 공공데이터포털 인증키를 저장하고(git에 넣지 않는 `.data-go-kr-key`) 열차 API(TAGO 열차정보, 코레일 열차운행정보)가 되는지 시험한다(네트워크를 쓴다)
 - `npm run validate`: 데이터 검증
