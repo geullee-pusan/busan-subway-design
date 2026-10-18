@@ -50,6 +50,17 @@ export const SOURCES = [
   { key: 'bus-stops-gimhae', file: 'data/raw/datagokr/15105200.csv', url: dataGoKr('FILE_000000003661635') },
   // 김해 정류소 현황(15105200)에는 좌표가 없다. 좌표는 버스정보 안내 단말기 설치 현황(단말기가 있는 정류장만)에서 가져온다.
   { key: 'bus-bit-gimhae', file: 'data/raw/datagokr/15104697.csv', url: dataGoKr('FILE_000000003534016') },
+  // 넓힌 지도의 버스(4단계): 대구·양산은 노선, 구미·경산·밀양은 정류장 자리
+  { key: 'bus-daegu-shape', file: 'data/raw/datagokr/15070487.zip', url: dataGoKr('FILE_000000007653144'), size: 3032794 },
+  { key: 'bus-daegu-stops', file: 'data/raw/datagokr/15050946.csv', url: dataGoKr('FILE_000000007653224'), size: 494563 },
+  { key: 'bus-daegu-headway', file: 'data/raw/datagokr/15060936.csv', url: dataGoKr('FILE_000000003527838'), size: 2485523 },
+  { key: 'bus-daegu-routes', file: 'data/raw/datagokr/15156114.csv', url: dataGoKr('FILE_000000003557198'), size: 22408 },
+  { key: 'bus-yangsan-route-stops', file: 'data/raw/datagokr/15160339.csv', url: dataGoKr('FILE_000000003676110'), size: 872544 },
+  { key: 'bus-yangsan-stops', file: 'data/raw/datagokr/15156436.csv', url: dataGoKr('FILE_000000003561677'), size: 129653 },
+  { key: 'bus-yangsan-routes', file: 'data/raw/datagokr/15156450.csv', url: dataGoKr('FILE_000000003561797'), size: 5804 },
+  { key: 'bus-stops-gumi', file: 'data/raw/datagokr/15049485.csv', url: dataGoKr('FILE_000000003624915'), size: 102061 },
+  { key: 'bus-stops-gyeongsan', file: 'data/raw/datagokr/15168960.csv', url: dataGoKr('FILE_000000007705168'), size: 98641 },
+  { key: 'bus-stops-miryang', file: 'data/raw/datagokr/15072448.csv', url: dataGoKr('FILE_000000002447072'), size: 74963 },
   { key: 'bus-route-use-2025', file: 'data/raw/datagokr/15095329.csv', url: dataGoKr('FILE_000000003617805'), size: 20763 },
   { key: 'bus-stops', file: 'data/raw/datagokr/15084251.zip', url: dataGoKr('FILE_000000002797912'), size: 454474 },
 

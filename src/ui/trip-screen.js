@@ -553,10 +553,11 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
       panel.append(goButton);
       updateGo();
     }
-    panel.append(element('p', 'panel-note', '버스 번호와 정류장은 2023년 부산 시내버스 자료예요.'));
+    panel.append(element('p', 'panel-note', '버스 번호와 정류장은 부산·대구·양산 시내버스 자료예요.'));
+    panel.append(element('p', 'panel-note', '대구 버스가 서는 차례는 우리가 어림했어요.'));
     panel.append(element('p', 'panel-note', '버스를 기다리는 시간은 우리가 정한 값이에요.'));
     panel.append(element('p', 'panel-note', '가까운 정류장이 없으면 버스 시간을 어림해서 셈해요.'));
-    panel.append(element('p', 'panel-note', '부산 밖은 버스 노선 자료가 아직 없어서 어림해서 셈해요.'));
+    panel.append(element('p', 'panel-note', '다른 도시는 버스 노선 자료가 없어서 어림해서 셈해요.'));
     panel.append(element('p', 'panel-note', '택시 속도와 잡는 시간은 우리가 정한 값이에요.'));
   }
 

@@ -27,7 +27,17 @@ function meridianArc(phi) {
 
 /** 북반구 UTM 구역 하나의 변환기를 만든다. */
 export function makeUtm(zone) {
-  const lon0 = (zone * 6 - 183) * DEG;
+  return { zone, epsg: 32600 + zone, ...makeTm({ lon0: zone * 6 - 183, k0: K0, falseEasting: FALSE_EASTING, falseNorthing: 0, lat0: 0 }) };
+}
+
+/**
+ * 횡메르카토르 변환기. 우리나라 평면 좌표(예: KGD2002 동부원점 2010 = 중앙 경선 129도, 축척 1,
+ * 원점 북위 38도, 동쪽 200,000m·북쪽 600,000m 더함)에도 쓴다. 타원체는 WGS84로 둔다(GRS80과 차이는 1mm 아래).
+ * @param {{lon0: number, k0: number, falseEasting: number, falseNorthing: number, lat0: number}} p 각도는 도
+ */
+export function makeTm({ lon0: lon0Deg, k0: K0, falseEasting: FALSE_EASTING, falseNorthing, lat0 }) {
+  const lon0 = lon0Deg * DEG;
+  const m0 = meridianArc(lat0 * DEG);
 
   /** 경도, 위도(도) → [동쪽 좌표, 북쪽 좌표](m) */
   function forward(lon, lat) {
@@ -43,8 +53,10 @@ export function makeUtm(zone) {
       FALSE_EASTING +
       K0 * n * (a + ((1 - t + c) * a ** 3) / 6 + ((5 - 18 * t + t * t + 72 * c - 58 * EP2) * a ** 5) / 120);
     const y =
+      falseNorthing +
       K0 *
-      (meridianArc(phi) +
+      (meridianArc(phi) -
+        m0 +
         n *
           tan *
           ((a * a) / 2 +
@@ -55,7 +67,7 @@ export function makeUtm(zone) {
 
   /** [동쪽 좌표, 북쪽 좌표](m) → [경도, 위도](도) */
   function inverse(x, y) {
-    const mu = y / K0 / (A * M_COEF);
+    const mu = (m0 + (y - falseNorthing) / K0) / (A * M_COEF);
     const s = Math.sqrt(1 - E2);
     const e1 = (1 - s) / (1 + s);
     const phi1 =
@@ -86,8 +98,11 @@ export function makeUtm(zone) {
     return [lam / DEG, phi / DEG];
   }
 
-  return { zone, epsg: 32600 + zone, forward, inverse };
+  return { forward, inverse };
 }
+
+/** 대구 버스 공간정보 등이 쓰는 KGD2002 동부원점 2010(EPSG:5187) */
+export const tmEast = makeTm({ lon0: 129, k0: 1, falseEasting: 200000, falseNorthing: 600000, lat0: 38 });
 
 /** 부산이 들어가는 UTM 52N (EPSG:32652) */
 export const utm52 = makeUtm(52);

@@ -208,6 +208,36 @@ function shortest(network, adj, seeds) {
   return { dist, prev };
 }
 
+/** 노선이 서는 정류장을 1km 칸마다 나눠 둔다(가까운 정류장을 빨리 찾으려고). */
+const servedBucketsCache = new WeakMap();
+function servedBuckets(network) {
+  if (servedBucketsCache.has(network)) return servedBucketsCache.get(network);
+  const buckets = new Map();
+  for (const stop of network.served ?? network.stops) {
+    const key = `${Math.floor(stop.x)}|${Math.floor(stop.y)}`;
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(stop);
+  }
+  servedBucketsCache.set(network, buckets);
+  return buckets;
+}
+
+/** 한 점에서 km 안쪽일 수 있는 정류장(둘레 칸의 정류장). 정류장 번호 차례로 돌려준다. */
+function servedNear(network, point, km) {
+  const buckets = servedBuckets(network);
+  const reach = Math.ceil(km);
+  const cx = Math.floor(point.x);
+  const cy = Math.floor(point.y);
+  const list = [];
+  for (let dy = -reach; dy <= reach; dy++) {
+    for (let dx = -reach; dx <= reach; dx++) {
+      const bucket = buckets.get(`${cx + dx}|${cy + dy}`);
+      if (bucket) list.push(...bucket);
+    }
+  }
+  return list.sort((a, b) => a.index - b.index);
+}
+
 /**
  * 한 점에서 걸어갈 수 있는 정류장과 걷는 시간.
  * @param {{x: number, y: number, hilly?: boolean}} point
@@ -216,7 +246,7 @@ function shortest(network, adj, seeds) {
 export function stopsNear(network, point, rules) {
   const maxKm = (rules.busWalkMaxMin / 60) * rules.walkSpeedKmh;
   const found = [];
-  for (const stop of network.served ?? network.stops) {
+  for (const stop of servedNear(network, point, maxKm)) {
     const km = straightKm(point, stop);
     if (km > maxKm) continue;
     const walkMin = walkMinutes(km, rules, point.hilly);
@@ -427,6 +457,25 @@ function samePlaceGroups(network) {
   return samePlaceCache.get(network);
 }
 
+/**
+ * 같은 자리 정류장 묶음을 1km 칸마다 나눠 둔다. 칸 안의 차례는 samePlaceGroups의 차례 그대로다.
+ * @returns {Map<string, number[][]>} "열|행" → 묶음들
+ */
+const cellGroupsCache = new WeakMap();
+function cellGroups(network) {
+  if (!cellGroupsCache.has(network)) {
+    const cells = new Map();
+    for (const indices of samePlaceGroups(network).values()) {
+      const stop = network.stops[indices[0]];
+      const key = `${Math.floor(stop.x)}|${Math.floor(stop.y)}`;
+      if (!cells.has(key)) cells.set(key, []);
+      cells.get(key).push(indices);
+    }
+    cellGroupsCache.set(network, cells);
+  }
+  return cellGroupsCache.get(network);
+}
+
 /** 같은 자리 정류장들 가운데 가장 많은 노선이 쓰는 이름 */
 function placeName(network, indices) {
   const count = new Map();
@@ -459,7 +508,12 @@ export function stopGroup(network, stopIndex) {
   if (!stop) return [];
   const name = stopPlace(network, stopIndex).name;
   const out = [];
-  for (const indices of samePlaceGroups(network).values()) {
+  // 40m 안의 묶음은 이 칸이나 둘레 칸에만 있다.
+  const near = [];
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dx = -1; dx <= 1; dx++) near.push(...(cellGroups(network).get(`${Math.floor(stop.x) + dx}|${Math.floor(stop.y) + dy}`) ?? []));
+  }
+  for (const indices of near) {
     const other = network.stops[indices[0]];
     if (Math.abs(other.x - stop.x) > SAME_STOP_KM || Math.abs(other.y - stop.y) > SAME_STOP_KM) continue;
     if (straightKm(other, stop) > SAME_STOP_KM) continue;
@@ -480,9 +534,8 @@ export function stopsInCell(network, grid, cell) {
   const col = cell % grid.cols;
   const row = Math.floor(cell / grid.cols);
   const groups = [];
-  for (const indices of samePlaceGroups(network).values()) {
+  for (const indices of cellGroups(network).get(`${col}|${row}`) ?? []) {
     const stop = network.stops[indices[0]];
-    if (Math.floor(stop.x) !== col || Math.floor(stop.y) !== row) continue;
     // 노선도 없고 정류소 자료도 아닌 것은 뺀다. 울산·창원·김해 정류소(noRoutes)는 노선이 없어도 보여 준다.
     if (indices.every((index) => network.routesAt[index].length === 0 && !network.stops[index].noRoutes)) continue;
     const name = placeName(network, indices);

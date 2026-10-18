@@ -526,7 +526,11 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     let bellRung = false;
     // 이 버스의 승객들(탈 때마다 다르다). 정류장마다 내리는 만큼 사람이 바뀐다.
     const crowd = createCrowd(Math.floor(Math.random() * 2147483647), { startStop: 0, lastStop: last });
-    const countAt = (i) => Math.max(1, Math.round((stops[Math.min(i, last - 1)].load ?? 0) * BUS_PEOPLE_MAX * 0.8));
+    // 승하차 자료가 없는 버스(대구·양산)는 사람 수를 정해 둔 값으로 그린다(우리가 정한 값).
+    const noLoadData = stops.every((stop) => !stop.board && !stop.alight);
+    const NO_DATA_PEOPLE = 8;
+    const countAt = (i) =>
+      noLoadData ? NO_DATA_PEOPLE : Math.max(1, Math.round((stops[Math.min(i, last - 1)].load ?? 0) * BUS_PEOPLE_MAX * 0.8));
     let crowdAt = 0;
     const syncCrowd = (target) => {
       while (crowdAt < target) {
@@ -590,7 +594,12 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       art.setAttribute('role', 'group');
       art.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요. 사람을 누르면 이야기를 들을 수 있어요.`);
       box.append(art);
-      box.append(element('p', 'panel-note', '붐빔은 하루 승하차 자료로 어림했어요.'));
+      if (noLoadData) {
+        box.append(element('p', 'panel-note', '이 버스는 승하차 자료가 없어요.'));
+        box.append(element('p', 'panel-note', '버스 안 사람 수는 우리가 정한 값이에요.'));
+      } else {
+        box.append(element('p', 'panel-note', '붐빔은 하루 승하차 자료로 어림했어요.'));
+      }
       // 지나온 정류장: 네모 하나가 정류장 하나
       const row = element('div', 'journey-bus-stops');
       row.setAttribute('role', 'img');

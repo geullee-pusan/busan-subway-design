@@ -266,7 +266,8 @@ test('부산 버스 자료: 울산·창원·김해 정류소가 부산 정류장
 test('폐선된 노선은 없고, 남은 노선은 2025년 노선 목록에 있거나 남긴 까닭이 적혀 있다', { skip }, () => {
   const bus = readJson('data/build/bus.json');
   const edits = readJson('data/edits/bus-routes.json');
-  const numbers = bus.routes.map((r) => r.no);
+  // 부산 노선만 본다(대구·양산 노선은 city가 있고 번호 앞에 도시 이름이 붙는다).
+  const numbers = bus.routes.filter((r) => !r.city).map((r) => r.no);
   for (const r of edits.remove) assert.ok(!numbers.includes(r.no), `${r.no}는 빠져야 한다`);
   for (const r of [...edits.remove, ...edits.keep]) assert.ok(r.reason && r.sources?.length, `${r.no}에 까닭과 출처가 있어야 한다`);
   const rawPath = resolve(ROOT, 'data/raw/datagokr/15095329.csv');

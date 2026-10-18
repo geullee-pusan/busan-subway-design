@@ -27,6 +27,34 @@
     "sha256": "9ef1a6ca577d94926af618ac12c37dcc3f5c297c7ef29dfc60f08b99d0512262",
     "fetched": "2026-10-11"
   },
+  "bus-daegu-headway": {
+    "file": "data/raw/datagokr/15060936.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003527838&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 2485523,
+    "sha256": "b4568df2205b8f6a1db93df518d1861c89e3da7881ef650915674a0175ccbb4d",
+    "fetched": "2026-10-18"
+  },
+  "bus-daegu-routes": {
+    "file": "data/raw/datagokr/15156114.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003557198&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 22408,
+    "sha256": "761cb9758986f4ac47f3c0d3af0fba1db7aa2c8384791e85876ea7d3d762c095",
+    "fetched": "2026-10-18"
+  },
+  "bus-daegu-shape": {
+    "file": "data/raw/datagokr/15070487.zip",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007653144&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 3032794,
+    "sha256": "3462e6f8dce7f96a04f4ffa6c0cfc8be53a6065bc15c8b5bc779893828e12b72",
+    "fetched": "2026-10-18"
+  },
+  "bus-daegu-stops": {
+    "file": "data/raw/datagokr/15050946.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007653224&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 494563,
+    "sha256": "5779d1f89b5bcd1bdc08172336b62502a483dc3c9d53494a708b821067659ac3",
+    "fetched": "2026-10-18"
+  },
   "bus-route-stops": {
     "file": "data/raw/datagokr/15123610.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002818223&fileDetailSn=1&insertDataPrcus=N",
@@ -62,12 +90,54 @@
     "sha256": "9f1a7fc8cd6d018850c8a188e82606b2e29bfa18dac1dbef39ecaaf778e98f36",
     "fetched": "2026-10-11"
   },
+  "bus-stops-gumi": {
+    "file": "data/raw/datagokr/15049485.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003624915&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 102061,
+    "sha256": "d689870848e2f10270c7d6d17b4699c7b21c9c79a5294ac750707b443f0bea03",
+    "fetched": "2026-10-18"
+  },
+  "bus-stops-gyeongsan": {
+    "file": "data/raw/datagokr/15168960.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007705168&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 98641,
+    "sha256": "efbddb6b6a3de6959a7f10b8a6ad98fcffc17dec2b0f506fc5ed28d1537afb6b",
+    "fetched": "2026-10-18"
+  },
+  "bus-stops-miryang": {
+    "file": "data/raw/datagokr/15072448.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002447072&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 74963,
+    "sha256": "7dbc42424c4cafc461d1c959aa21038aebb95797908557ab5592608fe59aed9a",
+    "fetched": "2026-10-18"
+  },
   "bus-stops-ulsan": {
     "file": "data/raw/datagokr/15052671.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003644754&fileDetailSn=1&insertDataPrcus=N",
     "bytes": 275927,
     "sha256": "f30a97f542e2d9f3b5557f83ddae302b189b3945b5fc2970d8b88f1609fc5385",
     "fetched": "2026-10-11"
+  },
+  "bus-yangsan-route-stops": {
+    "file": "data/raw/datagokr/15160339.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003676110&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 872544,
+    "sha256": "9d142da3370e658d51a45f5a7c7b2479dda5c946a154e9ba15c7b20ce9751ccd",
+    "fetched": "2026-10-18"
+  },
+  "bus-yangsan-routes": {
+    "file": "data/raw/datagokr/15156450.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003561797&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 5804,
+    "sha256": "22b6428fcbd696b6342610081c3867bdb89cf013cac93fbb04f9f4cc739f1cbb",
+    "fetched": "2026-10-18"
+  },
+  "bus-yangsan-stops": {
+    "file": "data/raw/datagokr/15156436.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003561677&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 129653,
+    "sha256": "6af9953f6e68369dd3d0b7ee5bae76bffdd4033726554b95ecddf570d94f89af",
+    "fetched": "2026-10-18"
   },
   "daegu-broadcast": {
     "file": "data/raw/datagokr/15063230.zip",

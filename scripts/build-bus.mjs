@@ -15,7 +15,8 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateRawSync } from 'node:zlib';
 import { readCsv } from './lib/csv.mjs';
-import { makeUtm } from './lib/utm.mjs';
+import { orderStops } from './lib/stop-order.mjs';
+import { makeUtm, tmEast } from './lib/utm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
@@ -246,9 +247,7 @@ for (const [no, rows] of [...routeRows].sort((a, b) => a[0].localeCompare(b[0], 
   routes.push({ no, stops: seq });
 }
 
-// 3. 울산·창원·김해 정류소(자리와 이름만 있다. 어느 노선이 서는지는 자료가 없다)
-//    부산 정류장 뒤에 붙인다(부산 정류장 번호는 그대로다). 격자 밖과, 부산 자료에 이미 있는 곳(같은 이름, 40m 안)은 뺀다.
-const busanCount = stops.length;
+const busanOnly = { routes: routes.length, stops: stops.length };
 const nameId = (name) => {
   if (!nameIndex.has(name)) {
     nameIndex.set(name, names.length);
@@ -256,6 +255,152 @@ const nameId = (name) => {
   }
   return nameIndex.get(name);
 };
+const rawCsv = (file) => readCsv(resolve(ROOT, 'data/raw/datagokr', file)).records;
+
+/** 경위도 → 격자 좌표(×100). 격자 밖이면 null */
+function gridPoint(lon, lat) {
+  if (!Number.isFinite(lon) || !Number.isFinite(lat) || lon === 0) return null;
+  const [e, n] = utm.forward(lon, lat);
+  const x = Math.round((e - grid.origin.easting) / 10);
+  const y = Math.round((grid.origin.northing - n) / 10);
+  if (x < 0 || y < 0 || x >= grid.cols * 100 || y >= grid.rows * 100) return null;
+  return { x, y };
+}
+
+/**
+ * 노선이 서는 정류장을 넣고 번호를 돌려준다. 이미 넣은 정류장(같은 이름, 40m 안)이 있으면 그 번호를 쓴다.
+ * 그래서 부산 버스가 서는 양산 정류장은 부산 노선과 양산 노선이 함께 쓴다.
+ */
+const routedByName = new Map();
+for (const [i, [x, y, n]] of stops.entries()) {
+  if (!routedByName.has(names[n])) routedByName.set(names[n], []);
+  routedByName.get(names[n]).push(i);
+}
+function routedStop(name, point) {
+  const same = (routedByName.get(name) ?? []).find((i) => Math.hypot(stops[i][0] - point.x, stops[i][1] - point.y) <= 4);
+  if (same !== undefined) return same;
+  stops.push([point.x, point.y, nameId(name)]);
+  if (!routedByName.has(name)) routedByName.set(name, []);
+  routedByName.get(name).push(stops.length - 1);
+  return stops.length - 1;
+}
+
+// 3. 대구 시내버스(대구광역시 15070487 버스 노선 공간정보의 정류장 + 15060936 정류소별·노선별 평균배차간격)
+//    자료에 노선별 정류장 차례가 없다. 노선·방향마다 서는 정류장 묶음을 가장 짧게 잇는 차례로 어림한다
+//    (scripts/lib/stop-order.mjs, 부산 노선으로 시험하면 이웃한 정류장의 약 94%가 맞는다).
+//    방향은 첫차가 이른 끝을 앞으로 둔다. 정방향과 역방향을 이어 한 노선으로 둔다(부산 노선처럼 한 바퀴).
+const DAEGU_ZIP = unzip(readFileSync(resolve(ROOT, 'data/raw/datagokr/15070487.zip')));
+const daeguBs = readDbf(DAEGU_ZIP[Object.keys(DAEGU_ZIP).find((name) => /^bs_.*\.dbf$/i.test(name))]);
+const daeguPos = new Map();
+for (const row of daeguBs) {
+  const [lon, lat] = tmEast.inverse(Number(row.ngis_x_pos), Number(row.ngis_y_pos));
+  const point = gridPoint(lon, lat);
+  if (point) daeguPos.set(row.bs_id, { ...point, name: row.bs_nm });
+}
+const minutesOf = (text) => {
+  const m = /^(\d{1,2}):(\d{2})/.exec(text ?? '');
+  return m ? Number(m[1]) * 60 + Number(m[2]) : null;
+};
+const daeguRows = rawCsv('15060936.csv');
+const daeguGroups = new Map(); // 노선 → 방향 → [{id, first}]
+const weekdayRoutes = new Set(daeguRows.filter((r) => r['시간표유형'] === '평일').map((r) => r['노선']));
+for (const r of daeguRows) {
+  // 평일 시간표가 있는 노선은 평일 것만, 없는 노선은 "공통" 것을 쓴다.
+  const type = r['시간표유형'];
+  if (!(type === '평일' || (type === '공통' && !weekdayRoutes.has(r['노선'])))) continue;
+  if (!daeguGroups.has(r['노선'])) daeguGroups.set(r['노선'], new Map());
+  const dirs = daeguGroups.get(r['노선']);
+  if (!dirs.has(r['진행방향'])) dirs.set(r['진행방향'], new Map());
+  const list = dirs.get(r['진행방향']);
+  if (!list.has(r['정류소ID'])) list.set(r['정류소ID'], minutesOf(r['첫차']));
+}
+const daeguStats = { routes: 0, noPlace: 0, rows: 0 };
+for (const [no, dirs] of [...daeguGroups].sort((a, b) => a[0].localeCompare(b[0], 'ko', { numeric: true }))) {
+  const legs = [];
+  for (const dir of ['정방향', '역방향', ...[...dirs.keys()].filter((d) => d !== '정방향' && d !== '역방향')]) {
+    const list = dirs.get(dir);
+    if (!list) continue;
+    const points = [];
+    for (const [id, first] of list) {
+      daeguStats.rows += 1;
+      const place = daeguPos.get(id);
+      if (!place) {
+        daeguStats.noPlace += 1;
+        continue;
+      }
+      points.push({ ...place, first });
+    }
+    if (points.length < 2) continue;
+    let order = orderStops(points).map((i) => points[i]);
+    // 첫차가 이른 끝을 앞으로(앞뒤 다섯 곳의 첫차 평균을 견준다)
+    const mean = (list) => {
+      const values = list.map((p) => p.first).filter((v) => v !== null);
+      return values.length ? values.reduce((s, v) => s + v, 0) / values.length : 0;
+    };
+    if (mean(order.slice(-5)) < mean(order.slice(0, 5))) order = order.reverse();
+    legs.push(order);
+  }
+  if (legs.length === 0) continue;
+  // 두 방향을 이을 때, 둘째 방향의 시작이 첫째 방향의 끝에 가까운 쪽이 되게 한다.
+  if (legs.length > 1) {
+    const end = legs[0].at(-1);
+    const gap = (p) => Math.hypot(p.x - end.x, p.y - end.y);
+    if (gap(legs[1].at(-1)) < gap(legs[1][0])) legs[1] = legs[1].reverse();
+  }
+  const seq = [];
+  for (const leg of legs) {
+    for (const p of leg) {
+      const index = routedStop(p.name, p);
+      if (seq.at(-1)?.[0] !== index) seq.push([index, 0, 0]);
+    }
+  }
+  routes.push({ no: `대구 ${no}`, city: '대구', stops: seq, order: '추정' });
+  daeguStats.routes += 1;
+}
+
+// 4. 양산 시내버스(경상남도 양산시 15160339 노선별 정차 정류장 정보 + 15156436 버스정류장 현황)
+//    순번이 있어서 차례는 자료대로다. 교차로(교차로여부 1)는 정류장이 아니라서 뺀다.
+//    지금(자료를 받은 2026-10-18) 쓰는 것만 넣는다. 같은 정류장이 부산 자료에 있으면(같은 이름, 40m 안) 그 정류장을 함께 쓴다.
+const YANGSAN_DATE = '2026-10-18';
+const yangsanPos = new Map();
+for (const r of rawCsv('15156436.csv')) {
+  if (r['교차로여부'] === '1') continue;
+  const point = gridPoint(Number(r['경도']), Number(r['위도']));
+  if (point) yangsanPos.set(r['정류장아이디'], { ...point, name: r['정류장명'].trim() });
+}
+const yangsanRoutes = new Map(); // 노선아이디 → {no, rows}
+for (const r of rawCsv('15160339.csv')) {
+  if (r['적용시작일'] > YANGSAN_DATE || r['적용종료일'] < YANGSAN_DATE) continue;
+  if (!yangsanRoutes.has(r['노선아이디'])) yangsanRoutes.set(r['노선아이디'], { no: r['노선명'].trim(), rows: [] });
+  yangsanRoutes.get(r['노선아이디']).rows.push({ order: Number(r['순번']), id: r['정류장아이디'] });
+}
+const yangsanStats = { routes: 0, rows: 0, placed: 0, skipped: [] };
+for (const [, route] of [...yangsanRoutes].sort((a, b) => a[1].no.localeCompare(b[1].no, 'ko', { numeric: true }) || a[0].localeCompare(b[0]))) {
+  // 심야 노선은 부산처럼 뺀다.
+  if (route.no.includes('심야')) {
+    yangsanStats.skipped.push(route.no);
+    continue;
+  }
+  route.rows.sort((a, b) => a.order - b.order);
+  const placed = route.rows.map((r) => yangsanPos.get(r.id)).filter(Boolean);
+  yangsanStats.rows += route.rows.length;
+  if (placed.length < 2) {
+    yangsanStats.skipped.push(route.no);
+    continue;
+  }
+  yangsanStats.placed += placed.length;
+  const seq = [];
+  for (const p of placed) {
+    const index = routedStop(p.name, p);
+    if (seq.at(-1)?.[0] !== index) seq.push([index, 0, 0]);
+  }
+  routes.push({ no: `양산 ${route.no}`, city: '양산', stops: seq });
+  yangsanStats.routes += 1;
+}
+
+// 5. 노선 자료가 없는 정류소(울산·창원·김해·구미·경산·밀양, 자리와 이름만 있다)
+//    노선이 서는 정류장 뒤에 붙인다. 격자 밖과, 이미 넣은 곳(같은 이름, 40m 안)은 뺀다.
+const busanCount = stops.length;
 const taken = new Map(); // 이름 → 이미 넣은 자리들
 for (const [x, y, n] of stops) {
   if (!taken.has(names[n])) taken.set(names[n], []);
@@ -277,29 +422,40 @@ function addExtra(city, name, lon, lat, toward) {
   stops.push(toward ? [x, y, nameId(name), nameId(toward)] : [x, y, nameId(name)]);
   extraCounts[city] = (extraCounts[city] ?? 0) + 1;
 }
-const rawCsv = (file) => readCsv(resolve(ROOT, 'data/raw/datagokr', file)).records;
 for (const r of rawCsv('15052671.csv')) addExtra('울산', r['정류장명']?.trim(), Number(r['경도']), Number(r['위도']), null);
 for (const r of rawCsv('15037805.csv')) addExtra('창원', r['정류소명']?.trim(), Number(r['경도']), Number(r['위도']), r['방면']?.trim().replace(/\s*방면$/, '') || null); // 값 끝의 "방면"은 뗀다(화면에서 붙인다)
 // 김해: 정류소 현황(15105200)에는 좌표가 없어서, 좌표가 있는 단말기 설치 현황(15104697)의 정류장만 넣는다.
 for (const r of rawCsv('15104697.csv')) addExtra('김해', r['정류소명']?.trim(), Number(r['경도']), Number(r['위도']), null);
 const gimhaeAll = rawCsv('15105200.csv').length;
+for (const r of rawCsv('15049485.csv')) addExtra('구미', r['한글명칭']?.trim(), Number(r['경도']), Number(r['위도']), null);
+// 경산: 좌표가 "도분" 꼴이다(12844.56097 = 128도 44.56097분).
+const fromDegMin = (value) => {
+  const v = Number(value);
+  const degrees = Math.floor(v / 100);
+  return degrees + (v - degrees * 100) / 60;
+};
+for (const r of rawCsv('15168960.csv')) addExtra('경산', r['정류장명']?.trim(), fromDegMin(r['경도']), fromDegMin(r['위도']), null);
+for (const r of rawCsv('15072448.csv')) addExtra('밀양', r['정류장(소)명']?.trim(), Number(r['정류소위치(경도)']), Number(r['정류소위치(위도)']), null);
 
 const out = {
   _설명:
-    '부산 시내버스 노선(심야 노선과 폐선된 노선 뺌. 폐선은 data/edits/bus-routes.json)과 울산·창원·김해 정류소. stops는 [x×100, y×100, 이름 번호, (있으면) 방면 이름 번호](격자 칸 단위), routes의 stops는 [정류장 번호, 승차 합계, 하차 합계](2023-07-31 판 자료. 하루치인지 기간 합계인지는 자료 설명에 없다). extraFrom번부터의 정류장은 울산·창원·김해 정류소로, 자리와 이름만 있고 서는 노선 자료가 없다. 만든 곳: scripts/build-bus.mjs',
+    '부산 시내버스 노선(심야 노선과 폐선된 노선 뺌. 폐선은 data/edits/bus-routes.json), 대구·양산 시내버스 노선(번호 앞에 도시 이름. city가 있다), 울산·창원·김해·구미·경산·밀양 정류소. 대구 노선은 정류장 차례 자료가 없어 정류장 묶음을 가장 짧게 잇는 차례로 어림했다(order: "추정"). 대구·양산 노선은 승하차 수가 없어 0이다. stops는 [x×100, y×100, 이름 번호, (있으면) 방면 이름 번호](격자 칸 단위), routes의 stops는 [정류장 번호, 승차 합계, 하차 합계](2023-07-31 판 자료. 하루치인지 기간 합계인지는 자료 설명에 없다). extraFrom번부터의 정류장은 노선 자료가 없는 정류소로, 자리와 이름만 있고 서는 노선 자료가 없다. 만든 곳: scripts/build-bus.mjs',
   date: '2023-07-31',
   stopsDate: '2026-09-12',
   source: '공공데이터포털 15123610 부산광역시_버스노선별 승하차 정보, 15084251 부산광역시_버스 정류소 정보',
+  routesSource:
+    '대구: 공공데이터포털 15070487 대구광역시_버스 노선 공간정보_20260902(정류장), 15060936 대구광역시_시내버스 정류소별_노선별_평균배차간격_20251114(노선·방향별 정류장). 양산: 15160339 경상남도 양산시_버스노선별 정차 정류장 정보_20260714, 15156436 경상남도 양산시_버스정류장 현황_20251212',
   extraFrom: busanCount,
   extraSource:
-    '공공데이터포털 15052671 울산광역시_버스 정류소 위치 정보_20260522, 15037805 경상남도 창원시_버스정류소 위치정보_20251231, 15104697 경상남도 김해시_버스정보 안내 단말기(BIT) 설치 현황_20251031',
+    '공공데이터포털 15052671 울산광역시_버스 정류소 위치 정보_20260522, 15037805 경상남도 창원시_버스정류소 위치정보_20251231, 15104697 경상남도 김해시_버스정보 안내 단말기(BIT) 설치 현황_20251031, 15049485 경상북도 구미시_버스정류장_20260413, 15168960 경상북도 경산시_버스정류장위치정보_20261001, 15072448 경상남도 밀양시_버스정류장 정보',
   names,
   stops,
   routes,
 };
 writeFileSync(resolve(ROOT, 'data/build/bus.json'), JSON.stringify(out));
 const size = Buffer.byteLength(JSON.stringify(out));
-console.log(`노선 ${routes.length}개(뺀 노선 ${skipped.length}개), 부산 정류장 ${busanCount}곳, 이름 ${names.length}개`);
+console.log(`노선 ${routes.length}개(부산 ${busanOnly.routes}, 대구 ${daeguStats.routes}, 양산 ${yangsanStats.routes}. 부산에서 뺀 노선 ${skipped.length}개), 노선이 서는 정류장 ${busanCount}곳(부산 ${busanOnly.stops}), 이름 ${names.length}개`);
+console.log(`대구: 노선·방향별 정류장 ${daeguStats.rows}줄 가운데 자리를 모르는 것 ${daeguStats.noPlace}줄. 양산: 정류장 차례 ${yangsanStats.placed}/${yangsanStats.rows}(자리를 찾은 것)${yangsanStats.skipped.length ? `, 뺀 노선 ${yangsanStats.skipped.join(', ')}` : ''}`);
 console.log(`노선 자료가 없는 정류소: ${Object.entries(extraCounts).map(([city, n]) => `${city} ${n}곳`).join(', ')} (김해는 좌표가 있는 단말기 설치 정류장만. 김해 정류소 현황은 ${gimhaeAll}곳)`);
 console.log(`자리를 찾은 정류장 차례 ${rowsKept}/${rowsAll}(${((rowsKept / rowsAll) * 100).toFixed(1)}%), 승차 ${((boardKept / boardAll) * 100).toFixed(1)}%`);
 console.log(`bus.json ${(size / 1024).toFixed(0)}KB`);
