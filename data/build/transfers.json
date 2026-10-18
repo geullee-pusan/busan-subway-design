@@ -10,6 +10,11 @@
     {"id":"T-233","name":"덕천","stations":["233","313"],"source":"15043686"},
     {"id":"T-306","name":"거제","stations":["306","DH03"],"source":"data/edits/transfers.json"},
     {"id":"T-309","name":"미남","stations":["309","401"],"source":"15043686"},
-    {"id":"T-317","name":"대저","stations":["317","BG07"],"source":"data/edits/transfers.json"}
+    {"id":"T-317","name":"대저","stations":["317","BG07"],"source":"data/edits/transfers.json"},
+    {"id":"T-D129","name":"명덕","stations":["D129","D331"],"source":"15041092"},
+    {"id":"T-D130","name":"반월당","stations":["D130","D230"],"source":"15041092"},
+    {"id":"T-D229","name":"청라언덕","stations":["D229","D329"],"source":"15041092"},
+    {"id":"T-DK06","name":"대구","stations":["DK06","D132"],"source":"data/edits/transfers.json"},
+    {"id":"T-DK07","name":"동대구","stations":["DK07","D135"],"source":"data/edits/transfers.json"}
   ]
 }

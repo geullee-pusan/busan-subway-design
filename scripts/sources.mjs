@@ -52,6 +52,24 @@ export const SOURCES = [
   { key: 'bus-bit-gimhae', file: 'data/raw/datagokr/15104697.csv', url: dataGoKr('FILE_000000003534016') },
   { key: 'bus-stops', file: 'data/raw/datagokr/15084251.zip', url: dataGoKr('FILE_000000002797912'), size: 454474 },
 
+  // 대구 도시철도(대구교통공사, 지도 범위 넓히기 3단계 다음의 대구권 전철)
+  { key: 'daegu-link', file: 'data/raw/datagokr/15002510.csv', url: dataGoKr('FILE_000000003093558'), size: 1701 },
+  { key: 'daegu-section-1', file: 'data/raw/datagokr/15061836.csv', url: dataGoKr('FILE_000000003584013'), size: 4140 },
+  { key: 'daegu-section-2', file: 'data/raw/datagokr/15061835.csv', url: dataGoKr('FILE_000000003584015'), size: 3987 },
+  { key: 'daegu-section-3', file: 'data/raw/datagokr/15061797.csv', url: dataGoKr('FILE_000000003584016'), size: 4124 },
+  { key: 'daegu-exits-1', file: 'data/raw/datagokr/15133918.csv', url: dataGoKr('FILE_000000003003022'), size: 4856 },
+  { key: 'daegu-exits-2', file: 'data/raw/datagokr/15133920.csv', url: dataGoKr('FILE_000000003046570'), size: 5502 },
+  { key: 'daegu-exits-3', file: 'data/raw/datagokr/15133922.csv', url: dataGoKr('FILE_000000003003032'), size: 2417 },
+  { key: 'daegu-timetable-1-down', file: 'data/raw/datagokr/15138731.csv', url: dataGoKr('FILE_000000003042539'), size: 249244 },
+  { key: 'daegu-timetable-2-up', file: 'data/raw/datagokr/3033376.csv', url: dataGoKr('FILE_000000003056832'), size: 213492 },
+  { key: 'daegu-timetable-2-down', file: 'data/raw/datagokr/15138732.csv', url: dataGoKr('FILE_000000003042590'), size: 213148 },
+  { key: 'daegu-timetable-3-up', file: 'data/raw/datagokr/15065532.csv', url: dataGoKr('FILE_000000003042729'), size: 237914 },
+  { key: 'daegu-timetable-3-down', file: 'data/raw/datagokr/15138734.csv', url: dataGoKr('FILE_000000003042741'), size: 237914 },
+  { key: 'daegu-ridership', file: 'data/raw/datagokr/15002503.csv', url: dataGoKr('FILE_000000007686014'), size: 4479159 },
+  { key: 'daegu-transfers', file: 'data/raw/datagokr/15041092.csv', url: dataGoKr('FILE_000000003522955'), size: 2004 },
+  // 대구 열차 안 소리(232MB, git에 넣지 않음)
+  { key: 'daegu-broadcast', file: 'data/raw/datagokr/15063230.zip', url: dataGoKr('FILE_000000003626166'), size: 232504247 },
+
   // 시승 모드 역명판 글꼴: 프리텐다드 굵은체 한글 2,350자 묶음 (npm pretendard 1.3.9, SIL OFL 1.1)
   { key: 'pretendard-bold', file: 'data/raw/fonts/Pretendard-Bold.subset.woff2', url: 'https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/woff2-subset/Pretendard-Bold.subset.woff2', size: 270784 },
   { key: 'pretendard-license', file: 'data/raw/fonts/Pretendard-LICENSE.txt', url: 'https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/LICENSE.txt', size: 4419 },

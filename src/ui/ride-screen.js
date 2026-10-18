@@ -128,8 +128,8 @@ export function renderRideSegment(root, { lineId, fromId, toId, hour, world, res
     label: line?.label ?? lineId,
     color: line?.color ?? DESIGN_COLOR,
     lineName: line?.name ?? lineId,
-    // 고무바퀴 경전철(4호선, 부산김해경전철)과 나머지. 정원은 자료가 있으면 그 노선 값을 쓴다.
-    kind: ['4', 'BGL'].includes(lineId) ? '경전철' : '지하철',
+    // 경전철(4호선과 부산김해경전철은 고무바퀴, 대구 3호선은 모노레일)과 나머지. 정원은 자료가 있으면 그 노선 값을 쓴다.
+    kind: ['4', 'BGL', 'DG3'].includes(lineId) ? '경전철' : '지하철',
     capacityPerTrain: modelLine?.capacityPerTrain ?? null,
     trainsPerHour: 60 / (modelLine?.headwayMin ?? 10),
     path: [],
@@ -148,6 +148,9 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 버스 노선이면 열차 대신 버스, 역 대신 정류장으로 부른다. */
   const isBus = design.kind === '버스';
   const vehicle = isBus ? '버스' : '열차';
+  /** 대구 도시철도면 열차 안 실제 녹음(도착역·출발역 음악, 환승역 음악, 문 닫힘 방송). 다른 노선은 null */
+  const daeguSound = stationSounds.daegu?.lines?.[design.id] ?? null;
+  const daeguClip = (kind) => stationSounds.daegu.clips[daeguSound[kind]];
   const stopLabel = (name) => (isBus ? `${String(name).replace(/역$/, '')} 정류장` : stationLabel(name));
   const kind = { ...kindTable, capacityPerTrain: design.capacityPerTrain ?? kindTable.capacityPerTrain };
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -566,7 +569,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
         }
       });
     }
-    if (soundOn) card.append(element('p', 'panel-note', '환승역과 종착역에서는 방송 앞에 가락이 나와요.'));
+    if (soundOn && daeguSound) card.append(element('p', 'panel-note', '열차 안 음악과 문 닫힘 방송은 대구교통공사의 실제 녹음이에요.'));
+    else if (soundOn) card.append(element('p', 'panel-note', '환승역과 종착역에서는 방송 앞에 가락이 나와요.'));
 
     card.append(button('타기', startTrip, 'button big ride-go'));
     body.append(card);
@@ -717,7 +721,26 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   function announceNow() {
     if (!voiceOn && !soundOn) return Promise.resolve();
     const { korean, english } = announcement();
+    if (daeguSound && soundOn) return daeguAnnounce(korean, english);
     return sound.announce({ korean, english, voice: voiceOn, music: soundOn, melody: melodyHere() });
+  }
+
+  /**
+   * 대구 도시철도: 떠날 때 문 닫힘 방송, 환승역 앞에서는 환승역 음악을 실제 녹음으로 틀고,
+   * 도착역 음악(첫 역에서는 출발역 음악)을 깐 채로 방송을 읽는다.
+   */
+  async function daeguAnnounce(korean, english) {
+    const leg = legToken;
+    const play = (kind) => {
+      const clip = daeguClip(kind);
+      return clip ? sound.playClip(clip.data, clip.type) : Promise.resolve();
+    };
+    const starting = phase === '역' && at === boardIndex;
+    if (!starting) await play('door');
+    if (leg !== legToken) return;
+    if (!starting && melodyHere() === 'transfer') await play('transfer');
+    if (leg !== legToken) return;
+    await Promise.all([play(starting ? 'depart' : 'arrive'), sound.announce({ korean, english, voice: voiceOn, music: false })]);
   }
 
   /** 지금 방송 앞에 나올 가락. 출발 방송과 보통 역에는 없다. */

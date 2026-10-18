@@ -1,8 +1,10 @@
 // 역, 노선, 역 사이 구간, 환승역을 만든다.
 //  - 1~4호선: 부산교통공사 역간 거리 및 소요시간(3033564) + 역사정보 좌표(15043686)
-//  - 부산김해경전철, 동해선: OpenStreetMap 노선(역 순서, 위치). 역 사이 시간 자료가 없어 추정한다.
+//  - 부산김해경전철, 동해선, 대경선: OpenStreetMap 노선(역 순서, 위치). 역 사이 시간 자료가 없어 추정한다.
+//  - 대구 도시철도 1·2·3호선: scripts/build/daegu.mjs
 import { readFileSync } from 'node:fs';
 import { readCsv } from '../lib/csv.mjs';
+import { daeguLines } from './daegu.mjs';
 import { utm52 } from '../lib/utm.mjs';
 
 /** 화면에 쓸 역 이름. 원자료의 마침표는 가운뎃점으로 바꾼다(경성대.부경대 → 경성대·부경대). */
@@ -153,6 +155,15 @@ function osmLines(raw, issues, stationEdits) {
       operator: null,
       match: (t) => t.route === 'train' && t.ref === '동해' && t.from === '부전',
     },
+    {
+      id: 'DK',
+      label: '대경',
+      name: '대경선',
+      prefix: 'DK',
+      operator: null,
+      region: '대구',
+      match: (t) => t.route === 'train' && t.ref === '대경' && t.from === '구미',
+    },
   ];
 
   const lines = [];
@@ -169,6 +180,22 @@ function osmLines(raw, issues, stationEdits) {
         continue;
       }
       stops.splice(after + 1, 0, { osmId: node.id, name: node.tags.name, lat: node.lat, lon: node.lon, inserted: true });
+    }
+    // OSM 노선에서 자리가 틀린 역을 옮긴다(data/edits/stations.json의 move).
+    for (const mv of (stationEdits.move ?? []).filter((x) => x.line === def.id)) {
+      const from = stops.findIndex((s) => s.name && normalizeName(s.name) === normalizeName(mv.name));
+      if (from === -1) {
+        issues.push(`역 옮기기(data/edits/stations.json)를 쓰지 못했어요: ${def.name} ${mv.name}`);
+        continue;
+      }
+      const [stop] = stops.splice(from, 1);
+      const after = stops.findIndex((s) => s.name && normalizeName(s.name) === normalizeName(mv.after));
+      if (after === -1) {
+        issues.push(`역 옮기기(data/edits/stations.json)를 쓰지 못했어요: ${def.name} ${mv.after} 뒤`);
+        stops.splice(from, 0, stop);
+        continue;
+      }
+      stops.splice(after + 1, 0, { ...stop, moved: true });
     }
     const ids = [];
     for (const [i, stop] of stops.entries()) {
@@ -190,7 +217,11 @@ function osmLines(raw, issues, stationEdits) {
         code: null,
         lat: stop.lat,
         lon: stop.lon,
-        coordSource: stop.inserted ? 'OSM 역 노드(노선에 빠져 data/edits/stations.json으로 넣음)' : 'OSM',
+        coordSource: stop.inserted
+          ? 'OSM 역 노드(노선에 빠져 data/edits/stations.json으로 넣음)'
+          : stop.moved
+            ? 'OSM(노선 속 차례를 data/edits/stations.json으로 고침)'
+            : 'OSM',
         osmId: stop.osmId,
       });
       ids.push(id);
@@ -221,6 +252,7 @@ function osmLines(raw, issues, stationEdits) {
       dwellS: null,
       dwellSource: null,
       osmRelation: rel.id,
+      ...(def.region ? { region: def.region } : {}),
     });
   }
 
@@ -253,7 +285,7 @@ function osmLines(raw, issues, stationEdits) {
  *    이 파일은 좌표가 틀린 행이 있어서 좌표 대신 이름으로 맞춘다.
  *  - edits(data/edits/transfers.json): 공식 파일에 없거나 틀린 환승을 출처와 함께 더하거나 뺀다.
  */
-function transferGroups(stations, infoRows, korail, edits, issues) {
+function transferGroups(stations, infoRows, korail, daeguTransfers, edits, issues) {
   const pairs = [];
   const onLine = (line) => stations.filter((s) => s.line === line);
   for (const row of infoRows) {
@@ -269,6 +301,18 @@ function transferGroups(stations, infoRows, korail, edits, issues) {
       }
       pairs.push({ a: self.id, b: partner.id, source: '15043686' });
     }
+  }
+  // 대구: 국가철도공단_대구교통공사_환승정보(15041092). 노선 이름("1호선")과 역 이름으로 맞춘다.
+  for (const row of daeguTransfers) {
+    const line = `DG${String(row['노선명']).replace('호선', '')}`;
+    const other = `DG${String(row['환승선명']).replace('호선', '')}`;
+    const self = onLine(line).find((s) => normalizeName(s.name) === normalizeName(row['역명']));
+    const partner = onLine(other).find((s) => normalizeName(s.name) === normalizeName(row['역명']));
+    if (!self || !partner) {
+      issues.push(`대구 환승 상대를 찾지 못했어요: ${row['노선명']} ${row['역명']} → ${row['환승선명']}`);
+      continue;
+    }
+    pairs.push({ a: self.id, b: partner.id, source: '15041092' });
   }
   const dh = onLine('DH');
   for (const k of korail) {
@@ -349,16 +393,18 @@ export function buildNetwork(raw, transferEdits = {}, stationEdits = {}) {
   const issues = [];
   const humetro = humetroLines(raw, issues);
   const osm = osmLines(raw, issues, stationEdits);
-  const stations = [...humetro.stations, ...osm.stations];
-  const transfers = transferGroups(stations, humetro.infoRows, osm.korail, transferEdits, issues);
+  const daegu = daeguLines(raw, issues);
+  const stations = [...humetro.stations, ...osm.stations, ...daegu.stations];
+  const daeguTransfers = readCsv(raw('datagokr/15041092.csv')).records;
+  const transfers = transferGroups(stations, humetro.infoRows, osm.korail, daeguTransfers, transferEdits, issues);
   for (const s of stations) {
     const group = transfers.find((t) => t.stations.includes(s.id));
     s.transfer = group ? group.id : null;
   }
   return {
-    lines: [...humetro.lines, ...osm.lines],
+    lines: [...humetro.lines, ...osm.lines, ...daegu.lines],
     stations,
-    links: [...humetro.links, ...osm.links],
+    links: [...humetro.links, ...osm.links, ...daegu.links],
     transfers,
     issues,
   };

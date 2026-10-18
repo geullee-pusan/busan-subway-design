@@ -5,7 +5,7 @@ const CREDITS = [
   '© OpenStreetMap contributors (openstreetmap.org/copyright)',
   '행정동 경계: 통계청 SGIS(공공누리 제1유형), vuski/admdongkor 가공(CC BY 4.0)',
   '고도: SRTM(U.S. Geological Survey)',
-  '역·운행·인구: 부산교통공사, 국가철도공단, 한국철도공사, 김해시, 행정안전부(공공데이터포털)',
+  '역·운행·인구: 부산교통공사, 대구교통공사, 국가철도공단, 한국철도공사, 김해시, 행정안전부(공공데이터포털)',
 ];
 
 function element(tag, className, text) {

@@ -58,18 +58,21 @@ export function transferSiblings(stationId) {
   return group.stations.filter((id) => id !== stationId).map((id) => stationById.get(id));
 }
 
-/** 역의 이용객. 게이트가 합쳐진 역은 같은 환승역의 자료를 쓴다. */
+/** 역의 이용객. 게이트가 합쳐진 역은 같은 환승역의 자료를 쓴다. source는 그 자료의 출처다. */
 export function ridershipOf(stationId) {
   const own = ridership.stations[stationId];
-  if (own) return { data: own, from: null };
+  if (own) return { data: own, from: null, source: ridership.source };
+  // 대구 도시철도: 보여 주기만 하는 자료(보정에는 쓰지 않는다)
+  const daegu = ridership.daegu?.stations[stationId];
+  if (daegu) return { data: daegu, from: null, source: ridership.daegu.source };
   const shared = ridership.missing.find((m) => m.id === stationId);
   if (shared) {
     for (const sibling of transferSiblings(stationId)) {
       const data = ridership.stations[sibling.id];
-      if (data) return { data, from: sibling };
+      if (data) return { data, from: sibling, source: ridership.source };
     }
   }
-  return { data: null, from: null };
+  return { data: null, from: null, source: null };
 }
 
 /** 역의 앞뒤 구간(거리와 시간) */

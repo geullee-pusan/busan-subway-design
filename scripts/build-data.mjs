@@ -3,6 +3,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { daeguRidership, daeguService } from './build/daegu.mjs';
 import { buildDistricts } from './build/districts.mjs';
 import { buildFutureLines } from './build/future.mjs';
 import { buildGrid } from './build/grid.mjs';
@@ -38,12 +39,13 @@ for (const e of routes.elements) {
 }
 for (const line of network.lines) {
   const fact = facts.lines?.[line.id] ?? {};
-  const osmRef = line.id === 'DH' ? '동해' : line.id;
+  const osmRef = { DH: '동해', DK: '대경' }[line.id] ?? line.id;
   if (fact.color) {
     line.color = fact.color.value;
     line.colorSource = fact.color.source;
   } else {
-    line.color = osmColour.get(osmRef) ?? null;
+    // 대구 도시철도는 노선 번호(ref)가 부산과 겹쳐서, 노선을 만들 때 그 노선의 OSM 색을 따로 적어 둔다.
+    line.color = line.osmColour ?? osmColour.get(osmRef) ?? null;
     line.colorSource = line.color ? 'OSM colour 태그' : null;
     issues.push(`[노선] ${line.name} 공식 색: TODO(확인 필요). 지금은 OSM 색을 써요.`);
   }
@@ -154,6 +156,12 @@ const ridership = {
     };
   }),
 };
+// 대구 도시철도 이용객: 역 정보 화면에서 보여 주기만 한다. 보정(npm run calibrate)은 부산 자료로만 하므로 stations에 넣지 않는다.
+ridership.daegu = {
+  // 자료에 연도가 없어 파일 이름(20260831)대로 2026년으로 본다(data/SOURCES.md).
+  source: '대구교통공사 역별일별시간별승하차인원 2026년 1~8월(공공데이터포털 15002503)',
+  stations: daeguRidership(raw, network.stations, issues),
+};
 if (ridershipRaw.unusedRows.length) issues.push(`[이용객] 역 목록에 없는 역번호 자료: ${ridershipRaw.unusedRows.join(', ')}`);
 
 // 4. 역 정보(유래, 주소, 개통일)와 노선도 보기 좌표
@@ -180,9 +188,20 @@ const service = {
 
 // 5-2. 모델이 쓰는 노선 값: 배차 간격, 가장 바쁜 때의 열차 수, 열차 정원
 const lowNumber = (text) => Number(String(text).split('~')[0]);
+const daeguRuns = daeguService(raw, network.lines, network.stations, issues);
 for (const line of network.lines) {
   const summary = service.weekday.find((s) => s.line === line.id);
-  if (summary) {
+  const daeguRun = daeguRuns.get(line.id);
+  const headwayFact = facts.lines?.[line.id]?.headwayMin;
+  if (daeguRun) {
+    Object.assign(line, daeguRun);
+  } else if (headwayFact) {
+    // 시각표 자료가 없는 노선: 발표된 배차 간격(평시, 출퇴근)을 쓴다.
+    line.trainsPerHourPeak = Math.round((60 / (headwayFact.peak ?? headwayFact.value)) * 10) / 10;
+    line.trainsPerHourTypical = Math.round((60 / headwayFact.value) * 10) / 10;
+    line.headwayMin = headwayFact.value;
+    line.serviceSource = `${headwayFact.text}(${headwayFact.source})`;
+  } else if (summary) {
     const counts = summary.directions.flatMap((d) =>
       Object.entries(d.trainsPerHour)
         .filter(([hour]) => Number(hour) >= 6 && Number(hour) <= 22)

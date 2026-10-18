@@ -62,6 +62,111 @@
     "sha256": "f30a97f542e2d9f3b5557f83ddae302b189b3945b5fc2970d8b88f1609fc5385",
     "fetched": "2026-10-11"
   },
+  "daegu-broadcast": {
+    "file": "data/raw/datagokr/15063230.zip",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003626166&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 232504247,
+    "sha256": "809db0c380a47ba1ef302839c20387b4a7412dc9b3952ccc417eb0eb63c6e518",
+    "fetched": "2026-10-18"
+  },
+  "daegu-exits-1": {
+    "file": "data/raw/datagokr/15133918.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003003022&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 4856,
+    "sha256": "53b75307397aa278df4656715577fec4145f22b0fc26fc6d6385d28322eafec6",
+    "fetched": "2026-10-18"
+  },
+  "daegu-exits-2": {
+    "file": "data/raw/datagokr/15133920.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003046570&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 5502,
+    "sha256": "b2930c398c54cb97d1a48b391eed14b6008d7d81137692939dad9d294047f7f8",
+    "fetched": "2026-10-18"
+  },
+  "daegu-exits-3": {
+    "file": "data/raw/datagokr/15133922.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003003032&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 2417,
+    "sha256": "7395f3f8a3649af730ee95181f4ebd45bebb63bbcf7e24345dd640be8d758ff9",
+    "fetched": "2026-10-18"
+  },
+  "daegu-link": {
+    "file": "data/raw/datagokr/15002510.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003093558&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 1701,
+    "sha256": "de313cc997c4fbf3178ff92573bc64c02a48c305fccb439379682eee27821c3e",
+    "fetched": "2026-10-18"
+  },
+  "daegu-ridership": {
+    "file": "data/raw/datagokr/15002503.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007686014&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 4479159,
+    "sha256": "270c880b792a40f44ddbb2953a7a011e394c0078b57644c09034328bcd6a514a",
+    "fetched": "2026-10-18"
+  },
+  "daegu-section-1": {
+    "file": "data/raw/datagokr/15061836.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003584013&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 4140,
+    "sha256": "29398e8792899bc614c8e6563b0f4eaf1fec5182668b89d29045409395aae5c5",
+    "fetched": "2026-10-18"
+  },
+  "daegu-section-2": {
+    "file": "data/raw/datagokr/15061835.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003584015&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 3987,
+    "sha256": "80ea59d739c3a327e1242c67ae9b400f4d393b8acd202ec4a26e9e737f1123c0",
+    "fetched": "2026-10-18"
+  },
+  "daegu-section-3": {
+    "file": "data/raw/datagokr/15061797.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003584016&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 4124,
+    "sha256": "844329649f860449b84e34e2af3841a16387fd39c9b313593bfc850f479eddf7",
+    "fetched": "2026-10-18"
+  },
+  "daegu-timetable-1-down": {
+    "file": "data/raw/datagokr/15138731.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003042539&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 249244,
+    "sha256": "3c858a4f8f0ba792635f5bc03fd6e0e7450eb7c853147972529d72cf5ae45c43",
+    "fetched": "2026-10-18"
+  },
+  "daegu-timetable-2-down": {
+    "file": "data/raw/datagokr/15138732.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003042590&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 213148,
+    "sha256": "3b0189ee63f54f313284d0ead497da9a1bb804e7c60499f2c18cf2b27c972dde",
+    "fetched": "2026-10-18"
+  },
+  "daegu-timetable-2-up": {
+    "file": "data/raw/datagokr/3033376.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003056832&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 213492,
+    "sha256": "000c341909c1628f0664b50beef60d232cfae21e38b474467689fddf3b7ad1d8",
+    "fetched": "2026-10-18"
+  },
+  "daegu-timetable-3-down": {
+    "file": "data/raw/datagokr/15138734.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003042741&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 237914,
+    "sha256": "a2a3d8ad68decc30222d431eb437799d011cdf3d7f60bff8db2f417300b20bd5",
+    "fetched": "2026-10-18"
+  },
+  "daegu-timetable-3-up": {
+    "file": "data/raw/datagokr/15065532.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003042729&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 237914,
+    "sha256": "092c4041cffaea99c9dff56671dda2d0de025ced143d1effdcff95c89cb1d42b",
+    "fetched": "2026-10-18"
+  },
+  "daegu-transfers": {
+    "file": "data/raw/datagokr/15041092.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003522955&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 2004,
+    "sha256": "ea8c0dca6c9f6b9e208e977f0f363f1984dd36510fd14390f8b8cb5a28d2e2bc",
+    "fetched": "2026-10-18"
+  },
   "dem-N34E128": {
     "file": "data/raw/dem/N34E128.hgt.gz",
     "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N34/N34E128.hgt.gz",

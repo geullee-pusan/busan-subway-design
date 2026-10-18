@@ -1423,6 +1423,924 @@
       "origin": null,
       "openedOn": "2021-12-28",
       "openedWith": "좌천~태화강"
+    },
+    "DK01": {
+      "name": "구미",
+      "line": "DK",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-14",
+      "openedWith": "구미~경산"
+    },
+    "DK02": {
+      "name": "사곡",
+      "line": "DK",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-14",
+      "openedWith": "구미~경산"
+    },
+    "DK03": {
+      "name": "북삼",
+      "line": "DK",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2026-02-28",
+      "openedWith": "북삼~북삼"
+    },
+    "DK04": {
+      "name": "왜관",
+      "line": "DK",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-14",
+      "openedWith": "구미~경산"
+    },
+    "DK05": {
+      "name": "서대구",
+      "line": "DK",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-14",
+      "openedWith": "구미~경산"
+    },
+    "DK06": {
+      "name": "대구",
+      "line": "DK",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-14",
+      "openedWith": "구미~경산"
+    },
+    "DK07": {
+      "name": "동대구",
+      "line": "DK",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-14",
+      "openedWith": "구미~경산"
+    },
+    "DK08": {
+      "name": "경산",
+      "line": "DK",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-14",
+      "openedWith": "구미~경산"
+    },
+    "D115": {
+      "name": "설화명곡",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2016-09-08",
+      "openedWith": "설화명곡~화원"
+    },
+    "D116": {
+      "name": "화원",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2016-09-08",
+      "openedWith": "설화명곡~화원"
+    },
+    "D117": {
+      "name": "대곡",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2002-05-10",
+      "openedWith": "대곡~대곡"
+    },
+    "D118": {
+      "name": "진천",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D119": {
+      "name": "월배",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D120": {
+      "name": "상인",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D121": {
+      "name": "월촌",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D122": {
+      "name": "송현",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D123": {
+      "name": "서부정류장",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D124": {
+      "name": "대명",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D125": {
+      "name": "안지랑",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D126": {
+      "name": "현충로",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D127": {
+      "name": "영대병원",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D128": {
+      "name": "교대",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D129": {
+      "name": "명덕",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D130": {
+      "name": "반월당",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D131": {
+      "name": "중앙로",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1997-11-26",
+      "openedWith": "진천~중앙로"
+    },
+    "D132": {
+      "name": "대구역",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D133": {
+      "name": "칠성시장",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D134": {
+      "name": "신천",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D135": {
+      "name": "동대구역",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D136": {
+      "name": "동구청",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D137": {
+      "name": "아양교",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D138": {
+      "name": "동촌",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D139": {
+      "name": "해안",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D140": {
+      "name": "방촌",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D141": {
+      "name": "용계",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D142": {
+      "name": "율하",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D143": {
+      "name": "신기",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D144": {
+      "name": "반야월",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D145": {
+      "name": "각산",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D146": {
+      "name": "안심",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "1998-05-02",
+      "openedWith": "대구역~안심"
+    },
+    "D147": {
+      "name": "대구한의대병원",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-21",
+      "openedWith": "대구한의대병원~하양"
+    },
+    "D148": {
+      "name": "부호",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-21",
+      "openedWith": "대구한의대병원~하양"
+    },
+    "D149": {
+      "name": "하양",
+      "line": "DG1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2024-12-21",
+      "openedWith": "대구한의대병원~하양"
+    },
+    "D216": {
+      "name": "문양",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D217": {
+      "name": "다사",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D218": {
+      "name": "대실",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D219": {
+      "name": "강창",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D220": {
+      "name": "계명대",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D221": {
+      "name": "성서산업단지",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D222": {
+      "name": "이곡",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D223": {
+      "name": "용산",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D224": {
+      "name": "죽전",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D225": {
+      "name": "감삼",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D226": {
+      "name": "두류",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D227": {
+      "name": "내당",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D228": {
+      "name": "반고개",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D229": {
+      "name": "청라언덕",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D230": {
+      "name": "반월당",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D231": {
+      "name": "경대병원",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D232": {
+      "name": "대구은행",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D233": {
+      "name": "범어",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D234": {
+      "name": "수성구청",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D235": {
+      "name": "만촌",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D236": {
+      "name": "담티",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D237": {
+      "name": "연호",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D238": {
+      "name": "수성알파시티",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D239": {
+      "name": "고산",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D240": {
+      "name": "신매",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D241": {
+      "name": "사월",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2005-10-18",
+      "openedWith": "문양~사월"
+    },
+    "D242": {
+      "name": "정평",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2012-09-19",
+      "openedWith": "정평~영남대"
+    },
+    "D243": {
+      "name": "임당",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2012-09-19",
+      "openedWith": "정평~영남대"
+    },
+    "D244": {
+      "name": "영남대",
+      "line": "DG2",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2012-09-19",
+      "openedWith": "정평~영남대"
+    },
+    "D312": {
+      "name": "칠곡경대병원",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D313": {
+      "name": "학정",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D314": {
+      "name": "팔거",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D315": {
+      "name": "동천",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D316": {
+      "name": "칠곡운암",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D317": {
+      "name": "구암",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D318": {
+      "name": "태전",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D319": {
+      "name": "매천",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D320": {
+      "name": "매천시장",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D321": {
+      "name": "팔달",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D322": {
+      "name": "공단",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D323": {
+      "name": "만평",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D324": {
+      "name": "팔달시장",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D325": {
+      "name": "원대",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D326": {
+      "name": "북구청",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D327": {
+      "name": "달성공원",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D328": {
+      "name": "서문시장",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D329": {
+      "name": "청라언덕",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D330": {
+      "name": "남산",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D331": {
+      "name": "명덕",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D332": {
+      "name": "건들바위",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D333": {
+      "name": "대봉교",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D334": {
+      "name": "수성시장",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D335": {
+      "name": "수성구민운동장",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D336": {
+      "name": "어린이세상",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D337": {
+      "name": "황금",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D338": {
+      "name": "수성못",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D339": {
+      "name": "지산",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D340": {
+      "name": "범물",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
+    },
+    "D341": {
+      "name": "용지",
+      "line": "DG3",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2015-04-23",
+      "openedWith": "칠곡경대병원~용지"
     }
   }
 }

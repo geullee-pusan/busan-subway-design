@@ -562,11 +562,11 @@ export function createRideSound() {
    * 녹음된 소리(MP3를 base64로 적은 글자)를 낸다. 끝나면(또는 못 내면) 풀리는 약속을 돌려준다.
    * 게임 파일 안의 글자로 소리를 만들어서 네트워크를 쓰지 않는다.
    */
-  function playClip(base64) {
+  function playClip(base64, type = 'audio/mpeg') {
     return new Promise((resolve) => {
       let audio;
       try {
-        audio = new Audio(`data:audio/mpeg;base64,${base64}`);
+        audio = new Audio(`data:${type};base64,${base64}`);
       } catch {
         resolve();
         return;

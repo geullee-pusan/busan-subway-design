@@ -207,6 +207,31 @@
         "source": "부산교통공사 도시철도 노선도 2024-09-30(공공데이터포털 15054957)의 노선도 그림에서 가장 많이 쓰인 색을 뽑음",
         "url": "https://www.data.go.kr/data/15054957/fileData.do"
       }
+    },
+    "DK": {
+      "lengthKm": {
+        "value": 61.9,
+        "source": "코레일 광역철도 운영노선(2025-01-01 기준)",
+        "url": "https://info.korail.com/info/contents.do?key=1446"
+      },
+      "endToEndMin": {
+        "value": 60,
+        "text": "약 1시간",
+        "source": "코레일 보도자료 2024-12-13 \"대경선(구미~경산) 개통 기념 이벤트\": 구미에서 경산까지 약 1시간(북삼역이 생기기 전)",
+        "url": "https://info.korail.com/info/selectBbsNttView.do?bbsNo=199&key=911&nttNo=23875"
+      },
+      "carsPerTrain": {
+        "value": 2,
+        "source": "코레일 보도자료 2024-11-06: 두 칸짜리 전동열차 9대",
+        "url": "https://info.korail.com/info/selectBbsNttView.do?key=911&bbsNo=199&nttNo=23723"
+      },
+      "headwayMin": {
+        "value": 25,
+        "peak": 19,
+        "text": "출퇴근 약 19분, 평시 약 25분",
+        "source": "경북매일 2025-12-11 \"대경선 개통 1년, 비수도권 광역생활권의 새 지형을 열다\"(공식 시각표는 확인 못 함)",
+        "url": "https://www.kbmaeil.com/article/20251211500302"
+      }
     }
   },
   "planned": [
@@ -437,6 +462,94 @@
         "note": "전 구간 동시 개통(영업운행 시작). 위키백과는 09-16으로 적어 TODO(확인 필요)",
         "source": "부산김해경전철 연혁",
         "url": "https://www.bglrt.com/00030/00057/00065.web"
+      }
+    ],
+    "DG1": [
+      {
+        "date": "1997-11-26",
+        "from": "진천",
+        "to": "중앙로",
+        "note": "1호선 1단계 구간 개통(진천~중앙로 10.3km)",
+        "source": "대구교통공사 연혁",
+        "url": "https://www.dtro.or.kr/index.do?menu_id=00000414"
+      },
+      {
+        "date": "1998-05-02",
+        "from": "대구역",
+        "to": "안심",
+        "note": "1호선 전구간 개통(진천~안심 24.9km)",
+        "source": "대구교통공사 연혁",
+        "url": "https://www.dtro.or.kr/index.do?menu_id=00000414"
+      },
+      {
+        "date": "2002-05-10",
+        "from": "대곡",
+        "to": "대곡",
+        "note": "1호선 연장구간 개통(진천~대곡 1.0km)",
+        "source": "대구교통공사 연혁",
+        "url": "https://www.dtro.or.kr/index.do?menu_id=00000414"
+      },
+      {
+        "date": "2016-09-08",
+        "from": "설화명곡",
+        "to": "화원",
+        "note": "1호선 연장구간 개통(대곡~설화명곡 2.5km)",
+        "source": "대구교통공사 연혁",
+        "url": "https://www.dtro.or.kr/index.do?menu_id=00000414"
+      },
+      {
+        "date": "2024-12-21",
+        "from": "대구한의대병원",
+        "to": "하양",
+        "note": "1호선 연장구간 개통(안심~하양 9.2km)",
+        "source": "대구교통공사 연혁",
+        "url": "https://www.dtro.or.kr/index.do?menu_id=00000414"
+      }
+    ],
+    "DG2": [
+      {
+        "date": "2005-10-18",
+        "from": "문양",
+        "to": "사월",
+        "note": "지하철 2호선 전구간 개통(문양~사월 28.0km)",
+        "source": "대구교통공사 연혁",
+        "url": "https://www.dtro.or.kr/index.do?menu_id=00000414"
+      },
+      {
+        "date": "2012-09-19",
+        "from": "정평",
+        "to": "영남대",
+        "note": "2호선 경산연장구간 개통(사월~영남대 3.4km)",
+        "source": "대구교통공사 연혁",
+        "url": "https://www.dtro.or.kr/index.do?menu_id=00000414"
+      }
+    ],
+    "DG3": [
+      {
+        "date": "2015-04-23",
+        "from": "칠곡경대병원",
+        "to": "용지",
+        "note": "3호선 전구간 개통(칠곡경대병원~용지 23.1km)",
+        "source": "대구교통공사 연혁",
+        "url": "https://www.dtro.or.kr/index.do?menu_id=00000414"
+      }
+    ],
+    "DK": [
+      {
+        "date": "2024-12-14",
+        "from": "구미",
+        "to": "경산",
+        "note": "대경선 개통(구미~경산 61.9km, 7역)",
+        "source": "코레일 보도자료 2024-12-13 \"대경선(구미~경산) 개통 기념 이벤트\"",
+        "url": "https://info.korail.com/info/selectBbsNttView.do?bbsNo=199&key=911&nttNo=23875"
+      },
+      {
+        "date": "2026-02-28",
+        "from": "북삼",
+        "to": "북삼",
+        "note": "북삼역 영업 개시(2월 27일 개통식, 28일 첫차)",
+        "source": "트윅(TWIG24) 2026-02-27",
+        "url": "https://www.twig24.com/news/health-welfare/2026/02/27/20260227500244"
       }
     ]
   },

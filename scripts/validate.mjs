@@ -72,7 +72,7 @@ const grid = readJson('data/build/grid.json');
       details.push(`${line.name}: 역 순서와 구간이 맞지 않아요`);
     }
   }
-  // 구간과 환승으로 모든 역이 이어지는가
+  // 구간과 환승으로 같은 지역(부산권, 대구권)의 모든 역이 이어지는가. 두 지역 사이에는 노선이 없다.
   const adj = new Map(stations.map((s) => [s.id, []]));
   for (const l of links) {
     adj.get(l.from).push(l.to);
@@ -81,13 +81,19 @@ const grid = readJson('data/build/grid.json');
   for (const t of transfers) {
     for (const a of t.stations) for (const b of t.stations) if (a !== b) adj.get(a).push(b);
   }
-  const seen = new Set([stations[0].id]);
-  const queue = [stations[0].id];
-  while (queue.length) for (const n of adj.get(queue.shift())) if (!seen.has(n)) seen.add(n) && queue.push(n);
-  const cut = stations.filter((s) => !seen.has(s.id));
-  if (cut.length) {
-    ok = false;
-    details.push(`다른 노선과 이어지지 않은 역 ${cut.length}개: ${[...new Set(cut.map((s) => s.line))].join(', ')}호선`);
+  const regionOf = (station) => lines.find((l) => l.id === station.line)?.region ?? '부산';
+  for (const region of [...new Set(stations.map(regionOf))]) {
+    const own = stations.filter((s) => regionOf(s) === region);
+    const seen = new Set([own[0].id]);
+    const queue = [own[0].id];
+    while (queue.length) for (const n of adj.get(queue.shift())) if (!seen.has(n)) seen.add(n) && queue.push(n);
+    const cut = own.filter((s) => !seen.has(s.id));
+    if (cut.length) {
+      ok = false;
+      details.push(`${region}권: 다른 노선과 이어지지 않은 역 ${cut.length}개: ${[...new Set(cut.map((s) => s.line))].join(', ')}호선`);
+    } else {
+      details.push(`${region}권: 역 ${own.length}개가 모두 이어져 있다`);
+    }
   }
   details.push(`노선 ${lines.length}개, 환승역 ${transfers.length}곳: ${transfers.map((t) => t.name).join(', ')}`);
   report('must', '노선 연결 그래프가 끊기지 않는다', ok, details);
@@ -125,6 +131,43 @@ const grid = readJson('data/build/grid.json');
     details.push(`${line.name}: 비교할 시각표 자료 없음 (${line.runSource ?? '역 사이 시간 없음'})`);
   }
   report('must', '역 사이 시간의 합이 노선 전 구간 소요시간과 ±5% 안이다 (1~4호선)', ok, details);
+}
+
+// 3-2. 대구 도시철도: 역 사이 시간의 합이 시각표(평일, 한 방향)의 끝에서 끝까지 시간과 ±5% 안인가
+{
+  const minutes = (text) => {
+    const m = /^(\d+):(\d+):(\d+)/.exec(text ?? '');
+    return m ? Number(m[1]) * 60 + Number(m[2]) + Number(m[3]) / 60 : null;
+  };
+  const details = [];
+  let ok = true;
+  for (const [id, file] of [
+    ['DG1', '15138731'],
+    ['DG2', '15138732'],
+    ['DG3', '15138734'],
+  ]) {
+    const line = lines.find((l) => l.id === id);
+    const sum = (links.filter((l) => l.line === id).reduce((t, l) => t + l.runS, 0) + line.dwellS * (line.stations.length - 2)) / 60;
+    const rows = new TextDecoder('euc-kr')
+      .decode(readFileSync(at(`data/raw/datagokr/${file}.csv`)))
+      .split(/\r?\n/)
+      .map((r) => r.split(','))
+      .filter((r) => /^평일/.test(r[0]));
+    const first = rows[0];
+    const last = rows.at(-1);
+    const spans = [];
+    for (let c = 3; c < first.length; c++) {
+      const a = minutes(first[c]);
+      const b = minutes(last[c]);
+      if (a !== null && b !== null) spans.push(Math.abs(b - a));
+    }
+    spans.sort((a, b) => a - b);
+    const median = spans[spans.length >> 1];
+    const diff = ((sum - median) / median) * 100;
+    if (Math.abs(diff) > 5) ok = false;
+    details.push(`${line.name}: 우리 합 ${sum.toFixed(1)}분, 시각표 ${first[1]}→${last[1]} ${median.toFixed(1)}분 → 차이 ${diff.toFixed(1)}%`);
+  }
+  report('must', '대구 도시철도 역 사이 시간의 합이 시각표와 ±5% 안이다', ok, details);
 }
 
 // 4. 칸에 나눈 인구 합계가 공식 부산 인구와 맞는가

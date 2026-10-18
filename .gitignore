@@ -8,3 +8,4 @@ data/raw/dem/
 data/raw/datagokr/15054957.zip
 # 역사 안내방송 ZIP(190MB). 승강장 소리만 뽑아 data/build/station-sounds.json에 둔다(npm run station-sounds).
 data/raw/datagokr/3033578.zip
+data/raw/datagokr/15063230.zip

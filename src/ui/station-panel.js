@@ -1,5 +1,5 @@
 // 역을 누르면 보여 주는 정보: 이름, 갈아타기, 개통일, 이웃 역, 하루 이용객, 시간대별 이용객, 이름의 유래.
-import { lineById, neighborLinks, ridership, ridershipOf, stationById, stationInfo, transferSiblings } from '../data.js';
+import { lineById, neighborLinks, ridershipOf, stationById, stationInfo, transferSiblings } from '../data.js';
 import { barChart, hourlyLineChart } from './chart.js';
 import { countText, dateText, distanceText, durationText, getNumberMode, roParticle, stationLabel } from './format.js';
 import { wordWithCard } from './word-card.js';
@@ -110,11 +110,13 @@ export function createStationPanel({ numberMode = getNumberMode() } = {}) {
     }
 
     // 이용객
-    const { data, from } = ridershipOf(station.id);
+    const { data, from, source } = ridershipOf(station.id);
     body.append(element('h3', null, '하루에 타고 내리는 사람'));
     if (!data) {
       body.append(element('p', 'panel-note', '이 역은 이용객 자료가 없어요.'));
-      body.append(element('p', 'panel-note', '동해선은 코레일이 운영해서 자료를 구하지 못했어요.'));
+      if (['DH', 'DK'].includes(station.line)) {
+        body.append(element('p', 'panel-note', `${line.name}은 코레일이 운영해서 자료를 구하지 못했어요.`));
+      }
     } else {
       if (from) {
         body.append(element('p', 'panel-note', `${stationLabel(from.name)}(${lineById.get(from.line).name})과 개찰구를 함께 써서, 두 역을 합쳐 센 숫자예요.`));
@@ -190,7 +192,7 @@ export function createStationPanel({ numberMode = getNumberMode() } = {}) {
       body.append(element('p', 'panel-note', '어른들이 쓰는 말로 적힌 설명이에요. 부산교통공사 자료예요.'));
     }
 
-    if (data) body.append(element('p', 'panel-source', `이용객 자료: ${ridership.source}`));
+    if (data) body.append(element('p', 'panel-source', `이용객 자료: ${source}`));
   }
 
   showEmpty();
