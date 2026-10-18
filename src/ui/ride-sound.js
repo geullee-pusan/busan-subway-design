@@ -395,6 +395,10 @@ export function createRideSound() {
       startElectricBus();
       return;
     }
+    if (kind === 'highspeed' || kind === 'emu' || kind === 'diesel') {
+      startIntercity(kind);
+      return;
+    }
     const c = context();
     if (!c || rumble) return;
     // 갈색 잡음(낮은 소리가 많은 잡음). 늘 같은 모양으로 만든다(작은 난수 생성기).
@@ -497,6 +501,138 @@ export function createRideSound() {
     noise.connect(band).connect(road).connect(gain);
     noise.start(t);
     rumble = { sources: [...motor, noise], gain, motor };
+  }
+
+  /**
+   * 기차(코레일 열차) 달리는 소리. 브라우저에서 만든 소리이고 실제 녹음이 아니다.
+   *  - highspeed(KTX 계열): 빨라질수록 높아지는 모터 음, 센 바람 소리. 이음매 소리는 아주 작다.
+   *  - emu(ITX-새마을, ITX-마음, 누리로): 계단처럼 올라가는 모터 음, 가벼운 덜컹 소리.
+   *  - diesel(무궁화호, 새마을호): 낮게 웅웅거리는 엔진 소리, 또렷한 덜컹덜컹.
+   */
+  function startIntercity(kind) {
+    const c = context();
+    if (!c || rumble) return;
+    const t = c.currentTime;
+    const gain = c.createGain();
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(1, t + 0.8);
+    gain.connect(master);
+    const sources = [];
+    const motor = [];
+    // 늘 같은 모양의 잡음(작은 난수 생성기)
+    const noiseBuffer = (seed0, brown) => {
+      const length = c.sampleRate * 2;
+      const buffer = c.createBuffer(1, length, c.sampleRate);
+      const data = buffer.getChannelData(0);
+      let seed = seed0;
+      let last = 0;
+      for (let i = 0; i < length; i++) {
+        seed = (seed * 1103515245 + 12345) % 2147483648;
+        const white = (seed / 2147483648) * 2 - 1;
+        last = (last + 0.02 * white) / 1.02;
+        data[i] = brown ? last * 3.5 : white;
+      }
+      return buffer;
+    };
+    const noise = (seed, brown, type, freq, q, from, to, rise) => {
+      const src = c.createBufferSource();
+      src.buffer = noiseBuffer(seed, brown);
+      src.loop = true;
+      const filter = c.createBiquadFilter();
+      filter.type = type;
+      filter.frequency.value = freq;
+      filter.Q.value = q;
+      const amp = c.createGain();
+      amp.gain.setValueAtTime(from, t);
+      amp.gain.linearRampToValueAtTime(to, t + rise);
+      src.connect(filter).connect(amp).connect(gain);
+      src.start(t);
+      sources.push(src);
+    };
+    if (kind === 'diesel') {
+      // 엔진: 낮은 톱니파 둘이 조금 어긋나 웅웅 맥놀이가 난다.
+      for (const [f, v] of [
+        [52, 0.07],
+        [53.5, 0.05],
+        [104, 0.025],
+      ]) {
+        const osc = c.createOscillator();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(f, t);
+        osc.frequency.linearRampToValueAtTime(f * 1.35, t + 4);
+        const lp = c.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.value = 260;
+        const amp = c.createGain();
+        amp.gain.value = v;
+        osc.connect(lp).connect(amp).connect(gain);
+        osc.start(t);
+        osc.ratio = f / 150;
+        sources.push(osc);
+        motor.push(osc);
+      }
+      noise(24680, true, 'lowpass', 200, 0.7, 0.3, 0.8, 2);
+    } else {
+      // 전기 모터: 고속열차는 높게 매끄럽게, 전기동차는 계단처럼 올라간다.
+      const base = kind === 'highspeed' ? 260 : 180;
+      const top = kind === 'highspeed' ? 1150 : 760;
+      const rise = kind === 'highspeed' ? 6 : 4;
+      for (const [ratio, volume] of [
+        [1, 0.035],
+        [2, 0.012],
+        [3.01, 0.006],
+      ]) {
+        const osc = c.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(base * ratio, t);
+        if (kind === 'emu') {
+          // 계단: 올라가다 잠깐 멈칫하고 다시 올라간다.
+          const steps = 4;
+          for (let k = 1; k <= steps; k++) {
+            const f = base + ((top - base) * k) / steps;
+            osc.frequency.exponentialRampToValueAtTime(f * ratio, t + (rise * k) / steps - 0.2);
+            osc.frequency.setValueAtTime(f * 0.9 * ratio, t + (rise * k) / steps);
+          }
+        } else {
+          osc.frequency.exponentialRampToValueAtTime(top * ratio, t + rise);
+        }
+        const amp = c.createGain();
+        amp.gain.value = volume;
+        osc.connect(amp).connect(gain);
+        osc.start(t);
+        osc.ratio = ratio;
+        sources.push(osc);
+        motor.push(osc);
+      }
+      // 바람과 바퀴: 고속열차일수록 크고 높다.
+      noise(13579, false, 'bandpass', kind === 'highspeed' ? 1400 : 800, 0.6, 0.01, kind === 'highspeed' ? 0.16 : 0.08, rise);
+      noise(97531, true, 'lowpass', 160, 0.7, 0.2, 0.6, 2);
+    }
+    rumble = { sources, gain, motor };
+    // 덜컹덜컹(레일 이음매): 디젤은 또렷하게, 전기동차는 가볍게, 고속열차는 아주 작게(긴 레일).
+    const loud = kind === 'diesel' ? 0.14 : kind === 'emu' ? 0.07 : 0.025;
+    const every = kind === 'highspeed' ? 2400 : 1100;
+    const clack = () => {
+      if (!rumble) return;
+      const now = c.currentTime;
+      for (const offset of [0, 0.11, 0.55, 0.66]) {
+        const osc = c.createOscillator();
+        const amp = c.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(95, now + offset);
+        osc.frequency.exponentialRampToValueAtTime(42, now + offset + 0.08);
+        amp.gain.setValueAtTime(loud, now + offset);
+        amp.gain.exponentialRampToValueAtTime(0.0001, now + offset + 0.09);
+        osc.connect(amp).connect(master);
+        osc.start(now + offset);
+        osc.stop(now + offset + 0.1);
+      }
+    };
+    const again = () => {
+      clack();
+      clackTimer = setTimeout(again, every);
+    };
+    clackTimer = setTimeout(again, 700);
   }
 
   function stopRumble() {

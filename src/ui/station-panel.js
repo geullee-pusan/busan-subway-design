@@ -30,6 +30,13 @@ function openedWithText(range) {
   return `${stationLabel(from)}에서 ${stationLabel(to)}`;
 }
 
+function button(label, onClick, className = 'button') {
+  const node = element('button', className, label);
+  node.type = 'button';
+  node.addEventListener('click', onClick);
+  return node;
+}
+
 function lineTag(lineId) {
   const line = lineById.get(lineId);
   const tag = element('span', 'line-tag', line.label);
@@ -38,7 +45,7 @@ function lineTag(lineId) {
   return tag;
 }
 
-export function createStationPanel({ numberMode = getNumberMode() } = {}) {
+export function createStationPanel({ numberMode = getNumberMode(), onTrainRide = null } = {}) {
   const root = element('aside', 'panel');
   root.setAttribute('aria-live', 'polite');
   let current = null;
@@ -128,6 +135,7 @@ export function createStationPanel({ numberMode = getNumberMode() } = {}) {
     } else {
       body.append(element('p', 'panel-note', '이 역에 서는 기차 기록을 찾지 못했어요.'));
     }
+    if (onTrainRide && kinds.length) body.append(button('이 역에서 기차 타 보기', () => onTrainRide(station.id), 'button big'));
     body.append(element('p', 'panel-source', `자료: ${rail.source}. 기차 시각: ${trains.source}`));
   }
 

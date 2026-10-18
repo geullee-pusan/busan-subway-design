@@ -15,7 +15,7 @@ function element(tag, className, text) {
 }
 
 /** @param {{onHome: () => void}} actions */
-export function renderExplore(root, { onHome }) {
+export function renderExplore(root, { onHome, onTrainRide = null }) {
   root.replaceChildren();
   const screen = element('div', 'screen explore');
 
@@ -39,7 +39,7 @@ export function renderExplore(root, { onHome }) {
   // 지도와 패널
   const main = element('div', 'explore-main');
   const mapBox = element('div', 'map-box');
-  const panel = createStationPanel({});
+  const panel = createStationPanel({ onTrainRide });
   const map = createMap({ onSelect: (id) => panel.show(id) });
   mapBox.append(map.element);
 

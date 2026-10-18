@@ -24,7 +24,7 @@ function bigButton(label, onClick) {
 
 /**
  * @param {HTMLElement} root
- * @param {object} actions onExplore, onCompare, onDesign, onMissions, onAB, onHistory, onTrip, onRules, onParent, onCleared, settings, onSetting, ruleSetName
+ * @param {object} actions onExplore, onCompare, onDesign, onMissions, onAB, onHistory, onTrip, onTrainRide, onRules, onParent, onCleared, settings, onSetting, ruleSetName
  */
 export function renderHome(root, {
   onExplore,
@@ -34,6 +34,7 @@ export function renderHome(root, {
   onAB,
   onHistory,
   onTrip = null,
+  onTrainRide = null,
   onRules,
   onParent,
   settings,
@@ -65,6 +66,7 @@ export function renderHome(root, {
     return node;
   };
   more.append(
+    ...(onTrainRide ? [small('진짜 기차 타 보기', onTrainRide)] : []),
     small('옛날 부산', onHistory),
     small('게임의 규칙', onRules),
     small('설계 가와 나 견주기', onAB),

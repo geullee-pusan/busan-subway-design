@@ -2,10 +2,12 @@
 // 계산은 src/sim/trip.js(순수 함수), 요금은 src/content/fares.json(교통카드, 공식 요금표).
 // 가장 좋은 길을 정해 주지 않는다. 시간, 요금, 걷는 거리를 나란히 보여 준다.
 import faresFile from '../content/fares.json';
-import { dongs, grid, lineById, places, stationById, stations } from '../data.js';
+import { dongs, grid, lineById, places, rail, railStationById, stationById, stations, trains as trainData } from '../data.js';
 import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
 import { stopDirectory, stopsInCell } from '../sim/bus-network.js';
 import { planTrips } from '../sim/trip.js';
+import { trainTrips } from '../sim/train-trip.js';
+import { railPathBetween } from '../sim/train-ride.js';
 import { busRouteText, distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { CELL, createMap } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
@@ -25,6 +27,7 @@ const MODES = [
   { key: 'bus', label: '버스' },
   { key: 'subway', label: '지하철' },
   { key: 'taxi', label: '택시' },
+  { key: 'train', label: '기차' },
 ];
 /** 시간 막대의 조각 모양 */
 const PIECE = {
@@ -34,7 +37,13 @@ const PIECE = {
   버스: { color: '#2E8B3E', mark: '버' },
   택시: { color: '#E0A800', mark: '택' },
   지하철: { color: '#1F3342', mark: '지' },
+  기차: { color: '#3B3B3B', mark: '기차' },
 };
+/** 분 → "08:34" */
+function clockOf(minutes) {
+  const m = Math.round(minutes);
+  return `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+}
 /** 동전 한 개 = 500원 */
 const COIN = 500;
 
@@ -110,7 +119,7 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
   let cellChoice = null;
   let hour = HOURS.some((h) => h.hour === saved.hour) ? saved.hour : 8;
   let rider = saved.rider === 'child' ? 'child' : 'adult';
-  const modes = { walk: true, bus: true, subway: true, taxi: true, ...(saved.modes ?? {}) };
+  const modes = { walk: true, bus: true, subway: true, taxi: true, train: true, ...(saved.modes ?? {}) };
   let trips = [];
   let chosen = null;
 
@@ -324,6 +333,26 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
             busNetwork: busNetwork(),
           })
         : [];
+    // 기차(코레일 열차): 기차역까지와 기차역에서는 걷기·버스·지하철 가운데 가장 빠른 길로 간다.
+    if (from && to && modes.train !== false) {
+      const access = (a, b) => {
+        const list = planTrips({
+          from: withTerrain(a),
+          to: withTerrain(b),
+          hour,
+          modes: { walk: true, bus: modes.bus, subway: modes.subway, taxi: false },
+          rider,
+          world,
+          prepared,
+          rules,
+          fares: faresFile,
+          busNetwork: busNetwork(),
+        });
+        return list.length ? list.reduce((best, t) => (t.minutes < best.minutes ? t : best)) : null;
+      };
+      const extra = trainTrips({ from: withTerrain(from), to: withTerrain(to), hour, rider, rail, trains: trainData.trains, fareTable: trainData.fareTable, access });
+      trips = [...trips, ...extra].sort((a, b) => a.minutes - b.minutes);
+    }
     chosen = trips.some((t) => t.id === keepChosen) ? keepChosen : (trips[0]?.id ?? null);
     keepChosen = null;
     draw();
@@ -346,9 +375,20 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
         if (leg.mode === '지하철') {
           points = leg.stations.map((id) => world.stations.find((s) => s.id === id)).filter(Boolean);
           style = { stroke: lineById.get(leg.line)?.color ?? '#1F3342', 'stroke-width': 7 };
+        } else if (leg.mode === '기차') {
+          // 기차: 정차역 사이 실제 선로를 따라 잇는다.
+          const train = trainData.trains.find((t) => t.no === leg.train);
+          const ids = train ? train.stops.slice(leg.fromIndex, leg.toIndex + 1).map((s) => s[0]) : [leg.from, leg.to];
+          points = [railStationById.get(ids[0])];
+          for (let i = 1; i < ids.length; i++) {
+            const piece = railPathBetween(rail, ids[i - 1], ids[i]);
+            if (piece) points.push(...piece.points.slice(1).map(([x, y]) => ({ x, y })));
+            else points.push(railStationById.get(ids[i]));
+          }
+          style = { stroke: '#3B3B3B', 'stroke-width': 7, 'stroke-dasharray': '16 5' };
         } else if (leg.mode === '걷기') {
-          // 버스 정류장으로 걸어가면 toPoint, 역으로 걸어가면 to(역 id), 아니면 도착지
-          const target = leg.toPoint ?? (leg.to ? world.stations.find((s) => s.id === leg.to) : to);
+          // 버스 정류장으로 걸어가면 toPoint, 역으로 걸어가면 to(역 id), 기차역이면 toRail, 아니면 도착지
+          const target = leg.toPoint ?? (leg.toRail ? railStationById.get(leg.toRail) : leg.to ? world.stations.find((s) => s.id === leg.to) : to);
           points = [cursor, target];
           style = { stroke: '#56636E', 'stroke-width': 4, 'stroke-dasharray': '2 6', 'stroke-linecap': 'round' };
         } else if (leg.mode === '버스' && leg.stops) {
@@ -619,6 +659,13 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     card.append(money);
     if (trip.fare === 0 && rider === 'child' && trip.id !== 'walk') card.append(element('p', 'trip-detail', '어린이 교통카드라 무료예요.'));
 
+    // 기차: 열차 종류, 번호, 타고 내리는 역과 시각
+    for (const leg of trip.legs.filter((l) => l.mode === '기차')) {
+      const fromName = railStationById.get(leg.from)?.name ?? '';
+      const toName = railStationById.get(leg.to)?.name ?? '';
+      card.append(element('p', 'trip-detail', `타는 기차: ${leg.kind ?? '기차'} ${leg.train}번(${fromName} ${clockOf(leg.dep)} → ${toName} ${clockOf(leg.arr)})`));
+      if (leg.fare === null) card.append(element('p', 'trip-detail', '기차 운임은 몰라서 빼고 셌어요.'));
+    }
     // 걷는 거리
     if (trip.walkMeters > 0) card.append(element('p', 'trip-detail', `걷는 거리 ${distanceText(trip.walkMeters)}`));
 

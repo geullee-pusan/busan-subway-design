@@ -3,7 +3,8 @@
 // 다음 구간으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
 // 요금: 버스·지하철은 처음 탈 때 그 요금을 내고, 마지막에 내릴 때 모자란 요금(2구간 등)을 더 낸다.
 //       택시는 미터기(부산 중형택시 요금표)가 달리는 만큼 올라가고 내릴 때 낸다.
-import { lineById, stationById, stationSounds } from '../data.js';
+import { lineById, railStationById, stationById, stationSounds } from '../data.js';
+import { runTrainTrip, trainOfLeg } from './train-journey.js';
 import { chimeSide, platformInfo } from '../sim/platform.js';
 import { romanize } from '../sim/romanize.js';
 import { lineRoutes } from '../sim/train-motion.js';
@@ -66,8 +67,9 @@ function stepsOf(trip) {
     if (leg.minutes <= 0 && leg.mode !== '지하철') return;
     const next = trip.legs[index + 1];
     let kind = leg.mode;
+    if (leg.mode === '기차') kind = '기차';
     if (leg.mode === '기다리기') kind = leg.bus ? '버스 기다리기' : leg.taxi ? '택시 기다리기' : '열차 기다리기';
-    steps.push({ ...leg, kind, next });
+    steps.push({ ...leg, kind, kindName: leg.mode === '기차' ? leg.kind : undefined, next });
   });
   return steps;
 }
@@ -75,6 +77,7 @@ function stepsOf(trip) {
 /** 구간 띠에 쓰는 짧은 이름 */
 function stepLabel(step) {
   if (step.kind === '지하철') return lineById.get(step.line)?.name ?? '지하철';
+  if (step.kind === '기차') return step.kindName ?? '기차';
   if (step.kind === '열차 기다리기' || step.kind === '버스 기다리기' || step.kind === '택시 기다리기') return '기다리기';
   return step.kind;
 }
@@ -165,6 +168,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       버스: renderBus,
       '택시 기다리기': renderTaxiWait,
       택시: renderTaxi,
+      기차: renderTrain,
     };
     (renderers[step.kind] ?? renderWalk)(area, step);
   }
@@ -245,12 +249,36 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     return g;
   }
 
+  /** 기차: 대합실 → 승차권 → 승강장 → 열차 안 → 내림(src/ui/train-journey.js) */
+  function renderTrain(area, step) {
+    const train = trainOfLeg(step);
+    if (!train) {
+      area.append(element('p', null, '이 기차의 시각표를 찾지 못했어요.'));
+      nextButton(area, '다음으로', () => done(step));
+      return;
+    }
+    rideCleanup = runTrainTrip(area, {
+      train,
+      fromIndex: step.fromIndex,
+      toIndex: step.toIndex,
+      readyMinute: hour * 60 + elapsed,
+      fare: step.fare,
+      rider,
+      onDone: (minutes) => {
+        rideCleanup = null;
+        paid += step.fare ?? 0;
+        done(step, { minutes });
+      },
+    });
+  }
+
   function renderWalk(area, step) {
-    const target = step.to ? stationLabel(stationOf.get(step.to)?.name ?? '역') : step.from ? to.name : to.name;
-    const start = step.from ? stationLabel(stationOf.get(step.from)?.name ?? '역') : from.name;
+    const railName = (id) => stationLabel(railStationById.get(id)?.name ?? '기차역');
+    const target = step.toRail ? railName(step.toRail) : step.to ? stationLabel(stationOf.get(step.to)?.name ?? '역') : step.from ? to.name : to.name;
+    const start = step.fromRail ? railName(step.fromRail) : step.from ? stationLabel(stationOf.get(step.from)?.name ?? '역') : from.name;
     const title = step.stop
       ? `${step.stop} 정류장까지 걸어요`
-      : step.to
+      : step.to || step.toRail
         ? `${target}까지 걸어요`
         : `${start}에서 ${to.name}까지 걸어요`;
     area.append(element('h2', null, title));

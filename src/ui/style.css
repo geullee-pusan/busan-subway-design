@@ -2301,3 +2301,182 @@ body {
   color: #3b3b3b;
   border: 2px solid #3b3b3b;
 }
+
+/* 기차 타기(src/ui/train-journey.js) */
+.tr-board,
+.tr-ticket {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  display: block;
+  margin: 8px 0;
+}
+
+.tr-ticket {
+  max-width: 480px;
+}
+
+.tr-kind-card {
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  background: #ffffff;
+  max-width: 640px;
+}
+
+.tr-kind-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+
+.tr-kind-mark {
+  display: inline-block;
+  width: 14px;
+  height: 28px;
+  border-radius: 3px;
+}
+
+.tr-fact,
+.tr-speed {
+  display: grid;
+  grid-template-columns: 6rem 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.tr-fact-label {
+  font-weight: 700;
+}
+
+.tr-fact-value {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tr-fact-detail,
+.tr-fact-line {
+  margin: 2px 0 2px 0;
+}
+
+.tr-bar {
+  display: block;
+  height: 14px;
+  background: #e3e6ea;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.tr-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 7px;
+}
+
+.tr-cars {
+  letter-spacing: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tr-sound-row,
+.tr-go-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.tr-stops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+}
+
+.tr-stops li {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 2px 10px;
+  background: #ffffff;
+}
+
+.tr-stops li.is-done {
+  background: #d9dee3;
+  text-decoration: line-through;
+}
+
+.tr-stops li.is-now {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.tr-clock {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 4px 0;
+}
+
+.tr-status,
+.tr-seat {
+  font-weight: 700;
+}
+
+/* 창밖 풍경이 왼쪽으로 흘러간다. 빠르기는 animation-duration으로 바꾼다. */
+.tr-outside-move {
+  animation: tr-scroll 2s linear infinite;
+}
+
+@keyframes tr-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-800px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tr-outside-move {
+    animation: none;
+  }
+}
+
+/* 진짜 기차 타 보기: 떠나는 기차 목록 */
+.tr-departures {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0;
+  max-width: 720px;
+}
+
+.tr-departure {
+  display: grid;
+  grid-template-columns: 5rem 14px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 3rem;
+  padding: 6px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tr-dep-time {
+  font-weight: 800;
+  font-family: monospace;
+  font-size: 1.2rem;
+}
+
+.tr-dep-kind {
+  font-weight: 700;
+}
