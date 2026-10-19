@@ -20,7 +20,7 @@ export const INTERIOR = {
   KTX: { seat: '#2B3140', seatDark: '#1F232E', cover: '#E6E6E2', net: true, pattern: null, cushion: '#2B3140', wall: '#E9E8E4', ceiling: '#F1F1EE', floor: '#3E4550', windows: 'small', screen: false, curtain: false, reverseRows: true, display: 'led' },
   // KTX-산천: 동그라미 잔무늬가 있는 회색 좌석, 흰 머리 덮개, 등받이 뒤 아래쪽은 밝은 판에 그물 주머니와 안내 종이,
   // 연한 분홍빛 벽, 베이지색 바닥, 창 위 가리개, 은은한 연두빛 선반 불빛, 천장 영상 화면
-  'KTX-산천': { seat: '#9EA4AA', seatDark: '#878D93', cover: '#F2F3F4', coverShort: true, shellLower: '#E3E5E7', net: true, netFill: '#5B6055', glow: '#DCEFE2', pattern: 'rings', patternColor: '#BAC0C5', cushion: '#AEB4B9', wall: '#EDE6E1', ceiling: '#F6F4F2', floor: '#CBB89F', windows: 'small', screen: false, curtain: 'blind', reverseRows: false, display: 'lcd' },
+  'KTX-산천': { seat: '#9EA4AA', seatDark: '#878D93', cover: '#F2F3F4', coverShort: true, shellLower: '#E3E5E7', net: true, netFill: '#5B6055', glow: '#DCEFE2', rackGlow: '#CFEBDD', pattern: 'rings', patternColor: '#BAC0C5', cushion: '#AEB4B9', wall: '#EDE6E1', ceiling: '#F6F4F2', floor: '#CBB89F', windows: 'small', screen: false, curtain: 'blind', reverseRows: false, display: 'lcd' },
   // KTX-청룡: 베이지색 판 등받이(위에 회색 천과 흰 덮개, 가운데 잡지 주머니), 줄무늬 천장, 짐 선반 아래 민트빛 불빛, 좌석마다 창
   'KTX-청룡': { shell: '#D6CEBF', shellEdge: '#A99F8E', magazine: true, seat: '#8E9298', seatDark: '#7A7E84', cover: '#F1F1EE', pattern: null, cushion: '#A8A091', wall: '#EEF0EE', ceiling: '#E9EAE7', ceilingRibs: true, rackGlow: '#A8E3D0', floor: '#B19C7C', windows: 'each', screen: false, curtain: false, reverseRows: false, display: 'lcd', glow: '#BFE3D2' },
   // KTX-이음: 흰빛 판 등받이를 파란 천이 위와 옆으로 감싸고, 가운데 잡지 주머니, 짙은 남색 바닥, 짐 선반 아래 민트빛 불빛, 좌석마다 창
@@ -373,54 +373,173 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
   outside.append(mover);
   svg.append(outside);
 
-  // 벽, 천장, 바닥(창 자리는 뚫어 둔다: 창 위아래로 벽을 칠한다)
-  svg.append(svgEl('polygon', { points: quad(P(-HALF, CEIL, NEAR), P(HALF, CEIL, NEAR), P(HALF, CEIL, FAR), P(-HALF, CEIL, FAR)), fill: look.ceiling }));
-  svg.append(svgEl('polygon', { points: quad(P(-HALF, FLOOR, NEAR), P(HALF, FLOOR, NEAR), P(HALF, FLOOR, FAR), P(-HALF, FLOOR, FAR)), fill: look.floor }));
+  // ---- 객실 몸통 ----
+  // 단면(바깥에서 안으로): 바닥 → 아래 벽(난방 틈) → 창 띠(창은 벽보다 조금 바깥에 있어 창틀 두께가 보인다)
+  // → 창 위 벽 → 짐 선반(밑면에 불빛, 좌석마다 독서등) → 선반 위 벽 → 둥근 불빛 홈 → 천장(가운데 조명, 바람 구멍)
+  const RACK_Y = -0.74; // 짐 선반 밑면 높이
+  const RACK_X = 1.06; // 짐 선반 앞 끝(통로 쪽)
+  const COVE_Y = -0.93; // 선반 위 벽이 천장으로 꺾이는 높이
+  const CEIL_X = 1.0; // 천장 가운데 판의 끝
+  const GLASS = 0.07; // 창 유리가 벽보다 바깥에 있는 만큼
+  const sideWall = (side, y0, y1, fill, zFrom = NEAR, zTo = FAR) =>
+    svgEl('polygon', { points: quad(P(side * HALF, y0, zFrom), P(side * HALF, y1, zFrom), P(side * HALF, y1, zTo), P(side * HALF, y0, zTo)), fill });
+
+  // 벽 빛: 가까운 쪽이 밝고 먼 쪽(가운데)이 조금 어둡다
+  const wallGrads = new Map();
+  const wallGrad = (side) => {
+    if (wallGrads.has(side)) return wallGrads.get(side);
+    const id = `${uid}-wall${side}`;
+    const g = svgEl('linearGradient', { id, gradientUnits: 'userSpaceOnUse', x1: side < 0 ? 0 : 800, y1: 0, x2: VX, y2: 0 });
+    g.append(svgEl('stop', { offset: 0, 'stop-color': shade(look.wall, 1.06) }), svgEl('stop', { offset: 1, 'stop-color': shade(look.wall, 0.86) }));
+    defs.append(g);
+    wallGrads.set(side, `url(#${id})`);
+    return wallGrads.get(side);
+  };
+  const floorGrad = (() => {
+    const id = `${uid}-floor`;
+    const g = svgEl('linearGradient', { id, gradientUnits: 'userSpaceOnUse', x1: 0, y1: 340, x2: 0, y2: VY });
+    g.append(svgEl('stop', { offset: 0, 'stop-color': shade(look.floor, 1.1) }), svgEl('stop', { offset: 1, 'stop-color': shade(look.floor, 0.7) }));
+    defs.append(g);
+    return `url(#${id})`;
+  })();
+  const ceilGrad = (() => {
+    const id = `${uid}-ceil`;
+    const g = svgEl('linearGradient', { id, gradientUnits: 'userSpaceOnUse', x1: 0, y1: 0, x2: 0, y2: VY });
+    g.append(svgEl('stop', { offset: 0, 'stop-color': shade(look.ceiling, 1.02) }), svgEl('stop', { offset: 1, 'stop-color': shade(look.ceiling, 0.88) }));
+    defs.append(g);
+    return `url(#${id})`;
+  })();
+
+  // 천장 가운데 판, 둥근 불빛 홈, 선반 위 벽
+  svg.append(svgEl('polygon', { points: quad(P(-CEIL_X, CEIL, NEAR), P(CEIL_X, CEIL, NEAR), P(CEIL_X, CEIL, FAR), P(-CEIL_X, CEIL, FAR)), fill: ceilGrad }));
   for (const side of [-1, 1]) {
-    const x = side * HALF;
-    svg.append(svgEl('polygon', { points: quad(P(x, CEIL, NEAR), P(x, WIN_TOP, NEAR), P(x, WIN_TOP, FAR), P(x, CEIL, FAR)), fill: look.wall }));
-    svg.append(svgEl('polygon', { points: quad(P(x, WIN_BOTTOM, NEAR), P(x, FLOOR, NEAR), P(x, FLOOR, FAR), P(x, WIN_BOTTOM, FAR)), fill: look.wall }));
+    const cove = look.coveGlow ?? '#FFFDF6';
+    svg.append(svgEl('polygon', { points: quad(P(side * CEIL_X, CEIL, NEAR), P(side * HALF, COVE_Y, NEAR), P(side * HALF, COVE_Y, FAR), P(side * CEIL_X, CEIL, FAR)), fill: cove }));
+    // 불빛 홈의 그늘진 가장자리
+    svg.append(svgEl('polygon', { points: quad(P(side * CEIL_X, CEIL, NEAR), P(side * (CEIL_X + 0.05), CEIL + 0.015, NEAR), P(side * (CEIL_X + 0.05), CEIL + 0.015, FAR), P(side * CEIL_X, CEIL, FAR)), fill: shade(look.ceiling, 0.8) }));
+    svg.append(sideWall(side, COVE_Y, RACK_Y - 0.06, wallGrad(side)));
   }
-  // 창: 좌석마다 따로(청룡, 이음), 작은 창(KTX, 산천), 이어진 창 띠(나머지)
+  // 천장 가운데: 줄무늬 판(청룡·이음) 또는 이어진 조명, 바람 구멍
+  if (look.ceilingRibs) {
+    for (let z = NEAR + 0.3; z < FAR; z += 0.3) svg.append(svgEl('line', { x1: P(-CEIL_X, CEIL, z)[0], y1: P(-CEIL_X, CEIL, z)[1], x2: P(CEIL_X, CEIL, z)[0], y2: P(CEIL_X, CEIL, z)[1], stroke: shade(look.ceiling, 0.82), 'stroke-width': 1 }));
+  } else {
+    for (let z = NEAR + 0.4; z < FAR - 0.6; z += 1.6) {
+      for (const side of [-1, 1]) svg.append(svgEl('polygon', { points: quad(P(side * 0.42, CEIL, z), P(side * 0.7, CEIL, z), P(side * 0.7, CEIL, z + 1.2), P(side * 0.42, CEIL, z + 1.2)), fill: look.glow ?? '#FFFFFF', stroke: shade(look.ceiling, 0.85), 'stroke-width': 0.6 }));
+    }
+  }
+  svg.append(svgEl('polygon', { points: quad(P(-0.12, CEIL, NEAR), P(0.12, CEIL, NEAR), P(0.12, CEIL, FAR), P(-0.12, CEIL, FAR)), fill: shade(look.ceiling, 0.9) }));
+  for (let z = NEAR + 0.6; z < FAR; z += 0.5) svg.append(svgEl('line', { x1: P(-0.1, CEIL, z)[0], y1: P(-0.1, CEIL, z)[1], x2: P(0.1, CEIL, z)[0], y2: P(0.1, CEIL, z)[1], stroke: shade(look.ceiling, 0.7), 'stroke-width': 0.8 }));
+  // 천장 스피커
+  for (let z = 2.5; z < FAR; z += 3.2) {
+    const [cx, cy] = P(-0.75, CEIL, z);
+    svg.append(svgEl('ellipse', { cx, cy, rx: 60 / z, ry: 12 / z, fill: shade(look.ceiling, 0.75) }));
+  }
+
+  // 바닥: 카펫과 가운데 통로 깔개
+  svg.append(svgEl('polygon', { points: quad(P(-HALF, FLOOR, NEAR), P(HALF, FLOOR, NEAR), P(HALF, FLOOR, FAR), P(-HALF, FLOOR, FAR)), fill: floorGrad }));
+  svg.append(svgEl('polygon', { points: quad(P(-0.34, FLOOR, NEAR), P(0.34, FLOOR, NEAR), P(0.34, FLOOR, FAR), P(-0.34, FLOOR, FAR)), fill: shade(look.floor, 0.85) }));
+  for (const x of [-0.34, 0.34]) svg.append(svgEl('line', { x1: P(x, FLOOR, NEAR)[0], y1: P(x, FLOOR, NEAR)[1], x2: P(x, FLOOR, FAR)[0], y2: P(x, FLOOR, FAR)[1], stroke: shade(look.floor, 1.25), 'stroke-width': 1.2 }));
+
+  // 아래 벽(창 아래)과 난방 틈
+  for (const side of [-1, 1]) {
+    svg.append(sideWall(side, WIN_BOTTOM, FLOOR, wallGrad(side)));
+    svg.append(sideWall(side, 0.94, 1.04, shade(look.wall, 0.55)));
+    for (let z = NEAR; z < FAR; z += 0.25) svg.append(svgEl('line', { x1: P(side * HALF, 0.94, z)[0], y1: P(side * HALF, 0.94, z)[1], x2: P(side * HALF, 1.04, z)[0], y2: P(side * HALF, 1.04, z)[1], stroke: shade(look.wall, 0.35), 'stroke-width': 0.6 }));
+    svg.append(sideWall(side, 1.04, FLOOR, shade(look.floor, 0.6)));
+    // 창 아래 턱(창턱)
+    svg.append(svgEl('polygon', { points: quad(P(side * HALF, WIN_BOTTOM, NEAR), P(side * (HALF - 0.08), WIN_BOTTOM + 0.02, NEAR), P(side * (HALF - 0.08), WIN_BOTTOM + 0.02, FAR), P(side * HALF, WIN_BOTTOM, FAR)), fill: shade(look.wall, 1.08), stroke: shade(look.wall, 0.75), 'stroke-width': 0.5 }));
+    // 창 위 벽
+    svg.append(sideWall(side, RACK_Y, WIN_TOP, wallGrad(side)));
+  }
+
+  // 창: 좌석마다 따로(청룡, 이음), 작은 창(KTX, 산천), 이어진 창 띠(나머지).
+  // 유리는 벽보다 바깥에 있어 창틀 두께(위, 아래, 먼 쪽 옆)가 보인다.
   const paneLen = look.windows === 'band' ? 2.4 : look.windows === 'each' ? 0.75 : 1.4;
   const paneGap = look.windows === 'band' ? 0.18 : look.windows === 'each' ? 0.3 : 0.35;
   for (const side of [-1, 1]) {
-    const x = side * HALF;
+    const xw = side * HALF;
+    const xg = side * (HALF + GLASS);
+    // 첫 창 앞 벽 조각
+    svg.append(svgEl('polygon', { points: quad(P(xw, WIN_TOP, NEAR), P(xw, WIN_BOTTOM, NEAR), P(xw, WIN_BOTTOM, NEAR + 0.2), P(xw, WIN_TOP, NEAR + 0.2)), fill: wallGrad(side) }));
     for (let z = NEAR + 0.2; z < FAR - 0.5; z += paneLen + paneGap) {
       const z1 = Math.min(FAR - 0.4, z + paneLen);
-      const shape = quad(P(x, WIN_TOP, z), P(x, WIN_BOTTOM, z), P(x, WIN_BOTTOM, z1), P(x, WIN_TOP, z1));
-      clip.append(svgEl('polygon', { points: shape }));
-      // 창 사이 벽
+      // 유리 모서리는 둥글다(벽 면 위에서 네 모서리를 작은 호로 잇는다)
+      const r = 0.1;
+      const corners = [
+        [WIN_TOP + r, z + r, Math.PI, 1.5 * Math.PI],
+        [WIN_TOP + r, z1 - r, 1.5 * Math.PI, 2 * Math.PI],
+        [WIN_BOTTOM - r, z1 - r, 0, 0.5 * Math.PI],
+        [WIN_BOTTOM - r, z + r, 0.5 * Math.PI, Math.PI],
+      ];
+      const ring = [];
+      for (const [cy, cz, t0, t1] of corners) {
+        for (let k = 0; k <= 5; k++) {
+          const t = t0 + ((t1 - t0) * k) / 5;
+          ring.push(P(xg, cy + r * Math.sin(t), cz + r * Math.cos(t)));
+        }
+      }
+      const glass = pts(ring);
+      clip.append(svgEl('polygon', { points: glass }));
+      // 유리 비침(엷은 빛)
+      svg.append(svgEl('polygon', { points: glass, fill: '#FFFFFF', opacity: 0.08 }));
+      // 창틀 두께: 위(그늘), 아래(밝음), 먼 쪽 옆
+      svg.append(svgEl('polygon', { points: quad(P(xw, WIN_TOP, z), P(xg, WIN_TOP, z), P(xg, WIN_TOP, z1), P(xw, WIN_TOP, z1)), fill: shade(look.wall, 0.72) }));
+      svg.append(svgEl('polygon', { points: quad(P(xw, WIN_BOTTOM, z), P(xg, WIN_BOTTOM, z), P(xg, WIN_BOTTOM, z1), P(xw, WIN_BOTTOM, z1)), fill: shade(look.wall, 1.1) }));
+      svg.append(svgEl('polygon', { points: quad(P(xw, WIN_TOP, z1), P(xg, WIN_TOP, z1), P(xg, WIN_BOTTOM, z1), P(xw, WIN_BOTTOM, z1)), fill: shade(look.wall, 0.82) }));
+      // 고무 틀
+      svg.append(svgEl('polygon', { points: glass, fill: 'none', stroke: '#4A4F55', 'stroke-width': 1.4, 'stroke-linejoin': 'round' }));
+      // 창 사이 기둥 벽(이음매 선)
       const z2 = Math.min(FAR - 0.4, z1 + paneGap);
-      svg.append(svgEl('polygon', { points: quad(P(x, WIN_TOP, z1), P(x, WIN_BOTTOM, z1), P(x, WIN_BOTTOM, z2), P(x, WIN_TOP, z2)), fill: look.wall }));
-      svg.append(svgEl('polygon', { points: shape, fill: 'none', stroke: '#9AA0A6', 'stroke-width': 1 }));
-      if (look.curtain === 'blind') svg.append(svgEl('polygon', { points: quad(P(x, WIN_TOP, z), P(x, WIN_TOP + 0.12, z), P(x, WIN_TOP + 0.12, z1), P(x, WIN_TOP, z1)), fill: '#BFC3C6', stroke: '#9AA0A6', 'stroke-width': 0.6 }));
-      else if (look.curtain) svg.append(svgEl('polygon', { points: quad(P(x, WIN_TOP, z), P(x, WIN_BOTTOM - 0.25, z), P(x, WIN_BOTTOM - 0.25, z + 0.25), P(x, WIN_TOP, z + 0.25)), fill: '#C9B98F', opacity: 0.9 }));
+      svg.append(svgEl('polygon', { points: quad(P(xw, WIN_TOP, z1), P(xw, WIN_BOTTOM, z1), P(xw, WIN_BOTTOM, z2), P(xw, WIN_TOP, z2)), fill: wallGrad(side) }));
+      svg.append(svgEl('line', { x1: P(xw, RACK_Y, (z1 + z2) / 2)[0], y1: P(xw, RACK_Y, (z1 + z2) / 2)[1], x2: P(xw, 0.94, (z1 + z2) / 2)[0], y2: P(xw, 0.94, (z1 + z2) / 2)[1], stroke: shade(look.wall, 0.8), 'stroke-width': 0.6 }));
+      // 가리개: 말아 올린 가리개(위 띠) 또는 옆 커튼
+      if (look.curtain === 'blind') svg.append(svgEl('polygon', { points: quad(P(xg, WIN_TOP, z), P(xg, WIN_TOP + 0.13, z), P(xg, WIN_TOP + 0.13, z1), P(xg, WIN_TOP, z1)), fill: '#C3C7CA', stroke: '#9AA0A6', 'stroke-width': 0.6 }));
+      else if (look.curtain) svg.append(svgEl('polygon', { points: quad(P(xw, WIN_TOP, z), P(xw, WIN_BOTTOM - 0.25, z), P(xw, WIN_BOTTOM - 0.25, z + 0.25), P(xw, WIN_TOP, z + 0.25)), fill: '#C9B98F', opacity: 0.9 }));
+    }
+    // 마지막 창 뒤 벽 조각
+    svg.append(svgEl('polygon', { points: quad(P(xw, WIN_TOP, FAR - 0.5), P(xw, WIN_BOTTOM, FAR - 0.5), P(xw, WIN_BOTTOM, FAR), P(xw, WIN_TOP, FAR)), fill: wallGrad(side) }));
+  }
+
+  // 짐 선반: 밑면(불빛 띠), 앞 끝 테, 좌석마다 독서등과 바람 구멍
+  for (const side of [-1, 1]) {
+    svg.append(svgEl('polygon', { points: quad(P(side * HALF, RACK_Y, NEAR), P(side * RACK_X, RACK_Y, NEAR), P(side * RACK_X, RACK_Y, FAR), P(side * HALF, RACK_Y, FAR)), fill: shade(look.ceiling, 0.92) }));
+    svg.append(svgEl('polygon', { points: quad(P(side * (HALF - 0.04), RACK_Y, NEAR), P(side * (HALF - 0.1), RACK_Y, NEAR), P(side * (HALF - 0.1), RACK_Y, FAR), P(side * (HALF - 0.04), RACK_Y, FAR)), fill: look.rackGlow ?? '#FFFFFF', opacity: 0.9 }));
+    for (let z = 2.1; z < FAR - 0.5; z += 0.95) {
+      const [px, py] = P(side * (RACK_X + 0.12), RACK_Y, z);
+      svg.append(svgEl('ellipse', { cx: px, cy: py, rx: 22 / z, ry: 7 / z, fill: '#3B3F45' }));
+      const [lx, ly] = P(side * (RACK_X + 0.12), RACK_Y, z + 0.3);
+      svg.append(svgEl('ellipse', { cx: lx, cy: ly, rx: 9 / z, ry: 4 / z, fill: '#FFF6D8', stroke: '#8E939A', 'stroke-width': 0.4 }));
+    }
+    svg.append(svgEl('polygon', { points: quad(P(side * RACK_X, RACK_Y - 0.08, NEAR), P(side * RACK_X, RACK_Y, NEAR), P(side * RACK_X, RACK_Y, FAR), P(side * RACK_X, RACK_Y - 0.08, FAR)), fill: shade(look.wall, 0.9), stroke: shade(look.wall, 0.65), 'stroke-width': 0.5 }));
+    if (look.trim) svg.append(svgEl('polygon', { points: quad(P(side * RACK_X, RACK_Y - 0.03, NEAR), P(side * RACK_X, RACK_Y, NEAR), P(side * RACK_X, RACK_Y, FAR), P(side * RACK_X, RACK_Y - 0.03, FAR)), fill: look.trim }));
+    // 짐 선반 위 가방 몇 개(늘 같은 자리)
+    for (const z of [3.2, 6.1, 9.4]) {
+      const zz = side < 0 ? z : z + 1.3;
+      svg.append(svgEl('polygon', { points: quad(P(side * (RACK_X + 0.05), RACK_Y - 0.08, zz), P(side * (RACK_X + 0.05), RACK_Y - 0.2, zz), P(side * (RACK_X + 0.05), RACK_Y - 0.2, zz + 0.45), P(side * (RACK_X + 0.05), RACK_Y - 0.08, zz + 0.45)), fill: ['#5A6B7D', '#8A5A44', '#4C5A4A'][Math.round(z) % 3] }));
     }
   }
-  // 줄무늬 천장(KTX-청룡)
-  if (look.ceilingRibs) {
-    for (let z = NEAR + 0.3; z < FAR; z += 0.35) svg.append(svgEl('line', { x1: P(-0.95, CEIL, z)[0], y1: P(-0.95, CEIL, z)[1], x2: P(0.95, CEIL, z)[0], y2: P(0.95, CEIL, z)[1], stroke: '#C9CBC7', 'stroke-width': 1 }));
-  }
-  // 짐 선반 아래 불빛(KTX-청룡: 민트빛)
-  if (look.rackGlow) {
-    for (const side of [-1, 1]) svg.append(svgEl('polygon', { points: quad(P(side * HALF, -0.74, NEAR), P(side * 1.05, -0.7, NEAR), P(side * 1.05, -0.7, FAR), P(side * HALF, -0.74, FAR)), fill: look.rackGlow, opacity: 0.8 }));
-  }
-  // 짐 선반
-  for (const side of [-1, 1]) {
-    svg.append(svgEl('polygon', { points: quad(P(side * HALF, -0.78, NEAR), P(side * 1.05, -0.74, NEAR), P(side * 1.05, -0.74, FAR), P(side * HALF, -0.78, FAR)), fill: '#C9CCCF', opacity: 0.9 }));
-    if (look.trim) svg.append(svgEl('polygon', { points: quad(P(side * 1.05, -0.74, NEAR), P(side * 1.05, -0.69, NEAR), P(side * 1.05, -0.69, FAR), P(side * 1.05, -0.74, FAR)), fill: look.trim }));
-  }
-  // 천장 불빛(청룡은 은은한 초록빛 띠)
-  for (const side of [-1, 1]) {
-    svg.append(svgEl('polygon', { points: quad(P(side * 0.5, CEIL, NEAR), P(side * 0.62, CEIL, NEAR), P(side * 0.62, CEIL, FAR), P(side * 0.5, CEIL, FAR)), fill: look.glow ?? '#FFFFFF' }));
-  }
-  // 앞쪽 끝 벽, 문, 안내 화면
+
+  // 앞쪽 끝 벽: 벽, 문틀, 문(위에 유리), 문 위 안내 화면과 비상구 표시
   const endTL = P(-HALF, CEIL, FAR);
   const endBR = P(HALF, FLOOR, FAR);
-  svg.append(svgEl('rect', { x: endTL[0], y: endTL[1], width: endBR[0] - endTL[0], height: endBR[1] - endTL[1], fill: look.wall, stroke: '#A3A8AD', 'stroke-width': 1 }));
-  const door = [P(-0.38, -0.55, FAR), P(0.38, FLOOR, FAR)];
+  svg.append(svgEl('rect', { x: endTL[0], y: endTL[1], width: endBR[0] - endTL[0], height: endBR[1] - endTL[1], fill: shade(look.wall, 0.95), stroke: '#A3A8AD', 'stroke-width': 1 }));
+  const frame = [P(-0.48, -0.66, FAR), P(0.48, FLOOR, FAR)];
+  svg.append(svgEl('rect', { x: frame[0][0], y: frame[0][1], width: frame[1][0] - frame[0][0], height: frame[1][1] - frame[0][1], fill: shade(look.wall, 0.7) }));
+  const door = [P(-0.38, -0.58, FAR), P(0.38, FLOOR, FAR)];
   svg.append(svgEl('rect', { x: door[0][0], y: door[0][1], width: door[1][0] - door[0][0], height: door[1][1] - door[0][1], fill: look.door ?? '#B9C1C8', stroke: '#7F878E' }));
+  if (!look.doorArrows) {
+    const g0 = P(-0.26, -0.48, FAR);
+    const g1 = P(0.26, 0.05, FAR);
+    svg.append(svgEl('rect', { x: g0[0], y: g0[1], width: g1[0] - g0[0], height: g1[1] - g0[1], rx: 2, fill: '#5E6A75', stroke: '#3A4048', 'stroke-width': 0.6 }));
+    svg.append(svgEl('rect', { x: g0[0] + 2, y: g0[1] + 2, width: (g1[0] - g0[0]) * 0.3, height: g1[1] - g0[1] - 4, fill: '#FFFFFF', opacity: 0.15 }));
+  }
+  const sign0 = P(-0.36, -0.8, FAR);
+  const sign1 = P(0.36, -0.68, FAR);
+  svg.append(svgEl('rect', { x: sign0[0], y: sign0[1], width: sign1[0] - sign0[0], height: sign1[1] - sign0[1], fill: '#15181C' }));
+  svg.append(svgEl('rect', { x: sign0[0] + 2, y: sign0[1] + 1.5, width: (sign1[0] - sign0[0]) * 0.55, height: sign1[1] - sign0[1] - 3, fill: look.display === 'lcd' ? '#3B6E9E' : '#C8501E', opacity: 0.85 }));
+  const exit0 = P(0.62, -0.62, FAR);
+  const exit1 = P(0.86, -0.5, FAR);
+  svg.append(svgEl('rect', { x: exit0[0], y: exit0[1], width: exit1[0] - exit0[0], height: exit1[1] - exit0[1], fill: '#1E9E5A' }));
   if (look.doorArrows) {
     // 문 가운데 흰 화살표 띠(KTX-이음)
     const [dx0, dy0] = door[0];
@@ -437,6 +556,11 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
   // 안내 화면: 가까이 크게 보이도록 천장에 단다(z=4)
   const s0 = P(-1.0, -0.98, 4);
   const s1 = P(1.0, -0.58, 4);
+  for (const x of [-0.6, 0.6]) {
+    const [hx, hy] = P(x, CEIL, 4);
+    svg.append(svgEl('rect', { x: hx - 2, y: hy, width: 4, height: s0[1] - hy, fill: '#8E939A' }));
+  }
+  svg.append(svgEl('rect', { x: s0[0] - 3, y: s0[1] - 3, width: s1[0] - s0[0] + 6, height: s1[1] - s0[1] + 6, rx: 5, fill: '#C9CDD1', stroke: '#8E939A', 'stroke-width': 1 }));
   svg.append(svgEl('rect', { x: s0[0], y: s0[1], width: s1[0] - s0[0], height: s1[1] - s0[1], rx: 3, fill: look.display === 'lcd' ? '#0F1E2E' : '#111111', stroke: '#2B2F35', 'stroke-width': 2 }));
   const displayText = svgEl('text', { x: (s0[0] + s1[0]) / 2, y: (s0[1] + s1[1]) / 2 + 5, 'font-size': 15, 'font-weight': 700, 'text-anchor': 'middle', fill: look.display === 'lcd' ? '#FFFFFF' : '#FF8A3D' });
   svg.append(displayText);
@@ -456,8 +580,6 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
       seat(svg, look, x0, x1, z, reverse);
     }
   });
-  // 통로 바닥 줄무늬
-  svg.append(svgEl('polygon', { points: quad(P(-0.36, FLOOR, NEAR), P(0.36, FLOOR, NEAR), P(0.36, FLOOR, FAR), P(-0.36, FLOOR, FAR)), fill: '#000000', opacity: 0.08 }));
   // 차체 색 띠(문 위): 무슨 열차인지 한눈에
   svg.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 6, fill: outer.accent }));
 
