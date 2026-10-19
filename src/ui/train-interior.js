@@ -54,54 +54,59 @@ const WIN_BOTTOM = 0.12;
 const NEAR = 1.05;
 const FAR = 13;
 
-/** 창밖 풍경(평평한 그림 두 장을 이어 왼쪽으로 흘린다). scene: city | field | mountain | river | sea | tunnel | station */
-function outsideStrip(scene) {
-  const g = svgEl('g', { class: 'tr-outside-strip' });
-  for (const offset of [0, 800]) {
-    const part = svgEl('g', { transform: `translate(${offset} 0)` });
-    if (scene === 'tunnel') {
-      part.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 340, fill: '#15181B' }));
-      for (let x = 40; x < 800; x += 200) part.append(svgEl('rect', { x, y: 150, width: 60, height: 6, rx: 3, fill: '#F2C76B', opacity: 0.85 }));
-    } else {
-      const sky = scene === 'sea' ? '#BFE0F2' : '#CFE6F4';
-      part.append(svgEl('rect', { x: 0, y: 0, width: 800, height: 340, fill: sky }));
-      // 먼 산
-      part.append(svgEl('path', { d: 'M0 150 Q100 90 200 140 T400 130 T600 120 T800 150 L800 340 L0 340 Z', fill: '#9DB7A0' }));
-      if (scene === 'sea') {
-        part.append(svgEl('rect', { x: 0, y: 150, width: 800, height: 190, fill: '#3F84B8' }));
-        for (let x = 20; x < 800; x += 70) part.append(svgEl('path', { d: `M${x} ${200 + (x % 3) * 18} q10 -6 20 0`, stroke: '#DDF0FA', fill: 'none', 'stroke-width': 2 }));
-      } else if (scene === 'river') {
-        part.append(svgEl('rect', { x: 0, y: 160, width: 800, height: 180, fill: '#4F8DB5' }));
-        // 다리 트러스(가까이 휙휙 지나간다)
-        for (let x = 0; x < 800; x += 100) {
-          part.append(svgEl('path', { d: `M${x} 60 L${x + 50} 300 M${x + 100} 60 L${x + 50} 300`, stroke: '#7C8A96', 'stroke-width': 7 }));
-        }
-        part.append(svgEl('rect', { x: 0, y: 56, width: 800, height: 8, fill: '#7C8A96' }));
-      } else if (scene === 'mountain') {
-        part.append(svgEl('path', { d: 'M0 200 Q120 70 260 180 Q380 90 520 190 Q660 60 800 200 L800 340 L0 340 Z', fill: '#5E8F5C' }));
-        for (let x = 30; x < 800; x += 60) part.append(svgEl('path', { d: `M${x} 250 l12 -34 l12 34 Z`, fill: '#3E6E41' }));
-      } else if (scene === 'city' || scene === 'station') {
-        for (let x = 0; x < 800; x += 46) {
-          const h = 60 + ((x * 37) % 110);
-          part.append(svgEl('rect', { x, y: 230 - h, width: 40, height: h + 110, fill: ['#A7B0BA', '#BBC2C9', '#929BA6'][x % 3] }));
-          for (let wy = 240 - h; wy < 220; wy += 16) part.append(svgEl('rect', { x: x + 8, y: wy, width: 6, height: 7, fill: '#E8EEF4' }));
-        }
-        if (scene === 'station') part.append(svgEl('rect', { x: 0, y: 230, width: 800, height: 110, fill: '#C9C4BA' }));
-      } else {
-        // 들판: 논과 밭, 나무
-        part.append(svgEl('rect', { x: 0, y: 170, width: 800, height: 170, fill: '#9CC46A' }));
-        for (let y = 185; y < 340; y += 22) part.append(svgEl('line', { x1: 0, y1: y, x2: 800, y2: y, stroke: '#B9D68A', 'stroke-width': 3 }));
-        for (let x = 50; x < 800; x += 140) {
-          part.append(svgEl('rect', { x: x + 6, y: 190, width: 5, height: 20, fill: '#6B4A2F' }));
-          part.append(svgEl('circle', { cx: x + 8, cy: 184, r: 13, fill: '#4F8A4A' }));
-        }
-      }
-      // 전깃줄 기둥(전철화된 선로 옆)
-      for (let x = 0; x < 800; x += 160) part.append(svgEl('rect', { x, y: 40, width: 5, height: 300, fill: '#6E7880' }));
-    }
-    g.append(part);
+/**
+ * 창밖 풍경 한 벌(가로 800, 지평선이 y=0). 먼 산, 가운데(땅과 건물), 가까운 것(전깃줄 기둥, 다리)을 나눈다.
+ * 창마다 깊이에 맞게 줄여 쓰고, 층마다 흐르는 빠르기를 다르게 해 입체감을 낸다.
+ * scene: city | field | mountain | river | sea | tunnel | station
+ * @returns {{sky: string, far: SVGElement[], mid: SVGElement[], near: SVGElement[]}}
+ */
+function outsideLayers(scene) {
+  const far = [];
+  const mid = [];
+  const near = [];
+  if (scene === 'tunnel') {
+    for (let x = 40; x < 800; x += 200) mid.push(svgEl('rect', { x, y: 0, width: 60, height: 6, rx: 3, fill: '#F2C76B', opacity: 0.85 }));
+    for (let x = 0; x < 800; x += 100) near.push(svgEl('rect', { x, y: -400, width: 14, height: 800, fill: '#22272C' }));
+    return { sky: '#15181B', far, mid, near };
   }
-  return g;
+  const sky = scene === 'sea' ? '#BFE0F2' : '#CFE6F4';
+  // 먼 산(아주 천천히 흐른다)
+  far.push(svgEl('path', { d: scene === 'sea' ? 'M0 0 Q150 -14 300 -4 T600 -6 T800 0 L800 400 L0 400 Z' : 'M0 0 Q100 -60 200 -10 T400 -20 T600 -30 T800 0 L800 400 L0 400 Z', fill: '#9DB7A0' }));
+  if (scene === 'sea') {
+    mid.push(svgEl('rect', { x: 0, y: 0, width: 800, height: 400, fill: '#3F84B8' }));
+    for (let x = 20; x < 800; x += 70) mid.push(svgEl('path', { d: `M${x} ${50 + (x % 3) * 18} q10 -6 20 0`, stroke: '#DDF0FA', fill: 'none', 'stroke-width': 2 }));
+  } else if (scene === 'river') {
+    mid.push(svgEl('rect', { x: 0, y: 10, width: 800, height: 400, fill: '#4F8DB5' }));
+    for (let x = 30; x < 800; x += 90) mid.push(svgEl('path', { d: `M${x} ${40 + (x % 4) * 14} q12 -5 24 0`, stroke: '#CFE6F4', fill: 'none', 'stroke-width': 2 }));
+    // 다리 트러스(가까이 휙휙 지나간다)
+    for (let x = 0; x < 800; x += 100) near.push(svgEl('path', { d: `M${x} -90 L${x + 50} 150 M${x + 100} -90 L${x + 50} 150`, stroke: '#7C8A96', 'stroke-width': 7 }));
+    near.push(svgEl('rect', { x: 0, y: -94, width: 800, height: 8, fill: '#7C8A96' }));
+  } else if (scene === 'mountain') {
+    mid.push(svgEl('path', { d: 'M0 50 Q120 -80 260 30 Q380 -60 520 40 Q660 -90 800 50 L800 400 L0 400 Z', fill: '#5E8F5C' }));
+    for (let x = 30; x < 800; x += 60) mid.push(svgEl('path', { d: `M${x} 100 l12 -34 l12 34 Z`, fill: '#3E6E41' }));
+  } else if (scene === 'city' || scene === 'station') {
+    mid.push(svgEl('rect', { x: 0, y: 70, width: 800, height: 400, fill: '#8F969C' }));
+    for (let x = 0; x < 800; x += 46) {
+      const h = 60 + ((x * 37) % 110);
+      mid.push(svgEl('rect', { x, y: 80 - h, width: 40, height: h + 110, fill: ['#A7B0BA', '#BBC2C9', '#929BA6'][x % 3] }));
+      for (let wy = 90 - h; wy < 70; wy += 16) mid.push(svgEl('rect', { x: x + 8, y: wy, width: 6, height: 7, fill: '#E8EEF4' }));
+    }
+    if (scene === 'station') mid.push(svgEl('rect', { x: 0, y: 80, width: 800, height: 400, fill: '#C9C4BA' }));
+  } else {
+    // 들판: 논과 밭, 나무
+    mid.push(svgEl('rect', { x: 0, y: 20, width: 800, height: 400, fill: '#9CC46A' }));
+    for (let y = 35; y < 400; y += 22) mid.push(svgEl('line', { x1: 0, y1: y, x2: 800, y2: y, stroke: '#B9D68A', 'stroke-width': 3 }));
+    for (let x = 50; x < 800; x += 140) {
+      mid.push(svgEl('rect', { x: x + 6, y: 40, width: 5, height: 20, fill: '#6B4A2F' }));
+      mid.push(svgEl('circle', { cx: x + 8, cy: 34, r: 13, fill: '#4F8A4A' }));
+    }
+  }
+  // 전깃줄 기둥과 전깃줄(선로 바로 옆이라 가장 빨리 지나간다)
+  if (scene !== 'station') {
+    for (let x = 0; x < 800; x += 200) near.push(svgEl('rect', { x, y: -180, width: 9, height: 600, fill: '#6E7880' }));
+    near.push(svgEl('line', { x1: 0, y1: -150, x2: 800, y2: -150, stroke: '#5A636B', 'stroke-width': 1.5 }));
+  }
+  return { sky, far, mid, near };
 }
 
 /** 색을 밝게(f > 1) 또는 어둡게(f < 1) */
@@ -362,25 +367,42 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
   svg.setAttribute('aria-label', `${kind ?? '기차'} 안 그림이에요. 가운데 통로 양쪽에 좌석이 있고, 창밖 풍경이 지나가요.`);
   const uid = `tr${Math.floor(performance.now() * 1000) % 1e9}`;
   const defs = svgEl('defs');
-  // 창 모양: 왼쪽 창과 오른쪽 창을 따로 모은다(창밖이 흐르는 방향이 서로 반대)
-  const clips = { [-1]: svgEl('clipPath', { id: `${uid}-winL` }), 1: svgEl('clipPath', { id: `${uid}-winR` }) };
-  defs.append(clips[-1], clips[1]);
   svg.append(defs);
   paint = { defs, uid, cache: new Map(), seats: 0 };
 
   // 창밖(창 모양으로 잘라 보인다)
-  // 앞을 보고 달리면 창밖은 가운데(앞쪽)에서 바깥으로 흘러간다: 왼쪽 창은 왼쪽으로, 오른쪽 창은 오른쪽으로.
-  // 오른쪽은 같은 풍경 띠를 좌우로 뒤집어 반대로 흐르게 한다.
+  // 창밖: 창마다 따로 그린다. 지평선은 모든 창에서 눈높이에 있고, 먼 창일수록 풍경이 작고 느리게 지나간다(원근).
+  // 풍경은 세 층(먼 산, 가운데, 가까운 기둥)으로 나눠 가까운 것일수록 빨리 흐르게 한다.
+  // 앞을 보고 달리므로 왼쪽 창은 왼쪽으로, 오른쪽 창은 오른쪽으로 흐른다(오른쪽은 좌우로 뒤집는다).
+  // 풍경 한 벌은 defs에 한 번만 두고 창마다 <use>로 불러 쓴다.
+  const outsideRoot = svgEl('g');
+  svg.append(outsideRoot);
+  const skyRect = svgEl('rect', { id: `${uid}-sky`, x: -4000, y: -4000, width: 8000, height: 8000 });
+  const layerDefs = { far: svgEl('g', { id: `${uid}-far` }), mid: svgEl('g', { id: `${uid}-mid` }), near: svgEl('g', { id: `${uid}-near` }) };
+  defs.append(skyRect, layerDefs.far, layerDefs.mid, layerDefs.near);
+  const LAYER_TIME = { far: 8, mid: 1.6, near: 0.7 }; // 한 바퀴 도는 시간의 배수(작을수록 빠르다)
   const movers = [];
-  for (const side of [-1, 1]) {
-    const outside = svgEl('g', { 'clip-path': `url(#${uid}-win${side < 0 ? 'L' : 'R'})` });
-    const flip = svgEl('g', side < 0 ? {} : { transform: 'translate(800 0) scale(-1 1)' });
-    const mover = svgEl('g', { class: reduceMotion ? '' : 'tr-outside-move' });
-    flip.append(mover);
-    outside.append(flip);
-    svg.append(outside);
-    movers.push(mover);
-  }
+  let windowCount = 0;
+  const addWindow = (side, glassPoints, zc) => {
+    const id = `${uid}-w${windowCount++}`;
+    const shape = svgEl('clipPath', { id });
+    shape.append(svgEl('polygon', { points: glassPoints }));
+    defs.append(shape);
+    const win = svgEl('g', { 'clip-path': `url(#${id})` });
+    win.append(svgEl('use', { href: `#${uid}-sky` }));
+    const scale = 1.8 / zc;
+    // 풍경의 지평선은 창 가운데보다 조금 아래(어림: 눈높이보다 0.25m 위로 보이게 해 창에 땅과 하늘이 함께 보인다)
+    const [cx, hy] = P(side * (HALF + GLASS), -0.25, zc);
+    for (const layer of ['far', 'mid', 'near']) {
+      const place = svgEl('g', { transform: `translate(${cx.toFixed(1)} ${hy.toFixed(1)}) scale(${(side < 0 ? scale : -scale).toFixed(3)} ${scale.toFixed(3)})` });
+      const mover = svgEl('g', { class: reduceMotion ? '' : 'tr-outside-move' });
+      for (const x of [-800, 0, 800]) mover.append(svgEl('use', { href: `#${uid}-${layer}`, x }));
+      place.append(mover);
+      win.append(place);
+      movers.push({ mover, factor: LAYER_TIME[layer] });
+    }
+    outsideRoot.append(win);
+  };
 
   // ---- 객실 몸통 ----
   // 단면(바깥에서 안으로): 바닥 → 아래 벽(난방 틈) → 창 띠(창은 벽보다 조금 바깥에 있어 창틀 두께가 보인다)
@@ -488,7 +510,7 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
         }
       }
       const glass = pts(ring);
-      clips[side].append(svgEl('polygon', { points: glass }));
+      addWindow(side, glass, (z + z1) / 2);
       // 유리 비침(엷은 빛)
       svg.append(svgEl('polygon', { points: glass, fill: '#FFFFFF', opacity: 0.08 }));
       // 창틀 두께: 위(그늘), 아래(밝음), 먼 쪽 옆
@@ -598,14 +620,16 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
     setScene(next) {
       if (next === scene) return;
       scene = next;
-      for (const mover of movers) mover.replaceChildren(outsideStrip(next));
+      const layers = outsideLayers(next);
+      skyRect.setAttribute('fill', layers.sky);
+      for (const layer of ['far', 'mid', 'near']) layerDefs[layer].replaceChildren(...layers[layer]);
     },
     setSpeed(kmh) {
       // 빠를수록 창밖이 빨리 지나간다. 서 있으면 멈춘다.
       if (reduceMotion) return;
       const seconds = kmh < 3 ? 0 : Math.max(0.35, 60 / Math.max(10, kmh));
-      for (const mover of movers) {
-        mover.style.animationDuration = seconds ? `${seconds.toFixed(2)}s` : '0s';
+      for (const { mover, factor } of movers) {
+        mover.style.animationDuration = seconds ? `${(seconds * factor).toFixed(2)}s` : '0s';
         mover.style.animationPlayState = seconds ? 'running' : 'paused';
       }
     },
