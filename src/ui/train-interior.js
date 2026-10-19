@@ -362,16 +362,25 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
   svg.setAttribute('aria-label', `${kind ?? '기차'} 안 그림이에요. 가운데 통로 양쪽에 좌석이 있고, 창밖 풍경이 지나가요.`);
   const uid = `tr${Math.floor(performance.now() * 1000) % 1e9}`;
   const defs = svgEl('defs');
-  const clip = svgEl('clipPath', { id: `${uid}-win` });
-  defs.append(clip);
+  // 창 모양: 왼쪽 창과 오른쪽 창을 따로 모은다(창밖이 흐르는 방향이 서로 반대)
+  const clips = { [-1]: svgEl('clipPath', { id: `${uid}-winL` }), 1: svgEl('clipPath', { id: `${uid}-winR` }) };
+  defs.append(clips[-1], clips[1]);
   svg.append(defs);
   paint = { defs, uid, cache: new Map(), seats: 0 };
 
   // 창밖(창 모양으로 잘라 보인다)
-  const outside = svgEl('g', { 'clip-path': `url(#${uid}-win)` });
-  const mover = svgEl('g', { class: reduceMotion ? '' : 'tr-outside-move' });
-  outside.append(mover);
-  svg.append(outside);
+  // 앞을 보고 달리면 창밖은 가운데(앞쪽)에서 바깥으로 흘러간다: 왼쪽 창은 왼쪽으로, 오른쪽 창은 오른쪽으로.
+  // 오른쪽은 같은 풍경 띠를 좌우로 뒤집어 반대로 흐르게 한다.
+  const movers = [];
+  for (const side of [-1, 1]) {
+    const outside = svgEl('g', { 'clip-path': `url(#${uid}-win${side < 0 ? 'L' : 'R'})` });
+    const flip = svgEl('g', side < 0 ? {} : { transform: 'translate(800 0) scale(-1 1)' });
+    const mover = svgEl('g', { class: reduceMotion ? '' : 'tr-outside-move' });
+    flip.append(mover);
+    outside.append(flip);
+    svg.append(outside);
+    movers.push(mover);
+  }
 
   // ---- 객실 몸통 ----
   // 단면(바깥에서 안으로): 바닥 → 아래 벽(난방 틈) → 창 띠(창은 벽보다 조금 바깥에 있어 창틀 두께가 보인다)
@@ -479,7 +488,7 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
         }
       }
       const glass = pts(ring);
-      clip.append(svgEl('polygon', { points: glass }));
+      clips[side].append(svgEl('polygon', { points: glass }));
       // 유리 비침(엷은 빛)
       svg.append(svgEl('polygon', { points: glass, fill: '#FFFFFF', opacity: 0.08 }));
       // 창틀 두께: 위(그늘), 아래(밝음), 먼 쪽 옆
@@ -589,14 +598,16 @@ export function trainInteriorArt({ kind, reduceMotion = false }) {
     setScene(next) {
       if (next === scene) return;
       scene = next;
-      mover.replaceChildren(outsideStrip(next));
+      for (const mover of movers) mover.replaceChildren(outsideStrip(next));
     },
     setSpeed(kmh) {
       // 빠를수록 창밖이 빨리 지나간다. 서 있으면 멈춘다.
       if (reduceMotion) return;
       const seconds = kmh < 3 ? 0 : Math.max(0.35, 60 / Math.max(10, kmh));
-      mover.style.animationDuration = seconds ? `${seconds.toFixed(2)}s` : '0s';
-      mover.style.animationPlayState = seconds ? 'running' : 'paused';
+      for (const mover of movers) {
+        mover.style.animationDuration = seconds ? `${seconds.toFixed(2)}s` : '0s';
+        mover.style.animationPlayState = seconds ? 'running' : 'paused';
+      }
     },
     setDisplay(lines) {
       displayText.replaceChildren();
