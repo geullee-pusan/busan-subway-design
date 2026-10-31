@@ -23,7 +23,8 @@
     "api-key": "node scripts/api-key.mjs",
     "rail": "node scripts/build-rail.mjs && node scripts/build-trains.mjs",
     "trains": "node scripts/fetch-trains.mjs",
-    "train-fares": "node scripts/fetch-train-extras.mjs"
+    "train-fares": "node scripts/fetch-train-extras.mjs",
+    "roads": "node scripts/build-roads.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

@@ -1,5 +1,6 @@
 import faresFile from './content/fares.json';
 import { renderTrainRide } from './ui/train-ride-screen.js';
+import { renderWalk } from './ui/walk-screen.js';
 import { grid, ridership, ruleTables, stations } from './data.js';
 import { BASE_YEAR, networkOfYear, rules, runWithDesign, setRules, worldFor } from './model.js';
 import { planCost, movePlan } from './sim/plan.js';
@@ -69,6 +70,7 @@ function showHome() {
       onHistory: showHistory,
       onTrip: () => showTrip(),
       onTrainRide: () => showTrainRide(),
+      onWalk: () => showWalk(),
       onRules: () => showRules(false),
       onParent: showParent,
       onCleared: () => {
@@ -164,6 +166,11 @@ function showExplore() {
 }
 
 /** 시승 모드: 진짜 기차(코레일 열차) 타 보기 */
+/** 걸어서 여행하기: 동네를 걸어 다니며 버스, 지하철, 기차, 택시를 타 본다 */
+function showWalk() {
+  show(() => renderWalk(root, { onHome: showHome }));
+}
+
 function showTrainRide(stationId = null) {
   show(() => renderTrainRide(root, { onHome: showHome, stationId }));
 }

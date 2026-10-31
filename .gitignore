@@ -12,3 +12,6 @@ data/raw/datagokr/15063230.zip
 
 # 공공데이터포털 인증키(npm run api-key). 절대 git에 넣지 않는다.
 .data-go-kr-key
+# OpenStreetMap 차도 원본(64MB). 줄인 것을 data/build/roads.json에 둔다(npm run roads).
+# 받을 때마다 내용이 바뀔 수 있어, 받은 날의 크기와 SHA-256은 data/raw-lock.json에 있다.
+data/raw/osm/roads.json

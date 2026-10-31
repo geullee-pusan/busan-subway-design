@@ -85,9 +85,11 @@ function stepLabel(step) {
 /**
  * @param {HTMLElement} root
  * @param {{trip: object, from: object, to: object, hour: number, rider: 'adult'|'child', world: object,
- *   result: object, hourShape: number[], fares: object, onBack: () => void}} p
+ *   result: object, hourShape: number[], fares: object, onBack: () => void, onDone?: (r: {minutes: number, meters: number, fare: number}) => void,
+ *   backLabel?: string}} p
+ *   hour는 떠나는 시각(시, 소수 가능). onDone이 있으면(걸어서 여행하기) 다 왔을 때 "계속 걷기" 단추로 걸린 시간·걸은 거리·낸 돈을 넘긴다.
  */
-export function renderJourney(root, { trip, from, to, hour, rider, world, result, hourShape, fares, onBack }) {
+export function renderJourney(root, { trip, from, to, hour, rider, world, result, hourShape, fares, onBack, onDone = null, backLabel = '여행하기로' }) {
   root.replaceChildren();
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
   const steps = stepsOf(trip);
@@ -106,7 +108,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
   const screen = element('div', 'screen journey');
   const bar = element('header', 'top-bar');
   bar.append(element('h1', 'top-title', `가 보기: ${from.name} → ${to.name}`));
-  bar.append(button('여행하기로', onBack));
+  bar.append(button(backLabel, onBack));
   screen.append(bar);
   const body = element('div', 'journey-body');
   screen.append(body);
@@ -733,6 +735,18 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
   }
 
   function renderArrived() {
+    if (onDone) {
+      // 걸어서 여행하기: 내린 곳에서 다시 걷는다
+      const card = element('div', 'journey-done');
+      card.append(element('h2', null, `${to.name}에 내렸어요`));
+      const list = element('ul', 'panel-list');
+      list.append(element('li', null, `걸린 시간: ${minutesText(elapsed)}`));
+      list.append(element('li', null, `낸 돈: ${wonText(paid)}`));
+      card.append(list);
+      card.append(button('여기서 다시 걷기', () => onDone({ minutes: elapsed, meters: walked, fare: paid }), 'button big ride-go'));
+      body.append(card);
+      return;
+    }
     const card = element('div', 'journey-done');
     card.append(element('h2', null, `${to.name}에 도착했어요`));
     const list = element('ul', 'panel-list');

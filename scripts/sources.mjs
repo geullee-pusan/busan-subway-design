@@ -154,6 +154,14 @@ out center;`,
 way["railway"="rail"][!"service"];
 out geom;`,
   },
+  {
+    // 차도(걸어서 여행하기: 지도에 그리는 길, 택시가 다니는 길). 고속도로는 빼고 간선·보조간선·일반 도로만 받는다.
+    key: 'osm-roads',
+    file: 'data/raw/osm/roads.json',
+    overpass: `[out:json][timeout:600][maxsize:1073741824][bbox:${OSM_BBOX}];
+way["highway"~"^(trunk|primary|secondary|tertiary)(_link)?$"];
+out geom qt;`,
+  },
   // 코레일(한국철도공사) 기차역 자리와 선구별 거리표
   { key: 'korail-stations', file: 'data/raw/datagokr/15127532.csv', url: dataGoKr('FILE_000000002898194'), size: 7453 },
   { key: 'korail-distances', file: 'data/raw/datagokr/15137040.xlsx', url: dataGoKr('FILE_000000003025367'), size: 267464 },

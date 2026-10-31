@@ -99,6 +99,13 @@
           "when": "2026년 10월 18일 받음",
           "license": "© OpenStreetMap contributors (ODbL)",
           "lockKey": "osm-rail-lines"
+        },
+        {
+          "what": "걸어서 여행하기의 차도(택시가 다니는 길)",
+          "from": "OpenStreetMap 도로",
+          "when": "2026년 10월 31일 받음",
+          "license": "© OpenStreetMap contributors (ODbL)",
+          "lockKey": "osm-roads"
         }
       ]
     },
