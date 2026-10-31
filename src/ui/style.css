@@ -2480,3 +2480,30 @@ body {
 .tr-dep-kind {
   font-weight: 700;
 }
+
+/* 진짜 기차 타 보기: 찾은 기차(떠나는 시각 → 닿는 시각, 걸리는 시간 막대, 운임) */
+.tr-departure.tr-found {
+  grid-template-columns: auto 14px 1fr auto;
+}
+
+.tr-found .tr-dep-time {
+  white-space: nowrap;
+}
+
+.tr-found-info {
+  display: grid;
+  gap: 4px;
+}
+
+.tr-found-line,
+.tr-found-fare {
+  font-size: 0.95rem;
+}
+
+.tr-sound-row .button .tr-kind-mark {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 50%;
+}

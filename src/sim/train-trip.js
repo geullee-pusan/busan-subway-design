@@ -34,6 +34,33 @@ export function directTrains(trains, fromId, toId, afterMinute) {
 }
 
 /**
+ * 열차 찾기: A역을 afterMinute 뒤에 떠나 B역에 서는 열차(B가 없으면 A를 떠나는 모든 열차).
+ * kind가 있으면 그 종류만. 떠나는 시각 차례로 limit개까지.
+ * @param {object[]} trains
+ * @param {{from: string, to?: string|null, kind?: string|null, afterMinute: number, limit?: number}} q
+ * @returns {{train: object, from: number, to: number|null, dep: number, arr: number|null, stops: number|null}[]}
+ */
+export function searchTrains(trains, { from, to = null, kind = null, afterMinute, limit = 10 }) {
+  const out = [];
+  for (const train of trains) {
+    if (kind && train.kind !== kind) continue;
+    const i = train.stops.findIndex((s) => s[0] === from);
+    // 마지막 역에서는 떠나지 않는다
+    if (i < 0 || i === train.stops.length - 1) continue;
+    const dep = depOf(train.stops[i]);
+    if (dep === null || dep < afterMinute) continue;
+    if (to) {
+      const j = train.stops.findIndex((s, k) => k > i && s[0] === to);
+      if (j < 0) continue;
+      out.push({ train, from: i, to: j, dep, arr: arrOf(train.stops[j]), stops: j - i });
+    } else {
+      out.push({ train, from: i, to: null, dep, arr: null, stops: null });
+    }
+  }
+  return out.sort((a, b) => a.dep - b.dep || (a.arr ?? 0) - (b.arr ?? 0) || a.train.no - b.train.no).slice(0, limit);
+}
+
+/**
  * 기차 운임. 역 쌍별 표(fareTable["A|B"][열차번호])가 있으면 그 값, 없으면 같은 역 쌍의 같은 종류 운임.
  * 어린이는 어른 운임의 50% 할인(코레일 FAQ). 100원 밑은 버린다(우리가 정한 방법).
  * @returns {number|null} 못 찾으면 null

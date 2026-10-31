@@ -1,11 +1,15 @@
-// 시승 모드(진짜 기차 타 보기): 기차역과 시각을 고르면 출발 안내 전광판이 나오고,
+// 시승 모드(진짜 기차 타 보기): 타는 역, 가는 역, 열차 종류, 시각으로 기차를 찾고,
 // 실제 열차 하나를 골라 내릴 역까지 타 본다(코레일 2026-10-14 시각표). 장면은 src/ui/train-journey.js.
 import { rail, railStationById, trains as trainData } from '../data.js';
-import { trainFare } from '../sim/train-trip.js';
-import { stationLabel } from './format.js';
+import { searchTrains, trainFare } from '../sim/train-trip.js';
+import { durationText, roParticle, stationLabel } from './format.js';
 import { loadView, saveView } from './storage.js';
 import { lookOf } from './train-art.js';
-import { departuresFrom, hhmm, runTrainTrip, trainDestination } from './train-journey.js';
+import { hhmm, runTrainTrip, trainDestination } from './train-journey.js';
+
+/** 종류 버튼 차례(빠른 열차부터) */
+const KIND_ORDER = ['KTX', 'KTX-산천', 'KTX-청룡', 'KTX-이음', 'ITX-새마을', 'ITX-마음', '새마을호', '누리로', '무궁화호', '종류 모름'];
+const wonText = (value) => `${Math.round(value).toLocaleString('ko-KR')}원`;
 
 const HOURS = [
   [6, '새벽 6시'],
@@ -42,6 +46,8 @@ export function renderTrainRide(root, { onHome, stationId = null }) {
   let station = stationId && served.has(stationId) ? stationId : served.has(saved.station) ? saved.station : (choices.find((s) => s.name === '부산')?.id ?? choices[0]?.id);
   let hour = HOURS.some(([h]) => h === saved.hour) ? saved.hour : 8;
   let rider = saved.rider === 'child' ? 'child' : 'adult';
+  let goal = typeof saved.goal === 'string' ? saved.goal : null; // 가는 역(없으면 아무 데나)
+  let kind = typeof saved.kind === 'string' ? saved.kind : null; // 열차 종류(없으면 전체)
   let cleanup = null;
 
   const screen = element('div', 'screen train-ride');
@@ -56,32 +62,74 @@ export function renderTrainRide(root, { onHome, stationId = null }) {
   screen.append(body);
   root.append(screen);
 
-  const remember = () => saveView({ trainRide: { station, hour, rider } });
+  const remember = () => saveView({ trainRide: { station, hour, rider, goal, kind } });
+  const nameOf = (id) => railStationById.get(id)?.name ?? '';
+  /** 고르는 칸 하나 */
+  const selectRow = (label, options, value, onChange) => {
+    const select = document.createElement('select');
+    select.className = 'text-input';
+    select.setAttribute('aria-label', label);
+    for (const [v, text] of options) {
+      const option = document.createElement('option');
+      option.value = v;
+      option.textContent = text;
+      if (v === value) option.selected = true;
+      select.append(option);
+    }
+    select.addEventListener('change', () => onChange(select.value));
+    const row = element('div', 'tr-sound-row');
+    row.append(element('span', 'tr-fact-label', label), select);
+    return row;
+  };
 
   function choose() {
     cleanup?.();
     cleanup = null;
     body.replaceChildren();
-    body.append(element('p', 'guide', '기차역과 시각을 고르면 그 역을 떠나는 기차가 나와요.'));
-    // 기차역 고르기
-    const select = document.createElement('select');
-    select.className = 'text-input';
-    select.setAttribute('aria-label', '기차역 고르기');
-    for (const s of choices) {
-      const option = document.createElement('option');
-      option.value = s.id;
-      option.textContent = `${s.name}역`;
-      if (s.id === station) option.selected = true;
-      select.append(option);
+    body.append(element('p', 'guide', '타는 역, 가는 역, 열차 종류, 시각을 골라 기차를 찾아요.'));
+    // 이 역을 떠나는 열차들(가는 역과 종류 고르기에 쓴다)
+    const leaving = trainData.trains
+      .map((t) => ({ t, i: t.stops.findIndex((x) => x[0] === station) }))
+      .filter(({ t, i }) => i >= 0 && i < t.stops.length - 1);
+    const reachable = new Set(leaving.flatMap(({ t, i }) => t.stops.slice(i + 1).map((x) => x[0])));
+    if (goal && !reachable.has(goal)) goal = null;
+    const kindsHere = KIND_ORDER.filter((k) => leaving.some(({ t }) => (t.kind ?? '종류 모름') === k));
+    if (kind && !kindsHere.includes(kind)) kind = null;
+
+    body.append(
+      selectRow('타는 역', choices.map((x) => [x.id, `${x.name}역`]), station, (v) => {
+        station = v;
+        remember();
+        choose();
+      }),
+    );
+    const goals = choices.filter((x) => reachable.has(x.id));
+    body.append(
+      selectRow('가는 역', [['', '아무 데나'], ...goals.map((x) => [x.id, `${x.name}역`])], goal ?? '', (v) => {
+        goal = v || null;
+        remember();
+        choose();
+      }),
+    );
+    // 열차 종류 고르기(이 역을 떠나는 종류만)
+    const kindRow = element('div', 'tr-sound-row');
+    kindRow.setAttribute('role', 'group');
+    kindRow.setAttribute('aria-label', '열차 종류 고르기');
+    for (const k of [null, ...kindsHere]) {
+      const node = button(k ?? '전체', () => {
+        kind = k;
+        remember();
+        choose();
+      }, k === kind ? 'button is-on' : 'button');
+      node.setAttribute('aria-pressed', String(k === kind));
+      if (k) {
+        const mark = element('span', 'tr-kind-mark');
+        mark.style.background = lookOf(k).accent;
+        node.prepend(mark);
+      }
+      kindRow.append(node);
     }
-    select.addEventListener('change', () => {
-      station = select.value;
-      remember();
-      choose();
-    });
-    const pickRow = element('div', 'tr-sound-row');
-    pickRow.append(element('span', 'tr-fact-label', '타는 역'), select);
-    body.append(pickRow);
+    body.append(kindRow);
     // 시각 고르기
     const hourRow = element('div', 'tr-sound-row');
     hourRow.setAttribute('role', 'group');
@@ -111,28 +159,55 @@ export function renderTrainRide(root, { onHome, stationId = null }) {
     }
     body.append(riderRow);
 
-    // 출발 안내: 기차 하나를 고른다
-    const list = departuresFrom(station, hour * 60, 10);
-    body.append(element('h2', null, `${stationLabel(railStationById.get(station).name)}을 떠나는 기차`));
-    if (list.length === 0) {
-      body.append(element('p', null, '이 시각 뒤로 떠나는 기차가 없어요.'));
+    // 찾은 기차("종류 모름"은 종류가 비어 있는 열차)
+    const unknown = kind === '종류 모름';
+    const found = searchTrains(unknown ? trainData.trains.filter((t) => !t.kind) : trainData.trains, {
+      from: station,
+      to: goal,
+      kind: unknown ? null : kind,
+      afterMinute: hour * 60,
+      limit: 10,
+    });
+    const title = goal ? `${stationLabel(nameOf(station))}에서 ${stationLabel(nameOf(goal))}${roParticle(stationLabel(nameOf(goal)))} 가는 기차` : `${stationLabel(nameOf(station))}을 떠나는 기차`;
+    body.append(element('h2', null, title));
+    if (found.length === 0) {
+      body.append(element('p', null, goal ? '이 시각 뒤로는 바로 가는 기차가 없어요.' : '이 시각 뒤로 떠나는 기차가 없어요.'));
+      body.append(element('p', 'guide', '다른 시각이나 열차 종류를 골라 봐요.'));
       return;
     }
+    const longest = Math.max(...found.map((r) => (r.arr ?? r.dep) - r.dep), 1);
     const box = element('div', 'tr-departures');
-    for (const d of list) {
-      const look = lookOf(d.train.kind);
-      const item = button('', () => pickStop(d), 'tr-departure');
+    for (const r of found) {
+      const look = lookOf(r.train.kind);
+      const d = { train: r.train, index: r.from, dep: r.dep };
+      const item = button('', () => (r.to === null ? pickStop(d) : ride(d, r.to)), r.to === null ? 'tr-departure' : 'tr-departure tr-found');
       const mark = element('span', 'tr-kind-mark');
       mark.style.background = look.accent;
-      item.append(
-        element('span', 'tr-dep-time', hhmm(d.dep)),
-        mark,
-        element('span', 'tr-dep-kind', `${d.train.kind ?? '종류 모름'} ${d.train.no}번`),
-        element('span', 'tr-dep-to', `${trainDestination(d.train)} 가는 기차`),
-      );
+      const kindText = `${r.train.kind ?? '종류 모름'} ${r.train.no}번`;
+      if (r.to === null) {
+        item.append(element('span', 'tr-dep-time', hhmm(r.dep)), mark, element('span', 'tr-dep-kind', kindText), element('span', 'tr-dep-to', `${trainDestination(r.train)} 가는 기차`));
+      } else {
+        const minutes = r.arr - r.dep;
+        const fare = trainFare(trainData.fareTable, station, goal, r.train, rider);
+        const info = element('span', 'tr-found-info');
+        // 걸리는 시간 막대(이 목록에서 가장 오래 걸리는 기차를 가득으로 본다)
+        const bar = element('span', 'tr-bar');
+        const fill = element('span', 'tr-bar-fill');
+        fill.style.width = `${Math.max(8, (minutes / longest) * 100).toFixed(0)}%`;
+        fill.style.background = look.accent;
+        bar.append(fill);
+        // 운임: 동그라미 하나가 5천 원까지
+        const coins = fare ? '●'.repeat(Math.max(1, Math.ceil(fare / 5000))) : '';
+        const fareNode = element('span', 'tr-found-fare', fare ? `${coins} ${wonText(fare)}` : '운임 모름');
+        if (fare) fareNode.setAttribute('aria-label', `${wonText(fare)}. 동그라미 하나가 5천 원까지예요.`);
+        const stopText = r.stops === 1 ? '쉬지 않고 바로 가요' : `${r.stops - 1}개 역에 섰다 가요`;
+        info.append(element('span', 'tr-dep-kind', kindText), element('span', 'tr-found-line', `${durationText(minutes * 60)} 걸려요. ${stopText}.`), bar, fareNode);
+        item.append(element('span', 'tr-dep-time', `${hhmm(r.dep)} → ${hhmm(r.arr)}`), mark, info, element('span', 'tr-dep-to', `${trainDestination(r.train)} 가는 기차`));
+      }
       box.append(item);
     }
     body.append(box);
+    if (goal) body.append(element('p', 'panel-note', '누르면 바로 타요. 동그라미 하나가 운임 5천 원까지예요.'));
     body.append(element('p', 'panel-note', `${Number(trainData.runDate.slice(4, 6))}월 ${Number(trainData.runDate.slice(6))}일 하루 기록으로 타요.`));
   }
 

@@ -1,7 +1,7 @@
 // 기차 길 찾기·기차 타기 계산 테스트(src/sim/train-trip.js, src/sim/train-ride.js). 작은 가짜 자료로 본다.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { directTrains, trainFare, trainGroup, trainTrips } from '../src/sim/train-trip.js';
+import { directTrains, searchTrains, trainFare, trainGroup, trainTrips } from '../src/sim/train-trip.js';
 import { railPathBetween, seatFor, segmentScenes, speedProfile } from '../src/sim/train-ride.js';
 
 const rail = {
@@ -70,6 +70,29 @@ test('바로 가는 열차는 방향과 떠나는 시각을 지키고, 일찍 �
   assert.deepEqual(
     directTrains(trains, 'C', 'A', 0).map((o) => o.train.no),
     [102],
+  );
+});
+
+test('열차 찾기: 가는 역, 종류, 시각으로 거르고 떠나는 차례로 낸다', () => {
+  assert.deepEqual(
+    searchTrains(trains, { from: 'A', to: 'C', afterMinute: 480 }).map((o) => o.train.no),
+    [1201, 101, 103],
+  );
+  assert.deepEqual(
+    searchTrains(trains, { from: 'A', to: 'C', kind: 'KTX-산천', afterMinute: 0 }).map((o) => [o.train.no, o.dep, o.arr, o.stops]),
+    [[103, 600, 630, 1]],
+  );
+  // 가는 역을 고르지 않으면 그 역을 떠나는 열차 모두(마지막 역에서는 떠나지 않는다)
+  assert.deepEqual(
+    searchTrains(trains, { from: 'A', afterMinute: 0 }).map((o) => o.train.no),
+    [1201, 101, 103],
+  );
+  assert.deepEqual(searchTrains(trains, { from: 'C', to: 'B', afterMinute: 0 }), []);
+  assert.equal(searchTrains(trains, { from: 'A', afterMinute: 0, limit: 2 }).length, 2);
+  // 무궁화호는 B에 서고, KTX는 서지 않는다
+  assert.deepEqual(
+    searchTrains(trains, { from: 'A', to: 'B', afterMinute: 0 }).map((o) => [o.train.no, o.stops]),
+    [[1201, 1]],
   );
 });
 
