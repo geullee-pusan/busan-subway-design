@@ -477,6 +477,13 @@
     "sha256": "a42fce1f225fae78b84db13a9ce57b9d319d62e0ae71274c55a4a3b0daa1cfc1",
     "fetched": "2026-10-31"
   },
+  "osm-paths-18-4": {
+    "file": "data/raw/osm/paths-18-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 404079,
+    "sha256": "74af1c59a880f458c10a48cf6815be28e7e3215d15634791a1433610d8ad7de9",
+    "fetched": "2026-10-31"
+  },
   "osm-paths-19": {
     "file": "data/raw/osm/paths-19.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -505,6 +512,20 @@
     "sha256": "af62cfbc10778122413ca875b5dc94ec8db30c4b1ec5f501957fd61333ca9d12",
     "fetched": "2026-10-31"
   },
+  "osm-paths-20-3": {
+    "file": "data/raw/osm/paths-20-3.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 735765,
+    "sha256": "7407e3767aea62b10d4892af850f1eb8fc4494b7a19154568753ed2409a20152",
+    "fetched": "2026-10-31"
+  },
+  "osm-paths-20-4": {
+    "file": "data/raw/osm/paths-20-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 1922321,
+    "sha256": "c255d2fddd4bca1ae586a8034c865aae10f60986f9cf9e575f204db9b4675921",
+    "fetched": "2026-10-31"
+  },
   "osm-paths-21": {
     "file": "data/raw/osm/paths-21.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -524,6 +545,13 @@
     "url": "https://overpass-api.de/api/interpreter",
     "bytes": 345754,
     "sha256": "cfb67643b7133423ec07f710086e840b35af88ae192ca7bcaf79db5f89bed731",
+    "fetched": "2026-10-31"
+  },
+  "osm-paths-23-2": {
+    "file": "data/raw/osm/paths-23-2.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 576329,
+    "sha256": "22b5f3ad9635e4222b2a5da469c94e8c0b830ebd5be3ced480bceaef83b0806d",
     "fetched": "2026-10-31"
   },
   "osm-paths-23-3": {
