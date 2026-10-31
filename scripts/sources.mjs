@@ -15,6 +15,21 @@ const SKADI_BASE = 'https://s3.amazonaws.com/elevation-tiles-prod/skadi';
 
 // Overpass에 보낼 범위(남, 서, 북, 동). 격자 범위(부산·울산·김해·창원·양산)보다 넉넉하게 잡는다.
 export const OSM_BBOX = '34.85,127.80,36.65,129.70';
+/** 동네 길을 나눠 받는 조각 [남, 서, 북, 동] */
+const PATH_TILES = [];
+// 6×6 조각(부산 시내처럼 길이 많은 곳은 3×3 조각으로도 서버가 버거워했다).
+// 그래도 받지 못한 조각(17, 18, 20, 23번: 양산·울산·대구 서쪽·경주 둘레)은 다시 2×2로 나눈다(예: 17-1 ~ 17-4).
+const SPLIT_TILES = new Set([17, 18, 20, 23]);
+for (let i = 0; i < 6; i++) {
+  for (let j = 0; j < 6; j++) {
+    const n = i * 6 + j + 1;
+    const s = 34.9 + i * 0.26;
+    const w = 128.1 + j * 0.235;
+    const box = (s0, w0, s1, w1) => [+s0.toFixed(3), +w0.toFixed(4), +s1.toFixed(3), +w1.toFixed(4)];
+    if (!SPLIT_TILES.has(n)) PATH_TILES.push({ name: `${n}`, box: box(s, w, s + 0.26, w + 0.235) });
+    else for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) PATH_TILES.push({ name: `${n}-${a * 2 + b + 1}`, box: box(s + a * 0.13, w + b * 0.1175, s + (a + 1) * 0.13, w + (b + 1) * 0.1175) });
+  }
+}
 
 export const SOURCES = [
   // 부산교통공사 (공공데이터포털)
@@ -162,6 +177,16 @@ out geom;`,
 way["highway"~"^(trunk|primary|secondary|tertiary)(_link)?$"];
 out geom qt;`,
   },
+  // 동네 길(걸어서 여행하기: 사람이 걷는 길). 주택가 길, 이름 없는 작은 길, 생활 도로, 보행자 길.
+  // 인도·골목 서비스 길(service, footway)은 너무 많아서 뺀다. 태그는 쓰지 않으므로 뼈대(skel)만 받는다.
+  // 한 번에 받으면 서버가 버티지 못해서 지도 범위(위도 34.9~36.45, 경도 128.1~129.5)를 6×6 조각으로 나눠 받는다.
+  ...PATH_TILES.map(({ name, box: [s, w, n, e] }) => ({
+    key: `osm-paths-${name}`,
+    file: `data/raw/osm/paths-${name}.json`,
+    overpass: `[out:json][timeout:600][maxsize:1073741824][bbox:${s},${w},${n},${e}];
+way["highway"~"^(residential|unclassified|living_street|pedestrian)$"];
+out skel geom qt;`,
+  })),
   // 코레일(한국철도공사) 기차역 자리와 선구별 거리표
   { key: 'korail-stations', file: 'data/raw/datagokr/15127532.csv', url: dataGoKr('FILE_000000002898194'), size: 7453 },
   { key: 'korail-distances', file: 'data/raw/datagokr/15137040.xlsx', url: dataGoKr('FILE_000000003025367'), size: 267464 },

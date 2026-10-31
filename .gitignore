@@ -15,3 +15,5 @@ data/raw/datagokr/15063230.zip
 # OpenStreetMap 차도 원본(64MB). 줄인 것을 data/build/roads.json에 둔다(npm run roads).
 # 받을 때마다 내용이 바뀔 수 있어, 받은 날의 크기와 SHA-256은 data/raw-lock.json에 있다.
 data/raw/osm/roads.json
+# OpenStreetMap 동네 길 원본(조각마다 수 MB). 줄인 것은 data/build/roads.json에 둔다.
+data/raw/osm/paths-*.json

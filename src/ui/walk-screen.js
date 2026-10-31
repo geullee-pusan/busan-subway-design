@@ -3,13 +3,14 @@
 // 계산은 src/sim/walk-mode.js와 src/sim/roads.js(순수 함수), 그림은 src/ui/walk-map.js.
 // 타는 장면은 여행 모드(가 보기, journey-screen.js)와 진짜 기차 타 보기(train-journey.js)를 그대로 쓴다.
 import faresFile from '../content/fares.json';
-import { dongs, grid, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
+import { dongShapes, dongs, grid, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
 import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
 import { stopGroup, stopsInCell } from '../sim/bus-network.js';
-import { decodeRoads, indexRoads, nearestRoad, pointAlong, taxiRoute } from '../sim/roads.js';
+import { decodeDongs, dongAt } from '../sim/address.js';
+import { decodeRoads, indexRoads, nearestRoad, placeOn, pointAlong, taxiRoute, walkAlong, walkRoute } from '../sim/roads.js';
 import { searchTrains, trainFare } from '../sim/train-trip.js';
 import { planTrips, taxiFare } from '../sim/trip.js';
-import { HAIL_KM, NEAR_KM, addEntry, emptyRecord, minutesWalking, nearby, nextArrivals, stepWalk, subwayHeadway, walkable } from '../sim/walk-mode.js';
+import { HAIL_KM, NEAR_KM, addEntry, emptyRecord, minutesWalking, nearby, nextArrivals, subwayHeadway } from '../sim/walk-mode.js';
 import { busRouteText, clockText, distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { renderJourney } from './journey-screen.js';
 import { loadView, saveView } from './storage.js';
@@ -17,7 +18,7 @@ import { hhmm, runTrainTrip, trainDestination } from './train-journey.js';
 import { createWalkMap } from './walk-map.js';
 
 /** 화면에서 걷는 빠르기: 1초에 몇 km(빨리 감기). 우리가 정한 값. */
-const SCREEN_KM_PER_SEC = 0.06;
+const SCREEN_KM_PER_SEC = 0.12;
 /** 택시가 화면에서 달리는 빠르기: 1초에 몇 km. 우리가 정한 값. */
 const TAXI_SCREEN_KM_PER_SEC = 0.6;
 /** 지하철 노선 표시 글자 */
@@ -49,15 +50,17 @@ function button(label, onClick, className = 'button') {
   return node;
 }
 
-// 차도 자료는 크니 처음 쓸 때 한 번만 푼다.
+// 길 자료와 동 모양은 크니 처음 쓸 때 한 번만 푼다.
 let roadCache = null;
 function roadWorld() {
   if (!roadCache) {
     const roads = decodeRoads(roadsData);
-    roadCache = { roads, index: indexRoads(roads) };
+    roadCache = { roads, index: indexRoads(roads), dongs: decodeDongs(dongShapes) };
   }
   return roadCache;
 }
+/** 택시는 차도(동네 길 빼고)에서 잡는다 */
+const isCarRoad = (edge) => edge.cls <= 4;
 
 /** 시작할 곳: 중심지(장소 카드)와 지하철역 */
 function startChoices() {
@@ -81,7 +84,7 @@ export function renderWalk(root, { onHome }) {
   const saved = loadView().walk;
   const { world, prepared, result } = worldFor({ year: BASE_YEAR, dayType: '평일' });
   const network = busNetwork();
-  const { roads, index: roadIndex } = roadWorld();
+  const { roads, index: roadIndex, dongs: dongShapesList } = roadWorld();
   const subwayStations = stations.filter((s) => s.inGrid);
   const busCache = new Map();
   const busStopsIn = (cell) => {
@@ -95,7 +98,13 @@ export function renderWalk(root, { onHome }) {
   let record = null;
   let facing = 1;
   let stepPhase = 0;
-  let target = null;
+  let target = null; // 누른 곳(길 위 점)
+  let at = null; // 내가 서 있는 길 위 자리 {edge, seg, t}
+  let walkPath = null; // 누른 곳까지 걸어갈 길 {points, km, done, goal}
+  let needsDraw = true;
+  let view = { ox: 0, oy: 0 }; // 지도를 끌어 옮긴 만큼(km). 걸으면 내 자리로 돌아온다.
+  const center = () => ({ x: me.x + view.ox, y: me.y + view.oy });
+  let blockedSaid = 0;
   let joy = { dx: 0, dy: 0 };
   const keys = new Set();
   let pendingKm = 0;
@@ -127,6 +136,7 @@ export function renderWalk(root, { onHome }) {
     cleanupRide = null;
     window.removeEventListener('keydown', onKey);
     window.removeEventListener('keyup', onKey);
+    window.removeEventListener('resize', markDraw);
   }
 
   const now = () => record.start + record.minutes;
@@ -141,9 +151,25 @@ export function renderWalk(root, { onHome }) {
     record = addEntry(record, { kind: '걷기', title: '걷기', minutes: minutesWalking(pendingKm, rules.walkSpeedKmh), meters: pendingKm * 1000 });
     pendingKm = 0;
   };
-  /** 다리(강 위 차도)인가 */
-  const onRoad = (p) => Boolean(nearestRoad(roads, roadIndex, p, 0.03));
-  const canStand = (p) => walkable(grid, p, onRoad);
+  /** 가장 가까운 길 위로 옮긴다(사람은 길 위로만 걷는다) */
+  const snapToRoad = (point) => {
+    for (const km of [0.1, 0.4, 1.2]) {
+      const hit = nearestRoad(roads, roadIndex, point, km);
+      if (hit) return hit;
+    }
+    return null;
+  };
+  const standAt = (point) => {
+    const hit = snapToRoad(point);
+    if (!hit) {
+      me = { x: point.x, y: point.y };
+      at = null;
+      return;
+    }
+    at = { edge: hit.edge, seg: hit.seg, t: hit.t };
+    me = placeOn(roads, at);
+    needsDraw = true;
+  };
 
   // ---------- 1. 시작 고르기 ----------
   function setup() {
@@ -154,7 +180,7 @@ export function renderWalk(root, { onHome }) {
     if (saved?.record && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
       body.append(
         button('이어서 걷기', () => {
-          me = { x: saved.x, y: saved.y };
+          standAt({ x: saved.x, y: saved.y });
           rider = saved.rider === 'child' ? 'child' : 'adult';
           record = saved.record;
           startWalking();
@@ -203,8 +229,7 @@ export function renderWalk(root, { onHome }) {
     body.append(
       button('여기서 걷기 시작', () => {
         const start = list[Number(select.value)];
-        me = { x: start.x, y: start.y };
-        if (!canStand(me)) me = { x: start.x + 0.05, y: start.y };
+        standAt({ x: start.x, y: start.y });
         record = emptyRecord(hour * 60);
         persist(true);
         startWalking();
@@ -218,6 +243,8 @@ export function renderWalk(root, { onHome }) {
   let hud = null;
   let nearBox = null;
   let messageBox = null;
+  let addressBox = null;
+  let lastAddressAt = null;
 
   function onKey(e) {
     const dirKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
@@ -231,6 +258,8 @@ export function renderWalk(root, { onHome }) {
     stopAll();
     mode = 'walk';
     target = null;
+    walkPath = null;
+    needsDraw = true;
     body.replaceChildren();
     hud = element('div', 'walk-hud');
     body.append(hud);
@@ -240,10 +269,24 @@ export function renderWalk(root, { onHome }) {
     canvas.setAttribute('role', 'img');
     canvas.setAttribute('aria-label', '내가 걷는 동네 지도예요. 가운데 주황색 사람이 나예요.');
     stage.append(canvas);
+    // 지금 있는 곳(주소)
+    addressBox = element('div', 'walk-address');
+    stage.append(addressBox);
     stage.append(element('p', 'walk-osm', '© OpenStreetMap contributors'));
-    // 확대·축소
+    // 확대·축소(단추, 두 손가락, 마우스 휠)
+    const zoomBy = (factor) => {
+      map.setScale(map.scale * factor);
+      needsDraw = true;
+    };
     const zoom = element('div', 'walk-zoom');
-    zoom.append(button('+', () => map.setScale(map.scale * 1.3), 'button'), button('−', () => map.setScale(map.scale / 1.3), 'button'));
+    zoom.append(
+      button('+', () => zoomBy(1.4), 'button'),
+      button('−', () => zoomBy(1 / 1.4), 'button'),
+      button('내 자리', () => {
+        view = { ox: 0, oy: 0 };
+        needsDraw = true;
+      }, 'button walk-home'),
+    );
     stage.append(zoom);
     // 조이스틱
     const pad = element('div', 'walk-pad');
@@ -251,6 +294,10 @@ export function renderWalk(root, { onHome }) {
     const knob = element('div', 'walk-knob');
     pad.append(knob);
     stage.append(pad);
+    // 그림 설명: 무엇이 무엇인지(그림과 글자를 함께)
+    const legend = element('div', 'walk-legend');
+    legend.append(element('span', 'walk-legend-bus', '버'), element('span', null, '버스 타는 곳'), element('span', 'walk-legend-train', '기차'), element('span', null, '기차역'));
+    stage.append(legend);
     body.append(stage);
     messageBox = element('div', 'walk-message');
     body.append(messageBox);
@@ -283,7 +330,7 @@ export function renderWalk(root, { onHome }) {
       const k = len > max ? max / len : 1;
       knob.style.transform = `translate(${dx * k}px, ${dy * k}px)`;
       joy = { dx: (dx * k) / max, dy: (dy * k) / max };
-      target = null;
+      clearTarget();
     };
     pad.addEventListener('pointerdown', (e) => {
       padId = e.pointerId;
@@ -301,20 +348,128 @@ export function renderWalk(root, { onHome }) {
     };
     pad.addEventListener('pointerup', padUp);
     pad.addEventListener('pointercancel', padUp);
-    // 지도를 누르면 그쪽으로 걸어간다(택시를 부를 때는 내릴 곳을 고른다)
-    canvas.addEventListener('click', (e) => {
-      const r = canvas.getBoundingClientRect();
-      const point = map.toWorld(e.clientX - r.left, e.clientY - r.top, me);
-      if (mode === 'taxi-pick') pickTaxiGoal(point);
-      else if (mode === 'walk') target = point;
+
+    // 지도 손가락: 한 번 톡 누르면 그곳으로 걸어가고(택시를 부를 때는 내릴 곳), 끌면 지도를 옮기고,
+    // 두 손가락으로 벌리고 오므리면 확대·축소
+    const touches = new Map();
+    let pinch = null;
+    let tap = null;
+    let drag = null;
+    canvas.addEventListener('pointerdown', (e) => {
+      try {
+        canvas.setPointerCapture(e.pointerId);
+      } catch {
+        // 잡을 수 없는 손가락이어도 그대로 쓴다
+      }
+      touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (touches.size === 1) {
+        tap = { x: e.clientX, y: e.clientY, time: performance.now() };
+        drag = { x: e.clientX, y: e.clientY, ox: view.ox, oy: view.oy };
+      }
+      if (touches.size === 2) {
+        const [p1, p2] = [...touches.values()];
+        pinch = { dist: Math.hypot(p1.x - p2.x, p1.y - p2.y), scale: map.scale };
+        tap = null;
+        drag = null;
+      }
     });
+    canvas.addEventListener('pointermove', (e) => {
+      if (!touches.has(e.pointerId)) return;
+      touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pinch && touches.size === 2) {
+        const [p1, p2] = [...touches.values()];
+        const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+        if (pinch.dist > 0) {
+          map.setScale(pinch.scale * (dist / pinch.dist));
+          needsDraw = true;
+        }
+      }
+      if (tap && Math.hypot(e.clientX - tap.x, e.clientY - tap.y) > 10) tap = null;
+      if (drag && !tap && touches.size === 1) {
+        view = { ox: drag.ox - (e.clientX - drag.x) / map.scale, oy: drag.oy - (e.clientY - drag.y) / map.scale };
+        needsDraw = true;
+      }
+    });
+    const touchEnd = (e) => {
+      touches.delete(e.pointerId);
+      if (touches.size < 2) pinch = null;
+      if (tap && touches.size === 0 && e.type === 'pointerup' && performance.now() - tap.time < 600) {
+        const r = canvas.getBoundingClientRect();
+        const point = map.toWorld(e.clientX - r.left, e.clientY - r.top, center());
+        if (mode === 'taxi-pick') pickTaxiGoal(point);
+        else if (mode === 'walk') walkTo(point);
+      }
+      if (touches.size === 0) {
+        tap = null;
+        drag = null;
+      }
+    };
+    canvas.addEventListener('pointerup', touchEnd);
+    canvas.addEventListener('pointercancel', touchEnd);
+    canvas.addEventListener(
+      'wheel',
+      (e) => {
+        e.preventDefault();
+        zoomBy(Math.exp(-e.deltaY * 0.0015));
+      },
+      { passive: false },
+    );
     window.addEventListener('keydown', onKey);
     window.addEventListener('keyup', onKey);
+    window.addEventListener('resize', markDraw);
     lastTime = performance.now();
     lastNearAt = null;
+    lastAddressAt = null;
     updateHud();
     updateNear(true);
+    updateAddress(true);
     frame = requestAnimationFrame(tick);
+  }
+
+  function markDraw() {
+    needsDraw = true;
+  }
+
+  function clearTarget() {
+    if (target || walkPath) needsDraw = true;
+    target = null;
+    walkPath = null;
+  }
+
+  /** 누른 곳까지 길을 따라 가장 짧게 걸어간다 */
+  function walkTo(point) {
+    clearTarget();
+    const goal = nearestRoad(roads, roadIndex, point, 0.3);
+    if (!goal) {
+      say('그곳 가까이에는 걸을 길이 없어요.');
+      return;
+    }
+    if (!at) standAt(me);
+    if (!at) return;
+    const route = walkRoute(roads, at, goal);
+    if (!route || route.points.length < 2) {
+      say('그곳까지 이어진 길을 찾지 못했어요.');
+      return;
+    }
+    target = { x: goal.point[0], y: goal.point[1] };
+    walkPath = { points: route.points, km: route.km, done: 0, goal: { edge: goal.edge, seg: goal.seg, t: goal.t } };
+    say(`길을 따라 ${distanceText(Math.round(route.km * 1000))} 걸어가요.`);
+    needsDraw = true;
+  }
+
+  /** 걸은 만큼 기록하고 둘레를 다시 본다 */
+  function afterStep(km, dx) {
+    pendingKm += km;
+    stepPhase += km * 400;
+    if (Math.abs(dx) > 0.1) facing = Math.sign(dx);
+    if (pendingKm > 0.02) {
+      flushWalk();
+      updateHud();
+      persist();
+    }
+    updateNear();
+    updateAddress();
+    needsDraw = true;
   }
 
   function tick(t) {
@@ -323,41 +478,62 @@ export function renderWalk(root, { onHome }) {
     if (mode === 'walk') {
       let dir = { dx: joy.dx, dy: joy.dy };
       if (keys.size) dir = { dx: (keys.has('ArrowRight') ? 1 : 0) - (keys.has('ArrowLeft') ? 1 : 0), dy: (keys.has('ArrowDown') ? 1 : 0) - (keys.has('ArrowUp') ? 1 : 0) };
-      let strength = Math.min(1, Math.hypot(dir.dx, dir.dy));
-      if (target && strength === 0) {
-        const dx = target.x - me.x;
-        const dy = target.y - me.y;
-        const left = Math.hypot(dx, dy);
-        if (left < 0.004) target = null;
-        else {
-          dir = { dx, dy };
-          strength = 1;
-        }
-      }
+      const strength = Math.min(1, Math.hypot(dir.dx, dir.dy));
       if (strength > 0.05) {
-        let km = SCREEN_KM_PER_SEC * strength * dt;
-        if (target) km = Math.min(km, Math.hypot(target.x - me.x, target.y - me.y));
-        const next = stepWalk(me, dir, km, canStand);
-        if (next.km > 0) {
-          me = { x: next.x, y: next.y };
-          pendingKm += next.km;
-          stepPhase += next.km * 400;
-          if (Math.abs(dir.dx) > 0.1) facing = Math.sign(dir.dx);
-          if (pendingKm > 0.02) {
-            flushWalk();
-            updateHud();
-            persist();
+        // 손잡이나 방향 글쇠: 지금 길을 따라, 갈림점에서는 누른 쪽 길로. 옮겨 본 지도는 내 자리로 돌아온다.
+        if (walkPath) clearTarget();
+        view = { ox: 0, oy: 0 };
+        if (!at) standAt(me);
+        if (at) {
+          const next = walkAlong(roads, at, dir, SCREEN_KM_PER_SEC * strength * dt);
+          if (next.km > 0) {
+            const dx = next.x - me.x;
+            at = next.at;
+            me = { x: next.x, y: next.y };
+            afterStep(next.km, dx);
+          } else if (t - blockedSaid > 1500) {
+            blockedSaid = t;
+            say('그쪽으로는 길이 없어요. 길이 난 쪽으로 눌러요.');
           }
-          updateNear();
-        } else if (target) {
+        }
+      } else if (walkPath) {
+        // 누른 곳까지 길을 따라 걷기
+        const step = Math.min(SCREEN_KM_PER_SEC * dt, walkPath.km - walkPath.done);
+        walkPath.done += step;
+        const ratio = walkPath.km > 0 ? walkPath.done / walkPath.km : 1;
+        const pos = pointAlong(walkPath.points, ratio);
+        const dx = pos.x - me.x;
+        me = { x: pos.x, y: pos.y };
+        afterStep(step, dx);
+        if (ratio >= 1 - 1e-9) {
+          at = walkPath.goal;
+          me = placeOn(roads, at);
+          walkPath = null;
           target = null;
-          say('그쪽으로는 갈 수 없어요. 바다나 강이에요.');
+          flushWalk();
+          updateHud();
+          persist(true);
+          say('다 왔어요.');
         }
       }
     }
-    // 택시를 타는 동안에는 사람 대신 택시를 그린다
-    map.draw(me, { me: taxiNow ? null : { ...me, facing, step: stepPhase }, target, taxi: taxiNow, route: taxiPlan?.route?.points ?? null });
+    if (needsDraw || taxiNow) {
+      needsDraw = false;
+      // 택시를 타는 동안에는 사람 대신 택시를 그린다
+      map.draw(taxiNow ? me : center(), { me: taxiNow ? null : { ...me, facing, step: stepPhase }, target, taxi: taxiNow, route: taxiPlan?.route?.points ?? walkPath?.points ?? null, routeKind: taxiPlan ? 'taxi' : 'walk' });
+    }
     frame = requestAnimationFrame(tick);
+  }
+
+  /** 지도 위 "지금 있는 곳": 시·구·동과 가까운 길 이름 */
+  function updateAddress(force = false) {
+    if (!addressBox) return;
+    if (!force && lastAddressAt && Math.hypot(lastAddressAt.x - me.x, lastAddressAt.y - me.y) < 0.015) return;
+    lastAddressAt = { ...me };
+    const dong = dongAt(dongShapesList, me);
+    const named = nearestRoad(roads, roadIndex, me, 0.08, (edge) => Boolean(edge.name));
+    const road = named ? roads.edges[named.edge].name : null;
+    addressBox.replaceChildren(element('span', 'walk-address-pin', '📍'), element('span', null, [dong ?? '이름 없는 곳', road ? `${road} 가까이` : null].filter(Boolean).join(' · ')));
   }
 
   function say(text) {
@@ -432,7 +608,7 @@ export function renderWalk(root, { onHome }) {
       cards.push(card);
     }
     // 택시(차도 가까이)
-    const road = nearestRoad(roads, roadIndex, me, HAIL_KM);
+    const road = nearestRoad(roads, roadIndex, me, HAIL_KM, isCarRoad);
     if (road) {
       const card = nearCard('차도 옆이에요', road.km, '택시');
       card.append(element('p', 'walk-next', '손을 들어 택시를 잡을 수 있어요.'));
@@ -469,16 +645,8 @@ export function renderWalk(root, { onHome }) {
   function arrive(point, entry) {
     cleanupRide?.();
     cleanupRide = null;
-    me = { x: point.x, y: point.y };
-    if (!canStand(me)) {
-      // 내린 곳이 걸을 수 없는 칸이면 가까운 땅으로
-      for (const [dx, dy] of [[0.05, 0], [-0.05, 0], [0, 0.05], [0, -0.05], [0.1, 0], [-0.1, 0]]) {
-        if (canStand({ x: point.x + dx, y: point.y + dy })) {
-          me = { x: point.x + dx, y: point.y + dy };
-          break;
-        }
-      }
-    }
+    // 내린 곳에서 가장 가까운 길 위에 선다
+    standAt(point);
     record = addEntry(record, entry);
     persist(true);
     startWalking();
@@ -677,6 +845,7 @@ export function renderWalk(root, { onHome }) {
   let taxiNow = null;
   function hailTaxi(road) {
     mode = 'taxi-pick';
+    needsDraw = true;
     taxiPlan = { start: road };
     target = null;
     say('택시가 섰어요. 내릴 곳을 지도에서 눌러요.');
@@ -705,6 +874,7 @@ export function renderWalk(root, { onHome }) {
   }
 
   function cancelTaxi() {
+    needsDraw = true;
     taxiPlan = null;
     taxiNow = null;
     mode = 'walk';
@@ -713,7 +883,7 @@ export function renderWalk(root, { onHome }) {
   }
 
   function pickTaxiGoal(point, name = null) {
-    const end = nearestRoad(roads, roadIndex, point, 0.4);
+    const end = nearestRoad(roads, roadIndex, point, 0.4, isCarRoad);
     if (!end) {
       say('그 둘레에는 차도가 없어요. 차도 가까이를 눌러요.');
       return;
@@ -726,6 +896,7 @@ export function renderWalk(root, { onHome }) {
     const wait = rules.taxiWaitMin ?? 3;
     const fare = taxiFare(faresFile, route.km, route.minutes, Math.floor(now() / 60) % 24);
     taxiPlan = { ...taxiPlan, end, route, wait, fare, name };
+    needsDraw = true;
     nearBox.replaceChildren();
     const card = element('div', 'walk-card');
     card.append(element('strong', null, name ? `${name}까지` : '고른 곳까지'));
@@ -751,9 +922,10 @@ export function renderWalk(root, { onHome }) {
     const step = () => {
       if (mode !== 'taxi') return;
       const ratio = Math.min(1, (performance.now() - begin) / 1000 / realSeconds);
-      const at = pointAlong(plan.route.points, ratio);
-      taxiNow = at;
-      me = { x: at.x, y: at.y };
+      const pos = pointAlong(plan.route.points, ratio);
+      taxiNow = pos;
+      me = { x: pos.x, y: pos.y };
+      needsDraw = true;
       say(`택시 안이에요. ${clockText(startClock + plan.wait + plan.route.minutes * ratio)}`);
       if (ratio < 1) {
         setTimeout(step, 50);
@@ -765,10 +937,13 @@ export function renderWalk(root, { onHome }) {
       // 내리면 길가(차도 옆)로 한 걸음 비켜선다
       const last = plan.route.points.at(-1);
       record = addEntry(record, { kind: '택시', title: `택시${plan.name ? ` → ${plan.name}` : ''} (${distanceText(Math.round(plan.route.km * 1000))})`, minutes: plan.wait + plan.route.minutes, fare: plan.fare });
+      at = { edge: plan.end.edge, seg: plan.end.seg, t: plan.end.t };
       me = { x: last[0], y: last[1] };
+      needsDraw = true;
       persist(true);
       updateHud();
       updateNear(true);
+      updateAddress(true);
       say(`택시에서 내렸어요. ${minutesText(plan.wait + plan.route.minutes)} 걸렸고 ${wonText(plan.fare)}을 냈어요.`);
     };
     step();

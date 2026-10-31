@@ -24,7 +24,9 @@
     "rail": "node scripts/build-rail.mjs && node scripts/build-trains.mjs",
     "trains": "node scripts/fetch-trains.mjs",
     "train-fares": "node scripts/fetch-train-extras.mjs",
-    "roads": "node scripts/build-roads.mjs"
+    "roads": "node scripts/build-roads.mjs",
+    "tago-bus": "node scripts/fetch-tago-bus.mjs",
+    "dong-shapes": "node scripts/build-dong-shapes.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

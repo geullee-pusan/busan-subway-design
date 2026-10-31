@@ -488,3 +488,19 @@ TODO(확인 필요)
   - 다음에 오는 차: 지하철은 평일 시각표의 그 시간 열차 수(`data/build/service.json`)로 배차 간격을 셈하고, 버스는 기다리는 시간 규칙의 두 배를 배차 간격으로 본다. 오는 때는 정류장 이름으로 정한 어림이다. 기차는 진짜 시각표다.
   - 바다와 강 칸(1km 격자)은 걸어갈 수 없다. 강 칸은 차도(다리) 가까이에서만 걸을 수 있다.
 - **동네 그림(거리 꾸미기)은 실제 건물이 아니다.** 건물 수와 높이는 칸의 인구(`data/build/grid.json`)로 어림하고, 자리와 크기는 칸 번호로 늘 같게 정했다. 산·언덕 칸에는 나무, 사람이 적은 칸에는 논밭을 그린다.
+
+## 걸어서 여행하기 2: 길로만 걷기, 주소, 줌, 다른 도시 버스(2026-10-31)
+
+| 무엇 | 출처 | 원본 파일 |
+|---|---|---|
+| 동네 길(주택가 길, 이름 없는 작은 길, 생활 도로, 보행자 길) | OpenStreetMap(Overpass API, `highway=residential·unclassified·living_street·pedestrian`, 뼈대만), © OpenStreetMap contributors, ODbL, 2026-10-31 받음 | `data/raw/osm/paths-1.json` ~ `paths-36.json`(지도 범위를 6×6 조각으로 나눠 받음. git에 넣지 않음. 크기와 SHA-256은 `data/raw-lock.json`) |
+| 행정동 모양(지금 있는 곳 주소) | 행정동 경계(vuski/admdongkor ver20260701, 통계청 SGIS 가공, CC BY 4.0) — 이미 받아 둔 원본 | `data/raw/admdongkor/HangJeongDong_ver20260701.geojson` |
+| 다른 도시 시내버스 노선과 정류장 차례 | 공공데이터포털 15098529 국토교통부_(TAGO)_버스노선정보(getRouteNoList, getRouteAcctoThrghSttnList), 인증키 필요, 이용허락범위 제한 없음, 2026-10-31 받음 | `data/raw/tago-bus/<도시 번호>.json` |
+
+- 받는 곳: 동네 길은 `npm run fetch`(osm-paths-*), 버스는 `npm run tago-bus`(`scripts/fetch-tago-bus.mjs`, 노선마다 한 번 불러 모두 2,768번 불렀다). 인증키는 원본 파일과 `raw-lock.json`에 넣지 않는다.
+- 만드는 곳: `npm run roads`(차도와 동네 길을 합쳐 `data/build/roads.json`), `npm run dong-shapes`(`data/build/dong-shapes.json`, 40m 오차로 줄임), `npm run bus`(TAGO 노선을 `data/build/bus.json`에 더함).
+- **길로만 걷기**: 사람은 차도와 동네 길 위로만 걷는다. 인도만 있는 선(footway)과 건물 사이 길(service)은 너무 많아 넣지 않았다. 그래서 실제로는 걸을 수 있는 골목이 빠진 곳이 있다. 택시는 차도에서만 잡는다(동네 길에서는 못 잡는다). 동네 길의 택시 빠르기는 18km/h로 정했다(우리가 정한 값).
+- 길 자료는 숫자를 촘촘하게 줄여 담았다(푸는 법: `src/sim/roads.js`).
+- **주소**: 시·구·동은 행정동 모양으로 찾고, 가까운 길 이름은 OpenStreetMap 차도 이름(80m 안)을 쓴다. 건물 번호가 있는 도로명 주소는 자료가 없어 쓰지 않는다.
+- **버스**: 대구는 정류장 차례를 우리가 어림하던 것을 TAGO의 공식 차례로 바꿨다. 울산·창원·김해·밀양·구미·경산·칠곡·영천·청도·고령·성주·함안·창녕 노선을 새로 넣었다. 양산은 양산시 자료를 그대로 쓴다. 진주·김천·거제·통영은 지도 밖이라 받지 않았다. TAGO 노선에는 승하차 수가 없어 붐빔은 정해 둔 값으로 그린다.
+  - 같은 번호에 여러 노선(출발지가 다른 갈래, 방향별 노선)이 있으면 각각 따로 넣었다.

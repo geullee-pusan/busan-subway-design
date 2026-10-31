@@ -13,7 +13,8 @@ import { SOURCES } from './sources.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const LOCK_PATH = resolve(ROOT, 'data/raw-lock.json');
-const OVERPASS_URL = 'https://overpass-api.de/api/interpreter';
+// 기본 Overpass 서버가 바쁠 때는 OVERPASS_URL 환경 변수로 다른 Overpass 서버를 쓸 수 있다(같은 OpenStreetMap 자료).
+const OVERPASS_URL = process.env.OVERPASS_URL || 'https://overpass-api.de/api/interpreter';
 const USER_AGENT = 'busan-subway-design/0.1 (offline educational game; data build script)';
 
 const args = process.argv.slice(2);

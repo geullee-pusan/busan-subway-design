@@ -10,7 +10,7 @@
 // 폐선된 노선은 뺀다(data/edits/bus-routes.json). 2025년에 실제로 다닌 노선 목록(15095329)과 견주어
 // 목록에 없는데 고침 파일에도 적히지 않은 노선이 있으면 알린다.
 // 좌표는 격자 단위(1칸 = 1km, UTM 52N)로 바꾸고 0.01칸(10m)까지만 둔다.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateRawSync } from 'node:zlib';
@@ -285,12 +285,50 @@ function routedStop(name, point) {
   return stops.length - 1;
 }
 
-// 3. 대구 시내버스(대구광역시 15070487 버스 노선 공간정보의 정류장 + 15060936 정류소별·노선별 평균배차간격)
+// TAGO 버스노선정보(국토교통부 15098529, npm run tago-bus로 받은 data/raw/tago-bus/<도시 번호>.json):
+// 노선마다 서는 정류장 차례와 좌표가 공식 자료로 있다. 받은 도시는 이것을 쓴다.
+const TAGO_DIR = resolve(ROOT, 'data/raw/tago-bus');
+const tagoOf = (code) => {
+  const file = resolve(TAGO_DIR, `${code}.json`);
+  return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : null;
+};
+const tagoStats = {};
+/** TAGO 한 도시의 노선을 넣는다. 심야 노선은 뺀다. 격자 밖 정류장은 건너뛴다. */
+function addTagoCity(data, city) {
+  const stats = { routes: 0, rows: 0, kept: 0, night: 0 };
+  const list = [...data.routes].sort((a, b) => String(a.routeno).localeCompare(String(b.routeno), 'ko', { numeric: true }) || String(a.routeid).localeCompare(String(b.routeid)));
+  for (const route of list) {
+    const no = String(route.routeno).trim();
+    if (no.includes('심야') || /심야/.test(route.routetp ?? '')) {
+      stats.night += 1;
+      continue;
+    }
+    const rows = [...route.stops].sort((a, b) => a[0] - b[0]);
+    stats.rows += rows.length;
+    const seq = [];
+    for (const [, , name, lat, lon] of rows) {
+      const point = gridPoint(Number(lon), Number(lat));
+      if (!point || !name) continue;
+      const index = routedStop(String(name).trim(), point);
+      if (seq.at(-1)?.[0] !== index) seq.push([index, 0, 0]);
+    }
+    stats.kept += seq.length;
+    if (seq.length < 2) continue;
+    routes.push({ no: `${city} ${no}`, city, stops: seq });
+    stats.routes += 1;
+  }
+  tagoStats[city] = stats;
+}
+
+// 3. 대구 시내버스. TAGO 자료가 있으면 공식 정류장 차례를 쓴다.
+//    없으면(예전 방식) 대구광역시 15070487 버스 노선 공간정보의 정류장 + 15060936 정류소별·노선별 평균배차간격으로
 //    자료에 노선별 정류장 차례가 없다. 노선·방향마다 서는 정류장 묶음을 가장 짧게 잇는 차례로 어림한다
 //    (scripts/lib/stop-order.mjs, 부산 노선으로 시험하면 이웃한 정류장의 약 94%가 맞는다).
 //    방향은 첫차가 이른 끝을 앞으로 둔다. 정방향과 역방향을 이어 한 노선으로 둔다(부산 노선처럼 한 바퀴).
-const DAEGU_ZIP = unzip(readFileSync(resolve(ROOT, 'data/raw/datagokr/15070487.zip')));
-const daeguBs = readDbf(DAEGU_ZIP[Object.keys(DAEGU_ZIP).find((name) => /^bs_.*\.dbf$/i.test(name))]);
+const daeguTago = tagoOf(22);
+if (daeguTago) addTagoCity(daeguTago, '대구');
+const DAEGU_ZIP = daeguTago ? {} : unzip(readFileSync(resolve(ROOT, 'data/raw/datagokr/15070487.zip')));
+const daeguBs = daeguTago ? [] : readDbf(DAEGU_ZIP[Object.keys(DAEGU_ZIP).find((name) => /^bs_.*\.dbf$/i.test(name))]);
 const daeguPos = new Map();
 for (const row of daeguBs) {
   const [lon, lat] = tmEast.inverse(Number(row.ngis_x_pos), Number(row.ngis_y_pos));
@@ -301,7 +339,7 @@ const minutesOf = (text) => {
   const m = /^(\d{1,2}):(\d{2})/.exec(text ?? '');
   return m ? Number(m[1]) * 60 + Number(m[2]) : null;
 };
-const daeguRows = rawCsv('15060936.csv');
+const daeguRows = daeguTago ? [] : rawCsv('15060936.csv');
 const daeguGroups = new Map(); // 노선 → 방향 → [{id, first}]
 const weekdayRoutes = new Set(daeguRows.filter((r) => r['시간표유형'] === '평일').map((r) => r['노선']));
 for (const r of daeguRows) {
@@ -398,6 +436,27 @@ for (const [, route] of [...yangsanRoutes].sort((a, b) => a[1].no.localeCompare(
   yangsanStats.routes += 1;
 }
 
+// 4-2. 다른 도시 시내버스(TAGO). 양산은 양산시 자료(위)를 쓴다.
+const TAGO_CITIES = [
+  [26, '울산'],
+  [38010, '창원'],
+  [38070, '김해'],
+  [38080, '밀양'],
+  [37050, '구미'],
+  [37100, '경산'],
+  [37390, '칠곡'],
+  [37070, '영천'],
+  [37360, '청도'],
+  [37370, '고령'],
+  [37380, '성주'],
+  [38320, '함안'],
+  [38330, '창녕'],
+];
+for (const [code, city] of TAGO_CITIES) {
+  const data = tagoOf(code);
+  if (data) addTagoCity(data, city);
+}
+
 // 5. 노선 자료가 없는 정류소(울산·창원·김해·구미·경산·밀양, 자리와 이름만 있다)
 //    노선이 서는 정류장 뒤에 붙인다. 격자 밖과, 이미 넣은 곳(같은 이름, 40m 안)은 뺀다.
 const busanCount = stops.length;
@@ -439,12 +498,12 @@ for (const r of rawCsv('15072448.csv')) addExtra('밀양', r['정류장(소)명'
 
 const out = {
   _설명:
-    '부산 시내버스 노선(심야 노선과 폐선된 노선 뺌. 폐선은 data/edits/bus-routes.json), 대구·양산 시내버스 노선(번호 앞에 도시 이름. city가 있다), 울산·창원·김해·구미·경산·밀양 정류소. 대구 노선은 정류장 차례 자료가 없어 정류장 묶음을 가장 짧게 잇는 차례로 어림했다(order: "추정"). 대구·양산 노선은 승하차 수가 없어 0이다. stops는 [x×100, y×100, 이름 번호, (있으면) 방면 이름 번호](격자 칸 단위), routes의 stops는 [정류장 번호, 승차 합계, 하차 합계](2023-07-31 판 자료. 하루치인지 기간 합계인지는 자료 설명에 없다). extraFrom번부터의 정류장은 노선 자료가 없는 정류소로, 자리와 이름만 있고 서는 노선 자료가 없다. 만든 곳: scripts/build-bus.mjs',
+    '부산 시내버스 노선(심야 노선과 폐선된 노선 뺌. 폐선은 data/edits/bus-routes.json), 다른 도시 시내버스 노선(번호 앞에 도시 이름. city가 있다. 대구와 울산·창원·김해·밀양·구미·경산·칠곡·영천·청도·고령·성주·함안·창녕은 TAGO 버스노선정보, 양산은 양산시 자료), 노선이 서지 않는 정류소. 부산 밖 노선은 승하차 수가 없어 0이다. stops는 [x×100, y×100, 이름 번호, (있으면) 방면 이름 번호](격자 칸 단위), routes의 stops는 [정류장 번호, 승차 합계, 하차 합계](2023-07-31 판 자료. 하루치인지 기간 합계인지는 자료 설명에 없다). extraFrom번부터의 정류장은 노선 자료가 없는 정류소로, 자리와 이름만 있고 서는 노선 자료가 없다. 만든 곳: scripts/build-bus.mjs',
   date: '2023-07-31',
   stopsDate: '2026-09-12',
   source: '공공데이터포털 15123610 부산광역시_버스노선별 승하차 정보, 15084251 부산광역시_버스 정류소 정보',
   routesSource:
-    '대구: 공공데이터포털 15070487 대구광역시_버스 노선 공간정보_20260902(정류장), 15060936 대구광역시_시내버스 정류소별_노선별_평균배차간격_20251114(노선·방향별 정류장). 양산: 15160339 경상남도 양산시_버스노선별 정차 정류장 정보_20260714, 15156436 경상남도 양산시_버스정류장 현황_20251212',
+    '대구 등 13개 시·군: 공공데이터포털 15098529 국토교통부_(TAGO)_버스노선정보(2026-10-31 받음). 양산: 15160339 경상남도 양산시_버스노선별 정차 정류장 정보_20260714, 15156436 경상남도 양산시_버스정류장 현황_20251212',
   extraFrom: busanCount,
   extraSource:
     '공공데이터포털 15052671 울산광역시_버스 정류소 위치 정보_20260522, 15037805 경상남도 창원시_버스정류소 위치정보_20251231, 15104697 경상남도 김해시_버스정보 안내 단말기(BIT) 설치 현황_20251031, 15049485 경상북도 구미시_버스정류장_20260413, 15168960 경상북도 경산시_버스정류장위치정보_20261001, 15072448 경상남도 밀양시_버스정류장 정보',
@@ -455,7 +514,8 @@ const out = {
 writeFileSync(resolve(ROOT, 'data/build/bus.json'), JSON.stringify(out));
 const size = Buffer.byteLength(JSON.stringify(out));
 console.log(`노선 ${routes.length}개(부산 ${busanOnly.routes}, 대구 ${daeguStats.routes}, 양산 ${yangsanStats.routes}. 부산에서 뺀 노선 ${skipped.length}개), 노선이 서는 정류장 ${busanCount}곳(부산 ${busanOnly.stops}), 이름 ${names.length}개`);
-console.log(`대구: 노선·방향별 정류장 ${daeguStats.rows}줄 가운데 자리를 모르는 것 ${daeguStats.noPlace}줄. 양산: 정류장 차례 ${yangsanStats.placed}/${yangsanStats.rows}(자리를 찾은 것)${yangsanStats.skipped.length ? `, 뺀 노선 ${yangsanStats.skipped.join(', ')}` : ''}`);
+console.log(`TAGO 노선: ${Object.entries(tagoStats).map(([city, st]) => `${city} ${st.routes}개(정류장 ${st.kept}/${st.rows}, 심야 ${st.night})`).join(', ')}`);
+console.log(`대구(예전 방식): 노선·방향별 정류장 ${daeguStats.rows}줄 가운데 자리를 모르는 것 ${daeguStats.noPlace}줄. 양산: 정류장 차례 ${yangsanStats.placed}/${yangsanStats.rows}(자리를 찾은 것)${yangsanStats.skipped.length ? `, 뺀 노선 ${yangsanStats.skipped.join(', ')}` : ''}`);
 console.log(`노선 자료가 없는 정류소: ${Object.entries(extraCounts).map(([city, n]) => `${city} ${n}곳`).join(', ')} (김해는 좌표가 있는 단말기 설치 정류장만. 김해 정류소 현황은 ${gimhaeAll}곳)`);
 console.log(`자리를 찾은 정류장 차례 ${rowsKept}/${rowsAll}(${((rowsKept / rowsAll) * 100).toFixed(1)}%), 승차 ${((boardKept / boardAll) * 100).toFixed(1)}%`);
 console.log(`bus.json ${(size / 1024).toFixed(0)}KB`);

@@ -2592,6 +2592,10 @@ body {
   font-size: 1.3rem;
 }
 
+.walk-zoom .walk-home {
+  font-size: 1rem;
+}
+
 .walk-pad {
   position: absolute;
   left: 14px;
@@ -2707,5 +2711,59 @@ body {
   .walk-pad {
     width: 96px;
     height: 96px;
+  }
+}
+
+.walk-address {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 70px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.walk-legend {
+  position: absolute;
+  left: 150px;
+  bottom: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.walk-legend-bus,
+.walk-legend-train {
+  padding: 0 4px;
+  border-radius: 3px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.walk-legend-bus {
+  background: #2e8b3e;
+}
+
+.walk-legend-train {
+  background: #3b3b3b;
+}
+
+@media (max-width: 600px) {
+  .walk-legend {
+    left: 120px;
+    bottom: 40px;
   }
 }

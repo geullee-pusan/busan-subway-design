@@ -256,10 +256,11 @@ test('노선 자료가 없는 정류소: 칸 목록에는 보이지만, 걸어�
   assert.equal(stopsInCell(network, { cols: 10 }, 1 * 10 + 1)[0].noRoutes, false);
 });
 
-test('부산 버스 자료: 울산·창원·김해 정류소가 부산 정류장 뒤에 붙어 있다', { skip }, () => {
+test('버스 자료: 노선이 서지 않는 정류소는 노선이 서는 정류장 뒤에 붙어 있다', { skip }, () => {
   const bus = readJson('data/build/bus.json');
-  assert.ok(bus.extraFrom > 2000 && bus.stops.length - bus.extraFrom > 5000);
-  // 노선은 부산 정류장만 지난다.
+  // 다른 도시 노선(TAGO)이 들어와서, 노선이 서지 않는 정류소는 그 노선들이 지나지 않는 곳만 남는다.
+  assert.ok(bus.extraFrom > 2000 && bus.stops.length - bus.extraFrom > 500);
+  // 노선은 노선이 서는 정류장만 지난다.
   for (const route of bus.routes) for (const [index] of route.stops) assert.ok(index < bus.extraFrom);
 });
 

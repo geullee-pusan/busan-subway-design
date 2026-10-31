@@ -129,3 +129,39 @@ test('지하철 배차 간격: 그 시간 시간당 열차 수의 두 방향 평
   assert.equal(subwayHeadway(service, '1', 3), null);
   assert.equal(subwayHeadway(service, '9', 8), null);
 });
+
+test('주소: 점이 들어 있는 행정동을 찾는다', async () => {
+  const { decodeDongs, dongAt } = await import('../src/sim/address.js');
+  const dongs = decodeDongs({ unit: 0.01, dongs: [{ name: '가동', rings: [[0, 0, 100, 0, 0, 100, -100, 0]] }, { name: '나동', rings: [[100, 0, 100, 0, 0, 100, -100, 0]] }] });
+  assert.equal(dongAt(dongs, { x: 0.5, y: 0.5 }), '가동');
+  assert.equal(dongAt(dongs, { x: 1.5, y: 0.5 }), '나동');
+  assert.equal(dongAt(dongs, { x: 3, y: 3 }), null);
+});
+
+test('진짜 주소: 서면역은 부산진구에 있다', { skip: existsSync(resolve(ROOT, 'data/build/dong-shapes.json')) ? false : 'npm run dong-shapes를 먼저 돌려요' }, async () => {
+  const { decodeDongs, dongAt } = await import('../src/sim/address.js');
+  const dongs = decodeDongs(JSON.parse(readFileSync(resolve(ROOT, 'data/build/dong-shapes.json'), 'utf8')));
+  const stations = JSON.parse(readFileSync(resolve(ROOT, 'data/build/stations.json'), 'utf8')).stations;
+  const seomyeon = stations.find((s) => s.name === '서면');
+  assert.match(dongAt(dongs, seomyeon) ?? '', /부산광역시 부산진구/);
+});
+
+test('길 따라 걷기: 길을 따라가고, 갈림점에서 누른 방향 길로 꺾고, 길이 없으면 선다', async () => {
+  const { walkAlong } = await import('../src/sim/roads.js');
+  // 가짜 길: (0,0)─(1,0)─(2,0), (0,0)─(0,1)
+  const at = { edge: 0, seg: 0, t: 0.5 };
+  const east = walkAlong(fake, at, { dx: 1, dy: 0.1 }, 0.3);
+  assert.ok(Math.abs(east.x - 0.8) < 1e-9 && Math.abs(east.y) < 1e-9);
+  // 길과 직각으로 누르면, 그쪽으로 꺾을 수 있는 가까운 갈림점((0,0)에서 아래로 가는 간선)으로 간다
+  const side = walkAlong(fake, at, { dx: 0, dy: 1 }, 0.3);
+  assert.ok(side.km > 0 && side.x < 0.5);
+  // 꺾을 곳이 없는 쪽(위)으로 누르면 서 있다
+  assert.equal(walkAlong(fake, at, { dx: 0, dy: -1 }, 0.3).km, 0);
+  // 서쪽 끝 갈림점(0,0)에서 아래(남쪽)로 누르면 간선으로 꺾는다
+  const turn = walkAlong(fake, { edge: 0, seg: 0, t: 0.05 }, { dx: -1, dy: 0 }, 0.05);
+  const down = walkAlong(fake, turn.at, { dx: 0, dy: 1 }, 0.3);
+  assert.ok(Math.abs(down.x) < 1e-9 && down.y > 0.25);
+  // 막다른 곳(2,0)에서 동쪽으로 더 누르면 선다
+  const end = walkAlong(fake, { edge: 1, seg: 1, t: 0.9 }, { dx: 1, dy: 0 }, 1);
+  assert.ok(Math.abs(end.x - 2) < 1e-9);
+});

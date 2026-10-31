@@ -1,7 +1,7 @@
 // 걸어서 여행하기의 동네 지도(캔버스). 캐릭터가 늘 가운데 있고 지도가 따라 움직인다.
 // 바탕은 격자 지형(1km 칸), 길은 OpenStreetMap 차도, 건물·나무·논밭은 칸의 인구와 지형으로 어림해 그린다(4단계 거리 꾸미기).
 // 건물 자리와 크기는 칸 번호로 늘 같게 정한다(실제 건물 자리가 아니다).
-import { nearestRoad } from '../sim/roads.js';
+import { indexRoads, nearestRoad } from '../sim/roads.js';
 
 /** 지형 바탕색 */
 const GROUND = {
@@ -18,7 +18,13 @@ const ROAD_STYLE = {
   2: { width: 20, fill: '#FFFFFF', edge: '#A9AEB3' },
   3: { width: 15, fill: '#FFFFFF', edge: '#B8BDC2' },
   4: { width: 11, fill: '#FFFFFF', edge: '#C4C8CC' },
+  5: { width: 7, fill: '#FBFAF6', edge: '#D3D6D9' },
 };
+/** 멀리서 볼 때(1km가 몇 픽셀보다 작을 때) 그리지 않는 작은 길: 종류 → 이 축척보다 크면 그린다 */
+const ROAD_MIN_SCALE = { 1: 0, 2: 0, 3: 40, 4: 90, 5: 220 };
+/** 가장 멀리 볼 때와 가장 가까이 볼 때(1km가 몇 픽셀) */
+export const MIN_SCALE = 5;
+export const MAX_SCALE = 2200;
 
 /** 칸 번호로 늘 같은 0~1 수 */
 function hash01(a, b, c) {
@@ -37,6 +43,13 @@ export function createWalkMap(canvas, world) {
   const ctx = canvas.getContext('2d');
   const buildingCache = new Map();
   let scale = 700; // 1km를 몇 픽셀로
+  // 멀리서 볼 때는 큰길만 담은 목록을 쓴다(그릴 토막 수를 줄인다)
+  let majorIndex = null;
+  const indexFor = () => {
+    if (scale >= 90) return world.roadIndex;
+    if (!majorIndex) majorIndex = indexRoads(world.roads, (edge) => edge.cls <= 3);
+    return majorIndex;
+  };
 
   /** 한 칸의 건물·나무(한 번만 만들어 둔다). 길 위에는 두지 않는다. */
   function decorations(col, row) {
@@ -47,16 +60,27 @@ export function createWalkMap(canvas, world) {
     const items = [];
     if (terrain === 'flat' || terrain === 'hill' || terrain === 'field') {
       // 사람이 많을수록 건물이 많고 높다(어림)
-      const count = Math.min(130, Math.round(people / 140));
+      const count = Math.min(220, Math.round(people / 90));
       const tall = Math.min(1, people / 25000);
-      for (let i = 0; i < count; i++) {
-        const x = col + 0.04 + hash01(col, row, i * 3) * 0.92;
-        const y = row + 0.04 + hash01(col, row, i * 3 + 1) * 0.92;
-        if (nearestRoad(world.roads, world.roadIndex, { x, y }, 0.035)) continue;
-        const size = 0.022 + hash01(col, row, i * 3 + 2) * 0.04;
+      // 길 위에는 두지 않는다. 건물 가운데에서 길까지 건물 반 너비와 길 반 너비만큼은 떨어지게 한다.
+      // 길이 촘촘한 동네에서도 빈 블록을 고르게 찾도록, 칸을 40m 눈금(25×25)으로 나눠 섞은 차례로 본다.
+      const isMajor = (edge) => edge.cls <= 4;
+      const isMinor = (edge) => edge.cls === 5;
+      let placed = 0;
+      for (let k = 0; k < 625 && placed < count; k++) {
+        const i = (k * 389 + col * 7 + row * 13) % 625;
+        const size = 0.016 + hash01(col, row, i * 3 + 2) * 0.022;
+        const h = size * (0.7 + hash01(i, col, row) * 0.6);
+        const x = col + ((i % 25) + 0.15 + hash01(col, row, i * 3) * 0.3) / 25;
+        const y = row + (Math.floor(i / 25) + 0.15 + hash01(col, row, i * 3 + 1) * 0.3) / 25;
+        const center = { x: x + size / 2, y: y + h / 2 };
+        const half = Math.max(size, h) * 0.6;
+        if (nearestRoad(world.roads, world.roadIndex, center, half + 0.012, isMajor)) continue;
+        if (nearestRoad(world.roads, world.roadIndex, center, half + 0.005, isMinor)) continue;
         const floors = 1 + Math.round(hash01(row, col, i) * (2 + tall * 18));
         const palette = ['#D9D2C3', '#C9CED6', '#E3D7C6', '#BFC7CF', '#D7CDBB', '#CDD6D0'];
-        items.push({ kind: 'building', x, y, w: size, h: size * (0.7 + hash01(i, col, row) * 0.6), floors, color: palette[i % palette.length] });
+        items.push({ kind: 'building', x, y, w: size, h, floors, color: palette[i % palette.length] });
+        placed += 1;
       }
       // 사람이 적은 들판에는 논밭과 나무
       if (people < 1500) {
@@ -115,7 +139,7 @@ export function createWalkMap(canvas, world) {
         const terrain = world.grid.terrain[row]?.[col] ?? 'sea';
         ctx.fillStyle = GROUND[terrain] ?? GROUND.flat;
         ctx.fillRect(Math.floor(sx(col)), Math.floor(sy(row)), Math.ceil(scale) + 1, Math.ceil(scale) + 1);
-        if (terrain === 'sea' || terrain === 'river') {
+        if ((terrain === 'sea' || terrain === 'river') && scale >= 200) {
           // 물결
           ctx.strokeStyle = 'rgba(255,255,255,0.45)';
           ctx.lineWidth = 1.5;
@@ -131,7 +155,7 @@ export function createWalkMap(canvas, world) {
     }
     // 2. 논밭(길 아래)
     const decor = [];
-    for (let row = r0; row <= r1; row++) for (let col = c0; col <= c1; col++) decor.push(...decorations(col, row));
+    if (scale >= 300) for (let row = r0; row <= r1; row++) for (let col = c0; col <= c1; col++) decor.push(...decorations(col, row));
     for (const d of decor) {
       if (d.kind !== 'paddy') continue;
       ctx.fillStyle = '#CFE0A0';
@@ -168,10 +192,11 @@ export function createWalkMap(canvas, world) {
     const visible = [];
     for (let row = r0; row <= r1; row++) {
       for (let col = c0; col <= c1; col++) {
-        for (const i of world.roadIndex.get(`${col},${row}`) ?? []) {
+        for (const i of indexFor().get(`${col},${row}`) ?? []) {
           if (seen.has(i)) continue;
           seen.add(i);
-          visible.push(world.roads.edges[i]);
+          const edge = world.roads.edges[i];
+          if (scale >= ROAD_MIN_SCALE[edge.cls]) visible.push(edge);
         }
       }
     }
@@ -185,18 +210,20 @@ export function createWalkMap(canvas, world) {
       ctx.lineWidth = width;
       ctx.stroke();
     };
-    for (const edge of visible) stroke(edge, Math.max(3, (ROAD_STYLE[edge.cls].width / 1000) * scale + 3), ROAD_STYLE[edge.cls].edge);
-    for (const edge of visible) stroke(edge, Math.max(2, (ROAD_STYLE[edge.cls].width / 1000) * scale), ROAD_STYLE[edge.cls].fill);
+    // 멀리서 볼 때는 테두리 없이 가는 선으로
+    const far = scale < 120;
+    if (!far) for (const edge of visible) stroke(edge, Math.max(3, (ROAD_STYLE[edge.cls].width / 1000) * scale + 3), ROAD_STYLE[edge.cls].edge);
+    for (const edge of visible) stroke(edge, far ? (edge.cls <= 2 ? 2 : 1) : Math.max(2, (ROAD_STYLE[edge.cls].width / 1000) * scale), far ? (edge.cls === 1 ? '#D9A53F' : '#FFFFFF') : ROAD_STYLE[edge.cls].fill);
     if (scale >= 500) {
       ctx.setLineDash([8, 8]);
       for (const edge of visible) if (edge.cls <= 2) stroke(edge, 1.5, '#E3B341');
       ctx.setLineDash([]);
     }
-    // 택시가 가는 길
+    // 택시가 가는 길(노란 점선), 걸어갈 길(주황 점선)
     if (extra.route) {
       ctx.beginPath();
       extra.route.forEach(([px, py], k) => (k ? ctx.lineTo(sx(px), sy(py)) : ctx.moveTo(sx(px), sy(py))));
-      ctx.strokeStyle = 'rgba(224,168,0,0.85)';
+      ctx.strokeStyle = extra.routeKind === 'walk' ? 'rgba(232,89,12,0.8)' : 'rgba(224,168,0,0.85)';
       ctx.lineWidth = Math.max(5, 0.012 * scale);
       ctx.setLineDash([12, 8]);
       ctx.stroke();
@@ -253,6 +280,19 @@ export function createWalkMap(canvas, world) {
       ctx.fillStyle = color;
       ctx.fillText(text, x, y);
     };
+    if (scale >= 90 && scale < 350) {
+      // 버스를 탈 수 있는 정류장(초록 점)
+      ctx.fillStyle = '#2E8B3E';
+      for (let row = r0; row <= r1; row++) {
+        for (let col = c0; col <= c1; col++) {
+          for (const stop of world.busStopsNear(row * world.grid.cols + col)) {
+            ctx.beginPath();
+            ctx.arc(sx(stop.x), sy(stop.y), 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+    }
     if (scale >= 350) {
       for (let row = r0; row <= r1; row++) {
         for (let col = c0; col <= c1; col++) {
@@ -276,6 +316,12 @@ export function createWalkMap(canvas, world) {
       if (s.x < left - 0.2 || s.x > right + 0.2 || s.y < top - 0.2 || s.y > bottom + 0.2) continue;
       const x = sx(s.x);
       const y = sy(s.y);
+      if (scale < 150) {
+        ctx.fillStyle = '#3B3B3B';
+        ctx.fillRect(x - 4, y - 4, 8, 8);
+        if (scale >= 25) label(s.name, x, y - 8);
+        continue;
+      }
       ctx.fillStyle = '#3B3B3B';
       ctx.fillRect(x - 22, y - 12, 44, 22);
       ctx.fillStyle = '#FFFFFF';
@@ -288,6 +334,17 @@ export function createWalkMap(canvas, world) {
       if (s.x < left - 0.2 || s.x > right + 0.2 || s.y < top - 0.2 || s.y > bottom + 0.2) continue;
       const x = sx(s.x);
       const y = sy(s.y);
+      if (scale < 150) {
+        if (scale < 40) continue;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = world.lineColor(s.line);
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        continue;
+      }
       ctx.fillStyle = '#FFFFFF';
       ctx.strokeStyle = world.lineColor(s.line);
       ctx.lineWidth = 4;
@@ -312,8 +369,20 @@ export function createWalkMap(canvas, world) {
     }
     // 8. 택시
     if (extra.taxi) drawTaxi(ctx, sx(extra.taxi.x), sy(extra.taxi.y), extra.taxi.angle);
-    // 9. 나(캐릭터)
-    if (extra.me) drawMe(ctx, sx(extra.me.x), sy(extra.me.y), extra.me.step, extra.me.facing);
+    // 9. 나(캐릭터). 멀리서 볼 때는 작은 표시로
+    if (extra.me) {
+      if (scale >= 150) drawMe(ctx, sx(extra.me.x), sy(extra.me.y), extra.me.step, extra.me.facing);
+      else {
+        ctx.fillStyle = '#E8590C';
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(sx(extra.me.x), sy(extra.me.y), 8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      }
+    }
+    drawScaleBar(ctx, w, h, scale);
   }
 
   return {
@@ -322,7 +391,7 @@ export function createWalkMap(canvas, world) {
       return scale;
     },
     setScale(next) {
-      scale = Math.max(250, Math.min(2200, next));
+      scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, next));
     },
     /** 화면 점 → 격자 좌표 */
     toWorld(px, py, center) {
@@ -399,4 +468,28 @@ function drawTaxi(ctx, x, y, angle) {
   ctx.fillText('택시', 0, 2);
   ctx.restore();
   ctx.restore();
+}
+
+/** 축척 막대: 화면 아래 오른쪽에 "500m" 같은 막대(1, 2, 5 단위로 알맞은 길이를 고른다) */
+function drawScaleBar(ctx, w, h, scale) {
+  const steps = [0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50];
+  const km = steps.find((v) => v * scale >= 70) ?? 50;
+  const len = km * scale;
+  const x1 = w - 16;
+  const x0 = x1 - len;
+  const y = h - 30;
+  ctx.fillStyle = 'rgba(255,255,255,0.85)';
+  ctx.fillRect(x0 - 8, y - 22, len + 16, 30);
+  ctx.strokeStyle = '#1F2933';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(x0, y - 6);
+  ctx.lineTo(x0, y);
+  ctx.lineTo(x1, y);
+  ctx.lineTo(x1, y - 6);
+  ctx.stroke();
+  ctx.fillStyle = '#1F2933';
+  ctx.font = '700 13px system-ui, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(km >= 1 ? `${km}km` : `${Math.round(km * 1000)}m`, (x0 + x1) / 2, y - 9);
 }

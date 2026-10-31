@@ -106,6 +106,20 @@
           "when": "2026년 10월 31일 받음",
           "license": "© OpenStreetMap contributors (ODbL)",
           "lockKey": "osm-roads"
+        },
+        {
+          "what": "걸어서 여행하기의 동네 길",
+          "from": "OpenStreetMap 동네 길",
+          "when": "2026년 10월 31일 받음",
+          "license": "© OpenStreetMap contributors (ODbL)",
+          "lockKey": "osm-paths-1"
+        },
+        {
+          "what": "부산 밖 시내버스 노선과 정류장 차례",
+          "from": "국토교통부 TAGO 버스노선정보",
+          "when": "2026년 10월 31일 받음",
+          "license": "공공데이터포털, 이용허락범위 제한 없음",
+          "lockKey": "tago-bus-26"
         }
       ]
     },
