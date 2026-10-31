@@ -49,6 +49,7 @@
 - `npm run roads`: OpenStreetMap 차도와 동네 길 원본(`data/raw/osm/roads.json`, `paths-*.json`, `npm run fetch`)으로 걸어서 여행하기의 길(`data/build/roads.json`)을 만든다
 - `npm run dong-shapes`: 행정동 경계로 걸어서 여행하기의 주소용 동 모양(`data/build/dong-shapes.json`)을 만든다
 - `npm run tago-bus`: 저장한 인증키로 TAGO 버스노선정보에서 부산 밖 도시의 노선과 정류장 차례를 받아 `data/raw/tago-bus/`에 둔다(네트워크를 쓴다, 노선마다 한 번 부른다)
+- `npm run landmarks`: OpenStreetMap 랜드마크 자리(`data/raw/osm/landmarks.json`)와 `data/facts.json`의 소개 글로 걸어서 여행하기의 랜드마크(`data/build/landmarks.json`)를 만든다
 - `npm run rail`: 코레일 거리표·역 목록과 OSM 선로로 일반·고속 철도 노선과 기차역(`data/build/rail.json`), 받아 둔 열차 기록으로 시각표(`data/build/trains.json`)를 만든다
 - `npm run station-sounds`: 역사 안내방송 원본에서 승강장 소리(열차진입 안내음, 진입 방송)를 `data/build/station-sounds.json`으로 만든다
 - `npm run api-key`: 공공데이터포털 인증키를 저장하고(git에 넣지 않는 `.data-go-kr-key`) 열차 API(TAGO 열차정보, 코레일 열차운행정보)가 되는지 시험한다(네트워크를 쓴다)

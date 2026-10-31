@@ -187,6 +187,25 @@ out geom qt;`,
 way["highway"~"^(residential|unclassified|living_street|pedestrian)$"];
 out skel geom qt;`,
   })),
+  {
+    // 랜드마크 자리(걸어서 여행하기: 도착하면 소개 장면). 이름이 있는 관광지·박물관·전망대·해수욕장·시장·절·다리·호수·공원.
+    // 이 가운데 scripts/config/landmarks.json에 고른 곳만 쓴다.
+    key: 'osm-landmarks',
+    file: 'data/raw/osm/landmarks.json',
+    overpass: `[out:json][timeout:300][bbox:${OSM_BBOX}];
+(
+  nwr["tourism"~"^(attraction|museum|viewpoint|theme_park|zoo|aquarium)$"]["name"];
+  nwr["natural"="beach"]["name"];
+  nwr["amenity"~"^(marketplace|place_of_worship)$"]["name"~"시장|사$|암$"];
+  nwr["historic"]["name"];
+  nwr["man_made"~"^(bridge|tower)$"]["name"];
+  way["bridge"]["name"~"대교$"];
+  nwr["leisure"~"^(park|garden)$"]["name"~"공원$|정원$"];
+  nwr["natural"~"^(water|peak)$"]["name"~"못$|저수지$|산$"];
+  nwr["name"~"^(국제시장|동성로)$"];
+);
+out center tags qt;`,
+  },
   // 코레일(한국철도공사) 기차역 자리와 선구별 거리표
   { key: 'korail-stations', file: 'data/raw/datagokr/15127532.csv', url: dataGoKr('FILE_000000002898194'), size: 7453 },
   { key: 'korail-distances', file: 'data/raw/datagokr/15137040.xlsx', url: dataGoKr('FILE_000000003025367'), size: 267464 },

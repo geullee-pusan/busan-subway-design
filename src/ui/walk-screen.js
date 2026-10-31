@@ -3,7 +3,7 @@
 // 계산은 src/sim/walk-mode.js와 src/sim/roads.js(순수 함수), 그림은 src/ui/walk-map.js.
 // 타는 장면은 여행 모드(가 보기, journey-screen.js)와 진짜 기차 타 보기(train-journey.js)를 그대로 쓴다.
 import faresFile from '../content/fares.json';
-import { dongShapes, dongs, grid, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
+import { dongShapes, dongs, grid, landmarks, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
 import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
 import { stopGroup, stopsInCell } from '../sim/bus-network.js';
 import { decodeDongs, dongAt } from '../sim/address.js';
@@ -15,6 +15,7 @@ import { busRouteText, clockText, distanceText, durationText, roParticle, statio
 import { renderJourney } from './journey-screen.js';
 import { loadView, saveView } from './storage.js';
 import { hhmm, runTrainTrip, trainDestination } from './train-journey.js';
+import { LANDMARK_ICON, landmarkScene } from './landmark-scenes.js';
 import { createWalkMap } from './walk-map.js';
 
 /** 화면에서 걷는 빠르기: 1초에 몇 km(빨리 감기). 우리가 정한 값. */
@@ -102,6 +103,9 @@ export function renderWalk(root, { onHome }) {
   let at = null; // 내가 서 있는 길 위 자리 {edge, seg, t}
   let walkPath = null; // 누른 곳까지 걸어갈 길 {points, km, done, goal}
   let needsDraw = true;
+  let insideLandmark = null; // 지금 들어와 있는 랜드마크(나가기 전에는 다시 보여 주지 않는다)
+  let goal = null; // 가 보고 싶은 곳(랜드마크)
+  let sceneAt = null; // 도착 장면을 띄운 자리(조금 걸어도 장면은 남겨 둔다)
   let view = { ox: 0, oy: 0 }; // 지도를 끌어 옮긴 만큼(km). 걸으면 내 자리로 돌아온다.
   const center = () => ({ x: me.x + view.ox, y: me.y + view.oy });
   let blockedSaid = 0;
@@ -244,6 +248,7 @@ export function renderWalk(root, { onHome }) {
   let nearBox = null;
   let messageBox = null;
   let addressBox = null;
+  let goalBox = null;
   let lastAddressAt = null;
 
   function onKey(e) {
@@ -301,10 +306,12 @@ export function renderWalk(root, { onHome }) {
     body.append(stage);
     messageBox = element('div', 'walk-message');
     body.append(messageBox);
+    goalBox = element('div', 'tool-row walk-goalbox');
+    body.append(goalBox);
     nearBox = element('div', 'walk-near');
     body.append(nearBox);
     const tools = element('div', 'tool-row');
-    tools.append(button('여행 기록 보기', showRecord), button('그만 걷기', finish));
+    tools.append(button('가 보고 싶은 곳', chooseGoal), button('여행 기록 보기', showRecord), button('그만 걷기', finish));
     body.append(tools);
 
     map = createWalkMap(canvas, {
@@ -315,6 +322,8 @@ export function renderWalk(root, { onHome }) {
       railStations: rail.stations,
       railLines: rail.lines,
       busStopsNear: busStopsIn,
+      landmarks,
+      dongs: dongShapesList,
       lineColor: (line) => lineById.get(line)?.color ?? '#1F3342',
       lineName: (line) => LINE_MARK[line] ?? line,
     });
@@ -423,6 +432,7 @@ export function renderWalk(root, { onHome }) {
     updateHud();
     updateNear(true);
     updateAddress(true);
+    checkLandmarks();
     frame = requestAnimationFrame(tick);
   }
 
@@ -469,10 +479,21 @@ export function renderWalk(root, { onHome }) {
     }
     updateNear();
     updateAddress();
+    checkLandmarks();
     needsDraw = true;
   }
 
   function tick(t) {
+    // 한 번 그리다 틀려도 다음 틀은 이어서 그린다(화면이 멈추지 않게)
+    frame = requestAnimationFrame(tick);
+    try {
+      step(t);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function step(t) {
     const dt = Math.min(0.1, (t - lastTime) / 1000);
     lastTime = t;
     if (mode === 'walk') {
@@ -514,15 +535,115 @@ export function renderWalk(root, { onHome }) {
           updateHud();
           persist(true);
           say('다 왔어요.');
+          checkLandmarks(true);
         }
       }
     }
     if (needsDraw || taxiNow) {
       needsDraw = false;
       // 택시를 타는 동안에는 사람 대신 택시를 그린다
-      map.draw(taxiNow ? me : center(), { me: taxiNow ? null : { ...me, facing, step: stepPhase }, target, taxi: taxiNow, route: taxiPlan?.route?.points ?? walkPath?.points ?? null, routeKind: taxiPlan ? 'taxi' : 'walk' });
+      map.draw(taxiNow ? me : center(), { goal, me: taxiNow ? null : { ...me, facing, step: stepPhase }, target, taxi: taxiNow, route: taxiPlan?.route?.points ?? walkPath?.points ?? null, routeKind: taxiPlan ? 'taxi' : 'walk' });
     }
-    frame = requestAnimationFrame(tick);
+  }
+
+  /** 랜드마크에 들어왔는지 본다. 들어오면 도착 장면을 보여 주고 기록에 한 줄 남긴다. */
+  function checkLandmarks(arrivedGoal = false) {
+    if (!me) return;
+    if (insideLandmark) {
+      // 넉넉히 벗어나야 나간 것으로 본다(가장자리에서 들락날락하지 않게)
+      if (Math.hypot(insideLandmark.x - me.x, insideLandmark.y - me.y) > insideLandmark.radius * 1.3) insideLandmark = null;
+      else return;
+    }
+    // 넓은 곳(해수욕장 가운데처럼 길이 없는 곳)은 길 끝까지 걸어오면 다 온 것으로 본다
+    const here = landmarks.find((lm) => Math.hypot(lm.x - me.x, lm.y - me.y) <= lm.radius) ?? (arrivedGoal && goal && Math.hypot(goal.x - me.x, goal.y - me.y) <= goal.radius + 0.3 ? goal : null);
+    if (!here) {
+      updateGoal();
+      return;
+    }
+    insideLandmark = here;
+    flushWalk();
+    record = addEntry(record, { kind: '들름', title: `${here.name}에 들렀어요`, minutes: 0 });
+    if (goal?.id === here.id) {
+      goal = null;
+      updateGoal();
+      needsDraw = true;
+    }
+    persist(true);
+    updateHud();
+    showLandmark(here);
+  }
+
+  /** 도착 장면: 그림, 소개 글, 가까운 탈 것 */
+  function showLandmark(lm) {
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    const card = element('div', 'lm-card');
+    const [icon, kindName] = LANDMARK_ICON[lm.kind] ?? ['📍', '랜드마크'];
+    card.append(element('h2', 'lm-title', `${icon} ${lm.name}에 왔어요`));
+    card.append(landmarkScene(lm.kind, { reduceMotion, label: `${lm.name}(${kindName})을 그린 그림이에요. 실제 사진이 아니에요.` }));
+    if (lm.facts.length) {
+      const list = element('ul', 'lm-facts');
+      for (const f of lm.facts) list.append(element('li', null, f.text));
+      card.append(list);
+      const sources = [...new Set(lm.facts.map((f) => f.source))];
+      card.append(element('p', 'panel-note', `자료: ${sources.join(', ')}`));
+    }
+    card.append(element('p', 'panel-note', '그림은 그곳의 모습을 단순하게 그린 거예요.'));
+    card.append(button('둘레 보기', () => updateNear(true), 'button big'));
+    nearBox.replaceChildren(card);
+    lastNearAt = { ...me };
+    sceneAt = { ...me };
+    say(`${lm.name}에 왔어요.`);
+  }
+
+  /** 가 보고 싶은 곳 고르기 */
+  function chooseGoal() {
+    nearBox.replaceChildren();
+    const card = element('div', 'walk-card');
+    card.append(element('strong', null, '가 보고 싶은 곳을 골라요'));
+    card.append(element('p', 'panel-note', '지도에 주황 화살표로 방향을 보여 줘요.'));
+    const byCity = new Map();
+    for (const lm of landmarks) {
+      if (!byCity.has(lm.city)) byCity.set(lm.city, []);
+      byCity.get(lm.city).push(lm);
+    }
+    for (const [city, list] of byCity) {
+      card.append(element('p', 'tr-fact-label', city));
+      const row = element('div', 'tr-go-row');
+      for (const lm of list) {
+        const km = Math.hypot(lm.x - me.x, lm.y - me.y);
+        row.append(
+          button(`${(LANDMARK_ICON[lm.kind] ?? ['📍'])[0]} ${lm.name} (${distanceText(Math.round(km * 1000))})`, () => {
+            goal = lm;
+            needsDraw = true;
+            updateGoal();
+            updateNear(true);
+          }),
+        );
+      }
+      card.append(row);
+    }
+    if (goal) card.append(button('가는 곳 지우기', () => {
+      goal = null;
+      needsDraw = true;
+      updateGoal();
+      updateNear(true);
+    }));
+    card.append(button('닫기', () => updateNear(true)));
+    nearBox.append(card);
+  }
+
+  /** 가는 곳까지 곧은 거리(메시지 줄 위) */
+  function updateGoal() {
+    if (!goalBox) return;
+    if (!goal) {
+      goalBox.replaceChildren();
+      return;
+    }
+    const km = Math.hypot(goal.x - me.x, goal.y - me.y);
+    goalBox.replaceChildren(
+      element('span', 'walk-goal', `${(LANDMARK_ICON[goal.kind] ?? ['📍'])[0]} 가는 곳: ${goal.name} · 곧게 재면 ${distanceText(Math.round(km * 1000))}`),
+      button('길 따라 걸어가기', () => walkTo({ x: goal.x, y: goal.y }), 'button'),
+    );
   }
 
   /** 지도 위 "지금 있는 곳": 시·구·동과 가까운 길 이름 */
@@ -570,6 +691,9 @@ export function renderWalk(root, { onHome }) {
   // ---------- 3. 가까운 탈 곳 ----------
   function updateNear(force = false) {
     if (!force && lastNearAt && Math.hypot(lastNearAt.x - me.x, lastNearAt.y - me.y) < 0.01) return;
+    // 도착 장면은 150m 넘게 걸어가거나 "둘레 보기"를 누를 때까지 남겨 둔다
+    if (!force && sceneAt && Math.hypot(sceneAt.x - me.x, sceneAt.y - me.y) < 0.15) return;
+    sceneAt = null;
     lastNearAt = { ...me };
     nearBox.replaceChildren();
     const cards = [];
@@ -944,6 +1068,7 @@ export function renderWalk(root, { onHome }) {
       updateHud();
       updateNear(true);
       updateAddress(true);
+      checkLandmarks();
       say(`택시에서 내렸어요. ${minutesText(plan.wait + plan.route.minutes)} 걸렸고 ${wonText(plan.fare)}을 냈어요.`);
     };
     step();

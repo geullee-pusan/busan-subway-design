@@ -120,6 +120,13 @@
           "when": "2026년 10월 31일 받음",
           "license": "공공데이터포털, 이용허락범위 제한 없음",
           "lockKey": "tago-bus-26"
+        },
+        {
+          "what": "걸어서 여행하기의 랜드마크 자리",
+          "from": "OpenStreetMap 관광지와 이름 있는 곳",
+          "when": "2026년 10월 31일 받음",
+          "license": "© OpenStreetMap contributors (ODbL)",
+          "lockKey": "osm-landmarks"
         }
       ]
     },

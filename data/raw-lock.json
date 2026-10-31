@@ -372,6 +372,13 @@
     "sha256": "7f913662cb61c16e7648dcb5024e6d9ff60a66bdae6860ec5cb6731f0b970916",
     "fetched": "2026-09-22"
   },
+  "osm-landmarks": {
+    "file": "data/raw/osm/landmarks.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 2183047,
+    "sha256": "48c261afafa3935d7cf462b77db7d7fe61a8069d0e090ebb89531f896951cc4a",
+    "fetched": "2026-10-31"
+  },
   "osm-paths-1": {
     "file": "data/raw/osm/paths-1.json",
     "url": "https://overpass-api.de/api/interpreter",

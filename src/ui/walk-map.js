@@ -1,7 +1,9 @@
 // 걸어서 여행하기의 동네 지도(캔버스). 캐릭터가 늘 가운데 있고 지도가 따라 움직인다.
 // 바탕은 격자 지형(1km 칸), 길은 OpenStreetMap 차도, 건물·나무·논밭은 칸의 인구와 지형으로 어림해 그린다(4단계 거리 꾸미기).
 // 건물 자리와 크기는 칸 번호로 늘 같게 정한다(실제 건물 자리가 아니다).
+import { dongAt } from '../sim/address.js';
 import { indexRoads, nearestRoad } from '../sim/roads.js';
+import { LANDMARK_ICON } from './landmark-scenes.js';
 
 /** 지형 바탕색 */
 const GROUND = {
@@ -55,7 +57,11 @@ export function createWalkMap(canvas, world) {
   function decorations(col, row) {
     const key = `${col},${row}`;
     if (buildingCache.has(key)) return buildingCache.get(key);
-    const terrain = world.grid.terrain[row]?.[col];
+    let terrain = world.grid.terrain[row]?.[col];
+    // 1km 칸이 바다로 적혀 있어도 그 안에 땅(행정동 안)이 있으면 땅으로 본다. 건물마다 땅인지 다시 본다.
+    const coastCell = terrain === 'sea' && (world.roadIndex.get(`${col},${row}`)?.length ?? 0) > 0;
+    if (coastCell) terrain = 'flat';
+    const onLand = (p) => !coastCell || Boolean(dongAt(world.dongs, p));
     const people = world.grid.population[row]?.[col] ?? 0;
     const items = [];
     if (terrain === 'flat' || terrain === 'hill' || terrain === 'field') {
@@ -77,6 +83,7 @@ export function createWalkMap(canvas, world) {
         const half = Math.max(size, h) * 0.6;
         if (nearestRoad(world.roads, world.roadIndex, center, half + 0.012, isMajor)) continue;
         if (nearestRoad(world.roads, world.roadIndex, center, half + 0.005, isMinor)) continue;
+        if (!onLand(center)) continue;
         const floors = 1 + Math.round(hash01(row, col, i) * (2 + tall * 18));
         const palette = ['#D9D2C3', '#C9CED6', '#E3D7C6', '#BFC7CF', '#D7CDBB', '#CDD6D0'];
         items.push({ kind: 'building', x, y, w: size, h, floors, color: palette[i % palette.length] });
@@ -87,7 +94,7 @@ export function createWalkMap(canvas, world) {
         for (let i = 0; i < 6; i++) {
           const x = col + hash01(col, row, 500 + i) * 0.9;
           const y = row + hash01(col, row, 600 + i) * 0.9;
-          if (!nearestRoad(world.roads, world.roadIndex, { x: x + 0.05, y: y + 0.05 }, 0.06)) items.push({ kind: 'paddy', x, y, w: 0.1, h: 0.08 });
+          if (!nearestRoad(world.roads, world.roadIndex, { x: x + 0.05, y: y + 0.05 }, 0.06) && onLand({ x: x + 0.05, y: y + 0.04 })) items.push({ kind: 'paddy', x, y, w: 0.1, h: 0.08 });
         }
       }
     }
@@ -97,6 +104,7 @@ export function createWalkMap(canvas, world) {
       const y = row + hash01(col, row, 1000 + i) * 1;
       if (terrain === 'river' || terrain === 'sea') break;
       if (nearestRoad(world.roads, world.roadIndex, { x, y }, 0.02)) continue;
+      if (!onLand({ x, y })) continue;
       items.push({ kind: 'tree', x, y, r: 0.012 + hash01(i, row, col) * 0.012 });
     }
     // 아래쪽 것을 나중에 그려 앞에 보이게 한다
@@ -132,14 +140,27 @@ export function createWalkMap(canvas, world) {
     const r1 = Math.floor(bottom);
 
     // 1. 바탕(지형)
-    ctx.fillStyle = '#86BCE0';
+    // 바다를 먼저 칠하고, 행정동 모양(땅)으로 잘라 그 안에 지형 칸을 칠한다. 바닷가 모양이 1km 칸보다 자연스럽다.
+    ctx.fillStyle = GROUND.sea;
     ctx.fillRect(0, 0, w, h);
+    ctx.save();
+    ctx.beginPath();
+    for (const dong of world.dongs) {
+      const [bx0, by0, bx1, by1] = dong.box;
+      if (bx1 < left || bx0 > right || by1 < top || by0 > bottom) continue;
+      for (const ring of dong.rings) {
+        ring.forEach(([px, py], k) => (k ? ctx.lineTo(sx(px), sy(py)) : ctx.moveTo(sx(px), sy(py))));
+        ctx.closePath();
+      }
+    }
+    ctx.clip();
     for (let row = r0; row <= r1; row++) {
       for (let col = c0; col <= c1; col++) {
-        const terrain = world.grid.terrain[row]?.[col] ?? 'sea';
+        let terrain = world.grid.terrain[row]?.[col] ?? 'sea';
+        if (terrain === 'sea') terrain = 'flat';
         ctx.fillStyle = GROUND[terrain] ?? GROUND.flat;
         ctx.fillRect(Math.floor(sx(col)), Math.floor(sy(row)), Math.ceil(scale) + 1, Math.ceil(scale) + 1);
-        if ((terrain === 'sea' || terrain === 'river') && scale >= 200) {
+        if (terrain === 'river' && scale >= 200) {
           // 물결
           ctx.strokeStyle = 'rgba(255,255,255,0.45)';
           ctx.lineWidth = 1.5;
@@ -153,6 +174,7 @@ export function createWalkMap(canvas, world) {
         }
       }
     }
+    ctx.restore();
     // 2. 논밭(길 아래)
     const decor = [];
     if (scale >= 300) for (let row = r0; row <= r1; row++) for (let col = c0; col <= c1; col++) decor.push(...decorations(col, row));
@@ -357,6 +379,57 @@ export function createWalkMap(canvas, world) {
       ctx.textAlign = 'center';
       ctx.fillText(world.lineName(s.line), x, y + 4);
       label(`${s.name}역`, x, y + 28);
+    }
+
+    // 6-2. 랜드마크(그림과 이름). 가는 곳으로 고른 곳은 주황 고리
+    if (scale >= 8) {
+      for (const lm of world.landmarks ?? []) {
+        if (lm.x < left - 1 || lm.x > right + 1 || lm.y < top - 1 || lm.y > bottom + 1) continue;
+        const x = sx(lm.x);
+        const y = sy(lm.y);
+        const r = scale >= 150 ? 17 : 12;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = extra.goal && extra.goal.id === lm.id ? '#E8590C' : '#7048E8';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.font = `${r}px system-ui, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText((LANDMARK_ICON[lm.kind] ?? ['📍'])[0], x, y + 1);
+        ctx.textBaseline = 'alphabetic';
+        if (scale >= 25) label(lm.name, x, y + r + 15, '#5F3DC4');
+      }
+    }
+    // 가는 곳이 화면 밖이면 가장자리에 화살표
+    if (extra.goal) {
+      const gx = sx(extra.goal.x);
+      const gy = sy(extra.goal.y);
+      if (gx < 0 || gx > w || gy < 0 || gy > h) {
+        const cx = w / 2;
+        const cy = h / 2;
+        const angle = Math.atan2(gy - cy, gx - cx);
+        const k = Math.min((w / 2 - 40) / Math.abs(Math.cos(angle) || 1e-9), (h / 2 - 40) / Math.abs(Math.sin(angle) || 1e-9));
+        const ax = cx + Math.cos(angle) * k;
+        const ay = cy + Math.sin(angle) * k;
+        ctx.save();
+        ctx.translate(ax, ay);
+        ctx.rotate(angle);
+        ctx.fillStyle = '#E8590C';
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(22, 0);
+        ctx.lineTo(-12, -16);
+        ctx.lineTo(-4, 0);
+        ctx.lineTo(-12, 16);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fill();
+        ctx.restore();
+      }
     }
 
     // 7. 걸어갈 곳 표시

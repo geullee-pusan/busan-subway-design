@@ -165,3 +165,19 @@ test('길 따라 걷기: 길을 따라가고, 갈림점에서 누른 방향 길�
   const end = walkAlong(fake, { edge: 1, seg: 1, t: 0.9 }, { dx: 1, dy: 0 }, 1);
   assert.ok(Math.abs(end.x - 2) < 1e-9);
 });
+
+test('랜드마크: 모두 지도 안에 있고, 소개 글은 짧은 해요체 문장이며 출처가 있다', { skip: existsSync(resolve(ROOT, 'data/build/landmarks.json')) ? false : 'npm run landmarks를 먼저 돌려요' }, () => {
+  const { landmarks } = JSON.parse(readFileSync(resolve(ROOT, 'data/build/landmarks.json'), 'utf8'));
+  const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
+  assert.ok(landmarks.length >= 20);
+  for (const lm of landmarks) {
+    assert.ok(lm.x >= 0 && lm.y >= 0 && lm.x < grid.cols && lm.y < grid.rows, lm.name);
+    assert.ok(lm.radius > 0 && lm.radius < 1, lm.name);
+    assert.ok(lm.facts.length > 0, `${lm.name}에 소개 글이 있어야 한다`);
+    for (const f of lm.facts) {
+      assert.ok(f.source, `${lm.name}: 출처`);
+      assert.match(f.text, /요\.$/, `${lm.name}: 해요체`);
+      assert.ok(f.text.length <= 45, `${lm.name}: 문장이 길다(${f.text})`);
+    }
+  }
+});

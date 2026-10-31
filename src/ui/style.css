@@ -2767,3 +2767,99 @@ body {
     bottom: 40px;
   }
 }
+
+/* 랜드마크 도착 장면 */
+.lm-card {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 3px solid #7048e8;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.lm-scene {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.lm-title {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.lm-facts {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.lm-moving .lm-waves {
+  animation: lm-wave 3s ease-in-out infinite alternate;
+}
+
+.lm-moving .lm-bird {
+  animation: lm-bird 4s ease-in-out infinite alternate;
+}
+
+.lm-moving .lm-car {
+  animation: lm-car 6s linear infinite;
+}
+
+.lm-moving .lm-petals {
+  animation: lm-petals 6s linear infinite;
+}
+
+@keyframes lm-wave {
+  from {
+    transform: translateX(-12px);
+  }
+  to {
+    transform: translateX(12px);
+  }
+}
+
+@keyframes lm-bird {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(30px, -10px);
+  }
+}
+
+@keyframes lm-car {
+  from {
+    transform: translateX(-120px);
+  }
+  to {
+    transform: translateX(120px);
+  }
+}
+
+@keyframes lm-petals {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(40px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lm-moving .lm-waves,
+  .lm-moving .lm-bird,
+  .lm-moving .lm-car,
+  .lm-moving .lm-petals {
+    animation: none;
+  }
+}
+
+.walk-goal {
+  font-weight: 700;
+}

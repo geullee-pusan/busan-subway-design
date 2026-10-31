@@ -1,0 +1,249 @@
+{
+  "_설명": "걸어서 여행하기의 랜드마크. osm은 OpenStreetMap 요소(data/raw/osm/landmarks.json, 자리는 그 가운데 점). 이름만 있으면 near(위도, 경도)에 가장 가까운 같은 이름 요소를 쓴다. kind는 도착 장면 그림 종류, radius는 도착으로 보는 거리(m, 넓은 곳은 크게, 우리가 정한 값). 소개 글(사실)은 data/facts.json의 landmarks에 출처와 함께 있다.",
+  "landmarks": [
+    {
+      "id": "haeundae",
+      "name": "해운대해수욕장",
+      "city": "부산",
+      "osm": "way/107531972",
+      "kind": "beach",
+      "radius": 250
+    },
+    {
+      "id": "gwangalli",
+      "name": "광안리해수욕장",
+      "city": "부산",
+      "osm": "way/107642460",
+      "kind": "beach",
+      "radius": 250
+    },
+    {
+      "id": "gwangandaegyo",
+      "name": "광안대교",
+      "city": "부산",
+      "osm": "way/382760140",
+      "kind": "bridge",
+      "radius": 300
+    },
+    {
+      "id": "jagalchi",
+      "name": "자갈치시장",
+      "city": "부산",
+      "osm": "node/4807672423",
+      "kind": "market",
+      "radius": 150
+    },
+    {
+      "id": "busantower",
+      "name": "부산타워(용두산공원)",
+      "city": "부산",
+      "osm": "way/480601129",
+      "kind": "tower",
+      "radius": 150
+    },
+    {
+      "id": "taejongdae",
+      "name": "태종대",
+      "city": "부산",
+      "osm": "node/1480695712",
+      "kind": "cliff",
+      "radius": 300
+    },
+    {
+      "id": "gamcheon",
+      "name": "감천문화마을",
+      "city": "부산",
+      "osm": "way/382693934",
+      "kind": "village",
+      "radius": 200
+    },
+    {
+      "id": "gukje",
+      "name": "국제시장",
+      "city": "부산",
+      "osm": "way/500548799",
+      "kind": "market",
+      "radius": 150
+    },
+    {
+      "id": "citizenspark",
+      "name": "부산시민공원",
+      "city": "부산",
+      "osm": "way/399660588",
+      "kind": "park",
+      "radius": 300
+    },
+    {
+      "id": "beomeosa",
+      "name": "범어사",
+      "city": "부산",
+      "osm": "way/131922091",
+      "kind": "temple",
+      "radius": 200
+    },
+    {
+      "id": "yonggungsa",
+      "name": "해동용궁사",
+      "city": "부산",
+      "osm": "way/382701819",
+      "kind": "temple",
+      "radius": 150
+    },
+    {
+      "id": "dadaepo",
+      "name": "다대포해수욕장",
+      "city": "부산",
+      "osm": "way/474959825",
+      "kind": "beach",
+      "radius": 300
+    },
+    {
+      "id": "yeongdodaegyo",
+      "name": "영도대교",
+      "city": "부산",
+      "osm": "way/496277558",
+      "kind": "bridge",
+      "radius": 150
+    },
+    {
+      "id": "oryukdo",
+      "name": "오륙도",
+      "city": "부산",
+      "osm": "node/4197185189",
+      "kind": "island",
+      "radius": 200
+    },
+    {
+      "id": "maritimemuseum",
+      "name": "국립해양박물관",
+      "city": "부산",
+      "osm": "way/243644910",
+      "kind": "museum",
+      "radius": 150
+    },
+    {
+      "id": "eulsukdo",
+      "name": "을숙도",
+      "city": "부산",
+      "osm": "relation/6994878",
+      "kind": "wetland",
+      "radius": 400
+    },
+    {
+      "id": "seomun",
+      "name": "서문시장",
+      "city": "대구",
+      "osm": "node/368867948",
+      "kind": "market",
+      "radius": 200
+    },
+    {
+      "id": "suseongmot",
+      "name": "수성못",
+      "city": "대구",
+      "osm": "relation/18080662",
+      "kind": "lake",
+      "radius": 350
+    },
+    {
+      "id": "tower83",
+      "name": "83타워(이월드)",
+      "city": "대구",
+      "osm": "way/583267795",
+      "kind": "tower",
+      "radius": 200
+    },
+    {
+      "id": "dongseongno",
+      "name": "동성로",
+      "city": "대구",
+      "osmName": "동성로",
+      "near": [
+        35.869,
+        128.596
+      ],
+      "kind": "street",
+      "radius": 200
+    },
+    {
+      "id": "taehwagang",
+      "name": "태화강 국가정원",
+      "city": "울산",
+      "osm": "relation/11313014",
+      "kind": "garden",
+      "radius": 400
+    },
+    {
+      "id": "daewangam",
+      "name": "대왕암공원",
+      "city": "울산",
+      "osm": "way/476518093",
+      "kind": "cliff",
+      "radius": 350
+    },
+    {
+      "id": "ulsandaegyo",
+      "name": "울산대교",
+      "city": "울산",
+      "osm": "way/899741021",
+      "kind": "bridge",
+      "radius": 200
+    },
+    {
+      "id": "bulguksa",
+      "name": "불국사",
+      "city": "경주",
+      "osm": "way/382655135",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "cheomseongdae",
+      "name": "첨성대",
+      "city": "경주",
+      "osm": "way/382132601",
+      "kind": "observatory",
+      "radius": 150
+    },
+    {
+      "id": "junam",
+      "name": "주남저수지",
+      "city": "창원",
+      "osm": "way/570612318",
+      "kind": "wetland",
+      "radius": 400
+    },
+    {
+      "id": "yeojwacheon",
+      "name": "진해 여좌천",
+      "city": "창원",
+      "osm": "node/12662021207",
+      "kind": "cherry",
+      "radius": 200
+    },
+    {
+      "id": "suro",
+      "name": "수로왕릉",
+      "city": "김해",
+      "osm": "way/383085509",
+      "kind": "tomb",
+      "radius": 150
+    },
+    {
+      "id": "tongdosa",
+      "name": "통도사",
+      "city": "양산",
+      "osm": "way/472095264",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "yeongnamnu",
+      "name": "영남루",
+      "city": "밀양",
+      "osm": "node/10690523527",
+      "kind": "pavilion",
+      "radius": 150
+    }
+  ]
+}

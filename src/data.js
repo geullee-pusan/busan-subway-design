@@ -23,12 +23,15 @@ import stationsFile from '../data/build/stations.json';
 import transfersFile from '../data/build/transfers.json';
 import roadsFile from '../data/build/roads.json';
 import dongShapesFile from '../data/build/dong-shapes.json';
+import landmarksFile from '../data/build/landmarks.json';
 
 export const grid = gridFile;
 /** 차도(OpenStreetMap, scripts/build-roads.mjs). 걸어서 여행하기의 길 그림과 택시 길에 쓴다. */
 export const roadsData = roadsFile;
 /** 행정동 모양(scripts/build-dong-shapes.mjs). 걸어서 여행하기의 "지금 있는 곳" 주소에 쓴다. */
 export const dongShapes = dongShapesFile;
+/** 랜드마크(scripts/build-landmarks.mjs). 걸어서 여행하기에서 도착하면 소개 장면이 나온다. */
+export const landmarks = landmarksFile.landmarks;
 /** 승강장 소리: 열차진입 안내음과 진입 방송(부산교통공사 실제 녹음, scripts/build-station-sounds.mjs) */
 export const stationSounds = stationSoundsFile;
 /** 부산 시내버스 실제 노선과 정류장(scripts/build-bus.mjs). 하루 운행과 여행 모드가 쓴다. */
