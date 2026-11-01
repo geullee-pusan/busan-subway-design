@@ -2926,3 +2926,104 @@ body {
   gap: 6px 10px;
   justify-content: space-between;
 }
+
+/* 여행 일기 */
+.diary {
+  display: grid;
+  gap: 8px;
+}
+
+.diary-title {
+  margin: 0;
+}
+
+.diary-sub {
+  margin: 0;
+}
+
+.diary-totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-weight: 700;
+}
+
+.diary-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+}
+
+.diary-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.diary-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.diary-timeline {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.diary-timeline li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 4px 0;
+  border-bottom: 1px dashed #ced4da;
+}
+
+.diary-time {
+  font-family: monospace;
+  font-weight: 700;
+}
+
+.diary-kind {
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #e9ecef;
+  font-weight: 700;
+}
+
+.diary-kind.is-ride {
+  background: #1f3342;
+  color: #ffffff;
+}
+
+.diary-num {
+  margin-left: auto;
+}
+
+@media print {
+  body.print-diary * {
+    visibility: hidden;
+  }
+
+  body.print-diary .diary.is-printing,
+  body.print-diary .diary.is-printing * {
+    visibility: visible;
+  }
+
+  body.print-diary .diary.is-printing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  body.print-diary .diary-tools {
+    display: none;
+  }
+}

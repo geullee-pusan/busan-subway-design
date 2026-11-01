@@ -155,6 +155,7 @@ const VIEW_DEFAULTS = {
   trainRide: null, // 진짜 기차 타 보기에서 고른 것 {station, hour, rider, goal, kind}
   walk: null, // 걸어서 여행하기 이어 하기 {x, y, rider, record}
   walkSound: true, // 걸어서 여행하기 랜드마크 음악
+  trainCab: false, // 진짜 기차 타 보기에서 운전석으로 볼지
   busStopPick: '직접 고르기', // 버스 노선 정류장 놓는 방법: '직접 고르기'(목록, 한 칸에 여러 개) 또는 '알아서 놓기'(아무거나 하나, 한 칸에 하나)
 };
 

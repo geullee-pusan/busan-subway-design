@@ -9,6 +9,7 @@ import { createRideSound } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { wordWithCard } from './word-card.js';
 import { departureBoard, lookOf, soundKindOf, ticketArt, trainPlatformArt } from './train-art.js';
+import { trainCabArt } from './train-cab.js';
 import { trainInteriorArt } from './train-interior.js';
 
 /** 역 사이 그림이 움직이는 시간(밀리초) */
@@ -160,6 +161,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     if (frame) cancelAnimationFrame(frame);
     frame = null;
     sound.stopAll();
+    cabView?.destroy();
   };
 
   /** 소리·방송 단추 */
@@ -271,14 +273,49 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
   // 4. 열차 안: 역마다 선다.
   let at = fromIndex;
   let interior = null;
+  let cabView = null;
   let panel = null;
+  // 객실과 운전석 두 그림을 함께 움직이고, 고른 하나만 보여 준다
+  const views = {
+    setScene: (x) => {
+      interior.setScene(x);
+      cabView.setScene(x);
+    },
+    setSpeed: (x) => {
+      interior.setSpeed(x);
+      cabView.setSpeed(x);
+    },
+    setDisplay: (x) => {
+      interior.setDisplay(x);
+      cabView.setDisplay(x);
+    },
+  };
   function ride() {
     sound.wake();
     area.replaceChildren();
     area.append(element('h2', null, `${kind} ${train.no}번 안이에요`));
     area.append(soundButtons());
     interior = trainInteriorArt({ kind, reduceMotion });
-    area.append(interior.svg);
+    cabView = trainCabArt({ kind, reduceMotion, topKmh: info.speedKmh?.value ?? null });
+    let showCab = loadView().trainCab === true;
+    const viewRow = element('div', 'tr-sound-row');
+    viewRow.setAttribute('role', 'group');
+    viewRow.setAttribute('aria-label', '보는 곳 고르기');
+    const seatButton = button('객실 보기', () => pick(false));
+    const cabButton = button('운전석 보기', () => pick(true));
+    viewRow.append(seatButton, cabButton);
+    function pick(cab) {
+      showCab = cab;
+      saveView({ trainCab: cab });
+      interior.svg.style.display = cab ? 'none' : '';
+      cabView.svg.style.display = cab ? '' : 'none';
+      seatButton.className = cab ? 'button' : 'button is-on';
+      cabButton.className = cab ? 'button is-on' : 'button';
+      seatButton.setAttribute('aria-pressed', String(!cab));
+      cabButton.setAttribute('aria-pressed', String(cab));
+    }
+    area.append(viewRow, interior.svg, cabView.svg);
+    pick(showCab);
     area.append(element('p', 'tr-seat', `${seat.car}호차 ${seat.seat} 자리에 앉았어요.${seat.reverse ? ' 뒤를 보고 앉아 가요.' : ''}`));
     panel = element('div', 'tr-panel');
     area.append(panel);
@@ -300,9 +337,10 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     const stop = train.stops[at];
     const name = nameOf(stop[0]);
     const last = at >= toIndex;
-    interior.setScene('station');
-    interior.setSpeed(0);
-    interior.setDisplay(last ? [`${name}역`, '내릴 역이에요'] : first ? [`${trainDestination(train)} 가는 ${kind}`, `다음 역: ${nameOf(train.stops[at + 1][0])}`] : [`${name}역`, `다음 역: ${nameOf(train.stops[at + 1][0])}`]);
+    views.setScene('station');
+    views.setSpeed(0);
+    cabView.setSignal('stop');
+    views.setDisplay(last ? [`${name}역`, '내릴 역이에요'] : first ? [`${trainDestination(train)} 가는 ${kind}`, `다음 역: ${nameOf(train.stops[at + 1][0])}`] : [`${name}역`, `다음 역: ${nameOf(train.stops[at + 1][0])}`]);
     panel.replaceChildren(stopsRow());
     const clock = element('p', 'tr-clock', `시각 ${hhmm(first ? stopDep(stop) : stopArr(stop))}`);
     panel.append(clock);
@@ -353,17 +391,19 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     speedRow.append(element('span', 'tr-fact-label', '지금 빠르기'), speedBar, speedText);
     panel.append(clock, speedRow, element('p', 'tr-status', `${stationLabel(B.name)}까지 ${distanceText(Math.round(km * 1000))}, ${minutes}분 걸려요.`));
     if (soundOn) sound.startRumble(soundKindOf(kind));
-    interior.setDisplay([`다음 역: ${B.name}`, `${hhmm(stopArr(b))} 도착`]);
+    views.setDisplay([`다음 역: ${B.name}`, `${hhmm(stopArr(b))} 도착`]);
     const start = performance.now();
     const tick = (now) => {
       const t = ms === 0 ? 1 : Math.min(1, (now - start) / ms);
       const kmh = speedAt(t);
-      interior.setSpeed(kmh);
-      interior.setScene(scenes[Math.min(scenes.length - 1, Math.floor(t * scenes.length))] ?? 'field');
+      views.setSpeed(kmh);
+      // 다음 역에 거의 다 오면 승강장이 보인다
+      views.setScene(t > 0.94 ? 'station' : (scenes[Math.min(scenes.length - 1, Math.floor(t * scenes.length))] ?? 'field'));
+      cabView.setSignal(t < 0.75 ? 'go' : 'caution');
       speedFill.style.width = `${Math.min(100, (kmh / 320) * 100).toFixed(0)}%`;
       speedText.textContent = `시속 ${Math.round(kmh)}km`;
       clock.textContent = `시각 ${hhmm(stopDep(a) + minutes * t)}`;
-      if (t > 0.3 && t < 0.7) interior.setDisplay([`시속 ${Math.round(kmh)}km`, `다음 역: ${B.name}`]);
+      if (t > 0.3 && t < 0.7) views.setDisplay([`시속 ${Math.round(kmh)}km`, `다음 역: ${B.name}`]);
       if (t < 1) {
         frame = requestAnimationFrame(tick);
         return;

@@ -15,7 +15,9 @@ import { busRouteText, clockText, distanceText, durationText, roParticle, statio
 import { renderJourney } from './journey-screen.js';
 import { loadView, saveView } from './storage.js';
 import { hhmm, runTrainTrip, trainDestination } from './train-journey.js';
+import { appendPoint, appendRide, compactTrack } from '../sim/diary.js';
 import { createLandmarkMusic } from './landmark-music.js';
+import { renderDiary } from './walk-diary.js';
 import { LANDMARK_ICON, landmarkScene } from './landmark-scenes.js';
 import { createWalkMap } from './walk-map.js';
 import { textWithCards } from './word-card.js';
@@ -108,6 +110,8 @@ export function renderWalk(root, { onHome }) {
   let insideLandmark = null; // 지금 들어와 있는 랜드마크(나가기 전에는 다시 보여 주지 않는다)
   let goal = null; // 가 보고 싶은 곳(랜드마크)
   let sceneAt = null;
+  let track = []; // 여행 일기에 그릴 지나온 길(조각 목록)
+  let rideFrom = null; // 탈것을 탄 자리
   // 랜드마크 음악: 마지막으로 튼 뒤 10초가 지나야 다시 튼다(둘레를 왔다 갔다 해도 계속 나오지 않게, canPlayAgain)
   const music = createLandmarkMusic();
   let musicOn = loadView().walkSound !== false;
@@ -157,7 +161,8 @@ export function renderWalk(root, { onHome }) {
     const t = performance.now();
     if (!force && t - lastSave < 1500) return;
     lastSave = t;
-    saveView({ walk: { x: Math.round(me.x * 1000) / 1000, y: Math.round(me.y * 1000) / 1000, rider, record } });
+    track = compactTrack(track);
+    saveView({ walk: { x: Math.round(me.x * 1000) / 1000, y: Math.round(me.y * 1000) / 1000, rider, record, track } });
   };
   const flushWalk = () => {
     if (pendingKm <= 0) return;
@@ -196,6 +201,7 @@ export function renderWalk(root, { onHome }) {
           standAt({ x: saved.x, y: saved.y });
           rider = saved.rider === 'child' ? 'child' : 'adult';
           record = saved.record;
+          track = Array.isArray(saved.track) ? saved.track : [];
           startWalking();
         }, 'button big ride-go'),
       );
@@ -244,6 +250,7 @@ export function renderWalk(root, { onHome }) {
         const start = list[Number(select.value)];
         standAt({ x: start.x, y: start.y });
         record = emptyRecord(hour * 60);
+        track = appendPoint([], '걷기', me);
         persist(true);
         startWalking();
       }, saved?.record ? 'button big' : 'button big ride-go'),
@@ -329,7 +336,7 @@ export function renderWalk(root, { onHome }) {
       else music.stop();
     });
     soundButton.setAttribute('aria-pressed', String(musicOn));
-    tools.append(soundButton, button('랜드마크 목록', () => showLandmarkList()), button('가 보고 싶은 곳', chooseGoal), button('여행 기록 보기', showRecord), button('그만 걷기', finish));
+    tools.append(soundButton, button('랜드마크 목록', () => showLandmarkList()), button('가 보고 싶은 곳', chooseGoal), button('여행 기록 보기', showRecord), button('여행 일기', showDiary), button('그만 걷기', finish));
     body.append(tools);
 
     map = createWalkMap(canvas, {
@@ -466,6 +473,11 @@ export function renderWalk(root, { onHome }) {
 
   /** 누른 곳까지 길을 따라 가장 짧게 걸어간다 */
   function walkTo(point) {
+    // 택시를 타고 있거나 택시 내릴 곳을 고르는 동안에는 걷지 않는다(내린 뒤 엉뚱한 곳에서 걷기 시작하지 않게)
+    if (mode !== 'walk') {
+      say('타고 있는 동안에는 걸어갈 수 없어요. 내린 뒤에 눌러요.');
+      return;
+    }
     clearTarget();
     const goal = nearestRoad(roads, roadIndex, point, 0.3);
     if (!goal) {
@@ -487,6 +499,7 @@ export function renderWalk(root, { onHome }) {
 
   /** 걸은 만큼 기록하고 둘레를 다시 본다 */
   function afterStep(km, dx) {
+    track = appendPoint(track, '걷기', me);
     pendingKm += km;
     stepPhase += km * 400;
     if (Math.abs(dx) > 0.1) facing = Math.sign(dx);
@@ -706,6 +719,21 @@ export function renderWalk(root, { onHome }) {
     if (music.play(lm.kind) > 0) lastMusicAt = now;
   }
 
+  /** 여행 일기(지도 한 장과 시간 줄) */
+  function diaryOf() {
+    flushWalk();
+    return renderDiary({ record, track, landmarks, visited: visitedNow(), dongs: dongShapesList, roads, roadIndex });
+  }
+
+  function showDiary() {
+    nearBox.replaceChildren();
+    const card = element('div', 'walk-card lm-list-card');
+    card.append(diaryOf());
+    card.append(button('닫기', () => updateNear(true)));
+    nearBox.append(card);
+    card.scrollIntoView?.({ block: 'start', behavior: 'smooth' });
+  }
+
   /** 가 보고 싶은 곳 고르기 */
   function chooseGoal() {
     nearBox.replaceChildren();
@@ -867,6 +895,7 @@ export function renderWalk(root, { onHome }) {
   function rideArea(title) {
     stopAll();
     flushWalk();
+    rideFrom = { ...me };
     mode = 'ride';
     body.replaceChildren();
     body.append(element('h2', null, title));
@@ -882,6 +911,8 @@ export function renderWalk(root, { onHome }) {
     cleanupRide = null;
     // 내린 곳에서 가장 가까운 길 위에 선다
     standAt(point);
+    if (rideFrom) track = appendRide(track, entry.kind, [[rideFrom.x, rideFrom.y], [point.x, point.y]]);
+    rideFrom = null;
     record = addEntry(record, entry);
     persist(true);
     startWalking();
@@ -1148,6 +1179,7 @@ export function renderWalk(root, { onHome }) {
 
   function rideTaxi() {
     const plan = taxiPlan;
+    clearTarget();
     mode = 'taxi';
     flushWalk();
     nearBox.replaceChildren(element('p', 'guide', '택시를 타고 가요. 창밖으로 길이 지나가요.'));
@@ -1171,6 +1203,7 @@ export function renderWalk(root, { onHome }) {
       mode = 'walk';
       // 내리면 길가(차도 옆)로 한 걸음 비켜선다
       const last = plan.route.points.at(-1);
+      track = appendRide(track, '택시', plan.route.points);
       record = addEntry(record, { kind: '택시', title: `택시${plan.name ? ` → ${plan.name}` : ''} (${distanceText(Math.round(plan.route.km * 1000))})`, minutes: plan.wait + plan.route.minutes, fare: plan.fare });
       at = { edge: plan.end.edge, seg: plan.end.seg, t: plan.end.t };
       me = { x: last[0], y: last[1] };
@@ -1224,13 +1257,15 @@ export function renderWalk(root, { onHome }) {
     sum.append(element('li', null, `쓴 시간: ${record.minutes < 1 ? '0분' : minutesText(record.minutes)}`));
     sum.append(element('li', null, `걸은 거리: ${distanceText(Math.round(record.meters))}`));
     sum.append(element('li', null, `쓴 돈: ${wonText(record.paid)}`));
-    card.append(sum, recordList());
+    card.append(sum);
+    card.append(diaryOf());
     card.append(element('p', 'panel-note', '같은 곳을 다른 방법으로 가면 시간과 돈이 어떻게 달라질까요?'));
     const row = element('div', 'tool-row');
     row.append(
       button('이어서 걷기', startWalking, 'button big'),
       button('처음부터 다시', () => {
         saveView({ walk: null });
+        track = [];
         setup();
       }),
     );
