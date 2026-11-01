@@ -154,6 +154,7 @@ const VIEW_DEFAULTS = {
   mapBase: '지형', // 실제 지도의 바탕: '지형'(산, 평지, 바다) 또는 '행정구역'(도시와 구·군)
   trainRide: null, // 진짜 기차 타 보기에서 고른 것 {station, hour, rider, goal, kind}
   walk: null, // 걸어서 여행하기 이어 하기 {x, y, rider, record}
+  walkSound: true, // 걸어서 여행하기 랜드마크 음악
   busStopPick: '직접 고르기', // 버스 노선 정류장 놓는 방법: '직접 고르기'(목록, 한 칸에 여러 개) 또는 '알아서 놓기'(아무거나 하나, 한 칸에 하나)
 };
 
@@ -167,6 +168,7 @@ export function loadView() {
     if (!['내 노선', '부산 전체'].includes(view.runScope)) view.runScope = '내 노선';
     if (typeof view.rideVoice !== 'boolean') view.rideVoice = false;
     if (typeof view.rideSound !== 'boolean') view.rideSound = false;
+    if (typeof view.walkSound !== 'boolean') view.walkSound = true;
     if (!['now', 'then'].includes(view.historyPopulation)) view.historyPopulation = 'now';
     if (view.trip !== null && (typeof view.trip !== 'object' || Array.isArray(view.trip))) view.trip = null;
     if (!['voice', 'lang', 'default'].includes(view.rideVoiceMode)) view.rideVoiceMode = 'voice';

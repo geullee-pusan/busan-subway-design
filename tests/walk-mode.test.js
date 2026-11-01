@@ -181,3 +181,37 @@ test('랜드마크: 모두 지도 안에 있고, 소개 글은 짧은 해요체 
     }
   }
 });
+
+test('들른 랜드마크: 처음 들른 시각만 남긴다', async () => {
+  const { visitedPlaces } = await import('../src/sim/walk-mode.js');
+  let r = emptyRecord(480);
+  r = addEntry(r, { kind: '걷기', title: '걷기', minutes: 10, meters: 600 });
+  r = addEntry(r, { kind: '들름', title: '가에 들렀어요', place: 'a' });
+  r = addEntry(r, { kind: '걷기', title: '걷기', minutes: 5, meters: 300 });
+  r = addEntry(r, { kind: '들름', title: '가에 들렀어요', place: 'a' });
+  const v = visitedPlaces(r);
+  assert.deepEqual([...v], [['a', 490]]);
+  assert.equal(visitedPlaces(null).size, 0);
+});
+
+test('랜드마크 자리는 적어 둔 시·군 안에 있다(같은 이름의 다른 곳을 고르지 않았는지)', { skip: existsSync(resolve(ROOT, 'data/build/landmarks.json')) ? false : 'npm run landmarks를 먼저 돌려요' }, async () => {
+  const { decodeDongs, dongAt } = await import('../src/sim/address.js');
+  const dongs = decodeDongs(JSON.parse(readFileSync(resolve(ROOT, 'data/build/dong-shapes.json'), 'utf8')));
+  const { landmarks } = JSON.parse(readFileSync(resolve(ROOT, 'data/build/landmarks.json'), 'utf8'));
+  const wrong = [];
+  for (const lm of landmarks) {
+    // 바다 위에 찍힌 곳은 둘레에서 가장 가까운 동을 본다. 주소를 따로 적어 둔 곳은 그 주소를 본다.
+    let dong = lm.address ?? dongAt(dongs, lm);
+    for (const r of [0.1, 0.2, 0.4, 0.8]) for (let k = 0; k < 8 && !dong; k++) dong = dongAt(dongs, { x: lm.x + r * Math.cos((k * Math.PI) / 4), y: lm.y + r * Math.sin((k * Math.PI) / 4) });
+    if (!dong?.includes(lm.city)) wrong.push(`${lm.name}(${lm.city}) → ${dong}`);
+  }
+  assert.deepEqual(wrong, []);
+});
+
+test('랜드마크 음악은 지난번에서 10초가 지나야 다시 나온다', async () => {
+  const { canPlayAgain, MUSIC_GAP_MS } = await import('../src/sim/walk-mode.js');
+  assert.equal(MUSIC_GAP_MS, 10000);
+  assert.equal(canPlayAgain(-Infinity, 0), true);
+  assert.equal(canPlayAgain(1000, 10999), false);
+  assert.equal(canPlayAgain(1000, 11000), true);
+});

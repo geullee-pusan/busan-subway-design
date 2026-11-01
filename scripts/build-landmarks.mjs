@@ -43,7 +43,7 @@ for (const item of config.landmarks) {
   }
   const lines = (facts[item.id]?.facts ?? []).map((f) => ({ text: f.text, source: f.source }));
   if (!lines.length) problems.push(`${item.name}: 소개 글이 없어요`);
-  out.push({ id: item.id, name: item.name, city: item.city, kind: item.kind, x: point.x, y: point.y, radius: item.radius / 1000, osm: `${element.type}/${element.id}`, facts: lines });
+  out.push({ id: item.id, name: item.name, city: item.city, kind: item.kind, x: point.x, y: point.y, radius: item.radius / 1000, ...(item.address ? { address: item.address } : {}), osm: `${element.type}/${element.id}`, facts: lines });
 }
 const data = {
   _설명: '걸어서 여행하기의 랜드마크. x, y는 격자 좌표(km), radius는 도착으로 보는 거리(km). facts는 소개 글과 출처(자세한 근거는 data/facts.json). 만든 곳: scripts/build-landmarks.mjs',

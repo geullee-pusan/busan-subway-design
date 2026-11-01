@@ -2863,3 +2863,66 @@ body {
 .walk-goal {
   font-weight: 700;
 }
+
+/* 랜드마크 목록 */
+.lm-list-card {
+  grid-column: 1 / -1;
+}
+
+.lm-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lm-row {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 2px solid #ced4da;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.lm-row.is-visited {
+  border-color: #2f9e44;
+  background: #f4fbf3;
+}
+
+.lm-row-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+.lm-row-icon {
+  font-size: 1.3rem;
+}
+
+.lm-row-kind {
+  font-size: 0.9rem;
+}
+
+.lm-visit {
+  margin-left: auto;
+  font-weight: 700;
+}
+
+.lm-visit.is-yes {
+  color: #2b8a3e;
+}
+
+.lm-row-address {
+  margin: 0;
+}
+
+.lm-row-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  justify-content: space-between;
+}

@@ -1,5 +1,5 @@
 {
-  "_설명": "걸어서 여행하기의 랜드마크. osm은 OpenStreetMap 요소(data/raw/osm/landmarks.json, 자리는 그 가운데 점). 이름만 있으면 near(위도, 경도)에 가장 가까운 같은 이름 요소를 쓴다. kind는 도착 장면 그림 종류, radius는 도착으로 보는 거리(m, 넓은 곳은 크게, 우리가 정한 값). 소개 글(사실)은 data/facts.json의 landmarks에 출처와 함께 있다.",
+  "_설명": "걸어서 여행하기의 랜드마크. osm은 OpenStreetMap 요소(data/raw/osm/landmarks.json, 자리는 그 가운데 점). 이름만 있으면 near(위도, 경도)에 가장 가까운 같은 이름 요소를 쓴다. kind는 도착 장면 그림 종류, radius는 도착으로 보는 거리(m, 넓은 곳은 크게, 우리가 정한 값). 소개 글(사실)은 data/facts.json의 landmarks에 출처와 함께 있다. address가 있으면 주소로 그것을 쓴다(지도 점이 시·군 경계 너머에 찍힌 곳).",
   "landmarks": [
     {
       "id": "haeundae",
@@ -513,7 +513,7 @@
       "id": "seokguram",
       "name": "석굴암",
       "city": "경주",
-      "osm": "node/6390811338",
+      "osm": "way/382647781",
       "kind": "temple",
       "radius": 200
     },
@@ -755,7 +755,9 @@
       "city": "영천",
       "osm": "way/655989013",
       "kind": "observatory",
-      "radius": 250
+      "radius": 250,
+      "address": "경상북도 영천시 화북면",
+      "addressSource": "한국어 위키백과: 보현산천문대(영천시 화북면과 청송군 현서면에 걸친 보현산)"
     },
     {
       "id": "seongbak",

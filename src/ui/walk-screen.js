@@ -10,11 +10,12 @@ import { decodeDongs, dongAt } from '../sim/address.js';
 import { decodeRoads, indexRoads, nearestRoad, placeOn, pointAlong, taxiRoute, walkAlong, walkRoute } from '../sim/roads.js';
 import { searchTrains, trainFare } from '../sim/train-trip.js';
 import { planTrips, taxiFare } from '../sim/trip.js';
-import { HAIL_KM, NEAR_KM, addEntry, emptyRecord, minutesWalking, nearby, nextArrivals, subwayHeadway } from '../sim/walk-mode.js';
+import { HAIL_KM, NEAR_KM, addEntry, emptyRecord, canPlayAgain, minutesWalking, nearby, nextArrivals, subwayHeadway, visitedPlaces } from '../sim/walk-mode.js';
 import { busRouteText, clockText, distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { renderJourney } from './journey-screen.js';
 import { loadView, saveView } from './storage.js';
 import { hhmm, runTrainTrip, trainDestination } from './train-journey.js';
+import { createLandmarkMusic } from './landmark-music.js';
 import { LANDMARK_ICON, landmarkScene } from './landmark-scenes.js';
 import { createWalkMap } from './walk-map.js';
 import { textWithCards } from './word-card.js';
@@ -106,7 +107,11 @@ export function renderWalk(root, { onHome }) {
   let needsDraw = true;
   let insideLandmark = null; // 지금 들어와 있는 랜드마크(나가기 전에는 다시 보여 주지 않는다)
   let goal = null; // 가 보고 싶은 곳(랜드마크)
-  let sceneAt = null; // 도착 장면을 띄운 자리(조금 걸어도 장면은 남겨 둔다)
+  let sceneAt = null;
+  // 랜드마크 음악: 마지막으로 튼 뒤 10초가 지나야 다시 튼다(둘레를 왔다 갔다 해도 계속 나오지 않게, canPlayAgain)
+  const music = createLandmarkMusic();
+  let musicOn = loadView().walkSound !== false;
+  let lastMusicAt = -Infinity; // 도착 장면을 띄운 자리(조금 걸어도 장면은 남겨 둔다)
   let view = { ox: 0, oy: 0 }; // 지도를 끌어 옮긴 만큼(km). 걸으면 내 자리로 돌아온다.
   const center = () => ({ x: me.x + view.ox, y: me.y + view.oy });
   let blockedSaid = 0;
@@ -131,6 +136,8 @@ export function renderWalk(root, { onHome }) {
   );
   screen.append(bar);
   const body = element('div', 'walk-body');
+  // 태블릿은 손으로 누른 뒤에만 소리를 낼 수 있어서, 누를 때마다 소리를 깨워 둔다
+  body.addEventListener('pointerdown', () => musicOn && music.wake());
   screen.append(body);
   root.append(screen);
 
@@ -142,6 +149,7 @@ export function renderWalk(root, { onHome }) {
     window.removeEventListener('keydown', onKey);
     window.removeEventListener('keyup', onKey);
     window.removeEventListener('resize', markDraw);
+    music.stop();
   }
 
   const now = () => record.start + record.minutes;
@@ -312,7 +320,16 @@ export function renderWalk(root, { onHome }) {
     nearBox = element('div', 'walk-near');
     body.append(nearBox);
     const tools = element('div', 'tool-row');
-    tools.append(button('가 보고 싶은 곳', chooseGoal), button('여행 기록 보기', showRecord), button('그만 걷기', finish));
+    const soundButton = button(musicOn ? '소리: 켬' : '소리: 끔', () => {
+      musicOn = !musicOn;
+      saveView({ walkSound: musicOn });
+      soundButton.textContent = musicOn ? '소리: 켬' : '소리: 끔';
+      soundButton.setAttribute('aria-pressed', String(musicOn));
+      if (musicOn) music.wake();
+      else music.stop();
+    });
+    soundButton.setAttribute('aria-pressed', String(musicOn));
+    tools.append(soundButton, button('랜드마크 목록', () => showLandmarkList()), button('가 보고 싶은 곳', chooseGoal), button('여행 기록 보기', showRecord), button('그만 걷기', finish));
     body.append(tools);
 
     map = createWalkMap(canvas, {
@@ -563,7 +580,7 @@ export function renderWalk(root, { onHome }) {
     }
     insideLandmark = here;
     flushWalk();
-    record = addEntry(record, { kind: '들름', title: `${here.name}에 들렀어요`, minutes: 0 });
+    record = addEntry(record, { kind: '들름', title: `${here.name}에 들렀어요`, minutes: 0, place: here.id });
     if (goal?.id === here.id) {
       goal = null;
       updateGoal();
@@ -576,6 +593,7 @@ export function renderWalk(root, { onHome }) {
 
   /** 도착 장면: 그림, 소개 글, 가까운 탈 것 */
   function showLandmark(lm) {
+    playLandmarkMusic(lm);
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     const card = element('div', 'lm-card');
     const [icon, kindName] = LANDMARK_ICON[lm.kind] ?? ['📍', '랜드마크'];
@@ -599,6 +617,93 @@ export function renderWalk(root, { onHome }) {
     lastNearAt = { ...me };
     sceneAt = { ...me };
     say(`${lm.name}에 왔어요.`);
+  }
+
+  /** 랜드마크 주소: 시·구·동과 가까운 길 이름(한 번 셈해 둔다) */
+  const addressCache = new Map();
+  function landmarkAddress(lm) {
+    if (!addressCache.has(lm.id)) {
+      // 바다 위에 찍힌 곳(해수욕장 가운데 등)은 둘레에서 가장 가까운 동을 찾는다. 자료에 주소가 있으면 그것을 쓴다.
+      let dong = lm.address ?? dongAt(dongShapesList, lm);
+      for (const r of [0.1, 0.2, 0.4, 0.8]) {
+        if (dong) break;
+        for (let k = 0; k < 8 && !dong; k++) dong = dongAt(dongShapesList, { x: lm.x + r * Math.cos((k * Math.PI) / 4), y: lm.y + r * Math.sin((k * Math.PI) / 4) });
+      }
+      const named = nearestRoad(roads, roadIndex, lm, 0.3, (edge) => Boolean(edge.name));
+      const road = named ? roads.edges[named.edge].name : null;
+      addressCache.set(lm.id, [dong ?? lm.city, road ? `${road} 가까이` : null].filter(Boolean).join(' · '));
+    }
+    return addressCache.get(lm.id);
+  }
+
+  /** 이번 여행에서 들른 곳(id → 처음 들른 시각). 예전 기록은 이름으로 찾는다. */
+  function visitedNow() {
+    const visited = visitedPlaces(record);
+    for (const e of record.entries) {
+      if (e.kind !== '들름' || e.place) continue;
+      const lm = landmarks.find((l) => e.title === `${l.name}에 들렀어요`);
+      if (lm && !visited.has(lm.id)) visited.set(lm.id, e.at);
+    }
+    return visited;
+  }
+
+  /** 랜드마크 목록: 이름, 주소, 이번 여행에서 들렀는지, 지금 자리에서 곧은 거리 */
+  function showLandmarkList(city = '전체') {
+    nearBox.replaceChildren();
+    const visited = visitedNow();
+    const card = element('div', 'walk-card lm-list-card');
+    card.append(element('strong', null, '랜드마크 목록'));
+    card.append(element('p', 'panel-note', '들른 곳은 이번 여행 기록으로 알려 줘요. 처음부터 다시 하면 새로 시작해요.'));
+    // 도시 고르기
+    const cities = ['전체', ...new Set(landmarks.map((l) => l.city))];
+    const cityRow = element('div', 'tr-sound-row');
+    cityRow.setAttribute('role', 'group');
+    cityRow.setAttribute('aria-label', '도시 고르기');
+    for (const c of cities) {
+      const node = button(c, () => showLandmarkList(c), c === city ? 'button is-on' : 'button');
+      node.setAttribute('aria-pressed', String(c === city));
+      cityRow.append(node);
+    }
+    card.append(cityRow);
+    const list = landmarks
+      .filter((l) => city === '전체' || l.city === city)
+      .map((l) => ({ l, km: Math.hypot(l.x - me.x, l.y - me.y) }))
+      .sort((a, b) => a.km - b.km);
+    const table = element('ul', 'lm-list');
+    for (const { l, km } of list) {
+      const row = element('li', `lm-row${visited.has(l.id) ? ' is-visited' : ''}`);
+      const [icon, kindName] = LANDMARK_ICON[l.kind] ?? ['📍', '랜드마크'];
+      const head = element('div', 'lm-row-head');
+      head.append(element('span', 'lm-row-icon', icon), element('strong', null, l.name), element('span', 'lm-row-kind', kindName));
+      // 들렀는지: 글자와 표시를 함께(색만으로 알리지 않는다)
+      const seen = visited.has(l.id);
+      head.append(element('span', `lm-visit ${seen ? 'is-yes' : 'is-no'}`, seen ? `✔ 들렀어요 ${hhmm(visited.get(l.id))}` : '○ 아직 안 들렀어요'));
+      row.append(head);
+      row.append(element('p', 'lm-row-address', `📍 ${landmarkAddress(l)}`));
+      const foot = element('div', 'lm-row-foot');
+      foot.append(element('span', 'lm-row-dist', `여기서 곧게 재면 ${distanceText(Math.round(km * 1000))}`));
+      foot.append(
+        button(goal?.id === l.id ? '가는 곳이에요' : '가는 곳으로 정하기', () => {
+          goal = l;
+          needsDraw = true;
+          updateGoal();
+          showLandmarkList(city);
+        }, goal?.id === l.id ? 'button is-on' : 'button'),
+      );
+      row.append(foot);
+      table.append(row);
+    }
+    card.append(table);
+    card.append(button('닫기', () => updateNear(true)));
+    nearBox.append(card);
+  }
+
+  /** 랜드마크 음악(소리를 켰고, 지난번 음악에서 10초가 지났을 때만) */
+  function playLandmarkMusic(lm) {
+    if (!musicOn) return;
+    const now = performance.now();
+    if (!canPlayAgain(lastMusicAt, now)) return;
+    if (music.play(lm.kind) > 0) lastMusicAt = now;
   }
 
   /** 가 보고 싶은 곳 고르기 */

@@ -94,7 +94,7 @@ export function emptyRecord(startMinute) {
 /**
  * 기록에 한 가지 일을 더한다(새 기록을 돌려준다).
  * @param {{start: number, minutes: number, meters: number, paid: number, entries: object[]}} record
- * @param {{kind: string, title: string, minutes?: number, meters?: number, fare?: number}} entry
+ * @param {{kind: string, title: string, minutes?: number, meters?: number, fare?: number, place?: string}} entry place: 들른 랜드마크 id
  */
 export function addEntry(record, entry) {
   const minutes = Math.max(0, entry.minutes ?? 0);
@@ -106,7 +106,7 @@ export function addEntry(record, entry) {
   const entries =
     entry.kind === '걷기' && last?.kind === '걷기'
       ? [...record.entries.slice(0, -1), { ...last, minutes: last.minutes + minutes, meters: last.meters + meters }]
-      : [...record.entries, { kind: entry.kind, title: entry.title, at, minutes, meters, fare }];
+      : [...record.entries, { kind: entry.kind, title: entry.title, at, minutes, meters, fare, ...(entry.place ? { place: entry.place } : {}) }];
   return { start: record.start, minutes: record.minutes + minutes, meters: record.meters + meters, paid: record.paid + fare, entries };
 }
 
@@ -122,4 +122,23 @@ export function subwayHeadway(service, line, hour) {
   const counts = entry.directions.map((d) => d.trainsPerHour?.[key] ?? 0).filter((n) => n > 0);
   if (!counts.length) return null;
   return 60 / (counts.reduce((a, b) => a + b, 0) / counts.length);
+}
+
+/**
+ * 이번 여행에서 들른 랜드마크: id → 처음 들른 시각(분).
+ * @param {{entries: {place?: string, at: number}[]}} record
+ * @returns {Map<string, number>}
+ */
+export function visitedPlaces(record) {
+  const out = new Map();
+  for (const e of record?.entries ?? []) if (e.place && !out.has(e.place)) out.set(e.place, e.at);
+  return out;
+}
+
+/** 랜드마크 음악을 다시 틀 때까지 기다리는 시간(밀리초). 둘레를 왔다 갔다 해도 계속 나오지 않게 한다. */
+export const MUSIC_GAP_MS = 10000;
+
+/** 지난번 음악(lastMs)에서 gapMs가 지났으면 다시 틀어도 된다 */
+export function canPlayAgain(lastMs, nowMs, gapMs = MUSIC_GAP_MS) {
+  return !(nowMs - lastMs < gapMs);
 }
