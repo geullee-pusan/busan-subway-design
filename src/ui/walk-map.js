@@ -23,7 +23,9 @@ const ROAD_STYLE = {
   5: { width: 7, fill: '#FBFAF6', edge: '#D3D6D9' },
 };
 /** 멀리서 볼 때(1km가 몇 픽셀보다 작을 때) 그리지 않는 작은 길: 종류 → 이 축척보다 크면 그린다 */
-const ROAD_MIN_SCALE = { 1: 0, 2: 0, 3: 40, 4: 90, 5: 220 };
+const ROAD_MIN_SCALE = { 1: 0, 2: 40, 3: 60, 4: 90, 5: 220 };
+/** 이보다 멀리 볼 때(1km가 몇 픽셀보다 작을 때)는 간단히 그린다: 바닷가는 1km 칸으로, 길은 큰길만, 역·정류장은 빼고 */
+export const SIMPLE_SCALE = 40;
 /** 가장 멀리 볼 때와 가장 가까이 볼 때(1km가 몇 픽셀) */
 export const MIN_SCALE = 5;
 export const MAX_SCALE = 2200;
@@ -143,9 +145,12 @@ export function createWalkMap(canvas, world) {
     // 바다를 먼저 칠하고, 행정동 모양(땅)으로 잘라 그 안에 지형 칸을 칠한다. 바닷가 모양이 1km 칸보다 자연스럽다.
     ctx.fillStyle = GROUND.sea;
     ctx.fillRect(0, 0, w, h);
+    const simple = scale < SIMPLE_SCALE;
     ctx.save();
     ctx.beginPath();
-    for (const dong of world.dongs) {
+    // 멀리 볼 때는 동 모양으로 자르지 않고 1km 칸 지형만 칠한다(그릴 것이 많아 느려지지 않게)
+    if (simple) ctx.rect(0, 0, w, h);
+    else for (const dong of world.dongs) {
       const [bx0, by0, bx1, by1] = dong.box;
       if (bx1 < left || bx0 > right || by1 < top || by0 > bottom) continue;
       for (const ring of dong.rings) {
@@ -157,6 +162,7 @@ export function createWalkMap(canvas, world) {
     for (let row = r0; row <= r1; row++) {
       for (let col = c0; col <= c1; col++) {
         let terrain = world.grid.terrain[row]?.[col] ?? 'sea';
+        if (simple && terrain === 'sea') continue;
         if (terrain === 'sea') terrain = 'flat';
         ctx.fillStyle = GROUND[terrain] ?? GROUND.flat;
         ctx.fillRect(Math.floor(sx(col)), Math.floor(sy(row)), Math.ceil(scale) + 1, Math.ceil(scale) + 1);
@@ -225,20 +231,27 @@ export function createWalkMap(canvas, world) {
     visible.sort((a, b) => b.cls - a.cls);
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
-    const stroke = (edge, width, color) => {
+    // 같은 종류의 길은 한 번에 모아 그린다(길마다 따로 그리면 멀리 볼 때 아주 느리다)
+    const byClass = new Map();
+    for (const edge of visible) {
+      if (!byClass.has(edge.cls)) byClass.set(edge.cls, []);
+      byClass.get(edge.cls).push(edge);
+    }
+    const classes = [...byClass.keys()].sort((a, b) => b - a);
+    const strokeAll = (edges, width, color) => {
       ctx.beginPath();
-      edge.pts.forEach(([px, py], k) => (k ? ctx.lineTo(sx(px), sy(py)) : ctx.moveTo(sx(px), sy(py))));
+      for (const edge of edges) edge.pts.forEach(([px, py], k) => (k ? ctx.lineTo(sx(px), sy(py)) : ctx.moveTo(sx(px), sy(py))));
       ctx.strokeStyle = color;
       ctx.lineWidth = width;
       ctx.stroke();
     };
     // 멀리서 볼 때는 테두리 없이 가는 선으로
     const far = scale < 120;
-    if (!far) for (const edge of visible) stroke(edge, Math.max(3, (ROAD_STYLE[edge.cls].width / 1000) * scale + 3), ROAD_STYLE[edge.cls].edge);
-    for (const edge of visible) stroke(edge, far ? (edge.cls <= 2 ? 2 : 1) : Math.max(2, (ROAD_STYLE[edge.cls].width / 1000) * scale), far ? (edge.cls === 1 ? '#D9A53F' : '#FFFFFF') : ROAD_STYLE[edge.cls].fill);
+    if (!far) for (const cls of classes) strokeAll(byClass.get(cls), Math.max(3, (ROAD_STYLE[cls].width / 1000) * scale + 3), ROAD_STYLE[cls].edge);
+    for (const cls of classes) strokeAll(byClass.get(cls), far ? (cls <= 2 ? 2 : 1) : Math.max(2, (ROAD_STYLE[cls].width / 1000) * scale), far ? (cls === 1 ? '#D9A53F' : '#FFFFFF') : ROAD_STYLE[cls].fill);
     if (scale >= 500) {
       ctx.setLineDash([8, 8]);
-      for (const edge of visible) if (edge.cls <= 2) stroke(edge, 1.5, '#E3B341');
+      strokeAll(visible.filter((edge) => edge.cls <= 2), 1.5, '#E3B341');
       ctx.setLineDash([]);
     }
     // 택시가 가는 길(노란 점선), 걸어갈 길(주황 점선)

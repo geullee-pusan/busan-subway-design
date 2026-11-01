@@ -3027,3 +3027,19 @@ body {
     display: none;
   }
 }
+
+.walk-zoom-note {
+  position: absolute;
+  left: 50%;
+  top: 52px;
+  transform: translateX(-50%);
+  max-width: 80%;
+  margin: 0;
+  padding: 6px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+}

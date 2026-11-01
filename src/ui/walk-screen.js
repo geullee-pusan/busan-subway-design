@@ -117,7 +117,11 @@ export function renderWalk(root, { onHome }) {
   let musicOn = loadView().walkSound !== false;
   let lastMusicAt = -Infinity; // 도착 장면을 띄운 자리(조금 걸어도 장면은 남겨 둔다)
   let view = { ox: 0, oy: 0 }; // 지도를 끌어 옮긴 만큼(km). 걸으면 내 자리로 돌아온다.
-  const center = () => ({ x: me.x + view.ox, y: me.y + view.oy });
+  const center = () => ({
+    x: Math.max(0, Math.min(grid.cols, me.x + view.ox)),
+    y: Math.max(0, Math.min(grid.rows, me.y + view.oy)),
+  });
+  let lastGood = null; // 마지막으로 확인한 바른 자리(자리 값이 잘못되면 여기로 되돌린다)
   let blockedSaid = 0;
   let joy = { dx: 0, dy: 0 };
   const keys = new Set();
@@ -264,6 +268,7 @@ export function renderWalk(root, { onHome }) {
   let nearBox = null;
   let messageBox = null;
   let addressBox = null;
+  let zoomNote = null;
   let goalBox = null;
   let lastAddressAt = null;
 
@@ -294,6 +299,9 @@ export function renderWalk(root, { onHome }) {
     addressBox = element('div', 'walk-address');
     stage.append(addressBox);
     stage.append(element('p', 'walk-osm', '© OpenStreetMap contributors'));
+    zoomNote = element('p', 'walk-zoom-note', '멀리서 볼 때는 큰길과 도시만 보여요. 자세히 보려면 + 를 눌러 확대해요.');
+    zoomNote.hidden = true;
+    stage.append(zoomNote);
     // 확대·축소(단추, 두 손가락, 마우스 휠)
     const zoomBy = (factor) => {
       map.setScale(map.scale * factor);
@@ -420,7 +428,10 @@ export function renderWalk(root, { onHome }) {
       }
       if (tap && Math.hypot(e.clientX - tap.x, e.clientY - tap.y) > 10) tap = null;
       if (drag && !tap && touches.size === 1) {
-        view = { ox: drag.ox - (e.clientX - drag.x) / map.scale, oy: drag.oy - (e.clientY - drag.y) / map.scale };
+        // 끌어도 지도 범위 밖으로는 나가지 않는다
+        const ox = drag.ox - (e.clientX - drag.x) / map.scale;
+        const oy = drag.oy - (e.clientY - drag.y) / map.scale;
+        view = { ox: Math.max(-me.x, Math.min(grid.cols - me.x, ox)), oy: Math.max(-me.y, Math.min(grid.rows - me.y, oy)) };
         needsDraw = true;
       }
     });
@@ -444,7 +455,8 @@ export function renderWalk(root, { onHome }) {
       'wheel',
       (e) => {
         e.preventDefault();
-        zoomBy(Math.exp(-e.deltaY * 0.0015));
+        // 한 번 굴릴 때 너무 많이 줌하지 않게(트랙패드·큰 휠)
+        zoomBy(Math.max(0.8, Math.min(1.25, Math.exp(-e.deltaY * 0.0015))));
       },
       { passive: false },
     );
@@ -461,12 +473,25 @@ export function renderWalk(root, { onHome }) {
     frame = requestAnimationFrame(tick);
   }
 
+  /** 멀리 볼 때(작은 길·건물·정류장을 빼고 그릴 때) 확대하라는 안내 */
+  function updateZoomNote() {
+    if (!zoomNote || !map) return;
+    const far = map.scale < 90;
+    if (zoomNote.hidden === far) zoomNote.hidden = !far;
+  }
+
   function markDraw() {
     needsDraw = true;
   }
 
   function clearTarget() {
     if (target || walkPath) needsDraw = true;
+    // 누른 곳까지 걷던 중에 멈추면, 지금 서 있는 길 위 자리를 다시 잡는다
+    // (걷는 동안에는 자리를 따로 고치지 않아서, 그대로 두면 출발했던 자리로 돌아간다)
+    if (walkPath) {
+      const here = nearestRoad(roads, roadIndex, me, 0.05);
+      if (here) at = { edge: here.edge, seg: here.seg, t: here.t };
+    }
     target = null;
     walkPath = null;
   }
@@ -492,6 +517,8 @@ export function renderWalk(root, { onHome }) {
       return;
     }
     target = { x: goal.point[0], y: goal.point[1] };
+    // 걷기 시작하면 화면이 내 자리로 돌아온다
+    view = { ox: 0, oy: 0 };
     walkPath = { points: route.points, km: route.km, done: 0, goal: { edge: goal.edge, seg: goal.seg, t: goal.t } };
     say(`길을 따라 ${distanceText(Math.round(route.km * 1000))} 걸어가요.`);
     needsDraw = true;
@@ -525,6 +552,15 @@ export function renderWalk(root, { onHome }) {
   }
 
   function step(t) {
+    // 자리 값이 잘못되면(숫자가 아니면) 바로 앞의 바른 자리로 되돌린다. 그대로 두면 지도가 바다만 보인다.
+    if (!Number.isFinite(me?.x) || !Number.isFinite(me?.y)) {
+      walkPath = null;
+      target = null;
+      if (lastGood) standAt(lastGood);
+      needsDraw = true;
+    } else lastGood = { x: me.x, y: me.y };
+    if (!Number.isFinite(view.ox) || !Number.isFinite(view.oy)) view = { ox: 0, oy: 0 };
+    updateZoomNote();
     const dt = Math.min(0.1, (t - lastTime) / 1000);
     lastTime = t;
     if (mode === 'walk') {
