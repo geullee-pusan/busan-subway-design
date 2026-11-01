@@ -2,7 +2,7 @@
   "version": 0.6,
   "generator": "Overpass API 0.7.62.11 87bfad18",
   "osm3s": {
-    "timestamp_osm_base": "2026-10-31T13:57:51Z",
+    "timestamp_osm_base": "2026-11-01T02:50:20Z",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
   },
   "elements": [
@@ -3652,6 +3652,16 @@
     "amenity": "place_of_worship",
     "name": "청련암",
     "religion": "buddhist"
+  }
+},
+{
+  "type": "node",
+  "id": 10300266836,
+  "lat": 35.0754291,
+  "lon": 128.2693974,
+  "tags": {
+    "name": "갓바위",
+    "natural": "rock"
   }
 },
 {
@@ -10453,6 +10463,17 @@
 },
 {
   "type": "node",
+  "id": 10250294815,
+  "lat": 35.2236200,
+  "lon": 128.4324600,
+  "tags": {
+    "ele": "216.1",
+    "name": "갓바위",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
   "id": 10690532328,
   "lat": 35.2480974,
   "lon": 128.4335917,
@@ -16275,6 +16296,40 @@
 },
 {
   "type": "node",
+  "id": 5052782200,
+  "lat": 35.1702867,
+  "lon": 129.1278183,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "영화의전당",
+    "name:ja": "映画の殿堂",
+    "public_transport": "platform",
+    "stop_id": "09369"
+  }
+},
+{
+  "type": "node",
+  "id": 5478364332,
+  "lat": 35.1712188,
+  "lon": 129.1266587,
+  "tags": {
+    "addr:city": "부산광역시",
+    "addr:district": "해운대구",
+    "addr:housenumber": "120",
+    "addr:postcode": "48058",
+    "addr:street": "수영강변대로",
+    "addr:subdistrict": "우동",
+    "amenity": "cinema",
+    "name": "영화의전당",
+    "name:ja": "映画の殿堂",
+    "opening_hours": "07:00-24:00",
+    "payment:cash": "yes",
+    "payment:credit_cards": "yes"
+  }
+},
+{
+  "type": "node",
   "id": 12767820701,
   "lat": 35.1718633,
   "lon": 129.1286373,
@@ -16336,6 +16391,19 @@
     "name:zh": "冬柏公園",
     "name:zh-Hans": "冬柏公园",
     "name:zh-Hant": "冬柏公園"
+  }
+},
+{
+  "type": "node",
+  "id": 7866912597,
+  "lat": 35.1540639,
+  "lon": 129.1520862,
+  "tags": {
+    "name": "동백섬",
+    "name:en": "Dongbaek Island",
+    "name:ja": "冬柏島",
+    "place": "island",
+    "wikidata": "Q18999434"
   }
 },
 {
@@ -25073,6 +25141,17 @@
 },
 {
   "type": "node",
+  "id": 11031811829,
+  "lat": 35.5748544,
+  "lon": 128.9856375,
+  "tags": {
+    "information": "board",
+    "name": "얼음골",
+    "tourism": "information"
+  }
+},
+{
+  "type": "node",
   "id": 11088288973,
   "lat": 35.5743025,
   "lon": 128.9866368,
@@ -33630,6 +33709,61 @@
 },
 {
   "type": "node",
+  "id": 369866487,
+  "lat": 35.8760602,
+  "lon": 128.6050621,
+  "tags": {
+    "name": "칠성시장",
+    "name:en": "Chilseong Market",
+    "name:ja": "チルソンシジャン(七星市場)",
+    "name:ko": "칠성시장",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "133",
+    "subway": "yes",
+    "wikidata": "Q625824",
+    "wikipedia": "ko:칠성시장역"
+  }
+},
+{
+  "type": "node",
+  "id": 12750031499,
+  "lat": 35.8761232,
+  "lon": 128.6050937,
+  "tags": {
+    "name": "칠성시장",
+    "name:en": "Chilseong Market",
+    "name:ja": "チルソンシジャン(七星市場)",
+    "name:ko": "칠성시장",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "133",
+    "subway": "yes",
+    "wikidata": "Q625824"
+  }
+},
+{
+  "type": "node",
+  "id": 13505872561,
+  "lat": 35.8760968,
+  "lon": 128.6050739,
+  "tags": {
+    "name": "칠성시장",
+    "name:en": "Chilseong Market",
+    "name:ja": "チルソンシジャン(七星市場)",
+    "name:ko": "칠성시장",
+    "network": "대구권 전철",
+    "operator": "대구교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "133",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q625824"
+  }
+},
+{
+  "type": "node",
   "id": 4336930790,
   "lat": 35.8275762,
   "lon": 128.6124050,
@@ -35442,6 +35576,36 @@
 },
 {
   "type": "node",
+  "id": 4627960445,
+  "lat": 35.9100404,
+  "lon": 128.6536553,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "팔공산"
+  }
+},
+{
+  "type": "node",
+  "id": 4627960447,
+  "lat": 35.9097039,
+  "lon": 128.6540182,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "팔공산"
+  }
+},
+{
+  "type": "node",
+  "id": 10901143468,
+  "lat": 35.9098236,
+  "lon": 128.6538391,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "팔공산"
+  }
+},
+{
+  "type": "node",
   "id": 6282099673,
   "lat": 35.9188537,
   "lon": 128.6403755,
@@ -35769,6 +35933,18 @@
     "name": "전망바위",
     "natural": "rock",
     "tourism": "viewpoint"
+  }
+},
+{
+  "type": "node",
+  "id": 7686925946,
+  "lat": 35.9703917,
+  "lon": 128.7259110,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "갓바위",
+    "public_transport": "platform"
   }
 },
 {
@@ -43285,6 +43461,36 @@
 },
 {
   "type": "node",
+  "id": 8447892352,
+  "lat": 35.4345980,
+  "lon": 129.2811715,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "외고산옹기마을",
+    "public_transport": "platform",
+    "ref": "31512",
+    "source": "공공데이터포털",
+    "source:date": "2020-07-27"
+  }
+},
+{
+  "type": "node",
+  "id": 8447892353,
+  "lat": 35.4342772,
+  "lon": 129.2807441,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "외고산옹기마을",
+    "public_transport": "platform",
+    "ref": "31511",
+    "source": "공공데이터포털",
+    "source:date": "2020-07-27"
+  }
+},
+{
+  "type": "node",
   "id": 10250334032,
   "lat": 35.3621611,
   "lon": 129.3127694,
@@ -44442,6 +44648,21 @@
 },
 {
   "type": "node",
+  "id": 8447894153,
+  "lat": 35.4962216,
+  "lon": 129.4273823,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "일산해수욕장",
+    "public_transport": "platform",
+    "ref": "24233",
+    "source": "공공데이터포털",
+    "source:date": "2020-07-27"
+  }
+},
+{
+  "type": "node",
   "id": 3042733578,
   "lat": 35.4875125,
   "lon": 129.4348701,
@@ -44449,6 +44670,21 @@
     "ele": "69",
     "name": "술바위산",
     "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 8447894152,
+  "lat": 35.4977438,
+  "lon": 129.4280135,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "일산해수욕장",
+    "public_transport": "platform",
+    "ref": "24234",
+    "source": "공공데이터포털",
+    "source:date": "2020-07-27"
   }
 },
 {
@@ -46214,6 +46450,19 @@
 },
 {
   "type": "node",
+  "id": 4401153589,
+  "lat": 35.8333607,
+  "lon": 129.2263838,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "동궁과월지",
+    "public_transport": "platform",
+    "ref": "01237"
+  }
+},
+{
+  "type": "node",
   "id": 10821084547,
   "lat": 35.8324369,
   "lon": 129.2242434,
@@ -46240,6 +46489,19 @@
   "tags": {
     "historic": "archaeological_site",
     "name": "통일신라3단계 3호"
+  }
+},
+{
+  "type": "node",
+  "id": 12290932619,
+  "lat": 35.8329004,
+  "lon": 129.2267647,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "동궁과월지",
+    "public_transport": "platform",
+    "ref": "01238"
   }
 },
 {
@@ -46314,6 +46576,32 @@
     "name:ja": "慶州分皇寺石塔",
     "name:ko": "경주 분황사 모전석탑",
     "tourism": "attraction"
+  }
+},
+{
+  "type": "node",
+  "id": 12290952898,
+  "lat": 35.8413783,
+  "lon": 129.2330106,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "분황사",
+    "public_transport": "platform",
+    "ref": "01158"
+  }
+},
+{
+  "type": "node",
+  "id": 12290952899,
+  "lat": 35.8409240,
+  "lon": 129.2324829,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "분황사",
+    "public_transport": "platform",
+    "ref": "01157"
   }
 },
 {
@@ -46598,6 +46886,18 @@
   "tags": {
     "name": "호반장",
     "tourism": "attraction"
+  }
+},
+{
+  "type": "node",
+  "id": 12908974229,
+  "lat": 35.8436334,
+  "lon": 129.2870220,
+  "tags": {
+    "name": "보문관광단지",
+    "place": "locality",
+    "wikidata": "Q4940911",
+    "wikipedia": "ko:보문관광단지"
   }
 },
 {
@@ -51282,6 +51582,16 @@
     "name": "바데산",
     "name:ko": "바데산",
     "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 10258420038,
+  "lat": 36.3999296,
+  "lon": 129.2298791,
+  "tags": {
+    "name": "갓바위",
+    "natural": "rock"
   }
 },
 {
@@ -75775,6 +76085,28 @@
 },
 {
   "type": "way",
+  "id": 458811965,
+  "center": {
+    "lat": 35.1667800,
+    "lon": 129.1369715
+  },
+  "tags": {
+    "addr:city": "부산광역시",
+    "addr:district": "해운대구",
+    "addr:subdistrict": "우동",
+    "building": "yes",
+    "building:floor": "3",
+    "name": "부산시립미술관",
+    "name:en": "Busan City Art Museum",
+    "name:ja": "釜山市立美術館",
+    "name:ko": "부산시립미술관",
+    "name:ko-Latn": "Busansirimmisulgwan",
+    "tourism": "gallery",
+    "wikidata": "Q16096732"
+  }
+},
+{
+  "type": "way",
   "id": 489850188,
   "center": {
     "lat": 35.1640591,
@@ -90199,6 +90531,18 @@
 },
 {
   "type": "way",
+  "id": 675623997,
+  "center": {
+    "lat": 35.9152555,
+    "lon": 128.2838980
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "성밖숲"
+  }
+},
+{
+  "type": "way",
   "id": 1024096218,
   "center": {
     "lat": 35.9149136,
@@ -92143,6 +92487,19 @@
 },
 {
   "type": "way",
+  "id": 1301956332,
+  "center": {
+    "lat": 36.3765442,
+    "lon": 127.9401549
+  },
+  "tags": {
+    "name": "반곡지",
+    "natural": "water",
+    "water": "reservoir"
+  }
+},
+{
+  "type": "way",
   "id": 1301956326,
   "center": {
     "lat": 36.3804636,
@@ -93887,6 +94244,19 @@
   "tags": {
     "leisure": "park",
     "name": "명곡화원체육공원"
+  }
+},
+{
+  "type": "way",
+  "id": 427799843,
+  "center": {
+    "lat": 35.7986219,
+    "lon": 128.5226142
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "대구수목원",
+    "name:en": "Daegu Arboretum"
   }
 },
 {
@@ -97477,6 +97847,28 @@
 },
 {
   "type": "way",
+  "id": 32500418,
+  "center": {
+    "lat": 35.8297759,
+    "lon": 128.6901259
+  },
+  "tags": {
+    "leisure": "stadium",
+    "name": "대구스타디움",
+    "name:de": "Daegu Stadion",
+    "name:en": "Daegu Stadium",
+    "name:ja": "大邱スタジアム",
+    "name:ko": "대구 스타디움",
+    "name:ko-Latn": "Daeguseutadium",
+    "sport": "soccer",
+    "start_date": "2001",
+    "wikidata": "Q482441",
+    "wikimedia_commons": "File:Daegu Stadium internal.jpg",
+    "wikipedia": "en:Daegu Stadium"
+  }
+},
+{
+  "type": "way",
   "id": 846278517,
   "center": {
     "lat": 35.8290089,
@@ -98926,7 +99318,7 @@
   "type": "way",
   "id": 893596468,
   "center": {
-    "lat": 35.9192903,
+    "lat": 35.9192829,
     "lon": 128.6022606
   },
   "tags": {
@@ -99299,6 +99691,35 @@
     "layer": "1",
     "man_made": "bridge",
     "name": "팔공산1육교"
+  }
+},
+{
+  "type": "way",
+  "id": 306402256,
+  "center": {
+    "lat": 35.9099051,
+    "lon": 128.6538045
+  },
+  "tags": {
+    "addr:city": "대구광역시",
+    "addr:district": "동구",
+    "addr:housenumber": "114",
+    "addr:postcode": "41052",
+    "addr:street": "도평로",
+    "addr:subdistrict": "도동",
+    "barrier": "toll_booth",
+    "bicycle": "no",
+    "building": "yes",
+    "fax": "+82 53 715 4794",
+    "foot": "no",
+    "horse": "no",
+    "layer": "1",
+    "motor_vehicle": "yes",
+    "name": "팔공산",
+    "opening_hours": "00:00-24:00",
+    "payment:cash": "yes",
+    "payment:hi-pass": "yes",
+    "phone": "+82 53 717 2794"
   }
 },
 {
@@ -101085,6 +101506,21 @@
     "name:ko": "불광사",
     "name:ko-Latn": "Bulgwangsa",
     "religion": "buddhist"
+  }
+},
+{
+  "type": "way",
+  "id": 1236726910,
+  "center": {
+    "lat": 35.7804070,
+    "lon": 128.8066063
+  },
+  "tags": {
+    "name": "반곡지",
+    "name:ko": "반곡지",
+    "name:zh-Hant": "盤谷池",
+    "natural": "water",
+    "water": "pond"
   }
 },
 {
@@ -109831,6 +110267,27 @@
 },
 {
   "type": "way",
+  "id": 655989013,
+  "center": {
+    "lat": 36.1639983,
+    "lon": 128.9765797
+  },
+  "tags": {
+    "addr:city": "영천시",
+    "addr:housenumber": "475",
+    "addr:postcode": "38812",
+    "addr:province": "경상북도",
+    "addr:street": "정각길",
+    "addr:town": "화북면",
+    "landuse": "commercial",
+    "name": "보현산천문대",
+    "name:en": "Bohyeonsan Observatory",
+    "name:ko": "보현산천문대",
+    "office": "research"
+  }
+},
+{
+  "type": "way",
   "id": 1531530634,
   "center": {
     "lat": 36.1542151,
@@ -117683,6 +118140,22 @@
 },
 {
   "type": "way",
+  "id": 568437411,
+  "center": {
+    "lat": 35.6269782,
+    "lon": 129.4451230
+  },
+  "tags": {
+    "alt_name": "정자해변",
+    "alt_name:en": "Jeongja Beach",
+    "name": "강동몽돌해변",
+    "name:en": "Gangdong Pebble Beach",
+    "natural": "shingle",
+    "surface": "gravel"
+  }
+},
+{
+  "type": "way",
   "id": 774410511,
   "center": {
     "lat": 35.6256659,
@@ -119707,6 +120180,24 @@
     "historic": "archaeological_site",
     "historic:civilization": "korean",
     "name": "진평왕릉"
+  }
+},
+{
+  "type": "way",
+  "id": 28419792,
+  "center": {
+    "lat": 35.8447609,
+    "lon": 129.2758142
+  },
+  "tags": {
+    "intermittent": "no",
+    "name": "보문호",
+    "name:en": "Bomun Lake",
+    "name:ko": "보문호",
+    "natural": "water",
+    "salt": "no",
+    "water": "lake",
+    "wikidata": "Q34915588"
   }
 },
 {
@@ -128084,6 +128575,19 @@
     "natural": "water",
     "type": "multipolygon",
     "water": "lake"
+  }
+},
+{
+  "type": "relation",
+  "id": 12046213,
+  "center": {
+    "lat": 35.8760569,
+    "lon": 128.6051534
+  },
+  "tags": {
+    "name": "칠성시장",
+    "public_transport": "stop_area",
+    "type": "public_transport"
   }
 },
 {

@@ -1,5 +1,6 @@
 // 랜드마크에 도착했을 때 보여 주는 장면 그림(SVG). 실제 사진이 아니라 그곳의 특징을 단순하게 그린 것이다.
-// kind: beach, bridge, market, tower, cliff, village, park, temple, island, museum, wetland, lake, street, garden,
+// kind: beach, bridge, market, tower, cliff, village, park, temple, island, museum, wetland, lake, street, garden, mountain,
+//       themepark, viewpoint, fortress, hanok, rockart, stadium,
 //       observatory, cherry, tomb, pavilion
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -31,6 +32,13 @@ export const LANDMARK_ICON = {
   cherry: ['🌸', '벚꽃길'],
   tomb: ['👑', '왕의 무덤'],
   pavilion: ['🏯', '누각'],
+  mountain: ['⛰️', '산'],
+  themepark: ['🎡', '놀이공원'],
+  viewpoint: ['🌅', '전망대'],
+  fortress: ['🏰', '옛 성'],
+  hanok: ['🏡', '한옥 마을'],
+  rockart: ['🐋', '바위그림'],
+  stadium: ['🏟️', '경기장'],
 };
 
 let skyCount = 0;
@@ -257,6 +265,91 @@ const SCENES = {
     g.append(el('rect', { x: 200, y: 110, width: 200, height: 40, fill: '#C9A26B' }));
     for (let x = 205; x < 400; x += 24) g.append(el('rect', { x, y: 112, width: 8, height: 38, fill: '#8C2F2F' }));
     roof(g, 300, 100, 220, '#3F4A55');
+  },
+  mountain(g) {
+    sky(g);
+    g.append(el('path', { d: 'M0 260 L160 110 L250 170 L360 60 L470 150 L600 90 L600 320 L0 320 Z', fill: '#5E8F5C' }));
+    g.append(el('path', { d: 'M340 80 L360 60 L380 80 L370 76 L360 84 L350 76 Z', fill: '#FFFFFF' }));
+    for (let i = 0; i < 14; i++) tree(g, 20 + i * 42, 280 - (i % 3) * 14, 0.8, '#3E7A3E');
+    g.append(el('path', { d: 'M120 300 Q200 250 260 220 T360 120', stroke: '#C9B48A', 'stroke-width': 5, fill: 'none', 'stroke-dasharray': '10 6' }));
+    person(g, 240, 236);
+  },
+  themepark(g) {
+    sky(g);
+    ground(g, 240, '#CDE3A5');
+    // 관람차
+    g.append(el('circle', { cx: 150, cy: 140, r: 90, fill: 'none', stroke: '#868E96', 'stroke-width': 4 }));
+    for (let i = 0; i < 10; i++) {
+      const a = (i / 10) * Math.PI * 2;
+      g.append(el('line', { x1: 150, y1: 140, x2: 150 + Math.cos(a) * 90, y2: 140 + Math.sin(a) * 90, stroke: '#ADB5BD', 'stroke-width': 2 }));
+      g.append(el('rect', { x: 150 + Math.cos(a) * 90 - 9, y: 140 + Math.sin(a) * 90 - 7, width: 18, height: 14, rx: 3, fill: ['#E03131', '#1C7ED6', '#F59F00', '#2F9E44', '#AE3EC9'][i % 5] }));
+    }
+    g.append(el('path', { d: 'M150 140 L120 240 M150 140 L180 240', stroke: '#868E96', 'stroke-width': 5 }));
+    // 롤러코스터
+    g.append(el('path', { d: 'M280 230 Q320 60 380 180 T480 120 T600 200', stroke: '#E8590C', 'stroke-width': 6, fill: 'none' }));
+    for (let x = 300; x < 600; x += 40) g.append(el('line', { x1: x, y1: 240, x2: x, y2: 190 - Math.sin(x / 40) * 40, stroke: '#ADB5BD', 'stroke-width': 3 }));
+    for (const [x, c] of [[260, '#1971C2'], [420, '#2F9E44']]) person(g, x, 290, c);
+  },
+  viewpoint(g) {
+    sky(g);
+    sea(g, 200);
+    g.append(el('path', { d: 'M0 200 L120 170 L200 200 Z', fill: '#7E8C6A' }));
+    // 전망대 난간과 바라보는 사람
+    g.append(el('rect', { x: 0, y: 250, width: 600, height: 70, fill: '#B08968' }));
+    for (let x = 10; x < 600; x += 30) g.append(el('rect', { x, y: 225, width: 6, height: 30, fill: '#6F4E37' }));
+    g.append(el('rect', { x: 0, y: 222, width: 600, height: 6, fill: '#6F4E37' }));
+    person(g, 280, 250);
+    person(g, 320, 250, '#1971C2');
+    gull(g, 430, 90);
+  },
+  fortress(g) {
+    sky(g);
+    hills(g, 190, '#7FB27A');
+    // 돌로 쌓은 성벽과 성문
+    g.append(el('rect', { x: 0, y: 190, width: 600, height: 80, fill: '#B9AE9A' }));
+    for (let y = 196; y < 270; y += 14) for (let x = (y / 14) % 2 ? 0 : 20; x < 600; x += 40) g.append(el('rect', { x, y, width: 38, height: 12, fill: 'none', stroke: '#8F8574' }));
+    for (let x = 0; x < 600; x += 30) g.append(el('rect', { x, y: 178, width: 18, height: 14, fill: '#B9AE9A', stroke: '#8F8574' }));
+    g.append(el('path', { d: 'M260 270 L260 220 Q300 190 340 220 L340 270 Z', fill: '#4A3B31' }));
+    g.append(el('rect', { x: 230, y: 130, width: 140, height: 50, fill: '#C9A26B' }));
+    roof(g, 300, 124, 150, '#3F4A55');
+    ground(g, 270, '#CDE3A5');
+  },
+  hanok(g) {
+    sky(g);
+    hills(g, 180, '#6FA36A');
+    ground(g, 240, '#D8CBB0');
+    for (const [x, y, s] of [[110, 200, 1], [300, 185, 1.2], [480, 205, 0.9], [200, 240, 0.8], [420, 245, 0.9]]) {
+      g.append(el('rect', { x: x - 50 * s, y: y, width: 100 * s, height: 40 * s, fill: '#EFE6D2', stroke: '#8C5A2B' }));
+      for (let k = 0; k < 4; k++) g.append(el('rect', { x: x - 44 * s + k * 24 * s, y: y + 8 * s, width: 14 * s, height: 26 * s, fill: '#C9A26B' }));
+      roof(g, x, y - 2, 100 * s, k(x));
+    }
+    function k(x) {
+      return x % 2 ? '#5C4A3D' : '#3F4A55';
+    }
+    g.append(el('path', { d: 'M0 300 Q300 260 600 300', stroke: '#E9DCC0', 'stroke-width': 18, fill: 'none' }));
+  },
+  stadium(g) {
+    sky(g);
+    ground(g, 250, '#CDE3A5');
+    // 둥근 경기장과 지붕
+    g.append(el('ellipse', { cx: 300, cy: 200, rx: 260, ry: 80, fill: '#DEE2E6', stroke: '#868E96', 'stroke-width': 3 }));
+    g.append(el('ellipse', { cx: 300, cy: 210, rx: 200, ry: 52, fill: '#69B34C' }));
+    g.append(el('ellipse', { cx: 300, cy: 210, rx: 160, ry: 36, fill: 'none', stroke: '#C2410C', 'stroke-width': 10 }));
+    g.append(el('path', { d: 'M40 190 Q300 60 560 190', stroke: '#ADB5BD', 'stroke-width': 8, fill: 'none' }));
+    for (let x = 80; x < 540; x += 40) g.append(el('line', { x1: x, y1: 190 - Math.sin(((x - 40) / 520) * Math.PI) * 120 * 0.55, x2: x, y2: 170, stroke: '#CED4DA', 'stroke-width': 2 }));
+    for (const [x, c] of [[250, '#E03131'], [330, '#1971C2']]) person(g, x, 225, c);
+  },
+  rockart(g) {
+    sky(g);
+    g.append(el('rect', { x: 0, y: 250, width: 600, height: 70, fill: '#5FA3D3' }));
+    g.append(el('path', { d: 'M60 250 L80 60 L520 70 L540 250 Z', fill: '#8D7B68' }));
+    // 바위에 새긴 고래, 사슴, 사람 그림(단순하게)
+    const ink = { stroke: '#4A3B2E', 'stroke-width': 4, fill: 'none', 'stroke-linecap': 'round' };
+    g.append(el('path', { d: 'M150 120 Q190 100 230 120 Q190 140 150 120 M230 120 l14 -10 M230 120 l14 10', ...ink }));
+    g.append(el('path', { d: 'M300 170 Q340 150 380 170 Q340 190 300 170 M380 170 l14 -10 M380 170 l14 10', ...ink }));
+    g.append(el('path', { d: 'M420 110 l40 0 M425 110 l-4 22 M455 110 l4 22 M460 110 l8 -14 l6 -6 M468 96 l-4 -10', ...ink }));
+    g.append(el('path', { d: 'M260 220 l0 -24 M248 206 l24 0 M260 220 l-8 14 M260 220 l8 14', ...ink }));
+    g.append(el('circle', { cx: 260, cy: 186, r: 7, ...ink }));
   },
 };
 

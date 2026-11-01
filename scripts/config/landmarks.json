@@ -244,6 +244,566 @@
       "osm": "node/10690523527",
       "kind": "pavilion",
       "radius": 150
+    },
+    {
+      "id": "songdo",
+      "name": "송도해수욕장",
+      "city": "부산",
+      "osm": "way/474957001",
+      "kind": "beach",
+      "radius": 250
+    },
+    {
+      "id": "songjeong",
+      "name": "송정해수욕장",
+      "city": "부산",
+      "osm": "relation/21218076",
+      "kind": "beach",
+      "radius": 250
+    },
+    {
+      "id": "ilgwang",
+      "name": "일광해수욕장",
+      "city": "부산",
+      "osm": "way/474962049",
+      "kind": "beach",
+      "radius": 250
+    },
+    {
+      "id": "igidae",
+      "name": "이기대",
+      "city": "부산",
+      "osm": "node/4807672421",
+      "kind": "cliff",
+      "radius": 300
+    },
+    {
+      "id": "nurimaru",
+      "name": "누리마루 APEC하우스",
+      "city": "부산",
+      "osm": "way/239280379",
+      "kind": "pavilion",
+      "radius": 200
+    },
+    {
+      "id": "busanmuseum",
+      "name": "부산박물관",
+      "city": "부산",
+      "osm": "way/477293035",
+      "kind": "museum",
+      "radius": 150
+    },
+    {
+      "id": "dongnaeeupseong",
+      "name": "동래읍성",
+      "city": "부산",
+      "osm": "way/569351888",
+      "kind": "fortress",
+      "radius": 250
+    },
+    {
+      "id": "bokcheon",
+      "name": "복천박물관",
+      "city": "부산",
+      "osm": "way/475825256",
+      "kind": "museum",
+      "radius": 150
+    },
+    {
+      "id": "amisan",
+      "name": "아미산전망대",
+      "city": "부산",
+      "osm": "node/4648166183",
+      "kind": "viewpoint",
+      "radius": 150
+    },
+    {
+      "id": "molundae",
+      "name": "몰운대",
+      "city": "부산",
+      "osm": "node/10250203593",
+      "kind": "cliff",
+      "radius": 250
+    },
+    {
+      "id": "huinyeoul",
+      "name": "흰여울문화마을",
+      "city": "부산",
+      "osm": "node/5450264422",
+      "kind": "village",
+      "radius": 200
+    },
+    {
+      "id": "stairs168",
+      "name": "168계단",
+      "city": "부산",
+      "osm": "way/895269261",
+      "kind": "village",
+      "radius": 150
+    },
+    {
+      "id": "sciencemuseum",
+      "name": "국립부산과학관",
+      "city": "부산",
+      "osm": "way/474308749",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "lotteworld",
+      "name": "롯데월드 어드벤처 부산",
+      "city": "부산",
+      "osm": "way/535275469",
+      "kind": "themepark",
+      "radius": 250
+    },
+    {
+      "id": "childrenpark",
+      "name": "부산어린이대공원",
+      "city": "부산",
+      "osm": "way/475754835",
+      "kind": "park",
+      "radius": 350
+    },
+    {
+      "id": "geumgangpark",
+      "name": "금강공원",
+      "city": "부산",
+      "osm": "way/475772699",
+      "kind": "park",
+      "radius": 250
+    },
+    {
+      "id": "cheongsapo",
+      "name": "청사포",
+      "city": "부산",
+      "osm": "node/5065720021",
+      "kind": "viewpoint",
+      "radius": 200
+    },
+    {
+      "id": "busanharborbridge",
+      "name": "부산항대교",
+      "city": "부산",
+      "osm": "way/496277561",
+      "kind": "bridge",
+      "radius": 300
+    },
+    {
+      "id": "namhangbridge",
+      "name": "남항대교",
+      "city": "부산",
+      "osm": "way/496277560",
+      "kind": "bridge",
+      "radius": 300
+    },
+    {
+      "id": "hwangnyeongsan",
+      "name": "황령산",
+      "city": "부산",
+      "osm": "node/1432293082",
+      "kind": "mountain",
+      "radius": 300
+    },
+    {
+      "id": "kimkwangseok",
+      "name": "김광석 다시그리기길",
+      "city": "대구",
+      "osm": "node/6819846987",
+      "kind": "street",
+      "radius": 150
+    },
+    {
+      "id": "donghwasa",
+      "name": "동화사",
+      "city": "대구",
+      "osm": "way/660080732",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "dalseongpark",
+      "name": "달성공원",
+      "city": "대구",
+      "osm": "way/32496842",
+      "kind": "park",
+      "radius": 250
+    },
+    {
+      "id": "daegumuseum",
+      "name": "국립대구박물관",
+      "city": "대구",
+      "osm": "way/1155812218",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "gamyeongpark",
+      "name": "경상감영공원",
+      "city": "대구",
+      "osm": "way/32836262",
+      "kind": "park",
+      "radius": 150
+    },
+    {
+      "id": "songhaepark",
+      "name": "송해공원",
+      "city": "대구",
+      "osm": "way/903570194",
+      "kind": "lake",
+      "radius": 300
+    },
+    {
+      "id": "gasanfortress",
+      "name": "가산산성",
+      "city": "칠곡",
+      "osm": "way/887774234",
+      "kind": "fortress",
+      "radius": 250
+    },
+    {
+      "id": "apsan",
+      "name": "앞산",
+      "city": "대구",
+      "osm": "node/7679207643",
+      "kind": "mountain",
+      "radius": 300
+    },
+    {
+      "id": "ganjeolgot",
+      "name": "간절곶",
+      "city": "울산",
+      "osm": "way/176412465",
+      "kind": "cliff",
+      "radius": 300
+    },
+    {
+      "id": "jangsaengpo",
+      "name": "장생포고래박물관",
+      "city": "울산",
+      "osm": "way/471330175",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "ulsangrandpark",
+      "name": "울산대공원",
+      "city": "울산",
+      "osm": "way/520314210",
+      "kind": "park",
+      "radius": 400
+    },
+    {
+      "id": "bangudae",
+      "name": "반구대 암각화",
+      "city": "울산",
+      "osm": "node/5923867887",
+      "kind": "rockart",
+      "radius": 200
+    },
+    {
+      "id": "daereungwon",
+      "name": "대릉원",
+      "city": "경주",
+      "osm": "way/42435919",
+      "kind": "tomb",
+      "radius": 300
+    },
+    {
+      "id": "seokguram",
+      "name": "석굴암",
+      "city": "경주",
+      "osm": "node/6390811338",
+      "kind": "temple",
+      "radius": 200
+    },
+    {
+      "id": "gyeongjumuseum",
+      "name": "국립경주박물관",
+      "city": "경주",
+      "osm": "way/573218888",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "gyeongjuworld",
+      "name": "경주월드",
+      "city": "경주",
+      "osm": "way/132713406",
+      "kind": "themepark",
+      "radius": 300
+    },
+    {
+      "id": "yangdong",
+      "name": "양동마을",
+      "city": "경주",
+      "osm": "node/5388533525",
+      "kind": "hanok",
+      "radius": 300
+    },
+    {
+      "id": "jinhaeru",
+      "name": "진해루",
+      "city": "창원",
+      "osm": "way/469845313",
+      "kind": "pavilion",
+      "radius": 200
+    },
+    {
+      "id": "gayathemepark",
+      "name": "김해가야테마파크",
+      "city": "김해",
+      "osm": "way/527833052",
+      "kind": "themepark",
+      "radius": 300
+    },
+    {
+      "id": "beopgi",
+      "name": "법기수원지",
+      "city": "양산",
+      "osm": "node/8410187817",
+      "kind": "lake",
+      "radius": 250
+    },
+    {
+      "id": "hongryongsa",
+      "name": "홍룡사",
+      "city": "양산",
+      "osm": "way/900361744",
+      "kind": "temple",
+      "radius": 200
+    },
+    {
+      "id": "pyochungsa",
+      "name": "표충사",
+      "city": "밀양",
+      "osm": "way/660266782",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "wiyangji",
+      "name": "위양지",
+      "city": "밀양",
+      "osm": "node/8689317517",
+      "kind": "lake",
+      "radius": 250
+    },
+    {
+      "id": "unmunsa",
+      "name": "운문사",
+      "city": "청도",
+      "osm": "way/759780126",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "upo",
+      "name": "우포늪",
+      "city": "창녕",
+      "osm": "way/37220944",
+      "kind": "wetland",
+      "radius": 500
+    },
+    {
+      "id": "malisan",
+      "name": "말이산 고분군",
+      "city": "함안",
+      "osm": "way/548604639",
+      "kind": "tomb",
+      "radius": 300
+    },
+    {
+      "id": "daegayamuseum",
+      "name": "대가야박물관",
+      "city": "고령",
+      "osm": "way/185276488",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "jisandong",
+      "name": "지산동 고분군",
+      "city": "고령",
+      "osm": "way/1157609217",
+      "kind": "tomb",
+      "radius": 300
+    },
+    {
+      "id": "dongbaekseom",
+      "name": "동백섬",
+      "city": "부산",
+      "osm": "node/7866912597",
+      "kind": "island",
+      "radius": 250
+    },
+    {
+      "id": "cinemacenter",
+      "name": "영화의전당",
+      "city": "부산",
+      "osm": "node/5478364332",
+      "kind": "museum",
+      "radius": 150
+    },
+    {
+      "id": "busanartmuseum",
+      "name": "부산시립미술관",
+      "city": "부산",
+      "osm": "way/458811965",
+      "kind": "museum",
+      "radius": 150
+    },
+    {
+      "id": "hwamyeongpark",
+      "name": "화명생태공원",
+      "city": "부산",
+      "osm": "way/468696651",
+      "kind": "park",
+      "radius": 400
+    },
+    {
+      "id": "donggung",
+      "name": "동궁과 월지",
+      "city": "경주",
+      "osm": "way/477417220",
+      "kind": "pavilion",
+      "radius": 200
+    },
+    {
+      "id": "bomunlake",
+      "name": "보문호",
+      "city": "경주",
+      "osm": "way/28419792",
+      "kind": "lake",
+      "radius": 500
+    },
+    {
+      "id": "bunhwangsa",
+      "name": "분황사",
+      "city": "경주",
+      "osm": "way/479216009",
+      "kind": "temple",
+      "radius": 150
+    },
+    {
+      "id": "gyochon",
+      "name": "경주 교촌마을",
+      "city": "경주",
+      "osm": "node/5570689923",
+      "kind": "hanok",
+      "radius": 200
+    },
+    {
+      "id": "jinha",
+      "name": "진하해수욕장",
+      "city": "울산",
+      "osm": "node/368950765",
+      "kind": "beach",
+      "radius": 300
+    },
+    {
+      "id": "ilsan",
+      "name": "일산해수욕장",
+      "city": "울산",
+      "osm": "node/8447894153",
+      "kind": "beach",
+      "radius": 300
+    },
+    {
+      "id": "gangdong",
+      "name": "강동몽돌해변",
+      "city": "울산",
+      "osm": "way/568437411",
+      "kind": "beach",
+      "radius": 250
+    },
+    {
+      "id": "onggi",
+      "name": "외고산 옹기마을",
+      "city": "울산",
+      "osm": "way/631447817",
+      "kind": "village",
+      "radius": 250
+    },
+    {
+      "id": "yongji",
+      "name": "용지호수",
+      "city": "창원",
+      "osm": "way/471366484",
+      "kind": "lake",
+      "radius": 250
+    },
+    {
+      "id": "eoreumgol",
+      "name": "얼음골",
+      "city": "밀양",
+      "osm": "node/11031811829",
+      "kind": "mountain",
+      "radius": 300
+    },
+    {
+      "id": "bangokji",
+      "name": "반곡지",
+      "city": "경산",
+      "osm": "way/1236726910",
+      "kind": "lake",
+      "radius": 200
+    },
+    {
+      "id": "bohyeonsan",
+      "name": "보현산천문대",
+      "city": "영천",
+      "osm": "way/655989013",
+      "kind": "observatory",
+      "radius": 250
+    },
+    {
+      "id": "seongbak",
+      "name": "성밖숲",
+      "city": "성주",
+      "osm": "way/675623997",
+      "kind": "park",
+      "radius": 200
+    },
+    {
+      "id": "daeguscience",
+      "name": "국립대구과학관",
+      "city": "대구",
+      "osm": "way/476018820",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "daeguarboretum",
+      "name": "대구수목원",
+      "city": "대구",
+      "osm": "way/427799843",
+      "kind": "garden",
+      "radius": 300
+    },
+    {
+      "id": "chilseong",
+      "name": "칠성시장",
+      "city": "대구",
+      "osm": "node/369866487",
+      "kind": "market",
+      "radius": 200
+    },
+    {
+      "id": "palgongsan",
+      "name": "팔공산",
+      "city": "대구",
+      "osm": "node/4627960445",
+      "kind": "mountain",
+      "radius": 400
+    },
+    {
+      "id": "daegustadium",
+      "name": "대구스타디움",
+      "city": "대구",
+      "osm": "way/32500418",
+      "kind": "stadium",
+      "radius": 300
     }
   ]
 }

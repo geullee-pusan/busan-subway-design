@@ -17,6 +17,7 @@ import { loadView, saveView } from './storage.js';
 import { hhmm, runTrainTrip, trainDestination } from './train-journey.js';
 import { LANDMARK_ICON, landmarkScene } from './landmark-scenes.js';
 import { createWalkMap } from './walk-map.js';
+import { textWithCards } from './word-card.js';
 
 /** 화면에서 걷는 빠르기: 1초에 몇 km(빨리 감기). 우리가 정한 값. */
 const SCREEN_KM_PER_SEC = 0.12;
@@ -582,7 +583,12 @@ export function renderWalk(root, { onHome }) {
     card.append(landmarkScene(lm.kind, { reduceMotion, label: `${lm.name}(${kindName})을 그린 그림이에요. 실제 사진이 아니에요.` }));
     if (lm.facts.length) {
       const list = element('ul', 'lm-facts');
-      for (const f of lm.facts) list.append(element('li', null, f.text));
+      // 어려운 낱말은 낱말 카드로 잇는다
+      for (const f of lm.facts) {
+        const li = element('li');
+        li.append(textWithCards(f.text));
+        list.append(li);
+      }
       card.append(list);
       const sources = [...new Set(lm.facts.map((f) => f.source))];
       card.append(element('p', 'panel-note', `자료: ${sources.join(', ')}`));

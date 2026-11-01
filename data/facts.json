@@ -1902,6 +1902,1637 @@
           "evidence": "1970년 6월 1일에 도립공원 제1호로 지정되었다."
         }
       ]
+    },
+    "songdo": {
+      "name": "송도해수욕장",
+      "facts": [
+        {
+          "text": "1913년에 문을 연 해수욕장이에요.",
+          "source": "위키백과 「송도해수욕장 (부산)」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%86%A1%EB%8F%84%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5_(%EB%B6%80%EC%82%B0)",
+          "checked": "2026-11-01",
+          "evidence": "1913년 문을 연 해수욕장이다"
+        },
+        {
+          "text": "우리나라에서 처음 만든 해수욕장이에요.",
+          "source": "위키백과 「송도해수욕장 (부산)」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%86%A1%EB%8F%84%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5_(%EB%B6%80%EC%82%B0)",
+          "checked": "2026-11-01",
+          "evidence": "대한민국에서 처음 개발된 해수욕장"
+        },
+        {
+          "text": "모래사장 길이는 800m예요.",
+          "source": "위키백과 「송도해수욕장 (부산)」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%86%A1%EB%8F%84%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5_(%EB%B6%80%EC%82%B0)",
+          "checked": "2026-11-01",
+          "evidence": "길이는 800m, 폭은 50m이다."
+        }
+      ]
+    },
+    "songjeong": {
+      "name": "송정해수욕장",
+      "facts": [
+        {
+          "text": "모래사장 길이는 1km 200m예요.",
+          "source": "위키백과 「송정해수욕장 (부산)」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%86%A1%EC%A0%95%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5_(%EB%B6%80%EC%82%B0)",
+          "checked": "2026-11-01",
+          "evidence": "모래사장은 길이가 1.2 km"
+        },
+        {
+          "text": "물이 얕아서 서핑을 처음 배우기 좋아요.",
+          "source": "비짓부산 「자연 그대로를 간직하다, 송정해수욕장」",
+          "url": "https://www.visitbusan.net/index.do?menuCd=DOM_000000201001001000&uc_seq=280&lang_cd=ko",
+          "checked": "2026-11-01",
+          "evidence": "낮은 수심 덕분에 서핑 입문자들에게는 더 없이 좋은 장소이다."
+        }
+      ]
+    },
+    "ilgwang": {
+      "name": "일광해수욕장",
+      "facts": [
+        {
+          "text": "바닷가 길이는 1km 800m예요.",
+          "source": "위키백과 「일광해수욕장」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B4%91%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5",
+          "checked": "2026-11-01",
+          "evidence": "길이는 1.8km와 너비는 25m이다"
+        },
+        {
+          "text": "오영수의 소설 「갯마을」의 배경이에요.",
+          "source": "위키백과 「일광해수욕장」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9D%BC%EA%B4%91%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5",
+          "checked": "2026-11-01",
+          "evidence": "오영수의 소설 갯마을의 배경이 되었다."
+        }
+      ]
+    },
+    "igidae": {
+      "name": "이기대",
+      "facts": [
+        {
+          "text": "광안대교가 잘 보이는 곳이에요.",
+          "source": "위키백과 「이기대」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9D%B4%EA%B8%B0%EB%8C%80",
+          "checked": "2026-11-01",
+          "evidence": "광안대교의 조망 및 사진 촬영 장소로도 이용된다"
+        },
+        {
+          "text": "신기한 모양 바위가 약 4km 이어져요.",
+          "source": "위키백과 「이기대」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9D%B4%EA%B8%B0%EB%8C%80",
+          "checked": "2026-11-01",
+          "evidence": "특이한 모양의 암반들이 약 4km정도로 이루어져 있다"
+        }
+      ]
+    },
+    "nurimaru": {
+      "name": "누리마루 APEC하우스",
+      "facts": [
+        {
+          "text": "동백섬 안에 있는 회의장이에요.",
+          "source": "위키백과 「누리마루」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%88%84%EB%A6%AC%EB%A7%88%EB%A3%A8",
+          "checked": "2026-11-01",
+          "evidence": "동백섬 내에 위치한 회의장이다"
+        },
+        {
+          "text": "2005년 APEC 정상회의가 열렸어요.",
+          "source": "위키백과 「누리마루」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%88%84%EB%A6%AC%EB%A7%88%EB%A3%A8",
+          "checked": "2026-11-01",
+          "evidence": "2005년 부산 APEC 정상회의"
+        },
+        {
+          "text": "세계 정상들이 모인 집이라는 뜻이에요.",
+          "source": "위키백과 「누리마루」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%88%84%EB%A6%AC%EB%A7%88%EB%A3%A8",
+          "checked": "2026-11-01",
+          "evidence": "'세계의 정상들이 모여 APEC회의를 하는 집'이라는 뜻"
+        }
+      ]
+    },
+    "busanmuseum": {
+      "name": "부산박물관",
+      "facts": [
+        {
+          "text": "1978년 7월 11일에 문을 열었어요.",
+          "source": "위키백과 「부산박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%B6%80%EC%82%B0%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "1978년 7월 11일"
+        },
+        {
+          "text": "구석기부터 고려까지 부산 역사를 보여 줘요.",
+          "source": "위키백과 「부산박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%B6%80%EC%82%B0%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "구석기시대부터 고려시대까지"
+        }
+      ]
+    },
+    "dongnaeeupseong": {
+      "name": "동래읍성",
+      "facts": [
+        {
+          "text": "조선 시대 동래 고을을 둘러싼 성이에요.",
+          "source": "위키백과 「동래읍성」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8F%99%EB%9E%98%EC%9D%8D%EC%84%B1",
+          "checked": "2026-11-01",
+          "evidence": "조선시대 동래부의 행정중심지를 둘러싸고 있었던 읍성이다."
+        },
+        {
+          "text": "1731년에 성을 크게 넓혀 쌓았어요.",
+          "source": "위키백과 「동래읍성」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8F%99%EB%9E%98%EC%9D%8D%EC%84%B1",
+          "checked": "2026-11-01",
+          "evidence": "1731년에 동래부사 정언섭이"
+        },
+        {
+          "text": "성벽 둘레는 약 3km 800m였어요.",
+          "source": "위키백과 「동래읍성」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8F%99%EB%9E%98%EC%9D%8D%EC%84%B1",
+          "checked": "2026-11-01",
+          "evidence": "성곽의 둘레가 약 3.8km였다."
+        }
+      ]
+    },
+    "bokcheon": {
+      "name": "복천박물관",
+      "facts": [
+        {
+          "text": "1996년 10월 5일에 문을 열었어요.",
+          "source": "위키백과 「복천박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%B3%B5%EC%B2%9C%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "1996.10.05 복천박물관 개관"
+        }
+      ]
+    },
+    "amisan": {
+      "name": "아미산전망대",
+      "facts": [
+        {
+          "text": "낙동강 끝의 모래섬들이 한눈에 보여요.",
+          "source": "비짓부산 「강과 바다가 만나는 곳 아미산전망대」",
+          "url": "https://www.visitbusan.net/index.do?menuCd=DOM_000000201001001000&uc_seq=287&lang_cd=ko",
+          "checked": "2026-11-01",
+          "evidence": "특색 있는 모래섬들을 한눈에 조망할 수 있으며"
+        },
+        {
+          "text": "모래섬을 찾아오는 철새를 볼 수 있어요.",
+          "source": "비짓부산 「강과 바다가 만나는 곳 아미산전망대」",
+          "url": "https://www.visitbusan.net/index.do?menuCd=DOM_000000201001001000&uc_seq=287&lang_cd=ko",
+          "checked": "2026-11-01",
+          "evidence": "천연모래섬과 이곳을 찾아드는 철새들"
+        },
+        {
+          "text": "2층 전시관에서 모래섬이 생긴 과정을 배워요.",
+          "source": "비짓부산 「강과 바다가 만나는 곳 아미산전망대」",
+          "url": "https://www.visitbusan.net/index.do?menuCd=DOM_000000201001001000&uc_seq=287&lang_cd=ko",
+          "checked": "2026-11-01",
+          "evidence": "낙동강 하구의 풍경, 생태계, 삼각주 형성과정"
+        }
+      ]
+    },
+    "molundae": {
+      "name": "몰운대",
+      "facts": [
+        {
+          "text": "안개와 구름에 잠겨 안 보여서 붙은 이름이에요.",
+          "source": "위키백과 「몰운대」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%AA%B0%EC%9A%B4%EB%8C%80",
+          "checked": "2026-11-01",
+          "evidence": "안개와 구름에 잠겨서 보이지 않는다고 하여"
+        },
+        {
+          "text": "16세기까지는 섬이었어요.",
+          "source": "위키백과 「몰운대」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%AA%B0%EC%9A%B4%EB%8C%80",
+          "checked": "2026-11-01",
+          "evidence": "16세기까지는 몰운대라는 섬이 있었으나"
+        },
+        {
+          "text": "낙동강이 바다와 만나는 곳에 있어요.",
+          "source": "위키백과 「몰운대」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%AA%B0%EC%9A%B4%EB%8C%80",
+          "checked": "2026-11-01",
+          "evidence": "낙동강 하구의 가장 남쪽에서 바다와 맞닿는 곳"
+        }
+      ]
+    },
+    "huinyeoul": {
+      "name": "흰여울문화마을",
+      "facts": [
+        {
+          "text": "영도구 영선동에 있는 마을이에요.",
+          "source": "위키백과 「흰여울문화마을」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%9D%B0%EC%97%AC%EC%9A%B8%EB%AC%B8%ED%99%94%EB%A7%88%EC%9D%84",
+          "checked": "2026-11-01",
+          "evidence": "영도구 영선동4가에 위치한 마을이다."
+        },
+        {
+          "text": "눈 내리는 모습 같은 개울에서 온 이름이에요.",
+          "source": "위키백과 「흰여울문화마을」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%9D%B0%EC%97%AC%EC%9A%B8%EB%AC%B8%ED%99%94%EB%A7%88%EC%9D%84",
+          "checked": "2026-11-01",
+          "evidence": "하얀 눈이 내리는 모습과 닮은 구불구불한 개울"
+        },
+        {
+          "text": "2011년에 옛집을 고쳐 예술 마을이 됐어요.",
+          "source": "위키백과 「흰여울문화마을」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%9D%B0%EC%97%AC%EC%9A%B8%EB%AC%B8%ED%99%94%EB%A7%88%EC%9D%84",
+          "checked": "2026-11-01",
+          "evidence": "오래된 집들은 리모델링되어"
+        }
+      ]
+    },
+    "stairs168": {
+      "name": "168계단",
+      "facts": [
+        {
+          "text": "계단이 모두 168개예요.",
+          "source": "부산 동구 문화관광 「초량168계단」",
+          "url": "https://www.bsdonggu.go.kr/tour/index.donggu?menuCd=DOM_000000310002002000",
+          "checked": "2026-11-01",
+          "evidence": "피란민의 삶의 흔적과 이야기를 품은 168개의 계단"
+        },
+        {
+          "text": "윗마을과 아랫마을을 잇는 하나뿐인 길이었어요.",
+          "source": "부산 동구 문화관광 「초량168계단」",
+          "url": "https://www.bsdonggu.go.kr/tour/index.donggu?menuCd=DOM_000000310002002000",
+          "checked": "2026-11-01",
+          "evidence": "윗 마을과 아랫마을을 잇는 유일한 통로였으며"
+        },
+        {
+          "text": "꼭대기에 오르면 경치가 탁 트여요.",
+          "source": "부산 동구 문화관광 「초량168계단」",
+          "url": "https://www.bsdonggu.go.kr/tour/index.donggu?menuCd=DOM_000000310002002000",
+          "checked": "2026-11-01",
+          "evidence": "꼭대기에 도착하면 가슴이 뻥 뚫리는 탁 트인 전망"
+        }
+      ]
+    },
+    "sciencemuseum": {
+      "name": "국립부산과학관",
+      "facts": [
+        {
+          "text": "2015년 12월 11일에 정식으로 문을 열었어요.",
+          "source": "위키백과 「국립부산과학관」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EB%B6%80%EC%82%B0%EA%B3%BC%ED%95%99%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "2015년 12월 11일 정식 개관하였다."
+        },
+        {
+          "text": "자동차, 배, 에너지를 주제로 배워요.",
+          "source": "위키백과 「국립부산과학관」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EB%B6%80%EC%82%B0%EA%B3%BC%ED%95%99%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "자동차, 조선, 에너지, 방사선 의학 등의 주제"
+        }
+      ]
+    },
+    "lotteworld": {
+      "name": "롯데월드 어드벤처 부산",
+      "facts": [
+        {
+          "text": "2022년 3월 31일에 문을 열었어요.",
+          "source": "위키백과 「롯데월드 어드벤처 부산」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%A1%AF%EB%8D%B0%EC%9B%94%EB%93%9C_%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B2%98_%EB%B6%80%EC%82%B0",
+          "checked": "2026-11-01",
+          "evidence": "2022년 3월 31일에 개장했다."
+        },
+        {
+          "text": "기장군 기장읍 시랑리에 있어요.",
+          "source": "위키백과 「롯데월드 어드벤처 부산」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%A1%AF%EB%8D%B0%EC%9B%94%EB%93%9C_%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B2%98_%EB%B6%80%EC%82%B0",
+          "checked": "2026-11-01",
+          "evidence": "기장읍 시랑리에 위치한 테마파크이다."
+        }
+      ]
+    },
+    "childrenpark": {
+      "name": "부산어린이대공원",
+      "facts": [
+        {
+          "text": "1971년 5월에 처음 문을 열었어요.",
+          "source": "위키백과 「어린이대공원 (부산)」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%96%B4%EB%A6%B0%EC%9D%B4%EB%8C%80%EA%B3%B5%EC%9B%90_(%EB%B6%80%EC%82%B0)",
+          "checked": "2026-11-01",
+          "evidence": "1971년 5월 성지곡 유원지로 개장하였다."
+        },
+        {
+          "text": "공원 안 성지곡수원지는 1909년에 생겼어요.",
+          "source": "위키백과 「어린이대공원 (부산)」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%96%B4%EB%A6%B0%EC%9D%B4%EB%8C%80%EA%B3%B5%EC%9B%90_(%EB%B6%80%EC%82%B0)",
+          "checked": "2026-11-01",
+          "evidence": "1909년 성지곡수원지가 준공되고"
+        }
+      ]
+    },
+    "geumgangpark": {
+      "name": "금강공원",
+      "facts": [
+        {
+          "text": "케이블카 길이는 1km 260m예요.",
+          "source": "부산시 「'작은 금강산' 금정산이 품은 공원」",
+          "url": "https://www.busan.go.kr/news/specnews/view?bbsNo=6&dataNo=56703&srchThemeNo=167",
+          "checked": "2026-11-01",
+          "evidence": "총길이 1천260m로 금정산의 봉우리와 이어진다."
+        },
+        {
+          "text": "작은 금강산 같다고 붙은 이름이에요.",
+          "source": "부산시 「'작은 금강산' 금정산이 품은 공원」",
+          "url": "https://www.busan.go.kr/news/specnews/view?bbsNo=6&dataNo=56703&srchThemeNo=167",
+          "checked": "2026-11-01",
+          "evidence": "마치 '작은 금강산'과 같다 하여 '소금강'이라 부르게"
+        }
+      ]
+    },
+    "cheongsapo": {
+      "name": "청사포",
+      "facts": [
+        {
+          "text": "해운대구에 있는 작은 고기잡이 항구예요.",
+          "source": "위키백과 「청사포」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%B2%AD%EC%82%AC%ED%8F%AC",
+          "checked": "2026-11-01",
+          "evidence": "해운대구 중2동에 위치한 어항이다."
+        },
+        {
+          "text": "다릿돌은 징검다리 같은 바위 다섯 개예요.",
+          "source": "부산시 「부산 청사포 '다릿돌 전망대' 명소로 탄생하다」",
+          "url": "https://www.busan.go.kr/news/storyreport/view?dataNo=58905",
+          "checked": "2026-11-01",
+          "evidence": "다섯 개의 암초를 말하며 돌(징검)다리를 뜻한다"
+        },
+        {
+          "text": "다릿돌전망대는 바다 위 20m 높이에 있어요.",
+          "source": "부산시 「부산 청사포 '다릿돌 전망대' 명소로 탄생하다」",
+          "url": "https://www.busan.go.kr/news/storyreport/view?dataNo=58905",
+          "checked": "2026-11-01",
+          "evidence": "해수면 20m 높이의 전망대"
+        }
+      ]
+    },
+    "busanharborbridge": {
+      "name": "부산항대교",
+      "facts": [
+        {
+          "text": "2014년 5월 22일에 개통했어요.",
+          "source": "위키백과 「부산항대교」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%B6%80%EC%82%B0%ED%95%AD%EB%8C%80%EA%B5%90",
+          "checked": "2026-11-01",
+          "evidence": "2014년 5월 22일 개통 행사가 열렸으며"
+        },
+        {
+          "text": "다리 전체 길이는 3km 368m예요.",
+          "source": "위키백과 「부산항대교」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%B6%80%EC%82%B0%ED%95%AD%EB%8C%80%EA%B5%90",
+          "checked": "2026-11-01",
+          "evidence": "부산항대교의 총연장은 3,368m이며"
+        },
+        {
+          "text": "영도구와 남구를 이어 줘요.",
+          "source": "위키백과 「부산항대교」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%B6%80%EC%82%B0%ED%95%AD%EB%8C%80%EA%B5%90",
+          "checked": "2026-11-01",
+          "evidence": "영도구 청학동과 남구 감만동을 연결하는 교량이다"
+        }
+      ]
+    },
+    "namhangbridge": {
+      "name": "남항대교",
+      "facts": [
+        {
+          "text": "2008년 7월 9일에 개통했어요.",
+          "source": "위키백과 「남항대교」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%82%A8%ED%95%AD%EB%8C%80%EA%B5%90",
+          "checked": "2026-11-01",
+          "evidence": "2008년 7월 9일에 개통한 남항대교는"
+        },
+        {
+          "text": "다리 길이는 1km 941m예요.",
+          "source": "위키백과 「남항대교」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%82%A8%ED%95%AD%EB%8C%80%EA%B5%90",
+          "checked": "2026-11-01",
+          "evidence": "길이 1,941ｍ, 폭 18.5~38.6m"
+        },
+        {
+          "text": "영도구와 서구 암남동을 이어 줘요.",
+          "source": "위키백과 「남항대교」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%82%A8%ED%95%AD%EB%8C%80%EA%B5%90",
+          "checked": "2026-11-01",
+          "evidence": "영도구 영선동과 서구 암남동을 잇는"
+        }
+      ]
+    },
+    "hwangnyeongsan": {
+      "name": "황령산",
+      "facts": [
+        {
+          "text": "높이가 427m인 산이에요.",
+          "source": "위키백과 「황령산」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%99%A9%EB%A0%B9%EC%82%B0",
+          "checked": "2026-11-01",
+          "evidence": "높이 427 m의 산이다"
+        },
+        {
+          "text": "불과 연기로 소식을 전한 봉수대가 있어요.",
+          "source": "위키백과 「황령산」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%99%A9%EB%A0%B9%EC%82%B0",
+          "checked": "2026-11-01",
+          "evidence": "설치된 봉수대가 있다"
+        },
+        {
+          "text": "밤 경치가 아름다운 곳이에요.",
+          "source": "위키백과 「황령산」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%99%A9%EB%A0%B9%EC%82%B0",
+          "checked": "2026-11-01",
+          "evidence": "야경 명소로 황령산에 오르면"
+        }
+      ]
+    },
+    "kimkwangseok": {
+      "name": "김광석 다시그리기길",
+      "facts": [
+        {
+          "text": "골목 350m쯤에 그림이 이어져요.",
+          "source": "대한민국 구석구석 「대구로 떠나는 추억의 음악 여행」",
+          "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=6e632dbe-1f55-4170-b8cf-658f5c3f772b",
+          "checked": "2026-11-01",
+          "evidence": "350m쯤 이어진 골목에 김광석의 삶과 음악이"
+        },
+        {
+          "text": "가수 김광석의 노랫말을 벽에 그렸어요.",
+          "source": "대한민국 구석구석 「대구로 떠나는 추억의 음악 여행」",
+          "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=6e632dbe-1f55-4170-b8cf-658f5c3f772b",
+          "checked": "2026-11-01",
+          "evidence": "노랫말과 더불어 벽화로 꾸미고"
+        },
+        {
+          "text": "입구에 기타 치는 김광석 동상이 있어요.",
+          "source": "대한민국 구석구석 「대구로 떠나는 추억의 음악 여행」",
+          "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=6e632dbe-1f55-4170-b8cf-658f5c3f772b",
+          "checked": "2026-11-01",
+          "evidence": "길 입구에서 기타를 치며 웃는 김광석 동상이 반긴다."
+        }
+      ]
+    },
+    "donghwasa": {
+      "name": "동화사",
+      "facts": [
+        {
+          "text": "팔공산에 있는 절이에요.",
+          "source": "위키백과 「동화사」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8F%99%ED%99%94%EC%82%AC",
+          "checked": "2026-11-01",
+          "evidence": "동화사가 위치한 팔공산 일대는"
+        },
+        {
+          "text": "겨울에 오동나무 꽃이 폈다는 데서 온 이름이에요.",
+          "source": "위키백과 「동화사」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8F%99%ED%99%94%EC%82%AC",
+          "checked": "2026-11-01",
+          "evidence": "겨울인데도 절의 오동나무가 꽃을 피운 것을 보고"
+        },
+        {
+          "text": "큰 돌부처 높이는 33m예요.",
+          "source": "위키백과 「동화사」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8F%99%ED%99%94%EC%82%AC",
+          "checked": "2026-11-01",
+          "evidence": "높이가 33 m에 이른다."
+        }
+      ]
+    },
+    "dalseongpark": {
+      "name": "달성공원",
+      "facts": [
+        {
+          "text": "원래 흙으로 쌓은 성인 달성토성이었어요.",
+          "source": "위키백과 「달성공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8B%AC%EC%84%B1%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "본래 달성토성이었다."
+        },
+        {
+          "text": "1970년 5월 2일에 동물원이 문을 열었어요.",
+          "source": "위키백과 「달성공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8B%AC%EC%84%B1%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "1970년 5월 2일: 동물원 개원"
+        },
+        {
+          "text": "1963년에 나라가 지키는 유적이 됐어요.",
+          "source": "위키백과 「달성공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8B%AC%EC%84%B1%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "1963년 사적 제62호로 지정되었다."
+        }
+      ]
+    },
+    "daegumuseum": {
+      "name": "국립대구박물관",
+      "facts": [
+        {
+          "text": "1994년 12월 7일에 문을 열었어요.",
+          "source": "위키백과 「국립대구박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EB%8C%80%EA%B5%AC%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "1994년 12월 7일"
+        },
+        {
+          "text": "대구와 경북에서 나온 옛 물건을 보여 줘요.",
+          "source": "위키백과 「국립대구박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EB%8C%80%EA%B5%AC%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "대구·경북 지역에서 출토된 선사 시대부터 삼국 시대까지"
+        },
+        {
+          "text": "옛날 옷을 소개하는 전시실이 있어요.",
+          "source": "위키백과 「국립대구박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EB%8C%80%EA%B5%AC%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "전통 의복의 기원을 소개하고"
+        }
+      ]
+    },
+    "gamyeongpark": {
+      "name": "경상감영공원",
+      "facts": [
+        {
+          "text": "조선 때 경상도를 다스리던 관청 자리예요.",
+          "source": "위키백과 「경상감영공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%83%81%EA%B0%90%EC%98%81%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "경상도(慶尙道)를 관할하던 감영(監營)이다."
+        },
+        {
+          "text": "옛 건물 선화당을 중심으로 만든 공원이에요.",
+          "source": "위키백과 「경상감영공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%83%81%EA%B0%90%EC%98%81%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "선화당과 징청각을 중심으로 공원이 조성되었다."
+        }
+      ]
+    },
+    "songhaepark": {
+      "name": "송해공원",
+      "facts": [
+        {
+          "text": "원래 논밭에 물을 대던 저수지였어요.",
+          "source": "위키백과 「옥연지 송해공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%98%A5%EC%97%B0%EC%A7%80_%EC%86%A1%ED%95%B4%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "옥포들녘에 농업용수를 공급하는 역할을 하고 있었다"
+        },
+        {
+          "text": "2017년 12월에 다 만들었어요.",
+          "source": "위키백과 「옥연지 송해공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%98%A5%EC%97%B0%EC%A7%80_%EC%86%A1%ED%95%B4%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "2017년 12월 완공되었다"
+        }
+      ]
+    },
+    "gasanfortress": {
+      "name": "가산산성",
+      "facts": [
+        {
+          "text": "안쪽 성은 1640년에 쌓았어요.",
+          "source": "위키백과 「칠곡 가산산성」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%B9%A0%EA%B3%A1_%EA%B0%80%EC%82%B0%EC%82%B0%EC%84%B1",
+          "checked": "2026-11-01",
+          "evidence": "내성은 인조 18년(1640)에"
+        },
+        {
+          "text": "안쪽 성의 길이는 약 4km예요.",
+          "source": "위키백과 「칠곡 가산산성」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%B9%A0%EA%B3%A1_%EA%B0%80%EC%82%B0%EC%82%B0%EC%84%B1",
+          "checked": "2026-11-01",
+          "evidence": "내성은 그 길이가 1,710보(약 4km)이며"
+        },
+        {
+          "text": "칠곡군 가산면에 있어요.",
+          "source": "위키백과 「칠곡 가산산성」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%B9%A0%EA%B3%A1_%EA%B0%80%EC%82%B0%EC%82%B0%EC%84%B1",
+          "checked": "2026-11-01",
+          "evidence": "경상북도 칠곡군 가산면 가산리"
+        }
+      ]
+    },
+    "apsan": {
+      "name": "앞산",
+      "facts": [
+        {
+          "text": "높이가 660.3m인 산이에요.",
+          "source": "위키백과 「앞산」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%95%9E%EC%82%B0",
+          "checked": "2026-11-01",
+          "evidence": "해발고도 660.3m의 산이다"
+        },
+        {
+          "text": "대구 남쪽에 있는 산이에요.",
+          "source": "위키백과 「앞산」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%95%9E%EC%82%B0",
+          "checked": "2026-11-01",
+          "evidence": "대구광역시 남쪽에 위치한"
+        }
+      ]
+    },
+    "ganjeolgot": {
+      "name": "간절곶",
+      "facts": [
+        {
+          "text": "해가 가장 먼저 뜨는 곳 가운데 하나예요.",
+          "source": "위키백과 「간절곶」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B0%84%EC%A0%88%EA%B3%B6",
+          "checked": "2026-11-01",
+          "evidence": "해가 가장 먼저 뜨는 장소들 중 하나"
+        },
+        {
+          "text": "2001년에 높이 17m 등대를 새로 세웠어요.",
+          "source": "위키백과 「간절곶」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B0%84%EC%A0%88%EA%B3%B6",
+          "checked": "2026-11-01",
+          "evidence": "2001년에 높이 17m의 등대가 새롭게 설치되었다"
+        },
+        {
+          "text": "커다란 우체통의 높이는 5m예요.",
+          "source": "위키백과 「간절곶」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B0%84%EC%A0%88%EA%B3%B6",
+          "checked": "2026-11-01",
+          "evidence": "우체통의 높이는 5m에 달하고"
+        }
+      ]
+    },
+    "jangsaengpo": {
+      "name": "장생포고래박물관",
+      "facts": [
+        {
+          "text": "2005년 5월 31일에 문을 열었어요.",
+          "source": "위키백과 「장생포고래박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9E%A5%EC%83%9D%ED%8F%AC%EA%B3%A0%EB%9E%98%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "2005년 5월 31일 개관"
+        },
+        {
+          "text": "밖에 옛 고래잡이배가 전시돼 있어요.",
+          "source": "위키백과 「장생포고래박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9E%A5%EC%83%9D%ED%8F%AC%EA%B3%A0%EB%9E%98%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "야외전시물 - 포경선"
+        }
+      ]
+    },
+    "ulsangrandpark": {
+      "name": "울산대공원",
+      "facts": [
+        {
+          "text": "2002년 4월에 처음 문을 열었어요.",
+          "source": "위키백과 「울산대공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B8%EC%82%B0%EB%8C%80%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "2002년 4월 1차 지역이 개장하였다"
+        },
+        {
+          "text": "회사가 만들어 울산시에 그냥 주었어요.",
+          "source": "위키백과 「울산대공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B8%EC%82%B0%EB%8C%80%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "울산광역시에 무상 기부하였다"
+        },
+        {
+          "text": "장미원과 동물원이 있어요.",
+          "source": "위키백과 「울산대공원」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B8%EC%82%B0%EB%8C%80%EA%B3%B5%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "장미원, 대공원동물원"
+        }
+      ]
+    },
+    "bangudae": {
+      "name": "반구대 암각화",
+      "facts": [
+        {
+          "text": "바위에 고래와 동물을 새긴 그림이에요.",
+          "source": "위키백과 「울주 대곡리 반구대 암각화」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B8%EC%A3%BC_%EB%8C%80%EA%B3%A1%EB%A6%AC_%EB%B0%98%EA%B5%AC%EB%8C%80_%EC%95%94%EA%B0%81%ED%99%94",
+          "checked": "2026-11-01",
+          "evidence": "이 중 고래의 비중이 크다."
+        },
+        {
+          "text": "1971년 12월 25일에 발견됐어요.",
+          "source": "위키백과 「울주 대곡리 반구대 암각화」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B8%EC%A3%BC_%EB%8C%80%EA%B3%A1%EB%A6%AC_%EB%B0%98%EA%B5%AC%EB%8C%80_%EC%95%94%EA%B0%81%ED%99%94",
+          "checked": "2026-11-01",
+          "evidence": "1971년 12월 25일 발견되지만"
+        },
+        {
+          "text": "'반구천의 암각화'로 세계유산이 됐어요.",
+          "source": "위키백과 「울주 대곡리 반구대 암각화」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B8%EC%A3%BC_%EB%8C%80%EA%B3%A1%EB%A6%AC_%EB%B0%98%EA%B5%AC%EB%8C%80_%EC%95%94%EA%B0%81%ED%99%94",
+          "checked": "2026-11-01",
+          "evidence": "'반구천의 암각화'라는 명칭으로 유네스코 세계 유산으로 지정되었다."
+        }
+      ]
+    },
+    "daereungwon": {
+      "name": "대릉원",
+      "facts": [
+        {
+          "text": "신라 초기의 무덤들이 모여 있어요.",
+          "source": "위키백과 「대릉원」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8C%80%EB%A6%89%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "신라초기의 무덤들"
+        },
+        {
+          "text": "천마총에서 금관이 나왔어요.",
+          "source": "위키백과 「대릉원」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8C%80%EB%A6%89%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "금관을 비롯하여 많은 유물이 나왔다."
+        },
+        {
+          "text": "황남대총은 남북 길이 120m인 쌍무덤이에요.",
+          "source": "위키백과 「대릉원」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8C%80%EB%A6%89%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "남북길이 120m, 동서길이 80m, 높이 23m의 거대한 쌍무덤"
+        }
+      ]
+    },
+    "seokguram": {
+      "name": "석굴암",
+      "facts": [
+        {
+          "text": "751년에 김대성이 짓기 시작했어요.",
+          "source": "위키백과 「석굴암」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%84%9D%EA%B5%B4%EC%95%94",
+          "checked": "2026-11-01",
+          "evidence": "751년(통일신라 경덕왕 10년)"
+        },
+        {
+          "text": "토함산 중턱에 있어요.",
+          "source": "위키백과 「석굴암」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%84%9D%EA%B5%B4%EC%95%94",
+          "checked": "2026-11-01",
+          "evidence": "토함산 중턱(진현동 891)"
+        }
+      ]
+    },
+    "gyeongjumuseum": {
+      "name": "국립경주박물관",
+      "facts": [
+        {
+          "text": "1975년에 지금 자리로 옮겨 왔어요.",
+          "source": "위키백과 「국립경주박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EA%B2%BD%EC%A3%BC%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "1975년 5월 27일에는 현재 위치인 인왕동에 건물을 새로 짓고"
+        },
+        {
+          "text": "커다란 성덕대왕신종을 볼 수 있어요.",
+          "source": "위키백과 「국립경주박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EA%B2%BD%EC%A3%BC%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "성덕대왕신종의 이전은 많은 시민들이 직접 참여한 행사"
+        },
+        {
+          "text": "천마총에서 나온 금관이 있어요.",
+          "source": "위키백과 「국립경주박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EA%B2%BD%EC%A3%BC%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "188호 천마총 금관"
+        }
+      ]
+    },
+    "gyeongjuworld": {
+      "name": "경주월드",
+      "facts": [
+        {
+          "text": "1985년 5월 2일에 문을 열었어요.",
+          "source": "위키백과 「경주월드」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%A3%BC%EC%9B%94%EB%93%9C",
+          "checked": "2026-11-01",
+          "evidence": "1985년 5월 2일 도투락월드로 개장했으며"
+        },
+        {
+          "text": "경주시 천군동에 있는 놀이공원이에요.",
+          "source": "위키백과 「경주월드」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%A3%BC%EC%9B%94%EB%93%9C",
+          "checked": "2026-11-01",
+          "evidence": "경상북도 경주시 천군동에 위치한 테마파크이다."
+        }
+      ]
+    },
+    "yangdong": {
+      "name": "양동마을",
+      "facts": [
+        {
+          "text": "안동 하회마을과 함께 세계유산이 됐어요.",
+          "source": "위키백과 「경주 양동마을」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%A3%BC_%EC%96%91%EB%8F%99%EB%A7%88%EC%9D%84",
+          "checked": "2026-11-01",
+          "evidence": "안동 하회마을과 함께 유네스코 세계문화유산으로 등재되었으며"
+        },
+        {
+          "text": "손씨와 이씨 두 집안이 만든 마을이에요.",
+          "source": "위키백과 「경주 양동마을」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%A3%BC_%EC%96%91%EB%8F%99%EB%A7%88%EC%9D%84",
+          "checked": "2026-11-01",
+          "evidence": "손씨, 이씨 두 씨족에 의해 오늘과 같은 양동마을이 형성되었다."
+        },
+        {
+          "text": "나라가 지키는 기와집이 전국에서 가장 많아요.",
+          "source": "위키백과 「경주 양동마을」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%A3%BC_%EC%96%91%EB%8F%99%EB%A7%88%EC%9D%84",
+          "checked": "2026-11-01",
+          "evidence": "국가지정문화재로 지정된 기와집의 수는 전국 최다로"
+        }
+      ]
+    },
+    "jinhaeru": {
+      "name": "진해루",
+      "facts": [
+        {
+          "text": "진해해변공원에 있는 높은 정자예요.",
+          "source": "위키백과 「진해루」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%A7%84%ED%95%B4%EB%A3%A8",
+          "checked": "2026-11-01",
+          "evidence": "진해구 경화동 진해해변공원에 위치한 누각이다."
+        },
+        {
+          "text": "높이는 15.2m예요.",
+          "source": "위키백과 「진해루」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%A7%84%ED%95%B4%EB%A3%A8",
+          "checked": "2026-11-01",
+          "evidence": "연면적 477㎡에 높이 15.2m이다."
+        }
+      ]
+    },
+    "gayathemepark": {
+      "name": "김해가야테마파크",
+      "facts": [
+        {
+          "text": "금관가야 역사를 놀며 배우는 공원이에요.",
+          "source": "김해시 「김해가야테마파크」",
+          "url": "http://www.gimhae.go.kr/00204/03060/03724.web?amode=view&idx=310",
+          "checked": "2026-11-01",
+          "evidence": "금관가야의 역사를 놀이, 체험, 전시를 통해 즐길 수 있는"
+        },
+        {
+          "text": "가야왕궁은 드라마 촬영장이었어요.",
+          "source": "김해시 「김해가야테마파크」",
+          "url": "http://www.gimhae.go.kr/00204/03060/03724.web?amode=view&idx=310",
+          "checked": "2026-11-01",
+          "evidence": "드라마 세트장 → 주제전시관으로 탈바꿈했다"
+        }
+      ]
+    },
+    "beopgi": {
+      "name": "법기수원지",
+      "facts": [
+        {
+          "text": "1932년에 다 지었어요.",
+          "source": "위키백과 「법기수원지」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%B2%95%EA%B8%B0%EC%88%98%EC%9B%90%EC%A7%80",
+          "checked": "2026-11-01",
+          "evidence": "1927년 착공해 1932년 완공됐으며"
+        },
+        {
+          "text": "2011년 7월 15일에 처음 사람들에게 열렸어요.",
+          "source": "위키백과 「법기수원지」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%B2%95%EA%B8%B0%EC%88%98%EC%9B%90%EC%A7%80",
+          "checked": "2026-11-01",
+          "evidence": "79년 후 2011년 7월 15일 일반인에게 개방되었다."
+        }
+      ]
+    },
+    "hongryongsa": {
+      "name": "홍룡사",
+      "facts": [
+        {
+          "text": "원효 스님이 세웠다고 전해져요.",
+          "source": "한국민족문화대백과사전 「천성산 홍룡사」",
+          "url": "https://encykorea.aks.ac.kr/Article/E0064045",
+          "checked": "2026-11-01",
+          "evidence": "통일신라의 승려 원효가 창건한 사찰"
+        },
+        {
+          "text": "옆 폭포는 14m와 10m 두 단이에요.",
+          "source": "한국민족문화대백과사전 「천성산 홍룡사」",
+          "url": "https://encykorea.aks.ac.kr/Article/E0064045",
+          "checked": "2026-11-01",
+          "evidence": "높이 14m인 제1폭과 10m인 제2폭으로 이루어져"
+        },
+        {
+          "text": "용이 무지개 타고 하늘로 갔다는 전설이 있어요.",
+          "source": "한국민족문화대백과사전 「천성산 홍룡사」",
+          "url": "https://encykorea.aks.ac.kr/Article/E0064045",
+          "checked": "2026-11-01",
+          "evidence": "천룡이 살다가 무지개를 타고 하늘로 올라갔다는 전설"
+        }
+      ]
+    },
+    "pyochungsa": {
+      "name": "표충사",
+      "facts": [
+        {
+          "text": "원효가 처음 지었다고 전해져요.",
+          "source": "위키백과 「천황산 표충사 일원」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%B2%9C%ED%99%A9%EC%82%B0_%ED%91%9C%EC%B6%A9%EC%82%AC_%EC%9D%BC%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "원효가 죽림사(竹林寺)라는 이름으로 창건하였다고 전한다."
+        },
+        {
+          "text": "1839년 사명대사 사당을 옮겨 와 이름이 바뀌었어요.",
+          "source": "위키백과 「천황산 표충사 일원」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%B2%9C%ED%99%A9%EC%82%B0_%ED%91%9C%EC%B6%A9%EC%82%AC_%EC%9D%BC%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "사명대사의 사당을 이곳에 옮기면서 표충사라 하였는데"
+        },
+        {
+          "text": "보물인 삼층석탑이 있어요.",
+          "source": "위키백과 「천황산 표충사 일원」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%B2%9C%ED%99%A9%EC%82%B0_%ED%91%9C%EC%B6%A9%EC%82%AC_%EC%9D%BC%EC%9B%90",
+          "checked": "2026-11-01",
+          "evidence": "밀양 표충사 삼층석탑 - 보물 제467호"
+        }
+      ]
+    },
+    "wiyangji": {
+      "name": "위양지",
+      "facts": [
+        {
+          "text": "밀양 부북면에 있는 저수지예요.",
+          "source": "위키백과 「위양지」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9C%84%EC%96%91%EC%A7%80",
+          "checked": "2026-11-01",
+          "evidence": "밀양시 부북면 위양리에 있는 저수지이다"
+        },
+        {
+          "text": "통일신라에서 고려 사이에 만들었다고 봐요.",
+          "source": "위키백과 「위양지」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9C%84%EC%96%91%EC%A7%80",
+          "checked": "2026-11-01",
+          "evidence": "통일신라시대에서 고려시대사이에 축조된 것으로 여겨진다"
+        }
+      ]
+    },
+    "unmunsa": {
+      "name": "운문사",
+      "facts": [
+        {
+          "text": "560년에 처음 지었다고 해요.",
+          "source": "위키백과 「운문사」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B4%EB%AC%B8%EC%82%AC",
+          "checked": "2026-11-01",
+          "evidence": "560년(신라 진흥왕 21년)"
+        },
+        {
+          "text": "천연기념물인 처진 소나무가 있어요.",
+          "source": "위키백과 「운문사」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B4%EB%AC%B8%EC%82%AC",
+          "checked": "2026-11-01",
+          "evidence": "천연기념물 제180호 - 청도 운문사 처진소나무"
+        },
+        {
+          "text": "여자 스님인 비구니 스님들의 절이에요.",
+          "source": "위키백과 「운문사」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B4%EB%AC%B8%EC%82%AC",
+          "checked": "2026-11-01",
+          "evidence": "비구니 사찰이고"
+        }
+      ]
+    },
+    "upo": {
+      "name": "우포늪",
+      "facts": [
+        {
+          "text": "우리나라에서 가장 큰 내륙 습지예요.",
+          "source": "위키백과 「우포늪」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B0%ED%8F%AC%EB%8A%AA",
+          "checked": "2026-11-01",
+          "evidence": "대한민국 최대의 내륙 습지"
+        },
+        {
+          "text": "약 1억 4천만 년 전에 생긴 것으로 봐요.",
+          "source": "위키백과 「우포늪」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B0%ED%8F%AC%EB%8A%AA",
+          "checked": "2026-11-01",
+          "evidence": "약 1억 4000만 년 전에 생성된 것으로 추정된다"
+        },
+        {
+          "text": "1998년에 세계가 지키는 습지가 됐어요.",
+          "source": "위키백과 「우포늪」",
+          "url": "https://ko.wikipedia.org/wiki/%EC%9A%B0%ED%8F%AC%EB%8A%AA",
+          "checked": "2026-11-01",
+          "evidence": "람사르 협약에 따라 국제보호습지로 지정되었다"
+        }
+      ]
+    },
+    "malisan": {
+      "name": "말이산 고분군",
+      "facts": [
+        {
+          "text": "아라가야 지배층의 무덤이에요.",
+          "source": "위키백과 「함안 말이산 고분군」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%95%A8%EC%95%88_%EB%A7%90%EC%9D%B4%EC%82%B0_%EA%B3%A0%EB%B6%84%EA%B5%B0",
+          "checked": "2026-11-01",
+          "evidence": "아라가야의 지배계층의 고분이다."
+        },
+        {
+          "text": "큰 무덤 37기가 줄지어 있어요.",
+          "source": "위키백과 「함안 말이산 고분군」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%95%A8%EC%95%88_%EB%A7%90%EC%9D%B4%EC%82%B0_%EA%B3%A0%EB%B6%84%EA%B5%B0",
+          "checked": "2026-11-01",
+          "evidence": "37기의 대형 고분들이 높은 곳에 열을 지어"
+        },
+        {
+          "text": "2023년에 가야고분군으로 세계유산이 됐어요.",
+          "source": "위키백과 「함안 말이산 고분군」",
+          "url": "https://ko.wikipedia.org/wiki/%ED%95%A8%EC%95%88_%EB%A7%90%EC%9D%B4%EC%82%B0_%EA%B3%A0%EB%B6%84%EA%B5%B0",
+          "checked": "2026-11-01",
+          "evidence": "정보 상자: 가야고분군, 2023년"
+        }
+      ]
+    },
+    "daegayamuseum": {
+      "name": "대가야박물관",
+      "facts": [
+        {
+          "text": "2005년 4월 2일에 문을 열었어요.",
+          "source": "위키백과 「대가야박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8C%80%EA%B0%80%EC%95%BC%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "2005년 4월 2일"
+        },
+        {
+          "text": "지산리 44호 무덤을 다시 만들어 보여 줘요.",
+          "source": "위키백과 「대가야박물관」",
+          "url": "https://ko.wikipedia.org/wiki/%EB%8C%80%EA%B0%80%EC%95%BC%EB%B0%95%EB%AC%BC%EA%B4%80",
+          "checked": "2026-11-01",
+          "evidence": "지산리44호 무덤을 복원 재현한"
+        }
+      ]
+    },
+    "jisandong": {
+      "name": "지산동 고분군",
+      "facts": [
+        {
+          "text": "옛 나라 대가야의 무덤들이에요.",
+          "source": "위키백과 「고령 지산동 고분군」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A0%B9_%EC%A7%80%EC%82%B0%EB%8F%99_%EA%B3%A0%EB%B6%84%EA%B5%B0",
+          "checked": "2026-11-01",
+          "evidence": "가야의 구성국 중 하나인 대가야의 무덤이다."
+        },
+        {
+          "text": "크고 작은 무덤이 200기 넘게 있어요.",
+          "source": "위키백과 「고령 지산동 고분군」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A0%B9_%EC%A7%80%EC%82%B0%EB%8F%99_%EA%B3%A0%EB%B6%84%EA%B5%B0",
+          "checked": "2026-11-01",
+          "evidence": "200기가 넘는 크고 작은 대가야의 무덤들이 있는데"
+        },
+        {
+          "text": "2023년에 세계유산이 됐어요.",
+          "source": "위키백과 「고령 지산동 고분군」",
+          "url": "https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A0%B9_%EC%A7%80%EC%82%B0%EB%8F%99_%EA%B3%A0%EB%B6%84%EA%B5%B0",
+          "checked": "2026-11-01",
+          "evidence": "2023년 (제45차 정부간위원회)"
+        }
+      ]
+    },
+    "dongbaekseom": {
+      "name": "동백섬",
+      "facts": [
+        {
+          "text": "동백나무가 많아서 동백섬이라는 이름이 붙었어요.",
+          "source": "위키백과 - 동백섬",
+          "url": "https://ko.wikipedia.org/wiki/동백섬",
+          "checked": "2026-11-01",
+          "evidence": "섬 전체를 붉게 물들이는 동백나무가 섬의 이름이 된"
+        },
+        {
+          "text": "원래 섬이었는데 지금은 육지와 이어져 있어요.",
+          "source": "위키백과 - 동백섬",
+          "url": "https://ko.wikipedia.org/wiki/동백섬",
+          "checked": "2026-11-01",
+          "evidence": "원래는 섬이었는데"
+        }
+      ]
+    },
+    "cinemacenter": {
+      "name": "영화의전당",
+      "facts": [
+        {
+          "text": "2011년 9월 29일에 문을 열었어요.",
+          "source": "위키백과 - 영화의전당",
+          "url": "https://ko.wikipedia.org/wiki/영화의전당",
+          "checked": "2026-11-01",
+          "evidence": "2011년 9월 29일에 개관하였다."
+        },
+        {
+          "text": "부산국제영화제를 위해 지은 영화관이에요.",
+          "source": "위키백과 - 영화의전당",
+          "url": "https://ko.wikipedia.org/wiki/영화의전당",
+          "checked": "2026-11-01",
+          "evidence": "부산국제영화제 전용관"
+        },
+        {
+          "text": "아주 긴 지붕으로 기네스북에 올랐어요.",
+          "source": "위키백과 - 영화의전당",
+          "url": "https://ko.wikipedia.org/wiki/영화의전당",
+          "checked": "2026-11-01",
+          "evidence": "세계 최장의 지붕으로 기네스북 등재"
+        }
+      ]
+    },
+    "busanartmuseum": {
+      "name": "부산시립미술관",
+      "facts": [
+        {
+          "text": "1998년 3월 20일에 문을 열었어요.",
+          "source": "위키백과 - 부산시립미술관",
+          "url": "https://ko.wikipedia.org/wiki/부산시립미술관",
+          "checked": "2026-11-01",
+          "evidence": "개관일 1998년 3월 20일 (정보 상자)"
+        },
+        {
+          "text": "부산 해운대구에 있는 미술관이에요.",
+          "source": "위키백과 - 부산시립미술관",
+          "url": "https://ko.wikipedia.org/wiki/부산시립미술관",
+          "checked": "2026-11-01",
+          "evidence": "부산광역시 해운대구 APEC로 58"
+        }
+      ]
+    },
+    "hwamyeongpark": {
+      "name": "화명생태공원",
+      "facts": [
+        {
+          "text": "낙동강 철새가 찾아오는 습지와 이어져 있어요.",
+          "source": "위키백과 - 화명생태공원",
+          "url": "https://ko.wikipedia.org/wiki/화명생태공원",
+          "checked": "2026-11-01",
+          "evidence": "낙동강 철새 도래지와 연결된 습지 생태계가 보존되어 있으며"
+        },
+        {
+          "text": "축구장과 야구장 같은 운동장이 있어요.",
+          "source": "위키백과 - 화명생태공원",
+          "url": "https://ko.wikipedia.org/wiki/화명생태공원",
+          "checked": "2026-11-01",
+          "evidence": "다양한 체육시설이 조성되어 있다"
+        },
+        {
+          "text": "2010년 9월 10일에 문을 열었어요.",
+          "source": "위키백과 - 화명생태공원",
+          "url": "https://ko.wikipedia.org/wiki/화명생태공원",
+          "checked": "2026-11-01",
+          "evidence": "2010년 9월 10일 (개장)"
+        }
+      ]
+    },
+    "donggung": {
+      "name": "동궁과 월지",
+      "facts": [
+        {
+          "text": "신라 문무왕 때인 674년에 만들었어요.",
+          "source": "위키백과 - 경주 동궁과 월지",
+          "url": "https://ko.wikipedia.org/wiki/경주_동궁과_월지",
+          "checked": "2026-11-01",
+          "evidence": "신라 문무왕 14년(674년)에 삼국 통일을 완수한 직후"
+        },
+        {
+          "text": "연못 안에 크기가 다른 섬이 3개 있어요.",
+          "source": "위키백과 - 경주 동궁과 월지",
+          "url": "https://ko.wikipedia.org/wiki/경주_동궁과_월지",
+          "checked": "2026-11-01",
+          "evidence": "연못 내에는 각기 다른 크기의 섬 3개가 배치되었으며"
+        },
+        {
+          "text": "면이 14개인 신라 주사위가 나왔어요.",
+          "source": "위키백과 - 경주 동궁과 월지",
+          "url": "https://ko.wikipedia.org/wiki/경주_동궁과_월지",
+          "checked": "2026-11-01",
+          "evidence": "육각형 면 8개로 이루어진 14면체 주사위이다."
+        }
+      ]
+    },
+    "bomunlake": {
+      "name": "보문호",
+      "facts": [
+        {
+          "text": "보문호는 사람이 만든 호수예요.",
+          "source": "위키백과 - 보문호",
+          "url": "https://ko.wikipedia.org/wiki/보문호",
+          "checked": "2026-11-01",
+          "evidence": "50만 평 규모의 인공호수"
+        },
+        {
+          "text": "호수 둘레에 산책길과 자전거길이 있어요.",
+          "source": "위키백과 - 보문호",
+          "url": "https://ko.wikipedia.org/wiki/보문호",
+          "checked": "2026-11-01",
+          "evidence": "산책로와 자전거길이 잘 단장되어"
+        },
+        {
+          "text": "물을 막는 둑은 길이가 308m예요.",
+          "source": "위키백과 - 보문호",
+          "url": "https://ko.wikipedia.org/wiki/보문호",
+          "checked": "2026-11-01",
+          "evidence": "길이: 308m, 높이 22m"
+        }
+      ]
+    },
+    "bunhwangsa": {
+      "name": "분황사",
+      "facts": [
+        {
+          "text": "선덕여왕 때인 634년에 지었어요.",
+          "source": "위키백과 - 분황사",
+          "url": "https://ko.wikipedia.org/wiki/분황사",
+          "checked": "2026-11-01",
+          "evidence": "선덕여왕(善德女王) 3년(634년)에 낙성된 이래"
+        },
+        {
+          "text": "원효 스님이 이곳에서 책을 썼어요.",
+          "source": "위키백과 - 분황사",
+          "url": "https://ko.wikipedia.org/wiki/분황사",
+          "checked": "2026-11-01",
+          "evidence": "원효도 이곳에서 《금강삼매경론》 등의 저술 활동을 하여"
+        },
+        {
+          "text": "탑은 처음에 7층이나 9층이었다고 해요.",
+          "source": "위키백과 - 분황사",
+          "url": "https://ko.wikipedia.org/wiki/분황사",
+          "checked": "2026-11-01",
+          "evidence": "본래 7층 또는 9층으로 건립되었으나"
+        }
+      ]
+    },
+    "gyochon": {
+      "name": "경주 교촌마을",
+      "facts": [
+        {
+          "text": "향교가 있는 마을이라서 교촌이라고 해요.",
+          "source": "위키백과 - 경주 교촌마을",
+          "url": "https://ko.wikipedia.org/wiki/경주_교촌마을",
+          "checked": "2026-11-01",
+          "evidence": "향교가 있는 마을을 뜻한다."
+        },
+        {
+          "text": "682년에 신라의 나라 학교가 세워진 곳이에요.",
+          "source": "위키백과 - 경주 교촌마을",
+          "url": "https://ko.wikipedia.org/wiki/경주_교촌마을",
+          "checked": "2026-11-01",
+          "evidence": "신라 신문왕 2년(682년)에 국학이 세워졌던 곳이다."
+        },
+        {
+          "text": "마을 안에 경주 최부자댁이 있어요.",
+          "source": "위키백과 - 경주 교촌마을",
+          "url": "https://ko.wikipedia.org/wiki/경주_교촌마을",
+          "checked": "2026-11-01",
+          "evidence": "국가민속문화재 경주 최부자댁"
+        }
+      ]
+    },
+    "jinha": {
+      "name": "진하해수욕장",
+      "facts": [
+        {
+          "text": "모래밭이 약 1km나 펼쳐져 있어요.",
+          "source": "위키백과 - 진하해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/진하해수욕장",
+          "checked": "2026-11-01",
+          "evidence": "약 1km에 달하는 넓은 백사장이 펼쳐져 있으며"
+        },
+        {
+          "text": "썰물 때 바닷길이 열려 명선도에 걸어가요.",
+          "source": "위키백과 - 진하해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/진하해수욕장",
+          "checked": "2026-11-01",
+          "evidence": "썰물 때는 '모세의 기적'처럼 바닷길이 열려"
+        },
+        {
+          "text": "1974년에 해수욕장 문을 열었어요.",
+          "source": "위키백과 - 진하해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/진하해수욕장",
+          "checked": "2026-11-01",
+          "evidence": "1974년에 개장했으며"
+        }
+      ]
+    },
+    "ilsan": {
+      "name": "일산해수욕장",
+      "facts": [
+        {
+          "text": "해수욕장 길이는 850m예요.",
+          "source": "위키백과 - 일산해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/일산해수욕장",
+          "checked": "2026-11-01",
+          "evidence": "길이는 850m, 폭은 42~61m이다."
+        },
+        {
+          "text": "남쪽 끝은 대왕암공원과 바로 이어져요.",
+          "source": "위키백과 - 일산해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/일산해수욕장",
+          "checked": "2026-11-01",
+          "evidence": "대왕암공원과는 해변 남쪽 끝에서 바로 이어진다."
+        },
+        {
+          "text": "신라 왕들이 놀러 왔던 곳으로 알려져 있어요.",
+          "source": "위키백과 - 일산해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/일산해수욕장",
+          "checked": "2026-11-01",
+          "evidence": "신라시대 왕들이 풍류를 즐기기 위해 찾았던 명승지로 알려져"
+        }
+      ]
+    },
+    "gangdong": {
+      "name": "강동몽돌해변",
+      "facts": [
+        {
+          "text": "모래 대신 동글동글한 몽돌이 모여 있어요.",
+          "source": "대한민국 구석구석(한국관광공사) - 강동몽돌해변 (정자해변)",
+          "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=627d0359-810f-425f-8a90-fd796b36f0ac",
+          "checked": "2026-11-01",
+          "evidence": "북구 산하동에 있는 해변으로 몽돌들이 모여있다."
+        },
+        {
+          "text": "파도가 치면 몽돌끼리 부딪히는 소리가 나요.",
+          "source": "대한민국 구석구석(한국관광공사) - 강동몽돌해변 (정자해변)",
+          "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=627d0359-810f-425f-8a90-fd796b36f0ac",
+          "checked": "2026-11-01",
+          "evidence": "파도에 밀려 몽돌들이 부딪히는 소리가 제법 요란하다."
+        },
+        {
+          "text": "예전에는 정자해변이라고 불렀어요.",
+          "source": "대한민국 구석구석(한국관광공사) - 강동몽돌해변 (정자해변)",
+          "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=627d0359-810f-425f-8a90-fd796b36f0ac",
+          "checked": "2026-11-01",
+          "evidence": "정자해변이라고 불리던 북구 산하동에 있는 해변"
+        }
+      ]
+    },
+    "onggi": {
+      "name": "외고산 옹기마을",
+      "facts": [
+        {
+          "text": "우리나라에서 가장 큰 옹기 마을이에요.",
+          "source": "위키백과 - 외고산 옹기마을",
+          "url": "https://ko.wikipedia.org/wiki/외고산_옹기마을",
+          "checked": "2026-11-01",
+          "evidence": "현재 한국 최대 규모의 옹기 집단촌을 이루고 있는 곳이다."
+        },
+        {
+          "text": "1950년대부터 옹기를 직접 구웠어요.",
+          "source": "위키백과 - 외고산 옹기마을",
+          "url": "https://ko.wikipedia.org/wiki/외고산_옹기마을",
+          "checked": "2026-11-01",
+          "evidence": "1950년대부터 현재까지 옹기를 직접 굽기 시작하여"
+        },
+        {
+          "text": "옛날에는 옹기를 외국에 팔기도 했어요.",
+          "source": "위키백과 - 외고산 옹기마을",
+          "url": "https://ko.wikipedia.org/wiki/외고산_옹기마을",
+          "checked": "2026-11-01",
+          "evidence": "옹기를 만들어 외국에 수출하기도 했다."
+        }
+      ]
+    },
+    "yongji": {
+      "name": "용지호수",
+      "facts": [
+        {
+          "text": "호수 한 바퀴는 1km 169m예요.",
+          "source": "위키백과 - 용지호수",
+          "url": "https://ko.wikipedia.org/wiki/용지호수",
+          "checked": "2026-11-01",
+          "evidence": "둘레는 1,169m이다"
+        },
+        {
+          "text": "밤이 되면 음악분수 공연을 해요.",
+          "source": "위키백과 - 용지호수",
+          "url": "https://ko.wikipedia.org/wiki/용지호수",
+          "checked": "2026-11-01",
+          "evidence": "밤이 되면 음악분수 공연을 한다."
+        },
+        {
+          "text": "창원시 성산구에 있는 호수예요.",
+          "source": "위키백과 - 용지호수",
+          "url": "https://ko.wikipedia.org/wiki/용지호수",
+          "checked": "2026-11-01",
+          "evidence": "경상남도 창원시 성산구 용지동에 있는 호수이다."
+        }
+      ]
+    },
+    "eoreumgol": {
+      "name": "얼음골",
+      "facts": [
+        {
+          "text": "봄부터 바위틈에 얼음이 생겨요.",
+          "source": "위키백과 - 얼음골 (밀양 남명리 얼음골)",
+          "url": "https://ko.wikipedia.org/wiki/얼음골",
+          "checked": "2026-11-01",
+          "evidence": "3-4월부터 바위틈에 얼음이 생기기 시작해서"
+        },
+        {
+          "text": "더운 7월 말에서 8월 초에 얼음이 가장 많아요.",
+          "source": "위키백과 - 얼음골 (밀양 남명리 얼음골)",
+          "url": "https://ko.wikipedia.org/wiki/얼음골",
+          "checked": "2026-11-01",
+          "evidence": "7월말∼8월초에 가장 많은 얼음이 생기며"
+        }
+      ]
+    },
+    "bangokji": {
+      "name": "반곡지",
+      "facts": [
+        {
+          "text": "1903년에 농사에 쓸 물을 모으려고 만들었어요.",
+          "source": "대한민국 구석구석(한국관광공사) - 반곡지",
+          "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=e77bd2d6-ad0f-4bb0-9227-103af1f3622d",
+          "checked": "2026-11-01",
+          "evidence": "반곡지는 1903년에 만든 농업용 저수지이다."
+        },
+        {
+          "text": "수백 년 된 왕버들이 줄지어 서 있어요.",
+          "source": "대한민국 구석구석(한국관광공사) - 반곡지",
+          "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=e77bd2d6-ad0f-4bb0-9227-103af1f3622d",
+          "checked": "2026-11-01",
+          "evidence": "수백 년 된 왕버들 20여 거루가 줄지어 선"
+        },
+        {
+          "text": "복사꽃이 필 때 가장 아름다워요.",
+          "source": "대한민국 구석구석(한국관광공사) - 반곡지",
+          "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=e77bd2d6-ad0f-4bb0-9227-103af1f3622d",
+          "checked": "2026-11-01",
+          "evidence": "매년 복사꽃 필 무렵에 최고의 절정을 이룬다."
+        }
+      ]
+    },
+    "bohyeonsan": {
+      "name": "보현산천문대",
+      "facts": [
+        {
+          "text": "바다보다 1km 124m 높은 곳에 있어요.",
+          "source": "위키백과 - 보현산천문대",
+          "url": "https://ko.wikipedia.org/wiki/보현산천문대",
+          "checked": "2026-11-01",
+          "evidence": "해발 1,124미터"
+        },
+        {
+          "text": "천문대는 1996년에 다 지었어요.",
+          "source": "위키백과 - 보현산천문대",
+          "url": "https://ko.wikipedia.org/wiki/보현산천문대",
+          "checked": "2026-11-01",
+          "evidence": "1996년 4월에 보현산천문대를 준공함으로써"
+        }
+      ]
+    },
+    "seongbak": {
+      "name": "성밖숲",
+      "facts": [
+        {
+          "text": "300년에서 500년 된 왕버들이 자라요.",
+          "source": "위키백과 - 성주 경산리 성밖숲",
+          "url": "https://ko.wikipedia.org/wiki/성주_경산리_성밖숲",
+          "checked": "2026-11-01",
+          "evidence": "300~500년생의 천연기념물 왕버들"
+        },
+        {
+          "text": "여름에는 보라색 맥문동 꽃이 피어요.",
+          "source": "위키백과 - 성주 경산리 성밖숲",
+          "url": "https://ko.wikipedia.org/wiki/성주_경산리_성밖숲",
+          "checked": "2026-11-01",
+          "evidence": "보랏빛 맥문동이 어우러지는 장관"
+        },
+        {
+          "text": "나쁜 일을 막으려고 만든 숲이라고 전해요.",
+          "source": "위키백과 - 성주 경산리 성밖숲",
+          "url": "https://ko.wikipedia.org/wiki/성주_경산리_성밖숲",
+          "checked": "2026-11-01",
+          "evidence": "재앙을 막기 위해 두 바위의 중간지점인 이곳에 밤나무 숲을"
+        }
+      ]
+    },
+    "daeguscience": {
+      "name": "국립대구과학관",
+      "facts": [
+        {
+          "text": "2013년 12월 24일에 문을 열었어요.",
+          "source": "위키백과 - 국립대구과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립대구과학관",
+          "checked": "2026-11-01",
+          "evidence": "2013년 12월 24일 국립대구과학관 정식개관"
+        },
+        {
+          "text": "대구 달성군 유가읍에 있어요.",
+          "source": "위키백과 - 국립대구과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립대구과학관",
+          "checked": "2026-11-01",
+          "evidence": "대구광역시 달성군 유가읍 테크노대로6길 20에 위치하고 있다"
+        }
+      ]
+    },
+    "daeguarboretum": {
+      "name": "대구수목원",
+      "facts": [
+        {
+          "text": "옛날에는 쓰레기를 묻던 곳이었어요.",
+          "source": "위키백과 - 대구수목원",
+          "url": "https://ko.wikipedia.org/wiki/대구수목원",
+          "checked": "2026-11-01",
+          "evidence": "거대한 쓰레기 매립장이었다"
+        },
+        {
+          "text": "나무와 풀이 약 1,750종 자라요.",
+          "source": "위키백과 - 대구수목원",
+          "url": "https://ko.wikipedia.org/wiki/대구수목원",
+          "checked": "2026-11-01",
+          "evidence": "약 1,750종에 이르는"
+        },
+        {
+          "text": "2002년 5월에 문을 열었어요.",
+          "source": "위키백과 - 대구수목원",
+          "url": "https://ko.wikipedia.org/wiki/대구수목원",
+          "checked": "2026-11-01",
+          "evidence": "같은 해 5월에 정식 개장하였다 (2002년)"
+        }
+      ]
+    },
+    "chilseong": {
+      "name": "칠성시장",
+      "facts": [
+        {
+          "text": "대구에서 두 번째로 큰 시장이에요.",
+          "source": "위키백과 - 칠성시장",
+          "url": "https://ko.wikipedia.org/wiki/칠성시장",
+          "checked": "2026-11-01",
+          "evidence": "서문시장에 이어 규모가 2번째로 큰 시장"
+        },
+        {
+          "text": "작은 시장 9개를 합쳐 칠성시장이라 불러요.",
+          "source": "위키백과 - 칠성시장",
+          "url": "https://ko.wikipedia.org/wiki/칠성시장",
+          "checked": "2026-11-01",
+          "evidence": "9개 시장을 모두 합쳐 흔히 칠성시장이라고 부른다."
+        },
+        {
+          "text": "장난감 가게가 모인 완구골목이 있어요.",
+          "source": "위키백과 - 칠성시장",
+          "url": "https://ko.wikipedia.org/wiki/칠성시장",
+          "checked": "2026-11-01",
+          "evidence": "칠성시장 완구골목"
+        }
+      ]
+    },
+    "palgongsan": {
+      "name": "팔공산",
+      "facts": [
+        {
+          "text": "대구와 경산, 영천, 칠곡에 걸쳐 있는 산이에요.",
+          "source": "한국어 위키백과: 팔공산",
+          "url": "https://ko.wikipedia.org/wiki/팔공산",
+          "checked": "2026-11-01",
+          "evidence": "대구광역시 동구와 북구와 군위군, 경상북도 경산시와 영천시 그리고 칠곡군에 넓게 걸쳐 있는"
+        },
+        {
+          "text": "2023년 12월 31일에 국립공원이 됐어요.",
+          "source": "한국어 위키백과: 팔공산",
+          "url": "https://ko.wikipedia.org/wiki/팔공산",
+          "checked": "2026-11-01",
+          "evidence": "2023년 12월 31일에 국립공원으로 지정되었다"
+        }
+      ]
+    },
+    "daegustadium": {
+      "name": "대구스타디움",
+      "facts": [
+        {
+          "text": "2001년에 문을 연 큰 경기장이에요.",
+          "source": "한국어 위키백과: 대구스타디움",
+          "url": "https://ko.wikipedia.org/wiki/대구스타디움",
+          "checked": "2026-11-01",
+          "evidence": "2001년 6월 28일에 정식 개장했다"
+        },
+        {
+          "text": "2002년 월드컵 경기가 열렸어요.",
+          "source": "한국어 위키백과: 대구스타디움",
+          "url": "https://ko.wikipedia.org/wiki/대구스타디움",
+          "checked": "2026-11-01",
+          "evidence": "2002년 FIFA 월드컵"
+        },
+        {
+          "text": "2011년 세계 육상 대회가 열렸어요.",
+          "source": "한국어 위키백과: 대구스타디움",
+          "url": "https://ko.wikipedia.org/wiki/대구스타디움",
+          "checked": "2026-11-01",
+          "evidence": "2011년 세계 육상 선수권 대회"
+        }
+      ]
     }
   }
 }
