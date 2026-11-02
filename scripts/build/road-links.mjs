@@ -1,6 +1,6 @@
 // 걸어서 갈 수 없는 곳을 게임에서 임의로 잇는다(실제 길이 아니다). npm run roads가 쓴다.
 //
-// - 랜드마크에서 가장 가까운 길이 멀면, 그 길에서 랜드마크까지 곧은 길을 하나 낸다.
+// - 랜드마크에서 가장 가까운 길이 조금이라도 떨어져 있으면, 그 길에서 랜드마크까지 곧은 길을 하나 낸다.
 // - 본 길망과 끊어진 길 묶음은 가장 가까운 본 길로 잇는다. OSM에서 받지 않은 샛길과 다리 때문에 끊긴 곳이 많다.
 //   maxGapM보다 멀면 잇지 않되(배로 가는 섬), 랜드마크 곁의 묶음은 거리를 따지지 않고 잇는다.
 import { MADE_ROAD } from '../../src/sim/roads.js';
@@ -9,6 +9,10 @@ const UNITS_PER_KM = 100; // 좌표 단위 10m
 const CELL = UNITS_PER_KM;
 /** 길이 이보다 멀면 누른 곳에서 길을 찾지 못한다(src/ui/walk-screen.js walkTo의 0.3km보다 조금 안쪽) */
 const SPUR_KM = 0.25;
+/** 넓은 곳은 가운데까지 가지 않아도 된다. 길이 반지름의 이 비율 안에 있으면 길을 내지 않는다. */
+const SPUR_RADIUS_SHARE = 0.4;
+/** 이만큼 가까운 두 점(10m 단위)은 길을 내지 않고 한 갈림점으로 합친다. 아주 짧은 길은 방향을 알 수 없어 걷다가 멈춘다. */
+const MERGE_UNITS = 2;
 
 function nearestOnSegment(p, a, b) {
   const dx = b[0] - a[0];
@@ -132,7 +136,21 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000 } = {}) {
   };
 
   let longestM = 0;
-  const made = (a, b) => {
+  const alias = new Map();
+  const real = (n) => {
+    let r = n;
+    while (alias.has(r)) r = alias.get(r);
+    return r;
+  };
+  const made = (from, to) => {
+    const a = real(from);
+    const b = real(to);
+    if (a === b) return;
+    if (Math.hypot(nodes[a][0] - nodes[b][0], nodes[a][1] - nodes[b][1]) <= MERGE_UNITS) {
+      alias.set(b, a);
+      union(a, b);
+      return;
+    }
     const meters = Math.round(Math.hypot(nodes[a][0] - nodes[b][0], nodes[a][1] - nodes[b][1]) * 10);
     edges.push({ a, b, cls: MADE_ROAD, meters, pts: [nodes[a], nodes[b]] });
     register(edges.length - 1);
@@ -145,7 +163,7 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000 } = {}) {
   for (const lm of landmarks) {
     const p = [Math.round(lm.x * UNITS_PER_KM), Math.round(lm.y * UNITS_PER_KM)];
     const hit = nearest(p, null, Infinity);
-    if (!hit || hit.d / UNITS_PER_KM <= Math.min(lm.radius, SPUR_KM)) continue;
+    if (!hit || hit.d / UNITS_PER_KM <= Math.min(lm.radius * SPUR_RADIUS_SHARE, SPUR_KM)) continue;
     made(attach(hit), newNode(p));
     spurs += 1;
   }
@@ -195,11 +213,28 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000 } = {}) {
     }
   }
 
-  // 다시 사이 점을 옮긴 만큼으로 적는다
-  const outEdges = edges.map((e) => {
+  // 쓰는 갈림점만 남기고, 다시 사이 점을 옮긴 만큼으로 적는다
+  const renum = new Map();
+  const outNodes = [];
+  const idOf = (n) => {
+    if (!renum.has(n)) {
+      renum.set(n, outNodes.length / 2);
+      outNodes.push(...nodes[n]);
+    }
+    return renum.get(n);
+  };
+  const outEdges = [];
+  for (const e of edges) {
+    const a = real(e.a);
+    const b = real(e.b);
+    if (a === b && e.pts.length <= 2) continue;
     const flat = [];
-    for (let k = 1; k < e.pts.length - 1; k++) flat.push(e.pts[k][0] - e.pts[k - 1][0], e.pts[k][1] - e.pts[k - 1][1]);
-    return e.name === undefined ? [e.a, e.b, e.cls, e.meters, flat] : [e.a, e.b, e.cls, e.meters, flat, e.name];
-  });
-  return { nodes: nodes.flat(), edges: outEdges, spurs, links, longestM };
+    let prev = nodes[a];
+    for (const p of e.pts.slice(1, -1)) {
+      flat.push(p[0] - prev[0], p[1] - prev[1]);
+      prev = p;
+    }
+    outEdges.push(e.name === undefined ? [idOf(a), idOf(b), e.cls, e.meters, flat] : [idOf(a), idOf(b), e.cls, e.meters, flat, e.name]);
+  }
+  return { nodes: outNodes, edges: outEdges, spurs, links, longestM };
 }

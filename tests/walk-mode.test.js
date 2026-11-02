@@ -227,7 +227,7 @@ test('임의 길: 멀리 있는 랜드마크까지 길을 내고, 끊어진 묶�
       [4, 5, 5, 200, []],
     ],
   };
-  const out = addMadeRoads(data, [{ x: 1, y: 0.1, radius: 0.2 }]);
+  const out = addMadeRoads(data, [{ x: 1, y: 0.05, radius: 0.2 }]);
   assert.equal(out.spurs, 0);
   assert.equal(out.links, 1, '가까운 묶음만 잇고 먼 섬은 두어요');
   const far = addMadeRoads(data, [{ x: 4, y: 1.5, radius: 0.2 }]);
@@ -274,10 +274,12 @@ test('모든 랜드마크는 본 길망에서 걸어서 갈 수 있다', { skip:
       }
     }
   }
+  // 길이가 0인 임의 길이 있으면 방향을 알 수 없어 조이스틱으로 걷다가 멈춘다
+  assert.equal(roads.edges.filter((e) => e.cls === MADE_ROAD && e.pts.every((p) => p[0] === e.pts[0][0] && p[1] === e.pts[0][1])).length, 0);
   for (const lm of landmarks) {
     const hit = nearestRoad(roads, index, lm, 0.3);
     assert.ok(hit, `${lm.name}: 300m 안에 길이 있어야 해요`);
-    assert.ok(hit.km <= lm.radius + 0.001 || hit.km <= 0.25, `${lm.name}: 길이 ${hit.km}km 떨어져 있어요`);
+    assert.ok(hit.km <= Math.min(lm.radius * 0.4, 0.25) + 0.01, `${lm.name}: 길이 ${hit.km}km 떨어져 있어요`);
     assert.ok(reached.has(roads.edges[hit.edge].a), `${lm.name}: 가까운 길이 본 길망과 끊어져 있어요`);
     // 살짝 옆을 눌러도 끊어진 길을 고르지 않는다
     for (const [dx, dy] of [[0.1, 0], [-0.1, 0], [0, 0.1], [0, -0.1]]) {
