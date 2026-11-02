@@ -265,10 +265,10 @@ export function designStationInfo(planOrDesign, options = {}, lineIndex = 0) {
           .map((line) => ({ name: line.stationNames?.[cell] ?? '새 역', line: line.lineName ?? '새 노선' })),
       );
     // 한 칸에 정류장이 여럿이면(버스) 그 칸의 역을 모두 더한다.
-    const base = `${design.id}-${cell}`;
+    const idPrefix = `${design.id}-${cell}`;
     let value = null;
     for (const [id, count] of riders ?? []) {
-      if (id === base || id.startsWith(`${base}-`)) value = (value ?? 0) + count;
+      if (id === idPrefix || id.startsWith(`${idPrefix}-`)) value = (value ?? 0) + count;
     }
     info[cell] = {
       ...around,
