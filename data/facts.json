@@ -3533,6 +3533,155 @@
           "evidence": "2011년 세계 육상 선수권 대회"
         }
       ]
+    },
+    "songdotopsville": {
+      "name": "송도탑스빌아파트",
+      "facts": [
+        {
+          "text": "집이 125채 있는 아파트예요.",
+          "source": "경향신문 2008년 기사",
+          "url": "https://www.khan.co.kr/article/200804251752505",
+          "checked": "2026-11-02",
+          "evidence": "지난 2006년 6월 입주한 송도탑스빌(125가구)"
+        },
+        {
+          "text": "2006년 6월에 사람들이 들어와 살기 시작했어요.",
+          "source": "경향신문 2008년 기사",
+          "url": "https://www.khan.co.kr/article/200804251752505",
+          "checked": "2026-11-02",
+          "evidence": "지난 2006년 6월 입주한 송도탑스빌(125가구)"
+        },
+        {
+          "text": "부산 서구 암남동에 있어요.",
+          "source": "아파트 정보 사이트 dapt.kr",
+          "url": "https://dapt.kr/apt/FkA028.html",
+          "checked": "2026-11-02",
+          "evidence": "부산광역시 서구 암남동 255-1"
+        }
+      ]
+    },
+    "dongnaesk3": {
+      "name": "동래3차SK뷰",
+      "facts": [
+        {
+          "text": "가장 높은 곳이 39층이에요.",
+          "source": "에너지경제 2018년 기사",
+          "url": "https://m.ekn.kr/view.php?key=366034",
+          "checked": "2026-11-02",
+          "evidence": "단지는 지하 5층~지상 39층, 아파트 7개 동, 999가구 규모다."
+        },
+        {
+          "text": "건물 7개 동에 집이 999채 있어요.",
+          "source": "에너지경제 2018년 기사",
+          "url": "https://m.ekn.kr/view.php?key=366034",
+          "checked": "2026-11-02",
+          "evidence": "단지는 지하 5층~지상 39층, 아파트 7개 동, 999가구 규모다."
+        },
+        {
+          "text": "부산 동래구 온천동에 있어요.",
+          "source": "에너지경제 2018년 기사",
+          "url": "https://m.ekn.kr/view.php?key=366034",
+          "checked": "2026-11-02",
+          "evidence": "SK건설이 부산시 동래구 온천동 183-3번지 일원에"
+        }
+      ]
+    },
+    "oncheonschool": {
+      "name": "온천초등학교",
+      "facts": [
+        {
+          "text": "1967년에 세운 학교예요.",
+          "source": "한국어 위키백과: 온천초등학교 (부산)",
+          "url": "https://ko.wikipedia.org/wiki/온천초등학교_(부산)",
+          "checked": "2026-11-02",
+          "evidence": "정보 상자 1967년 2월 28일, 연혁 1967.03.01 개교(27학급). 학교알리미 설립일자도 1967년 02월 28일"
+        },
+        {
+          "text": "1996년에 온천국민학교에서 이름이 바뀌었어요.",
+          "source": "부산역사문화대전",
+          "url": "https://busan.grandculture.net/Contents/Contents?dataType=01&contents_id=GC04207592&isTreeSpread=Y&RequestBy=%ED%95%AD%EB%AA%A9%EB%A7%81%ED%81%AC",
+          "checked": "2026-11-02",
+          "evidence": "1996년 3월 1일에 온천초등학교로 교명을 변경하였다"
+        },
+        {
+          "text": "부산 동래구에 있어요.",
+          "source": "한국어 위키백과: 온천초등학교 (부산)",
+          "url": "https://ko.wikipedia.org/wiki/온천초등학교_(부산)",
+          "checked": "2026-11-02",
+          "evidence": "부산광역시 동래구 충렬대로107번길 124"
+        }
+      ]
+    },
+    "centumprugio": {
+      "name": "센텀푸르지오아파트",
+      "facts": [
+        {
+          "text": "집이 560채 있는 아파트예요.",
+          "source": "아파트 정보 사이트 집품",
+          "url": "https://zippoom.com/%EB%B6%80%EB%8F%99%EC%82%B0/%EB%B6%80%EC%82%B0-%EC%97%B0%EC%A0%9C%EA%B5%AC-%EC%97%B0%EC%82%B0%EB%8F%99-%EB%B6%80%EC%82%B0%EC%84%BC%ED%85%80%ED%91%B8%EB%A5%B4%EC%A7%80%EC%98%A4/a0zxl4",
+          "checked": "2026-11-02",
+          "evidence": "세대수 560세대(7동)"
+        },
+        {
+          "text": "2015년 1월에 다 지었어요.",
+          "source": "아파트 정보 사이트 집품",
+          "url": "https://zippoom.com/%EB%B6%80%EB%8F%99%EC%82%B0/%EB%B6%80%EC%82%B0-%EC%97%B0%EC%A0%9C%EA%B5%AC-%EC%97%B0%EC%82%B0%EB%8F%99-%EB%B6%80%EC%82%B0%EC%84%BC%ED%85%80%ED%91%B8%EB%A5%B4%EC%A7%80%EC%98%A4/a0zxl4",
+          "checked": "2026-11-02",
+          "evidence": "준공 12년차(2015.01.), 사용승인일 15.01.29"
+        },
+        {
+          "text": "부산 연제구 연산동에 있어요.",
+          "source": "아파트 정보 사이트 집품",
+          "url": "https://zippoom.com/%EB%B6%80%EB%8F%99%EC%82%B0/%EB%B6%80%EC%82%B0-%EC%97%B0%EC%A0%9C%EA%B5%AC-%EC%97%B0%EC%82%B0%EB%8F%99-%EB%B6%80%EC%82%B0%EC%84%BC%ED%85%80%ED%91%B8%EB%A5%B4%EC%A7%80%EC%98%A4/a0zxl4",
+          "checked": "2026-11-02",
+          "evidence": "부산 연제구 연산동 2307, 도로명 부산 연제구 고분로 280"
+        }
+      ]
+    },
+    "pnu": {
+      "name": "부산대학교",
+      "facts": [
+        {
+          "text": "1946년 5월 15일에 세운 국립대학교예요.",
+          "source": "한국어 위키백과: 부산대학교",
+          "url": "https://ko.wikipedia.org/wiki/부산대학교",
+          "checked": "2026-11-02",
+          "evidence": "1946년 5월 15일에 설립된 종합 국립대학교이며"
+        },
+        {
+          "text": "무지개문은 2014년에 문화재로 등록됐어요.",
+          "source": "한국어 위키백과: 부산대학교",
+          "url": "https://ko.wikipedia.org/wiki/부산대학교",
+          "checked": "2026-11-02",
+          "evidence": "2014년에 인문관과 함께 문화재로 등록, 정식 명칭은 무지개문 및 옛 수위실"
+        },
+        {
+          "text": "마스코트는 독수리를 닮은 산지니예요.",
+          "source": "한국어 위키백과: 부산대학교",
+          "url": "https://ko.wikipedia.org/wiki/부산대학교",
+          "checked": "2026-11-02",
+          "evidence": "상징 동물은 독수리로 이를 형상화한 캐릭터인 ‘산지니’가 있고"
+        }
+      ]
+    },
+    "songdoschool": {
+      "name": "송도초등학교",
+      "facts": [
+        {
+          "text": "1953년에 세운 학교예요.",
+          "source": "학교알리미: 송도초등학교",
+          "url": "https://www.schoolinfo.go.kr/ei/ss/Pneiss_b01_s0.do?HG_CD=C100001471",
+          "checked": "2026-11-02",
+          "evidence": "설립구분 공립, 설립유형 단설, 설립일자 1953년 06월 22일"
+        },
+        {
+          "text": "부산 서구 충무대로에 있어요.",
+          "source": "학교알리미: 송도초등학교",
+          "url": "https://www.schoolinfo.go.kr/ei/ss/Pneiss_b01_s0.do?HG_CD=C100001471",
+          "checked": "2026-11-02",
+          "evidence": "부산광역시 서구 충무대로 25"
+        }
+      ]
     }
   }
 }

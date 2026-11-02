@@ -2,6 +2,9 @@
 // kind: beach, bridge, market, tower, cliff, village, park, temple, island, museum, wetland, lake, street, garden, mountain,
 //       themepark, viewpoint, fortress, hanok, rockart, stadium,
 //       observatory, cherry, tomb, pavilion
+// 사진을 보고 건물을 따라 그린 곳은 landmark-scenes-real.js에 있고, 랜드마크의 scene으로 고른다.
+
+import { REAL_SCENES } from './landmark-scenes-real.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -39,6 +42,9 @@ export const LANDMARK_ICON = {
   hanok: ['🏡', '한옥 마을'],
   rockart: ['🐋', '바위그림'],
   stadium: ['🏟️', '경기장'],
+  apartment: ['🏢', '아파트'],
+  school: ['🏫', '초등학교'],
+  university: ['🎓', '대학교'],
 };
 
 let skyCount = 0;
@@ -362,7 +368,7 @@ const SCENES = {
 export function landmarkScene(kind, { reduceMotion = false, label = '' } = {}) {
   const svg = el('svg', { viewBox: '0 0 600 320', class: `lm-scene${reduceMotion ? '' : ' lm-moving'}`, role: 'img', 'aria-label': label });
   const g = el('g');
-  (SCENES[kind] ?? SCENES.park)(g);
+  (REAL_SCENES[kind] ?? SCENES[kind] ?? SCENES.park)(g);
   svg.append(g);
   return svg;
 }

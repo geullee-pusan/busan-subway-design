@@ -36,6 +36,10 @@ const TUNES = {
   museum: { root: 72, bpm: 96, scale: MAJOR_PENTA, voice: 'musicbox', notes: [[0, 0.5], [2, 0.5], [4, 0.5], [2, 0.5], [3, 2]], chord: [0, 4, 7] },
   rockart: { root: 50, bpm: 92, scale: KOREAN_PENTA, voice: 'horn', notes: [[0, 1], [2, 1], [0, 0.5], [3, 0.5], [2, 2]], extra: 'drum', chord: [0, 7] },
   themepark: { root: 67, bpm: 168, scale: MAJOR_PENTA, voice: 'organ', notes: [[0, 0.5], [2, 0.5], [4, 0.5], [7, 0.5], [5, 0.5], [4, 0.5], [5, 0.5], [7, 1]], chord: [0, 4, 7] },
+  // 아파트: 저녁 집으로 돌아오는 느낌, 학교: 종소리 같은 차임, 대학교: 씩씩한 금관
+  apartment: { root: 67, bpm: 104, scale: MAJOR_PENTA, voice: 'musicbox', notes: [[2, 0.5], [3, 0.5], [4, 1], [3, 0.5], [2, 0.5], [0, 1.5]], chord: [0, 4, 7] },
+  school: { root: 72, bpm: 100, scale: MAJOR_PENTA, voice: 'bell', notes: [[4, 1], [2, 1], [3, 1], [0, 2]], chord: [0, 4, 7, 12] },
+  university: { root: 62, bpm: 116, scale: MAJOR_PENTA, voice: 'brass', notes: [[0, 0.5], [2, 0.5], [3, 1], [4, 0.5], [3, 0.5], [5, 1.5]], chord: [0, 7, 12] },
   stadium: { root: 60, bpm: 132, scale: MAJOR_PENTA, voice: 'brass', notes: [[0, 0.5], [0, 0.5], [3, 0.5], [5, 1], [3, 0.5], [5, 1.5]], extra: 'cheer', chord: [0, 4, 7, 12] },
 };
 

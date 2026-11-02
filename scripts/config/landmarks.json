@@ -1,5 +1,5 @@
 {
-  "_설명": "걸어서 여행하기의 랜드마크. osm은 OpenStreetMap 요소(data/raw/osm/landmarks.json, 자리는 그 가운데 점). 이름만 있으면 near(위도, 경도)에 가장 가까운 같은 이름 요소를 쓴다. kind는 도착 장면 그림 종류, radius는 도착으로 보는 거리(m, 넓은 곳은 크게, 우리가 정한 값). 소개 글(사실)은 data/facts.json의 landmarks에 출처와 함께 있다. address가 있으면 주소로 그것을 쓴다(지도 점이 시·군 경계 너머에 찍힌 곳).",
+  "_설명": "걸어서 여행하기의 랜드마크. osm은 OpenStreetMap 요소(data/raw/osm/landmarks.json, 자리는 그 가운데 점). 이름만 있으면 near(위도, 경도)에 가장 가까운 같은 이름 요소를 쓴다. kind는 도착 장면 그림 종류, radius는 도착으로 보는 거리(m, 넓은 곳은 크게, 우리가 정한 값). 소개 글(사실)은 data/facts.json의 landmarks에 출처와 함께 있다. address가 있으면 주소로 그것을 쓴다(지도 점이 시·군 경계 너머에 찍힌 곳). scene이 있으면 도착 장면을 그 그림으로 그린다(사진을 보고 새로 그린 곳). 요소는 data/edits/landmark-places.json에 있을 수도 있다.",
   "landmarks": [
     {
       "id": "haeundae",
@@ -806,6 +806,60 @@
       "osm": "way/32500418",
       "kind": "stadium",
       "radius": 300
+    },
+    {
+      "id": "songdotopsville",
+      "name": "송도탑스빌아파트",
+      "city": "부산",
+      "osm": "node/5591879127",
+      "kind": "apartment",
+      "scene": "topsville",
+      "radius": 120
+    },
+    {
+      "id": "dongnaesk3",
+      "name": "동래3차SK뷰",
+      "city": "부산",
+      "osm": "way/993995368",
+      "kind": "apartment",
+      "scene": "dongnaeSk",
+      "radius": 180
+    },
+    {
+      "id": "oncheonschool",
+      "name": "온천초등학교",
+      "city": "부산",
+      "osm": "way/477097088",
+      "kind": "school",
+      "scene": "oncheonSchool",
+      "radius": 120
+    },
+    {
+      "id": "centumprugio",
+      "name": "센텀푸르지오아파트",
+      "city": "부산",
+      "osm": "way/785740369",
+      "kind": "apartment",
+      "scene": "centum",
+      "radius": 150
+    },
+    {
+      "id": "pnu",
+      "name": "부산대학교",
+      "city": "부산",
+      "osm": "way/472067907",
+      "kind": "university",
+      "scene": "pnuArch",
+      "radius": 500
+    },
+    {
+      "id": "songdoschool",
+      "name": "송도초등학교",
+      "city": "부산",
+      "osm": "way/469291850",
+      "kind": "school",
+      "scene": "songdoSchool",
+      "radius": 120
     }
   ]
 }

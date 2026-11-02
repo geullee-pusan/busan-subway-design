@@ -1,0 +1,11 @@
+{
+  "_설명": "data/raw/osm/landmarks.json에 없는 랜드마크 자리(아파트와 학교는 원본을 받을 때 고른 묶음에 들어 있지 않다). Overpass API에서 요소 번호와 이름을 찾아 가운데 점을 적었다. 2026-11-02 확인. © OpenStreetMap contributors, ODbL",
+  "elements": [
+    { "type": "node", "id": 5591879127, "lat": 35.0780847, "lon": 129.0185791, "tags": { "name": "송도 탑스빌" } },
+    { "type": "way", "id": 993995368, "center": { "lat": 35.216882, "lon": 129.0806025 }, "tags": { "name": "동래SK뷰3차아파트" } },
+    { "type": "way", "id": 477097088, "center": { "lat": 35.2123425, "lon": 129.0738308 }, "tags": { "name": "온천초등학교" } },
+    { "type": "way", "id": 785740369, "center": { "lat": 35.1832482, "lon": 129.1127357 }, "tags": { "name": "센텀푸르지오아파트" } },
+    { "type": "way", "id": 472067907, "center": { "lat": 35.2342428, "lon": 129.0792693 }, "tags": { "name": "부산대학교" } },
+    { "type": "way", "id": 469291850, "center": { "lat": 35.0782498, "lon": 129.0156564 }, "tags": { "name": "송도초등학교" } }
+  ]
+}

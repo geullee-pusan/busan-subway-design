@@ -650,7 +650,7 @@ export function renderWalk(root, { onHome }) {
     const card = element('div', 'lm-card');
     const [icon, kindName] = LANDMARK_ICON[lm.kind] ?? ['📍', '랜드마크'];
     card.append(element('h2', 'lm-title', `${icon} ${lm.name}에 왔어요`));
-    card.append(landmarkScene(lm.kind, { reduceMotion, label: `${lm.name}(${kindName})을 그린 그림이에요. 실제 사진이 아니에요.` }));
+    card.append(landmarkScene(lm.scene ?? lm.kind, { reduceMotion, label: `${lm.name}(${kindName})을 그린 그림이에요. 실제 사진이 아니에요.` }));
     if (lm.facts.length) {
       const list = element('ul', 'lm-facts');
       // 어려운 낱말은 낱말 카드로 잇는다
@@ -663,7 +663,7 @@ export function renderWalk(root, { onHome }) {
       const sources = [...new Set(lm.facts.map((f) => f.source))];
       card.append(element('p', 'panel-note', `자료: ${sources.join(', ')}`));
     }
-    card.append(element('p', 'panel-note', '그림은 그곳의 모습을 단순하게 그린 거예요.'));
+    card.append(element('p', 'panel-note', lm.scene ? '사진을 보고 새로 그린 그림이에요. 실제 사진이 아니에요.' : '그림은 그곳의 모습을 단순하게 그린 거예요.'));
     card.append(button('둘레 보기', () => updateNear(true), 'button big'));
     nearBox.replaceChildren(card);
     lastNearAt = { ...me };
