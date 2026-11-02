@@ -3,6 +3,7 @@
 // 건물 자리와 크기는 칸 번호로 늘 같게 정한다(실제 건물 자리가 아니다).
 import { dongAt } from '../sim/address.js';
 import { indexRoads, nearestRoad, MADE_ROAD } from '../sim/roads.js';
+import { waterAt, waterInBox } from '../sim/water.js';
 import { LANDMARK_ICON } from './landmark-scenes.js';
 
 /** 지형 바탕색 */
@@ -63,8 +64,10 @@ export function createWalkMap(canvas, world) {
     let terrain = world.grid.terrain[row]?.[col];
     // 1km 칸이 바다로 적혀 있어도 그 안에 땅(행정동 안)이 있으면 땅으로 본다. 건물마다 땅인지 다시 본다.
     const coastCell = terrain === 'sea' && (world.roadIndex.get(`${col},${row}`)?.length ?? 0) > 0;
-    if (coastCell) terrain = 'flat';
-    const onLand = (p) => !coastCell || Boolean(dongAt(world.dongs, p));
+    if (coastCell || terrain === 'river') terrain = 'flat';
+    // 강과 호수 위에는 건물과 나무를 두지 않는다
+    const cellWater = waterInBox(world.water, col, row, col + 1, row + 1);
+    const onLand = (p) => (!coastCell || Boolean(dongAt(world.dongs, p))) && !waterAt(cellWater, p);
     const people = world.grid.population[row]?.[col] ?? 0;
     const items = [];
     if (terrain === 'flat' || terrain === 'hill' || terrain === 'field') {
@@ -164,24 +167,43 @@ export function createWalkMap(canvas, world) {
       for (let col = c0; col <= c1; col++) {
         let terrain = world.grid.terrain[row]?.[col] ?? 'sea';
         if (simple && terrain === 'sea') continue;
-        if (terrain === 'sea') terrain = 'flat';
+        // 강은 1km 칸이 아니라 실제 모양으로 아래에서 그린다
+        if (terrain === 'sea' || terrain === 'river') terrain = 'flat';
         ctx.fillStyle = GROUND[terrain] ?? GROUND.flat;
         ctx.fillRect(Math.floor(sx(col)), Math.floor(sy(row)), Math.ceil(scale) + 1, Math.ceil(scale) + 1);
-        if (terrain === 'river' && scale >= 200) {
-          // 물결
-          ctx.strokeStyle = 'rgba(255,255,255,0.45)';
-          ctx.lineWidth = 1.5;
-          for (let i = 0; i < 10; i++) {
-            const x = col + hash01(col, row, i) * 0.9;
-            const y = row + hash01(row, col, i) * 0.95;
-            ctx.beginPath();
-            ctx.arc(sx(x), sy(y), 0.02 * scale, Math.PI * 1.15, Math.PI * 1.85);
-            ctx.stroke();
-          }
-        }
       }
     }
     ctx.restore();
+    // 1-2. 강과 호수(멀리 볼 때는 큰 것만). 색만으로 알리지 않게 물결과 이름을 함께 그린다.
+    const minSpan = simple ? 1 : scale < 120 ? 0.1 : 0;
+    const waters = waterInBox(world.water, left, top, right, bottom).filter(({ box }) => Math.max(box[2] - box[0], box[3] - box[1]) >= minSpan);
+    if (waters.length) {
+      ctx.beginPath();
+      for (const { rings } of waters) {
+        for (const ring of rings) {
+          ring.forEach(([px, py], k) => (k ? ctx.lineTo(sx(px), sy(py)) : ctx.moveTo(sx(px), sy(py))));
+          ctx.closePath();
+        }
+      }
+      ctx.fillStyle = GROUND.river;
+      ctx.fill('evenodd');
+      if (scale >= 200) {
+        ctx.save();
+        ctx.clip('evenodd');
+        ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+        ctx.lineWidth = 1.5;
+        for (let row = r0; row <= r1; row++) {
+          for (let col = c0; col <= c1; col++) {
+            for (let i = 0; i < 60; i++) {
+              ctx.beginPath();
+              ctx.arc(sx(col + hash01(col, row, i)), sy(row + hash01(row, col, i)), 0.02 * scale, Math.PI * 1.15, Math.PI * 1.85);
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.restore();
+      }
+    }
     // 2. 논밭(길 아래)
     const decor = [];
     if (scale >= 300) for (let row = r0; row <= r1; row++) for (let col = c0; col <= c1; col++) decor.push(...decorations(col, row));
@@ -260,6 +282,36 @@ export function createWalkMap(canvas, world) {
       ctx.setLineDash([10, 8]);
       strokeAll(byClass.get(MADE_ROAD), 2.5, ROAD_STYLE[MADE_ROAD].edge);
       ctx.setLineDash([]);
+    }
+    // 강과 호수 이름: 화면에 보이는 물가 점들의 가운데에 한 번씩
+    if (scale >= 60) {
+      const labels = new Map();
+      for (const { name, rings } of waters) {
+        if (!name) continue;
+        const spot = labels.get(name) ?? { x: 0, y: 0, n: 0 };
+        for (const ring of rings) {
+          for (const [px, py] of ring) {
+            if (px < left || px > right || py < top || py > bottom) continue;
+            spot.x += px;
+            spot.y += py;
+            spot.n += 1;
+          }
+        }
+        labels.set(name, spot);
+      }
+      ctx.font = '700 15px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineJoin = 'round';
+      for (const [name, spot] of [...labels].filter(([, s]) => s.n >= 4).sort((a, b) => b[1].n - a[1].n).slice(0, 6)) {
+        const lx = sx(spot.x / spot.n);
+        const ly = sy(spot.y / spot.n);
+        ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+        ctx.lineWidth = 4;
+        ctx.strokeText(name, lx, ly);
+        ctx.fillStyle = '#1B5E8C';
+        ctx.fillText(name, lx, ly);
+      }
     }
     // 택시가 가는 길(노란 점선), 걸어갈 길(주황 점선)
     if (extra.route) {

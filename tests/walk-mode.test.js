@@ -6,6 +6,7 @@ import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { addMadeRoads } from '../scripts/build/road-links.mjs';
 import { decodeRoads, indexRoads, MADE_ROAD, nearestRoad, pointAlong, taxiRoute, walkRoute } from '../src/sim/roads.js';
+import { decodeWater, waterAt, waterInBox } from '../src/sim/water.js';
 import { addEntry, emptyRecord, minutesWalking, nearby, nextArrivals, stepWalk, walkable } from '../src/sim/walk-mode.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -287,4 +288,20 @@ test('모든 랜드마크는 본 길망에서 걸어서 갈 수 있다', { skip:
       if (side) assert.ok(reached.has(roads.edges[side.edge].a), `${lm.name}: 옆을 눌렀을 때 끊어진 길이에요`);
     }
   }
+});
+
+test('강과 호수: 물 위인지 알고, 강 가운데 섬은 물이 아니며, 수영강 모양이 있다', { skip: existsSync(resolve(ROOT, 'data/build/water-shapes.json')) ? false : 'npm run water-shapes를 먼저 돌려요' }, () => {
+  const list = decodeWater({
+    unit: 0.01,
+    water: [{ name: '시험 강', rings: [[0, 0, 100, 0, 0, 100, -100, 0], [40, 40, 20, 0, 0, 20, -20, 0]] }],
+  });
+  assert.equal(waterAt(list, { x: 0.1, y: 0.1 }), true);
+  assert.equal(waterAt(list, { x: 0.5, y: 0.5 }), false, '섬 위');
+  assert.equal(waterAt(list, { x: 2, y: 2 }), false);
+  assert.equal(waterInBox(list, 5, 5, 6, 6).length, 0);
+  const real = decodeWater(JSON.parse(readFileSync(resolve(ROOT, 'data/build/water-shapes.json'), 'utf8')));
+  const suyeong = real.filter((w) => w.name === '수영강');
+  assert.ok(suyeong.length > 0);
+  const span = Math.max(...suyeong.map(({ box }) => Math.max(box[2] - box[0], box[3] - box[1])));
+  assert.ok(span > 3, `수영강 모양 길이가 ${span}km예요`);
 });

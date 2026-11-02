@@ -27,6 +27,7 @@
     "roads": "node scripts/build-roads.mjs",
     "tago-bus": "node scripts/fetch-tago-bus.mjs",
     "dong-shapes": "node scripts/build-dong-shapes.mjs",
+    "water-shapes": "node scripts/build-water-shapes.mjs",
     "landmarks": "node scripts/build-landmarks.mjs"
   },
   "engines": {

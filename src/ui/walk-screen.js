@@ -3,10 +3,11 @@
 // 계산은 src/sim/walk-mode.js와 src/sim/roads.js(순수 함수), 그림은 src/ui/walk-map.js.
 // 타는 장면은 여행 모드(가 보기, journey-screen.js)와 진짜 기차 타 보기(train-journey.js)를 그대로 쓴다.
 import faresFile from '../content/fares.json';
-import { dongShapes, dongs, grid, landmarks, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
+import { dongShapes, dongs, grid, waterShapes, landmarks, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
 import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
 import { stopGroup, stopsInCell } from '../sim/bus-network.js';
 import { decodeDongs, dongAt } from '../sim/address.js';
+import { decodeWater } from '../sim/water.js';
 import { decodeRoads, indexRoads, nearestRoad, placeOn, pointAlong, taxiRoute, walkAlong, walkRoute, MADE_ROAD } from '../sim/roads.js';
 import { searchTrains, trainFare } from '../sim/train-trip.js';
 import { planTrips, taxiFare } from '../sim/trip.js';
@@ -60,7 +61,7 @@ let roadCache = null;
 function roadWorld() {
   if (!roadCache) {
     const roads = decodeRoads(roadsData);
-    roadCache = { roads, index: indexRoads(roads), dongs: decodeDongs(dongShapes) };
+    roadCache = { roads, index: indexRoads(roads), dongs: decodeDongs(dongShapes), water: decodeWater(waterShapes) };
   }
   return roadCache;
 }
@@ -90,7 +91,7 @@ export function renderWalk(root, { onHome }) {
   const saved = loadView().walk;
   const { world, prepared, result } = worldFor({ year: BASE_YEAR, dayType: '평일' });
   const network = busNetwork();
-  const { roads, index: roadIndex, dongs: dongShapesList } = roadWorld();
+  const { roads, index: roadIndex, dongs: dongShapesList, water: waterList } = roadWorld();
   const subwayStations = stations.filter((s) => s.inGrid);
   const busCache = new Map();
   const busStopsIn = (cell) => {
@@ -358,6 +359,7 @@ export function renderWalk(root, { onHome }) {
       busStopsNear: busStopsIn,
       landmarks,
       dongs: dongShapesList,
+      water: waterList,
       lineColor: (line) => lineById.get(line)?.color ?? '#1F3342',
       lineName: (line) => LINE_MARK[line] ?? line,
     });
