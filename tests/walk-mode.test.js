@@ -4,7 +4,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { decodeRoads, indexRoads, nearestRoad, pointAlong, taxiRoute } from '../src/sim/roads.js';
+import { addMadeRoads } from '../scripts/build/road-links.mjs';
+import { decodeRoads, indexRoads, MADE_ROAD, nearestRoad, pointAlong, taxiRoute, walkRoute } from '../src/sim/roads.js';
 import { addEntry, emptyRecord, minutesWalking, nearby, nextArrivals, stepWalk, walkable } from '../src/sim/walk-mode.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -214,4 +215,74 @@ test('랜드마크 음악은 지난번에서 10초가 지나야 다시 나온다
   assert.equal(canPlayAgain(-Infinity, 0), true);
   assert.equal(canPlayAgain(1000, 10999), false);
   assert.equal(canPlayAgain(1000, 11000), true);
+});
+
+test('임의 길: 멀리 있는 랜드마크까지 길을 내고, 끊어진 묶음을 잇고, 택시는 지나가지 않는다', () => {
+  // 본 길(0,0 → 500,0 10m 단위)과 떨어진 작은 길, 먼 랜드마크, 아주 먼 섬
+  const data = {
+    nodes: [0, 0, 500, 0, 200, 50, 240, 50, 5000, 5000, 5020, 5000],
+    edges: [
+      [0, 1, 3, 5000, []],
+      [2, 3, 5, 400, []],
+      [4, 5, 5, 200, []],
+    ],
+  };
+  const out = addMadeRoads(data, [{ x: 1, y: 0.1, radius: 0.2 }]);
+  assert.equal(out.spurs, 0);
+  assert.equal(out.links, 1, '가까운 묶음만 잇고 먼 섬은 두어요');
+  const far = addMadeRoads(data, [{ x: 4, y: 1.5, radius: 0.2 }]);
+  assert.equal(far.spurs, 1);
+  const roads = decodeRoads({ unit: 0.01, names: [], nodes: far.nodes, edges: far.edges });
+  const index = indexRoads(roads);
+  const start = nearestRoad(roads, index, { x: 1, y: 0 }, 0.1);
+  const lm = nearestRoad(roads, index, { x: 4, y: 1.5 }, 0.05);
+  assert.ok(lm, '랜드마크 자리까지 길이 있어요');
+  assert.equal(roads.edges[lm.edge].cls, MADE_ROAD);
+  assert.ok(walkRoute(roads, start, lm), '걸어서 갈 수 있어요');
+  // 차도 사이 지름길이 임의 길뿐이면 택시는 길을 찾지 못한다
+  const cut = decodeRoads({
+    unit: 0.01,
+    names: [],
+    nodes: [0, 0, 100, 0, 200, 0, 300, 0],
+    edges: [
+      [0, 1, 3, 1000, []],
+      [1, 2, MADE_ROAD, 1000, []],
+      [2, 3, 3, 1000, []],
+    ],
+  });
+  const a = { edge: 0, seg: 0, t: 0.5 };
+  const b = { edge: 2, seg: 0, t: 0.5 };
+  assert.ok(walkRoute(cut, a, b));
+  assert.equal(taxiRoute(cut, a, b), null);
+});
+
+test('모든 랜드마크는 본 길망에서 걸어서 갈 수 있다', { skip: existsSync(resolve(ROOT, 'data/build/roads.json')) && existsSync(resolve(ROOT, 'data/build/landmarks.json')) ? false : '길 자료를 먼저 만들어요' }, () => {
+  const roads = decodeRoads(JSON.parse(readFileSync(resolve(ROOT, 'data/build/roads.json'), 'utf8')));
+  const { landmarks } = JSON.parse(readFileSync(resolve(ROOT, 'data/build/landmarks.json'), 'utf8'));
+  const index = indexRoads(roads);
+  // 해운대에서 이어지는 길 전부
+  const from = nearestRoad(roads, index, landmarks.find((lm) => lm.id === 'haeundae'), 0.5);
+  const reached = new Set([roads.edges[from.edge].a]);
+  const stack = [...reached];
+  while (stack.length) {
+    for (const i of roads.adj[stack.pop()]) {
+      for (const n of [roads.edges[i].a, roads.edges[i].b]) {
+        if (!reached.has(n)) {
+          reached.add(n);
+          stack.push(n);
+        }
+      }
+    }
+  }
+  for (const lm of landmarks) {
+    const hit = nearestRoad(roads, index, lm, 0.3);
+    assert.ok(hit, `${lm.name}: 300m 안에 길이 있어야 해요`);
+    assert.ok(hit.km <= lm.radius + 0.001 || hit.km <= 0.25, `${lm.name}: 길이 ${hit.km}km 떨어져 있어요`);
+    assert.ok(reached.has(roads.edges[hit.edge].a), `${lm.name}: 가까운 길이 본 길망과 끊어져 있어요`);
+    // 살짝 옆을 눌러도 끊어진 길을 고르지 않는다
+    for (const [dx, dy] of [[0.1, 0], [-0.1, 0], [0, 0.1], [0, -0.1]]) {
+      const side = nearestRoad(roads, index, { x: lm.x + dx, y: lm.y + dy }, 0.3);
+      if (side) assert.ok(reached.has(roads.edges[side.edge].a), `${lm.name}: 옆을 눌렀을 때 끊어진 길이에요`);
+    }
+  }
 });

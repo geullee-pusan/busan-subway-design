@@ -4,6 +4,8 @@
 
 /** 도로 종류별 택시 빠르기(km/h): 1 간선, 2 주간선, 3 보조간선, 4 일반, 5 동네 길. 우리가 정한 값(신호와 막힘을 어림). */
 export const ROAD_KMH = { 1: 50, 2: 38, 3: 30, 4: 24, 5: 18 };
+/** 게임에서 임의로 이은 길의 종류(실제 길이 아니다). 사람만 걷고 택시는 다니지 않는다. */
+export const MADE_ROAD = 6;
 
 /** base64 글자 → 바이트 */
 function fromBase64(text) {
@@ -231,7 +233,7 @@ class Heap {
  * @returns {{points: Array<[number, number]>, km: number, minutes: number} | null}
  */
 export function taxiRoute(roads, start, end) {
-  return routeOnRoads(roads, start, end, (km, cls) => (km / ROAD_KMH[cls]) * 60);
+  return routeOnRoads(roads, start, end, (km, cls) => (cls === MADE_ROAD ? Infinity : (km / ROAD_KMH[cls]) * 60));
 }
 
 /**

@@ -2,7 +2,7 @@
 // 바탕은 격자 지형(1km 칸), 길은 OpenStreetMap 차도, 건물·나무·논밭은 칸의 인구와 지형으로 어림해 그린다(4단계 거리 꾸미기).
 // 건물 자리와 크기는 칸 번호로 늘 같게 정한다(실제 건물 자리가 아니다).
 import { dongAt } from '../sim/address.js';
-import { indexRoads, nearestRoad } from '../sim/roads.js';
+import { indexRoads, nearestRoad, MADE_ROAD } from '../sim/roads.js';
 import { LANDMARK_ICON } from './landmark-scenes.js';
 
 /** 지형 바탕색 */
@@ -21,9 +21,10 @@ const ROAD_STYLE = {
   3: { width: 15, fill: '#FFFFFF', edge: '#B8BDC2' },
   4: { width: 11, fill: '#FFFFFF', edge: '#C4C8CC' },
   5: { width: 7, fill: '#FBFAF6', edge: '#D3D6D9' },
+  6: { width: 7, fill: '#FBFAF6', edge: '#8A6D3B' },
 };
 /** 멀리서 볼 때(1km가 몇 픽셀보다 작을 때) 그리지 않는 작은 길: 종류 → 이 축척보다 크면 그린다 */
-const ROAD_MIN_SCALE = { 1: 0, 2: 40, 3: 60, 4: 90, 5: 220 };
+const ROAD_MIN_SCALE = { 1: 0, 2: 40, 3: 60, 4: 90, 5: 220, 6: 220 };
 /** 이보다 멀리 볼 때(1km가 몇 픽셀보다 작을 때)는 간단히 그린다: 바닷가는 1km 칸으로, 길은 큰길만, 역·정류장은 빼고 */
 export const SIMPLE_SCALE = 40;
 /** 가장 멀리 볼 때와 가장 가까이 볼 때(1km가 몇 픽셀) */
@@ -73,7 +74,7 @@ export function createWalkMap(canvas, world) {
       // 길 위에는 두지 않는다. 건물 가운데에서 길까지 건물 반 너비와 길 반 너비만큼은 떨어지게 한다.
       // 길이 촘촘한 동네에서도 빈 블록을 고르게 찾도록, 칸을 40m 눈금(25×25)으로 나눠 섞은 차례로 본다.
       const isMajor = (edge) => edge.cls <= 4;
-      const isMinor = (edge) => edge.cls === 5;
+      const isMinor = (edge) => edge.cls >= 5;
       let placed = 0;
       for (let k = 0; k < 625 && placed < count; k++) {
         const i = (k * 389 + col * 7 + row * 13) % 625;
@@ -252,6 +253,12 @@ export function createWalkMap(canvas, world) {
     if (scale >= 500) {
       ctx.setLineDash([8, 8]);
       strokeAll(visible.filter((edge) => edge.cls <= 2), 1.5, '#E3B341');
+      ctx.setLineDash([]);
+    }
+    // 임의로 이은 길은 실제 길과 다르게 갈색 점선을 얹는다
+    if (byClass.has(MADE_ROAD)) {
+      ctx.setLineDash([10, 8]);
+      strokeAll(byClass.get(MADE_ROAD), 2.5, ROAD_STYLE[MADE_ROAD].edge);
       ctx.setLineDash([]);
     }
     // 택시가 가는 길(노란 점선), 걸어갈 길(주황 점선)

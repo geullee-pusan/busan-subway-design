@@ -8,22 +8,25 @@
 //   택시는 이 토막들을 이어 가장 빨리 가는 길로 달린다(src/sim/roads.js).
 // - 토막 모양은 15m 오차로 줄이고(Douglas-Peucker), 좌표는 10m 단위 정수로 적는다.
 // - 일방통행, 회전 금지, 신호는 넣지 않는다(어림).
+// - 걸어서 갈 수 없는 랜드마크와 끊어진 길 묶음은 게임에서 임의로 잇는다(종류 6, scripts/build/road-links.mjs).
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { simplify } from './build/districts.mjs';
+import { addMadeRoads } from './build/road-links.mjs';
 import { utm52 } from './lib/utm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
 const osm = JSON.parse(readFileSync(resolve(ROOT, 'data/raw/osm/roads.json'), 'utf8'));
+const { landmarks } = JSON.parse(readFileSync(resolve(ROOT, 'data/build/landmarks.json'), 'utf8'));
 // 동네 길 조각(paths-1.json, 다시 나눈 조각은 paths-17-1.json 꼴)
 const pathFiles = readdirSync(resolve(ROOT, 'data/raw/osm'))
   .filter((f) => /^paths-[\d-]+\.json$/.test(f))
   .sort()
   .map((f) => resolve(ROOT, 'data/raw/osm', f));
 
-/** 도로 종류: 1 간선, 2 주간선, 3 보조간선, 4 일반, 5 동네 길 */
+/** 도로 종류: 1 간선, 2 주간선, 3 보조간선, 4 일반, 5 동네 길(6 임의로 이은 길은 뒤에서 더한다) */
 const CLASS = { trunk: 1, primary: 2, secondary: 3, tertiary: 4 };
 const UNIT = 0.01; // 좌표 단위(km) = 10m
 const TOLERANCE_M = 15;
@@ -172,6 +175,14 @@ nodeXY.length = 0;
 for (const v of nodesOut) nodeXY.push(v);
 console.log(`이어 붙인 갈림점 ${merged}개`);
 
+// 3-2. 걸어서 갈 수 없는 곳을 임의로 잇는다
+const joined = addMadeRoads({ nodes: nodeXY, edges }, landmarks);
+edges.length = 0;
+for (const e of joined.edges) edges.push(e);
+nodeXY.length = 0;
+for (const v of joined.nodes) nodeXY.push(v);
+console.log(`임의로 이은 길: 랜드마크까지 ${joined.spurs}개, 끊어진 묶음 ${joined.links}개, 가장 긴 것 ${joined.longestM}m`);
+
 const byClass = {};
 for (const e of edges) byClass[e[2]] = (byClass[e[2]] ?? 0) + e[3] / 1000;
 // 4. 촘촘하게 담기: 숫자를 7비트씩 이어 적고(LEB128, 음수는 지그재그) base64로 바꾼다. 푸는 곳은 src/sim/roads.js unpack.
@@ -210,7 +221,7 @@ for (const [a, b, cls, meters, mid, name] of edges) {
 }
 const out = {
   _설명:
-    '걸어서 여행하기의 길. packed는 갈림점과 토막을 숫자로 줄여 담은 것이다(푸는 법: src/sim/roads.js). 갈림점 좌표는 10m 단위(격자 왼쪽 위 기준). 토막은 [갈림점 a, 갈림점 b, 종류(1 간선, 2 주간선, 3 보조간선, 4 일반, 5 동네 길), 길이(m), 사이 점, 길 이름 번호(names)]. 일방통행과 신호는 넣지 않았다.',
+    '걸어서 여행하기의 길. packed는 갈림점과 토막을 숫자로 줄여 담은 것이다(푸는 법: src/sim/roads.js). 갈림점 좌표는 10m 단위(격자 왼쪽 위 기준). 토막은 [갈림점 a, 갈림점 b, 종류(1 간선, 2 주간선, 3 보조간선, 4 일반, 5 동네 길, 6 게임에서 임의로 이은 길), 길이(m), 사이 점, 길 이름 번호(names)]. 일방통행과 신호는 넣지 않았다. 종류 6은 실제 길이 아니다.',
   source: 'OpenStreetMap 차도(highway=trunk·primary·secondary·tertiary와 연결로)와 동네 길(residential·unclassified·living_street·pedestrian), © OpenStreetMap contributors, ODbL',
   names,
   unit: UNIT,

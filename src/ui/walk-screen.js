@@ -7,7 +7,7 @@ import { dongShapes, dongs, grid, landmarks, lineById, places, rail, railStation
 import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
 import { stopGroup, stopsInCell } from '../sim/bus-network.js';
 import { decodeDongs, dongAt } from '../sim/address.js';
-import { decodeRoads, indexRoads, nearestRoad, placeOn, pointAlong, taxiRoute, walkAlong, walkRoute } from '../sim/roads.js';
+import { decodeRoads, indexRoads, nearestRoad, placeOn, pointAlong, taxiRoute, walkAlong, walkRoute, MADE_ROAD } from '../sim/roads.js';
 import { searchTrains, trainFare } from '../sim/train-trip.js';
 import { planTrips, taxiFare } from '../sim/trip.js';
 import { HAIL_KM, NEAR_KM, addEntry, emptyRecord, canPlayAgain, minutesWalking, nearby, nextArrivals, subwayHeadway, visitedPlaces } from '../sim/walk-mode.js';
@@ -66,6 +66,7 @@ function roadWorld() {
 }
 /** 택시는 차도(동네 길 빼고)에서 잡는다 */
 const isCarRoad = (edge) => edge.cls <= 4;
+const MADE_ROAD_NOTE = '게임에서 임의로 이은 길이에요';
 
 /** 시작할 곳: 중심지(장소 카드)와 지하철역 */
 function startChoices() {
@@ -829,7 +830,10 @@ export function renderWalk(root, { onHome }) {
     const dong = dongAt(dongShapesList, me);
     const named = nearestRoad(roads, roadIndex, me, 0.08, (edge) => Boolean(edge.name));
     const road = named ? roads.edges[named.edge].name : null;
-    addressBox.replaceChildren(element('span', 'walk-address-pin', '📍'), element('span', null, [dong ?? '이름 없는 곳', road ? `${road} 가까이` : null].filter(Boolean).join(' · ')));
+    // 임의로 이은 길 위에서는 실제 길이 아니라고 알려 준다
+    const made = nearestRoad(roads, roadIndex, me, 0.01, (edge) => edge.cls === MADE_ROAD);
+    const place = made ? MADE_ROAD_NOTE : road ? `${road} 가까이` : null;
+    addressBox.replaceChildren(element('span', 'walk-address-pin', '📍'), element('span', null, [dong ?? '이름 없는 곳', place].filter(Boolean).join(' · ')));
   }
 
   function say(text) {
@@ -866,8 +870,8 @@ export function renderWalk(root, { onHome }) {
   // ---------- 3. 가까운 탈 곳 ----------
   function updateNear(force = false) {
     if (!force && lastNearAt && Math.hypot(lastNearAt.x - me.x, lastNearAt.y - me.y) < 0.01) return;
-    // 도착 장면은 150m 넘게 걸어가거나 "둘레 보기"를 누를 때까지 남겨 둔다
-    if (!force && sceneAt && Math.hypot(sceneAt.x - me.x, sceneAt.y - me.y) < 0.15) return;
+    // 도착 장면은 랜드마크를 벗어나 150m 넘게 걸어가거나 "둘레 보기"를 누를 때까지 남겨 둔다
+    if (!force && sceneAt && (insideLandmark || Math.hypot(sceneAt.x - me.x, sceneAt.y - me.y) < 0.15)) return;
     sceneAt = null;
     lastNearAt = { ...me };
     nearBox.replaceChildren();
