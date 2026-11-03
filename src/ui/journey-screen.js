@@ -369,24 +369,31 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     const spokenEnglish = stationSounds.approachEnglish?.[`${place.lineId}|${end.ko}`] ?? null;
     if (chime || spoken) area.append(element('p', 'panel-note', '승강장 소리는 부산교통공사의 실제 녹음이에요.'));
     const sound = createRideSound();
-    rideCleanup = () => sound.stopAll();
+    let left = false;
+    rideCleanup = () => {
+      left = true;
+      sound.stopAll();
+    };
 
     const board = nextButton(area, '열차에 타요', () => done(step), new Promise(() => {}));
     progress(area, '열차를 기다리는 중이에요.').then(async () => {
       ledText.textContent = `${end.ko}행 열차가 들어오고 있어요`;
+      // 안내음과 방송이 끝나기를 기다리지 않아도 탈 수 있다. 타면 rideCleanup이 소리를 끊는다.
+      board.disabled = false;
       sound.wake();
       // 안내음이 끝나면 열차가 들어오기 시작하고, 진입 방송이 나오는 동안 들어와 선다.
       const chimeDone = soundOn && chime ? sound.playClip(chime) : Promise.resolve();
       await chimeDone;
+      if (left) return;
       // 한국어 방송 뒤에 영어 방송
       const voice = (async () => {
         if (soundOn && spoken) await sound.playClip(spoken);
-        if (soundOn && spokenEnglish) await sound.playClip(spokenEnglish);
+        if (!left && soundOn && spokenEnglish) await sound.playClip(spokenEnglish);
       })();
       await Promise.all([art.arrive(3000), voice]);
+      if (left) return;
       art.openDoors();
       ledText.textContent = `${end.ko}행 열차가 도착했어요`;
-      board.disabled = false;
     });
   }
 

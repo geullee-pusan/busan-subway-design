@@ -282,6 +282,9 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   let ledTimer = null;
   /** 역 사이 한 번 달리기의 번호. 화면을 떠나거나 다시 타면 앞 달리기의 도착을 무시한다. */
   let legToken = 0;
+  /** 달리는 동안의 단추와, 가장 짧게 달리는 시간이 지났는지(방송 중에 내릴 수 있게 한다) */
+  let movingButton = null;
+  let runFinished = false;
   /** 탄 역과 내릴 역(한 구간 타기). 처음부터 끝까지 타면 0과 끝 */
   let boardIndex = 0;
   let alightIndex = -1;
@@ -614,6 +617,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
 
   /** 열차에 탄다: 첫 역에서 출발 방송 */
   function boardTrain() {
+    // 승강장 방송이 끝나기 전에 타면 그 방송은 끊는다
+    sound.hush();
     phase = '역';
     renderRide();
     announceNow();
@@ -703,6 +708,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       if (leg !== legToken || phase !== '승강장') return;
       const text = `${end.name}행 열차가 들어오고 있어요.`;
       ledText.textContent = text;
+      // 안내음과 방송이 끝나기를 기다리지 않아도 탈 수 있다
+      board.disabled = false;
       sound.wake();
       // 새 노선의 안내음 방향은 게임에서 정한다: 첫 역에서 끝 역 쪽(하행)은 뱃고동, 거꾸로(상행)는 갈매기.
       const chime = soundOn ? stationSounds.chimes[direction === 1 ? 'down' : 'up'] : null;
@@ -713,7 +720,6 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       if (leg !== legToken || phase !== '승강장') return;
       art.openDoors();
       ledText.textContent = `${end.name}행 열차가 도착했어요`;
-      board.disabled = false;
     }, reduceMotion ? 0 : 2500);
   }
 
@@ -1224,8 +1230,10 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     // 다음 역까지
     const controls = element('div', 'ride-controls');
     if (moving) {
-      const wait = button('달리는 중…', () => {}, 'button big');
+      const wait = button('달리는 중…', leaveEarly, 'button big');
       wait.disabled = true;
+      movingButton = wait;
+      if (runFinished) offerLeave();
       controls.append(wait);
       if (isBus && !segment && at < trip.stops.length - 1) controls.append(bellButton());
     } else if (segment && at === alightIndex) {
@@ -1288,11 +1296,46 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     return row;
   }
 
+  /** 도착 방송을 듣는 중인 내릴 역인가(한 구간이면 내릴 역, 아니면 끝 역, 버스는 하차벨을 누른 정류장) */
+  function atLeavingStop() {
+    if (segment) return at === alightIndex;
+    return at === trip.stops.length - 1 || (isBus && bellRung);
+  }
+
+  /** 달리는 시간이 지났고 내릴 역이면 방송이 끝나기 전에도 내릴 수 있다 */
+  function offerLeave() {
+    if (!movingButton || !atLeavingStop()) return;
+    movingButton.textContent = '내려요';
+    movingButton.classList.add('ride-go');
+    movingButton.disabled = false;
+  }
+
+  /** 역에 선다. 방송이 끝나기를 기다렸든 끊었든 여기로 온다. */
+  function stopAtStation() {
+    timer = null;
+    runFinished = false;
+    movingButton = null;
+    sound.stopRumble();
+    phase = '역';
+    if (isBus && bellRung && !segment) gotOff = true;
+  }
+
+  /** 방송을 끊고 바로 내린다 */
+  function leaveEarly() {
+    if (phase !== '달리기') return;
+    legToken += 1;
+    sound.hush();
+    stopAtStation();
+    if (segment) segment.onArrive(elapsedTo(at) - elapsedTo(boardIndex));
+    else renderRide();
+  }
+
   /** 다음 역(또는 goal 역)으로 떠난다. */
   function depart(goal = null) {
     if (phase !== '역' || at >= trip.stops.length - 1) return;
     at = typeof goal === 'number' ? goal : at + 1;
     phase = '달리기';
+    runFinished = false;
     sound.wake();
     // 버스는 전기버스 소리, 열차는 레일 위 소리
     if (soundOn) sound.startRumble(isBus ? 'bus' : 'train');
@@ -1302,12 +1345,14 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const shortest = new Promise((resolve) => {
       timer = setTimeout(resolve, reduceMotion ? 0 : MOVE_MS);
     });
+    shortest.then(() => {
+      if (leg !== legToken || phase !== '달리기') return;
+      runFinished = true;
+      offerLeave();
+    });
     Promise.all([shortest, announceNow()]).then(() => {
       if (leg !== legToken || phase !== '달리기') return;
-      timer = null;
-      sound.stopRumble();
-      phase = '역';
-      if (isBus && bellRung && !segment) gotOff = true;
+      stopAtStation();
       renderRide();
     });
   }

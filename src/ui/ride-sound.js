@@ -84,6 +84,9 @@ function utterance(text, picked, rate) {
 /** 읽는 중인 말 조각을 붙잡아 둔다. Chrome은 붙잡지 않은 말 조각을 중간에 버려 소리가 안 날 때가 있다. */
 const held = new Set();
 
+/** 읽기 차례. 쉬었다가 읽으려던 말이 멈춘 뒤에 나오지 않게 한다. */
+let speakTurn = 0;
+
 /**
  * 말 조각을 읽기 시작한다. Chrome 버그를 피한다.
  *  - cancel 바로 뒤의 speak는 무시될 때가 있다: 읽는 중일 때만 멈추고 조금 쉬었다가 읽는다.
@@ -95,7 +98,10 @@ export function speakList(list) {
   if (!synth || list.length === 0) return;
   const busy = synth.speaking || synth.pending;
   if (busy) synth.cancel();
+  const turn = ++speakTurn;
   const go = () => {
+    // 쉬는 사이에 방송을 끊었으면 읽지 않는다
+    if (turn !== speakTurn) return;
     try {
       synth.resume();
     } catch {
@@ -722,16 +728,22 @@ export function createRideSound() {
     });
   }
 
-  function stopAll() {
+  /** 지금 나오는 방송(녹음, 가락, 목소리)을 끊는다. 다음 방송은 그대로 낼 수 있다. */
+  function hush() {
     token += 1;
+    speakTurn += 1;
     for (const audio of clips) audio.pause();
-    stopRumble();
     stopMelody();
     try {
       window.speechSynthesis?.cancel();
     } catch {
       // 목소리가 없는 기기
     }
+  }
+
+  function stopAll() {
+    hush();
+    stopRumble();
     if (ctx) {
       const closing = ctx;
       ctx = null;
@@ -739,7 +751,7 @@ export function createRideSound() {
     }
   }
 
-  return { wake, announce, playMelody, playClip, startRumble, stopRumble, stopAll };
+  return { wake, announce, playMelody, playClip, startRumble, stopRumble, hush, stopAll };
 }
 
 /** 목소리 이름으로 성별을 짐작하는 단서(기기마다 이름이 다르다). 여자 단서를 먼저 본다(female 안에 male이 있다). */
