@@ -164,6 +164,7 @@ export function daeguService(raw, lines, stations, issues) {
     const order = line.stations.map((id) => stations.find((s) => s.id === id));
     const ref = order[Math.floor(order.length / 2)];
     const counts = [];
+    let hourly = null;
     for (const file of def.timetables) {
       const text = new TextDecoder('euc-kr').decode(readFileSync(raw(`datagokr/${file}.csv`)));
       const perHour = new Array(30).fill(0);
@@ -186,6 +187,11 @@ export function daeguService(raw, lines, stations, issues) {
         continue;
       }
       for (let h = 6; h <= 22; h++) counts.push(perHour[h]);
+      // 시간대별 열차 수(0~23시, 한 방향). 첫 시각표 파일로 센다. 자정을 넘긴 열차는 그 시각으로 접는다.
+      if (!hourly) {
+        hourly = new Array(24).fill(0);
+        perHour.forEach((n, h) => (hourly[h % 24] += n));
+      }
     }
     if (counts.length === 0) continue;
     const mean = counts.reduce((s, n) => s + n, 0) / counts.length;
@@ -194,6 +200,8 @@ export function daeguService(raw, lines, stations, issues) {
       trainsPerHourTypical: Math.round(mean * 10) / 10,
       headwayMin: Math.round((60 / mean) * 10) / 10,
       serviceSource: `${def.timetables.join(', ')} 시각표에서 셈(평일 6~22시, ${ref.name.endsWith('역') ? ref.name : `${ref.name}역`}, 한 방향)`,
+      hourly,
+      hourlySource: `${def.timetables[0]} 시각표, 평일 ${ref.name.endsWith('역') ? ref.name : `${ref.name}역`}을 지나는 열차(한 방향)`,
     });
   }
   return out;

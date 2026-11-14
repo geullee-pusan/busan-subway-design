@@ -208,6 +208,8 @@
       "trainsPerHourTypical": 8.3,
       "headwayMin": 7.2,
       "serviceSource": "15138731 시각표에서 셈(평일 6~22시, 대구역, 한 방향)",
+      "hourly": [0,0,0,0,0,2,5,10,12,10,8,7,8,7,8,7,8,10,11,8,7,8,7,5],
+      "hourlySource": "15138731 시각표, 평일 대구역을 지나는 열차(한 방향)",
       "capacityPerTrain": null,
       "capacitySource": null
     },
@@ -233,6 +235,8 @@
       "trainsPerHourTypical": 8.3,
       "headwayMin": 7.2,
       "serviceSource": "3033376, 15138732 시각표에서 셈(평일 6~22시, 반월당역, 한 방향)",
+      "hourly": [0,0,0,0,0,2,6,8,11,10,8,8,7,8,7,8,8,10,12,9,7,8,6,5],
+      "hourlySource": "3033376 시각표, 평일 반월당역을 지나는 열차(한 방향)",
       "capacityPerTrain": null,
       "capacitySource": null
     },
@@ -258,6 +262,8 @@
       "trainsPerHourTypical": 8.9,
       "headwayMin": 6.8,
       "serviceSource": "15065532, 15138734 시각표에서 셈(평일 6~22시, 달성공원역, 한 방향)",
+      "hourly": [0,0,0,0,0,1,6,10,12,9,8,9,9,8,9,8,9,10,12,9,9,7,7,4],
+      "hourlySource": "15065532 시각표, 평일 달성공원역을 지나는 열차(한 방향)",
       "capacityPerTrain": null,
       "capacitySource": null
     },
@@ -283,6 +289,8 @@
       "trainsPerHourTypical": 6.8,
       "headwayMin": 8.9,
       "serviceSource": "15111497 시간표에서 셈(평일 6~22시, 화정역, 한 방향)",
+      "hourly": [0,0,0,0,0,1,6,6,12,9,6,6,6,6,6,6,6,6,7,8,7,6,6,4],
+      "hourlySource": "15111497 시간표, 평일 화정역을 지나는 열차(한 방향)",
       "capacityPerTrain": null,
       "capacitySource": null
     }

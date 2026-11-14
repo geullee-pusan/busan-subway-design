@@ -111,17 +111,58 @@ export function addEntry(record, entry) {
 }
 
 /**
- * 지하철 노선의 그 시간 배차 간격(분): 평일 시각표의 시간당 열차 수(두 방향 평균)로 셈한다.
+ * 시각표가 없는 노선(동해선, 대경선, 부산김해경전철)이 다니는 때(시, 우리가 정한 값). 새벽 5시 30분부터 밤 12시까지.
+ * 코레일 열차운행정보(15125762)에는 광역전철 열차가 들어 있지 않아 셀 수 없었다(2026-11-14 확인).
+ */
+export const SUBWAY_GUESS_HOURS = [5.5, 24];
+
+/**
+ * 지하철 노선의 그 시간 배차 간격(분). 밤에 다니지 않으면 null.
+ *  1. 부산 도시철도 평일 시각표(service)가 있으면 그 시간 시간당 열차 수(두 방향 평균)로 셈한다.
+ *  2. 없고 노선에 시간대별 열차 수(hourly, 대구·광주 시각표에서 셈)가 있으면 그것으로 셈한다.
+ *  3. 둘 다 없으면 SUBWAY_GUESS_HOURS 안에서만 노선의 평소 배차 간격(headwayMin)으로 다닌다.
  * @param {{weekday: {line: string, directions: {trainsPerHour: Record<string, number>}[]}[]}} service
+ * @param {string} line
+ * @param {number} hour 시(자정을 넘긴 여행은 24보다 클 수 있다)
+ * @param {{hourly?: number[], headwayMin?: number|null}} [info] 노선 자료(lines.json)
  * @returns {number|null} 그 시간에 다니지 않거나 자료가 없으면 null
  */
-export function subwayHeadway(service, line, hour) {
+export function subwayHeadway(service, line, hour, info = {}) {
+  const h = ((hour % 24) + 24) % 24;
   const entry = service?.weekday?.find((s) => s.line === line);
-  if (!entry) return null;
-  const key = String(Math.floor(hour) % 24).padStart(2, '0');
-  const counts = entry.directions.map((d) => d.trainsPerHour?.[key] ?? 0).filter((n) => n > 0);
-  if (!counts.length) return null;
-  return 60 / (counts.reduce((a, b) => a + b, 0) / counts.length);
+  if (entry) {
+    const key = String(Math.floor(h)).padStart(2, '0');
+    const counts = entry.directions.map((d) => d.trainsPerHour?.[key] ?? 0).filter((n) => n > 0);
+    if (!counts.length) return null;
+    return 60 / (counts.reduce((a, b) => a + b, 0) / counts.length);
+  }
+  if (Array.isArray(info.hourly)) {
+    const count = info.hourly[Math.floor(h)] ?? 0;
+    return count > 0 ? 60 / count : null;
+  }
+  if (!info.headwayMin) return null;
+  return h >= SUBWAY_GUESS_HOURS[0] && h < SUBWAY_GUESS_HOURS[1] ? info.headwayMin : null;
+}
+
+/** 첫차·막차 시각을 모르는 시내버스 노선(양산 등)의 첫차와 막차 출발 시각(분, 우리가 정한 값): 5시 30분, 23시 */
+export const BUS_GUESS_HOURS = [330, 1380];
+/** 막차가 첫 정류장을 떠난 뒤 이만큼(분) 더 다닌다고 본다(우리가 정한 값). 정류장마다 막차가 지나는 시각은 자료에 없다. */
+export const BUS_LAST_RUN_MIN = 60;
+
+/**
+ * 시내버스 노선이 그 시각에 다니는지.
+ * @param {[number, number]|undefined} hours 첫차와 막차가 첫 정류장을 떠나는 시각(분, 막차가 자정을 넘기면 1440보다 크다). bus.json routes[].hours
+ * @param {number} minute 지금(분, 자정을 넘긴 여행은 1440보다 클 수 있다)
+ * @returns {{running: boolean, nextFirst: number}} nextFirst: 다음 첫차 시각(지금과 같은 날 기준의 분, 내일이면 1440을 더한다)
+ */
+export function busRunning(hours, minute) {
+  const [first, last] = hours ?? BUS_GUESS_HOURS;
+  const day = Math.floor(minute / 1440) * 1440;
+  const t = minute - day;
+  const end = last + BUS_LAST_RUN_MIN;
+  // 어제 막차가 자정을 넘겨 아직 다니는 때도 본다
+  const running = (t >= first && t <= end) || t + 1440 <= end;
+  return { running, nextFirst: day + (t < first ? first : first + 1440) };
 }
 
 /**

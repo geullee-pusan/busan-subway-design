@@ -117,6 +117,58 @@ for (const way of osmRail.elements) {
     adj[b].push([a, d]);
   }
 }
+// 측선(service 태그)을 받지 않아서 역 구내 건넘선으로만 이어진 노선이 따로 떨어진 조각이 된다(익산역의 장항선 등).
+// 큰 조각(마디 JOIN_MIN_NODES개 이상)은 가장 가까운 다른 조각의 마디와 JOIN_KM 안이면 곧은 선로로 잇는다. 더 이을 것이 없을 때까지 되풀이한다.
+const JOIN_KM = 0.3;
+const JOIN_MIN_NODES = 20;
+for (let joinedAny = true; joinedAny; ) {
+  joinedAny = false;
+  const comp = new Int32Array(nodes.length).fill(-1);
+  const sizes = [];
+  for (let i = 0; i < nodes.length; i++) {
+    if (comp[i] >= 0) continue;
+    const stack = [i];
+    comp[i] = sizes.length;
+    let size = 0;
+    while (stack.length) {
+      const u = stack.pop();
+      size += 1;
+      for (const [v] of adj[u]) if (comp[v] < 0) {
+        comp[v] = sizes.length;
+        stack.push(v);
+      }
+    }
+    sizes.push(size);
+  }
+  const biggest = sizes.indexOf(Math.max(...sizes));
+  // 0.3km 칸에 마디를 나눠 담아 가까운 마디만 견준다
+  const cellOf = (p) => `${Math.floor(p.x / JOIN_KM)},${Math.floor(p.y / JOIN_KM)}`;
+  const cells = new Map();
+  nodes.forEach((p, i) => {
+    const k = cellOf(p);
+    if (!cells.has(k)) cells.set(k, []);
+    cells.get(k).push(i);
+  });
+  const best = new Map(); // 조각 → [거리, 마디, 이을 마디]
+  nodes.forEach((p, i) => {
+    const c = comp[i];
+    if (c === biggest || sizes[c] < JOIN_MIN_NODES) return;
+    const cx = Math.floor(p.x / JOIN_KM);
+    const cy = Math.floor(p.y / JOIN_KM);
+    for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
+      for (const j of cells.get(`${cx + dx},${cy + dy}`) ?? []) {
+        if (comp[j] === c) continue;
+        const d = Math.hypot(nodes[j].x - p.x, nodes[j].y - p.y);
+        if (d <= JOIN_KM && d < (best.get(c)?.[0] ?? Infinity)) best.set(c, [d, i, j]);
+      }
+    }
+  });
+  for (const [, [d, i, j]] of best) {
+    adj[i].push([j, d]);
+    adj[j].push([i, d]);
+    joinedAny = true;
+  }
+}
 // 가장 큰 선로 덩어리(본선이 다 이어진 것). 역은 이 덩어리의 마디에 붙인다.
 // 역의 승강장 선로는 건넘선(측선으로 빼서 받지 않음)으로만 본선과 이어져 따로 떨어진 조각이 되기 때문이다.
 const part = new Int32Array(nodes.length).fill(-1);
@@ -264,11 +316,17 @@ const findChain = (sheet, names) =>
 for (const def of config.lines) {
   const along = [];
   for (const [i, part] of def.chains.entries()) {
-    const chain = findChain(part.sheet, part.contains);
-    if (!chain) {
+    const found = findChain(part.sheet, part.contains);
+    if (!found) {
       issues.push(`${def.name}: 거리표(${part.sheet})에서 ${part.contains.join('·')}이 든 사슬을 찾지 못했어요.`);
       continue;
     }
+    // reverse: 사슬을 거꾸로(역 사이 거리는 뒤 역에 붙어 있으므로 한 칸씩 옮긴다), from·to: 그 두 역 사이만
+    let seq = found.seq;
+    if (part.reverse) seq = seq.map((p, k) => ({ name: seq[seq.length - 1 - k].name, km: k === 0 ? 0 : seq[seq.length - k].km }));
+    if (part.from) seq = seq.slice(seq.findIndex((p) => p.name === key(part.from)));
+    if (part.to) seq = seq.slice(0, seq.findIndex((p) => p.name === key(part.to)) + 1);
+    const chain = { seq };
     // 사슬 안 누적 거리. 뒤 사슬은 앞 사슬의 끝 역(같은 이름)에서 이어 센다.
     let km = 0;
     let started = i === 0;

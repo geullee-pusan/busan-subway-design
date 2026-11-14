@@ -14,14 +14,23 @@ export function readOsm(root, name) {
 }
 
 /**
- * 파일 자리로 읽는다(data/raw/osm/water.json이면 곁의 water-2.json도 합친다).
+ * 파일 자리로 읽는다(data/raw/osm/water.json이면 곁의 water-2.json, water-3.json도 합친다).
+ * -2는 경남·전남광주, -3은 지도 네모 안 북서쪽 띠(scripts/sources.mjs의 OSM_BOXES_2, OSM_BOX_3).
  * @param {string} path
  */
 export function readOsmFile(path) {
   const first = JSON.parse(readFileSync(path, 'utf8'));
-  const morePath = path.replace(/\.json$/, '-2.json');
-  if (!existsSync(morePath)) return first;
   const seen = new Set(first.elements.map((e) => `${e.type}/${e.id}`));
-  const more = JSON.parse(readFileSync(morePath, 'utf8')).elements.filter((e) => !seen.has(`${e.type}/${e.id}`));
-  return { ...first, elements: [...first.elements, ...more] };
+  const elements = [...first.elements];
+  for (const n of [2, 3]) {
+    const morePath = path.replace(/\.json$/, `-${n}.json`);
+    if (!existsSync(morePath)) continue;
+    for (const e of JSON.parse(readFileSync(morePath, 'utf8')).elements) {
+      const id = `${e.type}/${e.id}`;
+      if (seen.has(id)) continue;
+      seen.add(id);
+      elements.push(e);
+    }
+  }
+  return { ...first, elements };
 }

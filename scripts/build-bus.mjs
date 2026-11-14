@@ -198,6 +198,33 @@ const stops = [];
 const names = [];
 const nameIndex = new Map();
 const routes = [];
+
+/**
+ * 첫차·막차(TAGO의 "0530", 2230) → [첫차, 막차](0시부터 분). 막차가 첫차보다 이르면 자정을 넘긴 것이다. 모르면 null.
+ * 첫차와 막차는 노선의 기점을 떠나는 시각이다.
+ */
+function hoursOf(start, end) {
+  const toMin = (v) => {
+    const s = String(v ?? '').padStart(4, '0');
+    if (!/^\d{4}$/.test(s)) return null;
+    return Number(s.slice(0, 2)) * 60 + Number(s.slice(2));
+  };
+  const a = toMin(start);
+  const b = toMin(end);
+  if (a === null || b === null) return null;
+  return [a, b < a ? b + 1440 : b];
+}
+/** 부산 노선의 첫차·막차(TAGO 노선 목록, npm run bus-hours). 노선 번호로 찾는다. */
+const busanHours = new Map();
+{
+  const path = resolve(ROOT, 'data/raw/tago-bus/route-hours-21.json');
+  if (existsSync(path)) {
+    for (const r of JSON.parse(readFileSync(path, 'utf8')).routes) {
+      const hours = hoursOf(r.startvehicletime, r.endvehicletime);
+      if (hours) busanHours.set(String(r.routeno).replace(/\s+/g, ''), hours);
+    }
+  }
+}
 let rowsAll = 0;
 let rowsKept = 0;
 let boardAll = 0;
@@ -244,7 +271,8 @@ for (const [no, rows] of [...routeRows].sort((a, b) => a[0].localeCompare(b[0], 
     boardKept += stop.board;
   }
   rowsKept += placed.length;
-  routes.push({ no, stops: seq });
+  const hours = busanHours.get(String(no).replace(/\s+/g, ''));
+  routes.push(hours ? { no, stops: seq, hours } : { no, stops: seq });
 }
 
 const busanOnly = { routes: routes.length, stops: stops.length };
@@ -314,7 +342,8 @@ function addTagoCity(data, city) {
     }
     stats.kept += seq.length;
     if (seq.length < 2) continue;
-    routes.push({ no: `${city} ${no}`, city, stops: seq });
+    const hours = hoursOf(route.startvehicletime, route.endvehicletime);
+    routes.push(hours ? { no: `${city} ${no}`, city, stops: seq, hours } : { no: `${city} ${no}`, city, stops: seq });
     stats.routes += 1;
   }
   tagoStats[city] = stats;
@@ -490,6 +519,40 @@ const TAGO_CITIES = [
   [38380, '함양'],
   [38390, '거창'],
   [38400, '합천'],
+  // 지도 네모 안에 함께 들어온 이웃 지역(2026-11-14)
+  [25, '대전'],
+  [35010, '전주'],
+  [35020, '군산'],
+  [35030, '익산'],
+  [35040, '정읍'],
+  [35050, '남원'],
+  [35060, '김제'],
+  [35320, '진안'],
+  [35330, '무주'],
+  [35340, '장수'],
+  [35350, '임실'],
+  [35360, '순창'],
+  [35370, '고창'],
+  [35380, '부안'],
+  [37010, '포항'],
+  [37020, '경주'],
+  [37030, '김천'],
+  [37040, '안동'],
+  [37080, '상주'],
+  [37320, '의성'],
+  [37330, '청송'],
+  [37350, '영덕'],
+  [33320, '보은'],
+  [33330, '옥천'],
+  [33340, '영동'],
+  [34020, '공주'],
+  [34030, '보령'],
+  [34060, '논산'],
+  [34070, '계룡'],
+  [34310, '금산'],
+  [34330, '부여'],
+  [34340, '서천'],
+  [34350, '청양'],
 ];
 for (const [code, city] of TAGO_CITIES) {
   const data = tagoOf(code);

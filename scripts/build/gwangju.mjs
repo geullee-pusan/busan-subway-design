@@ -187,6 +187,9 @@ export function gwangjuService(raw, line, links, stations, issues) {
     trainsPerHourTypical: Math.round(mean * 10) / 10,
     headwayMin: Math.round((60 / mean) * 10) / 10,
     serviceSource: `15111497 시간표에서 셈(평일 6~22시, ${ref.name}역, 한 방향)`,
+    // 시간대별 열차 수(0~23시, 한 방향). 자정을 넘긴 열차는 그 시각으로 접는다.
+    hourly: perHour.reduce((acc, n, h) => ((acc[h % 24] += n), acc), new Array(24).fill(0)),
+    hourlySource: `15111497 시간표, 평일 ${ref.name}역을 지나는 열차(한 방향)`,
     dwellS,
     dwellSource: dwellS === null ? null : '15111497 시간표: (소태~도산 걸린 시간 − 15046044 역 사이 시간의 합) ÷ 그 사이 역 수',
   };

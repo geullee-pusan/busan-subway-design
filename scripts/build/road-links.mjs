@@ -14,6 +14,10 @@ const SPUR_KM = 0.25;
 const SPUR_RADIUS_SHARE = 0.4;
 /** 이만큼 가까운 두 점(10m 단위)은 길을 내지 않고 한 갈림점으로 합친다. 아주 짧은 길은 방향을 알 수 없어 걷다가 멈춘다. */
 const MERGE_UNITS = 2;
+/** 탈 곳은 탈 수 있는 거리의 이 비율 안에 본 길이 있어야 한다(길 위 자리가 조금 어긋나도 탈 수 있게) */
+const STOP_REACH_SHARE = 0.8;
+/** 탈 곳까지 임의로 내는 길의 가장 긴 길이(m) */
+const STOP_MAX_M = 2000;
 
 function nearestOnSegment(p, a, b) {
   const dx = b[0] - a[0];
@@ -27,9 +31,10 @@ function nearestOnSegment(p, a, b) {
 /**
  * @param {{nodes: number[], edges: Array<[number, number, number, number, number[], number?]>}} data 10m 단위 갈림점과 토막(사이 점은 옮긴 만큼)
  * @param {Array<{x: number, y: number, radius: number}>} landmarks 좌표와 반지름은 km
+ * @param {{stops?: Array<{x: number, y: number, reach: number, name: string}>}} [options] stops: 탈 곳(reach는 탈 수 있는 거리 km)
  * @returns {{nodes: number[], edges: Array, spurs: number, links: number, longestM: number}}
  */
-export function addMadeRoads(data, landmarks, { maxGapM = 1000, maxForcedM = 5000 } = {}) {
+export function addMadeRoads(data, landmarks, { maxGapM = 1000, maxForcedM = 5000, stops = [] } = {}) {
   const nodes = [];
   for (let i = 0; i < data.nodes.length; i += 2) nodes.push([data.nodes[i], data.nodes[i + 1]]);
   const edges = data.edges.map(([a, b, cls, meters, mid, name]) => {
@@ -216,6 +221,25 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000, maxForcedM = 500
     }
   }
 
+  // 3. 탈 곳(기차역, 터미널, 지하철역, 버스 정류장)은 탈 수 있는 거리 안에 본 길망이 있어야 한다.
+  //    없으면 가장 가까운 본 길에서 그곳까지 곧은 길을 낸다. maxForcedM보다 멀면(배로 가는 섬) 잇지 않는다.
+  let stopSpurs = 0;
+  const farStops = [];
+  const stopNames = [];
+  for (const stop of stops) {
+    const p = [Math.round(stop.x * UNITS_PER_KM), Math.round(stop.y * UNITS_PER_KM)];
+    if (nearest(p, onMain, stop.reach * STOP_REACH_SHARE * UNITS_PER_KM)) continue;
+    // 섬 정류장에서 바다 건너 본 길망까지 길을 내지 않도록, 탈 곳에서는 STOP_MAX_M까지만 잇는다
+    const hit = nearest(p, onMain, STOP_MAX_M / 10);
+    if (!hit) {
+      farStops.push(stop.name);
+      continue;
+    }
+    made(attach(hit), newNode(p));
+    stopSpurs += 1;
+    if (!stop.name.startsWith('버스')) stopNames.push(`${stop.name} ${Math.round(hit.d * 10)}m`);
+  }
+
   // 쓰는 갈림점만 남기고, 다시 사이 점을 옮긴 만큼으로 적는다
   const renum = new Map();
   const outNodes = [];
@@ -243,5 +267,5 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000, maxForcedM = 500
   const boatOnly = landmarks
     .filter((lm) => !nearest([lm.x * UNITS_PER_KM, lm.y * UNITS_PER_KM], onMain, (Math.min(lm.radius * SPUR_RADIUS_SHARE, SPUR_KM) + 0.01) * UNITS_PER_KM))
     .map((lm) => lm.id);
-  return { nodes: outNodes, edges: outEdges, spurs, links, longestM, boatOnly };
+  return { nodes: outNodes, edges: outEdges, spurs, links, longestM, boatOnly, stopSpurs, farStops, stopNames };
 }

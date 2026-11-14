@@ -130,6 +130,32 @@ test('지하철 배차 간격: 그 시간 시간당 열차 수의 두 방향 평
   assert.equal(subwayHeadway(service, '1', 8.5), 6);
   assert.equal(subwayHeadway(service, '1', 3), null);
   assert.equal(subwayHeadway(service, '9', 8), null);
+  // 시각표가 없는 노선: 시간대별 열차 수가 있으면 그것으로, 없으면 정한 운행 시간 안에서만 평소 간격으로 다닌다
+  const hourly = new Array(24).fill(0);
+  hourly[8] = 10;
+  assert.equal(subwayHeadway(service, 'DG1', 8.2, { hourly, headwayMin: 7 }), 6);
+  assert.equal(subwayHeadway(service, 'DG1', 2, { hourly, headwayMin: 7 }), null);
+  assert.equal(subwayHeadway(service, 'DH', 12, { headwayMin: 10 }), 10);
+  assert.equal(subwayHeadway(service, 'DH', 3, { headwayMin: 10 }), null);
+  assert.equal(subwayHeadway(service, 'DH', 24 + 12, { headwayMin: 10 }), 10, '자정을 넘긴 여행의 낮');
+  assert.equal(subwayHeadway(service, '1', 24 + 3), null, '자정을 넘긴 여행의 새벽');
+});
+
+test('시내버스: 첫차 전과 막차 뒤에는 다니지 않는다', async () => {
+  const { busRunning, BUS_LAST_RUN_MIN } = await import('../src/sim/walk-mode.js');
+  const hours = [330, 1350]; // 5시 30분 ~ 22시 30분
+  assert.equal(busRunning(hours, 12 * 60).running, true);
+  assert.equal(busRunning(hours, 3 * 60).running, false);
+  assert.equal(busRunning(hours, 3 * 60).nextFirst, 330, '새벽이면 오늘 첫차');
+  assert.equal(busRunning(hours, 1350 + BUS_LAST_RUN_MIN - 1).running, true, '막차는 떠난 뒤 조금 더 다닌다');
+  assert.equal(busRunning(hours, 1430).running, false);
+  assert.equal(busRunning(hours, 1430).nextFirst, 1440 + 330, '밤이면 내일 첫차');
+  assert.equal(busRunning(hours, 1440 + 12 * 60).running, true, '자정을 넘긴 여행의 다음 날 낮');
+  // 막차가 자정을 넘기는 노선(심야 버스): 새벽 1시에도 다닌다
+  assert.equal(busRunning([300, 1500], 60).running, true);
+  // 시각을 모르는 노선은 정한 시간으로 본다
+  assert.equal(busRunning(undefined, 2 * 60).running, false);
+  assert.equal(busRunning(undefined, 9 * 60).running, true);
 });
 
 test('주소: 점이 들어 있는 행정동을 찾는다', async () => {

@@ -1,0 +1,5923 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T06:10:48Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 355173678,
+  "lat": 36.3224022,
+  "lon": 127.4125356,
+  "tags": {
+    "name": "서대전네거리",
+    "name:en": "Seodaejeonnegeori",
+    "name:ja": "ソデジョンネゴリ(西大田ネゴリ)",
+    "name:ko": "서대전네거리",
+    "name:ko-Hani": "西大田-",
+    "name:zh": "西大田四街",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "107",
+    "subway": "yes",
+    "wikidata": "Q1586402"
+  }
+},
+{
+  "type": "node",
+  "id": 355173680,
+  "lat": 36.3248208,
+  "lon": 127.4195531,
+  "tags": {
+    "name": "중구청",
+    "name:en": "Jung-gu Office",
+    "name:ja": "チュングチョン(中区庁)",
+    "name:ko": "중구청",
+    "name:ko-Hani": "中區廳",
+    "name:zh": "中区厅",
+    "name:zh-Hans": "中区厅",
+    "name:zh-Hant": "中區廳",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "106",
+    "subway": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 355173682,
+  "lat": 36.3382554,
+  "lon": 127.3932978,
+  "tags": {
+    "name": "용문",
+    "name:en": "Yongmun",
+    "name:ja": "ヨンムン(龍汶)",
+    "name:ko": "용문",
+    "name:ko-Hani": "龍汶",
+    "name:zh": "龙汶",
+    "name:zh-Hans": "龙汶",
+    "name:zh-Hant": "龍汶",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "109",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586328"
+  }
+},
+{
+  "type": "node",
+  "id": 355173684,
+  "lat": 36.3284108,
+  "lon": 127.4050960,
+  "tags": {
+    "name": "오룡",
+    "name:en": "Oryong",
+    "name:ja": "オリョン(五龍)",
+    "name:ko": "오룡",
+    "name:ko-Hani": "五龍",
+    "name:zh": "五龙",
+    "name:zh-Hans": "五龙",
+    "name:zh-Hant": "五龍",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "108",
+    "subway": "yes",
+    "wikidata": "Q1586408"
+  }
+},
+{
+  "type": "node",
+  "id": 355173686,
+  "lat": 36.3294490,
+  "lon": 127.4429386,
+  "tags": {
+    "name": "대동",
+    "name:en": "Dae-dong",
+    "name:ja": "テドン(大洞)",
+    "name:ko": "대동",
+    "name:ko-Hani": "大洞",
+    "name:zh": "大洞",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "103",
+    "subway": "yes",
+    "wikidata": "Q1586272"
+  }
+},
+{
+  "type": "node",
+  "id": 355173689,
+  "lat": 36.3286138,
+  "lon": 127.4258937,
+  "tags": {
+    "name": "중앙로",
+    "name:en": "Jungangno",
+    "name:ja": "チュンアンロ(中央路)",
+    "name:ko": "중앙로",
+    "name:ko-Hani": "中央路",
+    "name:zh": "中央路",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "105",
+    "subway": "yes",
+    "wikidata": "Q1586418"
+  }
+},
+{
+  "type": "node",
+  "id": 355173691,
+  "lat": 36.3322464,
+  "lon": 127.4346482,
+  "tags": {
+    "addr:city": "대전광역시",
+    "addr:district": "동구",
+    "addr:housenumber": "215",
+    "addr:postcode": "34626",
+    "addr:street": "중앙로",
+    "internet_access": "wlan",
+    "name": "대전",
+    "name:af": "Daejeon",
+    "name:ar": "دايجيون",
+    "name:bg": "Теджън",
+    "name:bi": "Daejeon",
+    "name:ca": "Daejeon",
+    "name:cs": "Tedžon",
+    "name:da": "Daejeon",
+    "name:de": "Daejeon",
+    "name:el": "Ντέτζον",
+    "name:en": "Daejeon",
+    "name:eo": "Deĝon",
+    "name:es": "Daejeon",
+    "name:et": "Daejeon",
+    "name:eu": "Daejeon",
+    "name:fa": "دائجونگ",
+    "name:fi": "Daejeon",
+    "name:fr": "Daejeon",
+    "name:he": "טג'אן",
+    "name:ia": "Daejeon",
+    "name:id": "Daejeon",
+    "name:io": "Daejon",
+    "name:it": "Daejeon",
+    "name:ja": "大田",
+    "name:ja-Hira": "テジョン",
+    "name:kl": "Daejeon",
+    "name:ko": "대전",
+    "name:ko-Hani": "大田",
+    "name:ko-Latn": "Daejeon",
+    "name:la": "Daejeon",
+    "name:lt": "Tedžonas",
+    "name:mi": "Daejeon",
+    "name:mn": "Тэжон",
+    "name:mr": "देजॉन",
+    "name:ms": "Daejeon",
+    "name:nl": "Daejeon",
+    "name:no": "Daejeon",
+    "name:pl": "Daejeon",
+    "name:pt": "Daejeon",
+    "name:ro": "Daejeon",
+    "name:ru": "Тэджон",
+    "name:sv": "Daejeon",
+    "name:sw": "Daejeon",
+    "name:th": "แทจ็อน",
+    "name:tl": "Daejeon",
+    "name:uk": "Теджон",
+    "name:uz": "Daejeon",
+    "name:vi": "Daejeon",
+    "name:zh": "大田",
+    "name:zh-Hant": "大田",
+    "network": "ITX-마음",
+    "network:en": "ITX-Maum",
+    "network:ko": "ITX-마음",
+    "network:wikidata": "Q122238452",
+    "not:network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "대전",
+    "station": "train",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q20919",
+    "wikipedia": "ko:대전역"
+  }
+},
+{
+  "type": "node",
+  "id": 355173693,
+  "lat": 36.3583733,
+  "lon": 127.3645747,
+  "tags": {
+    "name": "월평",
+    "name:en": "Wolpyeong",
+    "name:ja": "ウォルピョン(月坪)",
+    "name:ko": "월평",
+    "name:ko-Hani": "月坪",
+    "name:zh": "月坪",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "114",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586336"
+  }
+},
+{
+  "type": "node",
+  "id": 355173694,
+  "lat": 36.3546063,
+  "lon": 127.3544975,
+  "tags": {
+    "name": "갑천",
+    "name:en": "Gapcheon",
+    "name:ja": "カプチョン(甲川)",
+    "name:ko": "갑천",
+    "name:ko-Hani": "甲川",
+    "name:zh": "甲川",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "115",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586309"
+  }
+},
+{
+  "type": "node",
+  "id": 355173695,
+  "lat": 36.3537327,
+  "lon": 127.3417016,
+  "tags": {
+    "name": "유성온천",
+    "name:en": "Yuseong Spa",
+    "name:ja": "ユソンオンチョン(儒城温泉)",
+    "name:ko": "유성온천",
+    "name:ko-Hani": "儒城溫泉",
+    "name:zh": "儒城温泉",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "116",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586372"
+  }
+},
+{
+  "type": "node",
+  "id": 355173696,
+  "lat": 36.3567574,
+  "lon": 127.3306550,
+  "tags": {
+    "name": "구암",
+    "name:en": "Guam",
+    "name:ja": "クアム(九岩)",
+    "name:ko": "구암",
+    "name:ko-Hani": "九岩",
+    "name:zh": "九岩",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "117",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586354"
+  }
+},
+{
+  "type": "node",
+  "id": 355173697,
+  "lat": 36.3461286,
+  "lon": 127.3847192,
+  "tags": {
+    "name": "탄방",
+    "name:en": "Tanbang",
+    "name:ja": "タンバン(炭坊)",
+    "name:ko": "탄방",
+    "name:ko-Hani": "炭坊",
+    "name:zh": "炭坊",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "110",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586349"
+  }
+},
+{
+  "type": "node",
+  "id": 355173698,
+  "lat": 36.3514837,
+  "lon": 127.3866258,
+  "tags": {
+    "name": "시청",
+    "name:en": "City Hall",
+    "name:ja": "シチョン(市庁)",
+    "name:ko": "시청",
+    "name:ko-Hani": "市廳",
+    "name:zh": "市厅",
+    "name:zh-Hans": "市厅",
+    "name:zh-Hant": "市廳",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "111",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586320"
+  }
+},
+{
+  "type": "node",
+  "id": 355173700,
+  "lat": 36.3576300,
+  "lon": 127.3816126,
+  "tags": {
+    "name": "정부청사",
+    "name:en": "Government Complex Daejeon",
+    "name:ja": "チョンブチョンサ(政府庁舎)",
+    "name:ko": "정부청사",
+    "name:ko-Hani": "政府廳舍",
+    "name:zh": "政府大楼",
+    "name:zh-Hans": "政府大楼",
+    "name:zh-Hant": "政府大樓",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "112",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586444"
+  }
+},
+{
+  "type": "node",
+  "id": 355173701,
+  "lat": 36.3577013,
+  "lon": 127.3727947,
+  "tags": {
+    "name": "갈마",
+    "name:en": "Galma",
+    "name:ja": "カルマ(葛馬)",
+    "name:ko": "갈마",
+    "name:ko-Hani": "葛馬",
+    "name:zh": "葛马",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "113",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586300"
+  }
+},
+{
+  "type": "node",
+  "id": 355173708,
+  "lat": 36.3926366,
+  "lon": 127.3144036,
+  "tags": {
+    "name": "반석",
+    "name:en": "Banseok",
+    "name:ja": "パンソク(盤石)",
+    "name:ko": "반석",
+    "name:ko-Hani": "盤石",
+    "name:zh": "盘石",
+    "name:zh-Hans": "盘石",
+    "name:zh-Hant": "盤石",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "122",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586363"
+  }
+},
+{
+  "type": "node",
+  "id": 355173713,
+  "lat": 36.3594558,
+  "lon": 127.3214460,
+  "tags": {
+    "name": "현충원",
+    "name:en": "National Cemetery",
+    "name:ja": "ヒョンチュンウォン(顕忠院)",
+    "name:ko": "현충원",
+    "name:zh": "显忠院",
+    "name:zh-Hans": "显忠院",
+    "name:zh-Hant": "顯忠院",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "118",
+    "subway": "yes",
+    "wikidata": "Q1586391"
+  }
+},
+{
+  "type": "node",
+  "id": 355173714,
+  "lat": 36.3667814,
+  "lon": 127.3179378,
+  "tags": {
+    "name": "월드컵경기장",
+    "name:en": "World Cup Stadium",
+    "name:ja": "ワールドカップ競技場",
+    "name:ko": "월드컵경기장",
+    "name:ko-Hani": "-競技場",
+    "name:zh": "世界杯体育场",
+    "name:zh-Hans": "世界杯体育场",
+    "name:zh-Hant": "世界盃體育場",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "119",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586367"
+  }
+},
+{
+  "type": "node",
+  "id": 355173715,
+  "lat": 36.3741401,
+  "lon": 127.3179740,
+  "tags": {
+    "name": "노은",
+    "name:en": "Noeun",
+    "name:ja": "ノオン(老隠)",
+    "name:ko": "노은",
+    "name:ko-Hani": "老隱",
+    "name:zh": "老隠",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "120",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586358"
+  }
+},
+{
+  "type": "node",
+  "id": 355173716,
+  "lat": 36.3843970,
+  "lon": 127.3195772,
+  "tags": {
+    "name": "지족",
+    "name:en": "Jijok",
+    "name:ja": "チジョク(智足)",
+    "name:ko": "지족",
+    "name:ko-Hani": "智足",
+    "name:zh": "智足",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "121",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586382"
+  }
+},
+{
+  "type": "node",
+  "id": 368636272,
+  "lat": 36.2977484,
+  "lon": 127.5653496,
+  "tags": {
+    "alt_name": "옥천역",
+    "name": "옥천",
+    "name:en": "Okcheon",
+    "name:ja": "沃川",
+    "name:ko": "옥천",
+    "name:ko-Latn": "Okcheonyeok",
+    "name:zh": "沃川",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "not:network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "옥천",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 368636449,
+  "lat": 36.1726667,
+  "lon": 127.7858142,
+  "tags": {
+    "addr:city": "영동군",
+    "addr:housenumber": "87",
+    "addr:province": "충청북도",
+    "addr:street": "계산로",
+    "addr:town": "영동읍",
+    "name": "영동",
+    "name:en": "Yeongdong",
+    "name:ja": "永同",
+    "name:ko": "영동",
+    "name:ko-Latn": "Yeongdong",
+    "official_name": "영동역",
+    "official_name:en": "Yeongdong Station",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "영동",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q625850",
+    "wikipedia": "ko:영동역"
+  }
+},
+{
+  "type": "node",
+  "id": 368636494,
+  "lat": 36.2119554,
+  "lon": 127.2009309,
+  "tags": {
+    "name": "연산",
+    "name:en": "Yeonsan",
+    "name:ja": "連山",
+    "name:ko": "연산",
+    "name:ko-Latn": "Yeonsan",
+    "official_name": "연산역",
+    "official_name:en": "Yeonsan station",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "연산",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q1586912",
+    "wikipedia": "ko:연산역 (논산)"
+  }
+},
+{
+  "type": "node",
+  "id": 368636598,
+  "lat": 36.1556495,
+  "lon": 126.6798745,
+  "tags": {
+    "name": "판교",
+    "name:en": "Pangyo",
+    "name:ko": "판교",
+    "name:ko-Latn": "Pangyoyeok",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "판교",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q1239959"
+  }
+},
+{
+  "type": "node",
+  "id": 368636646,
+  "lat": 35.9993608,
+  "lon": 126.7602959,
+  "tags": {
+    "building": "train_station",
+    "int_name": "Gunsan Station",
+    "name": "군산",
+    "name:en": "Gunsan",
+    "name:ja": "群山",
+    "name:ko": "군산",
+    "name:ko-Latn": "Gunsany",
+    "old_name": "신군산역",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "platforms": "2",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "군산",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q1239993",
+    "wikipedia": "ko:군산역"
+  }
+},
+{
+  "type": "node",
+  "id": 368636794,
+  "lat": 36.1548371,
+  "lon": 127.0172715,
+  "tags": {
+    "name": "강경",
+    "name:en": "Ganggyeong",
+    "name:ja": "江景",
+    "name:ko": "강경",
+    "name:ko-Latn": "Ganggyeongyeok",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "강경",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q818385",
+    "wikipedia": "ko:강경역"
+  }
+},
+{
+  "type": "node",
+  "id": 368637509,
+  "lat": 36.2439890,
+  "lon": 127.6186518,
+  "tags": {
+    "addr:city": "옥천군",
+    "addr:housenumber": "51",
+    "addr:province": "충청북도",
+    "addr:street": "이원역길",
+    "addr:town": "이원면",
+    "alt_name": "이원역",
+    "alt_name:en": "Iwon Station",
+    "name": "이원",
+    "name:en": "Iwon",
+    "name:ja": "伊院",
+    "name:ko": "이원",
+    "name:ko-Latn": "Iwonyeok",
+    "name:zh": "伊院",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "이원",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 368637537,
+  "lat": 36.0400309,
+  "lon": 126.7153815,
+  "tags": {
+    "alt_name": "장항역",
+    "alt_name:en": "Janghang",
+    "name": "장항",
+    "name:en": "Janghang",
+    "name:ko": "장항",
+    "name:ko-Latn": "Janghangyeok",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "장항",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q1239985"
+  }
+},
+{
+  "type": "node",
+  "id": 368637565,
+  "lat": 36.4110191,
+  "lon": 126.5718187,
+  "tags": {
+    "addr:city": "보령시",
+    "addr:housenumber": "97",
+    "addr:postcode": "33414",
+    "addr:province": "충청남도",
+    "addr:street": "주포역길",
+    "name": "주포",
+    "name:en": "Jupo",
+    "name:ko": "주포",
+    "name:ko-Latn": "Jupoyeok",
+    "network": "ITX-마음",
+    "network:en": "ITX-Maum",
+    "network:ko": "ITX-마음",
+    "network:wikidata": "Q122238452",
+    "not:network:wikidata": "Q13707875",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "주포",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 368637685,
+  "lat": 36.0801666,
+  "lon": 126.9565697,
+  "tags": {
+    "alt_name": "함열역",
+    "alt_name:en": "Hamyeol station",
+    "name": "함열",
+    "name:en": "Hamyeol",
+    "name:ja": "咸悦",
+    "name:ko": "함열",
+    "name:ko-Latn": "Hamyeol",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "함열",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q914545",
+    "wikipedia": "ko:함열역"
+  }
+},
+{
+  "type": "node",
+  "id": 368637794,
+  "lat": 36.2724063,
+  "lon": 127.2665313,
+  "tags": {
+    "name": "계룡",
+    "name:en": "Gyeryong",
+    "name:ja": "鶏龍",
+    "name:ja-Hira": "ケリョン",
+    "name:ko": "계룡",
+    "name:ko-Latn": "Gyeryong",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "not:network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "계룡",
+    "station": "train",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q626423"
+  }
+},
+{
+  "type": "node",
+  "id": 368637854,
+  "lat": 36.4496321,
+  "lon": 127.4281663,
+  "tags": {
+    "addr:housenumber": "807",
+    "addr:street": "신탄진로",
+    "alt_name": "신탄진엳",
+    "alt_name:en": "Sintanjin Station",
+    "name": "신탄진",
+    "name:en": "Sintanjin",
+    "name:ja": "新灘津",
+    "name:ko": "신탄진",
+    "name:ko-Latn": "Sintanjin",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "신탄진",
+    "ref:ARS": "0009",
+    "ref:KROIS": "011524",
+    "ref:XROIS": "3900070",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q188831",
+    "wikipedia": "ko:신탄진역"
+  }
+},
+{
+  "type": "node",
+  "id": 368638215,
+  "lat": 36.1242869,
+  "lon": 127.0879010,
+  "tags": {
+    "addr:housenumber": "55-1",
+    "addr:street": "왕릉로70번길",
+    "military": "yes",
+    "name": "연무대",
+    "name:en": "Yeonmudae",
+    "name:ko": "연무대",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "연무대",
+    "ref:ARS": "0220",
+    "ref:KROIS": "340090",
+    "ref:XROIS": "3900534",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q1586904",
+    "wikipedia": "ko:연무대역"
+  }
+},
+{
+  "type": "node",
+  "id": 3335628556,
+  "lat": 36.3196335,
+  "lon": 127.4489861,
+  "tags": {
+    "name": "신흥",
+    "name:en": "Sinheung",
+    "name:ja": "シヌン(新興)",
+    "name:ko": "신흥",
+    "name:ko-Latn": "Sinheung",
+    "name:zh": "新兴",
+    "name:zh-Hans": "新兴",
+    "name:zh-Hant": "新興",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "102",
+    "subway": "yes",
+    "wikidata": "Q1586287"
+  }
+},
+{
+  "type": "node",
+  "id": 3335628573,
+  "lat": 36.3169619,
+  "lon": 127.4576797,
+  "tags": {
+    "name": "판암",
+    "name:en": "Panam",
+    "name:ja": "パナム(板岩)",
+    "name:ko": "판암",
+    "name:ko-Hani": "板岩",
+    "name:ko-Latn": "Panam",
+    "name:zh": "板岩",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "platforms": "4",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "101",
+    "subway": "yes",
+    "wikidata": "Q1586293"
+  }
+},
+{
+  "type": "node",
+  "id": 3335630610,
+  "lat": 36.3313841,
+  "lon": 127.4333493,
+  "tags": {
+    "name": "대전역",
+    "name:en": "Daejeon Station",
+    "name:ja": "テジョン(大田)駅",
+    "name:ko": "대전역",
+    "name:ko-Latn": "Daejeonyeok",
+    "name:zh": "大田站",
+    "note": "도시철도 대전역은 정거장 명칭이 '대전역' 이므로 '역'을 붙여야 합니다.",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "104",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4186002512,
+  "lat": 36.1160546,
+  "lon": 127.0962959,
+  "tags": {
+    "alt_name": "신연무대역",
+    "alt_name:en": "Sin Yeonmudae Station",
+    "military": "yes",
+    "name": "신연무대",
+    "name:en": "Sin Yeonmudae",
+    "name:ko": "신연무대",
+    "railway": "halt"
+  }
+},
+{
+  "type": "node",
+  "id": 4497184211,
+  "lat": 36.2368257,
+  "lon": 127.7207879,
+  "tags": {
+    "addr:city": "영동군",
+    "addr:housenumber": "5-1",
+    "addr:street": "심천로5길",
+    "alt_name": "심천역",
+    "alt_name:en": "Simcheon station",
+    "name": "심천",
+    "name:de": "Sation Simcheon",
+    "name:en": "Simcheon",
+    "name:ja": "深川",
+    "name:ko": "심천",
+    "name:zh": "深川",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "not:network:wikidata": "Q167674",
+    "official_name": "심천역",
+    "official_name:en": "Simcheon Station",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "심천",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q625284",
+    "wikipedia": "ko:심천역"
+  }
+},
+{
+  "type": "node",
+  "id": 4753904292,
+  "lat": 36.4456785,
+  "lon": 126.5907764,
+  "tags": {
+    "name": "청소",
+    "name:en": "Cheongso",
+    "name:ko": "청소",
+    "name:ko-Latn": "Cheongsoyeok",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "청소",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4753904469,
+  "lat": 36.3155876,
+  "lon": 126.5947591,
+  "tags": {
+    "name": "남포",
+    "name:en": "Nampo",
+    "name:ko": "남포",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "남포",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4876124104,
+  "lat": 36.2417377,
+  "lon": 127.6758934,
+  "tags": {
+    "name": "지탄",
+    "name:en": "Jitan",
+    "name:ja": "池灘",
+    "name:ko": "지탄",
+    "official_name": "지탄역",
+    "official_name:en": "Jitan Station",
+    "public_transport": "station",
+    "railway": "halt",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6006354021,
+  "lat": 36.3224768,
+  "lon": 127.4031220,
+  "tags": {
+    "addr:housenumber": "23",
+    "addr:street": "오류로",
+    "name": "서대전",
+    "name:en": "Seodaejeon",
+    "name:ja": "西大田",
+    "name:ja-Hira": "ソデジョン",
+    "name:ko": "서대전",
+    "name:zh": "西大田",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "not:network:wikidata": "Q167674",
+    "official_name": "서대전역",
+    "official_name:en": "Seodaejeon station",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "서대전",
+    "ref:ARS": "0025",
+    "ref:KROIS": "030057",
+    "ref:XROIS": "3900195",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q54293",
+    "wikipedia": "ko:서대전역"
+  }
+},
+{
+  "type": "node",
+  "id": 6638916898,
+  "lat": 36.3313521,
+  "lon": 127.4333650,
+  "tags": {
+    "name": "대전역",
+    "name:en": "Daejeon Station",
+    "name:ja": "テジョン(大田)駅",
+    "name:ko": "대전역",
+    "name:ko-Latn": "Daejeonyeok",
+    "name:zh": "大田站",
+    "note": "도시철도 대전역은 정거장 명칭이 '대전역' 이므로 '역'을 붙여야 합니다.",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "104",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q1586280",
+    "wikipedia": "ko:대전역 (도시철도)"
+  }
+},
+{
+  "type": "node",
+  "id": 7643376061,
+  "lat": 36.3305619,
+  "lon": 127.4359359,
+  "tags": {
+    "name": "대전",
+    "name:en": "Daejeon",
+    "name:ko": "대전",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7643376062,
+  "lat": 36.3305375,
+  "lon": 127.4361141,
+  "tags": {
+    "name": "대전",
+    "name:en": "Daejeon",
+    "name:ko": "대전",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7643376063,
+  "lat": 36.3305968,
+  "lon": 127.4362463,
+  "tags": {
+    "name": "대전",
+    "name:en": "Daejeon",
+    "name:ko": "대전",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7839145036,
+  "lat": 36.3322371,
+  "lon": 127.0966368,
+  "tags": {
+    "highspeed": "yes",
+    "name": "공주",
+    "name:en": "Gongju",
+    "name:ja": "公州",
+    "name:ja-Hira": "コンジュ",
+    "name:ko": "공주",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "not:network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "공주",
+    "service": "highspeed",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q1586754",
+    "wikipedia": "ko:공주역"
+  }
+},
+{
+  "type": "node",
+  "id": 7839145039,
+  "lat": 36.3308676,
+  "lon": 127.0961924,
+  "tags": {
+    "highspeed": "yes",
+    "name": "공주",
+    "name:en": "Gongju",
+    "name:ko": "공주",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "service": "highspeed",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7839145040,
+  "lat": 36.3339675,
+  "lon": 127.0972787,
+  "tags": {
+    "highspeed": "yes",
+    "name": "공주",
+    "name:en": "Gongju",
+    "name:ko": "공주",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "service": "highspeed",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7880796791,
+  "lat": 36.3214032,
+  "lon": 127.4035375,
+  "tags": {
+    "name": "서대전",
+    "name:en": "Seodaejeon",
+    "name:ko": "서대전",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7962806665,
+  "lat": 36.2359262,
+  "lon": 126.6067347,
+  "tags": {
+    "name": "웅천",
+    "name:en": "Ungcheon",
+    "name:ko": "웅천",
+    "network": "한국철도공사",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "웅천",
+    "station": "train",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7980071985,
+  "lat": 36.2069077,
+  "lon": 127.0928492,
+  "tags": {
+    "addr:city": "논산시",
+    "addr:housenumber": "263-13",
+    "addr:street": "해월로",
+    "name": "논산",
+    "name:en": "Nonsan",
+    "name:ja": "論山",
+    "name:ko": "논산",
+    "name:ko-Latn": "Nonsan",
+    "official_name": "논산역",
+    "official_name:en": "Nonsan station",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "논산",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q623739",
+    "wikipedia": "ko:논산역"
+  }
+},
+{
+  "type": "node",
+  "id": 9129173192,
+  "lat": 36.2081587,
+  "lon": 127.7254469,
+  "tags": {
+    "addr:city": "영동군",
+    "addr:housenumber": "55",
+    "addr:province": "충청북도",
+    "addr:street": "각계길",
+    "addr:town": "심천면",
+    "name": "각계",
+    "name:en": "Gakgye",
+    "name:ja": "覚渓",
+    "name:ko": "각계",
+    "official_name": "각계역",
+    "official_name:en": "Gakgye Station",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "halt",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9271803746,
+  "lat": 36.3914852,
+  "lon": 127.3151222,
+  "tags": {
+    "name": "반석",
+    "name:en": "Banseok",
+    "name:ja": "パンソク(盤石)",
+    "name:ko": "반석",
+    "name:ko-Hani": "盤石",
+    "name:zh": "盘石",
+    "name:zh-Hans": "盘石",
+    "name:zh-Hant": "盤石",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "122",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586363"
+  }
+},
+{
+  "type": "node",
+  "id": 9271803824,
+  "lat": 36.3514596,
+  "lon": 127.3865539,
+  "tags": {
+    "name": "시청",
+    "name:en": "City Hall",
+    "name:ja": "シチョン(市庁)",
+    "name:ko": "시청",
+    "name:ko-Hani": "市廳",
+    "name:zh": "市厅",
+    "name:zh-Hans": "市厅",
+    "name:zh-Hant": "市廳",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "111",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586320"
+  }
+},
+{
+  "type": "node",
+  "id": 9271803923,
+  "lat": 36.3169932,
+  "lon": 127.4592975,
+  "tags": {
+    "name": "판암",
+    "name:en": "Panam",
+    "name:ja": "パナム(板岩)",
+    "name:ko": "판암",
+    "name:ko-Hani": "板岩",
+    "name:ko-Latn": "Panam",
+    "name:zh": "板岩",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "platforms": "4",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "101",
+    "subway": "yes",
+    "wikidata": "Q1586293"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804079,
+  "lat": 36.3844277,
+  "lon": 127.3194680,
+  "tags": {
+    "name": "지족",
+    "name:en": "Jijok",
+    "name:ja": "チジョク(智足)",
+    "name:ko": "지족",
+    "name:ko-Hani": "智足",
+    "name:zh": "智足",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "121",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586382"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804080,
+  "lat": 36.3741166,
+  "lon": 127.3178464,
+  "tags": {
+    "name": "노은",
+    "name:en": "Noeun",
+    "name:ja": "ノオン(老隠)",
+    "name:ko": "노은",
+    "name:ko-Hani": "老隱",
+    "name:zh": "老隠",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "120",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586358"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804081,
+  "lat": 36.3741117,
+  "lon": 127.3179073,
+  "tags": {
+    "addr:city": "대전광역시",
+    "addr:district": "유성구",
+    "addr:housenumber": "161",
+    "addr:street": "노은로",
+    "internet_access": "wlan",
+    "name": "노은",
+    "name:en": "Noeun",
+    "name:ja": "ノオン(老隠)",
+    "name:ko": "노은",
+    "name:ko-Hani": "老隱",
+    "name:zh": "老隠",
+    "operator": "대전교통공사",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "120",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586358"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804082,
+  "lat": 36.3841110,
+  "lon": 127.3195384,
+  "tags": {
+    "name": "지족",
+    "name:en": "Jijok",
+    "name:ja": "チジョク(智足)",
+    "name:ko": "지족",
+    "name:ko-Hani": "智足",
+    "name:zh": "智足",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "121",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586382"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804083,
+  "lat": 36.3919413,
+  "lon": 127.3148170,
+  "tags": {
+    "name": "반석",
+    "name:en": "Banseok",
+    "name:ja": "パンソク(盤石)",
+    "name:ko": "반석",
+    "name:ko-Hani": "盤石",
+    "name:zh": "盘石",
+    "name:zh-Hans": "盘石",
+    "name:zh-Hant": "盤石",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "122",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586363"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804084,
+  "lat": 36.3594103,
+  "lon": 127.3214881,
+  "tags": {
+    "name": "현충원",
+    "name:en": "National Cemetery",
+    "name:ja": "ヒョンチュンウォン(顕忠院)",
+    "name:ko": "현충원",
+    "name:zh": "显忠院",
+    "name:zh-Hans": "显忠院",
+    "name:zh-Hant": "顯忠院",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "118",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q1586391"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804085,
+  "lat": 36.3593890,
+  "lon": 127.3214099,
+  "tags": {
+    "name": "현충원",
+    "name:en": "National Cemetery",
+    "name:ja": "ヒョンチュンウォン(顕忠院)",
+    "name:ko": "현충원",
+    "name:zh": "显忠院",
+    "name:zh-Hans": "显忠院",
+    "name:zh-Hant": "顯忠院",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "118",
+    "subway": "yes",
+    "wikidata": "Q1586391"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804086,
+  "lat": 36.3566303,
+  "lon": 127.3307266,
+  "tags": {
+    "name": "구암",
+    "name:en": "Guam",
+    "name:ja": "クアム(九岩)",
+    "name:ko": "구암",
+    "name:ko-Hani": "九岩",
+    "name:zh": "九岩",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "117",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586354"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804087,
+  "lat": 36.3566891,
+  "lon": 127.3306399,
+  "tags": {
+    "name": "구암",
+    "name:en": "Guam",
+    "name:ja": "クアム(九岩)",
+    "name:ko": "구암",
+    "name:ko-Hani": "九岩",
+    "name:zh": "九岩",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "117",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586354"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804088,
+  "lat": 36.3537040,
+  "lon": 127.3416486,
+  "tags": {
+    "name": "유성온천",
+    "name:en": "Yuseong Spa",
+    "name:ja": "ユソンオンチョン(儒城温泉)",
+    "name:ko": "유성온천",
+    "name:ko-Hani": "儒城溫泉",
+    "name:zh": "儒城温泉",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "116",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586372"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804089,
+  "lat": 36.3536879,
+  "lon": 127.3416841,
+  "tags": {
+    "name": "유성온천",
+    "name:en": "Yuseong Spa",
+    "name:ja": "ユソンオンチョン(儒城温泉)",
+    "name:ko": "유성온천",
+    "name:ko-Hani": "儒城溫泉",
+    "name:zh": "儒城温泉",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "116",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586372"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804090,
+  "lat": 36.3545464,
+  "lon": 127.3545556,
+  "tags": {
+    "name": "갑천",
+    "name:en": "Gapcheon",
+    "name:ja": "カプチョン(甲川)",
+    "name:ko": "갑천",
+    "name:ko-Hani": "甲川",
+    "name:zh": "甲川",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "115",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586309"
+  }
+},
+{
+  "type": "node",
+  "id": 9271804091,
+  "lat": 36.3545176,
+  "lon": 127.3545865,
+  "tags": {
+    "name": "갑천",
+    "name:en": "Gapcheon",
+    "name:ja": "カプチョン(甲川)",
+    "name:ko": "갑천",
+    "name:ko-Hani": "甲川",
+    "name:zh": "甲川",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "115",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586309"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807333,
+  "lat": 36.3583385,
+  "lon": 127.3644581,
+  "tags": {
+    "name": "월평",
+    "name:en": "Wolpyeong",
+    "name:ja": "ウォルピョン(月坪)",
+    "name:ko": "월평",
+    "name:ko-Hani": "月坪",
+    "name:zh": "月坪",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "114",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586336"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807334,
+  "lat": 36.3582965,
+  "lon": 127.3645664,
+  "tags": {
+    "name": "월평",
+    "name:en": "Wolpyeong",
+    "name:ja": "ウォルピョン(月坪)",
+    "name:ko": "월평",
+    "name:ko-Hani": "月坪",
+    "name:zh": "月坪",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "114",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586336"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807335,
+  "lat": 36.3576605,
+  "lon": 127.3727932,
+  "tags": {
+    "name": "갈마",
+    "name:en": "Galma",
+    "name:ja": "カルマ(葛馬)",
+    "name:ko": "갈마",
+    "name:ko-Hani": "葛馬",
+    "name:zh": "葛马",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "113",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586300"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807336,
+  "lat": 36.3576169,
+  "lon": 127.3727918,
+  "tags": {
+    "name": "갈마",
+    "name:en": "Galma",
+    "name:ja": "カルマ(葛馬)",
+    "name:ko": "갈마",
+    "name:ko-Hani": "葛馬",
+    "name:zh": "葛马",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "113",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586300"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807337,
+  "lat": 36.3576058,
+  "lon": 127.3816164,
+  "tags": {
+    "name": "정부청사",
+    "name:en": "Government Complex Daejeon",
+    "name:ja": "政府庁舎",
+    "name:ja-Hira": "チョンブチョンサ",
+    "name:ko": "정부청사",
+    "name:ko-Hani": "政府廳舍",
+    "name:zh": "政府大楼",
+    "name:zh-Hans": "政府大楼",
+    "name:zh-Hant": "政府大樓",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "112",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586444"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807338,
+  "lat": 36.3575827,
+  "lon": 127.3816119,
+  "tags": {
+    "name": "정부청사",
+    "name:en": "Government Complex Daejeon",
+    "name:ja": "チョンブチョンサ(政府庁舎)",
+    "name:ko": "정부청사",
+    "name:ko-Hani": "政府廳舍",
+    "name:zh": "政府大楼",
+    "name:zh-Hans": "政府大楼",
+    "name:zh-Hant": "政府大樓",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "112",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586444"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807339,
+  "lat": 36.3514445,
+  "lon": 127.3865931,
+  "tags": {
+    "name": "시청",
+    "name:en": "City Hall",
+    "name:ja": "市庁",
+    "name:ja-Hira": "シチョン",
+    "name:ko": "시청",
+    "name:ko-Hani": "市廳",
+    "name:zh": "市厅",
+    "name:zh-Hans": "市厅",
+    "name:zh-Hant": "市廳",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "111",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586320"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807340,
+  "lat": 36.3459484,
+  "lon": 127.3846726,
+  "tags": {
+    "name": "탄방",
+    "name:en": "Tanbang",
+    "name:ja": "タンバン(炭坊)",
+    "name:ko": "탄방",
+    "name:ko-Hani": "炭坊",
+    "name:zh": "炭坊",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "111",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586349",
+    "wikipedia": "ko:탄방역"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807341,
+  "lat": 36.3459703,
+  "lon": 127.3846066,
+  "tags": {
+    "name": "탄방",
+    "name:en": "Tanbang",
+    "name:ja": "タンバン(炭坊)",
+    "name:ko": "탄방",
+    "name:ko-Hani": "炭坊",
+    "name:zh": "炭坊",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "110",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586349"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807342,
+  "lat": 36.3382037,
+  "lon": 127.3932583,
+  "tags": {
+    "name": "용문",
+    "name:en": "Yongmun",
+    "name:ja": "ヨンムン(龍汶)",
+    "name:ko": "용문",
+    "name:ko-Hani": "龍汶",
+    "name:zh": "龙汶",
+    "name:zh-Hans": "龙汶",
+    "name:zh-Hant": "龍汶",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "109",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586328"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807343,
+  "lat": 36.3381869,
+  "lon": 127.3931959,
+  "tags": {
+    "name": "용문",
+    "name:en": "Yongmun",
+    "name:ja": "ヨンムン(龍汶)",
+    "name:ko": "용문",
+    "name:ko-Hani": "龍汶",
+    "name:zh": "龙汶",
+    "name:zh-Hans": "龙汶",
+    "name:zh-Hant": "龍汶",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "109",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586328"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807344,
+  "lat": 36.3283959,
+  "lon": 127.4050618,
+  "tags": {
+    "name": "오룡",
+    "name:en": "Oryong",
+    "name:ja": "オリョン(五龍)",
+    "name:ko": "오룡",
+    "name:ko-Hani": "五龍",
+    "name:zh": "五龙",
+    "name:zh-Hans": "五龙",
+    "name:zh-Hant": "五龍",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "108",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "no",
+    "wikidata": "Q1586408"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807345,
+  "lat": 36.3283689,
+  "lon": 127.4050254,
+  "tags": {
+    "name": "오룡",
+    "name:en": "Oryong",
+    "name:ja": "オリョン(五龍)",
+    "name:ko": "오룡",
+    "name:ko-Hani": "五龍",
+    "name:zh": "五龙",
+    "name:zh-Hans": "五龙",
+    "name:zh-Hant": "五龍",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "108",
+    "subway": "yes",
+    "wikidata": "Q1586408"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807346,
+  "lat": 36.3223851,
+  "lon": 127.4125138,
+  "tags": {
+    "name": "서대전네거리",
+    "name:en": "Seodaejeonnegeori",
+    "name:ja": "ソデジョンネゴリ(西大田ネゴリ)",
+    "name:ko": "서대전네거리",
+    "name:ko-Hani": "西大田-",
+    "name:zh": "西大田四街",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "107",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q1586402"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807347,
+  "lat": 36.3223748,
+  "lon": 127.4124910,
+  "tags": {
+    "name": "서대전네거리",
+    "name:en": "Seodaejeonnegeori",
+    "name:ja": "ソデジョンネゴリ(西大田ネゴリ)",
+    "name:ko": "서대전네거리",
+    "name:ko-Hani": "西大田-",
+    "name:zh": "西大田四街",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "107",
+    "subway": "yes",
+    "wikidata": "Q1586402"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807348,
+  "lat": 36.3247586,
+  "lon": 127.4196070,
+  "tags": {
+    "name": "중구청",
+    "name:en": "Jung-gu Office",
+    "name:ja": "チュングチョン(中区庁)",
+    "name:ko": "중구청",
+    "name:ko-Hani": "中區廳",
+    "name:zh": "中区厅",
+    "name:zh-Hans": "中区厅",
+    "name:zh-Hant": "中區廳",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "106",
+    "subway": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807349,
+  "lat": 36.3247793,
+  "lon": 127.4195775,
+  "tags": {
+    "name": "중구청",
+    "name:en": "Jung-gu Office",
+    "name:ja": "チュングチョン(中区庁)",
+    "name:ko": "중구청",
+    "name:ko-Hani": "中區廳",
+    "name:zh": "中区厅",
+    "name:zh-Hans": "中区厅",
+    "name:zh-Hant": "中區廳",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "106",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807350,
+  "lat": 36.3285894,
+  "lon": 127.4259177,
+  "tags": {
+    "name": "중앙로",
+    "name:en": "Jungangno",
+    "name:ja": "チュンアンロ(中央路)",
+    "name:ko": "중앙로",
+    "name:ko-Hani": "中央路",
+    "name:zh": "中央路",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "105",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q1586418"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807351,
+  "lat": 36.3285657,
+  "lon": 127.4259196,
+  "tags": {
+    "name": "중앙로",
+    "name:en": "Jungangno",
+    "name:ja": "チュンアンロ(中央路)",
+    "name:ko": "중앙로",
+    "name:ko-Hani": "中央路",
+    "name:zh": "中央路",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "105",
+    "subway": "yes",
+    "wikidata": "Q1586418"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807353,
+  "lat": 36.3313228,
+  "lon": 127.4333794,
+  "tags": {
+    "name": "대전역",
+    "name:en": "Daejeon Station",
+    "name:ja": "テジョン(大田)駅",
+    "name:ko": "대전역",
+    "name:ko-Latn": "Daejeonyeok",
+    "name:zh": "大田站",
+    "note": "도시철도 대전역은 정거장 명칭이 '대전역' 이므로 '역'을 붙여야 합니다.",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "104",
+    "subway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807354,
+  "lat": 36.3294086,
+  "lon": 127.4429079,
+  "tags": {
+    "name": "대동",
+    "name:en": "Dae-dong",
+    "name:ja": "テドン(大洞)",
+    "name:ko": "대동",
+    "name:ko-Hani": "大洞",
+    "name:zh": "大洞",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "103",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q1586272"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807355,
+  "lat": 36.3294087,
+  "lon": 127.4428635,
+  "tags": {
+    "name": "대동",
+    "name:en": "Dae-dong",
+    "name:ja": "テドン(大洞)",
+    "name:ko": "대동",
+    "name:ko-Hani": "大洞",
+    "name:zh": "大洞",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "103",
+    "subway": "yes",
+    "wikidata": "Q1586272"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807356,
+  "lat": 36.3195844,
+  "lon": 127.4489649,
+  "tags": {
+    "name": "신흥",
+    "name:en": "Sinheung",
+    "name:ja": "シヌン(新興)",
+    "name:ko": "신흥",
+    "name:ko-Latn": "Sinheung",
+    "name:zh": "新兴",
+    "name:zh-Hans": "新兴",
+    "name:zh-Hant": "新興",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "102",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q1586287"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807357,
+  "lat": 36.3195564,
+  "lon": 127.4489322,
+  "tags": {
+    "name": "신흥",
+    "name:en": "Sinheung",
+    "name:ja": "シヌン(新興)",
+    "name:ko": "신흥",
+    "name:ko-Latn": "Sinheung",
+    "name:zh": "新兴",
+    "name:zh-Hans": "新兴",
+    "name:zh-Hant": "新興",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "102",
+    "subway": "yes",
+    "wikidata": "Q1586287"
+  }
+},
+{
+  "type": "node",
+  "id": 9271807358,
+  "lat": 36.3169952,
+  "lon": 127.4587072,
+  "tags": {
+    "name": "판암",
+    "name:en": "Panam",
+    "name:ja": "パナム(板岩)",
+    "name:ko": "판암",
+    "name:ko-Hani": "板岩",
+    "name:ko-Latn": "Panam",
+    "name:zh": "板岩",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "platforms": "4",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "101",
+    "station": "subway",
+    "subway": "yes",
+    "wikidata": "Q1586293"
+  }
+},
+{
+  "type": "node",
+  "id": 9320604241,
+  "lat": 36.3667886,
+  "lon": 127.3178507,
+  "tags": {
+    "name": "월드컵경기장",
+    "name:en": "World Cup Stadium",
+    "name:ja": "ワールドカップ競技場",
+    "name:ko": "월드컵경기장",
+    "name:ko-Hani": "-競技場",
+    "name:zh": "世界杯体育场",
+    "name:zh-Hans": "世界杯体育场",
+    "name:zh-Hant": "世界盃體育場",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "stop_position",
+    "railway": "stop",
+    "ref": "122",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586363"
+  }
+},
+{
+  "type": "node",
+  "id": 9320604243,
+  "lat": 36.3668280,
+  "lon": 127.3179022,
+  "tags": {
+    "name": "월드컵경기장",
+    "name:en": "World Cup Stadium",
+    "name:ja": "ワールドカップ競技場",
+    "name:ko": "월드컵경기장",
+    "name:ko-Hani": "-競技場",
+    "name:zh": "世界杯体育场",
+    "name:zh-Hans": "世界杯体育场",
+    "name:zh-Hant": "世界盃體育場",
+    "operator": "대전교통공사",
+    "operator:en": "Daejeon Transportation Corporation",
+    "operator:ko": "대전교통공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q14949089",
+    "public_transport": "station",
+    "railway": "station",
+    "ref": "119",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1586367"
+  }
+},
+{
+  "type": "node",
+  "id": 10035188180,
+  "lat": 36.3591370,
+  "lon": 127.4179996,
+  "tags": {
+    "construction:railway": "station",
+    "name": "오정",
+    "name:en": "Ojeong",
+    "name:ko": "오정",
+    "public_transport": "station",
+    "train": "yes",
+    "wikidata": "Q1592984",
+    "wikipedia": "ko:오정역"
+  }
+},
+{
+  "type": "node",
+  "id": 10165830852,
+  "lat": 36.0821954,
+  "lon": 126.7084727,
+  "tags": {
+    "alt_name": "서천역",
+    "alt_name:en": "Seocheon station",
+    "name": "서천",
+    "name:en": "Seocheon",
+    "name:ko": "서천",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "서천",
+    "station": "train",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q1239969",
+    "wikipedia": "ko:서천역"
+  }
+},
+{
+  "type": "node",
+  "id": 11115459432,
+  "lat": 36.3329101,
+  "lon": 127.3997941,
+  "tags": {
+    "construction:railway": "station",
+    "name": "용두",
+    "name:en": "Yongdu",
+    "name:ko": "용두",
+    "proposed": "station",
+    "proposed:railway": "station",
+    "public_transport": "station",
+    "subway": "yes",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11115459433,
+  "lat": 36.3102202,
+  "lon": 127.3743477,
+  "tags": {
+    "construction:railway": "station",
+    "name": "도마",
+    "name:en": "Doma",
+    "name:ko": "도마",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11409749646,
+  "lat": 36.3141125,
+  "lon": 127.4026729,
+  "tags": {
+    "construction:railway": "station",
+    "name": "문화",
+    "name:ko": "문화",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13376351324,
+  "lat": 36.3417336,
+  "lon": 126.5864490,
+  "tags": {
+    "name": "대천",
+    "name:en": "Daecheon",
+    "name:fr": "Daecheon",
+    "name:ja": "大川",
+    "network": "코레일",
+    "network:en": "Korail",
+    "network:ko": "코레일",
+    "network:wikidata": "Q18169",
+    "not:network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:ref": "대천",
+    "ref:ARS": "0083",
+    "ref:KROIS": "080952",
+    "ref:XROIS": "3900338",
+    "station": "train",
+    "train": "yes",
+    "wikidata": "Q1239910"
+  }
+},
+{
+  "type": "node",
+  "id": 14112106149,
+  "lat": 36.2107126,
+  "lon": 126.6199965,
+  "tags": {
+    "abandoned:railway": "station",
+    "name": "간치",
+    "name:en": "Ganchi",
+    "name:ko": "간치",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway:ref": "간치",
+    "ref:ARS": "0289",
+    "ref:KROIS": "081134",
+    "ref:XROIS": "3900342",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 14289193528,
+  "lat": 36.3883019,
+  "lon": 126.5695161,
+  "tags": {
+    "abandoned:railway": "station",
+    "name": "주교",
+    "name:en": "Jugyo",
+    "name:ko": "주교",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway:ref": "주교",
+    "ref:ARS": "0288",
+    "ref:KROIS": "080889",
+    "ref:XROIS": "3900339",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 14289193567,
+  "lat": 36.1995961,
+  "lon": 126.6356799,
+  "tags": {
+    "abandoned:railway": "station",
+    "name": "주산",
+    "name:en": "Jusan",
+    "name:ko": "주산",
+    "operator": "한국철도공사",
+    "public_transport": "station",
+    "railway:ref": "주산",
+    "ref:ARS": "0290",
+    "ref:KROIS": "081149",
+    "ref:XROIS": "3900344",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 14317311035,
+  "lat": 36.3419547,
+  "lon": 127.4059980,
+  "tags": {
+    "construction:railway": "station",
+    "name": "중촌",
+    "name:en": "Jungchon",
+    "name:ko": "중촌",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 14317311037,
+  "lat": 36.4411755,
+  "lon": 127.4279656,
+  "tags": {
+    "construction:railway": "station",
+    "name": "덕암",
+    "name:en": "Deogam",
+    "name:ko": "덕암",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 410018554,
+  "center": {
+    "lat": 36.3323027,
+    "lon": 127.0966703
+  },
+  "nodes": [
+    5350634989,
+    4118777485,
+    13065585108,
+    4118777486,
+    4118777487,
+    13065585107,
+    5350634989
+  ],
+  "tags": {
+    "building": "train_station",
+    "layer": "1",
+    "network": "KTX",
+    "network:wikidata": "Q167674",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 821124669,
+  "center": {
+    "lat": 36.1557767,
+    "lon": 126.6793109
+  },
+  "nodes": [
+    7666963398,
+    7666963399,
+    7666963400,
+    7666963401,
+    7666963398
+  ],
+  "tags": {
+    "addr:city": "서천군",
+    "addr:housenumber": "8",
+    "addr:province": "충청남도",
+    "addr:street": "저산길",
+    "addr:town": "판교면",
+    "building": "train_station",
+    "name": "판교역",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1095594581,
+  "center": {
+    "lat": 36.3841062,
+    "lon": 127.3194855
+  },
+  "nodes": [
+    10033288037,
+    10033288038,
+    10033288103,
+    10033288039,
+    10033288102,
+    10033288040,
+    10033288104,
+    10033288058,
+    10033288057,
+    10033288056,
+    10033288041,
+    10033288043,
+    12165891527,
+    12165891526,
+    12165891525,
+    10033288097,
+    10033288044,
+    10033288045,
+    10033288099,
+    10033288046,
+    10033288037
+  ],
+  "tags": {
+    "public_transport": "station",
+    "railway": "station",
+    "station": "subway",
+    "subway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1195319980,
+  "center": {
+    "lat": 36.2553867,
+    "lon": 127.3393023
+  },
+  "nodes": [
+    11094011860,
+    11094011861,
+    11094011862,
+    11094011863,
+    11094011860
+  ],
+  "tags": {
+    "building": "train_station",
+    "name": "흑석리역",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683400,
+  "center": {
+    "lat": 36.3740442,
+    "lon": 127.3178795
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271804081,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173715,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271804080,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8256185807,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256185808,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256185809,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256185810,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "노은역",
+    "name:en": "Noeun Station",
+    "name:ja": "ノオン(老隠)駅",
+    "name:ko": "노은역",
+    "name:ko-Hani": "老隱驛",
+    "name:zh": "老隠站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683401,
+  "center": {
+    "lat": 36.3841357,
+    "lon": 127.3194878
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271804082,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9271804079,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 355173716,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8256184749,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256184750,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "지족역",
+    "name:en": "Jijok Station",
+    "name:ja": "チジョク(智足)駅",
+    "name:ko": "지족역",
+    "name:ko-Hani": "智足驛",
+    "name:zh": "智足站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683402,
+  "center": {
+    "lat": 36.3920609,
+    "lon": 127.3145632
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271804083,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173708,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271803746,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 5012451570,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626355809,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626355778,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 5012451569,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 5012451571,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626355806,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 14179682303,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "반석역",
+    "name:en": "Banseok Station",
+    "name:ja": "パンソク(盤石)駅",
+    "name:ko": "반석역",
+    "name:ko-Hani": "盤石",
+    "name:zh": "盘石",
+    "name:zh-Hans": "盘石",
+    "name:zh-Hant": "盤石",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683403,
+  "center": {
+    "lat": 36.3169936,
+    "lon": 127.4584886
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807358,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 3335628573,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271803923,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 626321853,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321855,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321856,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321854,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "판암역",
+    "name:en": "Panam Station",
+    "name:ja": "パナム(板岩)駅",
+    "name:ko": "판암역",
+    "name:ko-Hani": "板岩驛",
+    "name:ko-Latn": "panamyeok",
+    "name:zh": "板岩站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683473,
+  "center": {
+    "lat": 36.3197087,
+    "lon": 127.4487094
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807356,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 3335628556,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807357,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 626321802,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321803,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321804,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321805,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "신흥역",
+    "name:en": "Sinheung Station",
+    "name:ja": "新興駅",
+    "name:ko": "신흥역",
+    "name:zh": "新兴站",
+    "name:zh-Hant": "新興站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683474,
+  "center": {
+    "lat": 36.3322269,
+    "lon": 127.4347066
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 355173691,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 7643376061,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 7643376063,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 7643376062,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 326825769,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 326825762,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 327745902,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 327745905,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 327745899,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "description": "일반열차,ktx",
+    "name": "대전역",
+    "name:en": "Daejeon Station",
+    "name:ko": "대전역",
+    "operator": "한국철도공사",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683475,
+  "center": {
+    "lat": 36.3314370,
+    "lon": 127.4330494
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 6638916898,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 3335630610,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253671115,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253671114,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253671116,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253679417,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 9271807353,
+      "role": "stop"
+    }
+  ],
+  "tags": {
+    "name": "대전역 (지하철)",
+    "name:en": "Daejeon Station (Subway)",
+    "name:ja": "テジョン(大田)駅 (地下鉄)",
+    "name:ko": "대전역 (지하철)",
+    "name:zh": "大田站 (地铁)",
+    "name:zh-Hans": "大田站 (地铁)",
+    "name:zh-Hant": "大田站 (捷運)",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683476,
+  "center": {
+    "lat": 36.3248003,
+    "lon": 127.4197090
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807349,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173680,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807348,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 626321775,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321774,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321776,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626321777,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "중구청역",
+    "name:en": "Jung-gu Office Station",
+    "name:ja": "チュングチョン(中区庁)駅",
+    "name:ko": "중구청역",
+    "name:ko-Hani": "中區廳驛",
+    "name:zh": "中区厅站",
+    "name:zh-Hans": "中区厅站",
+    "name:zh-Hant": "中區廳站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683477,
+  "center": {
+    "lat": 36.3224195,
+    "lon": 127.4125174
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807346,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173678,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807347,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253843215,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253843216,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253878517,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253878518,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253878519,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253878520,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253878521,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253878522,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "서대전네거리역",
+    "name:en": "Seodaejeonnegeori Station",
+    "name:ja": "西大田ネゴリ駅",
+    "name:ko": "서대전네거리역",
+    "name:ko-Hani": "西大田-驛",
+    "name:zh": "西大田四街站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683478,
+  "center": {
+    "lat": 36.3285662,
+    "lon": 127.4050319
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807344,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173684,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807345,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253880380,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253880381,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253880382,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253880383,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253880384,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253880385,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253880386,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253880387,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "오룡역",
+    "name:en": "Oryong Station",
+    "name:ja": "オリョン(五龍)駅",
+    "name:ko": "오룡역",
+    "name:ko-Hani": "五龍驛",
+    "name:zh": "五龙站",
+    "name:zh-Hans": "五龙站",
+    "name:zh-Hant": "五龍站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683479,
+  "center": {
+    "lat": 36.3382480,
+    "lon": 127.3932683
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807342,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173682,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807343,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253951274,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253951275,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253951276,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253951277,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253951278,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253951279,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253951280,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253951281,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "용문역",
+    "name:en": "Yongmun Station",
+    "name:ja": "ヨンムン(龍汶)駅",
+    "name:ko": "용문역",
+    "name:ko-Hani": "龍汶驛",
+    "name:zh": "龙汶站",
+    "name:zh-Hans": "龙汶站",
+    "name:zh-Hant": "龍汶站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683480,
+  "center": {
+    "lat": 36.3457068,
+    "lon": 127.3848283
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807340,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173697,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807341,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8254070714,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254070715,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254070716,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254090617,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254090618,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "탄방역",
+    "name:en": "Tanbang Station",
+    "name:ja": "タンバン(炭坊)駅",
+    "name:ko": "탄방역",
+    "name:ko-Hani": "炭坊驛",
+    "name:zh": "炭坊站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683481,
+  "center": {
+    "lat": 36.3512197,
+    "lon": 127.3866989
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807339,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173698,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271803824,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8254092957,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254092958,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254092959,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254092960,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254092961,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254092962,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254092963,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8254092964,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "시청역",
+    "name:en": "City Hall Station",
+    "name:ja": "シチョン(市庁)駅",
+    "name:ko": "시청역",
+    "name:ko-Hani": "市廳驛",
+    "name:zh": "市厅站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683482,
+  "center": {
+    "lat": 36.3575855,
+    "lon": 127.3812084
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807337,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173700,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807338,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8256129321,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256129322,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256129323,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256129324,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "정부청사역",
+    "name:en": "Government Complex Daejeon Station",
+    "name:ja": "チョンブチョンサ(政府庁舎)駅",
+    "name:ko": "정부청사역",
+    "name:ko-Hani": "政府廳舍驛",
+    "name:zh": "政府大楼站",
+    "name:zh-Hans": "政府大楼站",
+    "name:zh-Hant": "政府大樓站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683483,
+  "center": {
+    "lat": 36.3576608,
+    "lon": 127.3725932
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807335,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173701,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807336,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 626311630,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256109789,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256109790,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256109791,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256109792,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "갈마역",
+    "name:en": "Galma Station",
+    "name:ja": "カルマ(葛馬)駅",
+    "name:ko": "갈마역",
+    "name:ko-Hani": "葛馬驛",
+    "name:zh": "葛马站",
+    "name:zh-Hans": "葛马站",
+    "name:zh-Hant": "葛馬站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683484,
+  "center": {
+    "lat": 36.3583087,
+    "lon": 127.3641694
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807333,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173693,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807334,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8256138118,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256138119,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256138120,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256138121,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "월평역",
+    "name:en": "Wolpyeong Station",
+    "name:ja": "ウォルピョン(月坪)駅",
+    "name:ko": "월평역",
+    "name:ko-Hani": "月坪驛",
+    "name:zh": "月坪站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683485,
+  "center": {
+    "lat": 36.3544358,
+    "lon": 127.3544964
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271804090,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173694,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271804091,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8256138122,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256138123,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256138124,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "갑천역",
+    "name:en": "Gapcheon Station",
+    "name:ja": "カプチョン(甲川)駅",
+    "name:ko": "갑천역",
+    "name:ko-Hani": "甲川驛",
+    "name:zh": "甲川站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683486,
+  "center": {
+    "lat": 36.3536962,
+    "lon": 127.3415485
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271804088,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173695,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271804089,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8256116387,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256116388,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256116389,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256116390,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256116391,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256116392,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256116393,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256116394,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "유성온천역",
+    "name:en": "Yuseong Spa Station",
+    "name:ja": "ユソンオンチョン(儒城温泉)駅",
+    "name:ko": "유성온천역",
+    "name:ko-Hani": "儒城溫泉驛",
+    "name:zh": "儒城温泉站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683487,
+  "center": {
+    "lat": 36.3564191,
+    "lon": 127.3310630
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271804086,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173696,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271804087,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8256097979,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256097980,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256097981,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "구암역",
+    "name:en": "Guam Station",
+    "name:ja": "クアム(九岩)駅",
+    "name:ko": "구암역",
+    "name:ko-Hani": "九岩驛",
+    "name:zh": "九岩站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683488,
+  "center": {
+    "lat": 36.3594291,
+    "lon": 127.3214411
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271804084,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173713,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271804085,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8256154223,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256154224,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256154225,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256154226,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "현충원역",
+    "name:en": "National Cemetery Station",
+    "name:ja": "ヒョンチュンウォン(顕忠院)駅",
+    "name:ko": "현충원역",
+    "name:zh": "显忠院站",
+    "name:zh-Hans": "显忠院站",
+    "name:zh-Hant": "顯忠院站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 7683489,
+  "center": {
+    "lat": 36.3668455,
+    "lon": 127.3178223
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9320604243,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173714,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9320604241,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 626355528,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 626355533,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256164954,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256164955,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256164956,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256164957,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256164958,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256164959,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8256164960,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "월드컵경기장역",
+    "name:en": "World Cup Stadium Station",
+    "name:ja": "ワールドカップ競技場駅",
+    "name:ko": "월드컵경기장역",
+    "name:ko-Hani": "-競技場驛",
+    "name:zh-Hans": "世界杯体育场站",
+    "name:zh-Hant": "世界盃體育場站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 11537649,
+  "center": {
+    "lat": 36.3324121,
+    "lon": 127.0967230
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 7839145039,
+      "role": "stop"
+    },
+    {
+      "type": "way",
+      "ref": 554445189,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 554445188,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 7839145040,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 7839145036,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 410018554,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13065585108,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13065585107,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "공주",
+    "name:en": "Gongju",
+    "name:ko": "공주",
+    "operator": "한국철도공사",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 11587779,
+  "center": {
+    "lat": 36.3231256,
+    "lon": 127.4029932
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 7880796791,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 6006354021,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13065763303,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 406852872,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 406852871,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 504118817,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 13065763305,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "서대전",
+    "name:en": "Seodaejeon",
+    "name:ko": "서대전",
+    "operator": "한국철도공사",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 11723816,
+  "center": {
+    "lat": 36.2068234,
+    "lon": 127.0926659
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 330209650,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 330209651,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 7980071985,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 400942256,
+      "role": "station"
+    },
+    {
+      "type": "node",
+      "ref": 13065585115,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "논산",
+    "name:en": "Nonsan",
+    "name:ko": "논산",
+    "operator": "한국철도공사",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12079965,
+  "center": {
+    "lat": 36.3295332,
+    "lon": 127.4428415
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807354,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173686,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807355,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253609825,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253609826,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253609827,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253609828,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253609829,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253609830,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253609831,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253609832,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "대동역",
+    "name:en": "Dae-dong Station",
+    "name:ja": "テドン(大洞)駅",
+    "name:ko": "대동역",
+    "name:zh": "大洞站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 12080022,
+  "center": {
+    "lat": 36.3286397,
+    "lon": 127.4258133
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 9271807350,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 355173689,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 9271807351,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 8253702633,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253702634,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253702635,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253702636,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253702637,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253702638,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253702639,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253702640,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8253702641,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "중앙로역",
+    "name:en": "Jungangno Station",
+    "name:ja": "チュンアンロ(中央路)駅",
+    "name:ko": "중앙로역",
+    "name:ko-Hani": "中央路驛",
+    "name:zh": "中央路站",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 13269661,
+  "center": {
+    "lat": 36.1726478,
+    "lon": 127.7854780
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13065763294,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 492936356,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 492936372,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 469459839,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 368636449,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "영동",
+    "name:en": "Yeongdong",
+    "name:ko": "영동",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 14074952,
+  "center": {
+    "lat": 36.4496370,
+    "lon": 127.4284374
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 368637854,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8662151012,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "신탄진",
+    "name:en": "Sintanjin",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 14729807,
+  "center": {
+    "lat": 36.0403265,
+    "lon": 126.7153093
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 1106805735,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 1106805736,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 1106805733,
+      "role": "platform"
+    },
+    {
+      "type": "way",
+      "ref": 1106805734,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "장항역",
+    "name:ko": "장항역",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 14782544,
+  "center": {
+    "lat": 36.0827032,
+    "lon": 126.7084256
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 1111010902,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 1111010901,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 1111010899,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 1111010900,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 10165830852,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "서천역",
+    "name:en": "Seocheon",
+    "name:ko": "서천역",
+    "operator": "한국철도공사",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 16696954,
+  "center": {
+    "lat": 36.0787983,
+    "lon": 126.9588208
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 11348790939,
+      "role": "stop_position"
+    },
+    {
+      "type": "node",
+      "ref": 11342629851,
+      "role": ""
+    },
+    {
+      "type": "way",
+      "ref": 1220076189,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 11339203145,
+      "role": "stop_position"
+    },
+    {
+      "type": "node",
+      "ref": 8447432662,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 8447431635,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "함열",
+    "network": "익산시 시내버스",
+    "network:wikidata": "Q12613314",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 18798602,
+  "center": {
+    "lat": 36.3054903,
+    "lon": 126.8983561
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 1781410712,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12627539901,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "한국전통문화대학교",
+    "name:ko": "한국전통문화대학교",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 18798603,
+  "center": {
+    "lat": 36.3055978,
+    "lon": 126.8984896
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 6456564547,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12647029524,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "합정리.한국전통문화대학교",
+    "name:ko": "합정리.한국전통문화대학교",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19192567,
+  "center": {
+    "lat": 36.3546979,
+    "lon": 127.3420245
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 11338204999,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 12874779826,
+      "role": "stop_position"
+    }
+  ],
+  "tags": {
+    "name": "유성온천역7번출구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226713,
+  "center": {
+    "lat": 36.2006779,
+    "lon": 127.4493711
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348724,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12778499804,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "만인산휴양림",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226714,
+  "center": {
+    "lat": 36.2007071,
+    "lon": 127.4494859
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348725,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12778500138,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "만인산휴양림",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226715,
+  "center": {
+    "lat": 36.1919870,
+    "lon": 127.4657399
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348729,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348730,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "추부중학교입구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226716,
+  "center": {
+    "lat": 36.1895746,
+    "lon": 127.4678352
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348731,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348732,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "마전종점",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226717,
+  "center": {
+    "lat": 36.1911923,
+    "lon": 127.4652709
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348733,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348734,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "추부중학교입구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226718,
+  "center": {
+    "lat": 36.1938210,
+    "lon": 127.4606088
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348735,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348745,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "마전.태봉마을",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226719,
+  "center": {
+    "lat": 36.1939348,
+    "lon": 127.4602292
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348746,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348747,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "마전.태봉마을",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226720,
+  "center": {
+    "lat": 36.1925711,
+    "lon": 127.4520677
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348748,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348749,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중부대학교",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226721,
+  "center": {
+    "lat": 36.1926910,
+    "lon": 127.4520093
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348750,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 4640135164,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중부대학교",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226722,
+  "center": {
+    "lat": 36.1935868,
+    "lon": 127.4555616
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348752,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348753,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중부대입구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226723,
+  "center": {
+    "lat": 36.1936018,
+    "lon": 127.4556696
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348754,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348755,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중부대입구",
+    "public_transport": "stop_area",
+    "ref": "74780",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226724,
+  "center": {
+    "lat": 36.1940390,
+    "lon": 127.4569293
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 945114739,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348756,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중부대입구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226725,
+  "center": {
+    "lat": 36.1940562,
+    "lon": 127.4575077
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348757,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348758,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중부대입구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226726,
+  "center": {
+    "lat": 36.1957661,
+    "lon": 127.4567940
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348759,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348760,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "태조대왕태실",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226727,
+  "center": {
+    "lat": 36.1968295,
+    "lon": 127.4552154
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897348761,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12897348762,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "태조대왕태실",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226933,
+  "center": {
+    "lat": 36.3595238,
+    "lon": 127.3199675
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691527,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 10123049103,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "현충원역3번출구",
+    "name:en": "National Cemetery Station gate 3",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226934,
+  "center": {
+    "lat": 36.3592137,
+    "lon": 127.3217063
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691528,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 10033318289,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "현충원역1번출구",
+    "name:en": "National Cemetery Station gate 1",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226935,
+  "center": {
+    "lat": 36.3592337,
+    "lon": 127.3140164
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691529,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338234139,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "구암8통",
+    "name:en": "Jungangno Station gate 1",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226936,
+  "center": {
+    "lat": 36.3590521,
+    "lon": 127.3150336
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691530,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338234138,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "구암8통",
+    "name:en": "Jungangno Station gate 1",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226937,
+  "center": {
+    "lat": 36.3390202,
+    "lon": 127.4451346
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12207192031,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "우송대학교서캠퍼스",
+    "name:en": "Jungangno Station gate 1",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226938,
+  "center": {
+    "lat": 36.3289362,
+    "lon": 127.4267591
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691532,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338233974,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중앙로역1번출구",
+    "name:en": "Jungangno Station gate 1",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226939,
+  "center": {
+    "lat": 36.3290261,
+    "lon": 127.4266141
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691533,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338233975,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중앙로역9번출구",
+    "name:en": "Jungangno Station gate 9",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226940,
+  "center": {
+    "lat": 36.3275883,
+    "lon": 127.4227858
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691534,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338182361,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "대전테크노파크",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226941,
+  "center": {
+    "lat": 36.3259039,
+    "lon": 127.4210950
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691535,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 10697690243,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중구청",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226942,
+  "center": {
+    "lat": 36.3242641,
+    "lon": 127.4187907
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691536,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338234039,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "중구청역",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226943,
+  "center": {
+    "lat": 36.3323663,
+    "lon": 127.3830685
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691537,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235041,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "한민시장",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226944,
+  "center": {
+    "lat": 36.3324076,
+    "lon": 127.3832636
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691538,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235043,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "한민시장",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226945,
+  "center": {
+    "lat": 36.3306309,
+    "lon": 127.3851365
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691539,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235034,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "가장네거리",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226946,
+  "center": {
+    "lat": 36.3306921,
+    "lon": 127.3853029
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691540,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235035,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "가장네거리",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226947,
+  "center": {
+    "lat": 36.3287758,
+    "lon": 127.3874591
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13545669298,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 12897691541,
+      "role": "stop"
+    }
+  ],
+  "tags": {
+    "name": "가장교",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226948,
+  "center": {
+    "lat": 36.3286293,
+    "lon": 127.3878166
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 13545669299,
+      "role": "platform"
+    },
+    {
+      "type": "node",
+      "ref": 12897691542,
+      "role": "stop"
+    }
+  ],
+  "tags": {
+    "name": "가장교",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226949,
+  "center": {
+    "lat": 36.3262631,
+    "lon": 127.3930040
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691543,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235008,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "태평오거리",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226950,
+  "center": {
+    "lat": 36.3265592,
+    "lon": 127.3927948
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691544,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235011,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "태평오거리",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226951,
+  "center": {
+    "lat": 36.3261451,
+    "lon": 127.3966709
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691545,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235007,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "태평1동주민센터",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226952,
+  "center": {
+    "lat": 36.3265913,
+    "lon": 127.3973934
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691546,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235012,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "태평1동주민센터",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226953,
+  "center": {
+    "lat": 36.3281328,
+    "lon": 127.4039547
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691547,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235016,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "오룡역2번출구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226954,
+  "center": {
+    "lat": 36.3283384,
+    "lon": 127.4039135
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691548,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338235018,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "오룡역3번출구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226955,
+  "center": {
+    "lat": 36.3249973,
+    "lon": 127.4093237
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691550,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 12207192024,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "서대전네거리역4번출구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226956,
+  "center": {
+    "lat": 36.3241037,
+    "lon": 127.4106514
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691549,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338234347,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "서대전네거리역5번출구",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226957,
+  "center": {
+    "lat": 36.3198301,
+    "lon": 127.4158424
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691551,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338234482,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "문화동하우스토리",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19226958,
+  "center": {
+    "lat": 36.3189315,
+    "lon": 127.4167209
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12897691552,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338234480,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "충대병원네거리",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19229127,
+  "center": {
+    "lat": 36.3097027,
+    "lon": 127.3718015
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12898876080,
+      "role": "stop"
+    },
+    {
+      "type": "node",
+      "ref": 11338234247,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "서부소방서",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 19289901,
+  "center": {
+    "lat": 36.3651238,
+    "lon": 127.4401153
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 12153985449,
+      "role": "stop_position"
+    },
+    {
+      "type": "node",
+      "ref": 11338234696,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "동춘당",
+    "public_transport": "stop_area",
+    "ref": "50960",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 21409403,
+  "center": {
+    "lat": 36.3430403,
+    "lon": 127.3705598
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 14191473449,
+      "role": ""
+    },
+    {
+      "type": "node",
+      "ref": 14191473450,
+      "role": ""
+    }
+  ],
+  "tags": {
+    "name": "갈마아파트3단지 (종점)",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+},
+{
+  "type": "relation",
+  "id": 21409404,
+  "center": {
+    "lat": 36.3425322,
+    "lon": 127.3711638
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 14191473445,
+      "role": "stop_position"
+    },
+    {
+      "type": "node",
+      "ref": 11338234636,
+      "role": "platform"
+    }
+  ],
+  "tags": {
+    "name": "갈마아파트3단지",
+    "public_transport": "stop_area",
+    "type": "public_transport"
+  }
+}
+
+  ]
+}

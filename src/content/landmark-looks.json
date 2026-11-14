@@ -943,6 +943,126 @@
         "lanterns"
       ],
       "mood": "spring"
+    },
+    "jeonjuhanok": {
+      "props": [
+        "hanokRoofs",
+        "lanterns"
+      ]
+    },
+    "gyeonggijeon": {
+      "props": [
+        "gate",
+        "bamboo"
+      ]
+    },
+    "deokjin": {
+      "props": [
+        "lotus",
+        "willowPond"
+      ]
+    },
+    "mireuksa": {
+      "props": [
+        "pagoda"
+      ]
+    },
+    "wanggungri": {
+      "props": [
+        "pagoda"
+      ]
+    },
+    "seonyudo": {
+      "props": [
+        "islands"
+      ]
+    },
+    "gwanghallu": {
+      "props": [
+        "willowPond"
+      ]
+    },
+    "silsangsa": {
+      "props": [
+        "pagoda",
+        "buddha"
+      ]
+    },
+    "naejangsan": {
+      "props": [
+        "mountainPeaks"
+      ],
+      "mood": "autumn"
+    },
+    "gochangdolmen": {
+      "props": [
+        "dolmen"
+      ]
+    },
+    "seonunsa": {
+      "props": [
+        "camellia"
+      ]
+    },
+    "gochangeupseong": {
+      "props": [
+        "castleWall"
+      ]
+    },
+    "chaeseokgang": {
+      "mood": "sunset"
+    },
+    "naesosa": {
+      "props": [
+        "treeAvenue"
+      ]
+    },
+    "byeonsan": {
+      "props": [
+        "pine"
+      ],
+      "mood": "sunset"
+    },
+    "saemangeum": {
+      "props": [
+        "monument"
+      ]
+    },
+    "geumsansa": {
+      "props": [
+        "buddha",
+        "pagoda"
+      ]
+    },
+    "maisan": {
+      "props": [
+        "mountainPeaks"
+      ]
+    },
+    "deogyusan": {
+      "props": [
+        "cablecar",
+        "mountainPeaks"
+      ],
+      "mood": "winter"
+    },
+    "gangcheonsan": {
+      "props": [
+        "suspensionBridge",
+        "waterfall"
+      ],
+      "mood": "autumn"
+    },
+    "imsilcheese": {
+      "props": [
+        "flowerBeds"
+      ]
+    },
+    "daedunsan": {
+      "props": [
+        "suspensionBridge",
+        "cablecar"
+      ]
     }
   }
 }

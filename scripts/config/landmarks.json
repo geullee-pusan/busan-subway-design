@@ -1542,6 +1542,214 @@
       "osm": "relation/19735366",
       "kind": "museum",
       "radius": 200
+    },
+    {
+      "id": "jeonjuhanok",
+      "name": "전주 한옥마을",
+      "city": "전주",
+      "osm": "node/4245919092",
+      "kind": "hanok",
+      "radius": 400
+    },
+    {
+      "id": "gyeonggijeon",
+      "name": "경기전",
+      "city": "전주",
+      "osm": "way/36524723",
+      "kind": "pavilion",
+      "radius": 200
+    },
+    {
+      "id": "jeondong",
+      "name": "전동성당",
+      "city": "전주",
+      "osm": "relation/13200589",
+      "kind": "museum",
+      "radius": 150
+    },
+    {
+      "id": "deokjin",
+      "name": "덕진공원",
+      "city": "전주",
+      "osm": "way/471381476",
+      "kind": "lake",
+      "radius": 300
+    },
+    {
+      "id": "mireuksa",
+      "name": "미륵사지",
+      "city": "익산",
+      "osm": "node/11346561536",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "wanggungri",
+      "name": "왕궁리 유적",
+      "city": "익산",
+      "osm": "way/635474271",
+      "kind": "tomb",
+      "radius": 300
+    },
+    {
+      "id": "gunsanmuseum",
+      "name": "군산근대역사박물관",
+      "city": "군산",
+      "osm": "relation/11564073",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "gyeongamrail",
+      "name": "경암동 철길마을",
+      "city": "군산",
+      "osm": "node/4761899932",
+      "kind": "village",
+      "radius": 200
+    },
+    {
+      "id": "seonyudo",
+      "name": "선유도",
+      "city": "군산",
+      "osm": "node/5183229182",
+      "kind": "island",
+      "radius": 600
+    },
+    {
+      "id": "gwanghallu",
+      "name": "광한루원",
+      "city": "남원",
+      "osm": "relation/7802098",
+      "kind": "pavilion",
+      "radius": 250
+    },
+    {
+      "id": "silsangsa",
+      "name": "실상사",
+      "city": "남원",
+      "osm": "way/1014215697",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "naejangsan",
+      "name": "내장산",
+      "city": "정읍",
+      "osm": "node/368631079",
+      "kind": "mountain",
+      "radius": 500
+    },
+    {
+      "id": "gochangdolmen",
+      "name": "고창 고인돌 유적",
+      "city": "고창",
+      "osm": "node/5466717335",
+      "kind": "tomb",
+      "radius": 400
+    },
+    {
+      "id": "seonunsa",
+      "name": "선운사",
+      "city": "고창",
+      "osm": "way/389621118",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "gochangeupseong",
+      "name": "고창읍성",
+      "city": "고창",
+      "osm": "way/108290543",
+      "kind": "fortress",
+      "radius": 300
+    },
+    {
+      "id": "chaeseokgang",
+      "name": "채석강",
+      "city": "부안",
+      "osm": "node/4395733094",
+      "kind": "cliff",
+      "radius": 300
+    },
+    {
+      "id": "naesosa",
+      "name": "내소사",
+      "city": "부안",
+      "osm": "way/112654510",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "byeonsan",
+      "name": "변산해수욕장",
+      "city": "부안",
+      "osm": "node/368950795",
+      "kind": "beach",
+      "radius": 300
+    },
+    {
+      "id": "saemangeum",
+      "name": "새만금방조제",
+      "city": "군산",
+      "osm": "node/8002561506",
+      "kind": "bridge",
+      "radius": 500
+    },
+    {
+      "id": "byeokgolje",
+      "name": "벽골제",
+      "city": "김제",
+      "osm": "way/110177156",
+      "kind": "lake",
+      "radius": 300
+    },
+    {
+      "id": "geumsansa",
+      "name": "금산사",
+      "city": "김제",
+      "osm": "node/368861175",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "maisan",
+      "name": "마이산",
+      "city": "진안",
+      "osm": "way/158176940",
+      "kind": "mountain",
+      "radius": 500
+    },
+    {
+      "id": "deogyusan",
+      "name": "덕유산",
+      "city": "무주",
+      "osm": "node/368631123",
+      "kind": "mountain",
+      "radius": 500
+    },
+    {
+      "id": "gangcheonsan",
+      "name": "강천산",
+      "city": "순창",
+      "osm": "way/634386372",
+      "kind": "mountain",
+      "radius": 500
+    },
+    {
+      "id": "imsilcheese",
+      "name": "임실치즈테마파크",
+      "city": "임실",
+      "osm": "way/1118017057",
+      "kind": "themepark",
+      "radius": 300
+    },
+    {
+      "id": "daedunsan",
+      "name": "대둔산",
+      "city": "완주",
+      "osm": "node/368863842",
+      "kind": "mountain",
+      "radius": 500
     }
   ]
 }

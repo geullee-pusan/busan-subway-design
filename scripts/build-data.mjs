@@ -248,6 +248,8 @@ for (const line of network.lines) {
   }
 }
 
+// 동해선·대경선·부산김해경전철은 시간대별 열차 수를 셀 공개 자료가 없어(코레일 열차운행정보에 광역전철이 없다) 운행 시간을 어림한다(src/sim/walk-mode.js SUBWAY_GUESS_HOURS).
+
 // 5-3. 앞으로 생길 노선(양산선, 사상–하단선): 2027년 부산을 보여 줄 때 쓴다
 const ruleTables = readJson('src/content/rules.json').tables;
 const future = buildFutureLines(raw, network.stations, facts, ruleTables, issues);

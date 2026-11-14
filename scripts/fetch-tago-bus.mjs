@@ -13,7 +13,7 @@ import { readApiKey } from './lib/api-key.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://apis.data.go.kr/1613000/BusRouteInfoInqireService';
-/** 지도 범위에 걸친 도시(TAGO 도시 번호, getCtyCodeList로 2026-10-31에 확인). 김천은 지도 밖이라 뺐다. */
+/** 지도 범위에 걸친 도시(TAGO 도시 번호, getCtyCodeList로 2026-10-31에 확인). 제주는 지도에 추자도만 걸쳐 있어 뺐다. */
 export const CITIES = [
   { code: 26, name: '울산광역시' },
   { code: 38010, name: '창원시' },
@@ -61,6 +61,40 @@ export const CITIES = [
   { code: 38380, name: '함양군' },
   { code: 38390, name: '거창군' },
   { code: 38400, name: '합천군' },
+  // 지도 네모 안에 함께 들어온 이웃 지역(2026-11-14): 대전, 전북(완주는 TAGO에 없다), 경북, 충북, 충남. 제주는 추자도만 걸쳐 빼었다.
+  { code: 25, name: '대전광역시' },
+  { code: 35010, name: '전주시' },
+  { code: 35020, name: '군산시' },
+  { code: 35030, name: '익산시' },
+  { code: 35040, name: '정읍시' },
+  { code: 35050, name: '남원시' },
+  { code: 35060, name: '김제시' },
+  { code: 35320, name: '진안군' },
+  { code: 35330, name: '무주군' },
+  { code: 35340, name: '장수군' },
+  { code: 35350, name: '임실군' },
+  { code: 35360, name: '순창군' },
+  { code: 35370, name: '고창군' },
+  { code: 35380, name: '부안군' },
+  { code: 37010, name: '포항시' },
+  { code: 37020, name: '경주시' },
+  { code: 37030, name: '김천시' },
+  { code: 37040, name: '안동시' },
+  { code: 37080, name: '상주시' },
+  { code: 37320, name: '의성군' },
+  { code: 37330, name: '청송군' },
+  { code: 37350, name: '영덕군' },
+  { code: 33320, name: '보은군' },
+  { code: 33330, name: '옥천군' },
+  { code: 33340, name: '영동군' },
+  { code: 34020, name: '공주시' },
+  { code: 34030, name: '보령시' },
+  { code: 34060, name: '논산시' },
+  { code: 34070, name: '계룡시' },
+  { code: 34310, name: '금산군' },
+  { code: 34330, name: '부여군' },
+  { code: 34340, name: '서천군' },
+  { code: 34350, name: '청양군' },
 ];
 
 const key = readApiKey();

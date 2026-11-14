@@ -13,7 +13,7 @@ const load = () => JSON.parse(readFileSync(path, 'utf8'));
 test('경부고속선과 경부선의 주요 역이 차례대로 있다', { skip }, () => {
   const rail = load();
   const names = (id) => rail.lines.find((l) => l.id === id).stations.map((s) => s.replace(/^R-/, ''));
-  assert.deepEqual(names('KTX'), ['김천구미', '대구', '동대구', '경주', '울산', '부산']);
+  assert.deepEqual(names('KTX'), ['대전', '김천구미', '대구', '동대구', '경주', '울산', '부산']);
   const gb = names('GB');
   for (const [a, b] of [
     ['구미', '왜관'],
@@ -42,10 +42,12 @@ test('역은 모두 지도 안에 있고, 노선에 속하고, 역 사이 거리
   }
 });
 
+// 중앙선은 새 선로(2024)라 거리표와 다르고, 광주선 광주송정–극락강은 거리표가 북송정을 거쳐 센 거리(호남선 사슬과 연결선 사슬을 이음)다
 test('선로 모양의 길이가 거리표와 크게 다르지 않다(중앙선 새 선로는 빼고)', { skip }, () => {
   const rail = load();
   for (const line of rail.lines.filter((l) => l.id !== 'JA')) {
     line.links.forEach((link, i) => {
+      if (line.id === 'GJS' && link.from === 'R-광주송정') return;
       const pts = line.paths[i];
       let km = 0;
       for (let k = 1; k < pts.length; k++) km += Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]) / 100;

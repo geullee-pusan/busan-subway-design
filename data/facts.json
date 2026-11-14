@@ -5833,6 +5833,654 @@
           "evidence": "《정지장군 갑옷》(보물 제336호)"
         }
       ]
+    },
+    "jeonjuhanok": {
+      "name": "전주 한옥마을",
+      "facts": [
+        {
+          "text": "한옥이 735채나 모여 있는 마을이에요.",
+          "source": "한국어 위키백과: 전주한옥마을",
+          "url": "https://ko.wikipedia.org/wiki/전주한옥마을",
+          "checked": "2026-11-14",
+          "evidence": "총 947동의 건물 중에 한옥이 735개이고"
+        },
+        {
+          "text": "도시 한가운데에 한옥이 많이 모여 있어요.",
+          "source": "한국어 위키백과: 전주한옥마을",
+          "url": "https://ko.wikipedia.org/wiki/전주한옥마을",
+          "checked": "2026-11-14",
+          "evidence": "전주한옥마을의 한옥들은 대규모로 도심에 운집해 있다"
+        },
+        {
+          "text": "오목대에 오르면 한옥마을이 한눈에 보여요.",
+          "source": "한국어 위키백과: 전주한옥마을",
+          "url": "https://ko.wikipedia.org/wiki/전주한옥마을",
+          "checked": "2026-11-14",
+          "evidence": "전주한옥마을을 한눈에 내려볼 수 있는 좋은 곳이다"
+        }
+      ]
+    },
+    "gyeonggijeon": {
+      "name": "경기전",
+      "facts": [
+        {
+          "text": "조선을 세운 태조 이성계의 초상화를 모신 곳이에요.",
+          "source": "한국어 위키백과: 전주 경기전",
+          "url": "https://ko.wikipedia.org/wiki/전주_경기전",
+          "checked": "2026-11-14",
+          "evidence": "조선 태조 이성계의 초상화를 모신 곳이다"
+        },
+        {
+          "text": "임진왜란 때 불탄 뒤 1614년에 다시 지었어요.",
+          "source": "한국어 위키백과: 전주 경기전",
+          "url": "https://ko.wikipedia.org/wiki/전주_경기전",
+          "checked": "2026-11-14",
+          "evidence": "경기전은 임진왜란 때 불탄 것을 광해군 6년(1614)에 다시 고쳐 지었다."
+        },
+        {
+          "text": "안의 박물관에 태조 초상화 진짜가 있어요.",
+          "source": "한국어 위키백과: 전주 경기전",
+          "url": "https://ko.wikipedia.org/wiki/전주_경기전",
+          "checked": "2026-11-14",
+          "evidence": "어진박물관은 경기전 내에 위치한 박물관으로 조선 태조 어진의 원본을 보관하고 있다"
+        }
+      ]
+    },
+    "jeondong": {
+      "name": "전동성당",
+      "facts": [
+        {
+          "text": "붉은 벽돌로 지은 성당이에요.",
+          "source": "한국어 위키백과: 전동성당",
+          "url": "https://ko.wikipedia.org/wiki/전동성당",
+          "checked": "2026-11-14",
+          "evidence": "성당은 화강암을 주춧돌로 하여 붉은 벽돌로 지어졌다."
+        },
+        {
+          "text": "호남 지역에서 처음 지은 서양식 건물이에요.",
+          "source": "한국어 위키백과: 전동성당",
+          "url": "https://ko.wikipedia.org/wiki/전동성당",
+          "checked": "2026-11-14",
+          "evidence": "전동성당은 호남 지역 최초의 서양식 건물이다."
+        },
+        {
+          "text": "1908년에 짓기 시작해 1931년에 다 지었어요.",
+          "source": "한국어 위키백과: 전동성당",
+          "url": "https://ko.wikipedia.org/wiki/전동성당",
+          "checked": "2026-11-14",
+          "evidence": "1908년에 건축을 시작하여 1931년에 최종 완공되었다."
+        }
+      ]
+    },
+    "deokjin": {
+      "name": "덕진공원",
+      "facts": [
+        {
+          "text": "연꽃이 많이 피는 공원이에요.",
+          "source": "한국어 위키백과: 덕진공원",
+          "url": "https://ko.wikipedia.org/wiki/덕진공원",
+          "checked": "2026-11-14",
+          "evidence": "대표적 연꽃 군락지이다"
+        },
+        {
+          "text": "고려 시대에 생긴 호수가 있는 공원이에요.",
+          "source": "한국어 위키백과: 덕진공원",
+          "url": "https://ko.wikipedia.org/wiki/덕진공원",
+          "checked": "2026-11-14",
+          "evidence": "고려시대에 형성된 자연호수가"
+        },
+        {
+          "text": "연못 가운데 섬에 한옥 도서관이 있어요.",
+          "source": "한국어 위키백과: 덕진공원",
+          "url": "https://ko.wikipedia.org/wiki/덕진공원",
+          "checked": "2026-11-14",
+          "evidence": "한옥 형태의 도서관으로 재건축하여 개관하였다. 연못 중앙부의 섬을 넓혀서"
+        }
+      ]
+    },
+    "mireuksa": {
+      "name": "미륵사지",
+      "facts": [
+        {
+          "text": "백제 무왕 때 지은 절이 있던 자리예요.",
+          "source": "한국어 위키백과: 익산 미륵사지",
+          "url": "https://ko.wikipedia.org/wiki/익산_미륵사지",
+          "checked": "2026-11-14",
+          "evidence": "미륵사(彌勒寺)는 백제 무왕 때 왕비인 사택왕후의 발원으로 지어진 호국 사찰이다."
+        },
+        {
+          "text": "동아시아에서 가장 큰 절터예요.",
+          "source": "한국어 위키백과: 익산 미륵사지",
+          "url": "https://ko.wikipedia.org/wiki/익산_미륵사지",
+          "checked": "2026-11-14",
+          "evidence": "동아시아 최대 규모의 사역을 자랑한다"
+        },
+        {
+          "text": "돌탑 서탑을 고치는 데 21년이 걸렸어요.",
+          "source": "한국어 위키백과: 익산 미륵사지",
+          "url": "https://ko.wikipedia.org/wiki/익산_미륵사지",
+          "checked": "2026-11-14",
+          "evidence": "1998년 서탑이 붕괴 위험 등으로 인하여 해체 복원이 시작되었고 21년만인 2019년 완료되어"
+        }
+      ]
+    },
+    "wanggungri": {
+      "name": "왕궁리 유적",
+      "facts": [
+        {
+          "text": "백제 사람들이 남긴 유적이에요.",
+          "source": "한국어 위키백과: 익산 왕궁리 유적",
+          "url": "https://ko.wikipedia.org/wiki/익산_왕궁리_유적",
+          "checked": "2026-11-14",
+          "evidence": "익산시 왕궁면에 있는 백제의 유적이다"
+        },
+        {
+          "text": "2015년에 유네스코 세계유산이 되었어요.",
+          "source": "한국어 위키백과: 익산 왕궁리 유적",
+          "url": "https://ko.wikipedia.org/wiki/익산_왕궁리_유적",
+          "checked": "2026-11-14",
+          "evidence": "2015년 7월 4일 유네스코 세계유산 백제역사유적지구로 지정되었다"
+        },
+        {
+          "text": "바깥을 둘러싼 네모난 성이 발견되었어요.",
+          "source": "한국어 위키백과: 익산 왕궁리 유적",
+          "url": "https://ko.wikipedia.org/wiki/익산_왕궁리_유적",
+          "checked": "2026-11-14",
+          "evidence": "바깥쪽을 둘러싸고 있는 직사각형의 성이 발견되어"
+        }
+      ]
+    },
+    "gunsanmuseum": {
+      "name": "군산근대역사박물관",
+      "facts": [
+        {
+          "text": "2011년에 문을 연 역사 박물관이에요.",
+          "source": "한국어 위키백과: 군산근대역사박물관",
+          "url": "https://ko.wikipedia.org/wiki/군산근대역사박물관",
+          "checked": "2026-11-14",
+          "evidence": "2011년 9월 30일 개관"
+        }
+      ]
+    },
+    "gyeongamrail": {
+      "name": "경암동 철길마을",
+      "facts": [
+        {
+          "text": "집 바로 옆으로 기찻길이 지나가는 마을이에요.",
+          "source": "한국어 위키백과: 군산화물역",
+          "url": "https://ko.wikipedia.org/wiki/군산화물역",
+          "checked": "2026-11-14",
+          "evidence": "경암동 주택가를 지나가는 부분이 선로와 주변 주택이 대단히 가까이 붙어 있어"
+        },
+        {
+          "text": "2008년 6월까지 이 길로 기차가 다녔어요.",
+          "source": "한국어 위키백과: 군산화물역",
+          "url": "https://ko.wikipedia.org/wiki/군산화물역",
+          "checked": "2026-11-14",
+          "evidence": "2008년 6월까지 열차가 운행했으며"
+        },
+        {
+          "text": "공장까지 가는 약 2km 길이의 기찻길이었어요.",
+          "source": "한국어 위키백과: 군산화물역",
+          "url": "https://ko.wikipedia.org/wiki/군산화물역",
+          "checked": "2026-11-14",
+          "evidence": "공장까지를 잇는 약 2km의 전용선"
+        }
+      ]
+    },
+    "seonyudo": {
+      "name": "선유도",
+      "facts": [
+        {
+          "text": "신선이 놀았다는 이야기에서 이름이 나왔어요.",
+          "source": "한국어 위키백과: 선유도 (군산시)",
+          "url": "https://ko.wikipedia.org/wiki/선유도_(군산시)",
+          "checked": "2026-11-14",
+          "evidence": "섬의 경치가 매우 아름다워 신선이 놀았다 하여 부르게 된 것이라고 전하는데"
+        },
+        {
+          "text": "이순신 장군이 열하루 동안 머문 섬이에요.",
+          "source": "한국어 위키백과: 선유도 (군산시)",
+          "url": "https://ko.wikipedia.org/wiki/선유도_(군산시)",
+          "checked": "2026-11-14",
+          "evidence": "이순신 장군이 명량해전 승리 후 이곳에서 열하루 동안 머물며"
+        },
+        {
+          "text": "2017년에 새 길이 생겨 육지와 이어졌어요.",
+          "source": "한국어 위키백과: 선유도 (군산시)",
+          "url": "https://ko.wikipedia.org/wiki/선유도_(군산시)",
+          "checked": "2026-11-14",
+          "evidence": "2017년 12월 28일에 새만금방조제와 고군산군도의 주요 섬들(선유도, 신시도, 무녀도, 장자도)을 연결하는 왕복 2차선의 고군산로가 개통되어 육지와 연결되었다"
+        }
+      ]
+    },
+    "gwanghallu": {
+      "name": "광한루원",
+      "facts": [
+        {
+          "text": "춘향전 이야기의 무대로 알려진 곳이에요.",
+          "source": "한국어 위키백과: 광한루원",
+          "url": "https://ko.wikipedia.org/wiki/광한루원",
+          "checked": "2026-11-14",
+          "evidence": "춘향전의 무대로도 널리 알려진 곳으로"
+        },
+        {
+          "text": "연못 위에 길이 58m의 오작교가 있어요.",
+          "source": "한국어 위키백과: 광한루원",
+          "url": "https://ko.wikipedia.org/wiki/광한루원",
+          "checked": "2026-11-14",
+          "evidence": "길이 58m, 폭 2.6m의 오작교를 설치하고"
+        },
+        {
+          "text": "1414년 황희가 세운 광통루에서 시작했어요.",
+          "source": "한국어 위키백과: 광한루원",
+          "url": "https://ko.wikipedia.org/wiki/광한루원",
+          "checked": "2026-11-14",
+          "evidence": "1414년 조선 태종 14년 황희가 세운 민가의 광통루만 있었던 것이 효시다."
+        }
+      ]
+    },
+    "silsangsa": {
+      "name": "실상사",
+      "facts": [
+        {
+          "text": "산속이 아니라 들판 가운데 있는 절이에요.",
+          "source": "한국어 위키백과: 실상사",
+          "url": "https://ko.wikipedia.org/wiki/실상사",
+          "checked": "2026-11-14",
+          "evidence": "남원시 산내면의 들판 가운데 자리잡은 것이 특이하다"
+        },
+        {
+          "text": "828년에 세워졌다고 전해지는 절이에요.",
+          "source": "한국어 위키백과: 실상사",
+          "url": "https://ko.wikipedia.org/wiki/실상사",
+          "checked": "2026-11-14",
+          "evidence": "신라 흥덕왕 3년(828년) 때 증각대사 홍척(洪陟)이 당나라에 유학했다가 귀국해서 세운 절이라고 전해진다"
+        },
+        {
+          "text": "한국에 남은 가장 큰 쇠 불상이 있어요.",
+          "source": "한국어 위키백과: 실상사",
+          "url": "https://ko.wikipedia.org/wiki/실상사",
+          "checked": "2026-11-14",
+          "evidence": "한국에 남아 있는 가장 큰 철불이기도 하다"
+        }
+      ]
+    },
+    "naejangsan": {
+      "name": "내장산",
+      "facts": [
+        {
+          "text": "가을 단풍으로 아주 오래전부터 이름난 산이에요.",
+          "source": "한국어 위키백과: 내장산",
+          "url": "https://ko.wikipedia.org/wiki/내장산",
+          "checked": "2026-11-14",
+          "evidence": "500여 년 전부터 단풍 명소로 널리 알려졌으며"
+        },
+        {
+          "text": "숨겨진 것이 많다고 해서 내장산이라 불러요.",
+          "source": "한국어 위키백과: 내장산",
+          "url": "https://ko.wikipedia.org/wiki/내장산",
+          "checked": "2026-11-14",
+          "evidence": "산안에 숨겨진 것이 무궁무진하다하여 내장(內藏)산이라고 불리게 되었다"
+        },
+        {
+          "text": "까치가 날개를 편 모양의 까치봉이 있어요.",
+          "source": "한국어 위키백과: 내장산",
+          "url": "https://ko.wikipedia.org/wiki/내장산",
+          "checked": "2026-11-14",
+          "evidence": "봉우리의 형상이 까치가 날개를 펴고 있는 모습과 같다고 하여 까치봉(717m)이라 한다"
+        }
+      ]
+    },
+    "gochangdolmen": {
+      "name": "고창 고인돌 유적",
+      "facts": [
+        {
+          "text": "고인돌은 아주 먼 옛날 사람들의 무덤이에요.",
+          "source": "한국어 위키백과: 고창 화순 강화 고인돌 유적",
+          "url": "https://ko.wikipedia.org/wiki/고창_화순_강화_고인돌_유적",
+          "checked": "2026-11-14",
+          "evidence": "선사시대 거석기념물로 무덤의 일종이며"
+        },
+        {
+          "text": "산기슭 1km 800m에 고인돌이 440여 개 있어요.",
+          "source": "한국어 위키백과: 고창 화순 강화 고인돌 유적",
+          "url": "https://ko.wikipedia.org/wiki/고창_화순_강화_고인돌_유적",
+          "checked": "2026-11-14",
+          "evidence": "약 1.8km에 이르는 야산 기슭에 440여 기의 고인돌이 무리를 지어있다"
+        },
+        {
+          "text": "2000년에 세계문화유산이 되었어요.",
+          "source": "한국어 위키백과: 고창 화순 강화 고인돌 유적",
+          "url": "https://ko.wikipedia.org/wiki/고창_화순_강화_고인돌_유적",
+          "checked": "2026-11-14",
+          "evidence": "2000년 세계문화유산으로 등재된 고창군 죽림리 일원"
+        }
+      ]
+    },
+    "seonunsa": {
+      "name": "선운사",
+      "facts": [
+        {
+          "text": "577년에 세워졌다고 전해지는 절이에요.",
+          "source": "한국어 위키백과: 선운사",
+          "url": "https://ko.wikipedia.org/wiki/선운사",
+          "checked": "2026-11-14",
+          "evidence": "백제 위덕왕 24년(577) 검단선사와 신라의 국사인 의운국사가 창건했다고 전해진다"
+        },
+        {
+          "text": "선운사의 동백나무 숲은 천연기념물이에요.",
+          "source": "한국어 위키백과: 선운사",
+          "url": "https://ko.wikipedia.org/wiki/선운사",
+          "checked": "2026-11-14",
+          "evidence": "동백나무숲(천연기념물 제184호)"
+        },
+        {
+          "text": "한때 작은 절이 89개나 딸린 큰 절이었어요.",
+          "source": "한국어 위키백과: 선운사",
+          "url": "https://ko.wikipedia.org/wiki/선운사",
+          "checked": "2026-11-14",
+          "evidence": "선운사는 한때 89암자 24굴 189요를 갖춘 대찰로"
+        }
+      ]
+    },
+    "gochangeupseong": {
+      "name": "고창읍성",
+      "facts": [
+        {
+          "text": "성벽 둘레가 1km 684m예요.",
+          "source": "한국어 위키백과: 고창읍성",
+          "url": "https://ko.wikipedia.org/wiki/고창읍성",
+          "checked": "2026-11-14",
+          "evidence": "둘레 1,684m, 높이 4~6m"
+        },
+        {
+          "text": "모양성이라는 다른 이름도 있어요.",
+          "source": "한국어 위키백과: 고창읍성",
+          "url": "https://ko.wikipedia.org/wiki/고창읍성",
+          "checked": "2026-11-14",
+          "evidence": "모량부리로 불렀던 것에서 모양성이라고도 불린다"
+        },
+        {
+          "text": "1976년부터 옛 건물을 다시 짓고 있어요.",
+          "source": "한국어 위키백과: 고창읍성",
+          "url": "https://ko.wikipedia.org/wiki/고창읍성",
+          "checked": "2026-11-14",
+          "evidence": "전화로 대부분의 건물이 손괴된 것을 1976년부터 복원해오고 있다"
+        }
+      ]
+    },
+    "chaeseokgang": {
+      "name": "채석강",
+      "facts": [
+        {
+          "text": "책을 차곡차곡 쌓은 것 같은 바위 절벽이에요.",
+          "source": "한국어 위키백과: 부안 채석강·적벽강 일원",
+          "url": "https://ko.wikipedia.org/wiki/부안_채석강·적벽강_일원",
+          "checked": "2026-11-14",
+          "evidence": "수 만권의 책을 정연히 올려놓은 듯한 층리"
+        },
+        {
+          "text": "센 파도가 깎아서 만든 바닷가예요.",
+          "source": "한국어 위키백과: 부안 채석강·적벽강 일원",
+          "url": "https://ko.wikipedia.org/wiki/부안_채석강·적벽강_일원",
+          "checked": "2026-11-14",
+          "evidence": "강한 파랑의 영향으로 형성된 곳이다"
+        },
+        {
+          "text": "절벽 아래에 파도가 판 바다 동굴이 있어요.",
+          "source": "한국어 위키백과: 부안 채석강·적벽강 일원",
+          "url": "https://ko.wikipedia.org/wiki/부안_채석강·적벽강_일원",
+          "checked": "2026-11-14",
+          "evidence": "절리의 약한 부분이 파도에 의한 침식에 의해 해식 동굴이 만들어 졌으며"
+        }
+      ]
+    },
+    "naesosa": {
+      "name": "내소사",
+      "facts": [
+        {
+          "text": "633년 백제 때 세운 절이에요.",
+          "source": "한국어 위키백과: 내소사",
+          "url": "https://ko.wikipedia.org/wiki/내소사",
+          "checked": "2026-11-14",
+          "evidence": "내소사는 백제 무왕 34년(633년)에 혜구두타 스님이 창건했다."
+        },
+        {
+          "text": "임진왜란 때 불탔다가 1633년에 다시 지었어요.",
+          "source": "한국어 위키백과: 내소사",
+          "url": "https://ko.wikipedia.org/wiki/내소사",
+          "checked": "2026-11-14",
+          "evidence": "임진왜란 때 모든 전각이 불타 없어졌다가 인조 11년(1633년)에 청민선사가 중건했다."
+        },
+        {
+          "text": "옛날에는 큰 절과 작은 절이 따로 있었어요.",
+          "source": "한국어 위키백과: 내소사",
+          "url": "https://ko.wikipedia.org/wiki/내소사",
+          "checked": "2026-11-14",
+          "evidence": "큰 절은 대소래사, 작은 절은 소소래사가 있었다"
+        }
+      ]
+    },
+    "byeonsan": {
+      "name": "변산해수욕장",
+      "facts": [
+        {
+          "text": "서해안 3대 해수욕장 가운데 하나예요.",
+          "source": "한국어 위키백과: 변산해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/변산해수욕장",
+          "checked": "2026-11-14",
+          "evidence": "대천, 만리포 해수욕장과 함께 서해안 3대 해수욕장으로 꼽힌다"
+        },
+        {
+          "text": "바닷물이 따뜻해서 물놀이하기 좋아요.",
+          "source": "한국어 위키백과: 변산해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/변산해수욕장",
+          "checked": "2026-11-14",
+          "evidence": "수온이 따뜻하고 조수간만의 차가 심하지 않아 해수욕장으로써 조건이 좋으며"
+        }
+      ]
+    },
+    "saemangeum": {
+      "name": "새만금방조제",
+      "facts": [
+        {
+          "text": "바닷물을 막는 둑 가운데 세계에서 가장 길어요.",
+          "source": "한국어 위키백과: 새만금 방조제",
+          "url": "https://ko.wikipedia.org/wiki/새만금_방조제",
+          "checked": "2026-11-14",
+          "evidence": "세계 최장의 방조제이다"
+        },
+        {
+          "text": "2010년에 기네스 세계 기록에 올랐어요.",
+          "source": "한국어 위키백과: 새만금 방조제",
+          "url": "https://ko.wikipedia.org/wiki/새만금_방조제",
+          "checked": "2026-11-14",
+          "evidence": "2010년 4월, 기네스 세계 기록에 가장 긴 방조제(영어: Longest sea dam)로 등록되었다."
+        },
+        {
+          "text": "4호 방조제 구간은 11km 400m나 돼요.",
+          "source": "한국어 위키백과: 새만금 방조제",
+          "url": "https://ko.wikipedia.org/wiki/새만금_방조제",
+          "checked": "2026-11-14",
+          "evidence": "4호 방조제는 야미도와 군산시 육지를 연결하는 11.4 km 구간이다."
+        }
+      ]
+    },
+    "byeokgolje": {
+      "name": "벽골제",
+      "facts": [
+        {
+          "text": "우리나라에서 처음 만든 저수지로 꼽혀요.",
+          "source": "한국어 위키백과: 벽골제",
+          "url": "https://ko.wikipedia.org/wiki/벽골제",
+          "checked": "2026-11-14",
+          "evidence": "대한민국 저수지의 효시이다"
+        },
+        {
+          "text": "백제 때인 330년쯤 만든 것으로 짐작해요.",
+          "source": "한국어 위키백과: 벽골제",
+          "url": "https://ko.wikipedia.org/wiki/벽골제",
+          "checked": "2026-11-14",
+          "evidence": "축조 시기는 백제 비류왕 27년(330년)으로 추정된다."
+        },
+        {
+          "text": "호남이라는 말의 '호'가 벽골제를 뜻해요.",
+          "source": "한국어 위키백과: 벽골제",
+          "url": "https://ko.wikipedia.org/wiki/벽골제",
+          "checked": "2026-11-14",
+          "evidence": "호남 지방(湖南地方)의 호(湖)가 바로 벽골제를 가리킨다"
+        }
+      ]
+    },
+    "geumsansa": {
+      "name": "금산사",
+      "facts": [
+        {
+          "text": "599년 백제 때 세운 것으로 보는 절이에요.",
+          "source": "한국어 위키백과: 금산사",
+          "url": "https://ko.wikipedia.org/wiki/금산사",
+          "checked": "2026-11-14",
+          "evidence": "금산사는 백제 법왕 1년인 599년에 창건되었다고 보는 것이 옳다"
+        },
+        {
+          "text": "미륵전 가운데 불상은 높이가 11m 82cm예요.",
+          "source": "한국어 위키백과: 금산사",
+          "url": "https://ko.wikipedia.org/wiki/금산사",
+          "checked": "2026-11-14",
+          "evidence": "가운데 미륵불상이 11.82m"
+        },
+        {
+          "text": "건물 안에 선 불상 가운데 세계에서 가장 크대요.",
+          "source": "한국어 위키백과: 금산사",
+          "url": "https://ko.wikipedia.org/wiki/금산사",
+          "checked": "2026-11-14",
+          "evidence": "미륵전의 미륵보살상은 옥내 입불로서는 세계 최대라 하며"
+        }
+      ]
+    },
+    "maisan": {
+      "name": "마이산",
+      "facts": [
+        {
+          "text": "말의 귀를 닮아서 마이산이라고 불러요.",
+          "source": "한국어 위키백과: 마이산",
+          "url": "https://ko.wikipedia.org/wiki/마이산",
+          "checked": "2026-11-14",
+          "evidence": "말의 귀를 닮았다 하여 마이산이라 불리어 왔다"
+        },
+        {
+          "text": "바위에 움푹 팬 구멍이 많이 있어요.",
+          "source": "한국어 위키백과: 마이산",
+          "url": "https://ko.wikipedia.org/wiki/마이산",
+          "checked": "2026-11-14",
+          "evidence": "파먹은 것처럼 움푹 패인 크고 작은 굴들을 볼 수 있은데"
+        },
+        {
+          "text": "지금도 민물고기 화석이 가끔 나와요.",
+          "source": "한국어 위키백과: 마이산",
+          "url": "https://ko.wikipedia.org/wiki/마이산",
+          "checked": "2026-11-14",
+          "evidence": "지금도 민물고기 화석이 간혹 발견된다"
+        }
+      ]
+    },
+    "deogyusan": {
+      "name": "덕유산",
+      "facts": [
+        {
+          "text": "높이가 1,614m인 높은 산이에요.",
+          "source": "한국어 위키백과: 덕유산",
+          "url": "https://ko.wikipedia.org/wiki/덕유산",
+          "checked": "2026-11-14",
+          "evidence": "높이 1,614m의 산이다"
+        },
+        {
+          "text": "1975년에 10번째 국립공원이 되었어요.",
+          "source": "한국어 위키백과: 덕유산",
+          "url": "https://ko.wikipedia.org/wiki/덕유산",
+          "checked": "2026-11-14",
+          "evidence": "1975년 2월 1일, 10번째로 국립공원에 지정되었다."
+        }
+      ]
+    },
+    "gangcheonsan": {
+      "name": "강천산",
+      "facts": [
+        {
+          "text": "높이가 약 584m인 산이에요.",
+          "source": "한국어 위키백과: 강천산",
+          "url": "https://ko.wikipedia.org/wiki/강천산",
+          "checked": "2026-11-14",
+          "evidence": "높이 583.7m의 산이다"
+        },
+        {
+          "text": "1981년에 우리나라 첫 군립공원이 되었어요.",
+          "source": "한국어 위키백과: 강천산",
+          "url": "https://ko.wikipedia.org/wiki/강천산",
+          "checked": "2026-11-14",
+          "evidence": "1981년 1월 7일에 첫 번째 군립공원으로 지정되었다"
+        },
+        {
+          "text": "옛 산성인 금성산성이 있어요.",
+          "source": "한국어 위키백과: 강천산",
+          "url": "https://ko.wikipedia.org/wiki/강천산",
+          "checked": "2026-11-14",
+          "evidence": "금성산성(金城山城) 등의 문화재가 산재해 있다"
+        }
+      ]
+    },
+    "imsilcheese": {
+      "name": "임실치즈테마파크",
+      "facts": [
+        {
+          "text": "2011년에 문을 연 치즈 테마파크예요.",
+          "source": "한국어 위키백과: 임실치즈테마파크",
+          "url": "https://ko.wikipedia.org/wiki/임실치즈테마파크",
+          "checked": "2026-11-14",
+          "evidence": "테마파크 자체는 2011년 11월 21일에 개장했다"
+        },
+        {
+          "text": "치즈를 직접 만들어 볼 수 있어요.",
+          "source": "한국어 위키백과: 임실치즈테마파크",
+          "url": "https://ko.wikipedia.org/wiki/임실치즈테마파크",
+          "checked": "2026-11-14",
+          "evidence": "참가자들이 직접 치즈를 만들고 치즈 제조 과정을 볼 수 있는 시설"
+        },
+        {
+          "text": "임실 치즈의 역사를 알려 주는 박물관이 있어요.",
+          "source": "한국어 위키백과: 임실치즈테마파크",
+          "url": "https://ko.wikipedia.org/wiki/임실치즈테마파크",
+          "checked": "2026-11-14",
+          "evidence": "임실군의 치즈 산업의 역사를 소개하는 박물관"
+        }
+      ]
+    },
+    "daedunsan": {
+      "name": "대둔산",
+      "facts": [
+        {
+          "text": "금강 구름다리는 높이가 81m나 돼요.",
+          "source": "한국어 위키백과: 대둔산 (충남/전북)",
+          "url": "https://ko.wikipedia.org/wiki/대둔산_(충남/전북)",
+          "checked": "2026-11-14",
+          "evidence": "높이 81m, 폭 1m의 금강 구름다리가 있다"
+        },
+        {
+          "text": "마천대 봉우리의 높이는 878m예요.",
+          "source": "한국어 위키백과: 대둔산 (충남/전북)",
+          "url": "https://ko.wikipedia.org/wiki/대둔산_(충남/전북)",
+          "checked": "2026-11-14",
+          "evidence": "해발 878m의 마천대를 중심으로"
+        },
+        {
+          "text": "옛날부터 한듬산이라고도 불렀어요.",
+          "source": "한국어 위키백과: 대둔산 (충남/전북)",
+          "url": "https://ko.wikipedia.org/wiki/대둔산_(충남/전북)",
+          "checked": "2026-11-14",
+          "evidence": "충청남도 토박이들은 예로부터 한듬산이라고 불렀고"
+        }
+      ]
     }
   }
 }

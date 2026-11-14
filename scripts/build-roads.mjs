@@ -16,14 +16,15 @@ import { simplify } from './build/districts.mjs';
 import { addMadeRoads } from './build/road-links.mjs';
 import { utm52 } from './lib/utm.mjs';
 import { readOsm } from './lib/osm.mjs';
+import { NEAR_KM } from '../src/sim/walk-mode.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
 const osm = readOsm(ROOT, 'roads');
 const { landmarks } = JSON.parse(readFileSync(resolve(ROOT, 'data/build/landmarks.json'), 'utf8'));
-// 동네 길 조각(paths-1.json, 다시 나눈 조각은 paths-17-1.json 꼴)
+// 동네 길 조각(paths-1.json, 다시 나눈 조각은 paths-17-1.json 꼴, 넓힌 범위는 paths-w0-3.json, paths-s1-2.json, paths-n0-4.json 꼴)
 const pathFiles = readdirSync(resolve(ROOT, 'data/raw/osm'))
-  .filter((f) => /^paths-[\d-]+\.json$/.test(f))
+  .filter((f) => /^paths-[wsn]?[\d-]+\.json$/.test(f))
   .sort()
   .map((f) => resolve(ROOT, 'data/raw/osm', f));
 
@@ -177,13 +178,23 @@ for (const v of nodesOut) nodeXY.push(v);
 console.log(`이어 붙인 갈림점 ${merged}개`);
 
 // 3-2. 걸어서 갈 수 없는 곳을 임의로 잇는다
-const joined = addMadeRoads({ nodes: nodeXY, edges }, landmarks);
+// 탈 곳: 걸어서 여행하기(src/ui/walk-screen.js)에서 탈 수 있는 거리(NEAR_KM, 기차역·터미널은 0.2km 더) 안에 길이 있어야 한다
+const readBuild = (name) => JSON.parse(readFileSync(resolve(ROOT, `data/build/${name}`), 'utf8'));
+const stops = [
+  ...readBuild('rail.json').stations.map((s) => ({ x: s.x, y: s.y, reach: NEAR_KM + 0.2, name: `${s.name}(기차역)` })),
+  ...readBuild('intercity.json').terminals.map((t) => ({ x: t.x, y: t.y, reach: NEAR_KM + 0.2, name: `${t.name}(터미널)` })),
+  ...readBuild('stations.json').stations.filter((s) => s.inGrid).map((s) => ({ x: s.x, y: s.y, reach: NEAR_KM, name: `${s.name}(지하철역)` })),
+  ...readBuild('bus.json').stops.map(([x, y]) => ({ x: x / 100, y: y / 100, reach: NEAR_KM, name: '버스 정류장' })),
+];
+const joined = addMadeRoads({ nodes: nodeXY, edges }, landmarks, { stops });
 edges.length = 0;
 for (const e of joined.edges) edges.push(e);
 nodeXY.length = 0;
 for (const v of joined.nodes) nodeXY.push(v);
 console.log(`임의로 이은 길: 랜드마크까지 ${joined.spurs}개, 끊어진 묶음 ${joined.links}개, 가장 긴 것 ${joined.longestM}m`);
-console.log(`배로만 갈 수 있는 랜드마크: ${joined.boatOnly.map((id) => landmarks.find((l) => l.id === id).name).join(', ') || '없음'}`);
+console.log(`탈 곳까지 이은 길 ${joined.stopSpurs}개, 너무 멀어 잇지 않은 탈 곳 ${joined.farStops.length}곳: ${[...new Set(joined.farStops)].slice(0, 20).join(', ')}`);
+console.log(`  역·터미널: ${joined.stopNames.join(", ") || "없음"}`);
+console.log(`배로만 갈 수 있는 랜드마크:${joined.boatOnly.map((id) => landmarks.find((l) => l.id === id).name).join(', ') || '없음'}`);
 
 const byClass = {};
 for (const e of edges) byClass[e[2]] = (byClass[e[2]] ?? 0) + e[3] / 1000;

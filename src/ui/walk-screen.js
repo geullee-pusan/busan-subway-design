@@ -13,7 +13,7 @@ import { hhmm as coachHhmm, runCoachTrip } from './coach-journey.js';
 import { decodeRoads, indexRoads, nearestRoad, placeOn, pointAlong, taxiRoute, walkAlong, walkRoute, MADE_ROAD } from '../sim/roads.js';
 import { searchTrains, trainFare } from '../sim/train-trip.js';
 import { planTrips, taxiFare } from '../sim/trip.js';
-import { HAIL_KM, NEAR_KM, addEntry, emptyRecord, canPlayAgain, minutesWalking, nearby, nextArrivals, subwayHeadway, visitedPlaces } from '../sim/walk-mode.js';
+import { HAIL_KM, NEAR_KM, addEntry, emptyRecord, canPlayAgain, minutesWalking, nearby, nextArrivals, subwayHeadway, visitedPlaces, busRunning } from '../sim/walk-mode.js';
 import { busRouteText, clockText, distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { renderJourney } from './journey-screen.js';
 import { loadView, saveView } from './storage.js';
@@ -906,7 +906,8 @@ export function renderWalk(root, { onHome }) {
     // 지하철역
     for (const { item: s, km } of nearby(subwayStations, me, NEAR_KM, 4)) {
       const line = lineById.get(s.line);
-      const headway = subwayHeadway(service, s.line, now() / 60) ?? prepared.lineInfo?.[s.line]?.headwayMin ?? null;
+      // 밤에는 다니지 않는다(src/sim/walk-mode.js subwayHeadway)
+      const headway = subwayHeadway(service, s.line, now() / 60, { hourly: line?.hourly, headwayMin: prepared.lineInfo?.[s.line]?.headwayMin });
       const card = nearCard(`${line?.name ?? s.line} ${stationLabel(s.name)}`, km, '지하철');
       card.style.borderColor = line?.color ?? '#1F3342';
       if (headway) card.append(element('p', 'walk-next', `다음 열차(어림): ${clockList(nextArrivals(now(), headway, s.id, 3))}`));
@@ -943,10 +944,20 @@ export function renderWalk(root, { onHome }) {
       const card = nearCard(`${stop.name} 정류장`, km, '버스');
       const routeNames = stop.routes.slice(0, 8).map(busRouteText).join(', ');
       card.append(element('p', 'walk-next', `서는 버스: ${routeNames}${stop.routes.length > 8 ? ' …' : ''}`));
-      const headway = (rules.busWaitMin ?? 5) * 2;
-      const busTimes = clockList(nextArrivals(now(), headway, `bus-${stop.index}`, 3));
-      card.append(element('p', 'walk-next', `다음 버스(어림): ${busTimes}`));
-      card.append(button('버스 타기', () => chooseBus(stop), 'button'));
+      // 밤에는 다니지 않는다: 이 정류장에 서는 노선 가운데 지금 다니는 것이 있어야 탈 수 있다
+      const states = busRoutesAt(stop).map((route) => busRunning(route.hours, now()));
+      if (states.some((st) => st.running)) {
+        const headway = (rules.busWaitMin ?? 5) * 2;
+        const busTimes = clockList(nextArrivals(now(), headway, `bus-${stop.index}`, 3));
+        card.append(element('p', 'walk-next', `다음 버스(어림): ${busTimes}`));
+        card.append(button('버스 타기', () => chooseBus(stop), 'button'));
+      } else {
+        card.append(element('p', 'walk-next', '지금은 버스가 다니지 않아요.'));
+        if (states.length) {
+          const first = Math.min(...states.map((st) => st.nextFirst));
+          card.append(element('p', 'walk-next', `첫차는 ${dayWord(first)}${clockText(first)}쯤이에요.`));
+        }
+      }
       cards.push(card);
     }
     // 택시(차도 가까이)
@@ -988,8 +999,9 @@ export function renderWalk(root, { onHome }) {
   function arrive(point, entry) {
     cleanupRide?.();
     cleanupRide = null;
-    // 내린 곳에서 가장 가까운 길 위에 선다
+    // 내린 곳에서 가장 가까운 길 위에 선다. 화면도 내 자리로 돌아온다(타기 전에 지도를 끌어 옮겼어도).
     standAt(point);
+    view = { ox: 0, oy: 0 };
     if (rideFrom) track = appendRide(track, entry.kind, [[rideFrom.x, rideFrom.y], [point.x, point.y]]);
     rideFrom = null;
     record = addEntry(record, entry);
@@ -1086,6 +1098,13 @@ export function renderWalk(root, { onHome }) {
   }
 
   /** 버스: 노선과 내릴 정류장 고르기 */
+  /** 정류장(가까이 붙은 같은 이름 정류장 묶음)에 서는 버스 노선 */
+  function busRoutesAt(stop) {
+    const out = new Set();
+    for (const index of stopGroup(network, stop.index)) for (const r of network.routesAt[index]) out.add(network.routes[r]);
+    return [...out];
+  }
+
   function chooseBus(stop) {
     const area = rideArea(`${stop.name} 정류장에서 버스 타기`);
     const group = new Set(stopGroup(network, stop.index));
@@ -1097,12 +1116,13 @@ export function renderWalk(root, { onHome }) {
         const at = route.stops.findIndex(([si]) => group.has(si));
         if (at < 0 || at >= route.stops.length - 1) continue;
         if (options.some((o) => o.route === route)) continue;
+        if (!busRunning(route.hours, now()).running) continue; // 밤에는 다니지 않는다
         options.push({ route, at, last: network.stops[route.stops.at(-1)[0]].name });
       }
     }
     options.sort((a, b) => a.route.no.localeCompare(b.route.no, 'ko', { numeric: true }));
     if (!options.length) {
-      area.append(element('p', null, '이 정류장에서 탈 버스 자료가 없어요.'));
+      area.append(element('p', null, '지금 이 정류장에서 탈 수 있는 버스가 없어요.'));
       return;
     }
     area.append(element('p', 'guide', '탈 버스를 골라요.'));
@@ -1297,6 +1317,8 @@ export function renderWalk(root, { onHome }) {
     const plan = taxiPlan;
     clearTarget();
     mode = 'taxi';
+    // 내릴 곳을 고르려고 지도를 끌어 옮겼어도, 타면 화면이 택시를 따라간다(그대로 두면 엉뚱한 곳이 보인다)
+    view = { ox: 0, oy: 0 };
     flushWalk();
     nearBox.replaceChildren(element('p', 'guide', '택시를 타고 가요. 창밖으로 길이 지나가요.'));
     const startClock = now();

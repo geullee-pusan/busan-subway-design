@@ -22,6 +22,9 @@ export const OSM_BBOX = '34.85,127.80,36.65,129.70';
 export const OSM_BOXES_2 = ['33.85,124.95,35.95,127.80', '33.85,127.80,34.85,129.70'];
 /** 같은 문장을 두 상자에 한 번씩 */
 const inBoxes2 = (lines) => OSM_BOXES_2.map((box) => lines.map((line) => line.replace('(BOX)', `(${box})`)).join('\n')).join('\n');
+// 지도 네모 안 이웃 지역(2026-11-14): 위 두 범위가 비워 둔 북서쪽 띠(위도 35.95~36.45, 경도 124.95~127.80. 군산, 익산 북쪽,
+// 논산, 부여, 금산, 대전 남쪽). 수면과 차도를 "<이름>-3.json"으로 받는다. 동네 길은 경도 128.1까지 n 조각으로 받는다.
+export const OSM_BOX_3 = '35.95,124.95,36.45,127.80';
 /** 동네 길을 나눠 받는 조각 [남, 서, 북, 동] */
 const PATH_TILES = [];
 /**
@@ -48,6 +51,7 @@ const PATH_TILES_2 = [];
   };
   add('w', 33.85, 124.95, 35.95, 128.1);
   add('s', 33.85, 128.1, 34.9, 129.6);
+  add('n', 35.95, 124.95, 36.45, 128.1);
 }
 // 6×6 조각(부산 시내처럼 길이 많은 곳은 3×3 조각으로도 서버가 버거워했다).
 // 그래도 받지 못한 조각(17, 18, 20, 23번: 양산·울산·대구 서쪽·경주 둘레)은 다시 2×2로 나눈다(예: 17-1 ~ 17-4).
@@ -254,6 +258,7 @@ out center tags qt;`,
 (
   nwr["amenity"="bus_station"](${OSM_BBOX});
 ${inBoxes2(['  nwr["amenity"="bus_station"](BOX);'])}
+  nwr["amenity"="bus_station"](${OSM_BOX_3});
 );
 out center tags;`,
   },
@@ -315,6 +320,48 @@ out geom;`,
 (
 ${inBoxes2(['  way["highway"~"^(trunk|primary|secondary|tertiary)(_link)?$"](BOX);'])}
 );
+out geom qt;`,
+  },
+  // 북서쪽 띠(OSM_BOX_3): 수면과 차도
+  {
+    key: 'osm-water-3',
+    file: 'data/raw/osm/water-3.json',
+    overpass: `[out:json][timeout:300][bbox:${OSM_BOX_3}];
+(
+  way["natural"="water"];
+  relation["natural"="water"];
+  way["waterway"="riverbank"];
+  relation["waterway"="riverbank"];
+);
+out geom;`,
+  },
+  // 북서쪽 띠(OSM_BOX_3): 기차역과 선로(경부선 대전·옥천·영동, 호남선 논산·강경, 장항선 군산·서천)
+  {
+    key: 'osm-stations-3',
+    file: 'data/raw/osm/stations-3.json',
+    overpass: `[out:json][timeout:180][bbox:${OSM_BOX_3}];
+(
+  nwr["railway"~"^(station|halt|stop)$"];
+  nwr["public_transport"~"^(station|stop_position)$"]["train"="yes"];
+  nwr["public_transport"~"^(station|stop_position)$"]["subway"="yes"];
+  relation["public_transport"="stop_area"];
+  nwr["railway"="construction"]["construction"~"station"];
+  nwr["construction:railway"~"station"];
+);
+out center;`,
+  },
+  {
+    key: 'osm-rail-lines-3',
+    file: 'data/raw/osm/rail-lines-3.json',
+    overpass: `[out:json][timeout:300][bbox:${OSM_BOX_3}];
+way["railway"="rail"][!"service"];
+out geom;`,
+  },
+  {
+    key: 'osm-roads-3',
+    file: 'data/raw/osm/roads-3.json',
+    overpass: `[out:json][timeout:900][maxsize:1073741824][bbox:${OSM_BOX_3}];
+way["highway"~"^(trunk|primary|secondary|tertiary)(_link)?$"];
 out geom qt;`,
   },
   ...PATH_TILES_2.map(({ name, box: [s, w, n, e] }) => ({
