@@ -37,24 +37,31 @@ export function directTrains(trains, fromId, toId, afterMinute) {
  * 열차 찾기: A역을 afterMinute 뒤에 떠나 B역에 서는 열차(B가 없으면 A를 떠나는 모든 열차).
  * kind가 있으면 그 종류만. 떠나는 시각 차례로 limit개까지.
  * @param {object[]} trains
- * @param {{from: string, to?: string|null, kind?: string|null, afterMinute: number, limit?: number}} q
- * @returns {{train: object, from: number, to: number|null, dep: number, arr: number|null, stops: number|null}[]}
+ * daily가 참이면 시각표가 날마다 같다고 보고, afterMinute이 하루(1440분)를 넘어도 그날의 시각으로 견준다.
+ * 그날 떠나는 열차가 끝났으면 다음 날 열차를 돌려준다. 이때 dep·arr에는 shift(그날 0시까지의 분)를 더해 둔다.
+ * @param {{from: string, to?: string|null, kind?: string|null, afterMinute: number, limit?: number, daily?: boolean}} q
+ * @returns {{train: object, from: number, to: number|null, dep: number, arr: number|null, stops: number|null, shift: number}[]}
  */
-export function searchTrains(trains, { from, to = null, kind = null, afterMinute, limit = 10 }) {
+export function searchTrains(trains, { from, to = null, kind = null, afterMinute, limit = 10, daily = false }) {
   const out = [];
+  const today = daily ? Math.floor(afterMinute / 1440) * 1440 : 0;
   for (const train of trains) {
     if (kind && train.kind !== kind) continue;
     const i = train.stops.findIndex((s) => s[0] === from);
     // 마지막 역에서는 떠나지 않는다
     if (i < 0 || i === train.stops.length - 1) continue;
-    const dep = depOf(train.stops[i]);
-    if (dep === null || dep < afterMinute) continue;
+    const dep0 = depOf(train.stops[i]);
+    if (dep0 === null) continue;
+    // 그날 이미 떠났으면 다음 날 같은 열차(날마다 보기일 때만)
+    const shift = dep0 + today >= afterMinute ? today : daily ? today + 1440 : null;
+    if (shift === null) continue;
+    const dep = dep0 + shift;
     if (to) {
       const j = train.stops.findIndex((s, k) => k > i && s[0] === to);
       if (j < 0) continue;
-      out.push({ train, from: i, to: j, dep, arr: arrOf(train.stops[j]), stops: j - i });
+      out.push({ train, from: i, to: j, dep, arr: arrOf(train.stops[j]) + shift, stops: j - i, shift });
     } else {
-      out.push({ train, from: i, to: null, dep, arr: null, stops: null });
+      out.push({ train, from: i, to: null, dep, arr: null, stops: null, shift });
     }
   }
   return out.sort((a, b) => a.dep - b.dep || (a.arr ?? 0) - (b.arr ?? 0) || a.train.no - b.train.no).slice(0, limit);

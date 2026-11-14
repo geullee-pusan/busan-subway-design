@@ -28,8 +28,12 @@ test('다음 출발: 갈 곳마다 지금 뒤로 가장 먼저 떠나는 버스'
     ],
   };
   const list = nextDepartures(data, 0, '고속', 500);
-  assert.deepEqual(list.map((d) => [d.to, d.dep, d.grade, d.later]), [[1, 600, '일반', 1]]);
-  assert.equal(nextDepartures(data, 0, '고속', 1000).length, 0);
+  assert.deepEqual(list.map((d) => [d.to, d.dep, d.grade, d.later]), [[1, 600, '일반', 1], [2, 1440 + 400, '일반', 0]]);
+  // 그날 배차가 끝나면 다음 날 첫차(자정을 넘긴 여행도 그날의 시각으로 견준다)
+  const late = nextDepartures(data, 0, '고속', 1000);
+  assert.deepEqual(late.map((d) => [d.to, d.dep, d.tomorrow]), [[1, 1440 + 360, true], [2, 1440 + 400, true]]);
+  const nextDay = nextDepartures(data, 0, '고속', 1440 + 500);
+  assert.deepEqual(nextDay.map((d) => [d.to, d.dep, d.tomorrow]), [[1, 1440 + 600, false], [2, 2880 + 400, true]]);
   assert.ok(servesKind(data, 0, '시외'));
   assert.ok(!servesKind(data, 1, '시외'));
   assert.ok(hasRestStop(150) && !hasRestStop(90));

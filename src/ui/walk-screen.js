@@ -185,6 +185,8 @@ export function renderWalk(root, { onHome }) {
   }
 
   const now = () => record.start + record.minutes;
+  /** 떠나는 시각이 다음 날이면 "내일 "(여행이 자정을 넘기거나, 그날 차가 끝났을 때) */
+  const dayWord = (minute) => (Math.floor(minute / 1440) > Math.floor(now() / 1440) ? '내일 ' : '');
   const persist = (force = false) => {
     const t = performance.now();
     if (!force && t - lastSave < 1500) return;
@@ -916,8 +918,8 @@ export function renderWalk(root, { onHome }) {
     // 기차역은 역 건물이 커서 조금 더 멀리서도 탈 수 있게 한다(우리가 정한 값)
     for (const { item: s, km } of nearby(rail.stations, me, NEAR_KM + 0.2, 2)) {
       const card = nearCard(`${stationLabel(s.name)}(기차역)`, km, '기차');
-      const next = searchTrains(trainData.trains, { from: s.id, afterMinute: now(), limit: 3 });
-      card.append(element('p', 'walk-next', next.length ? `다음 기차: ${next.map((r) => `${hhmm(r.dep)} ${r.train.kind ?? ''}`).join(' · ')}` : '오늘은 더 떠나는 기차가 없어요.'));
+      const next = searchTrains(trainData.trains, { from: s.id, afterMinute: now(), limit: 3, daily: true });
+      card.append(element('p', 'walk-next', next.length ? `다음 기차: ${next.map((r) => `${dayWord(r.dep)}${hhmm(r.dep)} ${r.train.kind ?? ''}`).join(' · ')}` : '이 역에 서는 기차가 없어요.'));
       if (next.length) card.append(button('기차 타기', () => chooseTrain(s), 'button'));
       cards.push(card);
     }
@@ -927,7 +929,7 @@ export function renderWalk(root, { onHome }) {
       for (const kind of ['고속', '시외']) {
         if (!servesKind(intercity, t.index, kind)) continue;
         const next = nextDepartures(intercity, t.index, kind, now()).slice(0, 3);
-        const text = next.length ? next.map((d) => `${coachHhmm(d.dep)} ${intercity.terminals[d.to].name}`).join(' · ') : '오늘은 더 떠나는 버스가 없어요.';
+        const text = next.map((d) => `${dayWord(d.dep)}${coachHhmm(d.dep)} ${intercity.terminals[d.to].name}`).join(' · ');
         card.append(element('p', 'walk-next', `${kind}버스: ${text}`));
         if (next.length) card.append(button(`${kind}버스 타기`, () => chooseCoach(t, kind), 'button'));
       }
@@ -1168,7 +1170,7 @@ export function renderWalk(root, { onHome }) {
           onDone: (minutes) => arrive(dest, { kind: `${kind}버스`, title: `${terminal.name} → ${dest.name} ${kind}버스`, minutes, fare: d.fare ?? 0 }),
         });
       }, 'tr-departure');
-      item.append(element('span', 'tr-dep-time', coachHhmm(d.dep)), element('span'), element('span', 'tr-dep-kind', `${d.grade} · ${durationText(d.dur * 60)}`), element('span', 'tr-dep-to', `${dest.name} 가는 버스`));
+      item.append(element('span', 'tr-dep-time', `${dayWord(d.dep)}${coachHhmm(d.dep)}`), element('span'), element('span', 'tr-dep-kind', `${d.grade} · ${durationText(d.dur * 60)}`), element('span', 'tr-dep-to', `${dest.name} 가는 버스`));
       box.append(item);
     }
     area.append(box);
@@ -1177,16 +1179,17 @@ export function renderWalk(root, { onHome }) {
   /** 기차: 떠나는 기차와 내릴 역 고르기 */
   function chooseTrain(station) {
     const area = rideArea(`${stationLabel(station.name)}에서 기차 타기`);
-    const list = searchTrains(trainData.trains, { from: station.id, afterMinute: now(), limit: 8 });
+    const list = searchTrains(trainData.trains, { from: station.id, afterMinute: now(), limit: 8, daily: true });
     if (!list.length) {
-      area.append(element('p', null, '오늘은 더 떠나는 기차가 없어요.'));
+      area.append(element('p', null, '이 역에 서는 기차가 없어요.'));
       return;
     }
     area.append(element('p', 'guide', '탈 기차를 골라요. 기차 시각은 진짜 시각표예요.'));
+    if (list.some((r) => dayWord(r.dep))) area.append(element('p', 'panel-note', '오늘 기차는 끝났어요. 내일 기차를 탈 수 있어요.'));
     const box = element('div', 'tr-departures');
     for (const r of list) {
       const item = button('', () => pickTrainStop(area, station, r), 'tr-departure');
-      item.append(element('span', 'tr-dep-time', hhmm(r.dep)), element('span'), element('span', 'tr-dep-kind', `${r.train.kind ?? '종류 모름'} ${r.train.no}번`), element('span', 'tr-dep-to', `${trainDestination(r.train)} 가는 기차`));
+      item.append(element('span', 'tr-dep-time', `${dayWord(r.dep)}${hhmm(r.dep)}`), element('span'), element('span', 'tr-dep-kind', `${r.train.kind ?? '종류 모름'} ${r.train.no}번`), element('span', 'tr-dep-to', `${trainDestination(r.train)} 가는 기차`));
       box.append(item);
     }
     area.append(box);
@@ -1207,7 +1210,8 @@ export function renderWalk(root, { onHome }) {
             train: r.train,
             fromIndex: r.from,
             toIndex: j,
-            readyMinute: now(),
+            // 시각표는 하루 안의 시각이라, 기다린 날만큼 뺀 지금 시각으로 견준다(내일 기차면 음수가 된다)
+            readyMinute: now() - r.shift,
             fare,
             rider,
             onDone: (minutes) => arrive(dest, { kind: '기차', title: `${stationLabel(station.name)} → ${stationLabel(dest.name)} ${r.train.kind ?? '기차'}`, minutes, fare: fare ?? 0 }),

@@ -167,3 +167,15 @@ test('풍경: 바다·강·도시·들, 고속열차는 산을 터널로 지난�
   assert.deepEqual(segmentScenes(grid, a, b, '고속'), ['city', 'tunnel', 'river', 'sea']);
   assert.deepEqual(segmentScenes(grid, a, b, '일반'), ['city', 'mountain', 'river', 'sea']);
 });
+
+test('열차 찾기(날마다 보기): 자정을 넘긴 여행에서도 그날 시각으로 찾고, 끝났으면 다음 날 열차', () => {
+  const trains = [
+    { no: 1, kind: 'KTX', stops: [['A', null, 360], ['B', 420, null]] },
+    { no: 2, kind: 'KTX', stops: [['A', null, 1200], ['B', 1260, null]] },
+  ];
+  const late = searchTrains(trains, { from: 'A', afterMinute: 1300, daily: true });
+  assert.deepEqual(late.map((r) => [r.train.no, r.dep, r.shift]), [[1, 1440 + 360, 1440], [2, 1440 + 1200, 1440]]);
+  const day2 = searchTrains(trains, { from: 'A', afterMinute: 1440 + 400, daily: true });
+  assert.deepEqual(day2.map((r) => [r.train.no, r.dep]), [[2, 1440 + 1200], [1, 2880 + 360]]);
+  assert.equal(searchTrains(trains, { from: 'A', afterMinute: 1300 }).length, 0, '날마다 보기가 아니면 그날만 찾아요');
+});
