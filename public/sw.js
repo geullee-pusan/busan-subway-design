@@ -58,10 +58,39 @@ self.addEventListener('fetch', (event) => {
     caches
       .match(request, { ignoreSearch: true })
       .then((hit) => hit ?? (isPage ? caches.match('./index.html') : undefined))
-      .then(
-        (hit) =>
-          hit ??
-          new Response('찾는 것이 없어요', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }),
-      ),
+      .then((hit) => {
+        if (hit) return hit;
+        // 받아 둔 게임이 없어졌으면(기기가 저장 공간을 비웠거나, 받다가 끊겼을 때) 이 워커를 내려놓고 다시 연다.
+        // 그러면 인터넷에서 게임을 새로 받고, 워커도 다시 깔린다. 워커가 직접 받지는 않는다(fetch를 쓰지 않는다).
+        if (isPage) return new Response(RECOVER_PAGE, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+        return new Response('찾는 것이 없어요', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+      }),
   );
 });
+
+/** 받아 둔 게임이 없을 때 보여 주는 페이지: 워커를 내려놓고 한 번만 다시 연다(인터넷이 없으면 안내만 남는다). */
+const RECOVER_PAGE = `<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>부산 도시철도 설계실</title>
+<style>body{margin:0;padding:24px;font:18px/1.6 sans-serif;background:#EDF1EC;color:#1F3342}</style>
+</head>
+<body>
+<p>게임을 다시 받고 있어요.</p>
+<p id="offline" hidden>인터넷에 이어진 뒤에 다시 열어요.</p>
+<script>
+(function () {
+  if (!navigator.onLine) {
+    document.getElementById('offline').hidden = false;
+    return;
+  }
+  var again = function () { location.reload(); };
+  navigator.serviceWorker.getRegistrations()
+    .then(function (list) { return Promise.all(list.map(function (r) { return r.unregister(); })); })
+    .then(again, again);
+})();
+</script>
+</body>
+</html>`;
