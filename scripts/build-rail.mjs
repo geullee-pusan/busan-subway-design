@@ -15,6 +15,7 @@ import { readCsv } from './lib/csv.mjs';
 import { utm52 } from './lib/utm.mjs';
 import { readXlsx } from './lib/xlsx.mjs';
 import { readOsmFile } from './lib/osm.mjs';
+import { KORAIL_DATE } from './lib/train-dates.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const raw = (p) => resolve(ROOT, 'data/raw', p);
@@ -69,7 +70,7 @@ const koreanInGrid = new Set(korailRows.filter((r) => inGrid(toGrid(Number(r['�
 for (const add of edits.add ?? []) passenger.add(key(add.name));
 // 열차운행정보(npm run trains로 받은 것)가 있으면, 그날 여객 열차가 실제로 선 역도 여객역으로 본다
 // (센텀·신해운대·기장처럼 코레일 역 목록에 없지만 ITX-마음·무궁화호가 서는 역).
-const RUN_INFO = raw('korail/run-info-20261014.json');
+const RUN_INFO = raw(`korail/run-info-${KORAIL_DATE}.json`);
 if (existsSync(RUN_INFO)) {
   const runInfo = JSON.parse(readFileSync(RUN_INFO, 'utf8'));
   for (const list of Object.values(runInfo.runs)) {

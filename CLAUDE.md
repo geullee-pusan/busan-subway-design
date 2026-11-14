@@ -50,6 +50,8 @@
 - `npm run dong-shapes`: 행정동 경계로 걸어서 여행하기의 주소용 동 모양(`data/build/dong-shapes.json`)을 만든다
 - `npm run water-shapes`: OpenStreetMap 수면 원본(`data/raw/osm/water.json`)으로 걸어서 여행하기 지도의 강과 호수 모양(`data/build/water-shapes.json`)을 만든다
 - `npm run tago-bus`: 저장한 인증키로 TAGO 버스노선정보에서 부산 밖 도시의 노선과 정류장 차례를 받아 `data/raw/tago-bus/`에 둔다(네트워크를 쓴다, 노선마다 한 번 부른다)
+- `npm run intercity`: 저장한 인증키로 TAGO 고속버스·시외버스 정보에서 지도 안 터미널끼리의 배차를 받아 `data/raw/intercity/`에 둔다(네트워크를 쓴다, 시외버스는 그날 배차만 준다)
+- `npm run intercity-build`: 받은 배차와 OSM 버스터미널로 걸어서 여행하기의 고속·시외버스(`data/build/intercity.json`)를 만든다
 - `npm run landmarks`: OpenStreetMap 랜드마크 자리(`data/raw/osm/landmarks.json`)와 `data/facts.json`의 소개 글로 걸어서 여행하기의 랜드마크(`data/build/landmarks.json`)를 만든다
 - `npm run rail`: 코레일 거리표·역 목록과 OSM 선로로 일반·고속 철도 노선과 기차역(`data/build/rail.json`), 받아 둔 열차 기록으로 시각표(`data/build/trains.json`)를 만든다
 - `npm run station-sounds`: 역사 안내방송 원본에서 승강장 소리(열차진입 안내음, 진입 방송)를 `data/build/station-sounds.json`으로 만든다

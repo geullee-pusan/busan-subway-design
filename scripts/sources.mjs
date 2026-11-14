@@ -246,6 +246,17 @@ out skel geom qt;`,
 );
 out center tags qt;`,
   },
+  {
+    // 고속·시외버스 터미널 자리(걸어서 여행하기). 지도 전체 범위. TAGO 터미널과 이름으로 잇는다(scripts/lib/terminals.mjs).
+    key: 'osm-bus-terminals',
+    file: 'data/raw/osm/bus-terminals.json',
+    overpass: `[out:json][timeout:300];
+(
+  nwr["amenity"="bus_station"](${OSM_BBOX});
+${inBoxes2(['  nwr["amenity"="bus_station"](BOX);'])}
+);
+out center tags;`,
+  },
   // 광주 도시철도 1호선(광주교통공사, 공공데이터포털, 이용허락범위 제한 없음). 크기는 받은 뒤 적는다.
   { key: 'gwangju-links', file: 'data/raw/datagokr/15046044.csv', url: dataGoKr('FILE_000000002371481') },
   { key: 'gwangju-ridership', file: 'data/raw/datagokr/15060048.csv', url: dataGoKr('FILE_000000007731276') },

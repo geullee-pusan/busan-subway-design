@@ -4568,6 +4568,1271 @@
           "evidence": "국제회의장, 대공연장, 다목적실 등을 갖춘 기념문화관"
         }
       ]
+    },
+    "sangjokam": {
+      "name": "상족암",
+      "facts": [
+        {
+          "text": "이곳은 세계 3대 공룡 발자국 화석지예요.",
+          "source": "한국어 위키백과: 고성 덕명리 공룡과 새발자국 화석산지",
+          "url": "https://ko.wikipedia.org/wiki/고성_덕명리_공룡과_새발자국_화석산지",
+          "checked": "2026-11-14",
+          "evidence": "브라질, 캐나다 지역과 함께 세계 3대 공룡발자국 화석지로 인정받고 있다"
+        },
+        {
+          "text": "공룡 발자국은 1982년에 처음 발견됐어요.",
+          "source": "한국어 위키백과: 고성 덕명리 공룡과 새발자국 화석산지",
+          "url": "https://ko.wikipedia.org/wiki/고성_덕명리_공룡과_새발자국_화석산지",
+          "checked": "2026-11-14",
+          "evidence": "1982년 1월 29일 양승영에 의해 처음 발견되었고"
+        },
+        {
+          "text": "상족암에서 선녀들이 베를 짰다는 이야기가 있어요.",
+          "source": "한국어 위키백과: 고성 덕명리 공룡과 새발자국 화석산지",
+          "url": "https://ko.wikipedia.org/wiki/고성_덕명리_공룡과_새발자국_화석산지",
+          "checked": "2026-11-14",
+          "evidence": "선녀들은 쉬지 않고 열심히 베를 짜서"
+        }
+      ]
+    },
+    "goseongdino": {
+      "name": "고성공룡박물관",
+      "facts": [
+        {
+          "text": "고성공룡박물관은 2004년에 문을 열었어요.",
+          "source": "한국어 위키백과: 고성공룡박물관",
+          "url": "https://ko.wikipedia.org/wiki/고성공룡박물관",
+          "checked": "2026-11-14",
+          "evidence": "2004년에 설립했으며"
+        },
+        {
+          "text": "공룡과 익룡의 뼈 모형을 볼 수 있어요.",
+          "source": "한국어 위키백과: 고성공룡박물관",
+          "url": "https://ko.wikipedia.org/wiki/고성공룡박물관",
+          "checked": "2026-11-14",
+          "evidence": "공룡의 전신 골격 복제품, 익룡 전신골격, 부분골격 등이 전시되어 있다"
+        },
+        {
+          "text": "3층에는 발자국 화석이 전시돼 있어요.",
+          "source": "한국어 위키백과: 고성공룡박물관",
+          "url": "https://ko.wikipedia.org/wiki/고성공룡박물관",
+          "checked": "2026-11-14",
+          "evidence": "3층에는 발자국 화석지 및 화석 등이 전시되어 있다"
+        }
+      ]
+    },
+    "donguibogam": {
+      "name": "동의보감촌",
+      "facts": [
+        {
+          "text": "동의보감촌에는 한의학 박물관이 있어요.",
+          "source": "한국어 위키백과: 금서면",
+          "url": "https://ko.wikipedia.org/wiki/금서면",
+          "checked": "2026-11-14",
+          "evidence": "동의보감촌: 한의학 박물관, 한방테마공원, 본디올탕제원"
+        },
+        {
+          "text": "한의학 박물관은 2007년에 문을 열었어요.",
+          "source": "한국어 위키백과: 산청한의학박물관",
+          "url": "https://ko.wikipedia.org/wiki/산청한의학박물관",
+          "checked": "2026-11-14",
+          "evidence": "2007년 5월 4일 개관"
+        },
+        {
+          "text": "2013년 이곳에서 전통 의약 엑스포가 열렸어요.",
+          "source": "한국어 위키백과: 산청한의학박물관",
+          "url": "https://ko.wikipedia.org/wiki/산청한의학박물관",
+          "checked": "2026-11-14",
+          "evidence": "2013년 동의보감촌 산청세계전통의약엑스포 개최"
+        }
+      ]
+    },
+    "suseungdae": {
+      "name": "수승대",
+      "facts": [
+        {
+          "text": "수승대는 계곡 한가운데 있는 큰 바위예요.",
+          "source": "한국어 위키백과: 거창 수승대",
+          "url": "https://ko.wikipedia.org/wiki/거창_수승대",
+          "checked": "2026-11-14",
+          "evidence": "원학동 계곡 한가운데 위치하는 화강암 암반으로"
+        },
+        {
+          "text": "거북바위에는 여러 사람의 이름이 새겨져 있어요.",
+          "source": "한국어 위키백과: 거창 수승대",
+          "url": "https://ko.wikipedia.org/wiki/거창_수승대",
+          "checked": "2026-11-14",
+          "evidence": "수승대의 거북바위에는 여러 사람의 이름과 글이 새겨져 있으며"
+        },
+        {
+          "text": "옛날 신라와 백제 사신이 여기서 헤어졌대요.",
+          "source": "한국어 위키백과: 거창 수승대",
+          "url": "https://ko.wikipedia.org/wiki/거창_수승대",
+          "checked": "2026-11-14",
+          "evidence": "옛 신라와 백제의 사신이 이곳에서 송별할 때마다"
+        }
+      ]
+    },
+    "tongyeongcable": {
+      "name": "통영케이블카",
+      "facts": [
+        {
+          "text": "높이 461m 미륵산을 오르는 케이블카예요.",
+          "source": "한국어 위키백과: 통영 케이블카",
+          "url": "https://ko.wikipedia.org/wiki/통영_케이블카",
+          "checked": "2026-11-14",
+          "evidence": "해발 461m 미륵산에서 운영하는 관광용 케이블카이다"
+        },
+        {
+          "text": "줄 길이는 1km 975m로 한때 나라에서 가장 길었어요.",
+          "source": "한국어 위키백과: 통영 케이블카",
+          "url": "https://ko.wikipedia.org/wiki/통영_케이블카",
+          "checked": "2026-11-14",
+          "evidence": "선로 거리는 1,975m로 한때 국내에서 가장 길었다"
+        },
+        {
+          "text": "8명이 타는 곤돌라 48대가 다녀요.",
+          "source": "한국어 위키백과: 통영 케이블카",
+          "url": "https://ko.wikipedia.org/wiki/통영_케이블카",
+          "checked": "2026-11-14",
+          "evidence": "곤돌라는 총 48대를 운행하며, 순환식 8인승으로"
+        }
+      ]
+    },
+    "geojepow": {
+      "name": "거제도 포로수용소 유적공원",
+      "facts": [
+        {
+          "text": "한국 전쟁 때 포로를 모아 두던 곳이에요.",
+          "source": "한국어 위키백과: 거제포로수용소",
+          "url": "https://ko.wikipedia.org/wiki/거제포로수용소",
+          "checked": "2026-11-14",
+          "evidence": "한국전쟁 중 UN군에 포로가 되었던 공산군을 수용하던 장소이다."
+        },
+        {
+          "text": "포로가 가장 많을 때는 약 17만 3천 명이었어요.",
+          "source": "한국어 위키백과: 거제포로수용소",
+          "url": "https://ko.wikipedia.org/wiki/거제포로수용소",
+          "checked": "2026-11-14",
+          "evidence": "최대 17만 3천명을 수용하였다"
+        },
+        {
+          "text": "2002년에 유적공원으로 새로 꾸며졌어요.",
+          "source": "한국어 위키백과: 거제포로수용소",
+          "url": "https://ko.wikipedia.org/wiki/거제포로수용소",
+          "checked": "2026-11-14",
+          "evidence": "2002년 11월 30일 유적공원을 준공하여 2차로 개관하였으며"
+        }
+      ]
+    },
+    "somaemuldo": {
+      "name": "소매물도",
+      "facts": [
+        {
+          "text": "가장 높은 봉우리 망태봉은 152m예요.",
+          "source": "한국어 위키백과: 소매물도",
+          "url": "https://ko.wikipedia.org/wiki/소매물도",
+          "checked": "2026-11-14",
+          "evidence": "최고봉은 섬 중앙에 솟은 망태봉으로 152m이고"
+        },
+        {
+          "text": "물이 빠지면 등대섬까지 자갈길이 이어져요.",
+          "source": "한국어 위키백과: 소매물도",
+          "url": "https://ko.wikipedia.org/wiki/소매물도",
+          "checked": "2026-11-14",
+          "evidence": "남쪽의 등대섬과는 물이 들고 남에 따라 70m의 열목개 자갈길로 연결되었다가"
+        },
+        {
+          "text": "과자 광고를 찍어서 쿠크다스섬이라고도 불러요.",
+          "source": "한국어 위키백과: 소매물도",
+          "url": "https://ko.wikipedia.org/wiki/소매물도",
+          "checked": "2026-11-14",
+          "evidence": "쿠크다스 광고를 촬영한 것을 계기로 흔히 쿠크다스섬이라는 별칭으로 불리고 있다"
+        }
+      ]
+    },
+    "daraengi": {
+      "name": "다랭이마을",
+      "facts": [
+        {
+          "text": "산비탈을 깎아 계단처럼 만든 논이에요.",
+          "source": "한국어 위키백과: 남해 가천마을 다랑이 논",
+          "url": "https://ko.wikipedia.org/wiki/남해_가천마을_다랑이_논",
+          "checked": "2026-11-14",
+          "evidence": "벼농사를 짓기 위해 산비탈을 깎아 만든 논으로"
+        },
+        {
+          "text": "논이 100층쯤 계단 모양으로 이어져요.",
+          "source": "한국어 위키백과: 남해 가천마을 다랑이 논",
+          "url": "https://ko.wikipedia.org/wiki/남해_가천마을_다랑이_논",
+          "checked": "2026-11-14",
+          "evidence": "100여 층의 논을 계단모양으로 만들어"
+        },
+        {
+          "text": "2005년에 나라가 아끼는 경치가 됐어요.",
+          "source": "한국어 위키백과: 남해 가천마을 다랑이 논",
+          "url": "https://ko.wikipedia.org/wiki/남해_가천마을_다랑이_논",
+          "checked": "2026-11-14",
+          "evidence": "2005년 1월 3일 대한민국의 명승 제15호로 지정되었다"
+        }
+      ]
+    },
+    "choechampan": {
+      "name": "최참판댁",
+      "facts": [
+        {
+          "text": "최참판댁은 박경리의 소설 《토지》 속 집이에요.",
+          "source": "한국어 위키백과: 악양면",
+          "url": "https://ko.wikipedia.org/wiki/악양면",
+          "checked": "2026-11-14",
+          "evidence": "박경리의 대하소설 《토지》의 배경으로 널리 알려진 소설 속 최참판댁이"
+        },
+        {
+          "text": "최참판댁이 있는 평사리는 섬진강 가 마을이에요.",
+          "source": "한국어 위키백과: 악양면",
+          "url": "https://ko.wikipedia.org/wiki/악양면",
+          "checked": "2026-11-14",
+          "evidence": "악양 평사리는 섬진강이 주는 혜택을 한 몸에 받은 땅이다"
+        }
+      ]
+    },
+    "gnarboretum": {
+      "name": "경상남도수목원",
+      "facts": [
+        {
+          "text": "경상남도수목원은 1993년에 문을 열었어요.",
+          "source": "한국어 위키백과: 경상남도수목원",
+          "url": "https://ko.wikipedia.org/wiki/경상남도수목원",
+          "checked": "2026-11-14",
+          "evidence": "1993년 4월 5일 도립반성수목원으로 개원한 뒤"
+        },
+        {
+          "text": "세계 여러 나라 식물 약 1,700종이 자라요.",
+          "source": "한국어 위키백과: 경상남도수목원",
+          "url": "https://ko.wikipedia.org/wiki/경상남도수목원",
+          "checked": "2026-11-14",
+          "evidence": "전 세계 식물 1,700여종과 10만여 본을 수집, 식재하고 있다"
+        },
+        {
+          "text": "수목원 안에는 야생동물원도 있어요.",
+          "source": "한국어 위키백과: 경상남도수목원",
+          "url": "https://ko.wikipedia.org/wiki/경상남도수목원",
+          "checked": "2026-11-14",
+          "evidence": "메타세콰이어 길이 있고 야생동물원이 있다"
+        }
+      ]
+    },
+    "namhaegeumsan": {
+      "name": "남해 금산",
+      "facts": [
+        {
+          "text": "남해 금산은 높이 681m인 산이에요.",
+          "source": "한국어 위키백과: 금산 (경남)",
+          "url": "https://ko.wikipedia.org/wiki/금산_(경남)",
+          "checked": "2026-11-14",
+          "evidence": "높이 681m의 화강암 산이다"
+        },
+        {
+          "text": "'금산'은 비단을 두른 산이라는 뜻이에요.",
+          "source": "한국어 위키백과: 금산 (경남)",
+          "url": "https://ko.wikipedia.org/wiki/금산_(경남)",
+          "checked": "2026-11-14",
+          "evidence": "보광산이란 이름을 비단을 두른다는 뜻에서 '금산(錦山)'이라 붙였다고 전하며"
+        },
+        {
+          "text": "가을이면 산이 수를 놓은 듯 알록달록해요.",
+          "source": "한국어 위키백과: 금산 (경남)",
+          "url": "https://ko.wikipedia.org/wiki/금산_(경남)",
+          "checked": "2026-11-14",
+          "evidence": "가을이면 마치 오색 자수판을 보는 듯하며"
+        }
+      ]
+    },
+    "najumok": {
+      "name": "나주목 관아",
+      "facts": [
+        {
+          "text": "금성관은 조선의 손님 집 건물 중 가장 커요.",
+          "source": "한국어 위키백과: 나주 금성관",
+          "url": "https://ko.wikipedia.org/wiki/나주_금성관",
+          "checked": "2026-11-14",
+          "evidence": "금성관 정청은 조선시대 객사 건축물 가운데 가장 규모가 클 뿐 아니라"
+        },
+        {
+          "text": "1592년 김천일 장군이 여기서 의병을 모았어요.",
+          "source": "한국어 위키백과: 나주 금성관",
+          "url": "https://ko.wikipedia.org/wiki/나주_금성관",
+          "checked": "2026-11-14",
+          "evidence": "임진왜란(1592) 때의 의병장 김천일 선생이 의병을 모아 출병식을 가졌던 곳이며"
+        },
+        {
+          "text": "금성관은 2019년에 나라의 보물이 됐어요.",
+          "source": "한국어 위키백과: 나주 금성관",
+          "url": "https://ko.wikipedia.org/wiki/나주_금성관",
+          "checked": "2026-11-14",
+          "evidence": "2019년 10월 25일 대한민국의 보물 제2037호로 승격되었다."
+        }
+      ]
+    },
+    "wolchulsan": {
+      "name": "월출산",
+      "facts": [
+        {
+          "text": "월출산은 '달이 뜨는 산'이라는 뜻이에요.",
+          "source": "한국어 위키백과: 월출산",
+          "url": "https://ko.wikipedia.org/wiki/월출산",
+          "checked": "2026-11-14",
+          "evidence": "월출산이라는 이름은 '달(月)이 뜨는(出) 산'라는 의미이다."
+        },
+        {
+          "text": "가장 높은 봉우리 천황봉은 약 809m예요.",
+          "source": "한국어 위키백과: 월출산",
+          "url": "https://ko.wikipedia.org/wiki/월출산",
+          "checked": "2026-11-14",
+          "evidence": "가장 높은 봉우리는 천황봉(약 809m)이고"
+        },
+        {
+          "text": "길이 54m인 구름다리가 봉우리를 이어요.",
+          "source": "한국어 위키백과: 월출산",
+          "url": "https://ko.wikipedia.org/wiki/월출산",
+          "checked": "2026-11-14",
+          "evidence": "길이 54미터, 폭 60센티미터의 구름다리를 설치하여"
+        }
+      ]
+    },
+    "wangin": {
+      "name": "왕인박사유적지",
+      "facts": [
+        {
+          "text": "왕인은 일본에 앞선 문물을 전한 백제 학자예요.",
+          "source": "한국어 위키백과: 왕인",
+          "url": "https://ko.wikipedia.org/wiki/왕인",
+          "checked": "2026-11-14",
+          "evidence": "왕인은 고대 일본에 선진 문물을 전수한 백제의 학자로서"
+        },
+        {
+          "text": "왕인이 태어났다는 집터를 되살린 곳이에요.",
+          "source": "한국어 위키백과: 왕인",
+          "url": "https://ko.wikipedia.org/wiki/왕인",
+          "checked": "2026-11-14",
+          "evidence": "왕인이 태어났다는 집의 터(구림면)를 왕인 박사 유적으로 복원하고"
+        }
+      ]
+    },
+    "bulgapsa": {
+      "name": "불갑사",
+      "facts": [
+        {
+          "text": "불갑사는 상사화로 유명한 절이에요.",
+          "source": "한국어 위키백과: 불갑사",
+          "url": "https://ko.wikipedia.org/wiki/불갑사",
+          "checked": "2026-11-14",
+          "evidence": "상사화로 유명한 곳이다."
+        },
+        {
+          "text": "백제에 불교가 들어와 처음 지은 절이래요.",
+          "source": "한국어 위키백과: 불갑사",
+          "url": "https://ko.wikipedia.org/wiki/불갑사",
+          "checked": "2026-11-14",
+          "evidence": "마라난타 존자가 백제에 불교를 전래하면서 제일 처음 지은 불법도량이라는 점을 반영하여"
+        },
+        {
+          "text": "절 뒤에는 참식나무 숲이 있어요.",
+          "source": "한국어 위키백과: 불갑사",
+          "url": "https://ko.wikipedia.org/wiki/불갑사",
+          "checked": "2026-11-14",
+          "evidence": "절 뒤에는 천연기념물 제112호로 지정된 참식나무 군락이 있다"
+        }
+      ]
+    },
+    "baegyangsa": {
+      "name": "백양사",
+      "facts": [
+        {
+          "text": "하얀 양이 스님 말씀을 들었다는 이야기가 있어요.",
+          "source": "한국어 위키백과: 백양사",
+          "url": "https://ko.wikipedia.org/wiki/백양사",
+          "checked": "2026-11-14",
+          "evidence": "하얀 양이 내려와 스님의 설법을 들었고"
+        },
+        {
+          "text": "흰 양 이야기 뒤로 절 이름이 백양사가 됐어요.",
+          "source": "한국어 위키백과: 백양사",
+          "url": "https://ko.wikipedia.org/wiki/백양사",
+          "checked": "2026-11-14",
+          "evidence": "그 이후 절 이름을 백양사라고 고쳐 불렀다"
+        },
+        {
+          "text": "호남선 백양사역 이름은 이 절에서 따왔어요.",
+          "source": "한국어 위키백과: 백양사",
+          "url": "https://ko.wikipedia.org/wiki/백양사",
+          "checked": "2026-11-14",
+          "evidence": "호남선 백양사역의 이름이 이 절에서 유래되었다"
+        }
+      ]
+    },
+    "hwasundolmen": {
+      "name": "화순 고인돌 유적",
+      "facts": [
+        {
+          "text": "좁은 곳에 고인돌 약 596개가 모여 있어요.",
+          "source": "한국어 위키백과: 고창 화순 강화 고인돌 유적",
+          "url": "https://ko.wikipedia.org/wiki/고창_화순_강화_고인돌_유적",
+          "checked": "2026-11-14",
+          "evidence": "좁은 지역 안에 596여기가 밀집되어 있고"
+        },
+        {
+          "text": "가장 큰 고인돌 돌은 무게가 약 280톤이에요.",
+          "source": "한국어 위키백과: 고창 화순 강화 고인돌 유적",
+          "url": "https://ko.wikipedia.org/wiki/고창_화순_강화_고인돌_유적",
+          "checked": "2026-11-14",
+          "evidence": "무게가 280여톤에 이르며"
+        },
+        {
+          "text": "화순 고인돌은 2000년에 세계유산이 됐어요.",
+          "source": "한국어 위키백과: 고창 화순 강화 고인돌 유적",
+          "url": "https://ko.wikipedia.org/wiki/고창_화순_강화_고인돌_유적",
+          "checked": "2026-11-14",
+          "evidence": "2000년 12월 2일 유네스코에서 고창, 강화 고인돌과 함께 세계유산 997호로 등록되었다"
+        }
+      ]
+    },
+    "unjusa": {
+      "name": "운주사",
+      "facts": [
+        {
+          "text": "운주사에는 돌탑 21개와 돌부처 93개가 있어요.",
+          "source": "한국어 위키백과: 운주사",
+          "url": "https://ko.wikipedia.org/wiki/운주사",
+          "checked": "2026-11-14",
+          "evidence": "현재 사찰경내에는 석탑 21기, 석불 93구가 보존되어 있다"
+        },
+        {
+          "text": "닭 울음 흉내 때문에 부처가 누운 채 남았대요.",
+          "source": "한국어 위키백과: 운주사",
+          "url": "https://ko.wikipedia.org/wiki/운주사",
+          "checked": "2026-11-14",
+          "evidence": "일하기 싫어한 동자승이 “꼬끼오”하고 닭소리를 내는 바람에"
+        },
+        {
+          "text": "누운 부처가 일어나면 새 세상이 열린대요.",
+          "source": "한국어 위키백과: 운주사",
+          "url": "https://ko.wikipedia.org/wiki/운주사",
+          "checked": "2026-11-14",
+          "evidence": "와불이 일어나는 날 이 땅에는 새로운 세상이 열린다고 전해온다"
+        }
+      ]
+    },
+    "gokseongtrain": {
+      "name": "섬진강기차마을",
+      "facts": [
+        {
+          "text": "옛 기찻길과 옛 곡성역으로 만든 곳이에요.",
+          "source": "한국어 위키백과: 섬진강 기차마을",
+          "url": "https://ko.wikipedia.org/wiki/섬진강_기차마을",
+          "checked": "2026-11-14",
+          "evidence": "폐선로와 옛 곡성역을 활용한 관광지 조성사업을 추진하였으며"
+        },
+        {
+          "text": "섬진강 기차마을은 2005년에 문을 열었어요.",
+          "source": "한국어 위키백과: 섬진강 기차마을",
+          "url": "https://ko.wikipedia.org/wiki/섬진강_기차마을",
+          "checked": "2026-11-14",
+          "evidence": "2005년 4월 섬진강 기차마을을 개장하였다"
+        },
+        {
+          "text": "증기기관차 모양 기차가 10km를 달려요.",
+          "source": "한국어 위키백과: 섬진강 기차마을",
+          "url": "https://ko.wikipedia.org/wiki/섬진강_기차마을",
+          "checked": "2026-11-14",
+          "evidence": "증기 기관차를 본떠 만든 디젤 기관차를 구 전라선 선로를 활용한 아래 10 km의 관광 노선에서 운행하고 있다"
+        }
+      ]
+    },
+    "hampyeongexpo": {
+      "name": "함평엑스포공원",
+      "facts": [
+        {
+          "text": "함평엑스포공원에서는 봄에 나비 축제가 열려요.",
+          "source": "한국어 위키백과: 함평나비대축제",
+          "url": "https://ko.wikipedia.org/wiki/함평나비대축제",
+          "checked": "2026-11-14",
+          "evidence": "함평엑스포공원에서 봄철 기간에 열리는 행사이다"
+        },
+        {
+          "text": "황금박쥐상은 2024년에 이 공원 전시관으로 옮겨졌어요.",
+          "source": "한국어 위키백과: 함평군",
+          "url": "https://ko.wikipedia.org/wiki/함평군",
+          "checked": "2026-11-14",
+          "evidence": "함평엑스포공원 추억공작소 내 황금박쥐특별전시관으로 이전되었다"
+        }
+      ]
+    },
+    "cheongwansan": {
+      "name": "천관산",
+      "facts": [
+        {
+          "text": "천관산은 높이 723m인 산이에요.",
+          "source": "한국어 위키백과: 천관산",
+          "url": "https://ko.wikipedia.org/wiki/천관산",
+          "checked": "2026-11-14",
+          "evidence": "높이 723m의 한국의 화강암 산이다"
+        },
+        {
+          "text": "꼭대기 바위들이 왕관 같아서 천관산이래요.",
+          "source": "한국어 위키백과: 천관산",
+          "url": "https://ko.wikipedia.org/wiki/천관산",
+          "checked": "2026-11-14",
+          "evidence": "그 모습이 주옥으로 장식된 천자의 면류관 같다하여 천관산이라 불렀다고 한다"
+        },
+        {
+          "text": "꼭대기 가까이에 넓은 억새밭이 있어요.",
+          "source": "한국어 위키백과: 천관산",
+          "url": "https://ko.wikipedia.org/wiki/천관산",
+          "checked": "2026-11-14",
+          "evidence": "정상부근으로 억새밭 5만여평이 장관을 이루고"
+        }
+      ]
+    },
+    "jeongnamjin": {
+      "name": "정남진 전망대",
+      "facts": [
+        {
+          "text": "정남진은 광화문에서 똑바로 남쪽이라는 뜻이에요.",
+          "source": "한국어 위키백과: 정남진",
+          "url": "https://ko.wikipedia.org/wiki/정남진",
+          "checked": "2026-11-14",
+          "evidence": "광화문으로부터 정남쪽을 가리키며"
+        }
+      ]
+    },
+    "yeosucable": {
+      "name": "여수해상케이블카",
+      "facts": [
+        {
+          "text": "우리나라에서 처음 생긴 바다 위 케이블카예요.",
+          "source": "한국어 위키백과: 여수 해상케이블카",
+          "url": "https://ko.wikipedia.org/wiki/여수_해상케이블카",
+          "checked": "2026-11-14",
+          "evidence": "대한민국에서는 첫번째로 설치된 해상 케이블카이다"
+        },
+        {
+          "text": "여수 해상케이블카는 2014년부터 다녀요.",
+          "source": "한국어 위키백과: 여수 해상케이블카",
+          "url": "https://ko.wikipedia.org/wiki/여수_해상케이블카",
+          "checked": "2026-11-14",
+          "evidence": "2014년 12월부터 운행을 시작하였다"
+        },
+        {
+          "text": "바닥이 유리로 된 크리스탈 캐빈이 있어요.",
+          "source": "한국어 위키백과: 여수 해상케이블카",
+          "url": "https://ko.wikipedia.org/wiki/여수_해상케이블카",
+          "checked": "2026-11-14",
+          "evidence": "크리스탈 케빈은 바닥을 강화유리로 만들어"
+        }
+      ]
+    },
+    "jinnamgwan": {
+      "name": "진남관",
+      "facts": [
+        {
+          "text": "진남관은 나라에서 가장 큰 1층 나무 건물이에요.",
+          "source": "한국어 위키백과: 여수 진남관",
+          "url": "https://ko.wikipedia.org/wiki/여수_진남관",
+          "checked": "2026-11-14",
+          "evidence": "한국 최대의 단층 목조건물이다"
+        },
+        {
+          "text": "커다란 나무 기둥 68개가 지붕을 받쳐요.",
+          "source": "한국어 위키백과: 여수 진남관",
+          "url": "https://ko.wikipedia.org/wiki/여수_진남관",
+          "checked": "2026-11-14",
+          "evidence": "둘레 2.4m의 기둥 68개가"
+        },
+        {
+          "text": "진남관은 2001년에 나라의 국보가 됐어요.",
+          "source": "한국어 위키백과: 여수 진남관",
+          "url": "https://ko.wikipedia.org/wiki/여수_진남관",
+          "checked": "2026-11-14",
+          "evidence": "2001년 4월 17일 대한민국의 국보 제304호로 지정되었다"
+        }
+      ]
+    },
+    "gatbawi": {
+      "name": "갓바위",
+      "facts": [
+        {
+          "text": "삿갓 쓴 사람처럼 생겨서 갓바위라고 해요.",
+          "source": "한국어 위키백과: 목포 갓바위",
+          "url": "https://ko.wikipedia.org/wiki/목포_갓바위",
+          "checked": "2026-11-14",
+          "evidence": "삿갓을 쓴 사람 모양이라서 갓바위라 부른다."
+        },
+        {
+          "text": "비바람과 바닷물에 깎여서 생긴 바위예요.",
+          "source": "한국어 위키백과: 목포 갓바위",
+          "url": "https://ko.wikipedia.org/wiki/목포_갓바위",
+          "checked": "2026-11-14",
+          "evidence": "풍화작용과 해식작용의 결과로 형성된 것이다"
+        },
+        {
+          "text": "갓바위는 2009년에 천연기념물이 됐어요.",
+          "source": "한국어 위키백과: 목포 갓바위",
+          "url": "https://ko.wikipedia.org/wiki/목포_갓바위",
+          "checked": "2026-11-14",
+          "evidence": "2009년 4월 27일 대한민국의 천연기념물 제500호로 지정되었다"
+        }
+      ]
+    },
+    "mokpomodern": {
+      "name": "목포근대역사관",
+      "facts": [
+        {
+          "text": "옛 일본 영사관 건물이 박물관이 됐어요.",
+          "source": "한국어 위키백과: 목포근대역사관",
+          "url": "https://ko.wikipedia.org/wiki/목포근대역사관",
+          "checked": "2026-11-14",
+          "evidence": "건물은 구 목포 일본영사관이 본관으로 쓰이고 있으며"
+        },
+        {
+          "text": "목포 항구가 처음 열린 때의 역사를 보여줘요.",
+          "source": "한국어 위키백과: 목포근대역사관",
+          "url": "https://ko.wikipedia.org/wiki/목포근대역사관",
+          "checked": "2026-11-14",
+          "evidence": "박물관 내부에는 목포의 개항과 당시 조선의 역사"
+        },
+        {
+          "text": "다른 건물 하나는 1920년에 지은 서양식이에요.",
+          "source": "한국어 위키백과: 목포근대역사관",
+          "url": "https://ko.wikipedia.org/wiki/목포근대역사관",
+          "checked": "2026-11-14",
+          "evidence": "건물 양식은 르네상스 양식이며 1920년 지어진"
+        }
+      ]
+    },
+    "mokpocable": {
+      "name": "목포해상케이블카",
+      "facts": [
+        {
+          "text": "유달산과 고하도에서 타고 내릴 수 있어요.",
+          "source": "한국어 위키백과: 목포해상케이블카",
+          "url": "https://ko.wikipedia.org/wiki/목포해상케이블카",
+          "checked": "2026-11-14",
+          "evidence": "고하도와 유달산과 북항에 스태이션을 두고 연결하고 있다"
+        },
+        {
+          "text": "바다 위 케이블카 중 우리나라에서 가장 길어요.",
+          "source": "한국어 위키백과: 목포해상케이블카",
+          "url": "https://ko.wikipedia.org/wiki/목포해상케이블카",
+          "checked": "2026-11-14",
+          "evidence": "해상 케이블카중에선 최장이다"
+        },
+        {
+          "text": "목포해상케이블카는 2019년에 개통했어요.",
+          "source": "한국어 위키백과: 목포해상케이블카",
+          "url": "https://ko.wikipedia.org/wiki/목포해상케이블카",
+          "checked": "2026-11-14",
+          "evidence": "2019년 9월 6일에 개통하였다."
+        }
+      ]
+    },
+    "dramaset": {
+      "name": "순천드라마촬영장",
+      "facts": [
+        {
+          "text": "옛날 순천 읍내와 서울 달동네를 꾸몄어요.",
+          "source": "한국어 위키백과: 순천 드라마 촬영장",
+          "url": "https://ko.wikipedia.org/wiki/순천_드라마_촬영장",
+          "checked": "2026-11-14",
+          "evidence": "순천읍내와 서울의 변두리(달동네) 모습을 재연한 것으로"
+        },
+        {
+          "text": "1950년대부터 1980년대 모습을 볼 수 있어요.",
+          "source": "한국어 위키백과: 순천 드라마 촬영장",
+          "url": "https://ko.wikipedia.org/wiki/순천_드라마_촬영장",
+          "checked": "2026-11-14",
+          "evidence": "주로 1950년대부터 1980년대까지"
+        },
+        {
+          "text": "영화 《택시운전사》도 여기서 찍었어요.",
+          "source": "한국어 위키백과: 순천 드라마 촬영장",
+          "url": "https://ko.wikipedia.org/wiki/순천_드라마_촬영장",
+          "checked": "2026-11-14",
+          "evidence": "2017년 《택시운전사》"
+        }
+      ]
+    },
+    "seonamsa": {
+      "name": "선암사",
+      "facts": [
+        {
+          "text": "선암사는 2018년에 세계문화유산이 됐어요.",
+          "source": "한국어 위키백과: 선암사",
+          "url": "https://ko.wikipedia.org/wiki/선암사",
+          "checked": "2026-11-14",
+          "evidence": "2018년, '산사, 한국의 산지승원'이라는 명칭으로 유네스코 세계문화유산에 등재되었다"
+        },
+        {
+          "text": "절 입구에 무지개 모양 돌다리 승선교가 있어요.",
+          "source": "한국어 위키백과: 선암사",
+          "url": "https://ko.wikipedia.org/wiki/선암사",
+          "checked": "2026-11-14",
+          "evidence": "절 입구의 무지개다리 승선교(昇仙橋)"
+        },
+        {
+          "text": "승선교는 1713년에 6년 걸려 완성됐어요.",
+          "source": "한국어 위키백과: 선암사",
+          "url": "https://ko.wikipedia.org/wiki/선암사",
+          "checked": "2026-11-14",
+          "evidence": "숙종 39년(1713) 호암화상이 6년 만에 완공한 다리이다"
+        }
+      ]
+    },
+    "songgwangsa": {
+      "name": "송광사",
+      "facts": [
+        {
+          "text": "송광사에서는 나라의 큰스님 16명이 나왔어요.",
+          "source": "한국어 위키백과: 송광사",
+          "url": "https://ko.wikipedia.org/wiki/송광사",
+          "checked": "2026-11-14",
+          "evidence": "지눌, 혜심을 비롯한 16국사를 배출하였다"
+        },
+        {
+          "text": "외국 스님이 공부하는 국제선원이 있어요.",
+          "source": "한국어 위키백과: 송광사",
+          "url": "https://ko.wikipedia.org/wiki/송광사",
+          "checked": "2026-11-14",
+          "evidence": "외국 승려가 수도하는 국제선원이 있다."
+        },
+        {
+          "text": "나무 솔개를 날려 절터를 골랐다는 이야기가 있어요.",
+          "source": "한국어 위키백과: 송광사",
+          "url": "https://ko.wikipedia.org/wiki/송광사",
+          "checked": "2026-11-14",
+          "evidence": "모후산에서 나무로 깍은 솔개를 날렸더니 지금의 국사전 뒷등에 떨어져 앉더라는 것이다"
+        }
+      ]
+    },
+    "saseongam": {
+      "name": "사성암",
+      "facts": [
+        {
+          "text": "사성암은 544년에 지었다고 전하는 절이에요.",
+          "source": "한국어 위키백과: 구례 오산 사성암 일원",
+          "url": "https://ko.wikipedia.org/wiki/구례_오산_사성암_일원",
+          "checked": "2026-11-14",
+          "evidence": "백제 성왕 22년(544년)에 연기조사가 건립하여"
+        },
+        {
+          "text": "큰스님 4명이 공부한 곳이라 사성암이래요.",
+          "source": "한국어 위키백과: 구례 오산 사성암 일원",
+          "url": "https://ko.wikipedia.org/wiki/구례_오산_사성암_일원",
+          "checked": "2026-11-14",
+          "evidence": "4명의 고승인 의상·원효대사, 도선·진각국사가 수도하여 사성암이라 하였다고 전한다"
+        },
+        {
+          "text": "섬진강과 지리산이 한눈에 보여요.",
+          "source": "한국어 위키백과: 구례 오산 사성암 일원",
+          "url": "https://ko.wikipedia.org/wiki/구례_오산_사성암_일원",
+          "checked": "2026-11-14",
+          "evidence": "굽이치며 흐르는 섬진강과 구례읍 등 7개면과 지리산 연봉들을 한 곳에서 모두 볼 수 있는"
+        }
+      ]
+    },
+    "sorokdo": {
+      "name": "소록도",
+      "facts": [
+        {
+          "text": "섬 모양이 작은 사슴을 닮아 소록도예요.",
+          "source": "한국어 위키백과: 소록도",
+          "url": "https://ko.wikipedia.org/wiki/소록도",
+          "checked": "2026-11-14",
+          "evidence": "섬의 이름은 그 형상이 작은(小) 사슴(鹿)과 같다고 하여 붙여졌다."
+        },
+        {
+          "text": "섬과 육지를 잇는 소록대교는 1km 160m예요.",
+          "source": "한국어 위키백과: 소록도",
+          "url": "https://ko.wikipedia.org/wiki/소록도",
+          "checked": "2026-11-14",
+          "evidence": "1160m의 연륙교 소록대교"
+        },
+        {
+          "text": "섬에는 한센병 환자를 돌보는 국립 병원이 있어요.",
+          "source": "한국어 위키백과: 소록도",
+          "url": "https://ko.wikipedia.org/wiki/소록도",
+          "checked": "2026-11-14",
+          "evidence": "소록도는 전체가 국유지로 국립소록도병원으로 지정돼 있다."
+        }
+      ]
+    },
+    "taebaeksan": {
+      "name": "태백산맥문학관",
+      "facts": [
+        {
+          "text": "조정래 작가의 소설 《태백산맥》 문학관이에요.",
+          "source": "한국어 위키백과: 태백산맥문학관",
+          "url": "https://ko.wikipedia.org/wiki/태백산맥문학관",
+          "checked": "2026-11-14",
+          "evidence": "소설가 조정래의 대표소설인 '태백산맥'을 통해"
+        },
+        {
+          "text": "태백산맥문학관은 2008년에 문을 열었어요.",
+          "source": "한국어 위키백과: 태백산맥문학관",
+          "url": "https://ko.wikipedia.org/wiki/태백산맥문학관",
+          "checked": "2026-11-14",
+          "evidence": "2008. 11. 21. 개관"
+        },
+        {
+          "text": "나라가 나뉜 아픔과 벌교 역사를 보여줘요.",
+          "source": "한국어 위키백과: 태백산맥문학관",
+          "url": "https://ko.wikipedia.org/wiki/태백산맥문학관",
+          "checked": "2026-11-14",
+          "evidence": "우리 민족이 겪은 분단의 아픔과 벌교의 역사를 재조명한다."
+        }
+      ]
+    },
+    "muwisa": {
+      "name": "무위사",
+      "facts": [
+        {
+          "text": "무위사는 월출산에 있는 절이에요.",
+          "source": "한국어 위키백과: 무위사",
+          "url": "https://ko.wikipedia.org/wiki/무위사",
+          "checked": "2026-11-14",
+          "evidence": "강진군 성전면 월출산에 있는 사찰이다"
+        },
+        {
+          "text": "'무위'는 아무것도 하지 않는다는 뜻이에요.",
+          "source": "한국어 위키백과: 무위사",
+          "url": "https://ko.wikipedia.org/wiki/무위사",
+          "checked": "2026-11-14",
+          "evidence": "아무것도 하지 않는다는 뜻의 무위사라는 명칭을 사용했다"
+        },
+        {
+          "text": "가장 오래된 건물은 국보인 극락보전이에요.",
+          "source": "한국어 위키백과: 무위사",
+          "url": "https://ko.wikipedia.org/wiki/무위사",
+          "checked": "2026-11-14",
+          "evidence": "현재 무위사에서 가장 오래된 건물은 극락세계를 관장하는 아미타여래를 모신 극락보전(국보)이다."
+        }
+      ]
+    },
+    "celadon": {
+      "name": "고려청자박물관",
+      "facts": [
+        {
+          "text": "고려청자 약 3만 종을 모아 둔 박물관이에요.",
+          "source": "한국어 위키백과: 고려청자박물관",
+          "url": "https://ko.wikipedia.org/wiki/고려청자박물관",
+          "checked": "2026-11-14",
+          "evidence": "약 30,000종의 고려청자가 수집되어 있다"
+        },
+        {
+          "text": "1997년에 처음 문을 열었어요.",
+          "source": "한국어 위키백과: 고려청자박물관",
+          "url": "https://ko.wikipedia.org/wiki/고려청자박물관",
+          "checked": "2026-11-14",
+          "evidence": "1997년 9월 강진청자자료전시관 개관"
+        },
+        {
+          "text": "예전 이름은 강진청자박물관이에요.",
+          "source": "한국어 위키백과: 고려청자박물관",
+          "url": "https://ko.wikipedia.org/wiki/고려청자박물관",
+          "checked": "2026-11-14",
+          "evidence": "이전 명칭: 강진청자박물관"
+        }
+      ]
+    },
+    "uldolmok": {
+      "name": "울돌목",
+      "facts": [
+        {
+          "text": "물소리가 바다가 우는 것 같아서 울돌목이래요.",
+          "source": "한국어 위키백과: 명량해협",
+          "url": "https://ko.wikipedia.org/wiki/명량해협",
+          "checked": "2026-11-14",
+          "evidence": "바다가 우는 것 같다고 하여 울돌목이라고도 불린다"
+        },
+        {
+          "text": "가장 좁은 곳은 폭이 약 300m예요.",
+          "source": "한국어 위키백과: 명량해협",
+          "url": "https://ko.wikipedia.org/wiki/명량해협",
+          "checked": "2026-11-14",
+          "evidence": "폭이 가장 짧은 곳은 약 300m 정도가 된다"
+        },
+        {
+          "text": "이순신 장군이 배 13척으로 적 130여 척을 물리쳤어요.",
+          "source": "한국어 위키백과: 명량해협",
+          "url": "https://ko.wikipedia.org/wiki/명량해협",
+          "checked": "2026-11-14",
+          "evidence": "배 13척으로 10배 이상의 적함 130여 척 이상을 크게 격파하였다"
+        }
+      ]
+    },
+    "unrimsanbang": {
+      "name": "운림산방",
+      "facts": [
+        {
+          "text": "화가 허련이 나이 들어 살며 그림을 그린 곳이에요.",
+          "source": "한국어 위키백과: 진도 운림산방",
+          "url": "https://ko.wikipedia.org/wiki/진도_운림산방",
+          "checked": "2026-11-14",
+          "evidence": "소치 허련이 조성하여 말년에 거처하면서 창작과 저술 활동을 하던 곳으로서"
+        },
+        {
+          "text": "예쁜 꽃과 귀한 나무를 심어 꾸민 곳이에요.",
+          "source": "한국어 위키백과: 진도 운림산방",
+          "url": "https://ko.wikipedia.org/wiki/진도_운림산방",
+          "checked": "2026-11-14",
+          "evidence": "아름다운 꽃과 희귀한 나무를 심어 선경(仙境)으로 꾸민 곳이다"
+        },
+        {
+          "text": "2011년에 나라가 아끼는 경치가 됐어요.",
+          "source": "한국어 위키백과: 진도 운림산방",
+          "url": "https://ko.wikipedia.org/wiki/진도_운림산방",
+          "checked": "2026-11-14",
+          "evidence": "2011년 8월 8일 대한민국의 명승 제80호로 지정되었다."
+        }
+      ]
+    },
+    "cheongsando": {
+      "name": "청산도",
+      "facts": [
+        {
+          "text": "섬이 사계절 내내 푸르러서 청산도라고 해요.",
+          "source": "한국어 위키백과: 청산도",
+          "url": "https://ko.wikipedia.org/wiki/청산도",
+          "checked": "2026-11-14",
+          "evidence": "사시사철 섬이 푸르다고 해서 '청산도'라 부른다"
+        },
+        {
+          "text": "범바위 근처에서는 나침반이 잘 안 돼요.",
+          "source": "한국어 위키백과: 청산도",
+          "url": "https://ko.wikipedia.org/wiki/청산도",
+          "checked": "2026-11-14",
+          "evidence": "범바위 부근에서는 나침반이 작동하지 않아"
+        },
+        {
+          "text": "섬을 도는 슬로길은 모두 42km 195m예요.",
+          "source": "한국어 위키백과: 청산도",
+          "url": "https://ko.wikipedia.org/wiki/청산도",
+          "checked": "2026-11-14",
+          "evidence": "42.195km에 이르는 길이 열렸다"
+        }
+      ]
+    },
+    "bogildo": {
+      "name": "보길도 윤선도 원림",
+      "facts": [
+        {
+          "text": "윤선도가 13년 동안 머물며 꾸민 정원이에요.",
+          "source": "한국어 위키백과: 보길도 윤선도 원림",
+          "url": "https://ko.wikipedia.org/wiki/보길도_윤선도_원림",
+          "checked": "2026-11-14",
+          "evidence": "13년간 머물며 부용동 계곡의 지형을 이용하여 아름다운 정원공간을 조성한 곳으로"
+        },
+        {
+          "text": "윤선도는 이곳에서 〈어부사시사〉를 지었어요.",
+          "source": "한국어 위키백과: 보길도 윤선도 원림",
+          "url": "https://ko.wikipedia.org/wiki/보길도_윤선도_원림",
+          "checked": "2026-11-14",
+          "evidence": "〈어부사시사〉 등 주옥 같은 한시를 이곳에서 창작하였다"
+        },
+        {
+          "text": "네모난 연못 속 섬에 소나무를 심었어요.",
+          "source": "한국어 위키백과: 보길도 윤선도 원림",
+          "url": "https://ko.wikipedia.org/wiki/보길도_윤선도_원림",
+          "checked": "2026-11-14",
+          "evidence": "그 섬에 소나무 한 그루를 심어 놓았다"
+        }
+      ]
+    },
+    "taepyeong": {
+      "name": "태평염전",
+      "facts": [
+        {
+          "text": "피난민을 돕고 소금을 많이 만들려고 지었어요.",
+          "source": "한국어 위키백과: 신안 증도 태평염전",
+          "url": "https://ko.wikipedia.org/wiki/신안_증도_태평염전",
+          "checked": "2026-11-14",
+          "evidence": "한국전쟁 이후 피난민 구제와 국내 소금 생산 증대를 목적으로 건립하였다"
+        },
+        {
+          "text": "한 덩어리 염전으로는 우리나라에서 가장 커요.",
+          "source": "한국어 위키백과: 신안 증도 태평염전",
+          "url": "https://ko.wikipedia.org/wiki/신안_증도_태평염전",
+          "checked": "2026-11-14",
+          "evidence": "국내 최대의 단일 염전으로"
+        },
+        {
+          "text": "나무와 돌로 지은 소금 창고가 있어요.",
+          "source": "한국어 위키백과: 신안 증도 태평염전",
+          "url": "https://ko.wikipedia.org/wiki/신안_증도_태평염전",
+          "checked": "2026-11-14",
+          "evidence": "목조 소금창고, 석조 소금창고"
+        }
+      ]
+    },
+    "cheonsa": {
+      "name": "천사대교",
+      "facts": [
+        {
+          "text": "천사대교는 압해도와 암태도를 잇는 다리예요.",
+          "source": "한국어 위키백과: 천사대교",
+          "url": "https://ko.wikipedia.org/wiki/천사대교",
+          "checked": "2026-11-14",
+          "evidence": "압해읍의 압해도와 암태면의 암태도를 연결하는 연륙교이다"
+        },
+        {
+          "text": "다리 길이는 모두 10km 800m예요.",
+          "source": "한국어 위키백과: 천사대교",
+          "url": "https://ko.wikipedia.org/wiki/천사대교",
+          "checked": "2026-11-14",
+          "evidence": "총연장은 10.8km이며"
+        },
+        {
+          "text": "천사대교는 2019년에 개통했어요.",
+          "source": "한국어 위키백과: 천사대교",
+          "url": "https://ko.wikipedia.org/wiki/천사대교",
+          "checked": "2026-11-14",
+          "evidence": "2019년 4월 4일 개통과 동시에"
+        }
+      ]
+    },
+    "gjmuseum": {
+      "name": "국립광주박물관",
+      "facts": [
+        {
+          "text": "국립광주박물관은 1978년에 문을 열었어요.",
+          "source": "한국어 위키백과: 국립광주박물관",
+          "url": "https://ko.wikipedia.org/wiki/국립광주박물관",
+          "checked": "2026-11-14",
+          "evidence": "1978년 12월 6일 개관하였다"
+        },
+        {
+          "text": "신안 바다 밑에서 건진 유물을 보여줘요.",
+          "source": "한국어 위키백과: 국립광주박물관",
+          "url": "https://ko.wikipedia.org/wiki/국립광주박물관",
+          "checked": "2026-11-14",
+          "evidence": "1976년 수중 발굴이 시작된 신안 해저유물 매장해역의 유물을 비롯한"
+        },
+        {
+          "text": "본관은 한옥 모양을 콘크리트로 지었어요.",
+          "source": "한국어 위키백과: 국립광주박물관",
+          "url": "https://ko.wikipedia.org/wiki/국립광주박물관",
+          "checked": "2026-11-14",
+          "evidence": "건물의 외관은 전통 한옥의 형태를 철근콘크리트 구조로 표현하였다"
+        }
+      ]
+    },
+    "biennale": {
+      "name": "광주비엔날레 전시관",
+      "facts": [
+        {
+          "text": "광주 비엔날레는 1995년에 시작됐어요.",
+          "source": "한국어 위키백과: 광주 비엔날레",
+          "url": "https://ko.wikipedia.org/wiki/광주_비엔날레",
+          "checked": "2026-11-14",
+          "evidence": "1995년 출범하였다"
+        },
+        {
+          "text": "2년마다 열리는 세계 미술 잔치예요.",
+          "source": "한국어 위키백과: 광주 비엔날레",
+          "url": "https://ko.wikipedia.org/wiki/광주_비엔날레",
+          "checked": "2026-11-14",
+          "evidence": "격년 개최되는 국제 현대미술 전람회로"
+        },
+        {
+          "text": "처음에는 중외공원 전시관에서 주로 열렸어요.",
+          "source": "한국어 위키백과: 광주 비엔날레",
+          "url": "https://ko.wikipedia.org/wiki/광주_비엔날레",
+          "checked": "2026-11-14",
+          "evidence": "초기의 광주비엔날레는 주로 중외공원 내에 위치한 전용 비엔날레 전시관을 중심으로 개최되었다"
+        }
+      ]
+    },
+    "familyland": {
+      "name": "광주 패밀리랜드",
+      "facts": [
+        {
+          "text": "광주패밀리랜드는 1991년에 문을 열었어요.",
+          "source": "한국어 위키백과: 광주패밀리랜드",
+          "url": "https://ko.wikipedia.org/wiki/광주패밀리랜드",
+          "checked": "2026-11-14",
+          "evidence": "1991년 7월 6일에 개장하였다"
+        },
+        {
+          "text": "놀이기구, 썰매장, 스케이트장, 수영장이 있어요.",
+          "source": "한국어 위키백과: 광주패밀리랜드",
+          "url": "https://ko.wikipedia.org/wiki/광주패밀리랜드",
+          "checked": "2026-11-14",
+          "evidence": "놀이시설, 썰매장, 아이스링크, 수영장을 갖추고 있다"
+        },
+        {
+          "text": "1992년에 동물원과 식물원이 생겼어요.",
+          "source": "한국어 위키백과: 광주패밀리랜드",
+          "url": "https://ko.wikipedia.org/wiki/광주패밀리랜드",
+          "checked": "2026-11-14",
+          "evidence": "1992. 5. 5. 동.식물원 개원"
+        }
+      ]
+    },
+    "gjworldcup": {
+      "name": "광주월드컵경기장",
+      "facts": [
+        {
+          "text": "2002년 월드컵 8강전이 열린 경기장이에요.",
+          "source": "한국어 위키백과: 광주월드컵경기장",
+          "url": "https://ko.wikipedia.org/wiki/광주월드컵경기장",
+          "checked": "2026-11-14",
+          "evidence": "대한민국과 스페인의 2002년 FIFA 월드컵 8강전이 열렸던 경기장이며"
+        },
+        {
+          "text": "광주 FC가 홈 경기장으로 써요.",
+          "source": "한국어 위키백과: 광주월드컵경기장",
+          "url": "https://ko.wikipedia.org/wiki/광주월드컵경기장",
+          "checked": "2026-11-14",
+          "evidence": "광주 FC의 홈 구장으로 사용되고 있으며"
+        },
+        {
+          "text": "외국에서는 히딩크 경기장으로도 알려졌어요.",
+          "source": "한국어 위키백과: 광주월드컵경기장",
+          "url": "https://ko.wikipedia.org/wiki/광주월드컵경기장",
+          "checked": "2026-11-14",
+          "evidence": "거스 히딩크 경기장으로 알려지기도 했다"
+        }
+      ]
+    },
+    "may18cemetery": {
+      "name": "국립5·18민주묘지",
+      "facts": [
+        {
+          "text": "5·18 민주화 운동에 함께한 분들의 묘지예요.",
+          "source": "한국어 위키백과: 국립5·18민주묘지",
+          "url": "https://ko.wikipedia.org/wiki/국립5·18민주묘지",
+          "checked": "2026-11-14",
+          "evidence": "5·18 광주 민주화 운동에 참여한 이들을 위한 묘역이다"
+        },
+        {
+          "text": "묘지는 1997년에 완성됐어요.",
+          "source": "한국어 위키백과: 국립5·18민주묘지",
+          "url": "https://ko.wikipedia.org/wiki/국립5·18민주묘지",
+          "checked": "2026-11-14",
+          "evidence": "3년만인 1997년 5월 16일 완공하였다"
+        },
+        {
+          "text": "두 기둥으로 된 기념탑은 높이가 40m예요.",
+          "source": "한국어 위키백과: 국립5·18민주묘지",
+          "url": "https://ko.wikipedia.org/wiki/국립5·18민주묘지",
+          "checked": "2026-11-14",
+          "evidence": "높이는 40 미터 (130 ft)이다"
+        }
+      ]
+    },
+    "chungjangro": {
+      "name": "충장로",
+      "facts": [
+        {
+          "text": "충장로 이름은 의병장 김덕령에게서 따왔어요.",
+          "source": "한국어 위키백과: 충장로",
+          "url": "https://ko.wikipedia.org/wiki/충장로",
+          "checked": "2026-11-14",
+          "evidence": "임진왜란 당시 의병장이었던 김덕령의 시호인 충장(忠壯)에서 유래하였으며"
+        },
+        {
+          "text": "광주에서 가장 북적이는 거리예요.",
+          "source": "한국어 위키백과: 충장로",
+          "url": "https://ko.wikipedia.org/wiki/충장로",
+          "checked": "2026-11-14",
+          "evidence": "광주 지역에서 가장 번화한 곳이다"
+        },
+        {
+          "text": "895m 거리에는 차가 다닐 수 없어요.",
+          "source": "한국어 위키백과: 충장로",
+          "url": "https://ko.wikipedia.org/wiki/충장로",
+          "checked": "2026-11-14",
+          "evidence": "895m 구간이 차량통행금지구역으로 지정되어 있어"
+        }
+      ]
+    },
+    "gwangjuho": {
+      "name": "광주호 호수생태원",
+      "facts": [
+        {
+          "text": "광주호는 1976년에 만든 인공 호수예요.",
+          "source": "한국어 위키백과: 광주호",
+          "url": "https://ko.wikipedia.org/wiki/광주호",
+          "checked": "2026-11-14",
+          "evidence": "1976년 준공된 인공호수로"
+        },
+        {
+          "text": "증암천을 댐으로 막아 만들었어요.",
+          "source": "한국어 위키백과: 광주호",
+          "url": "https://ko.wikipedia.org/wiki/광주호",
+          "checked": "2026-11-14",
+          "evidence": "증암천을 댐으로 막아"
+        },
+        {
+          "text": "댐은 높이 25m, 길이 505m예요.",
+          "source": "한국어 위키백과: 광주호",
+          "url": "https://ko.wikipedia.org/wiki/광주호",
+          "checked": "2026-11-14",
+          "evidence": "댐은 높이 25m, 길이 505m이며"
+        }
+      ]
+    },
+    "jeungsimsa": {
+      "name": "증심사",
+      "facts": [
+        {
+          "text": "증심사는 무등산 서쪽 기슭에 있어요.",
+          "source": "한국어 위키백과: 증심사",
+          "url": "https://ko.wikipedia.org/wiki/증심사",
+          "checked": "2026-11-14",
+          "evidence": "무등산 서쪽 기슭에 자리잡고 있다"
+        },
+        {
+          "text": "860년에 처음 세운 절이에요.",
+          "source": "한국어 위키백과: 증심사",
+          "url": "https://ko.wikipedia.org/wiki/증심사",
+          "checked": "2026-11-14",
+          "evidence": "신라 헌안왕 4년(860년)에 철감선사 도윤이 처음 세운 절로"
+        },
+        {
+          "text": "가까운 지하철역은 학동·증심사입구역이에요.",
+          "source": "한국어 위키백과: 증심사",
+          "url": "https://ko.wikipedia.org/wiki/증심사",
+          "checked": "2026-11-14",
+          "evidence": "광주 지하철 1호선 학동·증심사입구역"
+        }
+      ]
+    },
+    "gjfolk": {
+      "name": "광주역사민속박물관",
+      "facts": [
+        {
+          "text": "사라져 가는 옛 살림 물건을 모은 박물관이에요.",
+          "source": "한국어 위키백과: 광주역사민속박물관",
+          "url": "https://ko.wikipedia.org/wiki/광주역사민속박물관",
+          "checked": "2026-11-14",
+          "evidence": "생활문화의 변화로 사라져가는 민속자료의 수집"
+        },
+        {
+          "text": "밖에는 물레방앗간과 연자방앗간이 있어요.",
+          "source": "한국어 위키백과: 광주역사민속박물관",
+          "url": "https://ko.wikipedia.org/wiki/광주역사민속박물관",
+          "checked": "2026-11-14",
+          "evidence": "물레방앗간, 연자방앗간 등 민속 시설물이 조성되어 있으며"
+        },
+        {
+          "text": "정지 장군이 입던 갑옷이 전시돼 있어요.",
+          "source": "한국어 위키백과: 광주역사민속박물관",
+          "url": "https://ko.wikipedia.org/wiki/광주역사민속박물관",
+          "checked": "2026-11-14",
+          "evidence": "《정지장군 갑옷》(보물 제336호)"
+        }
+      ]
     }
   }
 }

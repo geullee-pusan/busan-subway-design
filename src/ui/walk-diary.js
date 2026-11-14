@@ -31,6 +31,8 @@ export const DIARY_STYLE = {
   버스: { color: '#2E8B3E', width: 5, dash: '12 6', mark: '🚌' },
   기차: { color: '#3B3B3B', width: 7, dash: '', mark: '🚆', rail: true },
   택시: { color: '#E0A800', width: 5, dash: '16 6', mark: '🚕' },
+  고속버스: { color: '#1C5FA8', width: 6, dash: '18 6', mark: '🚌' },
+  시외버스: { color: '#2E8B3E', width: 6, dash: '18 6', mark: '🚌' },
 };
 
 /**

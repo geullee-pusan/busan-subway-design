@@ -389,7 +389,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     speedBar.append(speedFill);
     const speedText = element('span', 'tr-fact-value');
     speedRow.append(element('span', 'tr-fact-label', '지금 빠르기'), speedBar, speedText);
-    panel.append(clock, speedRow, element('p', 'tr-status', `${stationLabel(B.name)}까지 ${distanceText(Math.round(km * 1000))}, ${minutes}분 걸려요.`));
+    panel.append(clock, speedRow, element('p', 'tr-status', `${stationLabel(B.name)}까지 ${distanceText(Math.round(km * 1000))}, ${durationText(minutes * 60)} 걸려요.`));
     if (soundOn) sound.startRumble(soundKindOf(kind));
     views.setDisplay([`다음 역: ${B.name}`, `${hhmm(stopArr(b))} 도착`]);
     const start = performance.now();

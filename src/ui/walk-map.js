@@ -424,6 +424,25 @@ export function createWalkMap(canvas, world) {
       ctx.fillText('기차', x, y + 4);
       label(`${s.name}역`, x, y + 26);
     }
+    // 고속·시외버스 터미널: "터미널" 글자 표지
+    for (const t of world.terminals ?? []) {
+      if (t.x < left - 0.2 || t.x > right + 0.2 || t.y < top - 0.2 || t.y > bottom + 0.2) continue;
+      const x = sx(t.x);
+      const y = sy(t.y);
+      if (scale < 150) {
+        ctx.fillStyle = '#1C5FA8';
+        ctx.fillRect(x - 4, y - 4, 8, 8);
+        if (scale >= 25) label(t.name, x, y - 8);
+        continue;
+      }
+      ctx.fillStyle = '#1C5FA8';
+      ctx.fillRect(x - 28, y - 12, 56, 22);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = font(12);
+      ctx.textAlign = 'center';
+      ctx.fillText('터미널', x, y + 4);
+      label(t.name, x, y + 26);
+    }
     for (const s of world.stations) {
       if (s.x < left - 0.2 || s.x > right + 0.2 || s.y < top - 0.2 || s.y > bottom + 0.2) continue;
       const x = sx(s.x);

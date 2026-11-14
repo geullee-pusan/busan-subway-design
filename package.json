@@ -28,7 +28,9 @@
     "tago-bus": "node scripts/fetch-tago-bus.mjs",
     "dong-shapes": "node scripts/build-dong-shapes.mjs",
     "water-shapes": "node scripts/build-water-shapes.mjs",
-    "landmarks": "node scripts/build-landmarks.mjs"
+    "landmarks": "node scripts/build-landmarks.mjs",
+    "intercity": "node scripts/fetch-intercity.mjs",
+    "intercity-build": "node scripts/build-intercity.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

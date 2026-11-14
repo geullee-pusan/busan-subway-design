@@ -3043,3 +3043,42 @@ body {
   text-align: center;
   pointer-events: none;
 }
+
+/* 고속·시외버스 타기(src/ui/coach-journey.js) */
+.coach-scene {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  border-radius: 12px;
+}
+.coach-move {
+  animation: coach-road 1.2s linear infinite;
+}
+@keyframes coach-road {
+  from { transform: translateX(0); }
+  to { transform: translateX(-150px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coach-move { animation: none; }
+}
+.coach-board-title {
+  margin: 0 0 4px;
+  font-weight: 800;
+}
+.coach-board-row {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  font-weight: 700;
+}
+.walk-kind-터미널,
+.walk-legend-terminal {
+  background: #1c5fa8;
+  color: #ffffff;
+}
+.walk-legend-terminal {
+  padding: 0 4px;
+  border-radius: 3px;
+  font-weight: 700;
+}

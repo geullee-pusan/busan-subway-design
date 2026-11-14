@@ -1,0 +1,948 @@
+{
+  "_설명": "랜드마크마다 장면에 얹을 특징 그림(src/ui/landmark-props.js의 PROPS)과 분위기(sunset, night, dawn, autumn, spring, winter). 여기 없는 곳은 이름과 소개 글의 낱말로 고른다. 그림은 그곳의 특징을 단순하게 새로 그린 것이다.",
+  "looks": {
+    "haeundae": {
+      "props": [
+        "skyline",
+        "umbrellas"
+      ]
+    },
+    "gwangalli": {
+      "props": [
+        "suspensionBridge",
+        "umbrellas"
+      ],
+      "mood": "night"
+    },
+    "gwangandaegyo": {
+      "props": [
+        "suspensionBridge"
+      ],
+      "mood": "night"
+    },
+    "jagalchi": {
+      "props": [
+        "boatsHarbor"
+      ]
+    },
+    "busantower": {
+      "props": [
+        "pine"
+      ]
+    },
+    "taejongdae": {
+      "props": [
+        "lighthouse",
+        "pine"
+      ]
+    },
+    "gamcheon": {
+      "props": [
+        "mural"
+      ]
+    },
+    "beomeosa": {
+      "props": [
+        "pagoda",
+        "bell"
+      ]
+    },
+    "yonggungsa": {
+      "props": [
+        "pagoda"
+      ],
+      "mood": "dawn"
+    },
+    "dadaepo": {
+      "props": [
+        "umbrellas"
+      ],
+      "mood": "sunset"
+    },
+    "yeongdodaegyo": {
+      "props": [
+        "ship"
+      ]
+    },
+    "oryukdo": {
+      "props": [
+        "lighthouse",
+        "islands"
+      ]
+    },
+    "maritimemuseum": {
+      "props": [
+        "ship"
+      ]
+    },
+    "eulsukdo": {
+      "props": [
+        "reeds",
+        "cranes"
+      ],
+      "mood": "sunset"
+    },
+    "taehwagang": {
+      "props": [
+        "bamboo"
+      ]
+    },
+    "daewangam": {
+      "props": [
+        "pine",
+        "lighthouse"
+      ]
+    },
+    "ulsandaegyo": {
+      "props": [
+        "suspensionBridge"
+      ]
+    },
+    "bulguksa": {
+      "props": [
+        "pagoda",
+        "gate"
+      ]
+    },
+    "cheomseongdae": {
+      "mood": "night"
+    },
+    "junam": {
+      "props": [
+        "cranes",
+        "reeds"
+      ]
+    },
+    "yeojwacheon": {
+      "mood": "spring"
+    },
+    "tongdosa": {
+      "props": [
+        "pagoda",
+        "bell"
+      ]
+    },
+    "songdo": {
+      "props": [
+        "cablecar",
+        "umbrellas"
+      ]
+    },
+    "songjeong": {
+      "props": [
+        "umbrellas"
+      ]
+    },
+    "igidae": {
+      "props": [
+        "pine"
+      ]
+    },
+    "nurimaru": {
+      "props": [
+        "suspensionBridge",
+        "pine"
+      ]
+    },
+    "dongnaeeupseong": {
+      "props": [
+        "castleWall"
+      ]
+    },
+    "amisan": {
+      "props": [
+        "islands"
+      ],
+      "mood": "sunset"
+    },
+    "molundae": {
+      "props": [
+        "pine"
+      ],
+      "mood": "sunset"
+    },
+    "huinyeoul": {
+      "props": [
+        "mural",
+        "ship"
+      ]
+    },
+    "stairs168": {
+      "props": [
+        "mural"
+      ]
+    },
+    "lotteworld": {
+      "props": [
+        "ferrisWheel"
+      ]
+    },
+    "cheongsapo": {
+      "props": [
+        "lighthouse",
+        "boatsHarbor"
+      ]
+    },
+    "busanharborbridge": {
+      "mood": "night"
+    },
+    "hwangnyeongsan": {
+      "props": [
+        "skyline"
+      ],
+      "mood": "night"
+    },
+    "kimkwangseok": {
+      "props": [
+        "mural"
+      ]
+    },
+    "donghwasa": {
+      "props": [
+        "buddha",
+        "pagoda"
+      ]
+    },
+    "seokguram": {
+      "props": [
+        "buddha"
+      ]
+    },
+    "gyeongjuworld": {
+      "props": [
+        "ferrisWheel"
+      ]
+    },
+    "donggung": {
+      "mood": "night"
+    },
+    "bunhwangsa": {
+      "props": [
+        "pagoda"
+      ]
+    },
+    "upo": {
+      "props": [
+        "cranes"
+      ]
+    },
+    "jangsaengpo": {
+      "props": [
+        "ship"
+      ]
+    },
+    "ganjeolgot": {
+      "props": [
+        "lighthouse"
+      ],
+      "mood": "dawn"
+    },
+    "bohyeonsan": {
+      "props": [
+        "telescope"
+      ],
+      "mood": "night"
+    },
+    "jinjuseong": {
+      "props": [
+        "castleWall",
+        "gate"
+      ]
+    },
+    "dongpirang": {
+      "props": [
+        "mural"
+      ]
+    },
+    "hansando": {
+      "props": [
+        "turtleShip",
+        "gate"
+      ]
+    },
+    "windhill": {
+      "props": [
+        "windmill"
+      ]
+    },
+    "oedo": {
+      "props": [
+        "ship",
+        "camellia"
+      ]
+    },
+    "haeinsa": {
+      "props": [
+        "scripture",
+        "pagoda"
+      ]
+    },
+    "hwaeomsa": {
+      "props": [
+        "stoneLantern",
+        "pagoda"
+      ]
+    },
+    "suncheonbay": {
+      "props": [
+        "reeds",
+        "cranes"
+      ],
+      "mood": "sunset"
+    },
+    "boseongtea": {
+      "props": [
+        "teaRows"
+      ]
+    },
+    "juknokwon": {
+      "props": [
+        "bamboo"
+      ]
+    },
+    "metasequoia": {
+      "props": [
+        "treeAvenue"
+      ]
+    },
+    "naro": {
+      "props": [
+        "rocket"
+      ]
+    },
+    "mudeungsan": {
+      "props": [
+        "rockPillars"
+      ],
+      "mood": "autumn"
+    },
+    "odongdo": {
+      "props": [
+        "camellia",
+        "lighthouse"
+      ]
+    },
+    "hyangiram": {
+      "mood": "dawn"
+    },
+    "cheonghaejin": {
+      "props": [
+        "ship"
+      ]
+    },
+    "nagan": {
+      "props": [
+        "castleWall",
+        "hanokRoofs"
+      ]
+    },
+    "dasan": {
+      "props": [
+        "pine"
+      ]
+    },
+    "maehwa": {
+      "props": [
+        "plum"
+      ],
+      "mood": "spring"
+    },
+    "hongdo": {
+      "props": [
+        "islands",
+        "ship"
+      ]
+    },
+    "gageodo": {
+      "props": [
+        "ship"
+      ]
+    },
+    "yudalsan": {
+      "props": [
+        "islands"
+      ]
+    },
+    "ttangkkeut": {
+      "props": [
+        "islands"
+      ]
+    },
+    "may18": {
+      "props": [
+        "monument"
+      ]
+    },
+    "sacheoncable": {
+      "props": [
+        "cablecar",
+        "islands"
+      ]
+    },
+    "sangjokam": {
+      "props": [
+        "dinosaur"
+      ]
+    },
+    "goseongdino": {
+      "props": [
+        "dinosaur"
+      ]
+    },
+    "donguibogam": {
+      "props": [
+        "hanokRoofs"
+      ]
+    },
+    "suseungdae": {
+      "props": [
+        "pine"
+      ]
+    },
+    "tongyeongcable": {
+      "props": [
+        "cablecar",
+        "islands"
+      ]
+    },
+    "somaemuldo": {
+      "props": [
+        "lighthouse",
+        "islands"
+      ]
+    },
+    "daraengi": {
+      "props": [
+        "terraces"
+      ]
+    },
+    "choechampan": {
+      "props": [
+        "hanokRoofs"
+      ]
+    },
+    "namhaegeumsan": {
+      "props": [
+        "islands",
+        "pine"
+      ]
+    },
+    "najumok": {
+      "props": [
+        "gate"
+      ]
+    },
+    "wolchulsan": {
+      "props": [
+        "rockPillars"
+      ]
+    },
+    "bulgapsa": {
+      "mood": "autumn"
+    },
+    "baeksu": {
+      "props": [
+        "islands"
+      ],
+      "mood": "sunset"
+    },
+    "baegyangsa": {
+      "mood": "autumn"
+    },
+    "chungnyeongsan": {
+      "props": [
+        "treeAvenue"
+      ]
+    },
+    "hwasundolmen": {
+      "props": [
+        "dolmen"
+      ]
+    },
+    "unjusa": {
+      "props": [
+        "pagoda",
+        "buddha"
+      ]
+    },
+    "gokseongtrain": {
+      "props": [
+        "steamTrain"
+      ]
+    },
+    "hoesan": {
+      "props": [
+        "lotus"
+      ]
+    },
+    "cheongwansan": {
+      "props": [
+        "rockPillars"
+      ],
+      "mood": "autumn"
+    },
+    "yisunsinsq": {
+      "props": [
+        "statue",
+        "turtleShip"
+      ]
+    },
+    "yeosucable": {
+      "props": [
+        "cablecar"
+      ],
+      "mood": "night"
+    },
+    "jinnamgwan": {
+      "props": [
+        "gate"
+      ]
+    },
+    "mokpocable": {
+      "props": [
+        "cablecar",
+        "islands"
+      ]
+    },
+    "dramaset": {
+      "props": [
+        "hanokRoofs"
+      ]
+    },
+    "seonamsa": {
+      "props": [
+        "pagoda"
+      ]
+    },
+    "songgwangsa": {
+      "props": [
+        "bell"
+      ]
+    },
+    "sorokdo": {
+      "props": [
+        "pine"
+      ]
+    },
+    "uldolmok": {
+      "props": [
+        "cableBridge"
+      ]
+    },
+    "unrimsanbang": {
+      "props": [
+        "lotus"
+      ]
+    },
+    "cheongsando": {
+      "props": [
+        "terraces"
+      ]
+    },
+    "bogildo": {
+      "props": [
+        "pine"
+      ]
+    },
+    "taepyeong": {
+      "props": [
+        "saltPans"
+      ]
+    },
+    "cheonsa": {
+      "props": [
+        "cableBridge"
+      ]
+    },
+    "penguin": {
+      "props": [
+        "penguin"
+      ]
+    },
+    "familyland": {
+      "props": [
+        "ferrisWheel"
+      ]
+    },
+    "may18cemetery": {
+      "props": [
+        "monument",
+        "graves"
+      ]
+    },
+    "jeungsimsa": {
+      "props": [
+        "pagoda"
+      ]
+    },
+    "gukje": {
+      "props": [
+        "lanterns"
+      ]
+    },
+    "citizenspark": {
+      "props": [
+        "flowerBeds",
+        "fountain"
+      ]
+    },
+    "seomun": {
+      "props": [
+        "lanterns"
+      ]
+    },
+    "suseongmot": {
+      "props": [
+        "swanBoats"
+      ],
+      "mood": "night"
+    },
+    "tower83": {
+      "props": [
+        "amusement"
+      ]
+    },
+    "suro": {
+      "props": [
+        "tumuli"
+      ]
+    },
+    "yeongnamnu": {
+      "props": [
+        "willowPond"
+      ]
+    },
+    "busanmuseum": {
+      "props": [
+        "vase"
+      ]
+    },
+    "bokcheon": {
+      "props": [
+        "crown",
+        "tumuli"
+      ]
+    },
+    "sciencemuseum": {
+      "props": [
+        "planet",
+        "rocket"
+      ]
+    },
+    "childrenpark": {
+      "props": [
+        "flowerBeds",
+        "oldTrees"
+      ]
+    },
+    "dalseongpark": {
+      "props": [
+        "oldTrees"
+      ]
+    },
+    "daegumuseum": {
+      "props": [
+        "vase"
+      ]
+    },
+    "gamyeongpark": {
+      "props": [
+        "gate"
+      ]
+    },
+    "songhaepark": {
+      "props": [
+        "willowPond"
+      ]
+    },
+    "apsan": {
+      "props": [
+        "cablecar",
+        "skyline"
+      ]
+    },
+    "ulsangrandpark": {
+      "props": [
+        "flowerBeds",
+        "fountain"
+      ]
+    },
+    "bangudae": {
+      "mood": "autumn"
+    },
+    "daereungwon": {
+      "props": [
+        "tumuli"
+      ]
+    },
+    "yangdong": {
+      "props": [
+        "hanokRoofs",
+        "oldTrees"
+      ]
+    },
+    "jinhaeru": {
+      "props": [
+        "islands"
+      ],
+      "mood": "sunset"
+    },
+    "gayathemepark": {
+      "props": [
+        "tumuli",
+        "amusement"
+      ]
+    },
+    "beopgi": {
+      "props": [
+        "treeAvenue"
+      ]
+    },
+    "wiyangji": {
+      "props": [
+        "willowPond"
+      ],
+      "mood": "spring"
+    },
+    "malisan": {
+      "props": [
+        "tumuli"
+      ]
+    },
+    "daegayamuseum": {
+      "props": [
+        "crown"
+      ]
+    },
+    "jisandong": {
+      "props": [
+        "tumuli"
+      ]
+    },
+    "cinemacenter": {
+      "props": [
+        "bigRoof"
+      ],
+      "mood": "night"
+    },
+    "busanartmuseum": {
+      "props": [
+        "vase"
+      ]
+    },
+    "bomunlake": {
+      "props": [
+        "swanBoats"
+      ]
+    },
+    "gyochon": {
+      "props": [
+        "hanokRoofs"
+      ]
+    },
+    "gangdong": {
+      "props": [
+        "pebbles"
+      ]
+    },
+    "onggi": {
+      "props": [
+        "onggi"
+      ]
+    },
+    "yongji": {
+      "props": [
+        "fountain"
+      ],
+      "mood": "night"
+    },
+    "bangokji": {
+      "props": [
+        "willowPond"
+      ],
+      "mood": "spring"
+    },
+    "seongbak": {
+      "props": [
+        "oldTrees"
+      ]
+    },
+    "daeguscience": {
+      "props": [
+        "planet"
+      ]
+    },
+    "chilseong": {
+      "props": [
+        "lanterns"
+      ]
+    },
+    "palgongsan": {
+      "props": [
+        "buddha",
+        "mountainPeaks"
+      ]
+    },
+    "daegustadium": {
+      "mood": "night"
+    },
+    "namhaegerman": {
+      "props": [
+        "germanHouses"
+      ]
+    },
+    "boriam": {
+      "props": [
+        "islands"
+      ],
+      "mood": "dawn"
+    },
+    "ssanggyesa": {
+      "props": [
+        "pagoda"
+      ],
+      "mood": "spring"
+    },
+    "sangnim": {
+      "props": [
+        "oldTrees"
+      ],
+      "mood": "autumn"
+    },
+    "suncheongarden": {
+      "props": [
+        "flowerBeds"
+      ]
+    },
+    "soswaewon": {
+      "props": [
+        "bamboo"
+      ]
+    },
+    "jindosea": {
+      "props": [
+        "seaPath"
+      ]
+    },
+    "daeheungsa": {
+      "props": [
+        "pagoda"
+      ],
+      "mood": "autumn"
+    },
+    "nogodan": {
+      "props": [
+        "cloudSea"
+      ]
+    },
+    "acc": {
+      "props": [
+        "bigRoof"
+      ],
+      "mood": "night"
+    },
+    "yangnim": {
+      "props": [
+        "oldTrees"
+      ]
+    },
+    "gjmuseum": {
+      "props": [
+        "vase"
+      ]
+    },
+    "biennale": {
+      "props": [
+        "mural"
+      ]
+    },
+    "gjworldcup": {
+      "mood": "night"
+    },
+    "chungjangro": {
+      "props": [
+        "lanterns"
+      ]
+    },
+    "gwangjuho": {
+      "props": [
+        "willowPond"
+      ]
+    },
+    "gjfolk": {
+      "props": [
+        "onggi"
+      ]
+    },
+    "celadon": {
+      "props": [
+        "vase"
+      ]
+    },
+    "muwisa": {
+      "props": [
+        "pagoda"
+      ]
+    },
+    "taebaeksan": {
+      "props": [
+        "reeds"
+      ]
+    },
+    "saseongam": {
+      "props": [
+        "pine"
+      ],
+      "mood": "dawn"
+    },
+    "gatbawi": {
+      "props": [
+        "ship"
+      ]
+    },
+    "mokpomodern": {
+      "props": [
+        "gate"
+      ]
+    },
+    "jeongnamjin": {
+      "props": [
+        "islands"
+      ],
+      "mood": "dawn"
+    },
+    "wangin": {
+      "props": [
+        "cherry"
+      ],
+      "mood": "spring"
+    },
+    "hampyeongexpo": {
+      "props": [
+        "flowerBeds"
+      ]
+    },
+    "hapcheonfilm": {
+      "props": [
+        "gate"
+      ]
+    },
+    "gnarboretum": {
+      "props": [
+        "oldTrees",
+        "flowerBeds"
+      ]
+    },
+    "geojepow": {
+      "props": [
+        "monument"
+      ]
+    },
+    "hwagae": {
+      "props": [
+        "lanterns"
+      ],
+      "mood": "spring"
+    }
+  }
+}

@@ -1,23 +1,24 @@
 // 열차 시각표를 게임 자료로 만든다(data/build/trains.json). npm run rail 다음에 돌린다(npm run rail이 함께 부른다).
 //
 // 원본(npm run trains로 받아 둔 것)
-//  - data/raw/korail/run-info-20261014.json: 코레일 열차운행정보. 2026-10-14(수) 하루 동안 지도 안 기차역마다 지나간 열차.
-//  - data/raw/korail/tago-trains-20261021.json: TAGO 열차정보. 2026-10-21(수) 열차의 종류와 운임. 열차번호로 잇는다.
-//  - data/raw/korail/run-plan-20261014.json(있으면): 운행계획. 열차마다 처음 출발역과 마지막 도착역(지도 밖이어도).
-//  - data/raw/korail/tago-fares-20261020.json(있으면): 지도 안 역 쌍마다 열차별 어른 운임.
+//  - data/raw/korail/run-info-<KORAIL_DATE>.json: 코레일 열차운행정보. 그날(scripts/lib/train-dates.mjs) 하루 동안 지도 안 기차역마다 지나간 열차.
+//  - data/raw/korail/tago-trains-<TAGO_DATE>.json: TAGO 열차정보. 열차의 종류와 운임. 열차번호로 잇는다.
+//  - data/raw/korail/run-plan-<KORAIL_DATE>.json(있으면): 운행계획. 열차마다 처음 출발역과 마지막 도착역(지도 밖이어도).
+//  - data/raw/korail/tago-fares-<TAGO_DATE>.json(있으면): 지도 안 역 쌍마다 열차별 어른 운임.
 //  - data/facts.json의 trainKinds: 열차 종류별 사실(출처 있음). 화면에서 쓰도록 함께 담는다.
 // 지도 안에서 두 역 넘게 서는 열차만 넣는다(통과하는 역은 뺀다). 광역전철(동해선 광역, 대경선)은 이 자료에 없다.
+import { KORAIL_DATE, TAGO_DATE } from './lib/train-dates.mjs';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const runInfo = JSON.parse(readFileSync(resolve(ROOT, 'data/raw/korail/run-info-20261014.json'), 'utf8'));
-const tago = JSON.parse(readFileSync(resolve(ROOT, 'data/raw/korail/tago-trains-20261021.json'), 'utf8'));
+const runInfo = JSON.parse(readFileSync(resolve(ROOT, `data/raw/korail/run-info-${KORAIL_DATE}.json`), 'utf8'));
+const tago = JSON.parse(readFileSync(resolve(ROOT, `data/raw/korail/tago-trains-${TAGO_DATE}.json`), 'utf8'));
 const rail = JSON.parse(readFileSync(resolve(ROOT, 'data/build/rail.json'), 'utf8'));
 const optional = (file) => (existsSync(resolve(ROOT, file)) ? JSON.parse(readFileSync(resolve(ROOT, file), 'utf8')) : null);
-const runPlan = optional('data/raw/korail/run-plan-20261014.json');
-const tagoFares = optional('data/raw/korail/tago-fares-20261020.json');
+const runPlan = optional(`data/raw/korail/run-plan-${KORAIL_DATE}.json`);
+const tagoFares = optional(`data/raw/korail/tago-fares-${TAGO_DATE}.json`);
 const facts = JSON.parse(readFileSync(resolve(ROOT, 'data/facts.json'), 'utf8'));
 const planByNo = new Map((runPlan?.plans ?? []).map((p) => [Number(p.trn_no), p]));
 const key = (name) => String(name ?? '').replace(/\s+/g, '').replace(/[()]/g, '').replace(/역$/, '');

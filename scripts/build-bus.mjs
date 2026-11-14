@@ -406,10 +406,18 @@ for (const r of rawCsv('15156436.csv')) {
   const point = gridPoint(Number(r['경도']), Number(r['위도']));
   if (point) yangsanPos.set(r['정류장아이디'], { ...point, name: r['정류장명'].trim() });
 }
+/**
+ * 양산 원본의 노선명 가운데 "01월 17일"처럼 날짜로 적힌 것은 "1-17"로 되돌린다.
+ * 원본을 만들 때 표 프로그램이 "1-17"을 날짜로 바꾼 것으로 보인다(우리가 짐작한 것, data/SOURCES.md). TODO(확인 필요)
+ */
+function yangsanRouteName(name) {
+  const m = /^(\d{1,2})월\s*(\d{1,2})일(.*)$/.exec(String(name).trim());
+  return m ? `${Number(m[1])}-${Number(m[2])}${m[3]}` : String(name).trim();
+}
 const yangsanRoutes = new Map(); // 노선아이디 → {no, rows}
 for (const r of rawCsv('15160339.csv')) {
   if (r['적용시작일'] > YANGSAN_DATE || r['적용종료일'] < YANGSAN_DATE) continue;
-  if (!yangsanRoutes.has(r['노선아이디'])) yangsanRoutes.set(r['노선아이디'], { no: r['노선명'].trim(), rows: [] });
+  if (!yangsanRoutes.has(r['노선아이디'])) yangsanRoutes.set(r['노선아이디'], { no: yangsanRouteName(r['노선명']), rows: [] });
   yangsanRoutes.get(r['노선아이디']).rows.push({ order: Number(r['순번']), id: r['정류장아이디'] });
 }
 const yangsanStats = { routes: 0, rows: 0, placed: 0, skipped: [] };

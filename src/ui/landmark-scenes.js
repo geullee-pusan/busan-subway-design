@@ -5,6 +5,7 @@
 // 사진을 보고 건물을 따라 그린 곳은 landmark-scenes-real.js에 있고, 랜드마크의 scene으로 고른다.
 
 import { REAL_SCENES } from './landmark-scenes-real.js';
+import { PROPS, drawMood, drawSign, looksFor } from './landmark-props.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -362,13 +363,20 @@ const SCENES = {
 /**
  * 장면 그림 하나.
  * @param {string} kind
- * @param {{reduceMotion?: boolean, label?: string}} p
+ * @param {{reduceMotion?: boolean, label?: string, lm?: {id: string, name: string, facts?: object[]}}} p
+ *   lm이 있으면 그곳만의 특징 그림, 분위기, 이름 안내판을 얹는다(사진을 보고 그린 곳은 그 그림 그대로 둔다).
  * @returns {SVGSVGElement}
  */
-export function landmarkScene(kind, { reduceMotion = false, label = '' } = {}) {
+export function landmarkScene(kind, { reduceMotion = false, label = '', lm = null } = {}) {
   const svg = el('svg', { viewBox: '0 0 600 320', class: `lm-scene${reduceMotion ? '' : ' lm-moving'}`, role: 'img', 'aria-label': label });
   const g = el('g');
   (REAL_SCENES[kind] ?? SCENES[kind] ?? SCENES.park)(g);
+  if (lm && !REAL_SCENES[kind]) {
+    const { props, mood } = looksFor(lm);
+    for (const name of props) PROPS[name].draw(g);
+    drawMood(g, mood);
+    drawSign(g, lm.name);
+  }
   svg.append(g);
   return svg;
 }

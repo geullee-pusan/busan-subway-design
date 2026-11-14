@@ -45,14 +45,17 @@ export function countText(value, mode = numberMode) {
   return mode === '진짜 숫자' ? exactCount(value) : roundedCount(value);
 }
 
-/** 초 → "2분 20초". 1분이 안 되면 "40초", 딱 떨어지면 "3분". */
+/** 초 → "2분 20초". 1분이 안 되면 "40초", 딱 떨어지면 "3분". 60분이 넘으면 "3시간 10분"처럼 시간을 앞에 쓴다. */
 export function durationText(seconds) {
   const s = Math.round(seconds);
-  const min = Math.floor(s / 60);
+  const hour = Math.floor(s / 3600);
+  const min = Math.floor((s % 3600) / 60);
   const rest = s % 60;
-  if (min === 0) return `${rest}초`;
-  if (rest === 0) return `${min}분`;
-  return `${min}분 ${rest}초`;
+  const parts = [];
+  if (hour) parts.push(`${hour}시간`);
+  if (min) parts.push(`${min}분`);
+  if (rest || !parts.length) parts.push(`${rest}초`);
+  return parts.join(' ');
 }
 
 /** m → "1km 600m". 1km가 안 되면 "600m", 딱 떨어지면 "2km". */
@@ -185,7 +188,7 @@ export function ruleValueText(rule, value = rule.value, mode = numberMode) {
     case 'km/h':
       return `한 시간에 ${n}km`;
     case '분':
-      return `${n}분`;
+      return durationText(value * 60);
     case '초':
       return durationText(value);
     case '비율':

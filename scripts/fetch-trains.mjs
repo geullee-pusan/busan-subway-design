@@ -14,13 +14,13 @@ import { fileURLToPath } from 'node:url';
 import { readApiKey } from './lib/api-key.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-export const KORAIL_DATE = '20261014'; // 수요일
-export const TAGO_DATE = '20261021'; // 다음 수요일
+import { KORAIL_DATE, TAGO_DATE } from './lib/train-dates.mjs';
+export { KORAIL_DATE, TAGO_DATE };
 const OUT = resolve(ROOT, 'data/raw/korail');
 const KORAIL = 'https://apis.data.go.kr/B551457/run/v2';
 const TAGO = 'https://apis.data.go.kr/1613000/TrainInfo';
-/** TAGO 시·도 코드: 지도 안 부산, 대구, 울산, 경북, 경남 */
-const TAGO_CITIES = ['21', '22', '26', '37', '38'];
+/** TAGO 시·도 코드: 지도 안 부산, 대구, 광주, 울산, 충북, 충남, 전북, 전남, 경북, 경남 */
+const TAGO_CITIES = ['21', '22', '24', '26', '33', '34', '35', '36', '37', '38'];
 
 const key = readApiKey();
 if (!key) {

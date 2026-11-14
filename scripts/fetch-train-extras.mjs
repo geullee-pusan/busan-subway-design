@@ -9,13 +9,12 @@ import { dirname, resolve } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { fileURLToPath } from 'node:url';
 import { readApiKey } from './lib/api-key.mjs';
+import { KORAIL_DATE, TAGO_DATE } from './lib/train-dates.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const KORAIL_DATE = '20261014';
-// 역 번호는 열차 2단계에서 받은 2026-10-21 자료에서 찾는다. 운임은 TAGO가 받아 주는 날(2026-10-20, 화)로 부른다.
-// (2026-10-19 밤에 10-21로 부르면 UNKNOWN_ERROR만 돌아왔다.)
-const TAGO_STATIONS_DATE = '20261021';
-const TAGO_DATE = '20261020';
+// 역 번호는 npm run trains로 받은 TAGO 자료(같은 TAGO_DATE)에서 찾는다.
+// (2026-10-19 밤에 이틀 뒤 날짜로 부르면 UNKNOWN_ERROR만 돌아온 적이 있다. 그러면 TAGO_DATE를 가까운 날로 바꾼다.)
+const TAGO_STATIONS_DATE = TAGO_DATE;
 // 받는 중에 멈춰도 처음부터 다시 부르지 않도록 받은 역 쌍을 임시 파일에 적어 둔다.
 const PARTIAL = resolve(tmpdir(), `busan-subway-tago-fares-${TAGO_DATE}.json`);
 const PLAN_CACHE = resolve(tmpdir(), `busan-subway-run-plan-${KORAIL_DATE}.json`);

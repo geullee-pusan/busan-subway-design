@@ -37,6 +37,9 @@ test('시간은 "2분 20초" 꼴로 쓴다', () => {
   assert.equal(durationText(40), '40초');
   assert.equal(durationText(180), '3분');
   assert.equal(durationText(0), '0초');
+  assert.equal(durationText(190 * 60), '3시간 10분');
+  assert.equal(durationText(3600), '1시간');
+  assert.equal(durationText(3600 + 20), '1시간 20초');
 });
 
 test('거리는 "1km 600m" 꼴로 쓴다', () => {

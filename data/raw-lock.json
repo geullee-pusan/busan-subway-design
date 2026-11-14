@@ -391,6 +391,22 @@
     "sha256": "4829cc57d4ad9aa6c8496c2014d9b01b7d56c28144d69c9c8b64c9ed429df12c",
     "fetched": "2026-11-14"
   },
+  "intercity-express": {
+    "file": "data/raw/intercity/express-20261116.json",
+    "url": "https://apis.data.go.kr/1613000",
+    "bytes": 63247,
+    "sha256": "56c567ad61830511099992fcd194a20ea418df9b11c19954cd309ca7607e12aa",
+    "fetched": "2026-11-14",
+    "note": "인증키가 필요한 API(npm run intercity). 주소에는 인증키를 적지 않는다."
+  },
+  "intercity-suburbs": {
+    "file": "data/raw/intercity/suburbs-20261114.json",
+    "url": "https://apis.data.go.kr/1613000",
+    "bytes": 261117,
+    "sha256": "7a7b76e3ad753962e8a80d434e7aedf9a777969aca3505df6ae2b778b53d0966",
+    "fetched": "2026-11-14",
+    "note": "인증키가 필요한 API(npm run intercity). 주소에는 인증키를 적지 않는다."
+  },
   "korail-distances": {
     "file": "data/raw/datagokr/15137040.xlsx",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003025367&fileDetailSn=1&insertDataPrcus=N",
@@ -406,6 +422,14 @@
     "fetched": "2026-10-18",
     "note": "인증키가 필요한 API(npm run trains). 주소에는 인증키를 적지 않는다."
   },
+  "korail-run-info-20261111": {
+    "file": "data/raw/korail/run-info-20261111.json",
+    "url": "https://apis.data.go.kr",
+    "bytes": 1014528,
+    "sha256": "8e0008d26cd3ef61d21b008392bb108a9bab51a9fece01865f8e6431b2944a2e",
+    "fetched": "2026-11-14",
+    "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
+  },
   "korail-run-plan": {
     "file": "data/raw/korail/run-plan-20261014.json",
     "url": "https://apis.data.go.kr/B551457/run/v2/travelerTrainRunPlan2",
@@ -414,12 +438,36 @@
     "fetched": "2026-10-19",
     "note": "인증키가 필요한 API(npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
+  "korail-run-plan-20261111": {
+    "file": "data/raw/korail/run-plan-20261111.json",
+    "url": "https://apis.data.go.kr",
+    "bytes": 194134,
+    "sha256": "e2b780aad07194a74f2242342eb7f00767b744b3a2e5bdb2acbafcfca63fe94b",
+    "fetched": "2026-11-14",
+    "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
+  },
   "korail-stations": {
     "file": "data/raw/datagokr/15127532.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002898194&fileDetailSn=1&insertDataPrcus=N",
     "bytes": 7453,
     "sha256": "5efb7af37f800b6632c19bb050ce81dce4ab0ae54998b718e581c377e2f232aa",
     "fetched": "2026-10-18"
+  },
+  "korail-tago-fares": {
+    "file": "data/raw/korail/tago-fares-20261118.json",
+    "url": "https://apis.data.go.kr",
+    "bytes": 1439787,
+    "sha256": "3314a970c6a22489ced7dbb0f03a5379cac18a60ad7b8d325fdbb5a50dcf1b33",
+    "fetched": "2026-11-14",
+    "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
+  },
+  "korail-tago-trains": {
+    "file": "data/raw/korail/tago-trains-20261118.json",
+    "url": "https://apis.data.go.kr",
+    "bytes": 293244,
+    "sha256": "c8493c54200c9520832d450c06135cbeb8dcb0c0d071fedcbe683938efd7761a",
+    "fetched": "2026-11-14",
+    "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "krna-line1": {
     "file": "data/raw/datagokr/15041165.csv",
@@ -455,6 +503,13 @@
     "bytes": 3515,
     "sha256": "7f913662cb61c16e7648dcb5024e6d9ff60a66bdae6860ec5cb6731f0b970916",
     "fetched": "2026-09-22"
+  },
+  "osm-bus-terminals": {
+    "file": "data/raw/osm/bus-terminals.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 123361,
+    "sha256": "8cc360a966b632f952c402521cfbc747e5f00c57178dff17675efc821dc34d2d",
+    "fetched": "2026-11-14"
   },
   "osm-landmarks": {
     "file": "data/raw/osm/landmarks.json",
@@ -799,6 +854,13 @@
     "sha256": "7cee40e2b34b31c0fb00c54af564bf242bef5e221b3b3aea61b8c55db7c69ccd",
     "fetched": "2026-11-14"
   },
+  "osm-paths-w0-1": {
+    "file": "data/raw/osm/paths-w0-1.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 287,
+    "sha256": "5b36d9655c1cb9b6d4bf931480d26df4a8d5a935b8e96197ccaa1ec253b5a987",
+    "fetched": "2026-11-14"
+  },
   "osm-paths-w0-10": {
     "file": "data/raw/osm/paths-w0-10.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -855,6 +917,13 @@
     "sha256": "3014216794c1de0754fd61d1b49fe1d8a2bfa929e9d5b561ba54cd7addc8613c",
     "fetched": "2026-11-14"
   },
+  "osm-paths-w0-9": {
+    "file": "data/raw/osm/paths-w0-9.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 287,
+    "sha256": "aa98c59faf4df527facf7cdb95eb6bf4c66199b6251361c4ba3f25d826edf073",
+    "fetched": "2026-11-14"
+  },
   "osm-paths-w1-0": {
     "file": "data/raw/osm/paths-w1-0.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -869,11 +938,123 @@
     "sha256": "5b7272edbb918c009c90bfe320364527b204664376d3c3dded18df925fe26299",
     "fetched": "2026-11-14"
   },
+  "osm-paths-w1-10": {
+    "file": "data/raw/osm/paths-w1-10.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 287,
+    "sha256": "6572c83b6eacb5370cbef1a4aac3ce6e902217395411b9e5c8aa9e50260d41ba",
+    "fetched": "2026-11-14"
+  },
   "osm-paths-w1-2": {
     "file": "data/raw/osm/paths-w1-2.json",
     "url": "https://overpass-api.de/api/interpreter",
     "bytes": 287,
     "sha256": "c59041760d573766254c34f7cd7413060ca228ef7607e63f34be2d8f5ab2768c",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w1-3": {
+    "file": "data/raw/osm/paths-w1-3.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 168373,
+    "sha256": "4a7f3d4be9743a70b9cce135d0743a957c5a8e8e3eb249b5672fa66eb8349159",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w1-4": {
+    "file": "data/raw/osm/paths-w1-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 420779,
+    "sha256": "240c44da6275cd31293d0980a3bd641d5e2e8897ebac792b4b34e4f9eec32fda",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w1-5": {
+    "file": "data/raw/osm/paths-w1-5.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 1128418,
+    "sha256": "7e420009e02d4c2c8b3f50dd132d354564f2e4c210c396ef5abf9d531a47b3c6",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w1-6": {
+    "file": "data/raw/osm/paths-w1-6.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 781111,
+    "sha256": "7f77480356f4af005f117bf9a1e32059a9d643ed757f6e37fee2d81937df2d95",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w1-7": {
+    "file": "data/raw/osm/paths-w1-7.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 193316,
+    "sha256": "bc4f442cea6b99477b2a4ca1d643acc024ece2594fde80b77bcaa770baeb4359",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w1-9": {
+    "file": "data/raw/osm/paths-w1-9.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 26445,
+    "sha256": "bae44bc24ec72be66f4d5343d1807dc3894cc42ce9bab28f99ec64271b248b05",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w2-0": {
+    "file": "data/raw/osm/paths-w2-0.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 287,
+    "sha256": "6572c83b6eacb5370cbef1a4aac3ce6e902217395411b9e5c8aa9e50260d41ba",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w2-10": {
+    "file": "data/raw/osm/paths-w2-10.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 92688,
+    "sha256": "9607f6f52cc1035682d2b5a6d7f0c05ea0cd79dfe5cdf39939bbb50ff11d6f50",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w2-2": {
+    "file": "data/raw/osm/paths-w2-2.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 3296,
+    "sha256": "ee8005084a15ab124202e82a6d740f94a5f7b56c1ceb42147fc82ee98d7521ed",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w2-3": {
+    "file": "data/raw/osm/paths-w2-3.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 548431,
+    "sha256": "7ec150cbd3ae014b30f631c9bbe766788f2d8a4e73da7ac19a7dbd90f7bdb213",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w2-4": {
+    "file": "data/raw/osm/paths-w2-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 1672584,
+    "sha256": "847e3b48a6ab2da489e47afea225a8c77afa3bc741366092a898a142ed5d3a3d",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w2-5": {
+    "file": "data/raw/osm/paths-w2-5.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 2103850,
+    "sha256": "0ca0547e242c64c8eef7e3adc0f40665f5d27e8e7330029f200d06964eb6125a",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w2-6": {
+    "file": "data/raw/osm/paths-w2-6.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 1590766,
+    "sha256": "e542dd9f24c0b45c083502f18a5a176f2c39717d9547abc891317ad73122b370",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w2-7": {
+    "file": "data/raw/osm/paths-w2-7.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 1249065,
+    "sha256": "66d3a78ece067e887d95f6ca47ef4c86058984f5ca4ec89af038fed79f839001",
+    "fetched": "2026-11-14"
+  },
+  "osm-paths-w3-0": {
+    "file": "data/raw/osm/paths-w3-0.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 287,
+    "sha256": "1d2176bd1041707bbcdc5e7b4dc7e31273b9bc03a1ec4115fdb11a473644b197",
     "fetched": "2026-11-14"
   },
   "osm-rail-lines": {

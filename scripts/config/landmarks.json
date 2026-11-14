@@ -1,5 +1,5 @@
 {
-  "_설명": "걸어서 여행하기의 랜드마크. osm은 OpenStreetMap 요소(data/raw/osm/landmarks.json, 자리는 그 가운데 점). 이름만 있으면 near(위도, 경도)에 가장 가까운 같은 이름 요소를 쓴다. kind는 도착 장면 그림 종류, radius는 도착으로 보는 거리(m, 넓은 곳은 크게, 우리가 정한 값). 소개 글(사실)은 data/facts.json의 landmarks에 출처와 함께 있다. address가 있으면 주소로 그것을 쓴다(지도 점이 시·군 경계 너머에 찍힌 곳). scene이 있으면 도착 장면을 그 그림으로 그린다(사진을 보고 새로 그린 곳). 요소는 data/edits/landmark-places.json에 있을 수도 있다.",
+  "_설명": "걸어서 여행하기의 랜드마크. osm은 OpenStreetMap 요소(data/raw/osm/landmarks.json, 자리는 그 가운데 점). 이름만 있으면 near(위도, 경도)에 가장 가까운 같은 이름 요소를 쓴다. kind는 도착 장면 그림 종류, radius는 도착으로 보는 거리(m, 넓은 곳은 크게, 우리가 정한 값). 소개 글(사실)은 data/facts.json의 landmarks에 출처와 함께 있다. address가 있으면 주소로 그것을 쓴다(지도 점이 시·군 경계 너머에 찍힌 곳). scene이 있으면 도착 장면을 그 그림으로 그린다(사진을 보고 새로 그린 곳). 요소는 data/edits/landmark-places.json에 있을 수도 있다. onIsland는 다리로 이어지지 않은 섬에 있는 곳이라는 뜻이다(배로만 간다).",
   "landmarks": [
     {
       "id": "haeundae",
@@ -1140,6 +1140,408 @@
       "osm": "way/47026358",
       "kind": "park",
       "radius": 300
+    },
+    {
+      "id": "sangjokam",
+      "name": "상족암",
+      "city": "고성",
+      "osm": "node/8625411712",
+      "kind": "cliff",
+      "radius": 300
+    },
+    {
+      "id": "goseongdino",
+      "name": "고성공룡박물관",
+      "city": "고성",
+      "osm": "way/56131784",
+      "kind": "museum",
+      "radius": 250
+    },
+    {
+      "id": "donguibogam",
+      "name": "동의보감촌",
+      "city": "산청",
+      "osm": "way/1217000590",
+      "kind": "village",
+      "radius": 350
+    },
+    {
+      "id": "suseungdae",
+      "name": "수승대",
+      "city": "거창",
+      "osm": "node/465212080",
+      "kind": "park",
+      "radius": 300
+    },
+    {
+      "id": "tongyeongcable",
+      "name": "통영케이블카",
+      "city": "통영",
+      "osm": "way/517115225",
+      "kind": "viewpoint",
+      "radius": 250
+    },
+    {
+      "id": "geojepow",
+      "name": "거제도 포로수용소 유적공원",
+      "city": "거제",
+      "osm": "way/82010112",
+      "kind": "museum",
+      "radius": 250
+    },
+    {
+      "id": "somaemuldo",
+      "name": "소매물도",
+      "city": "통영",
+      "osm": "relation/14114409",
+      "kind": "island",
+      "radius": 500
+    },
+    {
+      "id": "daraengi",
+      "name": "다랭이마을",
+      "city": "남해",
+      "osm": "node/11113116577",
+      "kind": "village",
+      "radius": 300
+    },
+    {
+      "id": "choechampan",
+      "name": "최참판댁",
+      "city": "하동",
+      "osm": "way/796155653",
+      "kind": "hanok",
+      "radius": 250
+    },
+    {
+      "id": "gnarboretum",
+      "name": "경상남도수목원",
+      "city": "진주",
+      "osm": "node/368866241",
+      "kind": "garden",
+      "radius": 400
+    },
+    {
+      "id": "namhaegeumsan",
+      "name": "남해 금산",
+      "city": "남해",
+      "osm": "node/2608238467",
+      "kind": "mountain",
+      "radius": 400
+    },
+    {
+      "id": "najumok",
+      "name": "나주목 관아",
+      "city": "나주",
+      "osm": "way/540205109",
+      "kind": "hanok",
+      "radius": 250
+    },
+    {
+      "id": "wolchulsan",
+      "name": "월출산",
+      "city": "영암",
+      "osm": "node/7972724224",
+      "kind": "mountain",
+      "radius": 500
+    },
+    {
+      "id": "wangin",
+      "name": "왕인박사유적지",
+      "city": "영암",
+      "osm": "way/476192735",
+      "kind": "park",
+      "radius": 300
+    },
+    {
+      "id": "bulgapsa",
+      "name": "불갑사",
+      "city": "영광",
+      "osm": "node/368861566",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "baegyangsa",
+      "name": "백양사",
+      "city": "장성",
+      "osm": "node/368861693",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "hwasundolmen",
+      "name": "화순 고인돌 유적",
+      "city": "화순",
+      "osm": "node/4670446513",
+      "kind": "tomb",
+      "radius": 400
+    },
+    {
+      "id": "unjusa",
+      "name": "운주사",
+      "city": "화순",
+      "osm": "node/11968439142",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "gokseongtrain",
+      "name": "섬진강기차마을",
+      "city": "곡성",
+      "osm": "node/6137113267",
+      "kind": "themepark",
+      "radius": 300
+    },
+    {
+      "id": "hampyeongexpo",
+      "name": "함평엑스포공원",
+      "city": "함평",
+      "osm": "way/469581256",
+      "kind": "park",
+      "radius": 350
+    },
+    {
+      "id": "cheongwansan",
+      "name": "천관산",
+      "city": "장흥",
+      "osm": "node/3810195917",
+      "kind": "mountain",
+      "radius": 500
+    },
+    {
+      "id": "jeongnamjin",
+      "name": "정남진 전망대",
+      "city": "장흥",
+      "osm": "node/7233622981",
+      "kind": "viewpoint",
+      "radius": 250
+    },
+    {
+      "id": "yeosucable",
+      "name": "여수해상케이블카",
+      "city": "여수",
+      "osm": "way/338597995",
+      "kind": "viewpoint",
+      "radius": 250
+    },
+    {
+      "id": "jinnamgwan",
+      "name": "진남관",
+      "city": "여수",
+      "osm": "way/64707328",
+      "kind": "pavilion",
+      "radius": 200
+    },
+    {
+      "id": "gatbawi",
+      "name": "갓바위",
+      "city": "목포",
+      "osm": "node/3377632149",
+      "kind": "cliff",
+      "radius": 250
+    },
+    {
+      "id": "mokpomodern",
+      "name": "목포근대역사관",
+      "city": "목포",
+      "osm": "way/1108915085",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "mokpocable",
+      "name": "목포해상케이블카",
+      "city": "목포",
+      "osm": "node/6948515889",
+      "kind": "viewpoint",
+      "radius": 250
+    },
+    {
+      "id": "dramaset",
+      "name": "순천드라마촬영장",
+      "city": "순천",
+      "osm": "node/3833357939",
+      "kind": "themepark",
+      "radius": 300
+    },
+    {
+      "id": "seonamsa",
+      "name": "선암사",
+      "city": "순천",
+      "osm": "node/13887238028",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "songgwangsa",
+      "name": "송광사",
+      "city": "순천",
+      "osm": "way/223224868",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "saseongam",
+      "name": "사성암",
+      "city": "구례",
+      "osm": "way/1253493083",
+      "kind": "temple",
+      "radius": 200
+    },
+    {
+      "id": "sorokdo",
+      "name": "소록도",
+      "city": "고흥",
+      "osm": "way/470486538",
+      "kind": "island",
+      "radius": 500
+    },
+    {
+      "id": "taebaeksan",
+      "name": "태백산맥문학관",
+      "city": "보성",
+      "osm": "way/476000948",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "muwisa",
+      "name": "무위사",
+      "city": "강진",
+      "osm": "way/786997328",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "celadon",
+      "name": "고려청자박물관",
+      "city": "강진",
+      "osm": "node/368735457",
+      "kind": "museum",
+      "radius": 250
+    },
+    {
+      "id": "uldolmok",
+      "name": "울돌목",
+      "city": "해남",
+      "osm": "node/5245304822",
+      "kind": "bridge",
+      "radius": 400
+    },
+    {
+      "id": "unrimsanbang",
+      "name": "운림산방",
+      "city": "진도",
+      "osm": "way/1356340506",
+      "kind": "garden",
+      "radius": 250
+    },
+    {
+      "id": "cheongsando",
+      "name": "청산도",
+      "city": "완도",
+      "osm": "relation/11591369",
+      "kind": "island",
+      "radius": 600
+    },
+    {
+      "id": "bogildo",
+      "name": "보길도 윤선도 원림",
+      "city": "완도",
+      "osm": "way/787317486",
+      "kind": "garden",
+      "radius": 400,
+      "onIsland": true
+    },
+    {
+      "id": "taepyeong",
+      "name": "태평염전",
+      "city": "신안",
+      "osm": "way/257724918",
+      "kind": "wetland",
+      "radius": 500
+    },
+    {
+      "id": "cheonsa",
+      "name": "천사대교",
+      "city": "신안",
+      "osm": "way/1421122760",
+      "kind": "bridge",
+      "radius": 500,
+      "address": "전남광주통합특별시 신안군"
+    },
+    {
+      "id": "gjmuseum",
+      "name": "국립광주박물관",
+      "city": "광주",
+      "osm": "way/469896846",
+      "kind": "museum",
+      "radius": 250
+    },
+    {
+      "id": "biennale",
+      "name": "광주비엔날레 전시관",
+      "city": "광주",
+      "osm": "node/12434838911",
+      "kind": "museum",
+      "radius": 250
+    },
+    {
+      "id": "familyland",
+      "name": "광주 패밀리랜드",
+      "city": "광주",
+      "osm": "way/255636226",
+      "kind": "themepark",
+      "radius": 350
+    },
+    {
+      "id": "gjworldcup",
+      "name": "광주월드컵경기장",
+      "city": "광주",
+      "osm": "node/5553610076",
+      "kind": "stadium",
+      "radius": 300
+    },
+    {
+      "id": "may18cemetery",
+      "name": "국립5·18민주묘지",
+      "city": "광주",
+      "osm": "way/490114462",
+      "kind": "tomb",
+      "radius": 350
+    },
+    {
+      "id": "chungjangro",
+      "name": "충장로",
+      "city": "광주",
+      "osm": "node/415146355",
+      "kind": "street",
+      "radius": 300
+    },
+    {
+      "id": "gwangjuho",
+      "name": "광주호 호수생태원",
+      "city": "광주",
+      "osm": "node/436840492",
+      "kind": "lake",
+      "radius": 400
+    },
+    {
+      "id": "jeungsimsa",
+      "name": "증심사",
+      "city": "광주",
+      "osm": "way/810353608",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "gjfolk",
+      "name": "광주역사민속박물관",
+      "city": "광주",
+      "osm": "relation/19735366",
+      "kind": "museum",
+      "radius": 200
     }
   ]
 }

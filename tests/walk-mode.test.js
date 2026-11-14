@@ -278,8 +278,12 @@ test('모든 랜드마크는 본 길망에서 걸어서 갈 수 있다', { skip:
   // 배로만 가는 섬은 육지에서 멀리 떨어진 섬만이다(바다 위로 수십 km 임의 길을 긋지 않는다)
   const roadsFile = JSON.parse(readFileSync(resolve(ROOT, 'data/build/roads.json'), 'utf8'));
   const boatOnly = new Set(roadsFile.boatOnly ?? []);
-  for (const id of boatOnly) assert.equal(landmarks.find((l) => l.id === id)?.kind, 'island', `${id}는 섬이 아닌데 길이 없어요`);
-  assert.ok(boatOnly.size <= 4, `배로만 가는 곳이 ${boatOnly.size}곳이에요`);
+  const config = JSON.parse(readFileSync(resolve(ROOT, 'scripts/config/landmarks.json'), 'utf8')).landmarks;
+  for (const id of boatOnly) {
+    const onIsland = landmarks.find((l) => l.id === id)?.kind === 'island' || config.find((l) => l.id === id)?.onIsland;
+    assert.ok(onIsland, `${id}는 섬이 아닌데 길이 없어요`);
+  }
+  assert.ok(boatOnly.size <= 6, `배로만 가는 곳이 ${boatOnly.size}곳이에요`);
   // 길이가 0인 임의 길이 있으면 방향을 알 수 없어 조이스틱으로 걷다가 멈춘다
   assert.equal(roads.edges.filter((e) => e.cls === MADE_ROAD && e.pts.every((p) => p[0] === e.pts[0][0] && p[1] === e.pts[0][1])).length, 0);
   for (const lm of landmarks.filter((l) => !boatOnly.has(l.id))) {

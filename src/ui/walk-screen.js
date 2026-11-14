@@ -3,11 +3,13 @@
 // 계산은 src/sim/walk-mode.js와 src/sim/roads.js(순수 함수), 그림은 src/ui/walk-map.js.
 // 타는 장면은 여행 모드(가 보기, journey-screen.js)와 진짜 기차 타 보기(train-journey.js)를 그대로 쓴다.
 import faresFile from '../content/fares.json';
-import { dongShapes, dongs, grid, waterShapes, landmarks, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
+import { dongShapes, dongs, grid, intercity, waterShapes, landmarks, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
 import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
 import { stopGroup, stopsInCell } from '../sim/bus-network.js';
 import { decodeDongs, dongAt } from '../sim/address.js';
 import { decodeWater } from '../sim/water.js';
+import { nextDepartures, servesKind } from '../sim/intercity.js';
+import { hhmm as coachHhmm, runCoachTrip } from './coach-journey.js';
 import { decodeRoads, indexRoads, nearestRoad, placeOn, pointAlong, taxiRoute, walkAlong, walkRoute, MADE_ROAD } from '../sim/roads.js';
 import { searchTrains, trainFare } from '../sim/train-trip.js';
 import { planTrips, taxiFare } from '../sim/trip.js';
@@ -111,6 +113,8 @@ export function renderWalk(root, { onHome }) {
   const network = busNetwork();
   const { roads, index: roadIndex, dongs: dongShapesList, water: waterList } = roadWorld();
   const subwayStations = stations.filter((s) => s.inGrid);
+  /** 고속·시외버스 터미널(번호를 붙여 둔다) */
+  const terminals = intercity.terminals.map((t, index) => ({ ...t, index, id: `terminal-${index}` }));
   const busCache = new Map();
   const busStopsIn = (cell) => {
     if (!busCache.has(cell)) busCache.set(cell, stopsInCell(network, grid, cell).filter((s) => !s.noRoutes));
@@ -345,7 +349,7 @@ export function renderWalk(root, { onHome }) {
     stage.append(pad);
     // 그림 설명: 무엇이 무엇인지(그림과 글자를 함께)
     const legend = element('div', 'walk-legend');
-    legend.append(element('span', 'walk-legend-bus', '버'), element('span', null, '버스 타는 곳'), element('span', 'walk-legend-train', '기차'), element('span', null, '기차역'));
+    legend.append(element('span', 'walk-legend-bus', '버'), element('span', null, '버스 타는 곳'), element('span', 'walk-legend-train', '기차'), element('span', null, '기차역'), element('span', 'walk-legend-terminal', '터미널'), element('span', null, '고속·시외버스'));
     stage.append(legend);
     body.append(stage);
     messageBox = element('div', 'walk-message');
@@ -373,6 +377,7 @@ export function renderWalk(root, { onHome }) {
       roadIndex,
       stations: subwayStations,
       railStations: rail.stations,
+      terminals,
       railLines: rail.lines,
       busStopsNear: busStopsIn,
       landmarks,
@@ -668,7 +673,7 @@ export function renderWalk(root, { onHome }) {
     const card = element('div', 'lm-card');
     const [icon, kindName] = LANDMARK_ICON[lm.kind] ?? ['📍', '랜드마크'];
     card.append(element('h2', 'lm-title', `${icon} ${lm.name}에 왔어요`));
-    card.append(landmarkScene(lm.scene ?? lm.kind, { reduceMotion, label: `${lm.name}(${kindName})을 그린 그림이에요. 실제 사진이 아니에요.` }));
+    card.append(landmarkScene(lm.scene ?? lm.kind, { reduceMotion, lm, label: `${lm.name}(${kindName})을 그린 그림이에요. 실제 사진이 아니에요.` }));
     if (lm.facts.length) {
       const list = element('ul', 'lm-facts');
       // 어려운 낱말은 낱말 카드로 잇는다
@@ -916,6 +921,18 @@ export function renderWalk(root, { onHome }) {
       if (next.length) card.append(button('기차 타기', () => chooseTrain(s), 'button'));
       cards.push(card);
     }
+    // 고속·시외버스 터미널(터미널 건물이 커서 기차역처럼 조금 더 멀리서도 탈 수 있다)
+    for (const { item: t, km } of nearby(terminals, me, NEAR_KM + 0.2, 2)) {
+      const card = nearCard(`${t.name}`, km, '터미널');
+      for (const kind of ['고속', '시외']) {
+        if (!servesKind(intercity, t.index, kind)) continue;
+        const next = nextDepartures(intercity, t.index, kind, now()).slice(0, 3);
+        const text = next.length ? next.map((d) => `${coachHhmm(d.dep)} ${intercity.terminals[d.to].name}`).join(' · ') : '오늘은 더 떠나는 버스가 없어요.';
+        card.append(element('p', 'walk-next', `${kind}버스: ${text}`));
+        if (next.length) card.append(button(`${kind}버스 타기`, () => chooseCoach(t, kind), 'button'));
+      }
+      cards.push(card);
+    }
     // 버스 정류장
     const cells = [];
     for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) cells.push((Math.floor(me.y) + dr) * grid.cols + Math.floor(me.x) + dc);
@@ -1120,6 +1137,41 @@ export function renderWalk(root, { onHome }) {
       routeRow.append(button(`${busRouteText(option.route.no)} (${option.last} 방면)`, () => showStops(option)));
     }
     showStops(options[0]);
+  }
+
+  /** 고속·시외버스: 갈 터미널 고르기(지도 안 터미널끼리만, 실제 배차) */
+  function chooseCoach(terminal, kind) {
+    const area = rideArea(`${terminal.name}에서 ${kind}버스 타기`);
+    const list = nextDepartures(intercity, terminal.index, kind, now());
+    if (!list.length) {
+      area.append(element('p', null, '오늘은 더 떠나는 버스가 없어요.'));
+      return;
+    }
+    area.append(element('p', 'guide', '갈 곳을 골라요. 시각은 진짜 배차예요.'));
+    area.append(element('p', 'panel-note', `배차 자료: ${intercity.dates?.[kind] ?? ''} 하루`));
+    const box = element('div', 'tr-departures');
+    for (const d of list) {
+      const dest = terminals[d.to];
+      const item = button('', () => {
+        area.replaceChildren();
+        cleanupRide = runCoachTrip(area, {
+          kind,
+          fromName: terminal.name,
+          toName: dest.name,
+          km: Math.hypot(dest.x - terminal.x, dest.y - terminal.y),
+          dep: d.dep,
+          dur: d.dur,
+          fare: d.fare,
+          grade: d.grade,
+          readyMinute: now(),
+          rider,
+          onDone: (minutes) => arrive(dest, { kind: `${kind}버스`, title: `${terminal.name} → ${dest.name} ${kind}버스`, minutes, fare: d.fare ?? 0 }),
+        });
+      }, 'tr-departure');
+      item.append(element('span', 'tr-dep-time', coachHhmm(d.dep)), element('span'), element('span', 'tr-dep-kind', `${d.grade} · ${durationText(d.dur * 60)}`), element('span', 'tr-dep-to', `${dest.name} 가는 버스`));
+      box.append(item);
+    }
+    area.append(box);
   }
 
   /** 기차: 떠나는 기차와 내릴 역 고르기 */
