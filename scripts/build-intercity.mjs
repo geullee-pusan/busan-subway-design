@@ -41,6 +41,7 @@ const gradeOf = (name) => {
 
 const routes = new Map(); // "from|to|kind" → Map(trip key → trip)
 const stats = {};
+let badTimes = 0;
 const dates = {};
 for (const [kind, prefix] of [
   ['고속', 'express-'],
@@ -74,6 +75,11 @@ for (const [kind, prefix] of [
       const d = minuteOf(dep);
       let dur = minuteOf(arr) - d + (dayOf(arr) > dayOf(dep) ? 1440 : 0);
       if (!(dur > 0)) continue;
+      // 원본에 도착 시각이 잘못 적힌 줄이 있다(무안→군산 112km를 2분 등). 곧게 잰 거리를 시속 120km보다 빨리 가는 줄은 뺀다.
+      if (Math.hypot(pa.x - pb.x, pa.y - pb.y) / (dur / 60) >= 120) {
+        badTimes += 1;
+        continue;
+      }
       const trip = [d, dur, Number(charge) || null, gradeOf(grade)];
       trips.set(trip.join(','), trip);
       n += 1;
@@ -97,3 +103,4 @@ const text = JSON.stringify(out);
 writeFileSync(resolve(ROOT, 'data/build/intercity.json'), text);
 console.log(`터미널 ${terminals.length}곳, 노선(터미널 짝) ${out.routes.length}개, 배차 ${out.routes.reduce((s, r) => s + r[3].length, 0)}개, ${(text.length / 1024).toFixed(0)}KB`);
 for (const [kind, s] of Object.entries(stats)) console.log(`${kind}: ${s.file}, 받은 짝 ${s.pairs}개, 배차 줄 ${s.trips}개, 3km보다 가까워 뺀 짝 ${s.nearPairs}개`);
+console.log(`시속 120km보다 빠르게 적힌 배차 줄 ${badTimes}개는 뺐어요(원본의 도착 시각 잘못).`);
