@@ -74,6 +74,9 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
       ['구미', '구미'],
       ['경산', '경산'],
       ['칠곡', '칠곡'],
+      ['경남', '경남의 다른 시·군'],
+      ['광주', '광주'],
+      ['전남', '전남'],
       ['이웃', '이웃 시·군'],
     ]) {
       const item = element('li');

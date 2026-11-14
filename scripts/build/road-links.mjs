@@ -2,7 +2,8 @@
 //
 // - 랜드마크에서 가장 가까운 길이 조금이라도 떨어져 있으면, 그 길에서 랜드마크까지 곧은 길을 하나 낸다.
 // - 본 길망과 끊어진 길 묶음은 가장 가까운 본 길로 잇는다. OSM에서 받지 않은 샛길과 다리 때문에 끊긴 곳이 많다.
-//   maxGapM보다 멀면 잇지 않되(배로 가는 섬), 랜드마크 곁의 묶음은 거리를 따지지 않고 잇는다.
+//   maxGapM보다 멀면 잇지 않되(배로 가는 섬), 랜드마크 곁의 묶음은 maxForcedM까지 잇는다.
+// - 그보다 멀어 이을 수 없는 랜드마크(홍도·가거도처럼 배로만 가는 섬)는 boatOnly로 알려 준다. 바다 위로 수십 km 걷게 하지 않는다.
 import { MADE_ROAD } from '../../src/sim/roads.js';
 
 const UNITS_PER_KM = 100; // 좌표 단위 10m
@@ -28,7 +29,7 @@ function nearestOnSegment(p, a, b) {
  * @param {Array<{x: number, y: number, radius: number}>} landmarks 좌표와 반지름은 km
  * @returns {{nodes: number[], edges: Array, spurs: number, links: number, longestM: number}}
  */
-export function addMadeRoads(data, landmarks, { maxGapM = 1000 } = {}) {
+export function addMadeRoads(data, landmarks, { maxGapM = 1000, maxForcedM = 5000 } = {}) {
   const nodes = [];
   for (let i = 0; i < data.nodes.length; i += 2) nodes.push([data.nodes[i], data.nodes[i + 1]]);
   const edges = data.edges.map(([a, b, cls, meters, mid, name]) => {
@@ -164,6 +165,7 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000 } = {}) {
     const p = [Math.round(lm.x * UNITS_PER_KM), Math.round(lm.y * UNITS_PER_KM)];
     const hit = nearest(p, null, Infinity);
     if (!hit || hit.d / UNITS_PER_KM <= Math.min(lm.radius * SPUR_RADIUS_SHARE, SPUR_KM)) continue;
+    if (hit.d * 10 > maxForcedM) continue; // 배로 가는 섬
     made(attach(hit), newNode(p));
     spurs += 1;
   }
@@ -187,6 +189,7 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000 } = {}) {
     }
   }
   const maxUnits = maxGapM / 10;
+  const maxForcedUnits = maxForcedM / 10;
   let links = 0;
   for (let changed = true; changed; ) {
     changed = false;
@@ -202,7 +205,7 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000 } = {}) {
       let best = null;
       for (const i of list) {
         edges[i].pts.forEach((p, k) => {
-          const hit = nearest(p, onMain, best ? best.hit.d : must.has(root) ? Infinity : maxUnits);
+          const hit = nearest(p, onMain, best ? best.hit.d : must.has(root) ? maxForcedUnits : maxUnits);
           if (hit && (!best || hit.d < best.hit.d)) best = { hit, from: { edge: i, seg: Math.max(0, k - 1), q: p } };
         });
       }
@@ -236,5 +239,9 @@ export function addMadeRoads(data, landmarks, { maxGapM = 1000 } = {}) {
     }
     outEdges.push(e.name === undefined ? [idOf(a), idOf(b), e.cls, e.meters, flat] : [idOf(a), idOf(b), e.cls, e.meters, flat, e.name]);
   }
-  return { nodes: outNodes, edges: outEdges, spurs, links, longestM };
+  // 본 길망에서 닿지 않는 랜드마크(누른 곳에서 길을 찾는 거리 안에 본 길망이 없다)
+  const boatOnly = landmarks
+    .filter((lm) => !nearest([lm.x * UNITS_PER_KM, lm.y * UNITS_PER_KM], onMain, (Math.min(lm.radius * SPUR_RADIUS_SHARE, SPUR_KM) + 0.01) * UNITS_PER_KM))
+    .map((lm) => lm.id);
+  return { nodes: outNodes, edges: outEdges, spurs, links, longestM, boatOnly };
 }

@@ -8,6 +8,7 @@
 import { readFileSync } from 'node:fs';
 import { readCsv, toNumber } from '../lib/csv.mjs';
 import { displayName, metersBetween, normalizeName } from './network.mjs';
+import { readOsmFile } from '../lib/osm.mjs';
 
 export const DAEGU_LINES = [
   { id: 'DG1', no: '1', label: '대구1', section: '15061836', exits: '15133918', timetables: ['15138731'] },
@@ -31,8 +32,8 @@ function officialKey(name) {
  * @param {string[]} issues
  */
 export function daeguLines(raw, issues) {
-  const routes = JSON.parse(readFileSync(raw('osm/routes.json'), 'utf8'));
-  const osmStations = JSON.parse(readFileSync(raw('osm/stations.json'), 'utf8'));
+  const routes = readOsmFile(raw('osm/routes.json'));
+  const osmStations = readOsmFile(raw('osm/stations.json'));
   const osmNodes = new Map(osmStations.elements.filter((e) => e.type === 'node').map((e) => [e.id, e]));
   const linkRows = readCsv(raw('datagokr/15002510.csv')).records;
 

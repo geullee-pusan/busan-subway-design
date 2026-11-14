@@ -13,7 +13,7 @@ import { readApiKey } from './lib/api-key.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://apis.data.go.kr/1613000/BusRouteInfoInqireService';
-/** 지도 범위에 걸친 도시(TAGO 도시 번호, getCtyCodeList로 2026-10-31에 확인). 진주·김천·거제·통영은 지도 밖이라 뺐다. */
+/** 지도 범위에 걸친 도시(TAGO 도시 번호, getCtyCodeList로 2026-10-31에 확인). 김천은 지도 밖이라 뺐다. */
 export const CITIES = [
   { code: 26, name: '울산광역시' },
   { code: 38010, name: '창원시' },
@@ -30,6 +30,37 @@ export const CITIES = [
   { code: 38320, name: '함안군' },
   { code: 38330, name: '창녕군' },
   { code: 22, name: '대구광역시' },
+  // 지도 범위 넓히기 4(2026-11-14): 광주, 전남(담양·화순·강진·보성·영광은 TAGO에 없다), 경남 서쪽
+  { code: 24, name: '광주광역시' },
+  { code: 36010, name: '목포시' },
+  { code: 36020, name: '여수시' },
+  { code: 36030, name: '순천시' },
+  { code: 36040, name: '나주시' },
+  { code: 36060, name: '광양시' },
+  { code: 36320, name: '곡성군' },
+  { code: 36330, name: '구례군' },
+  { code: 36350, name: '고흥군' },
+  { code: 36380, name: '장흥군' },
+  { code: 36400, name: '해남군' },
+  { code: 36410, name: '영암군' },
+  { code: 36420, name: '무안군' },
+  { code: 36430, name: '함평군' },
+  { code: 36450, name: '장성군' },
+  { code: 36460, name: '완도군' },
+  { code: 36470, name: '진도군' },
+  { code: 36480, name: '신안군' },
+  { code: 38030, name: '진주시' },
+  { code: 38050, name: '통영시' },
+  { code: 38060, name: '사천시' },
+  { code: 38090, name: '거제시' },
+  { code: 38310, name: '의령군' },
+  { code: 38340, name: '고성군' },
+  { code: 38350, name: '남해군' },
+  { code: 38360, name: '하동군' },
+  { code: 38370, name: '산청군' },
+  { code: 38380, name: '함양군' },
+  { code: 38390, name: '거창군' },
+  { code: 38400, name: '합천군' },
 ];
 
 const key = readApiKey();

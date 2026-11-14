@@ -28,10 +28,10 @@ const SCREEN_KM_PER_SEC = 0.12;
 /** 택시가 화면에서 달리는 빠르기: 1초에 몇 km. 우리가 정한 값. */
 const TAXI_SCREEN_KM_PER_SEC = 0.6;
 /** 지하철 노선 표시 글자 */
-const LINE_MARK = { BGL: '김', DH: '동', DK: '경', DG1: 'D1', DG2: 'D2', DG3: 'D3' };
-/** 서로 이어진 지하철 묶음(부산·김해·양산·울산 쪽과 대구 쪽은 이어져 있지 않다) */
-const DAEGU_LINES = new Set(['DG1', 'DG2', 'DG3', 'DK']);
-const sameNetwork = (a, b) => DAEGU_LINES.has(a) === DAEGU_LINES.has(b);
+const LINE_MARK = { BGL: '김', DH: '동', DK: '경', DG1: 'D1', DG2: 'D2', DG3: 'D3', GJ1: 'G1' };
+/** 서로 이어진 지하철 묶음(부산·김해·양산·울산 쪽, 대구 쪽, 광주 쪽은 서로 이어져 있지 않다) */
+const NETWORK_OF = { DG1: '대구', DG2: '대구', DG3: '대구', DK: '대구', GJ1: '광주' };
+const sameNetwork = (a, b) => (NETWORK_OF[a] ?? '부산') === (NETWORK_OF[b] ?? '부산');
 const START_HOURS = [
   [8, '아침 8시'],
   [13, '낮 1시'],
@@ -68,6 +68,9 @@ function roadWorld() {
 /** 택시는 차도(동네 길 빼고)에서 잡는다 */
 const isCarRoad = (edge) => edge.cls <= 4;
 const MADE_ROAD_NOTE = '게임에서 임의로 이은 길이에요';
+/** 길로 이을 수 없는 섬의 랜드마크(scripts/build/road-links.mjs) */
+const BOAT_ONLY = new Set(roadsData.boatOnly ?? []);
+const BOAT_NOTE = '⛴ 배를 타야 갈 수 있는 섬이에요.';
 
 /** 시작할 곳: 중심지(장소 카드)와 지하철역 */
 function startChoices() {
@@ -86,9 +89,24 @@ function startChoices() {
  * @param {{onHome: () => void}} p
  * @returns {() => void} 정리
  */
+/** 걷기를 처음 저장할 때의 격자 왼쪽 위 모서리(지도를 경남·전남광주까지 넓히기 전, 2026-11-14) */
+const OLD_WALK_ORIGIN = { easting: 421000, northing: 4026000 };
+
+/** 저장한 걷기 자리와 자취(격자 좌표 km)를 지금 격자로 옮긴다. 지도 범위가 넓어지면 왼쪽 위 모서리가 바뀐다. */
+function walkHere(saved) {
+  if (!saved || !Number.isFinite(saved.x) || !Number.isFinite(saved.y)) return saved;
+  const from = Number.isFinite(saved.easting) ? saved : OLD_WALK_ORIGIN;
+  const dx = (from.easting - grid.origin.easting) / 1000;
+  const dy = (grid.origin.northing - from.northing) / 1000;
+  if (dx === 0 && dy === 0) return saved;
+  const move = ([x, y, ...rest]) => [x + dx, y + dy, ...rest];
+  const track = Array.isArray(saved.track) ? saved.track.map((seg) => ({ ...seg, pts: (seg.pts ?? []).map(move) })) : saved.track;
+  return { ...saved, x: saved.x + dx, y: saved.y + dy, track, easting: grid.origin.easting, northing: grid.origin.northing };
+}
+
 export function renderWalk(root, { onHome }) {
   root.replaceChildren();
-  const saved = loadView().walk;
+  const saved = walkHere(loadView().walk);
   const { world, prepared, result } = worldFor({ year: BASE_YEAR, dayType: '평일' });
   const network = busNetwork();
   const { roads, index: roadIndex, dongs: dongShapesList, water: waterList } = roadWorld();
@@ -168,7 +186,7 @@ export function renderWalk(root, { onHome }) {
     if (!force && t - lastSave < 1500) return;
     lastSave = t;
     track = compactTrack(track);
-    saveView({ walk: { x: Math.round(me.x * 1000) / 1000, y: Math.round(me.y * 1000) / 1000, rider, record, track } });
+    saveView({ walk: { x: Math.round(me.x * 1000) / 1000, y: Math.round(me.y * 1000) / 1000, rider, record, track, easting: grid.origin.easting, northing: grid.origin.northing } });
   };
   const flushWalk = () => {
     if (pendingKm <= 0) return;
@@ -818,10 +836,10 @@ export function renderWalk(root, { onHome }) {
       return;
     }
     const km = Math.hypot(goal.x - me.x, goal.y - me.y);
-    goalBox.replaceChildren(
-      element('span', 'walk-goal', `${(LANDMARK_ICON[goal.kind] ?? ['📍'])[0]} 가는 곳: ${goal.name} · 곧게 재면 ${distanceText(Math.round(km * 1000))}`),
-      button('길 따라 걸어가기', () => walkTo({ x: goal.x, y: goal.y }), 'button'),
-    );
+    const label = element('span', 'walk-goal', `${(LANDMARK_ICON[goal.kind] ?? ['📍'])[0]} 가는 곳: ${goal.name} · 곧게 재면 ${distanceText(Math.round(km * 1000))}`);
+    // 길로 이을 수 없는 섬은 걸어서 갈 수 없다(아직 배는 탈 수 없다)
+    if (BOAT_ONLY.has(goal.id)) goalBox.replaceChildren(label, element('span', 'panel-note', BOAT_NOTE));
+    else goalBox.replaceChildren(label, button('길 따라 걸어가기', () => walkTo({ x: goal.x, y: goal.y }), 'button'));
   }
 
   /** 지도 위 "지금 있는 곳": 시·구·동과 가까운 길 이름 */

@@ -6,11 +6,12 @@
 //   - 고도(SRTM)와 경사
 // 를 구하고, 칸 안의 점들로 지형을 정한다. 인구는 행정동 인구를 그 동의 "살 수 있는 점"에 똑같이 나눈다.
 // 격자 가장자리에 걸친 동도 동 전체에서 몫을 나누도록, 격자보다 넓은 범위(확장 격자)에서 계산한 뒤 잘라 낸다.
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { assembleRings, projectRing, ringsBBox, bboxOverlaps } from '../lib/geo.mjs';
 import { loadDem } from '../lib/hgt.mjs';
 import { readCsv, toNumber } from '../lib/csv.mjs';
 import { utm52 } from '../lib/utm.mjs';
+import { readOsmFile } from '../lib/osm.mjs';
 
 export const TERRAIN_TYPES = {
   sea: '바다',
@@ -235,14 +236,16 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
 
   // 5. 점마다 OSM 수면 여부
   const water = new Uint8Array(W * H);
-  const osmWater = JSON.parse(readFileSync(raw('osm/water.json'), 'utf8'));
+  const osmWater = readOsmFile(raw('osm/water.json'));
   for (const f of waterFeatures(osmWater, issues)) {
     if (!bboxOverlaps(f.bbox, exBox)) continue;
     rasterize(f.rings, f.bbox, lattice, (i, j) => (water[j * W + i] = 1));
   }
 
   // 6. 고도와 경사
-  const dem = loadDem(['N34E128', 'N34E129', 'N35E127', 'N35E128', 'N35E129', 'N36E127', 'N36E128', 'N36E129'].map((t) => raw(`dem/${t}.hgt.gz`)));
+  // 받아 둔 타일을 모두 쓴다(바다뿐인 곳은 타일이 없다. scripts/sources.mjs의 dem-*)
+  const demFiles = readdirSync(raw('dem')).filter((f) => /^N\d\dE\d{3}\.hgt\.gz$/.test(f)).sort();
+  const dem = loadDem(demFiles.map((f) => raw(`dem/${f}`)));
   const elev = new Float32Array(W * H).fill(NaN);
   for (let j = 0; j < H; j++) {
     const y = lattice.y0 - 50 - 100 * j;

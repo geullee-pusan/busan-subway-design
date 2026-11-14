@@ -860,6 +860,286 @@
       "kind": "school",
       "scene": "songdoSchool",
       "radius": 120
+    },
+    {
+      "id": "jinjuseong",
+      "name": "진주성",
+      "city": "진주",
+      "osm": "way/560496516",
+      "kind": "fortress",
+      "radius": 300
+    },
+    {
+      "id": "namhaegerman",
+      "name": "남해 독일마을",
+      "city": "남해",
+      "osm": "node/2487576879",
+      "kind": "village",
+      "radius": 250
+    },
+    {
+      "id": "boriam",
+      "name": "보리암",
+      "city": "남해",
+      "osm": "node/6330125488",
+      "kind": "temple",
+      "radius": 200
+    },
+    {
+      "id": "dongpirang",
+      "name": "동피랑 벽화마을",
+      "city": "통영",
+      "osm": "node/7160198785",
+      "kind": "village",
+      "radius": 200
+    },
+    {
+      "id": "hansando",
+      "name": "한산도 제승당",
+      "city": "통영",
+      "osm": "way/860298048",
+      "kind": "fortress",
+      "radius": 250
+    },
+    {
+      "id": "windhill",
+      "name": "바람의 언덕",
+      "city": "거제",
+      "osm": "way/241976359",
+      "kind": "viewpoint",
+      "radius": 250
+    },
+    {
+      "id": "oedo",
+      "name": "외도",
+      "city": "거제",
+      "osm": "node/4917004723",
+      "kind": "island",
+      "radius": 400
+    },
+    {
+      "id": "ssanggyesa",
+      "name": "쌍계사",
+      "city": "하동",
+      "osm": "way/787003589",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "haeinsa",
+      "name": "해인사",
+      "city": "합천",
+      "osm": "way/404193034",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "sangnim",
+      "name": "함양 상림",
+      "city": "함양",
+      "osm": "way/162207743",
+      "kind": "park",
+      "radius": 400
+    },
+    {
+      "id": "suncheonbay",
+      "name": "순천만습지",
+      "city": "순천",
+      "osm": "way/539542787",
+      "kind": "wetland",
+      "radius": 600
+    },
+    {
+      "id": "suncheongarden",
+      "name": "순천만국가정원",
+      "city": "순천",
+      "osm": "way/231160666",
+      "kind": "garden",
+      "radius": 500
+    },
+    {
+      "id": "nagan",
+      "name": "낙안읍성",
+      "city": "순천",
+      "osm": "way/531144028",
+      "kind": "hanok",
+      "radius": 350
+    },
+    {
+      "id": "odongdo",
+      "name": "오동도",
+      "city": "여수",
+      "osm": "way/1190380965",
+      "kind": "island",
+      "radius": 350
+    },
+    {
+      "id": "hyangiram",
+      "name": "향일암",
+      "city": "여수",
+      "osm": "way/1304265380",
+      "kind": "temple",
+      "radius": 200
+    },
+    {
+      "id": "juknokwon",
+      "name": "죽녹원",
+      "city": "담양",
+      "osm": "way/513330739",
+      "kind": "park",
+      "radius": 300
+    },
+    {
+      "id": "metasequoia",
+      "name": "메타세쿼이아길",
+      "city": "담양",
+      "osm": "way/325114433",
+      "kind": "street",
+      "radius": 400
+    },
+    {
+      "id": "soswaewon",
+      "name": "소쇄원",
+      "city": "담양",
+      "osm": "way/623246372",
+      "kind": "garden",
+      "radius": 200
+    },
+    {
+      "id": "boseongtea",
+      "name": "보성 녹차밭",
+      "city": "보성",
+      "osm": "way/257727324",
+      "kind": "garden",
+      "radius": 400
+    },
+    {
+      "id": "yudalsan",
+      "name": "유달산",
+      "city": "목포",
+      "osm": "node/2578986155",
+      "kind": "mountain",
+      "radius": 400
+    },
+    {
+      "id": "jindosea",
+      "name": "진도 신비의 바닷길",
+      "city": "진도",
+      "osm": "way/832417101",
+      "kind": "beach",
+      "radius": 500
+    },
+    {
+      "id": "ttangkkeut",
+      "name": "땅끝마을",
+      "city": "해남",
+      "osm": "way/1057154527",
+      "kind": "viewpoint",
+      "radius": 350
+    },
+    {
+      "id": "daeheungsa",
+      "name": "대흥사",
+      "city": "해남",
+      "osm": "way/616559205",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "cheonghaejin",
+      "name": "청해진 유적",
+      "city": "완도",
+      "osm": "node/6743912326",
+      "kind": "fortress",
+      "radius": 300
+    },
+    {
+      "id": "hongdo",
+      "name": "홍도",
+      "city": "신안",
+      "osm": "relation/9157486",
+      "kind": "island",
+      "radius": 600
+    },
+    {
+      "id": "gageodo",
+      "name": "가거도",
+      "city": "신안",
+      "osm": "relation/9157487",
+      "kind": "island",
+      "radius": 600
+    },
+    {
+      "id": "hwaeomsa",
+      "name": "화엄사",
+      "city": "구례",
+      "osm": "way/376920090",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "nogodan",
+      "name": "노고단",
+      "city": "구례",
+      "osm": "node/5750035938",
+      "kind": "mountain",
+      "radius": 400
+    },
+    {
+      "id": "maehwa",
+      "name": "광양 매화마을",
+      "city": "광양",
+      "osm": "node/11621716098",
+      "kind": "cherry",
+      "radius": 400
+    },
+    {
+      "id": "dasan",
+      "name": "다산초당",
+      "city": "강진",
+      "osm": "node/12944873804",
+      "kind": "hanok",
+      "radius": 200
+    },
+    {
+      "id": "naro",
+      "name": "나로우주센터",
+      "city": "고흥",
+      "osm": "way/483154610",
+      "kind": "observatory",
+      "radius": 500
+    },
+    {
+      "id": "mudeungsan",
+      "name": "무등산",
+      "city": "광주",
+      "osm": "node/6367716394",
+      "kind": "mountain",
+      "radius": 500
+    },
+    {
+      "id": "acc",
+      "name": "국립아시아문화전당",
+      "city": "광주",
+      "osm": "way/248192696",
+      "kind": "museum",
+      "radius": 250
+    },
+    {
+      "id": "yangnim",
+      "name": "양림동 역사문화마을",
+      "city": "광주",
+      "osm": "node/415146366",
+      "kind": "village",
+      "radius": 300
+    },
+    {
+      "id": "may18",
+      "name": "5·18기념공원",
+      "city": "광주",
+      "osm": "way/47026358",
+      "kind": "park",
+      "radius": 300
     }
   ]
 }

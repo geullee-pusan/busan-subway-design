@@ -3,6 +3,7 @@
 // 역 사이 시간은 노선 종류의 표정속도로 어림한다(자료 없음).
 import { readFileSync } from 'node:fs';
 import { metersBetween } from './network.mjs';
+import { readOsmFile } from '../lib/osm.mjs';
 
 /** 노선마다 어떤 역을, 어떤 순서로 쓸지 적어 둔다. 이름은 OSM 역 이름이다. */
 const FUTURE_LINES = [
@@ -41,7 +42,7 @@ const FUTURE_LINES = [
  * @param {string[]} issues
  */
 export function buildFutureLines(raw, stations, facts, tables, issues) {
-  const osm = JSON.parse(readFileSync(raw('osm/stations.json'), 'utf8'));
+  const osm = readOsmFile(raw('osm/stations.json'));
   const nodes = osm.elements.filter((e) => {
     const tags = e.tags ?? {};
     return tags['construction:railway'] === 'station' || (tags.railway === 'construction' && /station/.test(tags.construction ?? ''));

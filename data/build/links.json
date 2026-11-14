@@ -249,6 +249,25 @@
     {"line":"DG3","from":"D337","to":"D338","distanceM":900,"runS":75,"distanceSource":"15002510","runSource":"15061797 하행시간(정차시간 빠짐)"},
     {"line":"DG3","from":"D338","to":"D339","distanceM":1100,"runS":105,"distanceSource":"15002510","runSource":"15061797 하행시간(정차시간 빠짐)"},
     {"line":"DG3","from":"D339","to":"D340","distanceM":900,"runS":75,"distanceSource":"15002510","runSource":"15061797 하행시간(정차시간 빠짐)"},
-    {"line":"DG3","from":"D340","to":"D341","distanceM":700,"runS":85,"distanceSource":"15002510","runSource":"15061797 하행시간(정차시간 빠짐)"}
+    {"line":"DG3","from":"D340","to":"D341","distanceM":700,"runS":85,"distanceSource":"15002510","runSource":"15061797 하행시간(정차시간 빠짐)"},
+    {"line":"GJ1","from":"G100","to":"G101","distanceM":1900,"runS":300,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G101","to":"G102","distanceM":1100,"runS":120,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G102","to":"G103","distanceM":900,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G103","to":"G104","distanceM":900,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G104","to":"G105","distanceM":700,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G105","to":"G106","distanceM":600,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G106","to":"G107","distanceM":900,"runS":120,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G107","to":"G108","distanceM":600,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G108","to":"G109","distanceM":1200,"runS":120,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G109","to":"G110","distanceM":700,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G110","to":"G111","distanceM":600,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G111","to":"G112","distanceM":900,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G112","to":"G113","distanceM":1100,"runS":120,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G113","to":"G114","distanceM":700,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G114","to":"G115","distanceM":2900,"runS":210,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G115","to":"G116","distanceM":1100,"runS":120,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G116","to":"G117","distanceM":1100,"runS":120,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G117","to":"G118","distanceM":700,"runS":90,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"},
+    {"line":"GJ1","from":"G118","to":"G119","distanceM":1900,"runS":120,"distanceSource":"15046044","runSource":"15046044 소요시간(분)"}
   ]
 }

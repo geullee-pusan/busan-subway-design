@@ -551,6 +551,24 @@
         "source": "트윅(TWIG24) 2026-02-27",
         "url": "https://www.twig24.com/news/health-welfare/2026/02/27/20260227500244"
       }
+    ],
+    "GJ1": [
+      {
+        "date": "2004-04-28",
+        "from": "녹동",
+        "to": "상무",
+        "note": "1단계 녹동~상무 구간 개통. 공식 출처 확인 못 함",
+        "source": "위키백과: 광주 도시철도 1호선",
+        "url": "https://ko.wikipedia.org/wiki/광주_도시철도_1호선"
+      },
+      {
+        "date": "2008-04-11",
+        "from": "김대중컨벤션센터(마륵)",
+        "to": "평동",
+        "note": "2단계 상무~평동 구간 개통. 공식 출처 확인 못 함",
+        "source": "위키백과: 광주 도시철도 1호선",
+        "url": "https://ko.wikipedia.org/wiki/광주_도시철도_1호선"
+      }
     ]
   },
   "constructionCost": {
@@ -1145,7 +1163,7 @@
     }
   },
   "landmarks": {
-    "_설명": "걸어서 여행하기 랜드마크 소개 글. 문장마다 확인한 웹 페이지와 그 페이지의 짧은 근거를 적는다. 날짜가 바뀌는 행사 일정은 넣지 않는다. 2026-10-31 확인(범어사 678년은 원문을 다시 확인).",
+    "_설명": "걸어서 여행하기 랜드마크 소개 글. 문장마다 확인한 웹 페이지와 그 페이지의 짧은 근거를 적는다. 날짜가 바뀌는 행사 일정은 넣지 않는다. 2026-10-31 확인(범어사 678년은 원문을 다시 확인). 2026-11-14에 더한 경남 서쪽·전남광주 35곳은 도우미(다른 Claude 작업)가 한국어 위키백과 문서를 받아 근거 문장이 글 그대로 있는지 확인했다.",
     "haeundae": {
       "name": "해운대해수욕장",
       "facts": [
@@ -3673,6 +3691,881 @@
           "url": "https://www.schoolinfo.go.kr/ei/ss/Pneiss_b01_s0.do?HG_CD=C100001471",
           "checked": "2026-11-02",
           "evidence": "부산광역시 서구 충무대로 25"
+        }
+      ]
+    },
+    "jinjuseong": {
+      "name": "진주성",
+      "facts": [
+        {
+          "text": "진주성은 남강을 끼고 있는 성이에요.",
+          "source": "한국어 위키백과: 진주성",
+          "url": "https://ko.wikipedia.org/wiki/진주성",
+          "checked": "2026-11-14",
+          "evidence": "진주성은 남강을 끼고, 외성의 둘레를 4km로 쌓고"
+        },
+        {
+          "text": "1592년 김시민 장군이 이곳에서 왜군을 물리쳤어요.",
+          "source": "한국어 위키백과: 진주성",
+          "url": "https://ko.wikipedia.org/wiki/진주성",
+          "checked": "2026-11-14",
+          "evidence": "1592년 임진왜란 때 진주목사 김시민 장군이 10월 제1차 진주성 전투에서 왜군을 대파하여"
+        },
+        {
+          "text": "군사 3,800명으로 약 3만 명의 적을 막았어요.",
+          "source": "한국어 위키백과: 진주성",
+          "url": "https://ko.wikipedia.org/wiki/진주성",
+          "checked": "2026-11-14",
+          "evidence": "김시민(金時敏)은 3,800명의 군사로 3만 여명의 왜적을 물리쳐"
+        }
+      ]
+    },
+    "namhaegerman": {
+      "name": "남해 독일마을",
+      "facts": [
+        {
+          "text": "독일에서 일했던 간호사와 광부들이 사는 마을이에요.",
+          "source": "한국어 위키백과: 남해독일마을",
+          "url": "https://ko.wikipedia.org/wiki/남해독일마을",
+          "checked": "2026-11-14",
+          "evidence": "1960년대 독일(당시 서독)에 간호사와 광부로 파견되었던 독일거주 교포들이 대한민국에 재정착할 수 있도록 남해군에서 개발한 곳이다."
+        },
+        {
+          "text": "집들은 독일에서 가져온 재료로 지었어요.",
+          "source": "한국어 위키백과: 남해독일마을",
+          "url": "https://ko.wikipedia.org/wiki/남해독일마을",
+          "checked": "2026-11-14",
+          "evidence": "독일 교포들은 독일에서 재료를 수입하여 독일식 전통 주택을 신축했다."
+        },
+        {
+          "text": "2006년 드라마를 찍은 뒤 널리 알려졌어요.",
+          "source": "한국어 위키백과: 남해독일마을",
+          "url": "https://ko.wikipedia.org/wiki/남해독일마을",
+          "checked": "2026-11-14",
+          "evidence": "2006년 MBC 드라마 환상의 커플의 촬영지로 인기를 끌기 시작했다."
+        }
+      ]
+    },
+    "boriam": {
+      "name": "보리암",
+      "facts": [
+        {
+          "text": "보리암은 683년 원효대사가 세웠다고 전해요.",
+          "source": "한국어 위키백과: 보리암 (남해군)",
+          "url": "https://ko.wikipedia.org/wiki/보리암_(남해군)",
+          "checked": "2026-11-14",
+          "evidence": "보리암은 신라 신문왕 3년(683년) 원효대사가 세웠다는 사찰이다."
+        },
+        {
+          "text": "보리암에서는 바위 절벽과 바다가 보여요.",
+          "source": "한국어 위키백과: 보리암 (남해군)",
+          "url": "https://ko.wikipedia.org/wiki/보리암_(남해군)",
+          "checked": "2026-11-14",
+          "evidence": "기암절벽과 바다가 보이는 절경도 유명하고 멋지다"
+        },
+        {
+          "text": "이성계가 이 절에서 기도했다는 이야기가 있어요.",
+          "source": "한국어 위키백과: 보리암 (남해군)",
+          "url": "https://ko.wikipedia.org/wiki/보리암_(남해군)",
+          "checked": "2026-11-14",
+          "evidence": "이성계가 이 사찰에서 기도를 하고 조선을 건국하였다는 기록이 전한다."
+        }
+      ]
+    },
+    "dongpirang": {
+      "name": "동피랑 벽화마을",
+      "facts": [
+        {
+          "text": "동피랑은 '동쪽 벼랑'이라는 뜻이에요.",
+          "source": "한국어 위키백과: 동피랑마을",
+          "url": "https://ko.wikipedia.org/wiki/동피랑마을",
+          "checked": "2026-11-14",
+          "evidence": "'동쪽 벼랑'(비탈의 지역 사투리 '비랑')이라는 뜻을 가지고 있다"
+        },
+        {
+          "text": "2007년 낡은 담벼락에 벽화를 그렸어요.",
+          "source": "한국어 위키백과: 동피랑마을",
+          "url": "https://ko.wikipedia.org/wiki/동피랑마을",
+          "checked": "2026-11-14",
+          "evidence": "2007년 10월 '푸른통영21'이라는 시민단체가 '동피랑 색칠하기-전국벽화공모전'을 열었고"
+        },
+        {
+          "text": "벽화 덕분에 마을을 허물지 않게 됐어요.",
+          "source": "한국어 위키백과: 동피랑마을",
+          "url": "https://ko.wikipedia.org/wiki/동피랑마을",
+          "checked": "2026-11-14",
+          "evidence": "18개 팀이 낡은 담벼락에 벽화를 그리게 되어 마을을 보존하게 된다."
+        }
+      ]
+    },
+    "hansando": {
+      "name": "한산도 제승당",
+      "facts": [
+        {
+          "text": "이순신 장군이 수군을 이끌던 곳이에요.",
+          "source": "한국어 위키백과: 통영 한산도 이충무공 유적",
+          "url": "https://ko.wikipedia.org/wiki/통영_한산도_이충무공_유적",
+          "checked": "2026-11-14",
+          "evidence": "임진왜란 때 이순신 장군이 삼도 수군을 지휘하던 곳이다."
+        },
+        {
+          "text": "1593년부터 4년 동안 수군 본부였어요.",
+          "source": "한국어 위키백과: 통영 한산도 이충무공 유적",
+          "url": "https://ko.wikipedia.org/wiki/통영_한산도_이충무공_유적",
+          "checked": "2026-11-14",
+          "evidence": "1593년 선조 26년부터 1597년 정유재란 당시 원균의 참패로 소실된 선조 30년까지 4년간 삼도수군통제영의 본영으로 삼아"
+        },
+        {
+          "text": "섬이라서 배를 타야만 갈 수 있어요.",
+          "source": "한국어 위키백과: 통영 한산도 이충무공 유적",
+          "url": "https://ko.wikipedia.org/wiki/통영_한산도_이충무공_유적",
+          "checked": "2026-11-14",
+          "evidence": "섬이기 때문에 배가 유일한 접근 수단이며"
+        }
+      ]
+    },
+    "windhill": {
+      "name": "바람의 언덕",
+      "facts": [
+        {
+          "text": "바닷바람이 불어서 바람의 언덕이라고 불러요.",
+          "source": "한국어 위키백과: 거제 바람의 언덕",
+          "url": "https://ko.wikipedia.org/wiki/거제_바람의_언덕",
+          "checked": "2026-11-14",
+          "evidence": "바다와 접하여 바람이 분다는 언덕이라고 하여서 바람의 언덕이라고 불리고 있다."
+        },
+        {
+          "text": "2009년 네덜란드 모양 풍차를 세웠어요.",
+          "source": "한국어 위키백과: 거제 바람의 언덕",
+          "url": "https://ko.wikipedia.org/wiki/거제_바람의_언덕",
+          "checked": "2026-11-14",
+          "evidence": "풍차는 2009년에 네덜란드풍의 풍차를 축조하여 완공하였으며"
+        },
+        {
+          "text": "옛날에는 '띠밭늘'이라고 불렸어요.",
+          "source": "한국어 위키백과: 거제 바람의 언덕",
+          "url": "https://ko.wikipedia.org/wiki/거제_바람의_언덕",
+          "checked": "2026-11-14",
+          "evidence": "원래는 '띠밭늘' 이라고 불렸는데"
+        }
+      ]
+    },
+    "oedo": {
+      "name": "외도",
+      "facts": [
+        {
+          "text": "외도는 서양식으로 가꾼 섬 식물원이에요.",
+          "source": "한국어 위키백과: 외도",
+          "url": "https://ko.wikipedia.org/wiki/외도",
+          "checked": "2026-11-14",
+          "evidence": "서구식으로 가꿔진 식물원이다."
+        },
+        {
+          "text": "옛날에는 바위만 많은 거친 섬이었어요.",
+          "source": "한국어 위키백과: 외도",
+          "url": "https://ko.wikipedia.org/wiki/외도",
+          "checked": "2026-11-14",
+          "evidence": "외도는 과거에 바위만 무성한 황폐한 무인도에 가까운 섬이었다."
+        },
+        {
+          "text": "1995년 해상농원으로 문을 열었어요.",
+          "source": "한국어 위키백과: 외도",
+          "url": "https://ko.wikipedia.org/wiki/외도",
+          "checked": "2026-11-14",
+          "evidence": "1995년 4월 15일 외도해상농원을 개원하였다."
+        }
+      ]
+    },
+    "ssanggyesa": {
+      "name": "쌍계사",
+      "facts": [
+        {
+          "text": "쌍계사는 722년에 지어진 절이에요.",
+          "source": "한국어 위키백과: 쌍계사",
+          "url": "https://ko.wikipedia.org/wiki/쌍계사",
+          "checked": "2026-11-14",
+          "evidence": "신라 성덕왕 21년(722)에 지어진 쌍계사는"
+        },
+        {
+          "text": "처음 이름은 옥천사였어요.",
+          "source": "한국어 위키백과: 쌍계사",
+          "url": "https://ko.wikipedia.org/wiki/쌍계사",
+          "checked": "2026-11-14",
+          "evidence": "처음에는 절 이름이 옥천사였으나"
+        },
+        {
+          "text": "887년에 세운 비석에 최치원이 글을 썼어요.",
+          "source": "한국어 위키백과: 쌍계사",
+          "url": "https://ko.wikipedia.org/wiki/쌍계사",
+          "checked": "2026-11-14",
+          "evidence": "887년)에 건립한 것으로 고운 최치원이 비문을 짓고 썼으며"
+        }
+      ]
+    },
+    "haeinsa": {
+      "name": "해인사",
+      "facts": [
+        {
+          "text": "해인사는 팔만대장경을 보관하고 있어요.",
+          "source": "한국어 위키백과: 해인사",
+          "url": "https://ko.wikipedia.org/wiki/해인사",
+          "checked": "2026-11-14",
+          "evidence": "해인사는 고려 제조대장경(팔만대장경)을 보관하고 있다."
+        },
+        {
+          "text": "해인사는 802년에 짓기 시작했어요.",
+          "source": "한국어 위키백과: 해인사",
+          "url": "https://ko.wikipedia.org/wiki/해인사",
+          "checked": "2026-11-14",
+          "evidence": "802년(통일신라 애장왕 3년) : 순응(順應)과 이정(利貞)이 왕비의 병을 낫게 해주어서, 애장왕의 도움으로 창건을 시작했다."
+        },
+        {
+          "text": "대장경을 둔 건물은 1995년 세계유산이 됐어요.",
+          "source": "한국어 위키백과: 해인사",
+          "url": "https://ko.wikipedia.org/wiki/해인사",
+          "checked": "2026-11-14",
+          "evidence": "장경판전은 1995년 유네스코 세계문화유산에"
+        }
+      ]
+    },
+    "sangnim": {
+      "name": "함양 상림",
+      "facts": [
+        {
+          "text": "한국에서 가장 오래된 사람이 만든 숲이에요.",
+          "source": "한국어 위키백과: 함양 상림",
+          "url": "https://ko.wikipedia.org/wiki/함양_상림",
+          "checked": "2026-11-14",
+          "evidence": "한국에서 가장 오래된 인공림으로"
+        },
+        {
+          "text": "홍수를 막으려고 둑 옆에 나무를 심었어요.",
+          "source": "한국어 위키백과: 함양 상림",
+          "url": "https://ko.wikipedia.org/wiki/함양_상림",
+          "checked": "2026-11-14",
+          "evidence": "이러한 피해를 막기 위해 강물을 돌리고 둑을 쌓고, 둑 옆에 나무를 싶어 가꾸었다고 한다."
+        },
+        {
+          "text": "숲에는 나무 약 2만 그루가 살고 있어요.",
+          "source": "한국어 위키백과: 함양 상림",
+          "url": "https://ko.wikipedia.org/wiki/함양_상림",
+          "checked": "2026-11-14",
+          "evidence": "각종 수목 2만여 그루가 살고 있다"
+        }
+      ]
+    },
+    "suncheonbay": {
+      "name": "순천만습지",
+      "facts": [
+        {
+          "text": "순천만에는 한국에서 가장 넓은 갈대밭이 있어요.",
+          "source": "한국어 위키백과: 순천만",
+          "url": "https://ko.wikipedia.org/wiki/순천만",
+          "checked": "2026-11-14",
+          "evidence": "한국에서 가장 넓은 면적을 이루는 동시에 잘 보전된 갈대 군락이다."
+        },
+        {
+          "text": "흑두루미 같은 철새가 많이 찾아와요.",
+          "source": "한국어 위키백과: 순천만",
+          "url": "https://ko.wikipedia.org/wiki/순천만",
+          "checked": "2026-11-14",
+          "evidence": "철새들이 많이 찾아온다. 국제보호종인 흑두루미, 검은머리갈매기와 같은 조류"
+        },
+        {
+          "text": "순천만은 2008년 나라의 명승이 됐어요.",
+          "source": "한국어 위키백과: 순천만",
+          "url": "https://ko.wikipedia.org/wiki/순천만",
+          "checked": "2026-11-14",
+          "evidence": "2008년 순천만 일대가 국가지정문화재 명승 제41호로 지정되었다."
+        }
+      ]
+    },
+    "suncheongarden": {
+      "name": "순천만국가정원",
+      "facts": [
+        {
+          "text": "2015년 우리나라 첫 국가정원이 됐어요.",
+          "source": "한국어 위키백과: 순천만국가정원",
+          "url": "https://ko.wikipedia.org/wiki/순천만국가정원",
+          "checked": "2026-11-14",
+          "evidence": "2015년 대한민국 제1호 국가정원으로 지정되었다."
+        },
+        {
+          "text": "2013년 국제정원박람회를 하려고 만들었어요.",
+          "source": "한국어 위키백과: 순천만국가정원",
+          "url": "https://ko.wikipedia.org/wiki/순천만국가정원",
+          "checked": "2026-11-14",
+          "evidence": "2013순천만국제정원박람회 개최를 위해 조성되었으며"
+        },
+        {
+          "text": "세계 11개 나라의 정원이 만들어졌어요.",
+          "source": "한국어 위키백과: 순천만국가정원",
+          "url": "https://ko.wikipedia.org/wiki/순천만국가정원",
+          "checked": "2026-11-14",
+          "evidence": "세계 11개국의 정원이 조성됐다."
+        }
+      ]
+    },
+    "nagan": {
+      "name": "낙안읍성",
+      "facts": [
+        {
+          "text": "옛 성과 마을이 거의 그대로 남아 있어요.",
+          "source": "한국어 위키백과: 순천 낙안읍성",
+          "url": "https://ko.wikipedia.org/wiki/순천_낙안읍성",
+          "checked": "2026-11-14",
+          "evidence": "낙안읍성은 성곽과 내부 마을이 원형에 가깝게 보존되어 있어"
+        },
+        {
+          "text": "지금도 성 안 옛집에 사람들이 살아요.",
+          "source": "한국어 위키백과: 순천 낙안읍성",
+          "url": "https://ko.wikipedia.org/wiki/순천_낙안읍성",
+          "checked": "2026-11-14",
+          "evidence": "전통 한옥들이 있으며 현재 실제 주민들이 거주 중이다."
+        },
+        {
+          "text": "성의 길이는 1km 410m예요.",
+          "source": "한국어 위키백과: 순천 낙안읍성",
+          "url": "https://ko.wikipedia.org/wiki/순천_낙안읍성",
+          "checked": "2026-11-14",
+          "evidence": "읍성의 전체 모습은 사각형으로 길이는 1,410m이다."
+        }
+      ]
+    },
+    "odongdo": {
+      "name": "오동도",
+      "facts": [
+        {
+          "text": "동백나무와 대나무가 우거진 섬이에요.",
+          "source": "한국어 위키백과: 오동도",
+          "url": "https://ko.wikipedia.org/wiki/오동도",
+          "checked": "2026-11-14",
+          "evidence": "동백꽃과 대나무가 우거져 있어"
+        },
+        {
+          "text": "1935년 섬까지 768m 방파제 길이 생겼어요.",
+          "source": "한국어 위키백과: 오동도",
+          "url": "https://ko.wikipedia.org/wiki/오동도",
+          "checked": "2026-11-14",
+          "evidence": "1935년 일제강점기에 길이 768m, 너비 7m의 방파제가 3년에 걸쳐 완공되어 섬에 이르는 통로를 겸하고 있다."
+        },
+        {
+          "text": "멀리서 보면 오동잎처럼 생겼어요.",
+          "source": "한국어 위키백과: 오동도",
+          "url": "https://ko.wikipedia.org/wiki/오동도",
+          "checked": "2026-11-14",
+          "evidence": "멀리서 보면 지형의 생김새가 오동잎처럼 보이며"
+        }
+      ]
+    },
+    "hyangiram": {
+      "name": "향일암",
+      "facts": [
+        {
+          "text": "향일암은 '해를 향한 암자'라는 뜻이에요.",
+          "source": "한국어 위키백과: 향일암",
+          "url": "https://ko.wikipedia.org/wiki/향일암",
+          "checked": "2026-11-14",
+          "evidence": "\"해를 향한 암자\"라는 뜻의 향일암은"
+        },
+        {
+          "text": "바다 위로 해가 뜨는 모습이 멋진 곳이에요.",
+          "source": "한국어 위키백과: 향일암",
+          "url": "https://ko.wikipedia.org/wiki/향일암",
+          "checked": "2026-11-14",
+          "evidence": "남해 수평선의 일출광경이 특히 장관을 이루어"
+        },
+        {
+          "text": "주위 바위가 거북 등처럼 생겼어요.",
+          "source": "한국어 위키백과: 향일암",
+          "url": "https://ko.wikipedia.org/wiki/향일암",
+          "checked": "2026-11-14",
+          "evidence": "주위의 바위들이 거북등처럼 되어 있어 영구암이라 부르기도 한다."
+        }
+      ]
+    },
+    "juknokwon": {
+      "name": "죽녹원",
+      "facts": [
+        {
+          "text": "죽녹원은 2003년에 문을 연 대나무 정원이에요.",
+          "source": "한국어 위키백과: 죽녹원",
+          "url": "https://ko.wikipedia.org/wiki/죽녹원",
+          "checked": "2026-11-14",
+          "evidence": "대나무 정원이다. 2003년 5월에 개장하였다."
+        },
+        {
+          "text": "담양에서 자란 대나무를 심었어요.",
+          "source": "한국어 위키백과: 죽녹원",
+          "url": "https://ko.wikipedia.org/wiki/죽녹원",
+          "checked": "2026-11-14",
+          "evidence": "담양에서 자란 대나무가 식재되어 있으며"
+        },
+        {
+          "text": "대나무 산책길이 8개 코스로 나뉘어요.",
+          "source": "한국어 위키백과: 죽녹원",
+          "url": "https://ko.wikipedia.org/wiki/죽녹원",
+          "checked": "2026-11-14",
+          "evidence": "대나무길은 8개 코스로 나뉘어"
+        }
+      ]
+    },
+    "metasequoia": {
+      "name": "메타세쿼이아길",
+      "facts": [
+        {
+          "text": "메타세쿼이아는 최대 50m까지 자라는 나무예요.",
+          "source": "한국어 위키백과: 메타세쿼이아",
+          "url": "https://ko.wikipedia.org/wiki/메타세쿼이아",
+          "checked": "2026-11-14",
+          "evidence": "수고는 평균 35m이고 최대 50m까지 자란다."
+        },
+        {
+          "text": "이 나무는 1956년 우리나라에 처음 들어왔어요.",
+          "source": "한국어 위키백과: 메타세쿼이아",
+          "url": "https://ko.wikipedia.org/wiki/메타세쿼이아",
+          "checked": "2026-11-14",
+          "evidence": "메타세쿼이아가 우리나라에 처음 들어온 것은 1956년으로"
+        }
+      ]
+    },
+    "soswaewon": {
+      "name": "소쇄원",
+      "facts": [
+        {
+          "text": "조선시대 학자 양산보가 만든 정원이에요.",
+          "source": "한국어 위키백과: 소쇄원",
+          "url": "https://ko.wikipedia.org/wiki/소쇄원",
+          "checked": "2026-11-14",
+          "evidence": "조선 중종 때 학자 양산보(梁山甫,1503~1557)가"
+        },
+        {
+          "text": "'소쇄'는 '맑고 깨끗하다'는 뜻이에요.",
+          "source": "한국어 위키백과: 소쇄원",
+          "url": "https://ko.wikipedia.org/wiki/소쇄원",
+          "checked": "2026-11-14",
+          "evidence": "‘맑고 깨끗하다’라는 뜻으로 지었다는 사실이 2021년 밝혀졌다."
+        },
+        {
+          "text": "지금도 후손이 살면서 정원을 지켜요.",
+          "source": "한국어 위키백과: 소쇄원",
+          "url": "https://ko.wikipedia.org/wiki/소쇄원",
+          "checked": "2026-11-14",
+          "evidence": "후손들이 떠나지 않고 실제 거주하며 관리하는 살아 있는 정원으로"
+        }
+      ]
+    },
+    "boseongtea": {
+      "name": "보성 녹차밭",
+      "facts": [
+        {
+          "text": "보성에서 가장 큰 녹차밭이에요.",
+          "source": "한국어 위키백과: 대한다원",
+          "url": "https://ko.wikipedia.org/wiki/대한다원",
+          "checked": "2026-11-14",
+          "evidence": "보성 지역 최대의 녹차밭이자 관광지이다."
+        },
+        {
+          "text": "1957년부터 이곳에 녹차를 심었어요.",
+          "source": "한국어 위키백과: 대한다원",
+          "url": "https://ko.wikipedia.org/wiki/대한다원",
+          "checked": "2026-11-14",
+          "evidence": "1957년 현재의 봉산리 일대에 녹차잎을 심은 것을 계기로"
+        },
+        {
+          "text": "1997년 텔레비전 광고에 나와 유명해졌어요.",
+          "source": "한국어 위키백과: 대한다원",
+          "url": "https://ko.wikipedia.org/wiki/대한다원",
+          "checked": "2026-11-14",
+          "evidence": "1997년 SK텔레콤의 광고 배경을 통해서 알려졌고"
+        }
+      ]
+    },
+    "yudalsan": {
+      "name": "유달산",
+      "facts": [
+        {
+          "text": "유달산은 높이 228m인 산이에요.",
+          "source": "한국어 위키백과: 유달산",
+          "url": "https://ko.wikipedia.org/wiki/유달산",
+          "checked": "2026-11-14",
+          "evidence": "높이 228미터의 산이다."
+        },
+        {
+          "text": "꼭대기에서 바다의 섬들과 목포가 보여요.",
+          "source": "한국어 위키백과: 유달산",
+          "url": "https://ko.wikipedia.org/wiki/유달산",
+          "checked": "2026-11-14",
+          "evidence": "정상에서 다도해와 목포 시가지의 모습을 볼 수 있으며"
+        },
+        {
+          "text": "우리나라 첫 조각공원이 산 어귀에 있어요.",
+          "source": "한국어 위키백과: 유달산",
+          "url": "https://ko.wikipedia.org/wiki/유달산",
+          "checked": "2026-11-14",
+          "evidence": "대한민국 최초의 조각공원인 목포조각공원이 유달산 어귀에서 생겼으며"
+        }
+      ]
+    },
+    "jindosea": {
+      "name": "진도 신비의 바닷길",
+      "facts": [
+        {
+          "text": "바닷물이 빠지면 바다 밑 길이 드러나요.",
+          "source": "한국어 위키백과: 진도신비의바닷길축제",
+          "url": "https://ko.wikipedia.org/wiki/진도신비의바닷길축제",
+          "checked": "2026-11-14",
+          "evidence": "조수간만의 차이로 수위가 낮아지면서 고군면 회동리와 의신면 모도리 사이의 바다 밑 지형이 드러나는 곳이다."
+        },
+        {
+          "text": "바닷길의 길이는 약 2km 800m예요.",
+          "source": "한국어 위키백과: 진도신비의바닷길축제",
+          "url": "https://ko.wikipedia.org/wiki/진도신비의바닷길축제",
+          "checked": "2026-11-14",
+          "evidence": "바닷길의 길이는 약 2.8km이며, 폭은 약 10~40m이다."
+        },
+        {
+          "text": "뽕할머니 이야기가 전해 오는 길이에요.",
+          "source": "한국어 위키백과: 진도신비의바닷길축제",
+          "url": "https://ko.wikipedia.org/wiki/진도신비의바닷길축제",
+          "checked": "2026-11-14",
+          "evidence": "바닷길에는 뽕할머니 설화가 전해진다."
+        }
+      ]
+    },
+    "ttangkkeut": {
+      "name": "땅끝마을",
+      "facts": [
+        {
+          "text": "한반도 땅에서 가장 남쪽 끝에 있는 마을이에요.",
+          "source": "한국어 위키백과: 땅끝마을",
+          "url": "https://ko.wikipedia.org/wiki/땅끝마을",
+          "checked": "2026-11-14",
+          "evidence": "한반도 육지 부분의 최남단이다."
+        }
+      ]
+    },
+    "daeheungsa": {
+      "name": "대흥사",
+      "facts": [
+        {
+          "text": "대흥사는 2018년 세계유산이 됐어요.",
+          "source": "한국어 위키백과: 대흥사",
+          "url": "https://ko.wikipedia.org/wiki/대흥사",
+          "checked": "2026-11-14",
+          "evidence": "2018년, '산사, 한국의 산지승원'이라는 명칭으로 유네스코 세계문화유산에 등재되었다."
+        },
+        {
+          "text": "두륜산 안에 있는 절이에요.",
+          "source": "한국어 위키백과: 대흥사",
+          "url": "https://ko.wikipedia.org/wiki/대흥사",
+          "checked": "2026-11-14",
+          "evidence": "두륜산 도립공원 내의 절이다."
+        },
+        {
+          "text": "대둔사라는 이름으로도 불러요.",
+          "source": "한국어 위키백과: 대흥사",
+          "url": "https://ko.wikipedia.org/wiki/대흥사",
+          "checked": "2026-11-14",
+          "evidence": "대둔사(大芚寺)라고도 불린다."
+        }
+      ]
+    },
+    "cheonghaejin": {
+      "name": "청해진 유적",
+      "facts": [
+        {
+          "text": "828년 장보고의 부탁으로 청해진을 세웠어요.",
+          "source": "한국어 위키백과: 청해진",
+          "url": "https://ko.wikipedia.org/wiki/청해진",
+          "checked": "2026-11-14",
+          "evidence": "흥덕왕 3년(828년) 장보고(張保皐)의 청에 따라"
+        },
+        {
+          "text": "장보고는 이곳에서 해적을 물리쳤어요.",
+          "source": "한국어 위키백과: 청해진",
+          "url": "https://ko.wikipedia.org/wiki/청해진",
+          "checked": "2026-11-14",
+          "evidence": "청해진을 설치하고 해적을 소탕하여"
+        },
+        {
+          "text": "썰물 때는 장도까지 걸어갈 수 있어요.",
+          "source": "한국어 위키백과: 청해진",
+          "url": "https://ko.wikipedia.org/wiki/청해진",
+          "checked": "2026-11-14",
+          "evidence": "하루 2차례씩 썰물 때는 바닥이 드러나 걸어갈 수도 있다."
+        }
+      ]
+    },
+    "hongdo": {
+      "name": "홍도",
+      "facts": [
+        {
+          "text": "홍도는 섬 전체가 천연기념물이에요.",
+          "source": "한국어 위키백과: 홍도",
+          "url": "https://ko.wikipedia.org/wiki/홍도",
+          "checked": "2026-11-14",
+          "evidence": "섬 전체가 천연기념물 제170호로 지정되어 있다"
+        },
+        {
+          "text": "섬의 바위가 붉은빛을 띠어요.",
+          "source": "한국어 위키백과: 홍도",
+          "url": "https://ko.wikipedia.org/wiki/홍도",
+          "checked": "2026-11-14",
+          "evidence": "기반암의 성분이 붉은색의 규암하고 규암질사암으로 이루어져 있고"
+        },
+        {
+          "text": "목포에서 115km 떨어진 먼 섬이에요.",
+          "source": "한국어 위키백과: 홍도",
+          "url": "https://ko.wikipedia.org/wiki/홍도",
+          "checked": "2026-11-14",
+          "evidence": "목포시에서 남서쪽으로 115km 떨어진 곳에 위치하고 있으며"
+        }
+      ]
+    },
+    "gageodo": {
+      "name": "가거도",
+      "facts": [
+        {
+          "text": "가거도는 우리나라 가장 서남쪽 끝 섬이에요.",
+          "source": "한국어 위키백과: 가거도",
+          "url": "https://ko.wikipedia.org/wiki/가거도",
+          "checked": "2026-11-14",
+          "evidence": "대한민국 최서남단에 위치해 있는 섬으로"
+        },
+        {
+          "text": "목포에서 배로 4시간이 걸려요.",
+          "source": "한국어 위키백과: 가거도",
+          "url": "https://ko.wikipedia.org/wiki/가거도",
+          "checked": "2026-11-14",
+          "evidence": "목포항에서 남해고속 소속 페리로 흑산도, 하태도, 만재도 등을 거쳐 4시간이 걸린다."
+        },
+        {
+          "text": "어부들이 멸치를 잡으며 부르는 노래가 있어요.",
+          "source": "한국어 위키백과: 가거도",
+          "url": "https://ko.wikipedia.org/wiki/가거도",
+          "checked": "2026-11-14",
+          "evidence": "가거도 어부들은 멸치를 잡으면서 다양한 노래를 부르는데"
+        }
+      ]
+    },
+    "hwaeomsa": {
+      "name": "화엄사",
+      "facts": [
+        {
+          "text": "화엄사는 544년에 처음 지었다고 해요.",
+          "source": "한국어 위키백과: 화엄사",
+          "url": "https://ko.wikipedia.org/wiki/화엄사",
+          "checked": "2026-11-14",
+          "evidence": "544년(신라 진흥왕 5년, 백제 성왕 22년)에 연기가 창건하였다."
+        },
+        {
+          "text": "각황전 앞 석등은 높이가 6m 40cm예요.",
+          "source": "한국어 위키백과: 화엄사",
+          "url": "https://ko.wikipedia.org/wiki/화엄사",
+          "checked": "2026-11-14",
+          "evidence": "높이는 6.4미터, 직경이 2.8미터에 달하는 규모지만"
+        },
+        {
+          "text": "네 마리 사자가 받치고 있는 석탑이 있어요.",
+          "source": "한국어 위키백과: 화엄사",
+          "url": "https://ko.wikipedia.org/wiki/화엄사",
+          "checked": "2026-11-14",
+          "evidence": "2층 기단부에 네 마리 사자가 있으며"
+        }
+      ]
+    },
+    "nogodan": {
+      "name": "노고단",
+      "facts": [
+        {
+          "text": "노고단은 지리산의 봉우리예요.",
+          "source": "한국어 위키백과: 노고단",
+          "url": "https://ko.wikipedia.org/wiki/노고단",
+          "checked": "2026-11-14",
+          "evidence": "지리산과 백두대간의 봉우리이다."
+        },
+        {
+          "text": "'노고'는 늙은 할머니라는 뜻이에요.",
+          "source": "한국어 위키백과: 노고단",
+          "url": "https://ko.wikipedia.org/wiki/노고단",
+          "checked": "2026-11-14",
+          "evidence": "“노고”란 늙은 할머니라는 뜻으로"
+        },
+        {
+          "text": "구름바다 경치가 멋지기로 유명해요.",
+          "source": "한국어 위키백과: 노고단",
+          "url": "https://ko.wikipedia.org/wiki/노고단",
+          "checked": "2026-11-14",
+          "evidence": "노고단 일대의 운해가 멋있다 하여"
+        }
+      ]
+    },
+    "maehwa": {
+      "name": "광양 매화마을",
+      "facts": [
+        {
+          "text": "섬진강 옆 매화마을에서 매화축제가 열려요.",
+          "source": "한국어 위키백과: 광양시",
+          "url": "https://ko.wikipedia.org/wiki/광양시",
+          "checked": "2026-11-14",
+          "evidence": "섬진강변 매화마을을 중심으로 개최되는 축제다."
+        },
+        {
+          "text": "매화마을이 있는 다압면은 매실이 많이 나요.",
+          "source": "한국어 위키백과: 다압면",
+          "url": "https://ko.wikipedia.org/wiki/다압면",
+          "checked": "2026-11-14",
+          "evidence": "매실, 밤, 배, 감, 고로쇠, 작설차, 재첩 등 천혜의 특산물을 생산하고 있는 고장이며"
+        }
+      ]
+    },
+    "dasan": {
+      "name": "다산초당",
+      "facts": [
+        {
+          "text": "정약용이 귀양 와서 11년 동안 머문 곳이에요.",
+          "source": "한국어 위키백과: 강진 정약용 유적",
+          "url": "https://ko.wikipedia.org/wiki/강진_정약용_유적",
+          "checked": "2026-11-14",
+          "evidence": "유배되어 11년간 머물면서 많은 책을 저술했던 곳이다."
+        },
+        {
+          "text": "정약용은 이곳에서 약 500권의 책을 썼어요.",
+          "source": "한국어 위키백과: 강진 정약용 유적",
+          "url": "https://ko.wikipedia.org/wiki/강진_정약용_유적",
+          "checked": "2026-11-14",
+          "evidence": "500여 권에 달하는 많은 저서를 남겼다."
+        },
+        {
+          "text": "바위에 정약용이 새긴 '정석' 글자가 있어요.",
+          "source": "한국어 위키백과: 강진 정약용 유적",
+          "url": "https://ko.wikipedia.org/wiki/강진_정약용_유적",
+          "checked": "2026-11-14",
+          "evidence": "다산이 직접 깎은 ‘정석(丁石)’이라는 글자가 새겨져 있으며"
+        }
+      ]
+    },
+    "naro": {
+      "name": "나로우주센터",
+      "facts": [
+        {
+          "text": "우리나라 첫 번째 우주센터예요.",
+          "source": "한국어 위키백과: 나로우주센터",
+          "url": "https://ko.wikipedia.org/wiki/나로우주센터",
+          "checked": "2026-11-14",
+          "evidence": "대한민국의 첫 번째 우주 센터로"
+        },
+        {
+          "text": "2013년 나로호 발사가 성공했어요.",
+          "source": "한국어 위키백과: 나로우주센터",
+          "url": "https://ko.wikipedia.org/wiki/나로우주센터",
+          "checked": "2026-11-14",
+          "evidence": "2013년 1월 30일 나로호 3차 발사를 하여 성공하였다."
+        },
+        {
+          "text": "2021년 누리호를 처음 쏘아 올렸어요.",
+          "source": "한국어 위키백과: 나로우주센터",
+          "url": "https://ko.wikipedia.org/wiki/나로우주센터",
+          "checked": "2026-11-14",
+          "evidence": "2021년 10월 21일 누리호 첫 발사"
+        }
+      ]
+    },
+    "mudeungsan": {
+      "name": "무등산",
+      "facts": [
+        {
+          "text": "무등산은 높이가 1,187m인 산이에요.",
+          "source": "한국어 위키백과: 무등산",
+          "url": "https://ko.wikipedia.org/wiki/무등산",
+          "checked": "2026-11-14",
+          "evidence": "해발 1,187m의 호남정맥의 산이다."
+        },
+        {
+          "text": "2013년 우리나라 21번째 국립공원이 됐어요.",
+          "source": "한국어 위키백과: 무등산",
+          "url": "https://ko.wikipedia.org/wiki/무등산",
+          "checked": "2026-11-14",
+          "evidence": "2013년 3월 4일, 국립공원으로 지정되었다. 대한민국 21번째 국립공원이며"
+        },
+        {
+          "text": "서석대, 입석대 같은 돌기둥 바위가 유명해요.",
+          "source": "한국어 위키백과: 무등산",
+          "url": "https://ko.wikipedia.org/wiki/무등산",
+          "checked": "2026-11-14",
+          "evidence": "서석대·입석대·규봉 등 수직 절리상의 암석이 석책을 두른 듯 치솟아 장관을 이룬다."
+        }
+      ]
+    },
+    "acc": {
+      "name": "국립아시아문화전당",
+      "facts": [
+        {
+          "text": "국립아시아문화전당은 2015년에 문을 열었어요.",
+          "source": "한국어 위키백과: 국립아시아문화전당",
+          "url": "https://ko.wikipedia.org/wiki/국립아시아문화전당",
+          "checked": "2026-11-14",
+          "evidence": "2015년 9월 4일에 전당이 부분 개장하였고, 같은해 11월 25일에 완전 개장하였다."
+        },
+        {
+          "text": "중요한 시설의 90%가 땅속에 있어요.",
+          "source": "한국어 위키백과: 국립아시아문화전당",
+          "url": "https://ko.wikipedia.org/wiki/국립아시아문화전당",
+          "checked": "2026-11-14",
+          "evidence": "주요 시설의 90%가 지하에 있고"
+        },
+        {
+          "text": "건물을 모두 합치면 국립중앙박물관보다 넓어요.",
+          "source": "한국어 위키백과: 국립아시아문화전당",
+          "url": "https://ko.wikipedia.org/wiki/국립아시아문화전당",
+          "checked": "2026-11-14",
+          "evidence": "연면적은 161,237m2로, 국립중앙박물관의 137,290m2보다 넓다."
+        }
+      ]
+    },
+    "yangnim": {
+      "name": "양림동 역사문화마을",
+      "facts": [
+        {
+          "text": "선교사들이 모여 살아 '서양촌'이라 불렸어요.",
+          "source": "한국어 위키백과: 양림동",
+          "url": "https://ko.wikipedia.org/wiki/양림동",
+          "checked": "2026-11-14",
+          "evidence": "선교사 들이 양림동으로 모여 들면서 세칭 ‘서양촌’을 이루며"
+        },
+        {
+          "text": "1905년 이곳에서 광주 근대 병원이 시작됐어요.",
+          "source": "한국어 위키백과: 양림동",
+          "url": "https://ko.wikipedia.org/wiki/양림동",
+          "checked": "2026-11-14",
+          "evidence": "1905년 배유지 선교사 임시사택에서 광주근대 병원(제중원)이 시작되었고"
+        },
+        {
+          "text": "400년이 넘은 호랑가시나무가 있어요.",
+          "source": "한국어 위키백과: 양림동",
+          "url": "https://ko.wikipedia.org/wiki/양림동",
+          "checked": "2026-11-14",
+          "evidence": "400년이 넘은 양림호랑가시나무"
+        }
+      ]
+    },
+    "may18": {
+      "name": "5·18기념공원",
+      "facts": [
+        {
+          "text": "공원에는 5·18 상징탑과 추모 공간이 있어요.",
+          "source": "한국어 위키백과: 5·18기념공원",
+          "url": "https://ko.wikipedia.org/wiki/5·18기념공원",
+          "checked": "2026-11-14",
+          "evidence": "5·18상징탑, 5·18추모공간 등이 들어서 있다."
+        },
+        {
+          "text": "공연장과 회의장이 있는 기념문화관이 있어요.",
+          "source": "한국어 위키백과: 5·18기념공원",
+          "url": "https://ko.wikipedia.org/wiki/5·18기념공원",
+          "checked": "2026-11-14",
+          "evidence": "국제회의장, 대공연장, 다목적실 등을 갖춘 기념문화관"
         }
       ]
     }

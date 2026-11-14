@@ -2,10 +2,13 @@
 //  - 1~4호선: 부산교통공사 역간 거리 및 소요시간(3033564) + 역사정보 좌표(15043686)
 //  - 부산김해경전철, 동해선, 대경선: OpenStreetMap 노선(역 순서, 위치). 역 사이 시간 자료가 없어 추정한다.
 //  - 대구 도시철도 1·2·3호선: scripts/build/daegu.mjs
+//  - 광주 도시철도 1호선: scripts/build/gwangju.mjs
 import { readFileSync } from 'node:fs';
 import { readCsv } from '../lib/csv.mjs';
 import { daeguLines } from './daegu.mjs';
+import { gwangjuLines } from './gwangju.mjs';
 import { utm52 } from '../lib/utm.mjs';
+import { readOsmFile } from '../lib/osm.mjs';
 
 /** 화면에 쓸 역 이름. 원자료의 마침표는 가운뎃점으로 바꾼다(경성대.부경대 → 경성대·부경대). */
 export function displayName(name) {
@@ -127,8 +130,8 @@ function osmStops(routes, osmNodes, match) {
 }
 
 function osmLines(raw, issues, stationEdits) {
-  const routes = JSON.parse(readFileSync(raw('osm/routes.json'), 'utf8'));
-  const osmStations = JSON.parse(readFileSync(raw('osm/stations.json'), 'utf8'));
+  const routes = readOsmFile(raw('osm/routes.json'));
+  const osmStations = readOsmFile(raw('osm/stations.json'));
   const osmNodes = new Map(osmStations.elements.filter((e) => e.type === 'node').map((e) => [e.id, e]));
   const korail = readCsv(raw('datagokr/15137827.csv')).records.map((r) => ({
     code: r['역번호'],
@@ -394,7 +397,8 @@ export function buildNetwork(raw, transferEdits = {}, stationEdits = {}) {
   const humetro = humetroLines(raw, issues);
   const osm = osmLines(raw, issues, stationEdits);
   const daegu = daeguLines(raw, issues);
-  const stations = [...humetro.stations, ...osm.stations, ...daegu.stations];
+  const gwangju = gwangjuLines(raw, issues);
+  const stations = [...humetro.stations, ...osm.stations, ...daegu.stations, ...gwangju.stations];
   const daeguTransfers = readCsv(raw('datagokr/15041092.csv')).records;
   const transfers = transferGroups(stations, humetro.infoRows, osm.korail, daeguTransfers, transferEdits, issues);
   for (const s of stations) {
@@ -402,9 +406,9 @@ export function buildNetwork(raw, transferEdits = {}, stationEdits = {}) {
     s.transfer = group ? group.id : null;
   }
   return {
-    lines: [...humetro.lines, ...osm.lines, ...daegu.lines],
+    lines: [...humetro.lines, ...osm.lines, ...daegu.lines, ...gwangju.lines],
     stations,
-    links: [...humetro.links, ...osm.links, ...daegu.links],
+    links: [...humetro.links, ...osm.links, ...daegu.links, ...gwangju.links],
     transfers,
     issues,
   };

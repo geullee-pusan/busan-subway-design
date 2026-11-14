@@ -104,7 +104,7 @@ export function renderExplore(root, { onHome, onTrainRide = null }) {
   map.resize();
   setView('실제 지도');
   setYear(2026);
-  map.fit();
+  map.home();
   scale.update(map.zoom);
 
   const onResize = () => {

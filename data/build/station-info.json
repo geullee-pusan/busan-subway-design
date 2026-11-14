@@ -2341,6 +2341,186 @@
       "origin": null,
       "openedOn": "2015-04-23",
       "openedWith": "칠곡경대병원~용지"
+    },
+    "G100": {
+      "name": "녹동",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G101": {
+      "name": "소태",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G102": {
+      "name": "학동·증심사입구",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G103": {
+      "name": "남광주",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G104": {
+      "name": "문화전당",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G105": {
+      "name": "금남로4가",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G106": {
+      "name": "금남로5가",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G107": {
+      "name": "양동시장",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G108": {
+      "name": "돌고개",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G109": {
+      "name": "농성",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G110": {
+      "name": "화정",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G111": {
+      "name": "쌍촌",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G112": {
+      "name": "운천",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G113": {
+      "name": "상무",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2004-04-28",
+      "openedWith": "녹동~상무"
+    },
+    "G114": {
+      "name": "김대중컨벤션센터(마륵)",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2008-04-11",
+      "openedWith": "김대중컨벤션센터(마륵)~평동"
+    },
+    "G115": {
+      "name": "공항",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2008-04-11",
+      "openedWith": "김대중컨벤션센터(마륵)~평동"
+    },
+    "G116": {
+      "name": "송정공원",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2008-04-11",
+      "openedWith": "김대중컨벤션센터(마륵)~평동"
+    },
+    "G117": {
+      "name": "광주송정",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2008-04-11",
+      "openedWith": "김대중컨벤션센터(마륵)~평동"
+    },
+    "G118": {
+      "name": "도산",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2008-04-11",
+      "openedWith": "김대중컨벤션센터(마륵)~평동"
+    },
+    "G119": {
+      "name": "평동",
+      "line": "GJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2008-04-11",
+      "openedWith": "김대중컨벤션센터(마륵)~평동"
     }
   }
 }

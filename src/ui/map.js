@@ -21,8 +21,8 @@ const TERRAIN_COLORS = {
 const INK = '#1F3342';
 /** 기본으로 그리는 노선망. setNetwork로 옛날 부산으로 바꿀 수 있다. */
 const NOW_NETWORK = { lines, stations, stationById };
-// 지도가 123 × 156칸으로 커져서, 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
-const MIN_ZOOM = 0.15;
+// 지도가 407 × 267칸으로 커져서(경남·전남광주까지), 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
+const MIN_ZOOM = 0.05;
 const MAX_ZOOM = 6;
 
 function el(name, attrs = {}) {
@@ -66,6 +66,9 @@ const CITY_COLORS = {
   구미: ['#C8E8E6', '#B2DEDB'],
   경산: ['#E0EDB8', '#D2E5A0'],
   칠곡: ['#EAD9C4', '#E0CBB0'],
+  경남: ['#E9E4C6', '#DFD9B4', '#F1EDD8'],
+  광주: ['#F2D0E8', '#EABBDD', '#F7E1F1'],
+  전남: ['#DCEBC9', '#CDE2B5', '#E8F2DC'],
   이웃: ['#E6E6E0', '#DADAD2', '#EEEEE8'],
 };
 
@@ -81,6 +84,9 @@ function districtParts(name) {
   if (rest === '구미시') return { city: '구미', short: rest, main: true };
   if (rest === '경산시') return { city: '경산', short: rest, main: true };
   if (rest === '칠곡군') return { city: '칠곡', short: rest, main: true };
+  // 경남의 다른 시·군, 전남광주통합특별시(옛 광주광역시의 다섯 구는 광주로 묶는다)
+  if (name.startsWith('경상남도')) return { city: '경남', short: rest, main: true };
+  if (name.startsWith('전남광주')) return { city: ['동구', '서구', '남구', '북구', '광산구'].includes(rest) ? '광주' : '전남', short: rest, main: true };
   // 지도 네모 안에 함께 들어온 이웃 시·군
   return { city: rest, short: rest, main: false };
 }
@@ -160,7 +166,7 @@ function districtLabelsLayer() {
   const { list, cities } = districtInfo();
   const layer = el('g', { class: 'district-labels', 'aria-hidden': 'true', 'text-anchor': 'middle', 'paint-order': 'stroke', stroke: '#FFFFFF', 'stroke-linejoin': 'round' });
   const add = (text, x, y, level, main) => {
-    const node = el('text', { x: (x * CELL).toFixed(1), y: (y * CELL).toFixed(1), 'data-level': level, fill: INK, 'fill-opacity': main ? 0.85 : 0.55, 'font-weight': level === 'city' ? 800 : 600 });
+    const node = el('text', { x: (x * CELL).toFixed(1), y: (y * CELL).toFixed(1), 'data-level': level, 'data-main': main ? 'yes' : 'no', fill: INK, 'fill-opacity': main ? 0.85 : 0.55, 'font-weight': level === 'city' ? 800 : 600 });
     node.textContent = text;
     layer.append(node);
   };
@@ -745,7 +751,9 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     // 행정구역 이름표: 도시 이름은 늘 보이고, 구·군 이름은 조금 확대하면 보인다. 글자 크기는 화면에서 늘 같다.
     for (const text of layers.districtLabels?.children ?? []) {
       const city = text.getAttribute('data-level') === 'city';
-      text.style.display = city || state.k >= 1 ? '' : 'none';
+      // 이웃 시·군(지도 네모에 함께 들어온 전북·충남·경북·제주 등)은 지도 전체를 볼 때는 숨긴다
+      const neighbor = text.getAttribute('data-main') === 'no';
+      text.style.display = (city && (!neighbor || state.k >= 0.15)) || state.k >= 1 ? '' : 'none';
       text.setAttribute('font-size', ((city ? 18 : 12) / state.k).toFixed(2));
       text.setAttribute('stroke-width', ((city ? 4 : 3) / state.k).toFixed(2));
     }
@@ -999,13 +1007,30 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     applyTransform();
   }
 
-  function fit() {
+  /** 칸 네모(c0, r0)~(c1, r1)가 화면에 꼭 맞게 보인다. 지도가 아직 화면에 자리 잡지 않았으면 자리 잡은 뒤에 맞춘다. */
+  function fitBox(c0, r0, c1, r1) {
     const { width, height } = size();
-    state.k = Math.min(width / (grid.cols * CELL), height / (grid.rows * CELL));
+    if (!width || !height) {
+      requestAnimationFrame(() => fitBox(c0, r0, c1, r1));
+      return;
+    }
+    state.k = Math.min(width / ((c1 - c0) * CELL), height / ((r1 - r0) * CELL));
     state.k = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, state.k));
-    state.tx = (width - grid.cols * CELL * state.k) / 2;
-    state.ty = (height - grid.rows * CELL * state.k) / 2;
+    state.tx = (width - (c0 + c1) * CELL * state.k) / 2;
+    state.ty = (height - (r0 + r1) * CELL * state.k) / 2;
     applyTransform();
+  }
+
+  /** 지도 전체 */
+  function fit() {
+    fitBox(0, 0, grid.cols, grid.rows);
+  }
+
+  /** 처음 보여 주는 곳: 부산·울산·경남 동부(UTM 동 439~544km, 북 3870~3955km). 지도가 넓어져도 부산 게임이 작게 보이지 않게 한다. */
+  function home() {
+    const col = (e) => e - grid.origin.easting / 1000;
+    const row = (n) => grid.origin.northing / 1000 - n;
+    fitBox(Math.max(0, col(439)), Math.max(0, row(3955)), Math.min(grid.cols, col(544)), Math.min(grid.rows, row(3870)));
   }
 
   function resize() {
@@ -1020,6 +1045,7 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     element: root,
     draw,
     fit,
+    home,
     focusOn,
     resize,
     select,

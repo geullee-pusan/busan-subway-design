@@ -218,7 +218,7 @@ export function renderHistory(root, { onHome, onDesign = null }) {
   map.resize();
   map.setView('실제 지도');
   setYear(BASE_YEAR);
-  map.fit();
+  map.home();
   scale.update(map.zoom);
   map.element.addEventListener('map-zoom', (event) => scale.update(event.detail.k));
 

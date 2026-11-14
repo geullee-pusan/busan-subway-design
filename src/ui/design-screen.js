@@ -1288,7 +1288,7 @@ export function renderDesign(root, { onHome, onRun, onRide = null, runsLeft = nu
   if (past) map.setNetwork(past);
   if (showFuture) map.setFuture(futureLines);
   if (mission?.focus) map.focusOn(mission.focus.col, mission.focus.row, 2);
-  else map.fit();
+  else map.home();
   setMode('그리기');
   scale.update(map.zoom);
 

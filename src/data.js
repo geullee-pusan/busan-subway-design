@@ -85,6 +85,8 @@ export function ridershipOf(stationId) {
   // 대구 도시철도: 보여 주기만 하는 자료(보정에는 쓰지 않는다)
   const daegu = ridership.daegu?.stations[stationId];
   if (daegu) return { data: daegu, from: null, source: ridership.daegu.source };
+  const gwangju = ridership.gwangju?.stations[stationId];
+  if (gwangju) return { data: gwangju, from: null, source: ridership.gwangju.source };
   const shared = ridership.missing.find((m) => m.id === stationId);
   if (shared) {
     for (const sibling of transferSiblings(stationId)) {

@@ -6,10 +6,11 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { utm52 } from './lib/utm.mjs';
+import { readOsm } from './lib/osm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
-const osm = JSON.parse(readFileSync(resolve(ROOT, 'data/raw/osm/landmarks.json'), 'utf8'));
+const osm = readOsm(ROOT, 'landmarks');
 osm.elements.push(...JSON.parse(readFileSync(resolve(ROOT, 'data/edits/landmark-places.json'), 'utf8')).elements);
 const config = JSON.parse(readFileSync(resolve(ROOT, 'scripts/config/landmarks.json'), 'utf8'));
 const facts = JSON.parse(readFileSync(resolve(ROOT, 'data/facts.json'), 'utf8')).landmarks ?? {};

@@ -104,7 +104,7 @@ export function renderRunning(root, { plan, result, world, hourShape, onDone }) 
   map.resize();
   map.setView('실제 지도');
   map.setPlan(plan.lines, -1);
-  map.fit();
+  map.home();
   scale.update(map.zoom);
 
   // 역마다 하루에 타는 사람 수

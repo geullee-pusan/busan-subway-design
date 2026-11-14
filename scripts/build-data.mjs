@@ -4,6 +4,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { daeguRidership, daeguService } from './build/daegu.mjs';
+import { GWANGJU_LINE, gwangjuRidership, gwangjuService } from './build/gwangju.mjs';
 import { buildDistricts } from './build/districts.mjs';
 import { buildFutureLines } from './build/future.mjs';
 import { buildGrid } from './build/grid.mjs';
@@ -15,6 +16,7 @@ import { buildStationInfo } from './build/station-info.mjs';
 import { readTrains, summarizeService } from './build/service.mjs';
 import { stringify } from './lib/json.mjs';
 import { utm52 } from './lib/utm.mjs';
+import { readOsmFile } from './lib/osm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const raw = (p) => resolve(ROOT, 'data/raw', p);
@@ -32,7 +34,7 @@ const network = buildNetwork(raw, transferEdits, stationEdits);
 const issues = network.issues.map((m) => `[노선] ${m}`);
 
 // 노선 색: 공식 출처(data/facts.json)가 있으면 그것을, 없으면 OSM 노선의 colour 태그를 쓴다.
-const routes = JSON.parse(readFileSync(raw('osm/routes.json'), 'utf8'));
+const routes = readOsmFile(raw('osm/routes.json'));
 const osmColour = new Map();
 for (const e of routes.elements) {
   if (e.type === 'relation' && e.tags?.colour && e.tags?.ref) osmColour.set(e.tags.ref, e.tags.colour);
@@ -84,7 +86,7 @@ for (const line of network.lines) {
 }
 
 // 2. 격자: 부산 전역 + 북정역(양산선, OSM) + 가야대역(부산김해경전철 끝 역)
-const osmStations = JSON.parse(readFileSync(raw('osm/stations.json'), 'utf8'));
+const osmStations = readOsmFile(raw('osm/stations.json'));
 const bukjeong = osmStations.elements.find((e) => e.type === 'node' && e.tags?.name === '북정');
 if (!bukjeong) throw new Error('OSM 자료에서 북정역을 찾지 못했어요.');
 const bglLine = network.lines.find((l) => l.id === 'BGL');
@@ -162,6 +164,10 @@ ridership.daegu = {
   source: '대구교통공사 역별일별시간별승하차인원 2026년 1~8월(공공데이터포털 15002503)',
   stations: daeguRidership(raw, network.stations, issues),
 };
+ridership.gwangju = {
+  source: '광주교통공사 역일시간대별 승하차량 2026년 1~9월(공공데이터포털 15060048)',
+  stations: gwangjuRidership(raw, network.stations, issues),
+};
 if (ridershipRaw.unusedRows.length) issues.push(`[이용객] 역 목록에 없는 역번호 자료: ${ridershipRaw.unusedRows.join(', ')}`);
 
 // 4. 역 정보(유래, 주소, 개통일)와 노선도 보기 좌표
@@ -189,6 +195,11 @@ const service = {
 // 5-2. 모델이 쓰는 노선 값: 배차 간격, 가장 바쁜 때의 열차 수, 열차 정원
 const lowNumber = (text) => Number(String(text).split('~')[0]);
 const daeguRuns = daeguService(raw, network.lines, network.stations, issues);
+{
+  const gwangjuLine = network.lines.find((l) => l.id === GWANGJU_LINE.id);
+  const run = gwangjuService(raw, gwangjuLine, network.links.filter((l) => l.line === GWANGJU_LINE.id), network.stations, issues);
+  if (run) daeguRuns.set(GWANGJU_LINE.id, run);
+}
 for (const line of network.lines) {
   const summary = service.weekday.find((s) => s.line === line.id);
   const daeguRun = daeguRuns.get(line.id);

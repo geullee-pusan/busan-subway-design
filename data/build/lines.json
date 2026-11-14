@@ -260,6 +260,31 @@
       "serviceSource": "15065532, 15138734 시각표에서 셈(평일 6~22시, 달성공원역, 한 방향)",
       "capacityPerTrain": null,
       "capacitySource": null
+    },
+    {
+      "id": "GJ1",
+      "label": "광주1",
+      "name": "광주 1호선",
+      "fullName": "광주 도시철도 1호선",
+      "operator": "광주교통공사",
+      "status": "운행 중",
+      "stations": ["G100","G101","G102","G103","G104","G105","G106","G107","G108","G109","G110","G111","G112","G113","G114","G115","G116","G117","G118","G119"],
+      "lengthKm": 20.5,
+      "lengthSource": "15046044 역간 거리의 합",
+      "runSource": "15046044",
+      "dwellS": 2,
+      "dwellSource": "15111497 시간표: (소태~도산 걸린 시간 − 15046044 역 사이 시간의 합) ÷ 그 사이 역 수",
+      "osmRelation": 13463725,
+      "osmColour": "#009088",
+      "region": "광주",
+      "color": "#009088",
+      "colorSource": "OSM colour 태그",
+      "trainsPerHourPeak": 12,
+      "trainsPerHourTypical": 6.8,
+      "headwayMin": 8.9,
+      "serviceSource": "15111497 시간표에서 셈(평일 6~22시, 화정역, 한 방향)",
+      "capacityPerTrain": null,
+      "capacitySource": null
     }
   ],
   "planned": [

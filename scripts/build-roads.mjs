@@ -15,10 +15,11 @@ import { fileURLToPath } from 'node:url';
 import { simplify } from './build/districts.mjs';
 import { addMadeRoads } from './build/road-links.mjs';
 import { utm52 } from './lib/utm.mjs';
+import { readOsm } from './lib/osm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
-const osm = JSON.parse(readFileSync(resolve(ROOT, 'data/raw/osm/roads.json'), 'utf8'));
+const osm = readOsm(ROOT, 'roads');
 const { landmarks } = JSON.parse(readFileSync(resolve(ROOT, 'data/build/landmarks.json'), 'utf8'));
 // 동네 길 조각(paths-1.json, 다시 나눈 조각은 paths-17-1.json 꼴)
 const pathFiles = readdirSync(resolve(ROOT, 'data/raw/osm'))
@@ -182,6 +183,7 @@ for (const e of joined.edges) edges.push(e);
 nodeXY.length = 0;
 for (const v of joined.nodes) nodeXY.push(v);
 console.log(`임의로 이은 길: 랜드마크까지 ${joined.spurs}개, 끊어진 묶음 ${joined.links}개, 가장 긴 것 ${joined.longestM}m`);
+console.log(`배로만 갈 수 있는 랜드마크: ${joined.boatOnly.map((id) => landmarks.find((l) => l.id === id).name).join(', ') || '없음'}`);
 
 const byClass = {};
 for (const e of edges) byClass[e[2]] = (byClass[e[2]] ?? 0) + e[3] / 1000;
@@ -224,6 +226,8 @@ const out = {
     '걸어서 여행하기의 길. packed는 갈림점과 토막을 숫자로 줄여 담은 것이다(푸는 법: src/sim/roads.js). 갈림점 좌표는 10m 단위(격자 왼쪽 위 기준). 토막은 [갈림점 a, 갈림점 b, 종류(1 간선, 2 주간선, 3 보조간선, 4 일반, 5 동네 길, 6 게임에서 임의로 이은 길), 길이(m), 사이 점, 길 이름 번호(names)]. 일방통행과 신호는 넣지 않았다. 종류 6은 실제 길이 아니다.',
   source: 'OpenStreetMap 차도(highway=trunk·primary·secondary·tertiary와 연결로)와 동네 길(residential·unclassified·living_street·pedestrian), © OpenStreetMap contributors, ODbL',
   names,
+  // 길로 이을 수 없는 섬의 랜드마크(배로만 간다)
+  boatOnly: joined.boatOnly,
   unit: UNIT,
   packed: Buffer.from(bytes).toString('base64'),
 };

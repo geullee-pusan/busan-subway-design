@@ -15,8 +15,40 @@ const SKADI_BASE = 'https://s3.amazonaws.com/elevation-tiles-prod/skadi';
 
 // Overpass에 보낼 범위(남, 서, 북, 동). 격자 범위(부산·울산·김해·창원·양산)보다 넉넉하게 잡는다.
 export const OSM_BBOX = '34.85,127.80,36.65,129.70';
+// 지도 범위 넓히기 4(경남 전체, 전남광주통합특별시, 2026-11-14): 위 범위 밖으로 넓힌 곳.
+// 이미 받은 파일은 그대로 두고, 이 두 상자만 "<이름>-2.json"으로 받는다(scripts/lib/osm.mjs가 합쳐 읽는다).
+//   서쪽: 위도 33.85~35.95, 경도 124.95~127.80(전남광주 전체, 신안 먼 섬, 경남 서쪽 하동·산청·함양·거창)
+//   남쪽 띠: 위도 33.85~34.85, 경도 127.80~129.70(남해·통영·거제의 남쪽 섬)
+export const OSM_BOXES_2 = ['33.85,124.95,35.95,127.80', '33.85,127.80,34.85,129.70'];
+/** 같은 문장을 두 상자에 한 번씩 */
+const inBoxes2 = (lines) => OSM_BOXES_2.map((box) => lines.map((line) => line.replace('(BOX)', `(${box})`)).join('\n')).join('\n');
 /** 동네 길을 나눠 받는 조각 [남, 서, 북, 동] */
 const PATH_TILES = [];
+/**
+ * 넓힌 범위의 동네 길 조각(0.3도 칸). 예전 조각(위도 34.9~36.46, 경도 128.1~129.51) 밖만 받는다.
+ * 서쪽: 위도 33.85~35.95, 경도 124.95~128.1 / 남쪽 띠: 위도 33.85~34.9, 경도 128.1~129.6
+ * 서버가 버거워한 조각은 SPLIT_TILES_2에 넣어 2×2로 다시 나눈다.
+ */
+const SPLIT_TILES_2 = new Set([]);
+const PATH_TILES_2 = [];
+{
+  const add = (prefix, south, west, north, east) => {
+    for (let i = 0; south + i * 0.3 < north - 1e-9; i++) {
+      for (let j = 0; west + j * 0.3 < east - 1e-9; j++) {
+        const s = south + i * 0.3;
+        const w = west + j * 0.3;
+        const n = Math.min(north, s + 0.3);
+        const e = Math.min(east, w + 0.3);
+        const name = `${prefix}${i}-${j}`;
+        const box = (s0, w0, s1, w1) => [+s0.toFixed(3), +w0.toFixed(3), +s1.toFixed(3), +w1.toFixed(3)];
+        if (!SPLIT_TILES_2.has(name)) PATH_TILES_2.push({ name, box: box(s, w, n, e) });
+        else for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) PATH_TILES_2.push({ name: `${name}-${a * 2 + b + 1}`, box: box(s + (a * (n - s)) / 2, w + (b * (e - w)) / 2, s + ((a + 1) * (n - s)) / 2, w + ((b + 1) * (e - w)) / 2) });
+      }
+    }
+  };
+  add('w', 33.85, 124.95, 35.95, 128.1);
+  add('s', 33.85, 128.1, 34.9, 129.6);
+}
 // 6×6 조각(부산 시내처럼 길이 많은 곳은 3×3 조각으로도 서버가 버거워했다).
 // 그래도 받지 못한 조각(17, 18, 20, 23번: 양산·울산·대구 서쪽·경주 둘레)은 다시 2×2로 나눈다(예: 17-1 ~ 17-4).
 const SPLIT_TILES = new Set([17, 18, 20, 23]);
@@ -118,6 +150,12 @@ export const SOURCES = [
   { key: 'dem-N36E127', file: 'data/raw/dem/N36E127.hgt.gz', url: `${SKADI_BASE}/N36/N36E127.hgt.gz`, size: 13093831 },
   { key: 'dem-N36E128', file: 'data/raw/dem/N36E128.hgt.gz', url: `${SKADI_BASE}/N36/N36E128.hgt.gz`, size: 13521169 },
   { key: 'dem-N36E129', file: 'data/raw/dem/N36E129.hgt.gz', url: `${SKADI_BASE}/N36/N36E129.hgt.gz`, size: 8473868 },
+  // 지도 범위 넓히기 4(경남 전체, 전남광주): 서쪽과 남쪽 타일. 크기는 받은 뒤 적는다.
+  ...['N33E126', 'N34E125', 'N34E126', 'N34E127', 'N35E125', 'N35E126', 'N36E125', 'N36E126'].map((tile) => ({
+    key: `dem-${tile}`,
+    file: `data/raw/dem/${tile}.hgt.gz`,
+    url: `${SKADI_BASE}/${tile.slice(0, 3)}/${tile}.hgt.gz`,
+  })),
 
   // OpenStreetMap (Overpass API). 받을 때마다 내용이 바뀔 수 있어 git에 넣어 둔다.
   {
@@ -208,6 +246,73 @@ out skel geom qt;`,
 );
 out center tags qt;`,
   },
+  // 광주 도시철도 1호선(광주교통공사, 공공데이터포털, 이용허락범위 제한 없음). 크기는 받은 뒤 적는다.
+  { key: 'gwangju-links', file: 'data/raw/datagokr/15046044.csv', url: dataGoKr('FILE_000000002371481') },
+  { key: 'gwangju-ridership', file: 'data/raw/datagokr/15060048.csv', url: dataGoKr('FILE_000000007731276') },
+  { key: 'gwangju-timetable', file: 'data/raw/datagokr/15111497.csv', url: dataGoKr('FILE_000000007753914') },
+  { key: 'gwangju-exits', file: 'data/raw/datagokr/15046045.csv', url: dataGoKr('FILE_000000002492764') },
+
+  // 지도 범위 넓히기 4: 넓힌 범위(OSM_BOXES_2)만 따로 받는다. 위 파일과 같은 조건이다.
+  {
+    key: 'osm-water-2',
+    file: 'data/raw/osm/water-2.json',
+    overpass: `[out:json][timeout:300];
+(
+${inBoxes2(['  way["natural"="water"](BOX);', '  relation["natural"="water"](BOX);', '  way["waterway"="riverbank"](BOX);', '  relation["waterway"="riverbank"](BOX);'])}
+);
+out geom;`,
+  },
+  {
+    // 광주 도시철도 1호선이 이 안에 있다
+    key: 'osm-routes-2',
+    file: 'data/raw/osm/routes-2.json',
+    overpass: `[out:json][timeout:180];
+(
+${inBoxes2(['  relation["type"="route"]["route"~"^(subway|monorail|light_rail)$"](BOX);', '  relation["type"="route"]["route"="train"]["service"="commuter"](BOX);', '  relation["type"="route_master"]["route_master"~"^(subway|monorail|light_rail|train)$"](BOX);'])}
+);
+out geom;`,
+  },
+  {
+    key: 'osm-stations-2',
+    file: 'data/raw/osm/stations-2.json',
+    overpass: `[out:json][timeout:180];
+(
+${inBoxes2([
+  '  nwr["railway"~"^(station|halt|stop)$"](BOX);',
+  '  nwr["public_transport"~"^(station|stop_position)$"]["train"="yes"](BOX);',
+  '  nwr["public_transport"~"^(station|stop_position)$"]["subway"="yes"](BOX);',
+  '  relation["public_transport"="stop_area"](BOX);',
+  '  nwr["railway"="construction"]["construction"~"station"](BOX);',
+  '  nwr["construction:railway"~"station"](BOX);',
+])}
+);
+out center;`,
+  },
+  {
+    key: 'osm-rail-lines-2',
+    file: 'data/raw/osm/rail-lines-2.json',
+    overpass: `[out:json][timeout:300];
+(
+${inBoxes2(['  way["railway"="rail"][!"service"](BOX);'])}
+);
+out geom;`,
+  },
+  {
+    key: 'osm-roads-2',
+    file: 'data/raw/osm/roads-2.json',
+    overpass: `[out:json][timeout:900][maxsize:1073741824];
+(
+${inBoxes2(['  way["highway"~"^(trunk|primary|secondary|tertiary)(_link)?$"](BOX);'])}
+);
+out geom qt;`,
+  },
+  ...PATH_TILES_2.map(({ name, box: [s, w, n, e] }) => ({
+    key: `osm-paths-${name}`,
+    file: `data/raw/osm/paths-${name}.json`,
+    overpass: `[out:json][timeout:600][maxsize:1073741824][bbox:${s},${w},${n},${e}];
+way["highway"~"^(residential|unclassified|living_street|pedestrian)$"];
+out skel geom qt;`,
+  })),
   // 코레일(한국철도공사) 기차역 자리와 선구별 거리표
   { key: 'korail-stations', file: 'data/raw/datagokr/15127532.csv', url: dataGoKr('FILE_000000002898194'), size: 7453 },
   { key: 'korail-distances', file: 'data/raw/datagokr/15137040.xlsx', url: dataGoKr('FILE_000000003025367'), size: 267464 },

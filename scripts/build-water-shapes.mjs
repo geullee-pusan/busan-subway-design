@@ -6,10 +6,11 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { simplify } from './build/districts.mjs';
 import { utm52 } from './lib/utm.mjs';
+import { readOsm } from './lib/osm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
-const osm = JSON.parse(readFileSync(resolve(ROOT, 'data/raw/osm/water.json'), 'utf8'));
+const osm = readOsm(ROOT, 'water');
 
 const TOLERANCE_M = 10;
 const MIN_AREA_M2 = 3000;

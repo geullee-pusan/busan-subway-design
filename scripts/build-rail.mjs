@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { readCsv } from './lib/csv.mjs';
 import { utm52 } from './lib/utm.mjs';
 import { readXlsx } from './lib/xlsx.mjs';
+import { readOsmFile } from './lib/osm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const raw = (p) => resolve(ROOT, 'data/raw', p);
@@ -75,7 +76,7 @@ if (existsSync(RUN_INFO)) {
     for (const r of list) if (['01', '02', '05', '11'].includes(r.stop_se_cd)) passenger.add(key(r.stn_nm));
   }
 }
-const osmStations = JSON.parse(readFileSync(raw('osm/stations.json'), 'utf8')).elements.filter(
+const osmStations = readOsmFile(raw('osm/stations.json')).elements.filter(
   (e) => /^(station|halt)$/.test(e.tags?.railway ?? '') && (e.tags?.train === 'yes' || /철도공사|코레일|Korail/i.test(e.tags?.operator ?? '')),
 );
 /** 이름(또는 옛 이름)이 같은 OSM 역들 */
@@ -91,7 +92,7 @@ function osmByName(name) {
 }
 
 // 3. 선로 그래프: OSM 선로의 점을 마디로, 이웃한 점을 잇는다. 선로끼리 만나는 점은 좌표가 같아 하나로 묶인다.
-const osmRail = JSON.parse(readFileSync(raw('osm/rail-lines.json'), 'utf8'));
+const osmRail = readOsmFile(raw('osm/rail-lines.json'));
 const nodeOf = new Map();
 const nodes = [];
 const adj = [];
