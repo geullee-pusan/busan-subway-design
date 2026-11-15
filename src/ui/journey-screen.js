@@ -19,6 +19,7 @@ import { createRideSound } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { BUS_PEOPLE_MAX, busInteriorArt, taxiInteriorArt, walkSceneArt } from './vehicle-art.js';
 import { createCrowd, openTalk, talkLines } from './passengers.js';
+import { createHeroActor, heroInside, heroMotionPicker } from './hero-actor.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 /** 걷기·버스·택시 그림이 움직이는 시간(밀리초) */
@@ -92,6 +93,13 @@ function stepLabel(step) {
 export function renderJourney(root, { trip, from, to, hour, rider, world, result, hourShape, fares, onBack, onDone = null, backLabel = '여행하기로' }) {
   root.replaceChildren();
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+  // 버스·택시 안의 주인공과 동작 고르기(지하철은 ride-screen, 기차는 train-journey가 따로 둔다)
+  const hero = createHeroActor({ reduceMotion });
+  const heroPicker = heroMotionPicker((id) => hero.play(id), { reduceMotion });
+  hero.onChange((id) => heroPicker.mark(id));
+  /** 버스는 통로 앞쪽에 서 있고, 택시는 뒷자리 오른쪽(운전석 반대편)에 앉아 있다(아래가 그림 밖으로 나가 가려진다) */
+  const BUS_PLACE = { left: 30, bottom: 2, height: 56 };
+  const TAXI_PLACE = { left: 72, bottom: -52, height: 100 };
   const steps = stepsOf(trip);
   const stationOf = new Map(world.stations.map((s) => [s.id, s]));
   const transitSteps = steps.filter((s) => s.kind === '지하철' || s.kind === '버스');
@@ -539,7 +547,8 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     // 버스 안: 몇 명이 탔는지 자료가 없어서 사람 그림은 몇 개만 그린다.
     const bus = busInteriorArt({ count: 6, color: '#2E8B3E', label: '시내버스', reduceMotion });
     bus.setAttribute('aria-label', '버스 안 그림이에요. 뒤에서 앞을 바라봐요.');
-    area.append(bus);
+    area.append(heroInside(bus, hero, BUS_PLACE));
+    area.append(heroPicker.el);
     area.append(element('p', null, `약 ${distanceText(step.meters)}, ${minutesText(step.minutes)} 가요.`));
     const ready = progress(area, '버스가 달리는 중이에요.');
     const bottom = element('div');
@@ -630,7 +639,8 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       });
       art.setAttribute('role', 'group');
       art.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요. 사람을 누르면 이야기를 들을 수 있어요.`);
-      box.append(art);
+      box.append(heroInside(art, hero, BUS_PLACE));
+      box.append(heroPicker.el);
       if (noLoadData) {
         box.append(element('p', 'panel-note', '이 버스는 승하차 자료가 없어요.'));
         box.append(element('p', 'panel-note', '버스 안 사람 수는 우리가 정한 값이에요.'));
@@ -715,7 +725,8 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     area.append(element('h2', null, '택시를 타고 가요'));
     // 뒷자리에서 본 택시 안. 그림 속 미터기도 함께 올라간다.
     const taxi = taxiInteriorArt({ reduceMotion, meterText: fares.taxi.baseFare.toLocaleString('ko-KR') });
-    area.append(taxi.svg);
+    area.append(heroInside(taxi.svg, hero, TAXI_PLACE));
+    area.append(heroPicker.el);
     // 요금 미터기: 달린 거리만큼 부산 택시 요금표대로 올라간다.
     const meter = element('div', 'taxi-meter');
     meter.setAttribute('role', 'status');
@@ -779,5 +790,8 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
   }
 
   render();
-  return () => clearScene();
+  return () => {
+    clearScene();
+    hero.destroy();
+  };
 }

@@ -27,6 +27,7 @@ import {
 } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
 import { BUS_PEOPLE_MAX, busInteriorArt } from './vehicle-art.js';
+import { createHeroActor, heroInside, heroMotionPicker } from './hero-actor.js';
 import { createCrowd, frontPassenger, makeTappable, openTalk, talkLines } from './passengers.js';
 import { BASE_YEAR, busNetwork } from '../model.js';
 import { routesAtStop, routesNear } from '../sim/bus-network.js';
@@ -154,6 +155,12 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   const stopLabel = (name) => (isBus ? `${String(name).replace(/역$/, '')} 정류장` : stationLabel(name));
   const kind = { ...kindTable, capacityPerTrain: design.capacityPerTrain ?? kindTable.capacityPerTrain };
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+  // 차 안에 서 있는 주인공과 동작 고르기(다시 그려도 같은 주인공이 하던 동작을 이어 간다)
+  const hero = createHeroActor({ reduceMotion });
+  const heroPicker = heroMotionPicker((id) => hero.play(id), { reduceMotion });
+  hero.onChange((id) => heroPicker.mark(id));
+  /** 차 안에서 주인공이 서는 곳(그림 틀 안 %): 열차는 왼쪽 문 앞 바닥, 버스는 통로 앞쪽 */
+  const HERO_PLACE = isBus ? { left: 30, bottom: 2, height: 56 } : { left: 11, bottom: 3, height: 66 };
 
   // 새 노선 역과 구간
   const routeOfLine = segment ? lineRoutes(world).find((r) => r.line === design.id) : null;
@@ -1183,7 +1190,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const scene = view?.scene ?? null;
     syncCrowd(moving ? at - 1 : at);
     const car = interior(inside, scene, moving ? null : stop.name);
-    left.append(car.svg);
+    left.append(heroInside(car.svg, hero, HERO_PLACE));
+    left.append(heroPicker.el);
     if (moving) left.append(element('p', 'panel-note', SCENE_TEXT[scene]));
     if (moving && view.why) left.append(element('p', 'panel-note guide', view.why));
     if (!moving) left.append(stationSign());
@@ -1378,6 +1386,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   }
 
   return () => {
+    hero.destroy();
     legToken += 1;
     if (timer) clearTimeout(timer);
     clearTimeout(ledTimer);

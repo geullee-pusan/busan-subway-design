@@ -1,0 +1,35 @@
+{
+  "_설명": "거의 정면에서 본 주인공의 춤(front.webp, 줄마다 춤 하나, 칸은 1/fps초씩)과 서 있는 모습(front-idle.webp). 차 안과 동작 고르기에서 쓴다. 만든 곳: scripts/hero-bake.mjs",
+  "cell": 144,
+  "fps": 8,
+  "dances": [
+    {
+      "name": "hiphop",
+      "frames": 32
+    },
+    {
+      "name": "hiphop2",
+      "frames": 32
+    },
+    {
+      "name": "hiphop3",
+      "frames": 32
+    },
+    {
+      "name": "hiphop4",
+      "frames": 32
+    },
+    {
+      "name": "silly",
+      "frames": 31
+    },
+    {
+      "name": "silly2",
+      "frames": 32
+    },
+    {
+      "name": "chicken",
+      "frames": 32
+    }
+  ]
+}

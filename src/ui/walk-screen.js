@@ -23,6 +23,7 @@ import { createLandmarkMusic } from './landmark-music.js';
 import { renderDiary } from './walk-diary.js';
 import { LANDMARK_ICON, landmarkScene } from './landmark-scenes.js';
 import { createWalkMap, HERO_DANCES } from './walk-map.js';
+import { heroMotionPicker } from './hero-actor.js';
 import { textWithCards } from './word-card.js';
 
 /** 화면에서 걷는 빠르기: 1초에 몇 km(빨리 감기). 우리가 정한 값. */
@@ -132,6 +133,8 @@ export function renderWalk(root, { onHome }) {
   let lastMoved = -Infinity;
   // 랜드마크에 도착해 추는 춤: {row, start(ms), seconds, lm}. 추는 동안은 멈춰 있고, 끝나면 도착 장면을 보여 준다.
   let dancing = null;
+  /** 지도 아래 주인공 동작 고르기 */
+  let motionPicker = null;
   let target = null; // 누른 곳(길 위 점)
   let at = null; // 내가 서 있는 길 위 자리 {edge, seg, t}
   let walkPath = null; // 누른 곳까지 걸어갈 길 {points, km, done, goal}
@@ -528,8 +531,18 @@ export function renderWalk(root, { onHome }) {
       else music.stop();
     });
     soundButton.setAttribute('aria-pressed', String(musicOn));
-    tools.append(soundButton, button('랜드마크 목록', () => showLandmarkList()), button('가 보고 싶은 곳', chooseGoal), button('여행 기록 보기', showRecord), button('여행 일기', showDiary), button('그만 걷기', finish));
+    // 주인공 동작 고르기: 지도 위 주인공이 그 자리에서 춤을 춘다(걷기 손잡이를 움직이면 멈춘다)
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    motionPicker = heroMotionPicker(playMotion, { reduceMotion });
+    motionPicker.el.hidden = true;
+    const motionButton = button('🕺 주인공 동작', () => {
+      motionPicker.el.hidden = !motionPicker.el.hidden;
+      motionButton.setAttribute('aria-expanded', String(!motionPicker.el.hidden));
+    });
+    motionButton.setAttribute('aria-expanded', 'false');
+    tools.append(soundButton, motionButton, button('랜드마크 목록', () => showLandmarkList()), button('가 보고 싶은 곳', chooseGoal), button('여행 기록 보기', showRecord), button('여행 일기', showDiary), button('그만 걷기', finish));
     body.append(tools);
+    body.append(motionPicker.el);
 
     map = makeMap(canvas);
 
@@ -740,11 +753,16 @@ export function renderWalk(root, { onHome }) {
     if (dancing) {
       // 춤추는 동안은 걷지 않는다. 다 추면 도착 장면을 보여 준다.
       needsDraw = true;
-      if (mode !== 'walk') dancing = null;
-      else if ((t - dancing.start) / 1000 >= dancing.seconds) {
+      // 직접 고른 동작은 걷기 손잡이나 방향 글쇠를 누르면 멈춘다(랜드마크 도착 춤은 끝까지 춘다)
+      const pushing = Math.hypot(joy.dx, joy.dy) > 0.05 || keys.size > 0;
+      if (mode !== 'walk' || (!dancing.lm && pushing)) {
+        dancing = null;
+        motionPicker?.mark('stand');
+      } else if ((t - dancing.start) / 1000 >= dancing.seconds) {
         const lm = dancing.lm;
         dancing = null;
-        showLandmark(lm);
+        motionPicker?.mark('stand');
+        if (lm) showLandmark(lm);
       }
     } else if (mode === 'walk') {
       let dir = { dx: joy.dx, dy: joy.dy };
@@ -838,6 +856,22 @@ export function renderWalk(root, { onHome }) {
     const row = Math.floor(Math.random() * HERO_DANCES.length);
     dancing = { row, start: performance.now(), seconds: HERO_DANCES[row].seconds, lm };
     say(`${lm.name}에 왔어요! 신나서 춤을 춰요.`);
+    needsDraw = true;
+  }
+
+  /** 동작 고르기에서 고른 동작: 서 있기면 멈추고, 춤이면 그 자리에서 한 번 춘다 */
+  function playMotion(id) {
+    if (dancing?.lm) return; // 랜드마크 도착 춤은 끝까지 춘다
+    const row = HERO_DANCES.findIndex((d) => d.name === id);
+    if (row < 0) {
+      dancing = null;
+    } else {
+      if (walkPath) clearTarget();
+      walkPath = null;
+      target = null;
+      dancing = { row, start: performance.now(), seconds: HERO_DANCES[row].seconds, lm: null };
+    }
+    motionPicker?.mark(row < 0 ? 'stand' : id);
     needsDraw = true;
   }
 

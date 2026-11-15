@@ -121,8 +121,8 @@ window.bake = async ({ base, texture, clips, cell, dirs, elevation, dances, fps 
   }
   // 춤(랜드마크에 도착했을 때): 화면을 보는 한 방향(남쪽)만, 춤마다 한 줄. 초당 fps장, 길면 앞의 maxSec초만.
   let dance = null;
+  const fittedDances = [];
   if (dances?.length) {
-    const fittedDances = [];
     for (const d of dances) {
       const g = await loader.loadAsync(d.file);
       fittedDances.push({ name: d.name, clip: fitClip(g.animations[0], names) });
@@ -177,6 +177,39 @@ window.bake = async ({ base, texture, clips, cell, dirs, elevation, dances, fps 
       left = Math.min(left, x); right = Math.max(right, x); top = Math.min(top, y); bottom = Math.max(bottom, y);
     }
     stand = { url: out.toDataURL('image/webp', 0.9), meta: { size, box: { left, right, top, bottom } } };
+    // 같은 카메라(거의 정면)로 찍은 춤: 차 안이나 동작 고르기에서 서 있는 그림과 같은 눈높이로 보인다. 화면을 정면으로 본다.
+    if (portrait.danceCell && fittedDances.length) {
+      const dc = portrait.danceCell;
+      renderer.setSize(dc, dc);
+      holder.rotation.y = 0;
+      const counts = fittedDances.map((d) => Math.max(2, Math.round(Math.min(d.clip.duration, maxSec) * fps)));
+      const sheet = document.createElement('canvas');
+      sheet.width = Math.max(...counts) * dc;
+      sheet.height = fittedDances.length * dc;
+      const sctx = sheet.getContext('2d');
+      const rows = [];
+      fittedDances.forEach((d, row) => {
+        const act = mixer.clipAction(d.clip);
+        for (let f = 0; f < counts[row]; f++) {
+          mixer.stopAllAction();
+          act.reset().play();
+          mixer.setTime(f / fps);
+          renderer.render(scene, pcam);
+          sctx.drawImage(renderer.domElement, f * dc, row * dc);
+        }
+        rows.push({ name: d.name, frames: counts[row] });
+      });
+      // 정면 서 있기 한 장(춤 사이에 서 있는 모습, 같은 크기)
+      mixer.stopAllAction();
+      action.reset().play();
+      mixer.setTime(portrait.at ?? 0);
+      renderer.render(scene, pcam);
+      const idle = document.createElement('canvas');
+      idle.width = dc;
+      idle.height = dc;
+      idle.getContext('2d').drawImage(renderer.domElement, 0, 0);
+      stand.front = { url: sheet.toDataURL('image/webp', 0.86), idle: idle.toDataURL('image/webp', 0.9), meta: { cell: dc, fps, dances: rows } };
+    }
   }
   return { url: atlas.toDataURL('image/webp', 0.86), meta: { cell, dirs, cols, anchor, clips: layout }, dance, stand };
 };

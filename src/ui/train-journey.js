@@ -11,6 +11,7 @@ import { wordWithCard } from './word-card.js';
 import { departureBoard, lookOf, soundKindOf, ticketArt, trainPlatformArt } from './train-art.js';
 import { trainCabArt } from './train-cab.js';
 import { trainInteriorArt } from './train-interior.js';
+import { createHeroActor, heroInside, heroMotionPicker } from './hero-actor.js';
 
 /** 역 사이 그림이 움직이는 시간(밀리초) */
 const SEGMENT_MS = 5000;
@@ -138,6 +139,11 @@ export function kindCard(kind) {
  */
 export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, fare, rider = 'adult', onDone }) {
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+  // 객실 안 주인공: 통로 옆 앞자리에 앉아 있다(아래가 그림 밖으로 나가 가려진다). 동작도 고를 수 있다.
+  const hero = createHeroActor({ reduceMotion });
+  const heroPicker = heroMotionPicker((id) => hero.play(id), { reduceMotion });
+  hero.onChange((id) => heroPicker.mark(id));
+  const HERO_PLACE = { left: 3, bottom: -36, height: 90 };
   const sound = createRideSound();
   const timers = [];
   let frame = null;
@@ -162,6 +168,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     frame = null;
     sound.stopAll();
     cabView?.destroy();
+    hero.destroy();
   };
 
   /** 소리·방송 단추 */
@@ -296,6 +303,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     area.append(element('h2', null, `${kind} ${train.no}번 안이에요`));
     area.append(soundButtons());
     interior = trainInteriorArt({ kind, reduceMotion });
+    const seatBox = heroInside(interior.svg, hero, HERO_PLACE);
     cabView = trainCabArt({ kind, reduceMotion, topKmh: info.speedKmh?.value ?? null });
     let showCab = loadView().trainCab === true;
     const viewRow = element('div', 'tr-sound-row');
@@ -307,14 +315,14 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     function pick(cab) {
       showCab = cab;
       saveView({ trainCab: cab });
-      interior.svg.style.display = cab ? 'none' : '';
+      seatBox.style.display = cab ? 'none' : '';
       cabView.svg.style.display = cab ? '' : 'none';
       seatButton.className = cab ? 'button' : 'button is-on';
       cabButton.className = cab ? 'button is-on' : 'button';
       seatButton.setAttribute('aria-pressed', String(!cab));
       cabButton.setAttribute('aria-pressed', String(cab));
     }
-    area.append(viewRow, interior.svg, cabView.svg);
+    area.append(viewRow, seatBox, cabView.svg, heroPicker.el);
     pick(showCab);
     area.append(element('p', 'tr-seat', `${seat.car}호차 ${seat.seat} 자리에 앉았어요.${seat.reverse ? ' 뒤를 보고 앉아 가요.' : ''}`));
     panel = element('div', 'tr-panel');

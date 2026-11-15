@@ -37,7 +37,8 @@ const job = {
   fps: 8,
   maxSec: 4,
   // 랜드마크 도착 장면에 서 있는 모습(거의 정면, 조금 오른쪽으로 비스듬히)
-  portrait: { size: 256, elevation: 6, yaw: 20, clip: 'idle', at: 0 },
+  // danceCell: 같은 카메라로 정면 춤 묶음도 찍는다(차 안, 동작 고르기)
+  portrait: { size: 256, elevation: 6, yaw: 20, clip: 'idle', at: 0, danceCell: 144 },
 };
 for (const f of [job.base, job.texture, ...job.clips.map((c) => c.file), ...job.dances.map((d) => d.file)]) {
   if (!existsSync(join(ROOT, f))) throw new Error(`${f}가 없어요(C:\\joosan\\assets\\hero에서 복사해요).`);
@@ -112,6 +113,14 @@ if (r.stand) {
   writeFileSync(join(out, 'stand.webp'), standWebp);
   writeFileSync(join(out, 'stand.json'), JSON.stringify({ _설명: '랜드마크 도착 장면에 서 있는 주인공(stand.webp, 정사각형). box는 그림 안에서 사람이 차지하는 범위(px, bottom이 발끝). 만든 곳: scripts/hero-bake.mjs', ...r.stand.meta }, null, 2) + '\n');
   console.log(`src/content/hero/stand.webp ${(standWebp.length / 1024).toFixed(0)}KB, 사람 범위 ${JSON.stringify(r.stand.meta.box)}`);
+  if (r.stand.front) {
+    const sheet = Buffer.from(r.stand.front.url.split(',')[1], 'base64');
+    const idle = Buffer.from(r.stand.front.idle.split(',')[1], 'base64');
+    writeFileSync(join(out, 'front.webp'), sheet);
+    writeFileSync(join(out, 'front-idle.webp'), idle);
+    writeFileSync(join(out, 'front.json'), JSON.stringify({ _설명: '거의 정면에서 본 주인공의 춤(front.webp, 줄마다 춤 하나, 칸은 1/fps초씩)과 서 있는 모습(front-idle.webp). 차 안과 동작 고르기에서 쓴다. 만든 곳: scripts/hero-bake.mjs', ...r.stand.front.meta }, null, 2) + '\n');
+    console.log(`src/content/hero/front.webp ${(sheet.length / 1024).toFixed(0)}KB, front-idle.webp ${(idle.length / 1024).toFixed(0)}KB`);
+  }
 }
 // 확인용 그림(어두운 바탕)
 writeFileSync(resolve(ROOT, 'assets/hero/bake-shots.html'), `<body style="margin:0;background:#556"><img src="${r.url}"></body>`);
