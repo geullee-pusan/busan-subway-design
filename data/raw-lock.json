@@ -393,15 +393,15 @@
   },
   "intercity-express": {
     "file": "data/raw/intercity/express-20261116.json",
-    "url": "https://apis.data.go.kr/1613000",
-    "bytes": 63247,
-    "sha256": "56c567ad61830511099992fcd194a20ea418df9b11c19954cd309ca7607e12aa",
+    "url": "https://apis.data.go.kr/1613000/ExpBusInfo/GetStrtpntAlocFndExpbusInfo",
+    "bytes": 76627,
+    "sha256": "4b56bdf2808e816026d6a26e6bc1a337de8ad00545528ff7f578fba8371d1de9",
     "fetched": "2026-11-14",
     "note": "인증키가 필요한 API(npm run intercity). 주소에는 인증키를 적지 않는다."
   },
   "intercity-suburbs": {
     "file": "data/raw/intercity/suburbs-20261114.json",
-    "url": "https://apis.data.go.kr/1613000",
+    "url": "https://apis.data.go.kr/1613000/SuburbsBusInfo/GetStrtpntAlocFndSuberbsBusInfo",
     "bytes": 275155,
     "sha256": "d6a09b4f535dea0c79ab3deecc639ca438b1babf01b59dd9739aa05afea26f2f",
     "fetched": "2026-11-14",
