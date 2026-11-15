@@ -25,8 +25,6 @@ import {
   PlaneGeometry,
   Scene,
   SRGBColorSpace,
-  Sprite,
-  SpriteMaterial,
   Vector3,
   WebGLRenderer,
 } from 'three';
@@ -201,28 +199,6 @@ function boardTexture(text, accent) {
   const texture = new CanvasTexture(canvas);
   texture.colorSpace = SRGBColorSpace;
   return texture;
-}
-
-/** 역 이름판(글자를 캔버스에 그린 그림) */
-function nameSign(text, accent) {
-  const canvas = document.createElement('canvas');
-  canvas.width = 512;
-  canvas.height = 160;
-  const g = canvas.getContext('2d');
-  g.fillStyle = '#ffffff';
-  g.fillRect(0, 0, 512, 160);
-  g.fillStyle = accent;
-  g.fillRect(0, 128, 512, 32);
-  g.fillStyle = '#1f2a36';
-  g.font = 'bold 84px sans-serif';
-  g.textAlign = 'center';
-  g.textBaseline = 'middle';
-  g.fillText(text, 256, 66, 480);
-  const texture = new CanvasTexture(canvas);
-  texture.colorSpace = SRGBColorSpace;
-  const sprite = new Sprite(new SpriteMaterial({ map: texture, fog: false }));
-  sprite.scale.set(19, 6, 1);
-  return sprite;
 }
 
 /**
@@ -686,7 +662,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
         into.add(g, color);
       };
       const STEP_KM = 0.01;
-      const roofHalf = half * 0.8;
+      const roofHalf = half * 0.96;
       for (const side of [1, -1]) {
         const mid = side * (TRACK_SIDE + PLATFORM_OFF);
         const edge = side * (TRACK_SIDE + PLATFORM_OFF - 2.25); // 선로 쪽 끝
@@ -713,21 +689,35 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
           post(k, mid + side * 1.7, T + 0.22, 1.5, 0.45, 0.35, '#4b4f55');
         }
       }
-      // 역 건물은 가는 쪽 오른편 땅 위에 선다(선로가 높은 다리 위에 있어도)
+      // 선로를 건너는 다리와 승강장마다 계단 건물(다리 밑은 전차선보다 높다)
+      const BRIDGE_LOW = 8;
+      const BRIDGE_HIGH = 11;
+      const houseZ = TRACK_SIDE + 30; // 역 건물 가운데(가는 쪽 오른편)
+      const near = TRACK_SIDE + PLATFORM_OFF; // 우리 승강장(왼편) 가운데
+      post(centerKm, (near - houseZ) / 2, (BRIDGE_LOW + BRIDGE_HIGH) / 2, 7, BRIDGE_HIGH - BRIDGE_LOW, near + houseZ, '#d6d3cc');
+      post(centerKm, (near - houseZ) / 2, (BRIDGE_LOW + BRIDGE_HIGH) / 2 + 0.3, 7.1, 1.1, near + houseZ - 1, '#2c3a4a'); // 유리 띠
+      post(centerKm, (near - houseZ) / 2, BRIDGE_HIGH + 0.2, 7.6, 0.4, near + houseZ + 0.5, look.accent);
+      for (const side of [1, -1]) {
+        const zc = side * (TRACK_SIDE + PLATFORM_OFF) + side * 0.6;
+        post(centerKm, zc, (T + BRIDGE_LOW) / 2, 4.2, BRIDGE_LOW - T, 2.6, '#cfcac0');
+        post(centerKm + 0.0021, zc, T + 1.1, 0.05, 2.2, 1.4, '#2a2d31'); // 계단 입구
+      }
+      // 역 건물은 가는 쪽 오른편 땅 위에 선다(선로가 높은 다리 위에 있어도). 건너는 다리와 이어질 만큼 높다.
       const p = pointAt(profile, centerKm);
       const [wx, wy, wz] = toWorld(p.x, p.y, p.h);
       const g = new Group();
       g.position.set(wx, wy, wz);
       g.rotation.y = Math.atan2(-p.dy, p.dx);
-      const off = (TRACK_SIDE + 30) / 1000;
+      const off = houseZ / 1000;
       const base = Math.min(0, meshHeight(p.x - p.dy * off, p.y + p.dx * off) - wy);
+      const tall = Math.max(10, BRIDGE_HIGH + 1.5 - base);
       const house = new Parts();
-      house.box(40, 9, 14, 0, base + 4.5, TRACK_SIDE + 30, '#e8e2d4');
-      house.box(42, 1, 15, 0, base + 9.4, TRACK_SIDE + 30, look.accent);
+      house.box(48, tall, 16, 0, base + tall / 2, houseZ, '#e8e2d4');
+      house.box(48.2, 2.2, 16.2, 0, base + tall - 4, houseZ, '#2c3a4a'); // 유리 띠
+      house.box(50, 0.8, 17, 0, base + tall + 0.4, houseZ, look.accent);
+      house.box(14, 0.4, 4, 0, base + 3.6, houseZ + 9.5, '#7b8794'); // 앞 출입구 차양
+      house.box(10, 3.2, 0.2, 0, base + 1.6, houseZ + 8.05, '#2c3a4a'); // 출입문
       g.add(new Mesh(house.geometry(), materials.car));
-      const sign = nameSign(`${name}역`, look.accent);
-      sign.position.set(0, base + 17, TRACK_SIDE + 30);
-      g.add(sign);
       world.add(g, new Mesh(parts.geometry(), materials.car), new Mesh(glow.geometry(), materials.glowV));
       // 승강장 역 이름판(선로 쪽을 본다): 지붕 아래에 40m마다
       const boardTex = boardTexture(name, look.accent);
@@ -744,6 +734,14 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
             world.add(b);
           }
         }
+      }
+      // 역 건물 이름판: 선로 쪽 벽과 앞 출입구 쪽 벽
+      const facadeGeo = new PlaneGeometry(14, 3.5);
+      for (const [z, turn] of [[houseZ - 8.06, Math.PI], [houseZ + 8.06, 0]]) {
+        const f = new Mesh(facadeGeo, boardMat);
+        f.position.set(0, base + tall - 1.3, z);
+        f.rotation.y = turn;
+        g.add(f);
       }
     };
     station(startKm - trainLenKm / 2, fromName);
@@ -785,7 +783,15 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     if (mode === 'side') {
       // 기차 머리(코)와 첫 칸이 화면에 들어오게
       const at = trackPoint(front - 0.017);
-      return { pos: trackPoint(front - 0.017, 5, 30).v, look: at.v.clone().setY(at.v.y + 2.5) };
+      const run = { pos: trackPoint(front - 0.017, 5, 30).v, look: at.v.clone().setY(at.v.y + 2.5) };
+      // 역에 서 있거나 가까우면 조금 물러나 높이 올라가서 승강장 지붕, 건너는 다리, 역 건물까지 보이게
+      const fromStop = Math.min(Math.abs(front - startKm), Math.abs(profile.lengthKm - front));
+      const w = Math.max(0, 1 - fromStop / 0.25);
+      if (w <= 0) return run;
+      const stopCenter = (Math.abs(front - startKm) < Math.abs(profile.lengthKm - front) ? startKm : profile.lengthKm) - trainLenKm / 2;
+      // 역 가운데(건너는 다리) 조금 앞에서 비스듬히 뒤를 본다
+      const shot = { pos: trackPoint(stopCenter + 0.045, 9, 34).v, look: trackPoint(stopCenter - 0.01, 4.5, -8).v };
+      return { pos: run.pos.lerp(shot.pos, w), look: run.look.lerp(shot.look, w) };
     }
     if (mode === 'sky') return { pos: trackPoint(front - 0.4, 280, 90).v, look: trackPoint(front + 0.1).v };
     return { pos: trackPoint(front - 0.1, 24, 14).v, look: trackPoint(front + 0.14, 2).v };

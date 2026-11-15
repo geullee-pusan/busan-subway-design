@@ -316,11 +316,12 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
         o.waitAtPlatform(waiting);
         holder.replaceChildren(o.el);
         return { arrive: () => o.arrive(ARRIVE_MS), openDoors: () => o.setDoors(true) };
-      } catch {
+      } catch (error) {
+        if (import.meta.env?.DEV) console.warn('3D 승강장을 만들지 못했어요', error);
         outside?.destroy();
         outside = null;
       }
-    }
+    } else if (import.meta.env?.DEV) console.warn('3D 승강장 구간이 없어요', fromIndex, route);
     const art = trainPlatformArt({ kind, stationName: `${fromName}역`, reduceMotion });
     holder.replaceChildren(art.svg);
     return { arrive: (ms) => art.arrive(ms), openDoors: () => art.openDoors() };

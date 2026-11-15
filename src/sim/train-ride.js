@@ -49,10 +49,16 @@ export function segmentScenes(grid, a, b, group, path = null) {
 
 /**
  * 두 기차역 사이 선로 모양(격자 칸 좌표)과 거리표 거리. 같은 노선에 두 역이 있으면 그 사이 토막을 잇는다.
+ * 같은 노선에 없으면(밀양 → 창원중앙처럼 노선을 갈아타는 구간) 노선이 만나는 역을 거쳐 가장 짧은 길로 잇는다.
  * @param {{lines: {stations: string[], links: {km: number}[], paths: number[][][]}[]}} rail
- * @returns {{points: Array<[number, number]>, km: number} | null} 같은 노선에 없으면 null
+ * @returns {{points: Array<[number, number]>, km: number} | null} 이어지지 않으면 null
  */
 export function railPathBetween(rail, a, b) {
+  return railPathOnLine(rail, a, b) ?? railPathAcross(rail, a, b);
+}
+
+/** 한 노선 위에서만 찾는다(같은 노선에 두 역이 있을 때) */
+function railPathOnLine(rail, a, b) {
   for (const line of rail.lines) {
     const i = line.stations.indexOf(a);
     const j = line.stations.indexOf(b);
@@ -69,6 +75,63 @@ export function railPathBetween(rail, a, b) {
     return { points, km: Math.round(km * 10) / 10 };
   }
   return null;
+}
+
+/**
+ * 노선을 갈아타며 찾는다: 이웃한 역 사이 토막을 선으로 보고 거리표 거리로 가장 짧은 길(다익스트라).
+ * 같은 거리면 먼저 나온 노선·토막을 쓴다(결과가 늘 같다).
+ */
+function railPathAcross(rail, a, b) {
+  if (a === b) return null;
+  /** 역 → [{to, km, line, k, forward}] */
+  const edges = new Map();
+  const add = (from, edge) => {
+    if (!edges.has(from)) edges.set(from, []);
+    edges.get(from).push(edge);
+  };
+  rail.lines.forEach((line, li) => {
+    for (let k = 0; k + 1 < line.stations.length; k++) {
+      const km = line.links[k]?.km;
+      if (!(km >= 0) || !line.paths[k]) continue;
+      add(line.stations[k], { to: line.stations[k + 1], km, li, k, forward: true });
+      add(line.stations[k + 1], { to: line.stations[k], km, li, k, forward: false });
+    }
+  });
+  if (!edges.has(a) || !edges.has(b)) return null;
+  const dist = new Map([[a, 0]]);
+  const prev = new Map();
+  const done = new Set();
+  for (;;) {
+    // 가장 가까운 안 끝난 역(역 수가 적어서 단순하게 찾는다)
+    let here = null;
+    let best = Infinity;
+    for (const [id, d] of dist) {
+      if (!done.has(id) && (d < best || (d === best && here !== null && id < here))) {
+        here = id;
+        best = d;
+      }
+    }
+    if (here === null) return null;
+    if (here === b) break;
+    done.add(here);
+    for (const e of edges.get(here) ?? []) {
+      const nd = best + e.km;
+      if (nd < (dist.get(e.to) ?? Infinity) - 1e-9) {
+        dist.set(e.to, nd);
+        prev.set(e.to, { from: here, edge: e });
+      }
+    }
+  }
+  const steps = [];
+  for (let at = b; at !== a; at = prev.get(at).from) steps.push(prev.get(at).edge);
+  steps.reverse();
+  let points = [];
+  for (const e of steps) {
+    let piece = rail.lines[e.li].paths[e.k].map(([x, y]) => [x / 100, y / 100]);
+    if (!e.forward) piece = piece.slice().reverse();
+    points = points.length ? [...points, ...piece.slice(1)] : piece;
+  }
+  return { points, km: Math.round(dist.get(b) * 10) / 10 };
 }
 
 /**

@@ -98,3 +98,24 @@ test('extendBack은 첫 방향 뒤로 곧게 늘이고, joinPoints는 이음매�
   assert.deepEqual(back[1], [2, 2]);
   assert.deepEqual(joinPoints([[0, 0], [1, 0]], [[1, 0], [2, 0]]), [[0, 0], [1, 0], [2, 0]]);
 });
+
+test('노선을 갈아타는 구간(밀양 → 창원중앙)도 선로가 이어진다', () => {
+  const path = railPathBetween(rail, 'R-밀양', 'R-창원중앙');
+  assert.ok(path, '선로를 찾아야 한다');
+  // 삼랑진을 거친다: 밀양 → 삼랑진 선로 뒤에 삼랑진 → 창원중앙 선로가 그대로 이어진다(토막 방향이 맞다)
+  const a = railPathBetween(rail, 'R-밀양', 'R-삼랑진');
+  const b = railPathBetween(rail, 'R-삼랑진', 'R-창원중앙');
+  assert.deepEqual(path.points, [...a.points, ...b.points.slice(1)]);
+  assert.ok(Math.abs(path.km - (a.km + b.km)) < 0.2, `${path.km} vs ${a.km} + ${b.km}`);
+  // 같은 입력은 같은 길
+  assert.deepEqual(railPathBetween(rail, 'R-밀양', 'R-창원중앙'), path);
+});
+
+test('시각표의 모든 이웃 정차역 사이에 선로가 있다', () => {
+  const trains = JSON.parse(readFileSync(new URL('../data/build/trains.json', import.meta.url), 'utf8')).trains;
+  const missing = [];
+  for (const t of trains) {
+    for (let i = 0; i + 1 < t.stops.length; i++) if (!railPathBetween(rail, t.stops[i][0], t.stops[i + 1][0])) missing.push(`${t.stops[i][0]}→${t.stops[i + 1][0]}`);
+  }
+  assert.deepEqual([...new Set(missing)], []);
+});
