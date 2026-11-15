@@ -707,7 +707,7 @@ export function buildTrain(look, count, { material, headMaterial, tailMaterial, 
       }
     },
     dispose() {
-      for (const g of cache.values()) g.dispose();
+      for (const g of cache.values()) (g.geometry ?? g).dispose(); // 문짝은 {geometry, cy}
       lampGeometry.dispose();
     },
   };

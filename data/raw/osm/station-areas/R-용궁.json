@@ -1,0 +1,184 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T20:46:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 488290653,
+  "bounds": {
+    "minlat": 36.6066635,
+    "minlon": 128.2709232,
+    "maxlat": 36.6075374,
+    "maxlon": 128.2731910
+  },
+  "nodes": [
+    4806096630,
+    4806096631,
+    4806096632,
+    4806096633,
+    4806096630
+  ],
+  "geometry": [
+    { "lat": 36.6067016, "lon": 128.2731910 },
+    { "lat": 36.6066635, "lon": 128.2731690 },
+    { "lat": 36.6074993, "lon": 128.2709232 },
+    { "lat": 36.6075374, "lon": 128.2709451 },
+    { "lat": 36.6067016, "lon": 128.2731910 }
+  ],
+  "tags": {
+    "area": "yes",
+    "railway": "platform"
+  }
+},
+{
+  "type": "way",
+  "id": 488290654,
+  "bounds": {
+    "minlat": 36.6068362,
+    "minlon": 128.2732579,
+    "maxlat": 36.6069922,
+    "maxlon": 128.2735556
+  },
+  "nodes": [
+    4806096634,
+    4806096635,
+    4806096636,
+    4806096637,
+    4806096634
+  ],
+  "geometry": [
+    { "lat": 36.6069922, "lon": 128.2732922 },
+    { "lat": 36.6068979, "lon": 128.2735556 },
+    { "lat": 36.6068362, "lon": 128.2735213 },
+    { "lat": 36.6069306, "lon": 128.2732579 },
+    { "lat": 36.6069922, "lon": 128.2732922 }
+  ],
+  "tags": {
+    "addr:city": "예천군",
+    "addr:housenumber": "80",
+    "addr:postcode": "36858",
+    "addr:street": "용궁면 용궁로",
+    "building": "train_station",
+    "name": "용궁",
+    "name:en": "Yonggung",
+    "name:ja": "龍宮",
+    "name:ko": "용궁",
+    "name:zh-Hans": "龙宫",
+    "name:zh-Hant": "龍宮",
+    "network": "경북선",
+    "not:network:wikidata": "Q18169",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "way",
+  "id": 488290657,
+  "bounds": {
+    "minlat": 36.6056999,
+    "minlon": 128.2671755,
+    "maxlat": 36.6088697,
+    "maxlon": 128.2828392
+  },
+  "nodes": [
+    4806096640,
+    2001161383,
+    4806096639,
+    4806096638,
+    2001161076,
+    2001161443,
+    2001161188,
+    4806096623,
+    4806096622,
+    4806096621,
+    4806096620,
+    2001161404,
+    4806096619,
+    2001161116,
+    437272404,
+    7724498116,
+    437272420,
+    2001161309,
+    4806096556,
+    4806096555,
+    2001161056,
+    4806096554,
+    4806096553,
+    4806096552,
+    2001161301,
+    4806096551,
+    4806096550,
+    4806096549
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 36.6088697, "lon": 128.2671755 },
+    { "lat": 36.6066705, "lon": 128.2731108 },
+    { "lat": 36.6063841, "lon": 128.2740903 },
+    { "lat": 36.6059674, "lon": 128.2751946 },
+    { "lat": 36.6058591, "lon": 128.2756027 },
+    { "lat": 36.6057915, "lon": 128.2759219 },
+    { "lat": 36.6057378, "lon": 128.2763257 },
+    { "lat": 36.6056999, "lon": 128.2766879 },
+    { "lat": 36.6057026, "lon": 128.2776603 },
+    { "lat": 36.6057219, "lon": 128.2780281 },
+    { "lat": 36.6057581, "lon": 128.2828392 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "60",
+    "name": "경북선",
+    "name:en": "Gyeongbuk Line",
+    "name:ja": "慶北線",
+    "name:ko": "경북선",
+    "name:ko-Hani": "慶北線",
+    "name:zh": "庆北线",
+    "name:zh-Hans": "庆北线",
+    "name:zh-Hant": "慶北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "314",
+    "tracks": "1",
+    "usage": "main",
+    "workrules": "KR:RSA"
+  }
+}
+
+  ]
+}

@@ -1,0 +1,692 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T20:06:17Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 460520457,
+  "bounds": {
+    "minlat": 35.6324993,
+    "minlon": 127.2848555,
+    "maxlat": 35.6364297,
+    "maxlon": 127.2914914
+  },
+  "nodes": [
+    4561597457,
+    4561597458,
+    4561597459,
+    4561597460,
+    4561597461,
+    4561597462,
+    4561597466,
+    4561597470,
+    4561597476,
+    4561597471,
+    4561597477,
+    4561597473,
+    5598235492,
+    4561597472,
+    5598235483
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 35.6364297, "lon": 127.2848555 },
+    { "lat": 35.6361518, "lon": 127.2852231 },
+    { "lat": 35.6358763, "lon": 127.2856239 },
+    { "lat": 35.6356708, "lon": 127.2859426 },
+    { "lat": 35.6354487, "lon": 127.2863063 },
+    { "lat": 35.6348948, "lon": 127.2872537 },
+    { "lat": 35.6343994, "lon": 127.2881335 },
+    { "lat": 35.6343528, "lon": 127.2882163 },
+    { "lat": 35.6324993, "lon": 127.2914914 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "oneway": "yes",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 460520459,
+  "bounds": {
+    "minlat": 35.6343443,
+    "minlon": 127.2872537,
+    "maxlat": 35.6348948,
+    "maxlon": 127.2881420
+  },
+  "nodes": [
+    4561597468,
+    4561597473
+  ],
+  "geometry": [
+    { "lat": 35.6343443, "lon": 127.2881420 },
+    { "lat": 35.6348948, "lon": 127.2872537 }
+  ],
+  "tags": {
+    "railway": "rail",
+    "service": "crossover"
+  }
+},
+{
+  "type": "way",
+  "id": 568597121,
+  "bounds": {
+    "minlat": 35.6327776,
+    "minlon": 127.2896450,
+    "maxlat": 35.6331072,
+    "maxlon": 127.2901603
+  },
+  "nodes": [
+    5470144937,
+    5470144938,
+    5470144939,
+    5470144940,
+    5470144936,
+    5470144937
+  ],
+  "geometry": [
+    { "lat": 35.6330083, "lon": 127.2896450 },
+    { "lat": 35.6331072, "lon": 127.2897295 },
+    { "lat": 35.6328792, "lon": 127.2901603 },
+    { "lat": 35.6327776, "lon": 127.2900809 },
+    { "lat": 35.6328688, "lon": 127.2899085 },
+    { "lat": 35.6330083, "lon": 127.2896450 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "public_transport": "station",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 585869975,
+  "bounds": {
+    "minlat": 35.6319999,
+    "minlon": 127.2914914,
+    "maxlat": 35.6324993,
+    "maxlon": 127.2923736
+  },
+  "nodes": [
+    5598235483,
+    5598235484
+  ],
+  "geometry": [
+    { "lat": 35.6324993, "lon": 127.2914914 },
+    { "lat": 35.6319999, "lon": 127.2923736 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "oneway": "yes",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 585869976,
+  "bounds": {
+    "minlat": 35.6302501,
+    "minlon": 127.2923736,
+    "maxlat": 35.6319999,
+    "maxlon": 127.2956253
+  },
+  "nodes": [
+    5598235484,
+    8366706488,
+    5598235487,
+    4561597478,
+    4561597479,
+    4561597489,
+    4561597490,
+    4561597491
+  ],
+  "geometry": [
+    { "lat": 35.6319999, "lon": 127.2923736 },
+    { "lat": 35.6318255, "lon": 127.2926818 },
+    { "lat": 35.6311814, "lon": 127.2939823 },
+    { "lat": 35.6307422, "lon": 127.2947196 },
+    { "lat": 35.6302501, "lon": 127.2956253 },
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "oneway": "yes",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 585869977,
+  "bounds": {
+    "minlat": 35.6324754,
+    "minlon": 127.2848143,
+    "maxlat": 35.6363904,
+    "maxlon": 127.2914423
+  },
+  "nodes": [
+    5598235485,
+    5598235499,
+    4561597469,
+    4561597468,
+    5598235506,
+    4561597486,
+    4561597474,
+    4561597475,
+    4561597467,
+    4561597465,
+    4561597464,
+    4561597463,
+    4561597456,
+    4561597455,
+    4561597454,
+    4561597453
+  ],
+  "geometry": [
+    { "lat": 35.6324754, "lon": 127.2914423 },
+    { "lat": 35.6339921, "lon": 127.2887664 },
+    { "lat": 35.6342424, "lon": 127.2883248 },
+    { "lat": 35.6343443, "lon": 127.2881420 },
+    { "lat": 35.6348094, "lon": 127.2873113 },
+    { "lat": 35.6349384, "lon": 127.2870809 },
+    { "lat": 35.6354739, "lon": 127.2861735 },
+    { "lat": 35.6358040, "lon": 127.2856373 },
+    { "lat": 35.6360700, "lon": 127.2852458 },
+    { "lat": 35.6363904, "lon": 127.2848143 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 585869978,
+  "bounds": {
+    "minlat": 35.6319651,
+    "minlon": 127.2914423,
+    "maxlat": 35.6324754,
+    "maxlon": 127.2923427
+  },
+  "nodes": [
+    5598235486,
+    5598235485
+  ],
+  "geometry": [
+    { "lat": 35.6319651, "lon": 127.2923427 },
+    { "lat": 35.6324754, "lon": 127.2914423 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 585869979,
+  "bounds": {
+    "minlat": 35.6311814,
+    "minlon": 127.2924182,
+    "maxlat": 35.6320608,
+    "maxlon": 127.2939823
+  },
+  "nodes": [
+    5598235487,
+    5598235488,
+    5598235489
+  ],
+  "geometry": [
+    { "lat": 35.6311814, "lon": 127.2939823 },
+    { "lat": 35.6317171, "lon": 127.2930159 },
+    { "lat": 35.6320608, "lon": 127.2924182 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585869980,
+  "bounds": {
+    "minlat": 35.6325597,
+    "minlon": 127.2881335,
+    "maxlat": 35.6343994,
+    "maxlon": 127.2915564
+  },
+  "nodes": [
+    5598235490,
+    5598235491,
+    5598235492
+  ],
+  "geometry": [
+    { "lat": 35.6325597, "lon": 127.2915564 },
+    { "lat": 35.6337063, "lon": 127.2895114 },
+    { "lat": 35.6343994, "lon": 127.2881335 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585869981,
+  "bounds": {
+    "minlat": 35.6320608,
+    "minlon": 127.2915564,
+    "maxlat": 35.6325597,
+    "maxlon": 127.2924182
+  },
+  "nodes": [
+    5598235489,
+    8366706487,
+    5598235490
+  ],
+  "geometry": [
+    { "lat": 35.6320608, "lon": 127.2924182 },
+    { "lat": 35.6322862, "lon": 127.2920289 },
+    { "lat": 35.6325597, "lon": 127.2915564 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "gauge": "1435",
+    "layer": "1",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585869982,
+  "bounds": {
+    "minlat": 35.6310198,
+    "minlon": 127.2922841,
+    "maxlat": 35.6319121,
+    "maxlon": 127.2941207
+  },
+  "nodes": [
+    5598235493,
+    5598235494,
+    5598235495
+  ],
+  "geometry": [
+    { "lat": 35.6310198, "lon": 127.2941207 },
+    { "lat": 35.6312049, "lon": 127.2935200 },
+    { "lat": 35.6319121, "lon": 127.2922841 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585869983,
+  "bounds": {
+    "minlat": 35.6324176,
+    "minlon": 127.2887664,
+    "maxlat": 35.6339921,
+    "maxlon": 127.2914141
+  },
+  "nodes": [
+    5598235496,
+    5598235497,
+    5598235498,
+    5598235499
+  ],
+  "geometry": [
+    { "lat": 35.6324176, "lon": 127.2914141 },
+    { "lat": 35.6334915, "lon": 127.2894911 },
+    { "lat": 35.6337790, "lon": 127.2890561 },
+    { "lat": 35.6339921, "lon": 127.2887664 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585869984,
+  "bounds": {
+    "minlat": 35.6319121,
+    "minlon": 127.2914141,
+    "maxlat": 35.6324176,
+    "maxlon": 127.2922841
+  },
+  "nodes": [
+    5598235495,
+    5598235496
+  ],
+  "geometry": [
+    { "lat": 35.6319121, "lon": 127.2922841 },
+    { "lat": 35.6324176, "lon": 127.2914141 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "gauge": "1435",
+    "layer": "1",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585869985,
+  "bounds": {
+    "minlat": 35.6310198,
+    "minlon": 127.2922482,
+    "maxlat": 35.6318586,
+    "maxlon": 127.2941207
+  },
+  "nodes": [
+    5598235493,
+    5598235500,
+    5598235501
+  ],
+  "geometry": [
+    { "lat": 35.6310198, "lon": 127.2941207 },
+    { "lat": 35.6311779, "lon": 127.2935085 },
+    { "lat": 35.6318586, "lon": 127.2922482 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585869986,
+  "bounds": {
+    "minlat": 35.6323774,
+    "minlon": 127.2873113,
+    "maxlat": 35.6348094,
+    "maxlon": 127.2913660
+  },
+  "nodes": [
+    5598235502,
+    5598235503,
+    13669386253,
+    5598235504,
+    5598235505,
+    5598235506
+  ],
+  "geometry": [
+    { "lat": 35.6323774, "lon": 127.2913660 },
+    { "lat": 35.6335207, "lon": 127.2892682 },
+    { "lat": 35.6339216, "lon": 127.2886368 },
+    { "lat": 35.6341584, "lon": 127.2882640 },
+    { "lat": 35.6344756, "lon": 127.2877477 },
+    { "lat": 35.6348094, "lon": 127.2873113 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585869987,
+  "bounds": {
+    "minlat": 35.6318586,
+    "minlon": 127.2913660,
+    "maxlat": 35.6323774,
+    "maxlon": 127.2922482
+  },
+  "nodes": [
+    5598235501,
+    5598235502
+  ],
+  "geometry": [
+    { "lat": 35.6318586, "lon": 127.2922482 },
+    { "lat": 35.6323774, "lon": 127.2913660 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "gauge": "1435",
+    "layer": "1",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 585870039,
+  "bounds": {
+    "minlat": 35.6302558,
+    "minlon": 127.2923427,
+    "maxlat": 35.6319651,
+    "maxlon": 127.2954970
+  },
+  "nodes": [
+    4561597488,
+    4561597487,
+    4561597484,
+    4561597483,
+    4561597481,
+    5598235493,
+    5598235486
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    { "lat": 35.6302558, "lon": 127.2954970 },
+    { "lat": 35.6307794, "lon": 127.2945424 },
+    { "lat": 35.6310198, "lon": 127.2941207 },
+    { "lat": 35.6319651, "lon": 127.2923427 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+}
+
+  ]
+}

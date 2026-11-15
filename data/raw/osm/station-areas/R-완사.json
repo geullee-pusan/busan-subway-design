@@ -1,0 +1,328 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T21:26:35Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 460147610,
+  "bounds": {
+    "minlat": 35.1317396,
+    "minlon": 127.9717568,
+    "maxlat": 35.1376717,
+    "maxlon": 127.9831550
+  },
+  "nodes": [
+    4540762821,
+    5630370971,
+    4540762825,
+    13109011013,
+    13109011012,
+    5630370967,
+    4558250674,
+    5276669893,
+    5276669889
+  ],
+  "geometry": [
+    { "lat": 35.1376717, "lon": 127.9831550 },
+    { "lat": 35.1364122, "lon": 127.9807306 },
+    { "lat": 35.1359662, "lon": 127.9798721 },
+    { "lat": 35.1347458, "lon": 127.9774866 },
+    { "lat": 35.1339092, "lon": 127.9758515 },
+    { "lat": 35.1336768, "lon": 127.9754150 },
+    { "lat": 35.1330255, "lon": 127.9741471 },
+    { "lat": 35.1317396, "lon": 127.9717568 },
+    null
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "230",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 589626151,
+  "bounds": {
+    "minlat": 35.1317943,
+    "minlon": 127.9717165,
+    "maxlat": 35.1377196,
+    "maxlon": 127.9831202
+  },
+  "nodes": [
+    5630370977,
+    5276669890,
+    5276669894,
+    4558250675,
+    13109011011,
+    13109011014,
+    4540762824,
+    5630370966,
+    4558250673
+  ],
+  "geometry": [
+    null,
+    null,
+    { "lat": 35.1317943, "lon": 127.9717165 },
+    { "lat": 35.1330650, "lon": 127.9741394 },
+    { "lat": 35.1336906, "lon": 127.9753248 },
+    { "lat": 35.1352063, "lon": 127.9782742 },
+    { "lat": 35.1360141, "lon": 127.9798460 },
+    { "lat": 35.1363338, "lon": 127.9804598 },
+    { "lat": 35.1377196, "lon": 127.9831202 }
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "230",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1413998903,
+  "bounds": {
+    "minlat": 35.1341614,
+    "minlon": 127.9771732,
+    "maxlat": 35.1344362,
+    "maxlon": 127.9775905
+  },
+  "nodes": [
+    12993612201,
+    12993612202,
+    12993612203,
+    12993612204,
+    12993612201
+  ],
+  "geometry": [
+    { "lat": 35.1344362, "lon": 127.9775159 },
+    { "lat": 35.1342566, "lon": 127.9771732 },
+    { "lat": 35.1341614, "lon": 127.9772479 },
+    { "lat": 35.1343410, "lon": 127.9775905 },
+    { "lat": 35.1344362, "lon": 127.9775159 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "name": "완사역",
+    "name:en": "Wansa Station",
+    "name:ko": "완사역"
+  }
+},
+{
+  "type": "way",
+  "id": 1413998904,
+  "bounds": {
+    "minlat": 35.1347127,
+    "minlon": 127.9772272,
+    "maxlat": 35.1360159,
+    "maxlon": 127.9797039
+  },
+  "nodes": [
+    12993612205,
+    13109011006,
+    13109011003,
+    12993612206,
+    12993612207,
+    13109011004,
+    13109011005,
+    12993612208,
+    12993612205
+  ],
+  "geometry": [
+    { "lat": 35.1360159, "lon": 127.9796650 },
+    { "lat": 35.1350749, "lon": 127.9778354 },
+    { "lat": 35.1348370, "lon": 127.9773725 },
+    { "lat": 35.1347641, "lon": 127.9772272 },
+    { "lat": 35.1347127, "lon": 127.9772662 },
+    { "lat": 35.1347858, "lon": 127.9774119 },
+    { "lat": 35.1350237, "lon": 127.9778748 },
+    { "lat": 35.1359646, "lon": 127.9797039 },
+    { "lat": 35.1360159, "lon": 127.9796650 }
+  ],
+  "tags": {
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "2",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1413998905,
+  "bounds": {
+    "minlat": 35.1342656,
+    "minlon": 127.9766919,
+    "maxlat": 35.1357576,
+    "maxlon": 127.9795397
+  },
+  "nodes": [
+    12993612209,
+    13109011010,
+    13109011007,
+    12993612210,
+    12993612211,
+    13109011008,
+    13109011009,
+    12993612212,
+    12993612209
+  ],
+  "geometry": [
+    { "lat": 35.1357576, "lon": 127.9795008 },
+    { "lat": 35.1349556, "lon": 127.9779372 },
+    { "lat": 35.1347165, "lon": 127.9774708 },
+    { "lat": 35.1343169, "lon": 127.9766919 },
+    { "lat": 35.1342656, "lon": 127.9767308 },
+    { "lat": 35.1346654, "lon": 127.9775100 },
+    { "lat": 35.1349045, "lon": 127.9779764 },
+    { "lat": 35.1357063, "lon": 127.9795397 },
+    { "lat": 35.1357576, "lon": 127.9795008 }
+  ],
+  "tags": {
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "1",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1426069709,
+  "bounds": {
+    "minlat": 35.1347858,
+    "minlon": 127.9773725,
+    "maxlat": 35.1350749,
+    "maxlon": 127.9778748
+  },
+  "nodes": [
+    13109011003,
+    13109011004,
+    13109011005,
+    13109011006,
+    13109011003
+  ],
+  "geometry": [
+    { "lat": 35.1348370, "lon": 127.9773725 },
+    { "lat": 35.1347858, "lon": 127.9774119 },
+    { "lat": 35.1350237, "lon": 127.9778748 },
+    { "lat": 35.1350749, "lon": 127.9778354 },
+    { "lat": 35.1348370, "lon": 127.9773725 }
+  ],
+  "tags": {
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1426069710,
+  "bounds": {
+    "minlat": 35.1346654,
+    "minlon": 127.9774708,
+    "maxlat": 35.1349556,
+    "maxlon": 127.9779764
+  },
+  "nodes": [
+    13109011007,
+    13109011008,
+    13109011009,
+    13109011010,
+    13109011007
+  ],
+  "geometry": [
+    { "lat": 35.1347165, "lon": 127.9774708 },
+    { "lat": 35.1346654, "lon": 127.9775100 },
+    { "lat": 35.1349045, "lon": 127.9779764 },
+    { "lat": 35.1349556, "lon": 127.9779372 },
+    { "lat": 35.1347165, "lon": 127.9774708 }
+  ],
+  "tags": {
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1426069711,
+  "bounds": {
+    "minlat": 35.1336906,
+    "minlon": 127.9753248,
+    "maxlat": 35.1339092,
+    "maxlon": 127.9758515
+  },
+  "nodes": [
+    13109011011,
+    13109011012
+  ],
+  "geometry": [
+    { "lat": 35.1336906, "lon": 127.9753248 },
+    { "lat": 35.1339092, "lon": 127.9758515 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "service": "crossover",
+    "tracks": "1",
+    "voltage": "25000"
+  }
+}
+
+  ]
+}

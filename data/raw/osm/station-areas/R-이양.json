@@ -1,0 +1,140 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T21:04:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 491715071,
+  "bounds": {
+    "minlat": 34.8871323,
+    "minlon": 126.9894943,
+    "maxlat": 34.8975959,
+    "maxlon": 126.9904760
+  },
+  "nodes": [
+    13115951414,
+    4840866421,
+    4415586304,
+    4415586316,
+    4840866428,
+    4415586325,
+    4840866429,
+    4415586329,
+    4415586335,
+    4840865207,
+    4840865199,
+    4840865200,
+    4840865198,
+    9984792036,
+    4840865202,
+    4840865201,
+    4415586352,
+    4415586355,
+    4837936927,
+    4415586372,
+    4415586375,
+    4840866499,
+    4415586378,
+    4415586379,
+    4837936909,
+    9984792305
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 34.8871323, "lon": 126.9894943 },
+    { "lat": 34.8875870, "lon": 126.9895787 },
+    { "lat": 34.8886874, "lon": 126.9897830 },
+    { "lat": 34.8892452, "lon": 126.9899020 },
+    { "lat": 34.8914937, "lon": 126.9902397 },
+    { "lat": 34.8920815, "lon": 126.9903264 },
+    { "lat": 34.8925216, "lon": 126.9903811 },
+    { "lat": 34.8931816, "lon": 126.9904582 },
+    { "lat": 34.8934813, "lon": 126.9904760 },
+    { "lat": 34.8940801, "lon": 126.9904062 },
+    { "lat": 34.8975959, "lon": 126.9899340 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "alt_name": "서부경전선",
+    "alt_name:ko": "서부경전선",
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 492010596,
+  "bounds": {
+    "minlat": 34.8875870,
+    "minlon": 126.9895787,
+    "maxlat": 34.8925216,
+    "maxlon": 126.9903811
+  },
+  "nodes": [
+    4840865202,
+    4840865203,
+    4840865204,
+    4840865205,
+    4840865208,
+    4840865206,
+    4840865207
+  ],
+  "geometry": [
+    { "lat": 34.8925216, "lon": 126.9903811 },
+    { "lat": 34.8916560, "lon": 126.9901197 },
+    { "lat": 34.8895919, "lon": 126.9898224 },
+    { "lat": 34.8890723, "lon": 126.9897516 },
+    { "lat": 34.8886957, "lon": 126.9897044 },
+    { "lat": 34.8881288, "lon": 126.9896313 },
+    { "lat": 34.8875870, "lon": 126.9895787 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "railway": "rail"
+  }
+}
+
+  ]
+}

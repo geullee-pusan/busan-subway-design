@@ -1,0 +1,314 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T21:25:35Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 486795562,
+  "bounds": {
+    "minlat": 36.9368258,
+    "minlon": 129.0121285,
+    "maxlat": 36.9369804,
+    "maxlon": 129.0122889
+  },
+  "nodes": [
+    4793498478,
+    4793498479,
+    4793498480,
+    4793498481,
+    4793498478
+  ],
+  "geometry": [
+    { "lat": 36.9368258, "lon": 129.0122038 },
+    { "lat": 36.9369464, "lon": 129.0122889 },
+    { "lat": 36.9369804, "lon": 129.0122136 },
+    { "lat": 36.9368598, "lon": 129.0121285 },
+    { "lat": 36.9368258, "lon": 129.0122038 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "name": "현동역"
+  }
+},
+{
+  "type": "way",
+  "id": 486795563,
+  "bounds": {
+    "minlat": 36.9351929,
+    "minlon": 129.0109305,
+    "maxlat": 36.9402787,
+    "maxlon": 129.0136074
+  },
+  "nodes": [
+    4793498486,
+    4793498487,
+    14062890195,
+    4793498488,
+    4793498489,
+    11671785391,
+    11671785392,
+    11671785390,
+    4793498490,
+    4793498491,
+    4793498492,
+    4793498493,
+    4793498494,
+    1914994257
+  ],
+  "geometry": [
+    { "lat": 36.9351929, "lon": 129.0109305 },
+    { "lat": 36.9355462, "lon": 129.0111373 },
+    { "lat": 36.9358321, "lon": 129.0112623 },
+    { "lat": 36.9360869, "lon": 129.0113980 },
+    { "lat": 36.9365665, "lon": 129.0116733 },
+    { "lat": 36.9370746, "lon": 129.0119509 },
+    { "lat": 36.9375709, "lon": 129.0122420 },
+    { "lat": 36.9380854, "lon": 129.0125611 },
+    { "lat": 36.9385864, "lon": 129.0128714 },
+    { "lat": 36.9390086, "lon": 129.0131090 },
+    { "lat": 36.9393855, "lon": 129.0133008 },
+    { "lat": 36.9396405, "lon": 129.0133787 },
+    { "lat": 36.9399557, "lon": 129.0135028 },
+    { "lat": 36.9402787, "lon": 129.0136074 }
+  ],
+  "tags": {
+    "name": "영동본선",
+    "name:en": "Yeongdong Main Line",
+    "name:ja": "嶺東本線",
+    "name:ko": "영동본선",
+    "name:ko-Hani": "嶺東本線",
+    "name:ko-Latn": "Yeongdongbonseon",
+    "name:zh": "嶺東本線",
+    "name:zh-Hans": "岭东本线",
+    "name:zh-Hant": "嶺東本線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "313",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 486795564,
+  "bounds": {
+    "minlat": 36.9365135,
+    "minlon": 129.0117350,
+    "maxlat": 36.9385640,
+    "maxlon": 129.0130178
+  },
+  "nodes": [
+    4793498495,
+    4793498496,
+    4793498497,
+    4793498498,
+    4793498495
+  ],
+  "geometry": [
+    { "lat": 36.9365402, "lon": 129.0117350 },
+    { "lat": 36.9365135, "lon": 129.0117987 },
+    { "lat": 36.9385335, "lon": 129.0130178 },
+    { "lat": 36.9385640, "lon": 129.0129416 },
+    { "lat": 36.9365402, "lon": 129.0117350 }
+  ],
+  "tags": {
+    "area": "yes",
+    "railway": "platform"
+  }
+},
+{
+  "type": "way",
+  "id": 486795565,
+  "bounds": {
+    "minlat": 36.9364656,
+    "minlon": 129.0118004,
+    "maxlat": 36.9393955,
+    "maxlon": 129.0134908
+  },
+  "nodes": [
+    910387158,
+    4793498499,
+    4793498500,
+    4793498501,
+    4793498482
+  ],
+  "geometry": [
+    { "lat": 36.9364656, "lon": 129.0118004 },
+    { "lat": 36.9367270, "lon": 129.0120237 },
+    { "lat": 36.9385833, "lon": 129.0131286 },
+    { "lat": 36.9389447, "lon": 129.0133061 },
+    { "lat": 36.9393955, "lon": 129.0134908 }
+  ],
+  "tags": {
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 486795566,
+  "bounds": {
+    "minlat": 36.9355462,
+    "minlon": 129.0111373,
+    "maxlat": 36.9398550,
+    "maxlon": 129.0135401
+  },
+  "nodes": [
+    4793498487,
+    4793498502,
+    4793498503,
+    4793498504,
+    4793498505,
+    4793498506,
+    4793498485
+  ],
+  "geometry": [
+    { "lat": 36.9355462, "lon": 129.0111373 },
+    { "lat": 36.9360776, "lon": 129.0114325 },
+    { "lat": 36.9365671, "lon": 129.0117241 },
+    { "lat": 36.9385739, "lon": 129.0129389 },
+    { "lat": 36.9389756, "lon": 129.0131613 },
+    { "lat": 36.9393910, "lon": 129.0134084 },
+    { "lat": 36.9398550, "lon": 129.0135401 }
+  ],
+  "tags": {
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 487329834,
+  "bounds": {
+    "minlat": 36.9341078,
+    "minlon": 129.0103702,
+    "maxlat": 36.9418386,
+    "maxlon": 129.0137038
+  },
+  "nodes": [
+    4798093010,
+    4793498486,
+    910386973,
+    910387158,
+    4793498483,
+    4793498484,
+    4793498482,
+    4793498485,
+    1914994257,
+    910386492,
+    4793498477,
+    1914994293,
+    4793498476,
+    1914994310,
+    910386875
+  ],
+  "geometry": [
+    { "lat": 36.9341078, "lon": 129.0103702 },
+    { "lat": 36.9351929, "lon": 129.0109305 },
+    { "lat": 36.9358047, "lon": 129.0113469 },
+    { "lat": 36.9364656, "lon": 129.0118004 },
+    { "lat": 36.9385549, "lon": 129.0130652 },
+    { "lat": 36.9389726, "lon": 129.0132582 },
+    { "lat": 36.9393955, "lon": 129.0134908 },
+    { "lat": 36.9398550, "lon": 129.0135401 },
+    { "lat": 36.9402787, "lon": 129.0136074 },
+    { "lat": 36.9408239, "lon": 129.0137038 },
+    { "lat": 36.9413262, "lon": 129.0137038 },
+    { "lat": 36.9418386, "lon": 129.0136570 },
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "영동선",
+    "name:en": "Yeongdong Line",
+    "name:ja": "嶺東線",
+    "name:ko": "영동선",
+    "name:ko-Hani": "嶺東線",
+    "name:ko-Latn": "Yeongdongseon",
+    "name:zh": "嶺東線",
+    "name:zh-Hans": "岭东线",
+    "name:zh-Hant": "嶺東線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "313",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 487329835,
+  "bounds": {
+    "minlat": 36.9330335,
+    "minlon": 129.0096796,
+    "maxlat": 36.9341078,
+    "maxlon": 129.0103702
+  },
+  "nodes": [
+    1914994222,
+    4798093010
+  ],
+  "geometry": [
+    { "lat": 36.9330335, "lon": 129.0096796 },
+    { "lat": 36.9341078, "lon": 129.0103702 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "영동선",
+    "name:en": "Yeongdong Line",
+    "name:ja": "嶺東線",
+    "name:ko": "영동선",
+    "name:ko-Hani": "嶺東線",
+    "name:ko-Latn": "Yeongdongseon",
+    "name:zh": "嶺東線",
+    "name:zh-Hans": "岭东线",
+    "name:zh-Hant": "嶺東線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "313",
+    "tracks": "1",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+}
+
+  ]
+}

@@ -1,0 +1,898 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T19:47:50Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 128262847,
+  "bounds": {
+    "minlat": 35.9057891,
+    "minlon": 128.8118970,
+    "maxlat": 35.9076788,
+    "maxlon": 128.8151237
+  },
+  "nodes": [
+    12435694362,
+    6031490426,
+    6031490425,
+    6031490424,
+    6031490423,
+    6031490422,
+    6031490421,
+    6031490420,
+    6031490419,
+    6031490418,
+    6031490417,
+    6031490416,
+    6031490415,
+    6031490414,
+    6031490413,
+    6031490412,
+    6031490411,
+    6031490410,
+    6031490409,
+    6031490408,
+    6031490407,
+    6031490406,
+    6031490405,
+    4676322217
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 35.9057891, "lon": 128.8118970 },
+    { "lat": 35.9067972, "lon": 128.8136780 },
+    { "lat": 35.9076788, "lon": 128.8151237 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "150",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 133431161,
+  "bounds": {
+    "minlat": 35.9118679,
+    "minlon": 128.8225131,
+    "maxlat": 35.9120612,
+    "maxlon": 128.8228461
+  },
+  "nodes": [
+    1468800936,
+    8911531630,
+    1468800937
+  ],
+  "geometry": [
+    { "lat": 35.9118679, "lon": 128.8225131 },
+    { "lat": 35.9120289, "lon": 128.8227905 },
+    { "lat": 35.9120612, "lon": 128.8228461 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 133431168,
+  "bounds": {
+    "minlat": 35.9120612,
+    "minlon": 128.8228461,
+    "maxlat": 35.9135740,
+    "maxlon": 128.8255655
+  },
+  "nodes": [
+    1468800937,
+    1468800939
+  ],
+  "geometry": [
+    { "lat": 35.9120612, "lon": 128.8228461 },
+    { "lat": 35.9135740, "lon": 128.8255655 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 473546771,
+  "bounds": {
+    "minlat": 35.9081158,
+    "minlon": 128.8158524,
+    "maxlat": 35.9113839,
+    "maxlon": 128.8215576
+  },
+  "nodes": [
+    4676322211,
+    4676322205,
+    4676322193,
+    4676322194,
+    8236198248,
+    4676322195,
+    4676322196,
+    4676322197
+  ],
+  "geometry": [
+    { "lat": 35.9081158, "lon": 128.8158524 },
+    { "lat": 35.9083918, "lon": 128.8163337 },
+    { "lat": 35.9090194, "lon": 128.8174459 },
+    { "lat": 35.9094262, "lon": 128.8181192 },
+    { "lat": 35.9103213, "lon": 128.8197157 },
+    { "lat": 35.9106617, "lon": 128.8202908 },
+    { "lat": 35.9111119, "lon": 128.8210708 },
+    { "lat": 35.9113839, "lon": 128.8215576 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 473546773,
+  "bounds": {
+    "minlat": 35.9076788,
+    "minlon": 128.8151237,
+    "maxlat": 35.9080348,
+    "maxlon": 128.8157708
+  },
+  "nodes": [
+    4676322215,
+    4676322216,
+    4676322217
+  ],
+  "geometry": [
+    { "lat": 35.9080348, "lon": 128.8157708 },
+    { "lat": 35.9079471, "lon": 128.8156167 },
+    { "lat": 35.9076788, "lon": 128.8151237 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 473546775,
+  "bounds": {
+    "minlat": 35.9080348,
+    "minlon": 128.8157708,
+    "maxlat": 35.9115215,
+    "maxlon": 128.8218884
+  },
+  "nodes": [
+    4676322215,
+    8236198246,
+    4676322219,
+    4676322225,
+    4676322226,
+    4676322221,
+    4676322222,
+    4676322228,
+    4676322229,
+    4676322223
+  ],
+  "geometry": [
+    { "lat": 35.9080348, "lon": 128.8157708 },
+    { "lat": 35.9085012, "lon": 128.8167687 },
+    { "lat": 35.9089039, "lon": 128.8174838 },
+    { "lat": 35.9095770, "lon": 128.8187031 },
+    { "lat": 35.9101162, "lon": 128.8196084 },
+    { "lat": 35.9107278, "lon": 128.8206782 },
+    { "lat": 35.9108564, "lon": 128.8209093 },
+    { "lat": 35.9110862, "lon": 128.8212561 },
+    { "lat": 35.9112994, "lon": 128.8215486 },
+    { "lat": 35.9115215, "lon": 128.8218884 }
+  ],
+  "tags": {
+    "operator": "한국철도공사",
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 473546776,
+  "bounds": {
+    "minlat": 35.9113839,
+    "minlon": 128.8215576,
+    "maxlat": 35.9118981,
+    "maxlon": 128.8224649
+  },
+  "nodes": [
+    4676322197,
+    4676322231,
+    6031486626
+  ],
+  "geometry": [
+    { "lat": 35.9113839, "lon": 128.8215576 },
+    { "lat": 35.9117717, "lon": 128.8222286 },
+    { "lat": 35.9118981, "lon": 128.8224649 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 495471589,
+  "bounds": {
+    "minlat": 35.9098301,
+    "minlon": 128.8179493,
+    "maxlat": 35.9103339,
+    "maxlon": 128.8187793
+  },
+  "nodes": [
+    4872129209,
+    4872129210,
+    4872129211,
+    4872129212,
+    4872129209
+  ],
+  "geometry": [
+    { "lat": 35.9098301, "lon": 128.8180412 },
+    { "lat": 35.9102222, "lon": 128.8187793 },
+    { "lat": 35.9103339, "lon": 128.8186658 },
+    { "lat": 35.9099282, "lon": 128.8179493 },
+    { "lat": 35.9098301, "lon": 128.8180412 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "name": "하양역",
+    "note": "역 건물에는 '역'을 붙여도 괜찮습니다."
+  }
+},
+{
+  "type": "way",
+  "id": 640230815,
+  "bounds": {
+    "minlat": 35.9121153,
+    "minlon": 128.8228136,
+    "maxlat": 35.9136525,
+    "maxlon": 128.8255281
+  },
+  "nodes": [
+    6031486628,
+    8911531631,
+    6031486627
+  ],
+  "geometry": [
+    { "lat": 35.9136525, "lon": 128.8255281 },
+    { "lat": 35.9122492, "lon": 128.8230498 },
+    { "lat": 35.9121153, "lon": 128.8228136 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 640230827,
+  "bounds": {
+    "minlat": 35.9118981,
+    "minlon": 128.8224649,
+    "maxlat": 35.9121153,
+    "maxlon": 128.8228136
+  },
+  "nodes": [
+    6031486627,
+    6031486626
+  ],
+  "geometry": [
+    { "lat": 35.9121153, "lon": 128.8228136 },
+    { "lat": 35.9118981, "lon": 128.8224649 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 640230862,
+  "bounds": {
+    "minlat": 35.9077268,
+    "minlon": 128.8151018,
+    "maxlat": 35.9081158,
+    "maxlon": 128.8158524
+  },
+  "nodes": [
+    1468800930,
+    4676322210,
+    8236198245,
+    4676322211
+  ],
+  "geometry": [
+    { "lat": 35.9077268, "lon": 128.8151018 },
+    { "lat": 35.9079873, "lon": 128.8156153 },
+    { "lat": 35.9080354, "lon": 128.8156981 },
+    { "lat": 35.9081158, "lon": 128.8158524 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 640230889,
+  "bounds": {
+    "minlat": 35.9080348,
+    "minlon": 128.8157708,
+    "maxlat": 35.9118679,
+    "maxlon": 128.8225131
+  },
+  "nodes": [
+    4676322215,
+    8236198240,
+    8236198239,
+    8221953268,
+    8236198247,
+    4676322224,
+    8236198249,
+    4676322227,
+    4676322223,
+    8911531629,
+    4676322230,
+    1468800936
+  ],
+  "geometry": [
+    { "lat": 35.9080348, "lon": 128.8157708 },
+    { "lat": 35.9087880, "lon": 128.8171178 },
+    { "lat": 35.9090211, "lon": 128.8175000 },
+    { "lat": 35.9095172, "lon": 128.8183382 },
+    { "lat": 35.9102662, "lon": 128.8196965 },
+    { "lat": 35.9104130, "lon": 128.8199312 },
+    { "lat": 35.9106434, "lon": 128.8203262 },
+    { "lat": 35.9107846, "lon": 128.8205591 },
+    { "lat": 35.9115215, "lon": 128.8218884 },
+    { "lat": 35.9116281, "lon": 128.8220807 },
+    { "lat": 35.9118077, "lon": 128.8224045 },
+    { "lat": 35.9118679, "lon": 128.8225131 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 640230902,
+  "bounds": {
+    "minlat": 35.9058413,
+    "minlon": 128.8118541,
+    "maxlat": 35.9077268,
+    "maxlon": 128.8151018
+  },
+  "nodes": [
+    1468800930,
+    6031490404,
+    6031490403,
+    6031490402,
+    6031490401,
+    6031490400,
+    6031490399,
+    6031490398,
+    6031490397,
+    6031490396,
+    6031490395,
+    6031490394,
+    6031490393,
+    6031490392,
+    6031490391,
+    6031490390,
+    6031490389,
+    6031490388,
+    6031490387,
+    6031490386,
+    6031490385,
+    6031486684,
+    6031486683,
+    6031486682,
+    12435694361
+  ],
+  "geometry": [
+    { "lat": 35.9077268, "lon": 128.8151018 },
+    { "lat": 35.9068319, "lon": 128.8136029 },
+    { "lat": 35.9058413, "lon": 128.8118541 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "150",
+    "name": "대구선",
+    "name:de": "Daegu-Linie",
+    "name:en": "Daegu Line",
+    "name:ko": "대구선",
+    "name:ko-Hani": "大邱線",
+    "name:ko-Latn": "Daeguseon",
+    "name:zh": "大邱線",
+    "name:zh-Hans": "大邱线",
+    "name:zh-Hant": "大邱線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "30210",
+    "tracks": "1",
+    "usage": "branch",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 885734340,
+  "bounds": {
+    "minlat": 35.9080354,
+    "minlon": 128.8156981,
+    "maxlat": 35.9113839,
+    "maxlon": 128.8215576
+  },
+  "nodes": [
+    4676322197,
+    8236198252,
+    8236198243,
+    8236198251,
+    8236198255,
+    9044888925,
+    8236198250,
+    8236198244,
+    8236198245
+  ],
+  "geometry": [
+    { "lat": 35.9113839, "lon": 128.8215576 },
+    { "lat": 35.9110410, "lon": 128.8208170 },
+    { "lat": 35.9110022, "lon": 128.8207338 },
+    { "lat": 35.9097962, "lon": 128.8184984 },
+    { "lat": 35.9096937, "lon": 128.8183227 },
+    { "lat": 35.9093641, "lon": 128.8177582 },
+    { "lat": 35.9091871, "lon": 128.8174551 },
+    { "lat": 35.9088409, "lon": 128.8168690 },
+    { "lat": 35.9080354, "lon": 128.8156981 }
+  ],
+  "tags": {
+    "operator": "한국철도공사",
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 885734341,
+  "bounds": {
+    "minlat": 35.9096937,
+    "minlon": 128.8183227,
+    "maxlat": 35.9110410,
+    "maxlon": 128.8208170
+  },
+  "nodes": [
+    8236198252,
+    8236198253,
+    8236198256,
+    8236198254,
+    8236198255
+  ],
+  "geometry": [
+    { "lat": 35.9110410, "lon": 128.8208170 },
+    { "lat": 35.9107846, "lon": 128.8202198 },
+    { "lat": 35.9105869, "lon": 128.8197795 },
+    { "lat": 35.9100508, "lon": 128.8188289 },
+    { "lat": 35.9096937, "lon": 128.8183227 }
+  ],
+  "tags": {
+    "operator": "한국철도공사",
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 885734342,
+  "bounds": {
+    "minlat": 35.9090316,
+    "minlon": 128.8173679,
+    "maxlat": 35.9102494,
+    "maxlon": 128.8194261
+  },
+  "nodes": [
+    8236198257,
+    8236198258,
+    8236198259,
+    8236198260,
+    8236198257
+  ],
+  "geometry": [
+    { "lat": 35.9090890, "lon": 128.8173679 },
+    { "lat": 35.9090316, "lon": 128.8174049 },
+    { "lat": 35.9101920, "lon": 128.8194261 },
+    { "lat": 35.9102494, "lon": 128.8193737 },
+    { "lat": 35.9090890, "lon": 128.8173679 }
+  ],
+  "tags": {
+    "area": "yes",
+    "description": "~~역 기입 금지\n제발 하양\"력\"을 넣지 마세요.",
+    "public_transport": "platform",
+    "railway": "platform",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 885734343,
+  "bounds": {
+    "minlat": 35.9089218,
+    "minlon": 128.8174727,
+    "maxlat": 35.9101396,
+    "maxlon": 128.8195308
+  },
+  "nodes": [
+    8236198261,
+    8236198262,
+    8236198263,
+    8236198264,
+    8236198261
+  ],
+  "geometry": [
+    { "lat": 35.9089792, "lon": 128.8174727 },
+    { "lat": 35.9089218, "lon": 128.8175096 },
+    { "lat": 35.9100822, "lon": 128.8195308 },
+    { "lat": 35.9101396, "lon": 128.8194784 },
+    { "lat": 35.9089792, "lon": 128.8174727 }
+  ],
+  "tags": {
+    "area": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 963399438,
+  "bounds": {
+    "minlat": 35.9113839,
+    "minlon": 128.8215576,
+    "maxlat": 35.9116281,
+    "maxlon": 128.8220807
+  },
+  "nodes": [
+    4676322197,
+    8911531629
+  ],
+  "geometry": [
+    { "lat": 35.9113839, "lon": 128.8215576 },
+    { "lat": 35.9116281, "lon": 128.8220807 }
+  ],
+  "tags": {
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "crossover"
+  }
+}
+
+  ]
+}

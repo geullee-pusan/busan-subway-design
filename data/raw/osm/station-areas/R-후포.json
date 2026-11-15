@@ -1,0 +1,292 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T21:16:11Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 886590272,
+  "bounds": {
+    "minlat": 36.6827914,
+    "minlon": 129.4366211,
+    "maxlat": 36.6861344,
+    "maxlon": 129.4379518
+  },
+  "nodes": [
+    8244108022,
+    8983727431
+  ],
+  "geometry": [
+    { "lat": 36.6827914, "lon": 129.4366211 },
+    { "lat": 36.6861344, "lon": 129.4379518 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "embankment": "yes",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 886590273,
+  "bounds": {
+    "minlat": 36.6800460,
+    "minlon": 129.4356009,
+    "maxlat": 36.6827914,
+    "maxlon": 129.4366211
+  },
+  "nodes": [
+    8244108023,
+    12466464362,
+    8244108022
+  ],
+  "geometry": [
+    { "lat": 36.6800460, "lon": 129.4356009 },
+    { "lat": 36.6802648, "lon": 129.4356822 },
+    { "lat": 36.6827914, "lon": 129.4366211 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 886590274,
+  "bounds": {
+    "minlat": 36.6773369,
+    "minlon": 129.4346603,
+    "maxlat": 36.6800460,
+    "maxlon": 129.4356009
+  },
+  "nodes": [
+    8244108025,
+    8244108024,
+    12466464361,
+    8244108023
+  ],
+  "geometry": [
+    null,
+    null,
+    { "lat": 36.6773369, "lon": 129.4346603 },
+    { "lat": 36.6800460, "lon": 129.4356009 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970681637,
+  "bounds": {
+    "minlat": 36.6865617,
+    "minlon": 129.4381220,
+    "maxlat": 36.6874021,
+    "maxlon": 129.4384565
+  },
+  "nodes": [
+    8983727430,
+    7900027251
+  ],
+  "geometry": [
+    { "lat": 36.6865617, "lon": 129.4381220 },
+    { "lat": 36.6874021, "lon": 129.4384565 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "embankment": "yes",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970681638,
+  "bounds": {
+    "minlat": 36.6861344,
+    "minlon": 129.4379518,
+    "maxlat": 36.6865617,
+    "maxlon": 129.4381220
+  },
+  "nodes": [
+    8983727431,
+    8983727430
+  ],
+  "geometry": [
+    { "lat": 36.6861344, "lon": 129.4379518 },
+    { "lat": 36.6865617, "lon": 129.4381220 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1347732409,
+  "bounds": {
+    "minlat": 36.6828207,
+    "minlon": 129.4369213,
+    "maxlat": 36.6832817,
+    "maxlon": 129.4372770
+  },
+  "nodes": [
+    12466464363,
+    12466464364,
+    12466464365,
+    12466464366,
+    12466464363
+  ],
+  "geometry": [
+    { "lat": 36.6832817, "lon": 129.4370854 },
+    { "lat": 36.6832327, "lon": 129.4372770 },
+    { "lat": 36.6828207, "lon": 129.4371130 },
+    { "lat": 36.6828698, "lon": 129.4369213 },
+    { "lat": 36.6832817, "lon": 129.4370854 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "start_date": "2025-01-01",
+    "train": "yes"
+  }
+}
+
+  ]
+}

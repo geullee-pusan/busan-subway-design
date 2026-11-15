@@ -1,0 +1,625 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T20:33:35Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 340946905,
+  "bounds": {
+    "minlat": 35.2525189,
+    "minlon": 128.5141306,
+    "maxlat": 35.2527488,
+    "maxlon": 128.5146038
+  },
+  "nodes": [
+    3476433611,
+    4556871053,
+    3481649062,
+    4556871063,
+    4556871049,
+    4556871054
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    { "lat": 35.2527488, "lon": 128.5141306 },
+    { "lat": 35.2525189, "lon": 128.5146038 }
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "electrified": "contact_line",
+    "embankment": "yes",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "150",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 459990645,
+  "bounds": {
+    "minlat": 35.2488619,
+    "minlon": 128.5184180,
+    "maxlat": 35.2501004,
+    "maxlon": 128.5203930
+  },
+  "nodes": [
+    4556871041,
+    4556871042,
+    4556871043,
+    4556871044,
+    4556871041
+  ],
+  "geometry": [
+    { "lat": 35.2489005, "lon": 128.5203930 },
+    { "lat": 35.2488619, "lon": 128.5203572 },
+    { "lat": 35.2500615, "lon": 128.5184180 },
+    { "lat": 35.2501004, "lon": 128.5184541 },
+    { "lat": 35.2489005, "lon": 128.5203930 }
+  ],
+  "tags": {
+    "area": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 459990646,
+  "bounds": {
+    "minlat": 35.2490277,
+    "minlon": 128.5185715,
+    "maxlat": 35.2502778,
+    "maxlon": 128.5206057
+  },
+  "nodes": [
+    4556871045,
+    4556871046,
+    4556871047,
+    4556871048,
+    4556871045
+  ],
+  "geometry": [
+    { "lat": 35.2502391, "lon": 128.5185715 },
+    { "lat": 35.2502778, "lon": 128.5186075 },
+    { "lat": 35.2490552, "lon": 128.5206057 },
+    { "lat": 35.2490277, "lon": 128.5205719 },
+    { "lat": 35.2502391, "lon": 128.5185715 }
+  ],
+  "tags": {
+    "area": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 459990648,
+  "bounds": {
+    "minlat": 35.2517275,
+    "minlon": 128.5146038,
+    "maxlat": 35.2525189,
+    "maxlon": 128.5159895
+  },
+  "nodes": [
+    4556871054,
+    4556871057
+  ],
+  "geometry": [
+    { "lat": 35.2525189, "lon": 128.5146038 },
+    { "lat": 35.2517275, "lon": 128.5159895 }
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "bridge": "yes",
+    "bridge:structure": "beam",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "150",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 459990649,
+  "bounds": {
+    "minlat": 35.2524743,
+    "minlon": 128.5138387,
+    "maxlat": 35.2528349,
+    "maxlon": 128.5145865
+  },
+  "nodes": [
+    4556871050,
+    4556871062,
+    4556871052,
+    4556871051,
+    4556871064,
+    2018715032
+  ],
+  "geometry": [
+    { "lat": 35.2524743, "lon": 128.5145865 },
+    { "lat": 35.2526584, "lon": 128.5142223 },
+    { "lat": 35.2528349, "lon": 128.5138387 },
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "electrified": "contact_line",
+    "embankment": "yes",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "150",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 459990650,
+  "bounds": {
+    "minlat": 35.2513338,
+    "minlon": 128.5159895,
+    "maxlat": 35.2517275,
+    "maxlon": 128.5166241
+  },
+  "nodes": [
+    4556871057,
+    7855716063
+  ],
+  "geometry": [
+    { "lat": 35.2517275, "lon": 128.5159895 },
+    { "lat": 35.2513338, "lon": 128.5166241 }
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "150",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 459990651,
+  "bounds": {
+    "minlat": 35.2517013,
+    "minlon": 128.5145865,
+    "maxlat": 35.2524743,
+    "maxlon": 128.5159506
+  },
+  "nodes": [
+    4556871061,
+    4556871050
+  ],
+  "geometry": [
+    { "lat": 35.2517013, "lon": 128.5159506 },
+    { "lat": 35.2524743, "lon": 128.5145865 }
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "bridge": "yes",
+    "bridge:structure": "beam",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "150",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 459990652,
+  "bounds": {
+    "minlat": 35.2466347,
+    "minlon": 128.5174258,
+    "maxlat": 35.2508020,
+    "maxlon": 128.5242007
+  },
+  "nodes": [
+    4556871084,
+    4556871083,
+    4556871082,
+    4556871081,
+    4556871067,
+    4556871068,
+    13472835119,
+    4556871073
+  ],
+  "geometry": [
+    null,
+    { "lat": 35.2466347, "lon": 128.5242007 },
+    { "lat": 35.2468575, "lon": 128.5237833 },
+    { "lat": 35.2470739, "lon": 128.5234251 },
+    { "lat": 35.2489131, "lon": 128.5204256 },
+    { "lat": 35.2501138, "lon": 128.5184613 },
+    { "lat": 35.2503652, "lon": 128.5180646 },
+    { "lat": 35.2508020, "lon": 128.5174258 }
+  ],
+  "tags": {
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 459990653,
+  "bounds": {
+    "minlat": 35.2464305,
+    "minlon": 128.5174540,
+    "maxlat": 35.2508311,
+    "maxlon": 128.5246510
+  },
+  "nodes": [
+    4556871074,
+    4556871069,
+    4556871070,
+    4556871077,
+    4556871079,
+    4556871080
+  ],
+  "geometry": [
+    { "lat": 35.2508311, "lon": 128.5174540 },
+    { "lat": 35.2502433, "lon": 128.5185434 },
+    { "lat": 35.2481952, "lon": 128.5218988 },
+    { "lat": 35.2472425, "lon": 128.5234493 },
+    { "lat": 35.2470244, "lon": 128.5238029 },
+    { "lat": 35.2464305, "lon": 128.5246510 }
+  ],
+  "tags": {
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 460052437,
+  "bounds": {
+    "minlat": 35.2464000,
+    "minlon": 128.5170750,
+    "maxlat": 35.2510132,
+    "maxlon": 128.5246202
+  },
+  "nodes": [
+    4557381090,
+    13472835120,
+    4556871084,
+    4556871071,
+    4556871065,
+    4556871073,
+    7883589044
+  ],
+  "geometry": [
+    null,
+    null,
+    { "lat": 35.2464000, "lon": 128.5246202 },
+    { "lat": 35.2486499, "lon": 128.5209524 },
+    { "lat": 35.2502026, "lon": 128.5184044 },
+    { "lat": 35.2508020, "lon": 128.5174258 },
+    { "lat": 35.2510132, "lon": 128.5170750 }
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "150",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 471467337,
+  "bounds": {
+    "minlat": 35.2494814,
+    "minlon": 128.5186325,
+    "maxlat": 35.2497551,
+    "maxlon": 128.5190278
+  },
+  "nodes": [
+    4656249373,
+    4656249374,
+    4656249375,
+    12874710495,
+    4656249373
+  ],
+  "geometry": [
+    { "lat": 35.2497551, "lon": 128.5187210 },
+    { "lat": 35.2496432, "lon": 128.5186325 },
+    { "lat": 35.2494814, "lon": 128.5189393 },
+    { "lat": 35.2495933, "lon": 128.5190278 },
+    { "lat": 35.2497551, "lon": 128.5187210 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "name": "중리역",
+    "name:ja": "中里駅",
+    "wikidata": "Q1332410"
+  }
+},
+{
+  "type": "way",
+  "id": 842048985,
+  "bounds": {
+    "minlat": 35.2464305,
+    "minlon": 128.5166241,
+    "maxlat": 35.2513338,
+    "maxlon": 128.5246510
+  },
+  "nodes": [
+    7855716063,
+    4556871074,
+    4556871066,
+    4556871072,
+    4556871080,
+    13472835121,
+    4557381091
+  ],
+  "geometry": [
+    { "lat": 35.2513338, "lon": 128.5166241 },
+    { "lat": 35.2508311, "lon": 128.5174540 },
+    { "lat": 35.2502361, "lon": 128.5184277 },
+    { "lat": 35.2486775, "lon": 128.5209825 },
+    { "lat": 35.2464305, "lon": 128.5246510 },
+    null,
+    null
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "150",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 845003879,
+  "bounds": {
+    "minlat": 35.2510132,
+    "minlon": 128.5159506,
+    "maxlat": 35.2517013,
+    "maxlon": 128.5170750
+  },
+  "nodes": [
+    7883589044,
+    4556871061
+  ],
+  "geometry": [
+    { "lat": 35.2510132, "lon": 128.5170750 },
+    { "lat": 35.2517013, "lon": 128.5159506 }
+  ],
+  "tags": {
+    "alt_name": "동부경전선",
+    "alt_name:ko": "동부경전선",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "150",
+    "name": "경전선",
+    "name:en": "Gyeongjeon Line",
+    "name:ko": "경전선",
+    "name:ko-Hani": "慶全線",
+    "name:zh": "慶全線",
+    "name:zh-Hans": "庆全线",
+    "name:zh-Hant": "慶全線",
+    "official_name": "경전본선",
+    "official_name:ko": "경전본선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "ref": "307",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1469045907,
+  "bounds": {
+    "minlat": 35.2510132,
+    "minlon": 128.5166241,
+    "maxlat": 35.2513338,
+    "maxlon": 128.5170750
+  },
+  "nodes": [
+    7883589044,
+    7855716063
+  ],
+  "geometry": [
+    { "lat": 35.2510132, "lon": 128.5170750 },
+    { "lat": 35.2513338, "lon": 128.5166241 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "crossover"
+  }
+}
+
+  ]
+}

@@ -1,0 +1,561 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T19:39:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 821338638,
+  "bounds": {
+    "minlat": 35.6139456,
+    "minlon": 129.3722894,
+    "maxlat": 35.6155535,
+    "maxlon": 129.3725018
+  },
+  "nodes": [
+    7668869980,
+    7668869981,
+    7668869982,
+    7668869983,
+    7668869980
+  ],
+  "geometry": [
+    { "lat": 35.6155493, "lon": 129.3722894 },
+    { "lat": 35.6155535, "lon": 129.3723735 },
+    { "lat": 35.6139500, "lon": 129.3725018 },
+    { "lat": 35.6139456, "lon": 129.3724187 },
+    { "lat": 35.6155493, "lon": 129.3722894 }
+  ],
+  "tags": {
+    "area": "yes",
+    "bench": "yes",
+    "bin": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "shelter": "yes",
+    "start_date": "2021-12-28",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 821338639,
+  "bounds": {
+    "minlat": 35.6139674,
+    "minlon": 129.3724644,
+    "maxlat": 35.6155679,
+    "maxlon": 129.3726756
+  },
+  "nodes": [
+    7668869984,
+    7668879685,
+    7668879686,
+    7668879687,
+    7668869984
+  ],
+  "geometry": [
+    { "lat": 35.6139722, "lon": 129.3726756 },
+    { "lat": 35.6139674, "lon": 129.3725835 },
+    { "lat": 35.6155648, "lon": 129.3724644 },
+    { "lat": 35.6155679, "lon": 129.3725449 },
+    { "lat": 35.6139722, "lon": 129.3726756 }
+  ],
+  "tags": {
+    "area": "yes",
+    "bench": "yes",
+    "bin": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "shelter": "yes",
+    "start_date": "2021-12-28",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842559018,
+  "bounds": {
+    "minlat": 35.6108170,
+    "minlon": 129.3721228,
+    "maxlat": 35.6190873,
+    "maxlon": 129.3728512
+  },
+  "nodes": [
+    7860186480,
+    7860188300,
+    7860186479,
+    7860186477,
+    14055498832,
+    14055498830,
+    14055498847,
+    14055498831,
+    7860188292,
+    14055498834,
+    6132712621
+  ],
+  "geometry": [
+    null,
+    { "lat": 35.6190873, "lon": 129.3721228 },
+    { "lat": 35.6156868, "lon": 129.3724347 },
+    { "lat": 35.6138046, "lon": 129.3725706 },
+    { "lat": 35.6134423, "lon": 129.3726032 },
+    { "lat": 35.6130754, "lon": 129.3726370 },
+    { "lat": 35.6127252, "lon": 129.3726737 },
+    { "lat": 35.6123394, "lon": 129.3727071 },
+    { "lat": 35.6118408, "lon": 129.3727695 },
+    { "lat": 35.6110268, "lon": 129.3728345 },
+    { "lat": 35.6108170, "lon": 129.3728512 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ja": "東海本線",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "oneway": "yes",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 842559020,
+  "bounds": {
+    "minlat": 35.6107371,
+    "minlon": 129.3728512,
+    "maxlat": 35.6108170,
+    "maxlon": 129.3728587
+  },
+  "nodes": [
+    6132712621,
+    7860186469,
+    7860186471,
+    12680416982,
+    7860186473,
+    7860186474,
+    6132712622
+  ],
+  "geometry": [
+    { "lat": 35.6108170, "lon": 129.3728512 },
+    { "lat": 35.6107371, "lon": 129.3728587 },
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "bridge": "viaduct",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ja": "東海線",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "oneway": "yes",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 842559021,
+  "bounds": {
+    "minlat": 35.6118350,
+    "minlon": 129.3720730,
+    "maxlat": 35.6190823,
+    "maxlon": 129.3727202
+  },
+  "nodes": [
+    7860186482,
+    7860186483,
+    8989692354,
+    7860186484,
+    7860188285,
+    7860188286,
+    7860188287,
+    14055498822,
+    7860188288,
+    7860188289,
+    7860188290,
+    7860188291
+  ],
+  "geometry": [
+    { "lat": 35.6190823, "lon": 129.3720730 },
+    { "lat": 35.6182354, "lon": 129.3721046 },
+    { "lat": 35.6178504, "lon": 129.3720983 },
+    { "lat": 35.6174697, "lon": 129.3720978 },
+    { "lat": 35.6168475, "lon": 129.3721564 },
+    { "lat": 35.6156875, "lon": 129.3722540 },
+    { "lat": 35.6137976, "lon": 129.3724006 },
+    { "lat": 35.6134321, "lon": 129.3724361 },
+    { "lat": 35.6130688, "lon": 129.3724911 },
+    { "lat": 35.6127139, "lon": 129.3725596 },
+    { "lat": 35.6123338, "lon": 129.3726268 },
+    { "lat": 35.6118350, "lon": 129.3727202 }
+  ],
+  "tags": {
+    "construction": "rail",
+    "construction:railway": "rail",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "oneway": "yes",
+    "railway": "rail",
+    "service": "siding",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 842559022,
+  "bounds": {
+    "minlat": 35.6118408,
+    "minlon": 129.3721228,
+    "maxlat": 35.6190873,
+    "maxlon": 129.3727695
+  },
+  "nodes": [
+    7860188292,
+    14055498838,
+    7860188293,
+    7860188294,
+    14055498823,
+    14055498820,
+    7860188295,
+    7860188296,
+    7860188297,
+    7860188298,
+    7860188299,
+    7860188300
+  ],
+  "geometry": [
+    { "lat": 35.6118408, "lon": 129.3727695 },
+    { "lat": 35.6123401, "lon": 129.3727427 },
+    { "lat": 35.6127271, "lon": 129.3727385 },
+    { "lat": 35.6130869, "lon": 129.3727331 },
+    { "lat": 35.6134503, "lon": 129.3727269 },
+    { "lat": 35.6138179, "lon": 129.3727041 },
+    { "lat": 35.6155565, "lon": 129.3725955 },
+    { "lat": 35.6164405, "lon": 129.3725079 },
+    { "lat": 35.6172053, "lon": 129.3724222 },
+    { "lat": 35.6179949, "lon": 129.3723061 },
+    { "lat": 35.6183293, "lon": 129.3722508 },
+    { "lat": 35.6190873, "lon": 129.3721228 }
+  ],
+  "tags": {
+    "construction": "rail",
+    "construction:railway": "rail",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "oneway": "yes",
+    "railway": "rail",
+    "service": "siding",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 842559025,
+  "bounds": {
+    "minlat": 35.6107322,
+    "minlon": 129.3727937,
+    "maxlat": 35.6108130,
+    "maxlon": 129.3728016
+  },
+  "nodes": [
+    6132712619,
+    7860186475,
+    7860186472,
+    7860186470,
+    7860186468,
+    6132712620
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    { "lat": 35.6107322, "lon": 129.3728016 },
+    { "lat": 35.6108130, "lon": 129.3727937 }
+  ],
+  "tags": {
+    "bridge": "viaduct",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ja": "東海本線",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "oneway": "yes",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 968520984,
+  "bounds": {
+    "minlat": 35.6108130,
+    "minlon": 129.3720730,
+    "maxlat": 35.6190823,
+    "maxlon": 129.3727937
+  },
+  "nodes": [
+    6132712620,
+    12680416983,
+    7860188291,
+    14055498846,
+    14055498828,
+    14055498839,
+    14055498827,
+    7860186476,
+    7860186478,
+    7860186482,
+    7860186481
+  ],
+  "geometry": [
+    { "lat": 35.6108130, "lon": 129.3727937 },
+    { "lat": 35.6116284, "lon": 129.3727367 },
+    { "lat": 35.6118350, "lon": 129.3727202 },
+    { "lat": 35.6123360, "lon": 129.3726599 },
+    { "lat": 35.6127195, "lon": 129.3726257 },
+    { "lat": 35.6130739, "lon": 129.3725928 },
+    { "lat": 35.6134355, "lon": 129.3725592 },
+    { "lat": 35.6138018, "lon": 129.3725260 },
+    { "lat": 35.6156953, "lon": 129.3723869 },
+    { "lat": 35.6190823, "lon": 129.3720730 },
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ja": "東海本線",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "oneway": "yes",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1289575589,
+  "bounds": {
+    "minlat": 35.6146035,
+    "minlon": 129.3715285,
+    "maxlat": 35.6148483,
+    "maxlon": 129.3720301
+  },
+  "nodes": [
+    11957850596,
+    11957850595,
+    11957850594,
+    11957850593,
+    11957850592,
+    11957850591,
+    11957850590,
+    11957850589,
+    11957850588,
+    11957850596
+  ],
+  "geometry": [
+    { "lat": 35.6148483, "lon": 129.3719819 },
+    { "lat": 35.6148285, "lon": 129.3715521 },
+    { "lat": 35.6147528, "lon": 129.3715573 },
+    { "lat": 35.6146362, "lon": 129.3715285 },
+    { "lat": 35.6146089, "lon": 129.3716627 },
+    { "lat": 35.6146035, "lon": 129.3717954 },
+    { "lat": 35.6146242, "lon": 129.3719202 },
+    { "lat": 35.6146547, "lon": 129.3720301 },
+    { "lat": 35.6147736, "lon": 129.3719871 },
+    { "lat": 35.6148483, "lon": 129.3719819 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "name": "북울산역",
+    "name:en": "Bugulsan Station",
+    "name:ko": "북울산역",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1545305936,
+  "bounds": {
+    "minlat": 35.6110268,
+    "minlon": 129.3727367,
+    "maxlat": 35.6116284,
+    "maxlon": 129.3728345
+  },
+  "nodes": [
+    14055498834,
+    12680416983
+  ],
+  "geometry": [
+    { "lat": 35.6110268, "lon": 129.3728345 },
+    { "lat": 35.6116284, "lon": 129.3727367 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "crossover"
+  }
+},
+{
+  "type": "way",
+  "id": 1545305937,
+  "bounds": {
+    "minlat": 35.6175636,
+    "minlon": 129.3718771,
+    "maxlat": 35.6194739,
+    "maxlon": 129.3719997
+  },
+  "nodes": [
+    14055498829,
+    14055498840,
+    14055498821,
+    14055498841
+  ],
+  "geometry": [
+    { "lat": 35.6175636, "lon": 129.3719910 },
+    { "lat": 35.6179007, "lon": 129.3719818 },
+    { "lat": 35.6181765, "lon": 129.3719997 },
+    { "lat": 35.6194739, "lon": 129.3718771 }
+  ],
+  "tags": {
+    "construction": "rail",
+    "construction:railway": "rail",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "oneway": "yes",
+    "railway": "rail",
+    "service": "yard",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 1545305938,
+  "bounds": {
+    "minlat": 35.6168475,
+    "minlon": 129.3718140,
+    "maxlat": 35.6194717,
+    "maxlon": 129.3721564
+  },
+  "nodes": [
+    7860188285,
+    14055498843,
+    14055498845,
+    14055498829,
+    14055498844
+  ],
+  "geometry": [
+    { "lat": 35.6168475, "lon": 129.3721564 },
+    { "lat": 35.6171084, "lon": 129.3721039 },
+    { "lat": 35.6173874, "lon": 129.3720230 },
+    { "lat": 35.6175636, "lon": 129.3719910 },
+    { "lat": 35.6194717, "lon": 129.3718140 }
+  ],
+  "tags": {
+    "construction": "rail",
+    "construction:railway": "rail",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "oneway": "yes",
+    "railway": "rail",
+    "service": "yard",
+    "voltage": "25000"
+  }
+}
+
+  ]
+}

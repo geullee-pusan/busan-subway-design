@@ -1,0 +1,193 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T20:48:48Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 488642864,
+  "bounds": {
+    "minlat": 36.5690004,
+    "minlon": 128.1738050,
+    "maxlat": 36.5701438,
+    "maxlon": 128.1749760
+  },
+  "nodes": [
+    4809423839,
+    4809423840,
+    4809423841,
+    4809423842,
+    4809423839
+  ],
+  "geometry": [
+    { "lat": 36.5690228, "lon": 128.1738050 },
+    { "lat": 36.5701438, "lon": 128.1749416 },
+    { "lat": 36.5701213, "lon": 128.1749760 },
+    { "lat": 36.5690004, "lon": 128.1738393 },
+    { "lat": 36.5690228, "lon": 128.1738050 }
+  ],
+  "tags": {
+    "area": "yes",
+    "railway": "platform"
+  }
+},
+{
+  "type": "way",
+  "id": 488642865,
+  "bounds": {
+    "minlat": 36.5694605,
+    "minlon": 128.1746828,
+    "maxlat": 36.5697951,
+    "maxlon": 128.1750591
+  },
+  "nodes": [
+    4809423843,
+    4809423844,
+    4809423845,
+    4809423846,
+    4809423843
+  ],
+  "geometry": [
+    { "lat": 36.5695401, "lon": 128.1746828 },
+    { "lat": 36.5697951, "lon": 128.1749337 },
+    { "lat": 36.5697155, "lon": 128.1750591 },
+    { "lat": 36.5694605, "lon": 128.1748082 },
+    { "lat": 36.5695401, "lon": 128.1746828 }
+  ],
+  "tags": {
+    "addr:city": "상주시",
+    "addr:housenumber": "3",
+    "addr:postcode": "37118",
+    "addr:province": "경상북도",
+    "addr:street": "가야로",
+    "addr:town": "함창읍",
+    "building": "train_station",
+    "internet_access": "wlan",
+    "internet_access:fee": "no",
+    "name": "함창",
+    "name:en": "Hamchang",
+    "name:ja": "咸昌",
+    "name:ko": "함창",
+    "name:zh-Hans": "咸昌",
+    "name:zh-Hant": "咸昌",
+    "network": "경북선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "way",
+  "id": 488642868,
+  "bounds": {
+    "minlat": 36.5646682,
+    "minlon": 128.1693515,
+    "maxlat": 36.5739916,
+    "maxlon": 128.1785961
+  },
+  "nodes": [
+    822912539,
+    822912506,
+    822912391,
+    822912674,
+    822912595,
+    4809423847,
+    822912578,
+    822912479,
+    822912443,
+    822912647,
+    822912624,
+    4809423838,
+    4809423837,
+    4809423836,
+    822912411,
+    2405718993,
+    822912377,
+    4809423824,
+    12411470044,
+    822912670,
+    2405718995,
+    822912639,
+    4809423823,
+    822912573,
+    4809423822,
+    822912552,
+    4809423821,
+    2405719007,
+    2405719008,
+    2405719010,
+    4809423120
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    { "lat": 36.5646682, "lon": 128.1693515 },
+    { "lat": 36.5657074, "lon": 128.1704071 },
+    { "lat": 36.5665557, "lon": 128.1712608 },
+    { "lat": 36.5669088, "lon": 128.1716131 },
+    { "lat": 36.5673750, "lon": 128.1721227 },
+    { "lat": 36.5678944, "lon": 128.1726543 },
+    { "lat": 36.5683867, "lon": 128.1731561 },
+    { "lat": 36.5690283, "lon": 128.1737816 },
+    { "lat": 36.5701644, "lon": 128.1749299 },
+    { "lat": 36.5724075, "lon": 128.1771808 },
+    { "lat": 36.5730189, "lon": 128.1777857 },
+    { "lat": 36.5733413, "lon": 128.1780772 },
+    { "lat": 36.5735918, "lon": 128.1783081 },
+    { "lat": 36.5739916, "lon": 128.1785961 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "90",
+    "name": "경북선",
+    "name:en": "Gyeongbuk Line",
+    "name:ja": "慶北線",
+    "name:ko": "경북선",
+    "name:ko-Hani": "慶北線",
+    "name:zh": "庆北线",
+    "name:zh-Hans": "庆北线",
+    "name:zh-Hant": "慶北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "314",
+    "tracks": "1",
+    "usage": "main",
+    "workrules": "KR:RSA"
+  }
+}
+
+  ]
+}
