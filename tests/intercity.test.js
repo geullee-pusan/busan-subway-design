@@ -14,6 +14,12 @@ test('터미널 이름의 기본형: 꼬리와 괄호를 뗀다', () => {
   assert.equal(terminalBase('부산서부(사상)'), '부산서부');
   assert.equal(terminalBase('순천종합버스터미널'), '순천');
   assert.equal(terminalBase('보성공용터미널'), '보성');
+  // 뒤에 붙은 영어 이름, "시외버스공용정류장", "터미날"로 잘못 적힌 이름
+  assert.equal(terminalBase('장수버스터미널 Jangsu Bus Terminal'), '장수');
+  assert.equal(terminalBase('무주시외버스공용정류장'), '무주');
+  assert.equal(terminalBase('장계 시외 버스 터미날'), '장계');
+  assert.equal(terminalBase('삼호시외버스종합터미널'), '삼호');
+  assert.equal(terminalBase('장수(완)'), '장수');
 });
 
 test('다음 출발: 갈 곳마다 지금 뒤로 가장 먼저 떠나는 버스', () => {

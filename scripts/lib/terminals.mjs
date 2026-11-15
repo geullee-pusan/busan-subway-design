@@ -5,15 +5,23 @@ import { resolve } from 'node:path';
 import { decodeDongs, dongAt } from '../../src/sim/address.js';
 import { utm52 } from './utm.mjs';
 
-/** 이름의 기본형: 띄어쓰기, 괄호 속, "시외버스터미널"·"정류장" 같은 꼬리를 뗀다(밀양시외버스터미널 → 밀양, 부산서부(사상) → 부산서부) */
+/**
+ * 이름의 기본형: 띄어쓰기, 괄호 속, 뒤에 붙은 영어 이름, "시외버스터미널"·"정류장" 같은 꼬리를 뗀다
+ * (밀양시외버스터미널 → 밀양, 부산서부(사상) → 부산서부, 장수버스터미널 Jangsu Bus Terminal → 장수,
+ * 무주시외버스공용정류장 → 무주, 장계 시외 버스 터미날 → 장계)
+ */
 export function terminalBase(name) {
   return String(name ?? '')
     .replace(/\s+/g, '')
     .replace(/\(.*?\)/g, '')
-    .replace(/(종합|공용|시외|고속|시외고속)?(버스)?(터미널|정류장|정류소|대합실)$/, '')
-    .replace(/(종합|공용|시외|고속)$/, '')
+    .replace(/[A-Za-z'’-]+$/, '')
+    .replace(/(종합|공용|시외|고속|버스)*(터미[널날]|정류장|정류소|대합실)$/, '')
+    .replace(/(종합|공용|시외|고속|버스)+$/, '')
     .replace(/[·.]/g, '');
 }
+
+/** 이름이 터미널인지(정류장이 아닌지). OSM 이름에 "터미날"로 잘못 적힌 곳도 있다. */
+const IS_TERMINAL = /터미[널날]/;
 
 /** 터미널을 넣는 지역의 행정동 이름 머리 */
 // 지도 네모 안의 모든 지역(2026-11-14 전북, 경북 북쪽, 충남·충북·대전 남쪽까지 넓혔다)
@@ -52,7 +60,7 @@ export function areaTerminals(root) {
     if (x < 0 || y < 0 || x >= grid.cols || y >= grid.rows) continue;
     const dong = dongAt(dongs, { x, y });
     if (!dong || !AREA.some((a) => dong.startsWith(a))) continue;
-    out.push({ id: `${e.type}/${e.id}`, name, base: terminalBase(name), x, y, dong, isTerminal: /터미널/.test(name) });
+    out.push({ id: `${e.type}/${e.id}`, name, base: terminalBase(name), x, y, dong, isTerminal: IS_TERMINAL.test(name) });
   }
   return out.sort((a, b) => a.id.localeCompare(b.id));
 }
