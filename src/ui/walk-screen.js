@@ -219,6 +219,25 @@ export function renderWalk(root, { onHome }) {
     needsDraw = true;
   };
 
+  /** 걷기 지도(걸어 다니기와 시작할 곳 고르기에 함께 쓴다) */
+  function makeMap(target) {
+    return createWalkMap(target, {
+      grid,
+      roads,
+      roadIndex,
+      stations: subwayStations,
+      railStations: rail.stations,
+      terminals,
+      railLines: rail.lines,
+      busStopsNear: busStopsIn,
+      landmarks,
+      dongs: dongShapesList,
+      water: waterList,
+      lineColor: (line) => lineById.get(line)?.color ?? '#1F3342',
+      lineName: (line) => LINE_MARK[line] ?? line,
+    });
+  }
+
   // ---------- 1. 시작 고르기 ----------
   function setup() {
     mode = 'setup';
@@ -275,17 +294,151 @@ export function renderWalk(root, { onHome }) {
       return node;
     });
     body.append(riderRow);
+    const begin = (point) => {
+      standAt(point);
+      record = emptyRecord(hour * 60);
+      track = appendPoint([], '걷기', me);
+      persist(true);
+      startWalking();
+    };
     body.append(
-      button('여기서 걷기 시작', () => {
-        const start = list[Number(select.value)];
-        standAt({ x: start.x, y: start.y });
-        record = emptyRecord(hour * 60);
-        track = appendPoint([], '걷기', me);
-        persist(true);
-        startWalking();
-      }, saved?.record ? 'button big' : 'button big ride-go'),
+      button('여기서 걷기 시작', () => begin(list[Number(select.value)]), saved?.record ? 'button big' : 'button big ride-go'),
+      // 목록에서 고른 곳 둘레의 지도를 보여 주고, 찍은 곳에서 시작한다(고른 시각과 타는 사람은 그대로)
+      button('지도에서 시작할 곳 고르기', () => pickStartOnMap(list[Number(select.value)], begin), 'button big'),
     );
   }
+
+  /**
+   * 지도에서 시작할 곳 고르기: 끌어서 옮기고, + − 로 확대·축소하고, 톡 눌러 자리를 찍은 뒤 단추를 누른다.
+   * @param {{x: number, y: number}} from 처음 보여 줄 곳(목록에서 고른 곳)
+   * @param {(point: {x: number, y: number}) => void} onPick
+   */
+  function pickStartOnMap(from, onPick) {
+    mode = 'start-pick';
+    body.replaceChildren();
+    body.append(element('p', 'guide', '지도를 끌어서 옮겨요.'));
+    body.append(element('p', 'guide', '시작하고 싶은 곳을 톡 눌러요.'));
+    const stage = element('div', 'walk-stage walk-pick-stage');
+    const pickCanvas = document.createElement('canvas');
+    pickCanvas.className = 'walk-canvas';
+    pickCanvas.setAttribute('role', 'img');
+    pickCanvas.setAttribute('aria-label', '시작할 곳을 고르는 지도예요. 누른 곳에 사람이 서요.');
+    stage.append(pickCanvas, element('p', 'walk-osm', '© OpenStreetMap contributors'));
+    const pickMap = makeMap(pickCanvas);
+    pickMap.setScale(60);
+    let center = { x: from.x, y: from.y };
+    let picked = null;
+    let pending = false;
+    const redraw = () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => {
+        pending = false;
+        if (mode !== 'start-pick') return;
+        pickMap.draw(center, { me: picked ? { ...picked, facing: 0, step: 0 } : null });
+      });
+    };
+    const zoomBy = (factor) => {
+      pickMap.setScale(pickMap.scale * factor);
+      redraw();
+    };
+    const zoom = element('div', 'walk-zoom');
+    zoom.append(button('+', () => zoomBy(1.4), 'button'), button('−', () => zoomBy(1 / 1.4), 'button'));
+    stage.append(zoom);
+    body.append(stage);
+    const info = element('div', 'walk-address walk-pick-info');
+    info.append(element('span', 'walk-address-pin', '📍'), element('span', null, '아직 고르지 않았어요.'));
+    body.append(info);
+    const go = button('찍은 곳에서 걷기 시작', () => picked && onPick(picked), 'button big ride-go');
+    go.disabled = true;
+    body.append(go, button('목록에서 고르기로 돌아가기', setup));
+
+    const pick = (point) => {
+      const hit = snapToRoad(point);
+      info.replaceChildren(element('span', 'walk-address-pin', '📍'));
+      if (!hit) {
+        picked = null;
+        go.disabled = true;
+        info.append(element('span', null, '여기는 길에서 너무 멀어요. 길 가까이를 눌러요.'));
+      } else {
+        picked = placeOn(roads, { edge: hit.edge, seg: hit.seg, t: hit.t });
+        go.disabled = false;
+        info.append(element('span', null, `${dongAt(dongShapesList, picked) ?? '이름 없는 곳'}에서 시작해요.`));
+      }
+      redraw();
+    };
+
+    // 손가락: 톡 누르면 고르고, 끌면 옮기고, 두 손가락으로 확대·축소
+    const touches = new Map();
+    let pinch = null;
+    let tap = null;
+    let drag = null;
+    pickCanvas.addEventListener('pointerdown', (e) => {
+      try {
+        pickCanvas.setPointerCapture(e.pointerId);
+      } catch {
+        // 잡을 수 없는 손가락이어도 그대로 쓴다
+      }
+      touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (touches.size === 1) {
+        tap = { x: e.clientX, y: e.clientY, time: performance.now() };
+        drag = { x: e.clientX, y: e.clientY, center: { ...center } };
+      }
+      if (touches.size === 2) {
+        const [p1, p2] = [...touches.values()];
+        pinch = { dist: Math.hypot(p1.x - p2.x, p1.y - p2.y), scale: pickMap.scale };
+        tap = null;
+        drag = null;
+      }
+    });
+    pickCanvas.addEventListener('pointermove', (e) => {
+      if (!touches.has(e.pointerId)) return;
+      touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pinch && touches.size === 2) {
+        const [p1, p2] = [...touches.values()];
+        const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+        if (pinch.dist > 0) {
+          pickMap.setScale(pinch.scale * (dist / pinch.dist));
+          redraw();
+        }
+      }
+      if (tap && Math.hypot(e.clientX - tap.x, e.clientY - tap.y) > 10) tap = null;
+      if (drag && !tap && touches.size === 1) {
+        // 지도 범위 밖으로는 나가지 않는다
+        const x = drag.center.x - (e.clientX - drag.x) / pickMap.scale;
+        const y = drag.center.y - (e.clientY - drag.y) / pickMap.scale;
+        center = { x: Math.max(0, Math.min(grid.cols, x)), y: Math.max(0, Math.min(grid.rows, y)) };
+        redraw();
+      }
+    });
+    const touchEnd = (e) => {
+      touches.delete(e.pointerId);
+      if (touches.size < 2) pinch = null;
+      if (tap && touches.size === 0 && e.type === 'pointerup' && performance.now() - tap.time < 600) {
+        const r = pickCanvas.getBoundingClientRect();
+        pick(pickMap.toWorld(e.clientX - r.left, e.clientY - r.top, center));
+      }
+      if (touches.size === 0) {
+        tap = null;
+        drag = null;
+      }
+    };
+    pickCanvas.addEventListener('pointerup', touchEnd);
+    pickCanvas.addEventListener('pointercancel', touchEnd);
+    pickCanvas.addEventListener(
+      'wheel',
+      (e) => {
+        e.preventDefault();
+        zoomBy(Math.max(0.8, Math.min(1.25, Math.exp(-e.deltaY * 0.0015))));
+      },
+      { passive: false },
+    );
+    // 화면 크기가 바뀌면 다시 그린다(고르기를 마치면 그만 듣는다)
+    const onResize = () => (mode === 'start-pick' ? redraw() : window.removeEventListener('resize', onResize));
+    window.addEventListener('resize', onResize);
+    redraw();
+  }
+
 
   // ---------- 2. 걸어 다니기 ----------
   let map = null;
@@ -373,21 +526,7 @@ export function renderWalk(root, { onHome }) {
     tools.append(soundButton, button('랜드마크 목록', () => showLandmarkList()), button('가 보고 싶은 곳', chooseGoal), button('여행 기록 보기', showRecord), button('여행 일기', showDiary), button('그만 걷기', finish));
     body.append(tools);
 
-    map = createWalkMap(canvas, {
-      grid,
-      roads,
-      roadIndex,
-      stations: subwayStations,
-      railStations: rail.stations,
-      terminals,
-      railLines: rail.lines,
-      busStopsNear: busStopsIn,
-      landmarks,
-      dongs: dongShapesList,
-      water: waterList,
-      lineColor: (line) => lineById.get(line)?.color ?? '#1F3342',
-      lineName: (line) => LINE_MARK[line] ?? line,
-    });
+    map = makeMap(canvas);
 
     // 조이스틱 끌기
     let padId = null;
