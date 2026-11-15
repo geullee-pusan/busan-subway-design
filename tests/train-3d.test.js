@@ -81,3 +81,20 @@ test('짧은 터널은 지우고 가까운 터널은 잇는다', async () => {
   assert.equal(out[20], true);
   assert.equal(out[21], false);
 });
+
+test('tailOf는 선 모양의 끝 km만 남긴다', async () => {
+  const { tailOf } = await import('../src/sim/train-3d-path.js');
+  const pts = [[0, 0], [1, 0], [3, 0]];
+  const t = tailOf(pts, 2.5);
+  assert.deepEqual(t.at(-1), [3, 0]);
+  assert.ok(Math.abs(t[0][0] - 0.5) < 1e-9 && t[0][1] === 0);
+  assert.equal(tailOf(pts, 10)[0][0], 0); // 짧으면 전부
+});
+
+test('extendBack은 첫 방향 뒤로 곧게 늘이고, joinPoints는 이음매를 한 번만 둔다', async () => {
+  const { extendBack, joinPoints } = await import('../src/sim/train-3d-path.js');
+  const back = extendBack([[2, 2], [2, 3]], 0.8);
+  assert.ok(Math.abs(back[0][0] - 2) < 1e-9 && Math.abs(back[0][1] - 1.2) < 1e-9);
+  assert.deepEqual(back[1], [2, 2]);
+  assert.deepEqual(joinPoints([[0, 0], [1, 0]], [[1, 0], [2, 0]]), [[0, 0], [1, 0], [2, 0]]);
+});

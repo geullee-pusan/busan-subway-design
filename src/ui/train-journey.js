@@ -25,6 +25,8 @@ function webglAvailable() {
 
 /** 역 사이 그림이 움직이는 시간(밀리초) */
 const SEGMENT_MS = 5000;
+/** 3D 승강장에서 기차가 들어와 서기까지(밀리초) */
+const ARRIVE_MS = 13000;
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -269,14 +271,17 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     area.replaceChildren();
     area.append(element('h2', null, `${hhmm(stopDep(from))} ${kind} ${train.no}번을 기다려요`));
     area.append(soundButtons());
-    const art = trainPlatformArt({ kind, stationName: `${fromName}역`, reduceMotion });
-    area.append(art.svg);
+    const holder = element('div', 'tr-platform-view');
+    area.append(holder);
+    const ready = platformView(holder);
     const status = element('p', 'tr-status', '열차가 곧 들어와요.');
     area.append(status);
     const board = button('열차에 타요', ride, 'button big ride-go');
     board.disabled = true;
     area.append(board);
     later(async () => {
+      const art = await ready;
+      if (!holder.isConnected) return;
       sound.wake();
       const words = `곧 ${kind} ${train.no}번 열차가 들어옵니다. 안전선 밖으로 물러서 주세요.`;
       status.textContent = words;
@@ -289,6 +294,63 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
       status.textContent = `문이 열렸어요. ${seat.car}호차로 타요.`;
       board.disabled = false;
     }, reduceMotion ? 0 : 1200);
+  }
+
+  /**
+   * 승강장 그림: 3D가 되면 3D 승강장(아이 눈높이, 들어오는 기차, 열리는 문), 안 되면 그림.
+   * @returns {Promise<{arrive: (ms: number) => Promise<void>, openDoors: () => void}>}
+   */
+  async function platformView(holder) {
+    const route = routeFor(fromIndex);
+    if (route && webglAvailable()) {
+      holder.replaceChildren(element('p', 'tr-status', '3D 그림을 준비해요.'));
+      try {
+        const o = await create3d();
+        if (!holder.isConnected) throw new Error('화면이 바뀌었어요');
+        route3d = route;
+        progress3d = 0;
+        o.setRoute(route);
+        o.setView('platform');
+        // 이 역에서 처음 떠나는 열차는 이미 승강장에 서 있다
+        const waiting = fromIndex === 0 && train.fromOrigin === true;
+        o.waitAtPlatform(waiting);
+        holder.replaceChildren(o.el);
+        return { arrive: () => o.arrive(ARRIVE_MS), openDoors: () => o.setDoors(true) };
+      } catch {
+        outside?.destroy();
+        outside = null;
+      }
+    }
+    const art = trainPlatformArt({ kind, stationName: `${fromName}역`, reduceMotion });
+    holder.replaceChildren(art.svg);
+    return { arrive: (ms) => art.arrive(ms), openDoors: () => art.openDoors() };
+  }
+
+  /** 3D 보기를 만든다(승강장, 객실, 밖에서 보기가 함께 쓴다). 안 되면 오류를 던진다. */
+  async function create3d() {
+    if (outside) return outside;
+    const { createTrain3D } = await import('./train-3d.js');
+    if (!outside) {
+      outside = createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind, seatCar: seat.car });
+      outside.onHero((id) => heroPicker.mark(id));
+    }
+    return outside;
+  }
+
+  /** 정차역 i에서 다음 정차역까지의 3D 구간(앞 구간 선로를 붙인다). 같은 구간은 같은 값을 돌려준다. */
+  const routes = new Map();
+  function routeFor(i) {
+    if (routes.has(i)) return routes.get(i);
+    const seg = segment(i);
+    let route = null;
+    if (seg.path?.points?.length >= 2) {
+      // 앞 정차역에서 오는 선로. 지도 안에 앞 정차역이 없고 처음 떠나는 역도 아니면 곧게 늘인다.
+      const prev = i > 0 ? segment(i - 1).path?.points : null;
+      const lead = prev?.length >= 2 ? prev : i === 0 && train.fromOrigin === true ? null : 'extend';
+      route = { points: seg.path.points, lead, speedAt: seg.speedAt, fromName: seg.A.name, toName: seg.B.name };
+    }
+    routes.set(i, route);
+    return route;
   }
 
   // 4. 열차 안: 역마다 선다.
@@ -357,6 +419,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     if (can3d) viewButtons.outside = button('밖에서 보기 (3D)', () => pick('outside'));
     viewRow.append(...Object.values(viewButtons));
     outsideBox = element('div', 'tr3d-box');
+    if (outside) outsideBox.append(outside.el); // 승강장에서 만든 3D를 이어 쓴다
     const outsideNote = element('p', 'panel-note');
     let failed3d = false;
     function pick(view) {
@@ -383,10 +446,8 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     async function open3d() {
       outsideBox.replaceChildren(element('p', 'tr-status', '3D 그림을 준비해요.'));
       try {
-        const { createTrain3D } = await import('./train-3d.js');
-        if (outside || !outsideBox.isConnected) return;
-        outside = createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind, seatCar: seat.car });
-        outside.onHero((id) => heroPicker.mark(id));
+        await create3d();
+        if (!outsideBox.isConnected) return;
         outsideBox.replaceChildren(outside.el);
         outside.setView(showing === 'seat' ? 'cabin' : 'outside');
         routeTo3d();
@@ -430,13 +491,15 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     views.setDisplay(last ? [`${name}역`, '내릴 역이에요'] : first ? [`${trainDestination(train)} 가는 ${kind}`, `다음 역: ${nameOf(train.stops[at + 1][0])}`] : [`${name}역`, `다음 역: ${nameOf(train.stops[at + 1][0])}`]);
     if (!last) {
       // 3D 보기: 다음 역까지의 땅과 선로를 미리 짓고 기차를 이 역에 세운다
-      const seg = segment(at);
-      if (seg.path?.points?.length >= 2) {
-        route3d = { points: seg.path.points, speedAt: seg.speedAt, fromName: seg.A.name, toName: seg.B.name };
+      const route = routeFor(at);
+      if (route) {
+        route3d = route;
         progress3d = 0;
         routeTo3d();
       }
     }
+    // 역에 서면 승강장 쪽 문이 열린다(3D)
+    outside?.setDoors(true);
     panel.replaceChildren(stopsRow());
     const clock = element('p', 'tr-clock', `시각 ${hhmm(first ? stopDep(stop) : stopArr(stop))}`);
     panel.append(clock);
@@ -480,6 +543,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     speedRow.append(element('span', 'tr-fact-label', '지금 빠르기'), speedBar, speedText);
     panel.append(clock, speedRow, element('p', 'tr-status', `${stationLabel(B.name)}까지 ${distanceText(Math.round(km * 1000))}, ${durationText(minutes * 60)} 걸려요.`));
     if (soundOn) sound.startRumble(soundKindOf(kind));
+    outside?.setDoors(false);
     views.setDisplay([`다음 역: ${B.name}`, `${hhmm(stopArr(b))} 도착`]);
     const start = performance.now();
     const tick = (now) => {

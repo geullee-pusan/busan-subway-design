@@ -199,3 +199,48 @@ export function cellNoise(col, row, salt = 0) {
   h = (h ^ (h >>> 16)) >>> 0;
   return h / 4294967296;
 }
+
+/**
+ * 선 모양의 끝에서 km만큼만 남긴다(앞 구간 선로의 끝부분을 이 구간 앞에 붙일 때).
+ * @param {Array<[number, number]>} points
+ * @returns {Array<[number, number]>} 잘린 곳부터 끝까지
+ */
+export function tailOf(points, km) {
+  if (!points || points.length < 2) return points ? points.slice() : [];
+  const out = [points.at(-1)];
+  let left = km;
+  for (let k = points.length - 1; k > 0; k--) {
+    const [x1, y1] = points[k];
+    const [x0, y0] = points[k - 1];
+    const len = Math.hypot(x1 - x0, y1 - y0);
+    if (len >= left) {
+      const t = len === 0 ? 0 : left / len;
+      out.push([x1 + (x0 - x1) * t, y1 + (y0 - y1) * t]);
+      return out.reverse();
+    }
+    out.push([x0, y0]);
+    left -= len;
+  }
+  return out.reverse();
+}
+
+/**
+ * 선 모양의 첫 방향을 따라 뒤로 km만큼 곧게 늘인 두 점(앞 구간을 모를 때 들어오는 선로).
+ * @returns {Array<[number, number]>} [늘인 끝, 첫 점]
+ */
+export function extendBack(points, km) {
+  const [x0, y0] = points[0];
+  let k = 1;
+  while (k < points.length - 1 && Math.hypot(points[k][0] - x0, points[k][1] - y0) < 1e-9) k += 1;
+  const [x1, y1] = points[k] ?? [x0 + 1, y0];
+  const len = Math.hypot(x1 - x0, y1 - y0) || 1;
+  return [[x0 - ((x1 - x0) / len) * km, y0 - ((y1 - y0) / len) * km], [x0, y0]];
+}
+
+/** 두 선 모양을 잇는다(이음매의 같은 점은 한 번만) */
+export function joinPoints(a, b) {
+  if (!a?.length) return b.slice();
+  const last = a.at(-1);
+  const first = b[0];
+  return Math.hypot(last[0] - first[0], last[1] - first[1]) < 1e-9 ? [...a, ...b.slice(1)] : [...a, ...b];
+}

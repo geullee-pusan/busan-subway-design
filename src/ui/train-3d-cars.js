@@ -545,10 +545,8 @@ function carGeometry(car, spec, look) {
   const sideZ = W / 2 + 0.012;
   const { winY, winH, doorW, doors, windows, passenger } = sideLayout(car, spec);
   for (const side of [-1, 1]) {
-    for (const dx of doors) {
-      parts.box(doorW, span * 0.74, 0.03, dx, by + span * 0.38, side * sideZ, spec.doorColor ?? shade(paint({ hn: 0.4, f: -1, xn: 0.5 }), 0.12));
-      parts.box(0.5, winH * 0.8, 0.04, dx, winY, side * (sideZ + 0.005), GLASS);
-    }
+    // 문간(어두운 구멍). 문짝은 따로 움직이는 그물이다(doorPanel).
+    for (const dx of doors) parts.box(doorW - 0.02, span * 0.72, 0.02, dx, by + span * 0.38, side * (sideZ + 0.002), '#15171a');
     if (passenger) {
       for (const win of windows) parts.box(win.w, winH, 0.04, win.x, winY, side * sideZ, GLASS);
     } else {
@@ -614,6 +612,18 @@ function carGeometry(car, spec, look) {
   return parts.geometry();
 }
 
+/** 문짝 하나(문 색 + 창). 문 가운데가 원점이다. */
+function doorPanel(car, spec) {
+  const { by, span, winY, winH, doorW } = sideLayout(car, spec);
+  const parts = new Parts();
+  const cy = by + span * 0.38;
+  const color = spec.doorColor ?? shade(spec.paint({ hn: 0.4, f: -1, xn: 0.5, role: car.role }), 0.12);
+  parts.box(doorW, span * 0.74, 0.03, 0, 0, 0, color);
+  parts.box(0.5, winH * 0.8, 0.04, 0, winY - cy, 0.004, GLASS);
+  parts.box(0.5, winH * 0.8, 0.04, 0, winY - cy, -0.004, GLASS);
+  return { geometry: parts.geometry(), cy };
+}
+
 /** 앞 불빛 자리(칸 안 좌표, 코가 +x에 있을 때) */
 function lampSpots(car) {
   const shape = NOSE[car.kind];
@@ -655,13 +665,47 @@ export function buildTrain(look, count, { material, headMaterial, tailMaterial, 
         inner.add(lamp);
       }
     }
+    // 문짝: 양옆 문마다. 승강장 쪽 문만 열린다(setDoors).
+    const doors = [];
+    const layout = sideLayout(car, spec);
+    if (layout.doors.length) {
+      const dkey = JSON.stringify(['door', car.role, car.length, car.width, car.height]);
+      if (!cache.has(dkey)) cache.set(dkey, doorPanel(car, spec));
+      const panel = cache.get(dkey);
+      for (const side of [-1, 1]) {
+        for (const dx of layout.doors) {
+          const m = new Mesh(panel.geometry, material);
+          const base = [dx, panel.cy, side * (car.width / 2 + 0.03)];
+          m.position.set(...base);
+          inner.add(m);
+          // 뒤를 보는 칸(안쪽을 돌린 칸)은 그물의 옆이 바뀐다: 칸 바깥에서 본 옆(-1 = 가는 쪽 왼편)
+          doors.push({ mesh: m, base, side: car.nose === 'back' ? -side : side, slide: dx < 0 ? 1 : -1, width: layout.doorW });
+        }
+      }
+    }
     if (car.nose === 'back') inner.rotation.y = Math.PI;
     group.add(inner);
-    return { group, inner, body, car, length: car.length, gapAfter: car.gapAfter };
+    return { group, inner, body, car, doors, length: car.length, gapAfter: car.gapAfter };
   });
   return {
     cars: out,
     spec,
+    /**
+     * 문을 연다(0 닫힘 ~ 1 다 열림). 먼저 조금 밖으로 나온 뒤 옆으로 민다(밀어 여는 문).
+     * @param {number} amount
+     * @param {number} side 열 쪽(가는 쪽 왼편 = -1, 오른편 = 1)
+     */
+    setDoors(amount, side = -1) {
+      const pop = Math.min(1, amount * 3);
+      const slide = Math.max(0, (amount - 0.3) / 0.7);
+      for (const c of out) {
+        for (const d of c.doors) {
+          const open = d.side === side ? 1 : 0;
+          const zSign = Math.sign(d.base[2]);
+          d.mesh.position.set(d.base[0] + d.slide * d.width * 0.95 * slide * open, d.base[1], d.base[2] + zSign * 0.07 * pop * open);
+        }
+      }
+    },
     dispose() {
       for (const g of cache.values()) g.dispose();
       lampGeometry.dispose();
