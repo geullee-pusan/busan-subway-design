@@ -1828,6 +1828,146 @@
       "scene": "sunaroi",
       "radius": 80,
       "sceneNote": "자료에 적힌 모양을 보고 새로 그린 그림이에요. 실제와 다를 수 있어요."
+    },
+    {
+      "id": "yeongildae_beach",
+      "name": "영일대해수욕장",
+      "city": "포항",
+      "osm": "way/471702155",
+      "kind": "beach",
+      "radius": 300
+    },
+    {
+      "id": "bogyeongsa",
+      "name": "보경사",
+      "city": "포항",
+      "osm": "way/471866227",
+      "kind": "temple",
+      "radius": 200
+    },
+    {
+      "id": "geumosan",
+      "name": "금오산",
+      "city": "구미",
+      "osm": "node/6212374418",
+      "kind": "mountain",
+      "radius": 400
+    },
+    {
+      "id": "jikjisa",
+      "name": "직지사",
+      "city": "김천",
+      "osm": "way/1000671418",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "tamni_pagoda",
+      "name": "의성 탑리리 오층석탑",
+      "city": "의성",
+      "osm": "way/498006427",
+      "kind": "pagoda",
+      "radius": 120
+    },
+    {
+      "id": "bingye_valley",
+      "name": "빙계계곡",
+      "city": "의성",
+      "osm": "node/7838409348",
+      "kind": "valley",
+      "radius": 300
+    },
+    {
+      "id": "jusanji",
+      "name": "주산지",
+      "city": "청송",
+      "osm": "way/176264995",
+      "kind": "lake",
+      "radius": 250
+    },
+    {
+      "id": "ganggu_port",
+      "name": "강구항",
+      "city": "영덕",
+      "osm": "way/1294881488",
+      "kind": "port",
+      "radius": 300
+    },
+    {
+      "id": "jangsa_landing",
+      "name": "장사상륙작전 전승기념관",
+      "city": "영덕",
+      "osm": "node/12462366667",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "eunhaesa",
+      "name": "은해사",
+      "city": "영천",
+      "osm": "way/1449913979",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "uiamsa",
+      "name": "의암사(논개 사당)",
+      "city": "장수",
+      "osm": "node/2214146050",
+      "kind": "shrine",
+      "radius": 200
+    },
+    {
+      "id": "museong_seowon",
+      "name": "무성서원",
+      "city": "정읍",
+      "osm": "way/876129255",
+      "kind": "seowon",
+      "radius": 150
+    },
+    {
+      "id": "yongdam_lake",
+      "name": "용담호",
+      "city": "진안",
+      "osm": "relation/7564686",
+      "kind": "lake",
+      "radius": 600
+    },
+    {
+      "id": "unilam_banilam",
+      "name": "운일암반일암",
+      "city": "진안",
+      "osm": "node/1241518279",
+      "kind": "valley",
+      "radius": 300
+    },
+    {
+      "id": "jeoksangsan",
+      "name": "적상산",
+      "city": "무주",
+      "osm": "node/5371885873",
+      "kind": "mountain",
+      "radius": 400
+    },
+    {
+      "id": "okjeongho",
+      "name": "옥정호",
+      "city": "임실",
+      "kind": "lake",
+      "radius": 600,
+      "point": {
+        "lat": 35.6089265,
+        "lon": 127.1124608,
+        "note": "옥정호(OSM relation/5614945)의 가운데 점은 정읍시 산외면에 떨어진다. 임실 쪽(운암면) 물가의 OSM 선 위 점을 쓴다."
+      }
+    },
+    {
+      "id": "songgwangsa_wanju",
+      "name": "완주 송광사",
+      "city": "완주",
+      "osm": "way/113759760",
+      "kind": "temple",
+      "radius": 200
     }
   ]
 }

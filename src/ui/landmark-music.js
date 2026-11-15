@@ -47,6 +47,9 @@ const TUNES = {
   stadium: { root: 60, bpm: 132, scale: MAJOR_PENTA, voice: 'brass', notes: [[0, 0.5], [0, 0.5], [3, 0.5], [5, 1], [3, 0.5], [5, 1.5]], extra: 'cheer', chord: [0, 4, 7, 12] },
 };
 
+/** 곡이 따로 없는 종류는 비슷한 종류의 곡을 쓴다 */
+const TUNE_LIKE = { port: 'beach', shrine: 'pavilion', seowon: 'hanok', pagoda: 'temple', valley: 'mountain', science: 'museum', academy: 'school', restaurant: 'village' };
+
 export function createLandmarkMusic() {
   let ctx = null;
   let master = null;
@@ -247,7 +250,7 @@ export function createLandmarkMusic() {
     if (!c) return 0;
     wake();
     stop();
-    const tune = TUNES[kind] ?? TUNES.park;
+    const tune = TUNES[kind] ?? TUNES[TUNE_LIKE[kind]] ?? TUNES.park;
     const out = c.createGain();
     out.gain.value = 1;
     out.connect(master);

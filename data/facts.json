@@ -1907,17 +1907,31 @@
       "facts": [
         {
           "text": "높이가 976m인 산이에요.",
-          "source": "한국어 위키백과: 금오산 (경상북도)",
-          "url": "https://ko.wikipedia.org/wiki/금오산_(경상북도)",
-          "checked": "2026-10-31",
-          "evidence": "높이 976m의 산이다"
+          "source": "한국어 위키백과: 금오산 (경북)",
+          "url": "https://ko.wikipedia.org/wiki/금오산_(경북)",
+          "checked": "2026-11-15",
+          "evidence": "경상북도 구미시, 칠곡군, 김천시에 걸쳐 있는 높이 976m의 산이다."
         },
         {
-          "text": "1970년에 우리나라 1호 도립공원이 됐어요.",
-          "source": "한국어 위키백과: 금오산 (경상북도)",
-          "url": "https://ko.wikipedia.org/wiki/금오산_(경상북도)",
-          "checked": "2026-10-31",
+          "text": "1970년 6월 1일에 우리나라 첫 번째 도립공원이 되었어요.",
+          "source": "한국어 위키백과: 금오산 (경북)",
+          "url": "https://ko.wikipedia.org/wiki/금오산_(경북)",
+          "checked": "2026-11-15",
           "evidence": "1970년 6월 1일에 도립공원 제1호로 지정되었다."
+        },
+        {
+          "text": "가장 높은 봉우리는 현월봉이에요.",
+          "source": "한국어 위키백과: 금오산 (경북)",
+          "url": "https://ko.wikipedia.org/wiki/금오산_(경북)",
+          "checked": "2026-11-15",
+          "evidence": "동쪽에 최고봉인 현월봉을 비롯해"
+        },
+        {
+          "text": "경부고속선 기차가 터널로 금오산을 뚫고 지나가요.",
+          "source": "한국어 위키백과: 금오산 (경북)",
+          "url": "https://ko.wikipedia.org/wiki/금오산_(경북)",
+          "checked": "2026-11-15",
+          "evidence": "경부고속선의 터널이 금오산을 관통하며"
         }
       ]
     },
@@ -5159,28 +5173,35 @@
       ]
     },
     "gatbawi": {
-      "name": "갓바위",
+      "name": "팔공산 갓바위",
       "facts": [
         {
-          "text": "삿갓 쓴 사람처럼 생겨서 갓바위라고 해요.",
-          "source": "한국어 위키백과: 목포 갓바위",
-          "url": "https://ko.wikipedia.org/wiki/목포_갓바위",
-          "checked": "2026-11-14",
-          "evidence": "삿갓을 쓴 사람 모양이라서 갓바위라 부른다."
+          "text": "'팔공산 갓바위'라는 이름으로 잘 알려진 돌부처예요.",
+          "source": "한국어 위키백과: 경산 팔공산 관봉 석조여래좌상",
+          "url": "https://ko.wikipedia.org/wiki/경산_팔공산_관봉_석조여래좌상",
+          "checked": "2026-11-15",
+          "evidence": "일명 '팔공산 갓바위'라는 이름으로 잘 알려져 있다."
         },
         {
-          "text": "비바람과 바닷물에 깎여서 생긴 바위예요.",
-          "source": "한국어 위키백과: 목포 갓바위",
-          "url": "https://ko.wikipedia.org/wiki/목포_갓바위",
-          "checked": "2026-11-14",
-          "evidence": "풍화작용과 해식작용의 결과로 형성된 것이다"
+          "text": "산봉우리에 있던 바위를 깎아서 만들었어요.",
+          "source": "한국어 위키백과: 경산 팔공산 관봉 석조여래좌상",
+          "url": "https://ko.wikipedia.org/wiki/경산_팔공산_관봉_석조여래좌상",
+          "checked": "2026-11-15",
+          "evidence": "팔공산의 봉우리에 있던 천연 암석을 깎아 들어가며 만든 불상이다."
         },
         {
-          "text": "갓바위는 2009년에 천연기념물이 됐어요.",
-          "source": "한국어 위키백과: 목포 갓바위",
-          "url": "https://ko.wikipedia.org/wiki/목포_갓바위",
-          "checked": "2026-11-14",
-          "evidence": "2009년 4월 27일 대한민국의 천연기념물 제500호로 지정되었다"
+          "text": "머리에 얹은 관이 닳아서 '갓'처럼 보여요.",
+          "source": "한국어 위키백과: 경산 팔공산 관봉 석조여래좌상",
+          "url": "https://ko.wikipedia.org/wiki/경산_팔공산_관봉_석조여래좌상",
+          "checked": "2026-11-15",
+          "evidence": "지금이 많이 훼손되어 '갓'처럼 보인다."
+        },
+        {
+          "text": "지금은 선본사라는 절이 돌보고 있어요.",
+          "source": "한국어 위키백과: 경산 팔공산 관봉 석조여래좌상",
+          "url": "https://ko.wikipedia.org/wiki/경산_팔공산_관봉_석조여래좌상",
+          "checked": "2026-11-15",
+          "evidence": "현재는 은해사의 말사인 선본사가 소유 및 관리를 맡고 있다."
         }
       ]
     },
@@ -6717,6 +6738,534 @@
           "url": "https://www.st-news.co.kr/news/articleView.html?idxno=6145",
           "checked": "2026-11-15",
           "evidence": "논과 시골 마을"
+        }
+      ]
+    },
+    "yeongildae_beach": {
+      "name": "영일대해수욕장",
+      "facts": [
+        {
+          "text": "모래사장 길이가 1,750m인 바닷가예요.",
+          "source": "한국어 위키백과: 영일대해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/영일대해수욕장",
+          "checked": "2026-11-15",
+          "evidence": "백사장 길이 1,750m, 너비 40~70m, 면적 38만m2에 달하는 해수욕장이다."
+        },
+        {
+          "text": "1976년에 처음 문을 열 때는 '북부해수욕장'이라고 불렀어요.",
+          "source": "한국어 위키백과: 영일대해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/영일대해수욕장",
+          "checked": "2026-11-15",
+          "evidence": "1976년에 개장하여, 개장한 뒤 포항시의 북쪽에 있다는 이유로 단순히 방향을 나타내는 '북부해수욕장'으로 불렸다."
+        },
+        {
+          "text": "바다 위에 지은 정자 '영일대'는 우리나라에서 처음 생긴 바다 위 누각이에요.",
+          "source": "한국어 위키백과: 영일대해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/영일대해수욕장",
+          "checked": "2026-11-15",
+          "evidence": "영일대는 대한민국 최초의 해상누각으로서, 두호동행정복지센터 앞 해상 100m지점에 위치해 있다."
+        },
+        {
+          "text": "해마다 포항국제불빛축제가 열려요.",
+          "source": "한국어 위키백과: 영일대해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/영일대해수욕장",
+          "checked": "2026-11-15",
+          "evidence": "매년 포항국제불빛축제와 포항바다국제공연예술제를 개최하며"
+        }
+      ]
+    },
+    "bogyeongsa": {
+      "name": "보경사",
+      "facts": [
+        {
+          "text": "신라 때인 603년에 지명 스님이 세웠다고 전해요.",
+          "source": "한국어 위키백과: 보경사",
+          "url": "https://ko.wikipedia.org/wiki/보경사",
+          "checked": "2026-11-15",
+          "evidence": "신라 진평왕 25년인 603년에 승려 지명(智明)이 세웠다고 전한다."
+        },
+        {
+          "text": "'보경'을 묻은 곳이라서 이름이 보경사가 되었어요.",
+          "source": "한국어 위키백과: 보경사",
+          "url": "https://ko.wikipedia.org/wiki/보경사",
+          "checked": "2026-11-15",
+          "evidence": "보경을 묻은 곳이라 하여 절 이름은 보경사로 붙여졌다."
+        },
+        {
+          "text": "포항에서 가장 큰 절이에요.",
+          "source": "한국어 위키백과: 보경사",
+          "url": "https://ko.wikipedia.org/wiki/보경사",
+          "checked": "2026-11-15",
+          "evidence": "포항에서 가장 큰 사찰이라 오어사와 함께 포항을 대표하는 절이다."
+        },
+        {
+          "text": "나라의 보물을 5점 가지고 있어요.",
+          "source": "한국어 위키백과: 보경사",
+          "url": "https://ko.wikipedia.org/wiki/보경사",
+          "checked": "2026-11-15",
+          "evidence": "대한민국의 보물을 5점 보유하고 있다."
+        }
+      ]
+    },
+    "jikjisa": {
+      "name": "직지사",
+      "facts": [
+        {
+          "text": "신라 때인 418년에 아도화상이 세웠다고 해요.",
+          "source": "한국어 위키백과: 직지사",
+          "url": "https://ko.wikipedia.org/wiki/직지사",
+          "checked": "2026-11-15",
+          "evidence": "직지사는 신라 눌지왕 2년(418년)에 아도화상이 창건했다고 한다."
+        },
+        {
+          "text": "손가락으로 황악산을 가리켜서 '직지'라는 이름이 붙었다는 이야기가 있어요.",
+          "source": "한국어 위키백과: 직지사",
+          "url": "https://ko.wikipedia.org/wiki/직지사",
+          "checked": "2026-11-15",
+          "evidence": "아도화상이 선산 도리사에서 손가락으로 황악산을 가리키며 저 산에도 좋은 절터가 있다고 해서 ‘직지’라는 사명이 붙게 되었다는 설"
+        },
+        {
+          "text": "사명대사가 스님이 된 절이에요.",
+          "source": "한국어 위키백과: 직지사",
+          "url": "https://ko.wikipedia.org/wiki/직지사",
+          "checked": "2026-11-15",
+          "evidence": "직지사는 임진왜란 때 나라를 구한 사명대사의 출가본사다."
+        },
+        {
+          "text": "임진왜란 때 불탄 절을 1610년에 다시 지었어요.",
+          "source": "한국어 위키백과: 직지사",
+          "url": "https://ko.wikipedia.org/wiki/직지사",
+          "checked": "2026-11-15",
+          "evidence": "임진왜란 때에 소실된 것을 조선 15대 광해군 때인 1610년(광해군 2년)에 재건하였다."
+        }
+      ]
+    },
+    "tamni_pagoda": {
+      "name": "의성 탑리리 오층석탑",
+      "facts": [
+        {
+          "text": "신라 때 만든 5층 돌탑이에요.",
+          "source": "한국어 위키백과: 의성 탑리리 오층석탑",
+          "url": "https://ko.wikipedia.org/wiki/의성_탑리리_오층석탑",
+          "checked": "2026-11-15",
+          "evidence": "경상북도 의성군 금성면 탑리리에 있는, 남북국 시대 신라의 오층석탑이다."
+        },
+        {
+          "text": "1962년 12월 20일에 국보가 되었어요.",
+          "source": "한국어 위키백과: 의성 탑리리 오층석탑",
+          "url": "https://ko.wikipedia.org/wiki/의성_탑리리_오층석탑",
+          "checked": "2026-11-15",
+          "evidence": "1962년 12월 20일 대한민국의 국보 제77호로 지정되었다."
+        },
+        {
+          "text": "탑의 전체 높이는 9.65m예요.",
+          "source": "한국어 위키백과: 의성 탑리리 오층석탑",
+          "url": "https://ko.wikipedia.org/wiki/의성_탑리리_오층석탑",
+          "checked": "2026-11-15",
+          "evidence": "총 높이가 9.65m로서"
+        },
+        {
+          "text": "지붕돌은 벽돌로 쌓은 탑을 본떠 만들었어요.",
+          "source": "한국어 위키백과: 의성 탑리리 오층석탑",
+          "url": "https://ko.wikipedia.org/wiki/의성_탑리리_오층석탑",
+          "checked": "2026-11-15",
+          "evidence": "옥개석은 전탑(塼塔)을 모방한 특이한 양식을 지니고 있다."
+        }
+      ]
+    },
+    "bingye_valley": {
+      "name": "빙계계곡",
+      "facts": [
+        {
+          "text": "의성지질공원의 볼거리인 계곡이에요.",
+          "source": "한국어 위키백과: 빙계계곡",
+          "url": "https://ko.wikipedia.org/wiki/빙계계곡",
+          "checked": "2026-11-15",
+          "evidence": "의성군 춘산면 빙계리 지역에 발달하는 계곡이며 의성지질공원의 지질명소이다."
+        },
+        {
+          "text": "빙혈에서는 얼음이 얼어요.",
+          "source": "한국어 위키백과: 빙계계곡",
+          "url": "https://ko.wikipedia.org/wiki/빙계계곡",
+          "checked": "2026-11-15",
+          "evidence": "빙혈은 얼음이 얼고 풍혈은 찬바람이 불어나온다."
+        },
+        {
+          "text": "풍혈에서는 찬바람이 불어 나와요.",
+          "source": "한국어 위키백과: 빙계계곡",
+          "url": "https://ko.wikipedia.org/wiki/빙계계곡",
+          "checked": "2026-11-15",
+          "evidence": "빙혈은 얼음이 얼고 풍혈은 찬바람이 불어나온다."
+        },
+        {
+          "text": "빙혈의 평균 온도는 영하 0.3°C예요.",
+          "source": "한국어 위키백과: 빙계계곡",
+          "url": "https://ko.wikipedia.org/wiki/빙계계곡",
+          "checked": "2026-11-15",
+          "evidence": "빙혈은 평균 온도가 영하 0.3°C, 연중 최고온도가 5°C 이하이다."
+        }
+      ]
+    },
+    "jusanji": {
+      "name": "주산지",
+      "facts": [
+        {
+          "text": "조선 숙종 때인 1720년에 짓기 시작한 저수지예요.",
+          "source": "한국어 위키백과: 주산지",
+          "url": "https://ko.wikipedia.org/wiki/주산지",
+          "checked": "2026-11-15",
+          "evidence": "주산지는 조선 숙종(1720년) 8월에 착공하여 그 이듬해인 경종원년 10월에 준공하였다."
+        },
+        {
+          "text": "물속에 능수버들과 왕버들 20여 그루가 자라요.",
+          "source": "한국어 위키백과: 주산지",
+          "url": "https://ko.wikipedia.org/wiki/주산지",
+          "checked": "2026-11-15",
+          "evidence": "호수에는 고목의 능수버들과 왕버들 20여 그루가 물 속에 자생하고 있다."
+        },
+        {
+          "text": "아무리 가물어도 물이 마른 적이 없어요.",
+          "source": "한국어 위키백과: 주산지",
+          "url": "https://ko.wikipedia.org/wiki/주산지",
+          "checked": "2026-11-15",
+          "evidence": "준공 이후 아무리 오랜 가뭄에도 물이 말라 바닥을 드러낸 적이 없고"
+        },
+        {
+          "text": "2013년 3월 21일에 명승이 되었어요.",
+          "source": "한국어 위키백과: 주산지",
+          "url": "https://ko.wikipedia.org/wiki/주산지",
+          "checked": "2026-11-15",
+          "evidence": "2013년 3월 21일 대한민국의 명승 제105호로 지정되었다."
+        }
+      ]
+    },
+    "ganggu_port": {
+      "name": "강구항",
+      "facts": [
+        {
+          "text": "오십천이 바다와 만나는 곳에 있는 항구예요.",
+          "source": "한국어 위키백과: 강구항",
+          "url": "https://ko.wikipedia.org/wiki/강구항",
+          "checked": "2026-11-15",
+          "evidence": "강구항(江口港)은 경상북도 영덕군 강구면 강구리의 오십천 하구 전면에 있는 항구이다."
+        },
+        {
+          "text": "강 어귀에 있어서 '강구'라는 이름이 붙었어요.",
+          "source": "한국어 위키백과: 강구항",
+          "url": "https://ko.wikipedia.org/wiki/강구항",
+          "checked": "2026-11-15",
+          "evidence": "강구항이 위치한 강구리는 오십천 강 어구에 있다고 해서 강구리로 불린다."
+        },
+        {
+          "text": "오징어, 대게, 청어, 방어가 많이 잡혀요.",
+          "source": "한국어 위키백과: 강구항",
+          "url": "https://ko.wikipedia.org/wiki/강구항",
+          "checked": "2026-11-15",
+          "evidence": "오징어, 대게, 청어, 방어 등이 많이 잡힌다."
+        },
+        {
+          "text": "영덕대게는 11월부터 이듬해 4월까지 맛볼 수 있어요.",
+          "source": "한국어 위키백과: 강구항",
+          "url": "https://ko.wikipedia.org/wiki/강구항",
+          "checked": "2026-11-15",
+          "evidence": "영덕대게를 11월부터 이듬해 4월까지 본격적으로 맛볼 수 있다."
+        }
+      ]
+    },
+    "jangsa_landing": {
+      "name": "장사상륙작전 전승기념관",
+      "facts": [
+        {
+          "text": "1950년 9월 15일에 이곳 장사리 바닷가에서 상륙작전이 시작되었어요.",
+          "source": "한국어 위키백과: 장사 상륙 작전",
+          "url": "https://ko.wikipedia.org/wiki/장사_상륙_작전",
+          "checked": "2026-11-15",
+          "evidence": "9월 15일 06:00에 상륙작전이 개시되었다."
+        },
+        {
+          "text": "학생 군인인 학도병 772명이 문산호를 타고 와서 상륙했어요.",
+          "source": "한국어 위키백과: 장사 상륙 작전",
+          "url": "https://ko.wikipedia.org/wiki/장사_상륙_작전",
+          "checked": "2026-11-15",
+          "evidence": "학도병 772명으로 구성된 제1독립유격대대"
+        },
+        {
+          "text": "태풍 케지아 때문에 문산호가 바닷가에 걸려 움직이지 못했어요.",
+          "source": "한국어 위키백과: 장사 상륙 작전",
+          "url": "https://ko.wikipedia.org/wiki/장사_상륙_작전",
+          "checked": "2026-11-15",
+          "evidence": "때마침 불어온 태풍 케지아로 인해 LST 문산이 좌초되는 바람에"
+        },
+        {
+          "text": "기념공원에 문산호를 본뜬 배를 만들어 두었어요.",
+          "source": "한국어 위키백과: LST 문산",
+          "url": "https://ko.wikipedia.org/wiki/LST_문산",
+          "checked": "2026-11-15",
+          "evidence": "전승기념공원을 조성하기 위한 레플리카로 재현되었다."
+        }
+      ]
+    },
+    "eunhaesa": {
+      "name": "은해사",
+      "facts": [
+        {
+          "text": "동화사와 함께 팔공산을 대표하는 절이에요.",
+          "source": "한국어 위키백과: 은해사",
+          "url": "https://ko.wikipedia.org/wiki/은해사",
+          "checked": "2026-11-15",
+          "evidence": "은해사(銀海寺)는 동화사와 더불어 팔공산을 대표하는 절이다."
+        },
+        {
+          "text": "809년에 혜철 스님이 '해안사'라는 이름으로 세웠어요.",
+          "source": "한국어 위키백과: 은해사",
+          "url": "https://ko.wikipedia.org/wiki/은해사",
+          "checked": "2026-11-15",
+          "evidence": "혜철이 해안사(海眼寺)로 창건하였다."
+        },
+        {
+          "text": "'은해'는 은빛 바다라는 뜻이에요.",
+          "source": "한국어 위키백과: 은해사",
+          "url": "https://ko.wikipedia.org/wiki/은해사",
+          "checked": "2026-11-15",
+          "evidence": "극락정토에 비유하여 은빛 바다라고 지은 것이다."
+        },
+        {
+          "text": "1847년에 큰불이 나서 1,000여 칸의 건물이 모두 탔어요.",
+          "source": "한국어 위키백과: 은해사",
+          "url": "https://ko.wikipedia.org/wiki/은해사",
+          "checked": "2026-11-15",
+          "evidence": "1,000여 칸의 모든 건물이 소실되었다."
+        }
+      ]
+    },
+    "uiamsa": {
+      "name": "의암사(논개 사당)",
+      "facts": [
+        {
+          "text": "논개는 1574년에 장수에서 태어났어요.",
+          "source": "한국어 위키백과: 논개",
+          "url": "https://ko.wikipedia.org/wiki/논개",
+          "checked": "2026-11-15",
+          "evidence": "1574년 선비 주달문(朱達文)과 부인 밀양 박씨 사이에서"
+        },
+        {
+          "text": "임진왜란 때 진주에서 적의 장수를 끌어안고 남강에 뛰어들었다고 전해요.",
+          "source": "한국어 위키백과: 논개",
+          "url": "https://ko.wikipedia.org/wiki/논개",
+          "checked": "2026-11-15",
+          "evidence": "기다 마고베를 끌어 안고 남강에 투신하여 순절(殉節) 했다."
+        },
+        {
+          "text": "1955년에 장수 사람들이 돈을 모아 의암사를 지었어요.",
+          "source": "한국어 위키백과: 논개",
+          "url": "https://ko.wikipedia.org/wiki/논개",
+          "checked": "2026-11-15",
+          "evidence": "1955년 군민들의 성금으로 남산에 의암사(義巖祠)라는 사당을 건립하였다."
+        },
+        {
+          "text": "장계면 주촌 마을에는 논개가 태어난 집을 다시 지어 두었어요.",
+          "source": "한국어 위키백과: 논개",
+          "url": "https://ko.wikipedia.org/wiki/논개",
+          "checked": "2026-11-15",
+          "evidence": "논개가 태어난 장수군 장계면 대곡리 주촌 마을에는 논개의 생가가 복원되어 있다."
+        }
+      ]
+    },
+    "museong_seowon": {
+      "name": "무성서원",
+      "facts": [
+        {
+          "text": "신라의 학자 최치원을 모시는 서원이에요.",
+          "source": "한국어 위키백과: 정읍 무성서원",
+          "url": "https://ko.wikipedia.org/wiki/정읍_무성서원",
+          "checked": "2026-11-15",
+          "evidence": "신라 후기의 학자였던 고운 최치원과 조선 중종 때 관리였던 신잠(申潛)을 모시고 제사지내는 서원이다."
+        },
+        {
+          "text": "1696년에 임금에게서 '무성서원'이라는 이름을 받았어요.",
+          "source": "한국어 위키백과: 정읍 무성서원",
+          "url": "https://ko.wikipedia.org/wiki/정읍_무성서원",
+          "checked": "2026-11-15",
+          "evidence": "1696년(숙종 22) 최치원과 신잠의 두 사당을 합치고 무성서원(武城書院)이라 사액(賜額)을 받았다."
+        },
+        {
+          "text": "서원을 없애라는 명령이 내렸을 때도 살아남은 47개 서원 가운데 하나예요.",
+          "source": "한국어 위키백과: 정읍 무성서원",
+          "url": "https://ko.wikipedia.org/wiki/정읍_무성서원",
+          "checked": "2026-11-15",
+          "evidence": "조선 후기 대원군의 서원철폐령에도 남아있던 47개 서원 중 하나이다."
+        },
+        {
+          "text": "2019년 7월 10일에 유네스코 세계유산이 되었어요.",
+          "source": "한국어 위키백과: 정읍 무성서원",
+          "url": "https://ko.wikipedia.org/wiki/정읍_무성서원",
+          "checked": "2026-11-15",
+          "evidence": "2019년 7월 10일 유네스코 세계문화유산으로 등재되었다."
+        }
+      ]
+    },
+    "yongdam_lake": {
+      "name": "용담호",
+      "facts": [
+        {
+          "text": "금강 위쪽에 쌓은 용담댐으로 생긴 호수예요.",
+          "source": "한국어 위키백과: 용담댐",
+          "url": "https://ko.wikipedia.org/wiki/용담댐",
+          "checked": "2026-11-15",
+          "evidence": "전북특별자치도 진안군 용담면 월계리, 금강 상류에 있는 댐이다."
+        },
+        {
+          "text": "물을 담는 양이 우리나라에서 5번째로 많은 호수예요.",
+          "source": "한국어 위키백과: 용담댐",
+          "url": "https://ko.wikipedia.org/wiki/용담댐",
+          "checked": "2026-11-15",
+          "evidence": "용담댐으로 조성된 용담호는 저수량 기준으로 소양호, 충주호, 대청호, 안동호에 이어 대한민국 5위이다."
+        },
+        {
+          "text": "용담댐은 2001년 10월 13일에 다 지어졌어요.",
+          "source": "한국어 위키백과: 용담댐",
+          "url": "https://ko.wikipedia.org/wiki/용담댐",
+          "checked": "2026-11-15",
+          "evidence": "1990년에 착공하여 2001년 10월 13일에 준공되었다."
+        },
+        {
+          "text": "댐의 높이는 70m이고 길이는 498m예요.",
+          "source": "한국어 위키백과: 용담댐",
+          "url": "https://ko.wikipedia.org/wiki/용담댐",
+          "checked": "2026-11-15",
+          "evidence": "높이 70m, 길이 498m"
+        }
+      ]
+    },
+    "unilam_banilam": {
+      "name": "운일암반일암",
+      "facts": [
+        {
+          "text": "진안 주천면 계곡에 있는 신기한 바위들이에요.",
+          "source": "한국어 위키백과: 운일암반일암",
+          "url": "https://ko.wikipedia.org/wiki/운일암반일암",
+          "checked": "2026-11-15",
+          "evidence": "운일암반일암은 진안군 주천면 대불리의 계곡에 발달하는 기암괴석으로"
+        },
+        {
+          "text": "구름만 오가고 해는 반나절만 비친다고 해서 붙은 이름이에요.",
+          "source": "한국어 위키백과: 운일암반일암",
+          "url": "https://ko.wikipedia.org/wiki/운일암반일암",
+          "checked": "2026-11-15",
+          "evidence": "운일암반일암은 구름만이 오갈 수 있으며 햇빛을 볼 수 있는 시간이 반나절 밖에 되지 않는다 하여 붙여진 이름이다."
+        },
+        {
+          "text": "옛날 화산이 남긴 주상절리가 있어요.",
+          "source": "한국어 위키백과: 운일암반일암",
+          "url": "https://ko.wikipedia.org/wiki/운일암반일암",
+          "checked": "2026-11-15",
+          "evidence": "계곡 곳곳에 과거 화산 활동의 흔적인 주상절리와 기공 구조 등의 지질구조가 있다."
+        },
+        {
+          "text": "계곡을 따라 난 3km 길에서 바위와 절벽을 볼 수 있어요.",
+          "source": "한국어 위키백과: 운일암반일암",
+          "url": "https://ko.wikipedia.org/wiki/운일암반일암",
+          "checked": "2026-11-15",
+          "evidence": "명일암교까지 3 km 구간은 운일암반일암 계곡을 따라가며 각종 기암괴석과 절벽을 감상할 수 있다."
+        }
+      ]
+    },
+    "jeoksangsan": {
+      "name": "적상산",
+      "facts": [
+        {
+          "text": "덕유산국립공원에 들어 있는 산이에요.",
+          "source": "한국어 위키백과: 적상산",
+          "url": "https://ko.wikipedia.org/wiki/적상산",
+          "checked": "2026-11-15",
+          "evidence": "전북특별자치도 무주군 적상면에 위치한 산이며, 덕유산국립공원 지역에 속한다."
+        },
+        {
+          "text": "붉은 바위가 붉은 치마를 입은 것 같아서 '적상산'이라고 불러요.",
+          "source": "한국어 위키백과: 적상산",
+          "url": "https://ko.wikipedia.org/wiki/적상산",
+          "checked": "2026-11-15",
+          "evidence": "붉은색 바위지대가 마치 산이 붉은 치마를 입은 것 같다 하여 적상이라는 이름이 생겨났다."
+        },
+        {
+          "text": "해발 800m 높이에 적상호라는 산 위 호수가 있어요.",
+          "source": "한국어 위키백과: 적상산",
+          "url": "https://ko.wikipedia.org/wiki/적상산",
+          "checked": "2026-11-15",
+          "evidence": "해발 800m 지대에는 산정호수인 적상호가 있는데"
+        },
+        {
+          "text": "적상호는 발전소에 쓸 물을 모아 두려고 만든 호수예요.",
+          "source": "한국어 위키백과: 적상산",
+          "url": "https://ko.wikipedia.org/wiki/적상산",
+          "checked": "2026-11-15",
+          "evidence": "무주양수발전소에 이용할 물을 저장하기 위해 만든 인공호이다."
+        }
+      ]
+    },
+    "okjeongho": {
+      "name": "옥정호",
+      "facts": [
+        {
+          "text": "임실군과 정읍시에 걸쳐 있는 호수예요.",
+          "source": "한국어 위키백과: 옥정호",
+          "url": "https://ko.wikipedia.org/wiki/옥정호",
+          "checked": "2026-11-15",
+          "evidence": "전북특별자치도 임실군과 정읍시에 걸쳐 있는 호수로 섬진강 상류수계에 있는 인공호수다."
+        },
+        {
+          "text": "섬진강 위쪽에 사람이 만든 호수예요.",
+          "source": "한국어 위키백과: 옥정호",
+          "url": "https://ko.wikipedia.org/wiki/옥정호",
+          "checked": "2026-11-15",
+          "evidence": "섬진강 상류수계에 있는 인공호수다."
+        },
+        {
+          "text": "옥정호를 만든 섬진강댐은 우리나라 첫 다목적댐이에요.",
+          "source": "한국어 위키백과: 섬진강댐",
+          "url": "https://ko.wikipedia.org/wiki/섬진강댐",
+          "checked": "2026-11-15",
+          "evidence": "전북특별자치도 임실군 강진면 옥정리에 위치하는 대한민국의 첫 다목적댐이다."
+        },
+        {
+          "text": "호수 안에 붕어섬이라는 섬이 있어요.",
+          "source": "한국어 위키백과: 붕어섬 (임실군)",
+          "url": "https://ko.wikipedia.org/wiki/붕어섬_(임실군)",
+          "checked": "2026-11-15",
+          "evidence": "붕어섬은 임실군 옥정호에 있는 섬이다."
+        }
+      ]
+    },
+    "songgwangsa_wanju": {
+      "name": "완주 송광사",
+      "facts": [
+        {
+          "text": "완주군 소양면에 있는 절이에요.",
+          "source": "한국어 위키백과: 완주 송광사 대웅전",
+          "url": "https://ko.wikipedia.org/wiki/완주_송광사_대웅전",
+          "checked": "2026-11-15",
+          "evidence": "대한민국 전북특별자치도 완주군 소양면, 송광사에 있는 조선시대의 건축물이다."
+        },
+        {
+          "text": "통일신라 때인 867년에 도의 스님이 처음 세웠어요.",
+          "source": "한국어 위키백과: 완주 송광사 대웅전",
+          "url": "https://ko.wikipedia.org/wiki/완주_송광사_대웅전",
+          "checked": "2026-11-15",
+          "evidence": "송광사는 통일신라 경문왕 7년(867)에 도의가 처음으로 세운 절이다."
+        },
+        {
+          "text": "대웅전은 1996년 5월 29일에 보물이 되었어요.",
+          "source": "한국어 위키백과: 완주 송광사 대웅전",
+          "url": "https://ko.wikipedia.org/wiki/완주_송광사_대웅전",
+          "checked": "2026-11-15",
+          "evidence": "1996년 5월 29일 대한민국의 보물 제1243호로 지정되었다."
+        },
+        {
+          "text": "대웅전 천장에는 하늘을 나는 사람을 그린 그림이 11점 있어요.",
+          "source": "한국어 위키백과: 완주 송광사 대웅전",
+          "url": "https://ko.wikipedia.org/wiki/완주_송광사_대웅전",
+          "checked": "2026-11-15",
+          "evidence": "11점의 비천상이 그려져 있다."
         }
       ]
     }

@@ -18,6 +18,9 @@ function el(tag, attrs = {}, text) {
   return node;
 }
 
+/** 따로 장면이 없는 종류는 비슷한 종류의 장면을 빌린다(특징 그림과 이름 안내판은 그곳 것을 얹는다) */
+const SCENE_LIKE = { port: 'beach', shrine: 'hanok', seowon: 'hanok', pagoda: 'temple', valley: 'mountain' };
+
 /** 지도 표시 그림(이모지)과 짧은 종류 이름 */
 export const LANDMARK_ICON = {
   beach: ['🏖️', '해수욕장'],
@@ -51,6 +54,11 @@ export const LANDMARK_ICON = {
   science: ['🔬', '과학관'],
   academy: ['✏️', '학원'],
   restaurant: ['🍽️', '식당'],
+  port: ['⚓', '항구'],
+  shrine: ['🏯', '사당'],
+  seowon: ['📜', '서원'],
+  pagoda: ['🗿', '돌탑'],
+  valley: ['🏞️', '계곡'],
 };
 
 let skyCount = 0;
@@ -375,7 +383,7 @@ const SCENES = {
 export function landmarkScene(kind, { reduceMotion = false, label = '', lm = null } = {}) {
   const svg = el('svg', { viewBox: '0 0 600 320', class: `lm-scene${reduceMotion ? '' : ' lm-moving'}`, role: 'img', 'aria-label': label });
   const g = el('g');
-  (REAL_SCENES[kind] ?? SCENES[kind] ?? SCENES.park)(g);
+  (REAL_SCENES[kind] ?? SCENES[kind] ?? SCENES[SCENE_LIKE[kind]] ?? SCENES.park)(g);
   if (lm && !REAL_SCENES[kind]) {
     const { props, mood } = looksFor(lm);
     for (const name of props) PROPS[name].draw(g);
@@ -383,20 +391,76 @@ export function landmarkScene(kind, { reduceMotion = false, label = '', lm = nul
     drawSign(g, lm.name);
   }
   // 도착한 주인공(아이를 닮은 3D 주인공을 구운 그림)이 장면 오른쪽 앞에 서 있다
-  if (lm) drawStandingHero(g);
+  if (lm) drawStandingHero(g, REAL_SCENES[kind] || SCENES[kind] ? kind : (SCENE_LIKE[kind] ?? 'park'));
   svg.append(g);
   return svg;
 }
 
-/** 장면 오른쪽 앞에 서 있는 주인공. 발끝을 바닥(y 308)에 맞추고 키를 118로 둔다. */
-function drawStandingHero(g) {
+/**
+ * 장면마다 주인공이 설 자리: 발끝(x, y)과 키(h). 장면의 땅(모래, 마당, 길)과 원근에 맞춰 손으로 골랐다.
+ * 땅이 없는 장면(물, 바위벽, 꽉 찬 집들)은 앞쪽에 작은 데크(deck: 'wood' 나무, 'stone' 돌)를 깔고 그 위에 세운다.
+ */
+const HERO_SPOT = {
+  beach: { x: 360, y: 305, h: 105 },
+  bridge: { x: 480, y: 312, h: 110, deck: 'wood' },
+  market: { x: 520, y: 302, h: 100 },
+  tower: { x: 470, y: 312, h: 112, deck: 'stone' },
+  cliff: { x: 110, y: 240, h: 68 },
+  village: { x: 480, y: 314, h: 110, deck: 'stone' },
+  park: { x: 430, y: 300, h: 100 },
+  temple: { x: 470, y: 305, h: 100 },
+  island: { x: 420, y: 262, h: 64 },
+  museum: { x: 420, y: 302, h: 100 },
+  wetland: { x: 470, y: 312, h: 110, deck: 'wood' },
+  lake: { x: 520, y: 316, h: 95 },
+  street: { x: 390, y: 315, h: 105 },
+  garden: { x: 470, y: 252, h: 70 },
+  observatory: { x: 430, y: 302, h: 100 },
+  cherry: { x: 500, y: 305, h: 100 },
+  tomb: { x: 420, y: 300, h: 95 },
+  pavilion: { x: 480, y: 314, h: 105, deck: 'wood' },
+  mountain: { x: 150, y: 282, h: 80 },
+  themepark: { x: 520, y: 305, h: 105 },
+  viewpoint: { x: 470, y: 310, h: 110 },
+  fortress: { x: 430, y: 312, h: 95 },
+  hanok: { x: 450, y: 308, h: 95 },
+  rockart: { x: 470, y: 314, h: 105, deck: 'wood' },
+  stadium: { x: 380, y: 258, h: 60 },
+  pnuArch: { x: 360, y: 300, h: 95 },
+  topsville: { x: 420, y: 270, h: 80 },
+  dongnaeSk: { x: 420, y: 278, h: 80 },
+  centum: { x: 400, y: 290, h: 90 },
+  oncheonSchool: { x: 420, y: 292, h: 90 },
+  songdoSchool: { x: 420, y: 290, h: 90 },
+  geojeIpark: { x: 420, y: 300, h: 95 },
+  pungamKumho: { x: 320, y: 302, h: 95 },
+  lotteCastleMolundae: { x: 540, y: 305, h: 95 },
+  busanScienceHall: { x: 410, y: 305, h: 100 },
+  cmsSajik: { x: 360, y: 276, h: 80 },
+  cmsSaha: { x: 360, y: 276, h: 80 },
+  sunaroi: { x: 340, y: 296, h: 95 },
+};
+
+/** 장면 key의 자리에 서 있는 주인공 */
+function drawStandingHero(g, key) {
+  const spot = HERO_SPOT[key] ?? { x: 470, y: 308, h: 105 };
   const { size, box } = stand;
-  const k = 118 / (box.bottom - box.top);
+  const k = spot.h / (box.bottom - box.top);
   const w = size * k;
-  const footX = 500;
-  const footY = 308;
-  const x = footX - ((box.left + box.right) / 2) * k;
-  const y = footY - box.bottom * k;
-  g.append(el('ellipse', { cx: footX, cy: footY - 1, rx: 26, ry: 6, fill: '#1B2A22', opacity: 0.25 }));
+  if (spot.deck) {
+    // 앞쪽 데크: 화면 아래 오른쪽을 덮는 판, 나무는 널빤지 줄, 돌은 돌 틈
+    const top = spot.y - spot.h * 0.12;
+    const x0 = spot.x - spot.h * 0.9;
+    const wood = spot.deck === 'wood';
+    g.append(el('path', { d: `M${x0} ${top} L600 ${top} L600 320 L${x0 - 30} 320 Z`, fill: wood ? '#B98A5A' : '#CFC7B6', stroke: wood ? '#7A5536' : '#9C9483', 'stroke-width': 1.5 }));
+    const lines = [];
+    for (let yy = top + 7; yy < 320; yy += 7) lines.push(`M${x0 - ((yy - top) / (320 - top)) * 30} ${yy}H600`);
+    g.append(el('path', { d: lines.join(''), stroke: wood ? '#8E6744' : '#B3AB99', 'stroke-width': 1, opacity: 0.7 }));
+    // 나무 데크에는 뒤쪽 난간
+    if (wood) g.append(el('path', { d: `M${x0 + 4} ${top} V${top - 22} H600 M${x0 + 4} ${top - 11} H600`, stroke: '#7A5536', 'stroke-width': 2.5, fill: 'none' }));
+  }
+  const x = spot.x - ((box.left + box.right) / 2) * k;
+  const y = spot.y - box.bottom * k;
+  g.append(el('ellipse', { cx: spot.x, cy: spot.y - 1, rx: spot.h * 0.22, ry: spot.h * 0.05, fill: '#1B2A22', opacity: 0.25 }));
   g.append(el('image', { href: standUrl, x: x.toFixed(1), y: y.toFixed(1), width: w.toFixed(1), height: w.toFixed(1) }));
 }
