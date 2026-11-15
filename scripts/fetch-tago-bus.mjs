@@ -84,6 +84,13 @@ export const CITIES = [
   { code: 37320, name: '의성군' },
   { code: 37330, name: '청송군' },
   { code: 37350, name: '영덕군' },
+  // 지도 범위 넓히기 5(경북 본토, 2026-11-15): 경북 북쪽(getCtyCodeList로 2026-11-15에 확인). 울릉군(37430)은 지도 밖이라 뺐다.
+  { code: 37060, name: '영주시' },
+  { code: 37090, name: '문경시' },
+  { code: 37340, name: '영양군' },
+  { code: 37400, name: '예천군' },
+  { code: 37410, name: '봉화군' },
+  { code: 37420, name: '울진군' },
   { code: 33320, name: '보은군' },
   { code: 33330, name: '옥천군' },
   { code: 33340, name: '영동군' },

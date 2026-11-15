@@ -91,11 +91,20 @@ if (extraAt.size) issues.push(`코레일 기록에 없는 역의 정차 ${extraA
 
 const trains = [];
 let oneStop = 0;
+let fixedDep = 0;
 let noKind = 0;
 for (const train of [...byTrain.values()].sort((a, b) => a.no - b.no)) {
+  // 도착 시각 차례로 놓는다. 출발 시각이 다음 역 도착보다 늦게 적힌 기록(원본 잘못, 예: 누리로 1851 영덕 도착 08:11·출발 11:19)은 출발을 도착과 같게 둔다.
   const stops = train.stops
     .filter((s, i, all) => all.findIndex((o) => o.station === s.station) === i)
-    .sort((a, b) => (a.dep ?? a.arr) - (b.dep ?? b.arr));
+    .sort((a, b) => (a.arr ?? a.dep) - (b.arr ?? b.dep));
+  for (let i = 0; i + 1 < stops.length; i++) {
+    const next = stops[i + 1].arr ?? stops[i + 1].dep;
+    if (stops[i].dep !== null && stops[i].arr !== null && stops[i].dep > next) {
+      stops[i].dep = stops[i].arr;
+      fixedDep += 1;
+    }
+  }
   if (stops.length < 2) {
     oneStop += 1;
     continue;
@@ -115,6 +124,7 @@ for (const train of [...byTrain.values()].sort((a, b) => a.no - b.no)) {
   });
 }
 if (noKind) issues.push(`열차 종류를 TAGO에서 찾지 못한 열차 ${noKind}개: 종류를 "종류 모름"으로 둔다. TODO(확인 필요)`);
+if (fixedDep) issues.push(`출발 시각이 다음 역 도착보다 늦게 적힌 정차 ${fixedDep}개는 출발을 도착과 같게 뒀어요(원본 잘못).`);
 
 // 역마다 열차 종류별 하루 열차 수(정차 기준, 두 방향 합)
 const perStation = {};

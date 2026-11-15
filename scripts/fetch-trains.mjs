@@ -20,7 +20,7 @@ const OUT = resolve(ROOT, 'data/raw/korail');
 const KORAIL = 'https://apis.data.go.kr/B551457/run/v2';
 const TAGO = 'https://apis.data.go.kr/1613000/TrainInfo';
 /** TAGO 시·도 코드: 지도 안 부산, 대구, 광주, 대전, 울산, 충북, 충남, 전북, 전남, 경북, 경남 */
-const TAGO_CITIES = ['21', '22', '24', '25', '26', '33', '34', '35', '36', '37', '38'];
+const TAGO_CITIES = ['21', '22', '24', '25', '26', '32', '33', '34', '35', '36', '37', '38'];
 
 const key = readApiKey();
 if (!key) {
@@ -74,18 +74,28 @@ const wanted = new Set([...rail.stations.map((s) => nameKey(s.name)), ...metro.f
 // 2. 코레일 역 코드
 console.log('코레일 역 코드를 받아요.');
 const stationCodes = await korailAll('codes2', { 'cond[type::EQ]': 'stn_cd' });
-const codeOf = new Map();
-for (const c of stationCodes) if (wanted.has(nameKey(c.value)) && !codeOf.has(nameKey(c.value))) codeOf.set(nameKey(c.value), { code: c.code, name: c.value });
+// 같은 이름에 코드가 여럿일 수 있다(안동: 옛 역 3900172, 2020년에 옮긴 새 역 3901102). 코드마다 받아 기록이 있는 것을 모두 쓴다.
+const codesOf = new Map();
+for (const c of stationCodes) {
+  if (!wanted.has(nameKey(c.value))) continue;
+  const list = codesOf.get(nameKey(c.value)) ?? [];
+  if (!list.some((x) => x.code === c.code)) list.push({ code: c.code, name: c.value });
+  codesOf.set(nameKey(c.value), list);
+}
+const codeOf = new Map([...codesOf].map(([name, list]) => [name, list[0]]));
 const missing = [...wanted].filter((n) => !codeOf.has(n));
 console.log(`역 ${wanted.size}곳 가운데 코드를 찾은 역 ${codeOf.size}곳${missing.length ? `, 못 찾은 역: ${missing.join(', ')}` : ''}`);
 
 // 3. 역마다 그날 지나간 열차
 console.log(`코레일 열차운행정보(${KORAIL_DATE})를 역마다 받아요.`);
 const runs = {};
-for (const [name, { code }] of codeOf) {
-  runs[code] = await korailAll('travelerTrainRunInfo2', { 'cond[run_ymd::EQ]': KORAIL_DATE, 'cond[stn_cd::EQ]': code });
-  process.stdout.write(`  ${name} ${runs[code].length}건\n`);
-  await sleep(100);
+for (const [name, list] of codesOf) {
+  for (const { code } of list) {
+    const got = await korailAll('travelerTrainRunInfo2', { 'cond[run_ymd::EQ]': KORAIL_DATE, 'cond[stn_cd::EQ]': code });
+    if (got.length || list.length === 1) runs[code] = got;
+    process.stdout.write(`  ${name}(${code}) ${got.length}건\n`);
+    await sleep(100);
+  }
 }
 
 // 4. TAGO 기차역 번호
