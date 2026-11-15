@@ -151,7 +151,9 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
   // 객실 안 주인공: 통로 옆 앞자리에 앉아 있다(아래가 그림 밖으로 나가 가려진다). 동작도 고를 수 있다.
   const hero = createHeroActor({ reduceMotion });
-  const heroPicker = heroMotionPicker((id) => hero.play(id), { reduceMotion });
+  // 주인공 동작: 3D 객실이 보이면 3D 주인공이, 아니면 그림 주인공이 움직인다
+  let cabin3d = false;
+  const heroPicker = heroMotionPicker((id) => (cabin3d && outside ? outside.playHero(id) : hero.play(id)), { reduceMotion });
   hero.onChange((id) => heroPicker.mark(id));
   const HERO_PLACE = { left: 3, bottom: -36, height: 90 };
   const sound = createRideSound();
@@ -356,18 +358,26 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     viewRow.append(...Object.values(viewButtons));
     outsideBox = element('div', 'tr3d-box');
     const outsideNote = element('p', 'panel-note');
+    let failed3d = false;
     function pick(view) {
       showing = view;
       saveView({ trainView: view, trainCab: view === 'cab' });
-      seatBox.style.display = view === 'seat' ? '' : 'none';
+      // 객실 보기: 3D가 되면 3D 객실(아이 눈높이, 창밖이 움직인다), 안 되면 객실 그림
+      const seat3d = view === 'seat' && can3d && !failed3d;
+      seatBox.style.display = view === 'seat' && !seat3d ? '' : 'none';
       cabView.svg.style.display = view === 'cab' ? '' : 'none';
-      outsideBox.style.display = view === 'outside' ? '' : 'none';
+      outsideBox.style.display = view === 'outside' || seat3d ? '' : 'none';
       heroPicker.el.style.display = view === 'seat' ? '' : 'none';
+      if (cabin3d !== seat3d) heroPicker.mark('stand');
+      cabin3d = seat3d;
       for (const [id, b] of Object.entries(viewButtons)) {
         b.className = id === view ? 'button is-on' : 'button';
         b.setAttribute('aria-pressed', String(id === view));
       }
-      if (view === 'outside' && !outside) open3d();
+      if (view === 'outside' || seat3d) {
+        if (outside) outside.setView(seat3d ? 'cabin' : 'outside');
+        else open3d();
+      }
     }
     /** three.js 그림을 처음 연다. 안 되면 객실 보기로 돌아간다. */
     async function open3d() {
@@ -375,11 +385,15 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
       try {
         const { createTrain3D } = await import('./train-3d.js');
         if (outside || !outsideBox.isConnected) return;
-        outside = createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind });
+        outside = createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind, seatCar: seat.car });
+        outside.onHero((id) => heroPicker.mark(id));
         outsideBox.replaceChildren(outside.el);
+        outside.setView(showing === 'seat' ? 'cabin' : 'outside');
         routeTo3d();
       } catch {
         outside = null;
+        failed3d = true;
+        cabin3d = false;
         outsideBox.replaceChildren();
         outsideNote.textContent = '이 기기에서는 3D 그림을 그릴 수 없어요. 객실 그림으로 볼게요.';
         delete viewButtons.outside;

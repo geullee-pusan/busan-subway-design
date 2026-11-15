@@ -6,8 +6,8 @@
 // 칸 안 좌표: x는 앞(+), y는 레일 윗면에서 위로(미터), z는 옆.
 import { BoxGeometry, BufferAttribute, BufferGeometry, Color, CylinderGeometry, Group, Mesh } from 'three';
 
-const GLASS = '#18212c';
-const DARK = '#2a2d31';
+export const GLASS = '#18212c';
+export const DARK = '#2a2d31';
 const UNDER = '#34373b';
 const WHEEL = '#4d5054';
 const ROOF_BLACK = '#22252b';
@@ -41,7 +41,7 @@ const NOSE = {
 };
 
 /** 색을 어둡게(0~1) */
-const shade = (hex, k) => `#${new Color(hex).multiplyScalar(1 - k).getHexString()}`;
+export const shade = (hex, k) => `#${new Color(hex).multiplyScalar(1 - k).getHexString()}`;
 
 /**
  * 열차 종류마다 칸 크기, 편성, 칠, 창문.
@@ -245,7 +245,7 @@ function mugunghwaSpec(look) {
 }
 
 /** 꼭짓점 색을 구운 조각들을 모은다 */
-class Parts {
+export class Parts {
   constructor() {
     this.pos = [];
     this.nor = [];
@@ -458,6 +458,42 @@ export function formation(look, count, name = '') {
   return { cars, spec, kind };
 }
 
+/** 칸 바닥(차체 아래 끝) 높이: 치마가 있는 고속열차는 낮다 */
+export const bodyBottom = (car, spec) => (car.role === 'loco' || car.role === 'coach' ? 1.05 : spec.bottom);
+
+/**
+ * 옆면의 창문과 문 자리(칸 안 좌표, 코가 +x). 차 밖 그물과 3D 객실이 함께 쓴다.
+ * @returns {{by: number, span: number, winY: number, winH: number, doorW: number, doors: number[], windows: Array<{x: number, w: number}>, passenger: boolean, rear: number, bodyFront: number}}
+ */
+export function sideLayout(car, spec) {
+  const { length: Lc, height: H } = car;
+  const by = bodyBottom(car, spec);
+  const span = H - by;
+  const noseLen = car.nose !== null ? NOSE[car.kind].length : 0;
+  const rear = -Lc / 2;
+  const bodyFront = Lc / 2 - noseLen;
+  const [w0, w1] = spec.windowHn;
+  const winY = by + span * ((w0 + w1) / 2);
+  const winH = span * (w1 - w0);
+  const doorW = 0.95;
+  const doors = [];
+  const passenger = car.role !== 'power' && car.role !== 'loco';
+  const windows = [];
+  if (passenger) {
+    doors.push(rear + 1.4);
+    if (spec.doors !== 'one' && !(car.nose === 'front' && noseLen > 3)) doors.push(bodyFront - 1.4);
+    const start = rear + 2.4;
+    const end = bodyFront - (car.nose === 'front' ? 1.2 : 2.2);
+    const { w, pitch } = spec.windows;
+    for (let x = start; x + w <= end; x += pitch) {
+      const cx = x + w / 2;
+      if (doors.some((d) => Math.abs(d - cx) < doorW / 2 + w / 2 + 0.25)) continue;
+      windows.push({ x: cx, w });
+    }
+  }
+  return { by, span, winY, winH, doorW, doors, windows, passenger, rear, bodyFront };
+}
+
 /** 한 칸의 그물(같은 모양이면 함께 쓴다) */
 function carGeometry(car, spec, look) {
   const parts = new Parts();
@@ -507,35 +543,14 @@ function carGeometry(car, spec, look) {
 
   // 창문, 문
   const sideZ = W / 2 + 0.012;
-  const [w0, w1] = spec.windowHn;
-  const winY = by + span * ((w0 + w1) / 2);
-  const winH = span * (w1 - w0);
-  const doorW = 0.95;
-  const doors = [];
-  const passenger = car.role !== 'power' && car.role !== 'loco';
-  if (passenger) {
-    const near = rear + 1.4;
-    const far = bodyFront - 1.4;
-    if (spec.doors === 'one') doors.push(car.nose === null ? near : near);
-    else {
-      doors.push(near);
-      if (!(car.nose === 'front' && noseLen > 3)) doors.push(far);
-    }
-  }
+  const { winY, winH, doorW, doors, windows, passenger } = sideLayout(car, spec);
   for (const side of [-1, 1]) {
     for (const dx of doors) {
       parts.box(doorW, span * 0.74, 0.03, dx, by + span * 0.38, side * sideZ, spec.doorColor ?? shade(paint({ hn: 0.4, f: -1, xn: 0.5 }), 0.12));
       parts.box(0.5, winH * 0.8, 0.04, dx, winY, side * (sideZ + 0.005), GLASS);
     }
     if (passenger) {
-      const start = rear + 2.4;
-      const end = bodyFront - (car.nose === 'front' ? 1.2 : 2.2);
-      const { w, pitch } = spec.windows;
-      for (let x = start; x + w <= end; x += pitch) {
-        const cx = x + w / 2;
-        if (doors.some((d) => Math.abs(d - cx) < doorW / 2 + w / 2 + 0.25)) continue;
-        parts.box(w, winH, 0.04, cx, winY, side * sideZ, GLASS);
-      }
+      for (const win of windows) parts.box(win.w, winH, 0.04, win.x, winY, side * sideZ, GLASS);
     } else {
       // 동력차·기관차: 기계실 바람 구멍(옆 창살)
       const grilleY = by + span * 0.43;
@@ -629,7 +644,8 @@ export function buildTrain(look, count, { material, headMaterial, tailMaterial, 
     if (!cache.has(key)) cache.set(key, carGeometry(car, spec, look));
     const group = new Group();
     const inner = new Group();
-    inner.add(new Mesh(cache.get(key), material));
+    const body = new Mesh(cache.get(key), material);
+    inner.add(body);
     // 앞 불빛(맨 앞)과 꼬리 불빛(맨 뒤)
     const lightMat = car.lead ? headMaterial : car.tail ? tailMaterial : null;
     if (lightMat) {
@@ -641,10 +657,11 @@ export function buildTrain(look, count, { material, headMaterial, tailMaterial, 
     }
     if (car.nose === 'back') inner.rotation.y = Math.PI;
     group.add(inner);
-    return { group, length: car.length, gapAfter: car.gapAfter };
+    return { group, inner, body, car, length: car.length, gapAfter: car.gapAfter };
   });
   return {
     cars: out,
+    spec,
     dispose() {
       for (const g of cache.values()) g.dispose();
       lampGeometry.dispose();

@@ -20,7 +20,9 @@ function walk(dir) {
 }
 
 const files = [...walk(resolve(ROOT, 'src')), resolve(ROOT, 'index.html')];
-const sources = files.map((path) => ({ path: path.replace(ROOT + '\\', '').replace(ROOT + '/', ''), text: readFileSync(path, 'utf8') }));
+// 긴 base64 값(3D 모델의 이진 자료)은 낱말이 아니라서 뺀다. 글자가 우연히 "fbq" 같은 조각을 만든다.
+const stripBinary = (text) => text.replace(/"data":"[A-Za-z0-9+/=]{64,}"/g, '"data":""');
+const sources = files.map((path) => ({ path: path.replace(ROOT + '\\', '').replace(ROOT + '/', ''), text: stripBinary(readFileSync(path, 'utf8')) }));
 
 /** 뜻이 다른데 글자만 같은 곳은 검사에서 뺀다. */
 const ALLOW = [

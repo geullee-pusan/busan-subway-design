@@ -1,0 +1,168 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>주인공 3D 묶기(개발용)</title>
+<!-- scripts/hero-pack.mjs가 Vite 서버로 이 페이지를 열어 쓴다. 게임에는 들어가지 않는다.
+     C:\joosan의 scripts/hero-pack.html(같은 주인공을 묶는 방법)을 이 게임에 맞게 옮겼다. -->
+<script type="module">
+import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { buildHero } from '/src/ui/hero-model.js';
+
+const toB64 = (typed) => {
+  const b = new Uint8Array(typed.buffer, typed.byteOffset, typed.byteLength);
+  let s = '';
+  for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode(...b.subarray(i, i + 0x8000));
+  return btoa(s);
+};
+const pack = (typed, type) => ({ type, data: toB64(typed) });
+
+/** 뼈대 이름에서 "mixamorig" 앞붙이를 맞춘다(파일마다 콜론 유무가 다를 수 있다) */
+const boneKey = (name) => name.replace(/^mixamorig:?/, '');
+
+window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
+  const loader = new FBXLoader();
+  const model = await loader.loadAsync(base);
+  model.updateMatrixWorld(true);
+  let mesh = null;
+  model.traverse((o) => {
+    if (o.isSkinnedMesh && !mesh) mesh = o;
+  });
+  if (!mesh) throw new Error('뼈대 있는 메시가 없어요');
+  // 같은 자리·같은 텍스처 좌표의 꼭짓점을 합친다(FBX는 삼각형마다 꼭짓점을 따로 둔다)
+  const geo = mergeVertices(mesh.geometry, 1e-5);
+  const sk = mesh.skeleton;
+  const bones = sk.bones;
+  const idx = new Map(bones.map((b, i) => [b, i]));
+  const boneData = bones.map((b) => ({
+    name: b.name,
+    parent: idx.has(b.parent) ? idx.get(b.parent) : -1,
+    p: b.position.toArray(),
+    q: b.quaternion.toArray(),
+    s: b.scale.toArray(),
+  }));
+  const rootBone = bones.find((b) => !idx.has(b.parent));
+  const armatureMatrix = rootBone.parent.matrixWorld.toArray();
+  const inv = new Float32Array(bones.length * 16);
+  sk.boneInverses.forEach((m, i) => inv.set(m.elements, i * 16));
+
+  const box = new THREE.Box3().setFromObject(mesh);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+
+  const a = geo.attributes;
+  const geometry = {
+    position: pack(new Float32Array(a.position.array), 'f32'),
+    normal: a.normal ? pack(new Float32Array(a.normal.array), 'f32') : null,
+    uv: a.uv ? pack(new Float32Array(a.uv.array), 'f32') : null,
+    skinIndex: pack(new Uint16Array(a.skinIndex.array), 'u16'),
+    skinWeight: pack(new Float32Array(a.skinWeight.array), 'f32'),
+    index: geo.index ? (a.position.count < 65536 ? pack(new Uint16Array(geo.index.array), 'u16') : pack(new Uint32Array(geo.index.array), 'u32')) : null,
+  };
+
+  // 동작: 뼈대 이름을 이 모델에 맞추고, 1초 fps장으로 고른다. 길면 앞의 maxSec초만.
+  const names = new Map(bones.map((b) => [boneKey(b.name), b.name]));
+  const clipData = (clip, name) => {
+    const duration = Math.min(clip.duration, maxSec);
+    const tracks = [];
+    for (const t of clip.tracks) {
+      const dot = t.name.lastIndexOf('.');
+      const node = names.get(boneKey(t.name.slice(0, dot)));
+      const prop = t.name.slice(dot + 1);
+      if (!node || prop === 'scale') continue;
+      if (prop === 'position' && boneKey(node) !== 'Hips') continue;
+      const n = Math.max(2, Math.round(duration * fps) + 1);
+      const sz = t.getValueSize();
+      const interp = t.createInterpolant();
+      const values = new Float32Array(n * sz);
+      for (let k = 0; k < n; k++) values.set(interp.evaluate(Math.min(duration, k / fps)), k * sz);
+      if (prop === 'position') {
+        // 엉덩이는 위아래로만 움직인다(좁은 복도에서 옆이나 뒤로 미끄러지지 않게): 앞뒤·옆은 묶인 자세 자리로
+        const hip = bones.find((b) => b.name === node).position;
+        for (let k = 0; k < n; k++) {
+          values[k * 3] = hip.x;
+          values[k * 3 + 2] = hip.z;
+        }
+      }
+      if (prop === 'quaternion') {
+        for (let k = 0; k < n; k++) new THREE.Quaternion().fromArray(values, k * 4).normalize().toArray(values, k * 4);
+        const v16 = Int16Array.from(values, (x) => Math.round(Math.max(-1, Math.min(1, x)) * 32767));
+        tracks.push({ name: `${node}.${prop}`, kind: 'q', fps, n, values: pack(v16, 'i16') });
+      } else {
+        tracks.push({ name: `${node}.${prop}`, kind: 'v', fps, n, values: pack(values, 'f32') });
+      }
+    }
+    return { name, duration, tracks };
+  };
+  const clips = [];
+  for (const job of clipJobs) {
+    const g = await loader.loadAsync(job.file);
+    clips.push(clipData(g.animations[0], job.name));
+  }
+
+  // 텍스처 → WebP(긴 변 1024px)
+  const mat = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+  let img = mat.map?.image ?? null;
+  let flipY = mat.map ? mat.map.flipY : true;
+  if (!img && textureFile) {
+    img = await new Promise((ok, fail) => { const im = new Image(); im.onload = () => ok(im); im.onerror = fail; im.src = textureFile; });
+    flipY = true;
+  }
+  let texture = null;
+  if (img) {
+    const cv = document.createElement('canvas');
+    const k = Math.min(1, 1024 / Math.max(img.width, img.height));
+    cv.width = Math.round(img.width * k);
+    cv.height = Math.round(img.height * k);
+    cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+    texture = cv.toDataURL('image/webp', 0.86);
+  }
+
+  const data = {
+    bones: boneData,
+    boneInverses: pack(inv, 'f32'),
+    armatureMatrix,
+    meshMatrix: mesh.matrixWorld.toArray(),
+    bindMatrix: mesh.bindMatrix.toArray(),
+    geometry,
+    textureFlipY: flipY,
+    height: size.y,
+    floor: box.min.y,
+    center: center.toArray(),
+    clips,
+  };
+
+  // 확인용 그림: 다시 조립해서 동작마다 몇 장면을 그린다
+  const image = texture ? await new Promise((ok) => { const im = new Image(); im.onload = () => ok(im); im.src = texture; }) : null;
+  const shots = [];
+  const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+  r.setSize(200, 280);
+  r.outputColorSpace = THREE.SRGBColorSpace;
+  for (const c of data.clips) {
+    for (const f of [0, 0.35, 0.7]) {
+      const hero = buildHero(data, image);
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x8899aa);
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x445566, 2.2));
+      const sun = new THREE.DirectionalLight(0xffffff, 1.6);
+      sun.position.set(1, 2, 2);
+      scene.add(sun, hero.root);
+      const mixer = new THREE.AnimationMixer(hero.root);
+      mixer.clipAction(hero.clips[c.name]).play();
+      mixer.update(c.duration * f * 0.999);
+      const cam = new THREE.PerspectiveCamera(30, 200 / 280, 0.1, 20);
+      cam.position.set(0, 0.6, 3.2);
+      cam.lookAt(0, 0.5, 0);
+      r.render(scene, cam);
+      shots.push(r.domElement.toDataURL('image/jpeg', 0.8));
+    }
+  }
+  return {
+    json: JSON.stringify(data),
+    texture,
+    shots,
+    report: { bones: bones.length, verts: a.position.count, tris: (geo.index ? geo.index.count : a.position.count) / 3, clips: data.clips.map((c) => [c.name, +c.duration.toFixed(2), c.tracks.length]), texture: img ? [img.width, img.height] : null },
+  };
+};
+window.ready = true;
+</script>

@@ -2,6 +2,7 @@
 // 땅은 격자 칸 높이(1km, 거칠다), 선로는 실제 선로 모양(OpenStreetMap), 건물과 나무는 인구와 칸 종류로 지어 놓은 것이다.
 // three.js만 쓴다. 파일을 읽어 오는 로더는 쓰지 않는다(네트워크 없음). 그림은 모두 코드로 만든다.
 import {
+  AnimationMixer,
   BoxGeometry,
   BufferAttribute,
   BufferGeometry,
@@ -14,6 +15,8 @@ import {
   Group,
   HemisphereLight,
   InstancedMesh,
+  LoopOnce,
+  LoopRepeat,
   Mesh,
   MeshBasicMaterial,
   MeshLambertMaterial,
@@ -27,6 +30,11 @@ import {
   WebGLRenderer,
 } from 'three';
 import { buildTrain } from './train-3d-cars.js';
+import { buildCabin } from './train-3d-cabin.js';
+import { buildHero } from './hero-model.js';
+import { INTERIOR } from './train-interior.js';
+import heroData from '../content/hero/hero3d.json';
+import heroTextureUrl from '../content/hero/hero3d.webp';
 import { cellNoise, distanceFraction, groundAt, pointAt, routeProfile, terrainAt } from '../sim/train-3d-path.js';
 
 /** 높이를 부풀리는 배수(1km 칸 높이는 산을 낮게 만든다) */
@@ -181,8 +189,9 @@ function nameSign(text, accent) {
  * @param {boolean} p.highSpeed 고속열차(선로를 더 곧게 놓는다)
  * @param {boolean} p.reduceMotion
  * @param {string} p.kind 열차 종류 이름(ITX-마음처럼 같은 앞모습 안에서 칠이 다른 열차를 가른다)
+ * @param {number} p.seatCar 탄 칸(호차). 객실 보기에서 이 칸 안에 선다.
  */
-export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceMotion = false, kind = '' }) {
+export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceMotion = false, kind = '', seatCar = 1 }) {
   const el = element('div', 'tr3d');
   const canvas = element('canvas', 'tr3d-canvas');
   canvas.setAttribute('aria-label', '기차 밖에서 본 3D 그림');
@@ -203,7 +212,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   scene.background = new Color(SKY);
   scene.fog = new Fog(SKY, 900, 2900);
   const camera = new PerspectiveCamera(55, 16 / 10, 1, 7000);
-  scene.add(new HemisphereLight(0xf4f8ff, 0x6b7a4a, 1.5));
+  const hemi = new HemisphereLight(0xf4f8ff, 0x6b7a4a, 1.5);
+  scene.add(hemi);
   const sun = new DirectionalLight(0xffffff, 2.2);
   sun.position.set(-0.5, 1, 0.35);
   scene.add(sun);
@@ -240,6 +250,41 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   }
   const trainLenKm = trainLenM / 1000;
 
+  // 객실: 손님이 타는 칸 가운데 호차 차례로 고른다(코가 없는 칸을 먼저). 칸 안에 객실을 짓고 주인공을 세운다.
+  const passengerCars = train.cars.map((c, i) => [c, i]).filter(([c]) => c.car.role !== 'power' && c.car.role !== 'loco');
+  const plain = passengerCars.filter(([c]) => c.car.nose === null);
+  const pool = plain.length ? plain : passengerCars;
+  const [cabinCar, cabinIndex] = pool.length ? pool[Math.max(0, seatCar - 1) % pool.length] : [train.cars[0], 0];
+  const cabin = buildCabin(cabinCar.car, train.spec, INTERIOR[kind] ?? INTERIOR['종류 모름'], materials.car);
+  cabin.group.visible = false;
+  cabinCar.inner.add(cabin.group);
+  const heroImage = new Image();
+  const hero = buildHero(heroData, heroImage);
+  heroImage.onload = () => {
+    hero.root.traverse((o) => {
+      if (o.material?.map) o.material.map.needsUpdate = true;
+    });
+  };
+  heroImage.src = heroTextureUrl;
+  hero.root.scale.setScalar(cabin.hero.scale);
+  hero.root.position.set(cabin.hero.x, cabin.hero.y, cabin.hero.z);
+  hero.root.rotation.y = -Math.PI / 2; // 카메라(뒤쪽)를 본다
+  cabin.group.add(hero.root);
+  const mixer = new AnimationMixer(hero.root);
+  let heroAction = mixer.clipAction(hero.clips.idle);
+  heroAction.play();
+  let heroDone = () => {};
+  mixer.addEventListener('finished', () => {
+    // 춤이 끝나면 다시 선다
+    const idle = mixer.clipAction(hero.clips.idle);
+    idle.reset().play();
+    heroAction.crossFadeTo(idle, 0.4, false);
+    heroAction = idle;
+    heroDone('stand');
+  });
+  const cabinEye = new Vector3();
+  const cabinTarget = new Vector3();
+
   let world = null; // 지금 구간의 땅, 선로, 건물
   let profile = null;
   /** 지금 구간 땅 높이(세계 좌표 x, z → 미터, 부풀린 값). 카메라가 땅속에 들어가지 않게 쓴다. */
@@ -249,6 +294,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   let startKm = 0;
   let front = 0;
   let mode = 'side'; // 처음에는 옆에서 본다(긴 기차가 한눈에 보인다)
+  let outsideMode = 'side'; // 객실에 들어갔다 나오면 돌아갈 밖 보기
   let raf = 0;
   let last = 0;
   const camPos = new Vector3();
@@ -613,7 +659,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
 
   function cameraGoal(inTunnel) {
     // 터널 안: 기차 앞에서 다가오는 기차를 본다(하늘에서 볼 때는 산만 보인다)
-    if (inTunnel && mode !== 'sky') return { pos: trackPoint(front + 0.02, 3.4, -1.8).v, look: trackPoint(front - 0.025, 2.6).v };
+    if (inTunnel && mode !== 'sky' && mode !== 'cabin') return { pos: trackPoint(front + 0.02, 3.4, -1.8).v, look: trackPoint(front - 0.025, 2.6).v };
     if (mode === 'side') {
       // 기차 머리(코)와 첫 칸이 화면에 들어오게
       const at = trackPoint(front - 0.017);
@@ -649,6 +695,21 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
       wasDark = dark;
       scene.background.setHex(dark ? TUNNEL_DARK : SKY);
       scene.fog.color.setHex(dark ? TUNNEL_DARK : SKY);
+    }
+    if (mode === 'cabin') {
+      // 객실: 칸과 함께 움직이는 아이 눈높이 카메라(부드럽게 따라가지 않는다)
+      mixer.update(reduceMotion ? 0 : dt); // 움직임 줄이기: 서 있는 자세로 멈춘다
+      cabinCar.group.updateMatrixWorld(true);
+      cabinEye.fromArray(cabin.eye);
+      cabinTarget.fromArray(cabin.target);
+      cabinCar.inner.localToWorld(cabinEye);
+      cabinCar.inner.localToWorld(cabinTarget);
+      camera.position.copy(cabinEye);
+      camera.lookAt(cabinTarget);
+      scene.fog.near = dark ? 40 : 900;
+      scene.fog.far = dark ? 420 : 2900;
+      renderer.render(scene, camera);
+      return;
     }
     const goal = cameraGoal(inTunnel);
     scene.fog.near = dark ? 40 : mode === 'sky' ? 1200 : 900;
@@ -688,6 +749,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     b.type = 'button';
     b.addEventListener('click', () => {
       mode = id;
+      outsideMode = id;
       snap = reduceMotion;
       mark();
     });
@@ -724,10 +786,54 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     },
     setDisplay(lines) {
       displayBox.replaceChildren(...lines.map((line) => element('div', null, line)));
+      cabin.setDisplay(lines);
+    },
+    /**
+     * 'cabin'(객실 안, 아이 눈높이) 또는 'outside'(밖에서 따라가며 보기)
+     * @param {'cabin'|'outside'} view
+     */
+    setView(view) {
+      const inCabin = view === 'cabin';
+      if (inCabin && mode !== 'cabin') outsideMode = mode;
+      mode = inCabin ? 'cabin' : outsideMode;
+      cabin.group.visible = inCabin;
+      cabinCar.body.visible = !inCabin; // 칸 바깥 껍데기가 창을 가리지 않게
+      camera.fov = inCabin ? 58 : 55;
+      camera.near = inCabin ? 0.1 : 1;
+      camera.updateProjectionMatrix();
+      camRow.style.display = inCabin ? 'none' : '';
+      // 객실 천장처럼 아래를 보는 면이 풀빛 땅 색을 받지 않게, 객실 안에서는 아래쪽 빛을 밝게
+      hemi.groundColor.setHex(inCabin ? 0xd9d5cc : 0x6b7a4a);
+      displayBox.hidden = inCabin; // 객실 안에는 안내판이 있다
+      canvas.setAttribute('aria-label', inCabin ? '기차 객실 안 3D 그림' : '기차 밖에서 본 3D 그림');
+      snap = true;
+      mark();
+    },
+    /** 주인공 동작: 'stand'(서 있기) 또는 춤 이름. 춤은 한 번 춘 뒤 다시 선다. */
+    playHero(id) {
+      const clip = id === 'stand' ? hero.clips.idle : hero.clips[id];
+      if (!clip) return;
+      const next = mixer.clipAction(clip);
+      next.reset();
+      if (id === 'stand' || reduceMotion) next.setLoop(LoopRepeat, Infinity);
+      else {
+        next.setLoop(LoopOnce, 1);
+        next.clampWhenFinished = true;
+      }
+      next.play();
+      if (heroAction !== next) heroAction.crossFadeTo(next, 0.3, false);
+      heroAction = next;
+    },
+    /** 춤이 끝나 다시 섰을 때 알려 준다(동작 단추 표시를 맞추려고) */
+    onHero(fn) {
+      heroDone = fn;
     },
     destroy() {
       cancelAnimationFrame(raf);
       disposeWorld();
+      mixer.stopAllAction();
+      hero.dispose();
+      cabin.dispose();
       train.dispose();
       scene.traverse((o) => o.geometry?.dispose());
       for (const m of Object.values(materials)) m.dispose();

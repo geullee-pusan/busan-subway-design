@@ -32,7 +32,8 @@
     "landmarks": "node scripts/build-landmarks.mjs",
     "intercity": "node scripts/fetch-intercity.mjs",
     "intercity-build": "node scripts/build-intercity.mjs",
-    "hero": "node scripts/hero-bake.mjs"
+    "hero": "node scripts/hero-bake.mjs",
+    "hero-3d": "node scripts/hero-pack.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
