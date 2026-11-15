@@ -3125,3 +3125,13 @@ body {
   outline: 3px solid #e8590c;
   outline-offset: 1px;
 }
+
+/* 기차 3D 보기(시험판) */
+.tr3d { position: relative; margin: 8px 0; }
+.tr3d-canvas { display: block; width: 100%; border-radius: 12px; background: #cfe6f5; touch-action: pan-y; }
+.tr3d-overlay { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+.tr3d-display { background: rgba(20, 28, 38, 0.82); color: #ffe48a; border-radius: 8px; padding: 6px 10px; font-weight: 700; font-size: 1rem; line-height: 1.35; }
+.tr3d-display:empty { display: none; }
+.tr3d-tunnel { background: rgba(255, 255, 255, 0.9); color: #222; border-radius: 8px; padding: 4px 10px; font-weight: 700; }
+.tr3d-credit { position: absolute; right: 8px; top: 8px; background: rgba(255, 255, 255, 0.8); color: #333; font-size: 0.72rem; padding: 2px 6px; border-radius: 6px; }
+.tr3d-cams { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }

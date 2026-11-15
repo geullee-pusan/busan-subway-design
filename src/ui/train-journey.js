@@ -13,6 +13,16 @@ import { trainCabArt } from './train-cab.js';
 import { trainInteriorArt } from './train-interior.js';
 import { createHeroActor, heroInside, heroMotionPicker } from './hero-actor.js';
 
+/** 이 기기에서 WebGL을 쓸 수 있는지(3D 단추를 보일지). three.js는 3D를 고를 때에야 불러온다. */
+function webglAvailable() {
+  try {
+    const canvas = document.createElement('canvas');
+    return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+  } catch {
+    return false;
+  }
+}
+
 /** 역 사이 그림이 움직이는 시간(밀리초) */
 const SEGMENT_MS = 5000;
 
@@ -168,6 +178,8 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     frame = null;
     sound.stopAll();
     cabView?.destroy();
+    outside?.destroy();
+    outside = null;
     hero.destroy();
   };
 
@@ -282,6 +294,24 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
   let interior = null;
   let cabView = null;
   let panel = null;
+  // 3D 보기(시험판): 처음 고를 때 만든다. 지금 구간과 진행을 기억해 두었다가 맞춘다.
+  let outside = null;
+  let outsideBox = null;
+  let route3d = null;
+  let progress3d = 0;
+  let display3d = [];
+  /** 지금 정차역에서 다음 정차역까지(선로 모양, 거리, 시간, 빠르기) */
+  function segment(i) {
+    const a = train.stops[i];
+    const b = train.stops[i + 1];
+    const A = railStationById.get(a[0]);
+    const B = railStationById.get(b[0]);
+    const path = railPathBetween(rail, a[0], b[0]);
+    const km = path?.km ?? Math.hypot(A.x - B.x, A.y - B.y);
+    const minutes = stopArr(b) - stopDep(a);
+    const speedAt = speedProfile(km, minutes, info.speedKmh?.value ?? null);
+    return { a, b, A, B, path, km, minutes, speedAt };
+  }
   // 객실과 운전석 두 그림을 함께 움직이고, 고른 하나만 보여 준다
   const views = {
     setScene: (x) => {
@@ -295,8 +325,17 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     setDisplay: (x) => {
       interior.setDisplay(x);
       cabView.setDisplay(x);
+      display3d = x;
+      outside?.setDisplay(x);
     },
   };
+  /** 3D 보기에 지금 구간을 넣는다 */
+  function routeTo3d() {
+    if (!outside || !route3d) return;
+    outside.setRoute(route3d);
+    outside.setProgress(progress3d);
+    outside.setDisplay(display3d);
+  }
   function ride() {
     sound.wake();
     area.replaceChildren();
@@ -305,25 +344,51 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     interior = trainInteriorArt({ kind, reduceMotion });
     const seatBox = heroInside(interior.svg, hero, HERO_PLACE);
     cabView = trainCabArt({ kind, reduceMotion, topKmh: info.speedKmh?.value ?? null });
-    let showCab = loadView().trainCab === true;
+    const saved = loadView();
+    const can3d = webglAvailable();
+    let showing = saved.trainView ?? (saved.trainCab === true ? 'cab' : 'seat');
+    if (showing === 'outside' && !can3d) showing = 'seat';
     const viewRow = element('div', 'tr-sound-row');
     viewRow.setAttribute('role', 'group');
     viewRow.setAttribute('aria-label', '보는 곳 고르기');
-    const seatButton = button('객실 보기', () => pick(false));
-    const cabButton = button('운전석 보기', () => pick(true));
-    viewRow.append(seatButton, cabButton);
-    function pick(cab) {
-      showCab = cab;
-      saveView({ trainCab: cab });
-      seatBox.style.display = cab ? 'none' : '';
-      cabView.svg.style.display = cab ? '' : 'none';
-      seatButton.className = cab ? 'button' : 'button is-on';
-      cabButton.className = cab ? 'button is-on' : 'button';
-      seatButton.setAttribute('aria-pressed', String(!cab));
-      cabButton.setAttribute('aria-pressed', String(cab));
+    const viewButtons = { seat: button('객실 보기', () => pick('seat')), cab: button('운전석 보기', () => pick('cab')) };
+    if (can3d) viewButtons.outside = button('밖에서 보기 (3D)', () => pick('outside'));
+    viewRow.append(...Object.values(viewButtons));
+    outsideBox = element('div', 'tr3d-box');
+    const outsideNote = element('p', 'panel-note');
+    function pick(view) {
+      showing = view;
+      saveView({ trainView: view, trainCab: view === 'cab' });
+      seatBox.style.display = view === 'seat' ? '' : 'none';
+      cabView.svg.style.display = view === 'cab' ? '' : 'none';
+      outsideBox.style.display = view === 'outside' ? '' : 'none';
+      heroPicker.el.style.display = view === 'seat' ? '' : 'none';
+      for (const [id, b] of Object.entries(viewButtons)) {
+        b.className = id === view ? 'button is-on' : 'button';
+        b.setAttribute('aria-pressed', String(id === view));
+      }
+      if (view === 'outside' && !outside) open3d();
     }
-    area.append(viewRow, seatBox, cabView.svg, heroPicker.el);
-    pick(showCab);
+    /** three.js 그림을 처음 연다. 안 되면 객실 보기로 돌아간다. */
+    async function open3d() {
+      outsideBox.replaceChildren(element('p', 'tr-status', '3D 그림을 준비해요.'));
+      try {
+        const { createTrain3D } = await import('./train-3d.js');
+        if (outside || !outsideBox.isConnected) return;
+        outside = createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion });
+        outsideBox.replaceChildren(outside.el);
+        routeTo3d();
+      } catch {
+        outside = null;
+        outsideBox.replaceChildren();
+        outsideNote.textContent = '이 기기에서는 3D 그림을 그릴 수 없어요. 객실 그림으로 볼게요.';
+        delete viewButtons.outside;
+        viewRow.lastChild?.remove();
+        pick('seat');
+      }
+    }
+    area.append(viewRow, outsideNote, seatBox, cabView.svg, outsideBox, heroPicker.el);
+    pick(showing);
     area.append(element('p', 'tr-seat', `${seat.car}호차 ${seat.seat} 자리에 앉았어요.${seat.reverse ? ' 뒤를 보고 앉아 가요.' : ''}`));
     panel = element('div', 'tr-panel');
     area.append(panel);
@@ -349,6 +414,15 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     views.setSpeed(0);
     cabView.setSignal('stop');
     views.setDisplay(last ? [`${name}역`, '내릴 역이에요'] : first ? [`${trainDestination(train)} 가는 ${kind}`, `다음 역: ${nameOf(train.stops[at + 1][0])}`] : [`${name}역`, `다음 역: ${nameOf(train.stops[at + 1][0])}`]);
+    if (!last) {
+      // 3D 보기: 다음 역까지의 땅과 선로를 미리 짓고 기차를 이 역에 세운다
+      const seg = segment(at);
+      if (seg.path?.points?.length >= 2) {
+        route3d = { points: seg.path.points, speedAt: seg.speedAt, fromName: seg.A.name, toName: seg.B.name };
+        progress3d = 0;
+        routeTo3d();
+      }
+    }
     panel.replaceChildren(stopsRow());
     const clock = element('p', 'tr-clock', `시각 ${hhmm(first ? stopDep(stop) : stopArr(stop))}`);
     panel.append(clock);
@@ -376,14 +450,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
 
   /** 다음 역까지 달린다. toEnd면 내릴 역까지 이어서(역마다 잠깐 선다). */
   function move(toEnd) {
-    const a = train.stops[at];
-    const b = train.stops[at + 1];
-    const A = railStationById.get(a[0]);
-    const B = railStationById.get(b[0]);
-    const path = railPathBetween(rail, a[0], b[0]);
-    const km = path?.km ?? Math.hypot(A.x - B.x, A.y - B.y);
-    const minutes = stopArr(b) - stopDep(a);
-    const speedAt = speedProfile(km, minutes, info.speedKmh?.value ?? null);
+    const { a, b, A, B, path, km, minutes, speedAt } = segment(at);
     const scenes = segmentScenes(grid, A, B, trainGroup(kind), path?.points ?? null);
     // 오래 걸리는 구간일수록 조금 더 길게 달린다(5초~20초)
     const segmentMs = Math.min(20000, SEGMENT_MS + minutes * 300);
@@ -405,6 +472,8 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
       const t = ms === 0 ? 1 : Math.min(1, (now - start) / ms);
       const kmh = speedAt(t);
       views.setSpeed(kmh);
+      progress3d = t;
+      outside?.setProgress(t);
       // 다음 역에 거의 다 오면 승강장이 보인다
       views.setScene(t > 0.94 ? 'station' : (scenes[Math.min(scenes.length - 1, Math.floor(t * scenes.length))] ?? 'field'));
       cabView.setSignal(t < 0.75 ? 'go' : 'caution');
