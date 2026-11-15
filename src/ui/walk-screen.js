@@ -22,7 +22,7 @@ import { appendPoint, appendRide, compactTrack } from '../sim/diary.js';
 import { createLandmarkMusic } from './landmark-music.js';
 import { renderDiary } from './walk-diary.js';
 import { LANDMARK_ICON, landmarkScene } from './landmark-scenes.js';
-import { createWalkMap } from './walk-map.js';
+import { createWalkMap, HERO_DANCES } from './walk-map.js';
 import { textWithCards } from './word-card.js';
 
 /** 화면에서 걷는 빠르기: 1초에 몇 km(빨리 감기). 우리가 정한 값. */
@@ -127,6 +127,11 @@ export function renderWalk(root, { onHome }) {
   let record = null;
   let facing = 1;
   let stepPhase = 0;
+  // 걷는 방향(화면 기준 라디안, 0 = 동쪽, 시계 방향)과 마지막으로 걸은 때(주인공이 달리는지 서 있는지 고른다)
+  let heading = Math.PI / 2;
+  let lastMoved = -Infinity;
+  // 랜드마크에 도착해 추는 춤: {row, start(ms), seconds, lm}. 추는 동안은 멈춰 있고, 끝나면 도착 장면을 보여 준다.
+  let dancing = null;
   let target = null; // 누른 곳(길 위 점)
   let at = null; // 내가 서 있는 길 위 자리 {edge, seg, t}
   let walkPath = null; // 누른 곳까지 걸어갈 길 {points, km, done, goal}
@@ -692,11 +697,13 @@ export function renderWalk(root, { onHome }) {
   }
 
   /** 걸은 만큼 기록하고 둘레를 다시 본다 */
-  function afterStep(km, dx) {
+  function afterStep(km, dx, dy = 0) {
     track = appendPoint(track, '걷기', me);
     pendingKm += km;
     stepPhase += km * 400;
     if (Math.abs(dx) > 0.1) facing = Math.sign(dx);
+    if (Math.hypot(dx, dy) > 1e-6) heading = Math.atan2(dy, dx);
+    lastMoved = performance.now();
     if (pendingKm > 0.02) {
       flushWalk();
       updateHud();
@@ -730,7 +737,16 @@ export function renderWalk(root, { onHome }) {
     updateZoomNote();
     const dt = Math.min(0.1, (t - lastTime) / 1000);
     lastTime = t;
-    if (mode === 'walk') {
+    if (dancing) {
+      // 춤추는 동안은 걷지 않는다. 다 추면 도착 장면을 보여 준다.
+      needsDraw = true;
+      if (mode !== 'walk') dancing = null;
+      else if ((t - dancing.start) / 1000 >= dancing.seconds) {
+        const lm = dancing.lm;
+        dancing = null;
+        showLandmark(lm);
+      }
+    } else if (mode === 'walk') {
       let dir = { dx: joy.dx, dy: joy.dy };
       if (keys.size) dir = { dx: (keys.has('ArrowRight') ? 1 : 0) - (keys.has('ArrowLeft') ? 1 : 0), dy: (keys.has('ArrowDown') ? 1 : 0) - (keys.has('ArrowUp') ? 1 : 0) };
       const strength = Math.min(1, Math.hypot(dir.dx, dir.dy));
@@ -743,9 +759,10 @@ export function renderWalk(root, { onHome }) {
           const next = walkAlong(roads, at, dir, SCREEN_KM_PER_SEC * strength * dt);
           if (next.km > 0) {
             const dx = next.x - me.x;
+            const dy = next.y - me.y;
             at = next.at;
             me = { x: next.x, y: next.y };
-            afterStep(next.km, dx);
+            afterStep(next.km, dx, dy);
           } else if (t - blockedSaid > 1500) {
             blockedSaid = t;
             say('그쪽으로는 길이 없어요. 길이 난 쪽으로 눌러요.');
@@ -758,8 +775,9 @@ export function renderWalk(root, { onHome }) {
         const ratio = walkPath.km > 0 ? walkPath.done / walkPath.km : 1;
         const pos = pointAlong(walkPath.points, ratio);
         const dx = pos.x - me.x;
+        const dy = pos.y - me.y;
         me = { x: pos.x, y: pos.y };
-        afterStep(step, dx);
+        afterStep(step, dx, dy);
         if (ratio >= 1 - 1e-9) {
           at = walkPath.goal;
           me = placeOn(roads, at);
@@ -776,7 +794,7 @@ export function renderWalk(root, { onHome }) {
     if (needsDraw || taxiNow) {
       needsDraw = false;
       // 택시를 타는 동안에는 사람 대신 택시를 그린다
-      map.draw(taxiNow ? me : center(), { goal, me: taxiNow ? null : { ...me, facing, step: stepPhase }, target, taxi: taxiNow, route: taxiPlan?.route?.points ?? walkPath?.points ?? null, routeKind: taxiPlan ? 'taxi' : 'walk' });
+      map.draw(taxiNow ? me : center(), { goal, me: taxiNow ? null : { ...me, facing, step: stepPhase, heading, moving: performance.now() - lastMoved < 200, dance: dancing ? { row: dancing.row, seconds: (performance.now() - dancing.start) / 1000 } : null }, target, taxi: taxiNow, route: taxiPlan?.route?.points ?? walkPath?.points ?? null, routeKind: taxiPlan ? 'taxi' : 'walk' });
     }
   }
 
@@ -804,7 +822,23 @@ export function renderWalk(root, { onHome }) {
     }
     persist(true);
     updateHud();
-    showLandmark(here);
+    celebrate(here);
+  }
+
+  /** 랜드마크에 도착하면 멈춰서 춤 하나(무작위)를 추고, 다 추면 도착 장면을 보여 준다. 움직임 줄이기를 켠 기기에서는 바로 보여 준다. */
+  function celebrate(lm) {
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    if (reduceMotion || !HERO_DANCES.length) {
+      showLandmark(lm);
+      return;
+    }
+    if (walkPath) clearTarget();
+    walkPath = null;
+    target = null;
+    const row = Math.floor(Math.random() * HERO_DANCES.length);
+    dancing = { row, start: performance.now(), seconds: HERO_DANCES[row].seconds, lm };
+    say(`${lm.name}에 왔어요! 신나서 춤을 춰요.`);
+    needsDraw = true;
   }
 
   /** 도착 장면: 그림, 소개 글, 가까운 탈 것 */
@@ -827,7 +861,7 @@ export function renderWalk(root, { onHome }) {
       const sources = [...new Set(lm.facts.map((f) => f.source))];
       card.append(element('p', 'panel-note', `자료: ${sources.join(', ')}`));
     }
-    card.append(element('p', 'panel-note', lm.scene ? '사진을 보고 새로 그린 그림이에요. 실제 사진이 아니에요.' : '그림은 그곳의 모습을 단순하게 그린 거예요.'));
+    card.append(element('p', 'panel-note', lm.sceneNote ?? (lm.scene ? '사진을 보고 새로 그린 그림이에요. 실제 사진이 아니에요.' : '그림은 그곳의 모습을 단순하게 그린 거예요.')));
     card.append(button('둘레 보기', () => updateNear(true), 'button big'));
     nearBox.replaceChildren(card);
     lastNearAt = { ...me };

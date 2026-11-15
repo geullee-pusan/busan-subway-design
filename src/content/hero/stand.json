@@ -1,0 +1,10 @@
+{
+  "_설명": "랜드마크 도착 장면에 서 있는 주인공(stand.webp, 정사각형). box는 그림 안에서 사람이 차지하는 범위(px, bottom이 발끝). 만든 곳: scripts/hero-bake.mjs",
+  "size": 256,
+  "box": {
+    "left": 96,
+    "right": 178,
+    "top": 10,
+    "bottom": 248
+  }
+}

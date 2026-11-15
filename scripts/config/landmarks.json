@@ -1758,7 +1758,8 @@
       "osm": "way/473696864",
       "kind": "apartment",
       "scene": "geojeIpark",
-      "radius": 200
+      "radius": 200,
+      "sceneNote": "자료에 적힌 모양을 보고 새로 그린 그림이에요. 실제와 다를 수 있어요."
     },
     {
       "id": "pungamkumho2",
@@ -1767,7 +1768,8 @@
       "osm": "way/485112591",
       "kind": "apartment",
       "scene": "pungamKumho",
-      "radius": 130
+      "radius": 130,
+      "sceneNote": "자료에 적힌 모양을 보고 새로 그린 그림이에요. 실제와 다를 수 있어요."
     },
     {
       "id": "dadaelottecastle",
@@ -1776,7 +1778,8 @@
       "osm": "way/1349542863",
       "kind": "apartment",
       "scene": "lotteCastleMolundae",
-      "radius": 300
+      "radius": 300,
+      "sceneNote": "자료에 적힌 모양을 보고 새로 그린 그림이에요. 실제와 다를 수 있어요."
     },
     {
       "id": "busanscience",
@@ -1785,7 +1788,8 @@
       "osm": "way/457907599",
       "kind": "science",
       "scene": "busanScienceHall",
-      "radius": 120
+      "radius": 120,
+      "sceneNote": "자료에 적힌 모양을 보고 새로 그린 그림이에요. 실제와 다를 수 있어요."
     },
     {
       "id": "cmssajik",
@@ -1798,7 +1802,8 @@
         "lat": 35.2057,
         "lon": 129.0679,
         "note": "아시아드대로 245. OpenStreetMap에 없어 같은 길 229번(한마당)에서 번호 차이(16)만큼 북쪽으로 어림했다. TODO(확인 필요)"
-      }
+      },
+      "sceneNote": "자료에 적힌 모양을 보고 새로 그린 그림이에요. 실제와 다를 수 있어요."
     },
     {
       "id": "cmssaha",
@@ -1811,7 +1816,8 @@
         "lat": 35.1017,
         "lon": 128.9832,
         "note": "낙동대로 316. OpenStreetMap에 없어 같은 길 221번(괴정역)과 380번(당리동 행정복지센터) 사이를 번호로 나눠 어림했다. TODO(확인 필요)"
-      }
+      },
+      "sceneNote": "자료에 적힌 모양을 보고 새로 그린 그림이에요. 실제와 다를 수 있어요."
     },
     {
       "id": "sunaroi",
@@ -1820,7 +1826,8 @@
       "osm": "way/493554808",
       "kind": "restaurant",
       "scene": "sunaroi",
-      "radius": 80
+      "radius": 80,
+      "sceneNote": "자료에 적힌 모양을 보고 새로 그린 그림이에요. 실제와 다를 수 있어요."
     }
   ]
 }

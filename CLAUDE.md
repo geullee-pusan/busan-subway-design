@@ -58,6 +58,7 @@
 - `npm run station-sounds`: 역사 안내방송 원본에서 승강장 소리(열차진입 안내음, 진입 방송)를 `data/build/station-sounds.json`으로 만든다
 - `npm run api-key`: 공공데이터포털 인증키를 저장하고(git에 넣지 않는 `.data-go-kr-key`) 열차 API(TAGO 열차정보, 코레일 열차운행정보)가 되는지 시험한다(네트워크를 쓴다)
 - `npm run validate`: 데이터 검증
+- `npm run hero`: 아이를 닮은 주인공(`assets/hero/`의 Mixamo FBX, git에 넣지 않음)을 걸어서 여행하기용 그림(`src/content/hero/`)으로 굽는다. 개발용 three를 쓰고 화면 없는 Chrome·Edge를 연다
 - `npm run calibrate`: 모델을 실제 승하차 자료와 맞추고 `docs/calibration.md`를 쓴다
 
 ## 폴더

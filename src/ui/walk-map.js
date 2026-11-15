@@ -5,6 +5,31 @@ import { dongAt } from '../sim/address.js';
 import { indexRoads, nearestRoad, MADE_ROAD } from '../sim/roads.js';
 import { waterAt, waterInBox } from '../sim/water.js';
 import { LANDMARK_ICON } from './landmark-scenes.js';
+import walkerUrl from '../content/hero/walker.webp';
+import walker from '../content/hero/walker.json';
+import danceUrl from '../content/hero/dance.webp';
+import danceSheet from '../content/hero/dance.json';
+
+/** 랜드마크에 도착했을 때 출 수 있는 춤 가짓수와 춤마다 걸리는 초 */
+export const HERO_DANCES = danceSheet.dances.map((d) => ({ name: d.name, seconds: d.frames / danceSheet.fps }));
+
+// 주인공 그림 묶음(아이를 닮은 3D 주인공을 scripts/hero-bake.mjs로 구운 것). 다 읽기 전에는 단순한 사람 그림을 그린다.
+let walkerImage = null;
+if (typeof Image !== 'undefined') {
+  const img = new Image();
+  img.onload = () => {
+    walkerImage = img;
+  };
+  img.src = walkerUrl;
+}
+let danceImage = null;
+if (typeof Image !== 'undefined') {
+  const img = new Image();
+  img.onload = () => {
+    danceImage = img;
+  };
+  img.src = danceUrl;
+}
 
 /** 지형 바탕색 */
 const GROUND = {
@@ -535,7 +560,10 @@ export function createWalkMap(canvas, world) {
     if (extra.taxi) drawTaxi(ctx, sx(extra.taxi.x), sy(extra.taxi.y), extra.taxi.angle);
     // 9. 나(캐릭터). 멀리서 볼 때는 작은 표시로
     if (extra.me) {
-      if (scale >= 150) drawMe(ctx, sx(extra.me.x), sy(extra.me.y), extra.me.step, extra.me.facing);
+      if (scale >= 150) {
+        if (walkerImage) drawHero(ctx, sx(extra.me.x), sy(extra.me.y), extra.me);
+        else drawMe(ctx, sx(extra.me.x), sy(extra.me.y), extra.me.step, extra.me.facing);
+      }
       else {
         ctx.fillStyle = '#E8590C';
         ctx.strokeStyle = '#FFFFFF';
@@ -570,7 +598,46 @@ function shadeHex(hex, f) {
   return `rgb(${ch((n >> 16) & 255)},${ch((n >> 8) & 255)},${ch(n & 255)})`;
 }
 
-/** 나: 머리, 몸, 걷는 다리(step은 걸음 박자) */
+/**
+ * 나(아이를 닮은 주인공): 걷는 방향에 맞는 줄을 고르고, 걷는 동안 달리기 장면을 걸음 박자(step)에 맞춰 넘긴다.
+ * dance가 있으면 그 춤의 장면을 그린다(랜드마크 도착, 화면을 본다).
+ * @param {{heading?: number, moving?: boolean, step: number, dance?: {row: number, seconds: number}}} me
+ */
+function drawHero(ctx, x, y, me) {
+  if (me.dance && danceImage) {
+    const d = danceSheet;
+    const frames = d.dances[me.dance.row]?.frames ?? 1;
+    const f = Math.min(frames - 1, Math.floor(me.dance.seconds * d.fps));
+    const size = 84;
+    const k = size / d.cell;
+    ctx.fillStyle = 'rgba(0,0,0,0.22)';
+    ctx.beginPath();
+    ctx.ellipse(x, y + 1, 13, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.drawImage(danceImage, f * d.cell, me.dance.row * d.cell, d.cell, d.cell, x - d.anchor.x * k, y - d.anchor.y * k, size, size);
+    return;
+  }
+  const { cell, dirs, anchor, clips } = walker;
+  const turn = (((me.heading ?? Math.PI / 2) / (Math.PI * 2)) * dirs + dirs) % dirs;
+  const row = Math.round(turn) % dirs;
+  const clip = me.moving ? clips.run : clips.idle;
+  // 달리기 한 바퀴(장면 전부) = 걸음 박자 두 번(왼발·오른발)
+  const frame = clip.frames > 1 ? Math.floor((((me.step / (Math.PI * 4)) % 1) + 1) % 1 * clip.frames) : 0;
+  const size = 84;
+  const k = size / cell;
+  ctx.fillStyle = 'rgba(0,0,0,0.22)';
+  ctx.beginPath();
+  ctx.ellipse(x, y + 1, 13, 5, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.drawImage(walkerImage, (clip.col + frame) * cell, row * cell, cell, cell, x - anchor.x * k, y - anchor.y * k, size, size);
+  ctx.strokeStyle = '#E8590C';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(x, y + 2, 18, 0, Math.PI * 2);
+  ctx.stroke();
+}
+
+/** 나: 머리, 몸, 걷는 다리(step은 걸음 박자). 주인공 그림을 읽기 전에 쓴다 */
 function drawMe(ctx, x, y, step, facing) {
   const swing = Math.sin(step) * 5;
   ctx.fillStyle = 'rgba(0,0,0,0.2)';

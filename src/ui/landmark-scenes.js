@@ -6,6 +6,8 @@
 
 import { REAL_SCENES } from './landmark-scenes-real.js';
 import { PROPS, drawMood, drawSign, looksFor } from './landmark-props.js';
+import standUrl from '../content/hero/stand.webp';
+import stand from '../content/hero/stand.json';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -380,6 +382,21 @@ export function landmarkScene(kind, { reduceMotion = false, label = '', lm = nul
     drawMood(g, mood);
     drawSign(g, lm.name);
   }
+  // 도착한 주인공(아이를 닮은 3D 주인공을 구운 그림)이 장면 오른쪽 앞에 서 있다
+  if (lm) drawStandingHero(g);
   svg.append(g);
   return svg;
+}
+
+/** 장면 오른쪽 앞에 서 있는 주인공. 발끝을 바닥(y 308)에 맞추고 키를 118로 둔다. */
+function drawStandingHero(g) {
+  const { size, box } = stand;
+  const k = 118 / (box.bottom - box.top);
+  const w = size * k;
+  const footX = 500;
+  const footY = 308;
+  const x = footX - ((box.left + box.right) / 2) * k;
+  const y = footY - box.bottom * k;
+  g.append(el('ellipse', { cx: footX, cy: footY - 1, rx: 26, ry: 6, fill: '#1B2A22', opacity: 0.25 }));
+  g.append(el('image', { href: standUrl, x: x.toFixed(1), y: y.toFixed(1), width: w.toFixed(1), height: w.toFixed(1) }));
 }

@@ -19,3 +19,6 @@ data/raw/osm/roads.json
 data/raw/osm/roads-2.json
 # OpenStreetMap 동네 길 원본(조각마다 수 MB). 줄인 것은 data/build/roads.json에 둔다.
 data/raw/osm/paths-*.json
+
+# 주인공 3D 원본(아이를 닮은 모델, C:\joosan에서 복사, Mixamo FBX). 구운 그림만 src/content에 넣는다.
+assets/hero/

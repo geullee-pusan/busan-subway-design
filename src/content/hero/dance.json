@@ -1,0 +1,39 @@
+{
+  "_설명": "랜드마크에 도착했을 때 추는 춤 그림 묶음(dance.webp). 줄마다 춤 하나, 칸은 1/fps초씩. 화면을 보는 방향만 있다. anchor는 칸 안의 발 위치(px). 만든 곳: scripts/hero-bake.mjs",
+  "cell": 112,
+  "fps": 8,
+  "anchor": {
+    "x": 56,
+    "y": 92
+  },
+  "dances": [
+    {
+      "name": "hiphop",
+      "frames": 32
+    },
+    {
+      "name": "hiphop2",
+      "frames": 32
+    },
+    {
+      "name": "hiphop3",
+      "frames": 32
+    },
+    {
+      "name": "hiphop4",
+      "frames": 32
+    },
+    {
+      "name": "silly",
+      "frames": 31
+    },
+    {
+      "name": "silly2",
+      "frames": 32
+    },
+    {
+      "name": "chicken",
+      "frames": 32
+    }
+  ]
+}

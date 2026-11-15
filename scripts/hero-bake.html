@@ -1,0 +1,183 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>주인공 그림 굽기(개발용)</title>
+<!-- scripts/hero-bake.mjs가 Vite 서버로 이 페이지를 열어 쓴다. 게임에는 들어가지 않는다(구운 그림만 들어간다). -->
+<script type="module">
+import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+
+/** 뼈대 이름에서 "mixamorig" 앞붙이를 맞춘다(파일마다 콜론 유무가 다를 수 있다) */
+const boneKey = (name) => name.replace(/^mixamorig:?/, '');
+
+/**
+ * 동작을 기본 모델의 뼈대 이름에 맞추고, 엉덩이의 앞뒤·옆 움직임을 지워 제자리에서 움직이게 한다(위아래 출렁임은 남긴다).
+ * @param {THREE.AnimationClip} clip
+ * @param {Map<string, string>} names 뼈대 기본 이름 → 기본 모델의 뼈대 이름
+ */
+function fitClip(clip, names) {
+  const tracks = [];
+  for (const t of clip.tracks) {
+    const dot = t.name.lastIndexOf('.');
+    const node = t.name.slice(0, dot);
+    const prop = t.name.slice(dot + 1);
+    const target = names.get(boneKey(node));
+    if (!target || prop === 'scale') continue;
+    if (prop === 'position') {
+      if (boneKey(node) !== 'Hips') continue;
+      const v = t.values.slice();
+      for (let i = 0; i < v.length; i += 3) {
+        v[i] = v[0];
+        v[i + 2] = v[2];
+      }
+      tracks.push(new THREE.VectorKeyframeTrack(`${target}.position`, t.times, v));
+      continue;
+    }
+    tracks.push(new t.constructor(`${target}.${prop}`, t.times, t.values));
+  }
+  return new THREE.AnimationClip(clip.name, clip.duration, tracks);
+}
+
+window.bake = async ({ base, texture, clips, cell, dirs, elevation, dances, fps = 8, maxSec = 4, portrait }) => {
+  const loader = new FBXLoader();
+  const model = await loader.loadAsync(base);
+  let mesh = null;
+  model.traverse((o) => {
+    if (o.isSkinnedMesh && !mesh) mesh = o;
+  });
+  if (!mesh) throw new Error('뼈대 있는 메시가 없어요');
+  const names = new Map(mesh.skeleton.bones.map((b) => [boneKey(b.name), b.name]));
+  // 텍스처: FBX 안에 없으면 따로 준 그림을 입힌다
+  const img = await new Promise((ok, fail) => { const im = new Image(); im.onload = () => ok(im); im.onerror = fail; im.src = texture; });
+  const map = new THREE.Texture(img);
+  map.colorSpace = THREE.SRGBColorSpace;
+  map.flipY = true;
+  map.needsUpdate = true;
+  mesh.material = new THREE.MeshStandardMaterial({ map, roughness: 0.85, metalness: 0 });
+  mesh.frustumCulled = false;
+
+  const fitted = {};
+  for (const c of clips) {
+    const g = await loader.loadAsync(c.file);
+    fitted[c.name] = fitClip(g.animations[0], names);
+  }
+
+  // 키: 서 있을 때 모델 높이(바닥 기준으로 맞춘다)
+  model.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(model);
+  const height = box.max.y - box.min.y;
+  model.position.y -= box.min.y;
+  const holder = new THREE.Group();
+  holder.add(model);
+  const scene = new THREE.Scene();
+  scene.add(holder);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x8a7f70, 2.2));
+  const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+  sun.position.set(-1.5, 3, 2);
+  scene.add(sun);
+
+  // 비스듬히 내려다보는 직교 카메라. 화면 아래쪽이 남쪽(+z)이다.
+  const span = height * 1.25;
+  const camera = new THREE.OrthographicCamera(-span / 2, span / 2, span * 0.82, -span * 0.18, 0.01, 100);
+  const rad = (elevation * Math.PI) / 180;
+  camera.position.set(0, Math.sin(rad) * 10, Math.cos(rad) * 10);
+  camera.up.set(0, 1, 0);
+  camera.lookAt(0, 0, 0);
+  // 위로 들어 올린 카메라는 발밑(0,0,0)이 화면 가운데 높이에서 조금 아래에 온다. 그 자리를 그림 안의 발 위치로 알린다.
+  camera.updateMatrixWorld(true);
+  const foot = new THREE.Vector3(0, 0, 0).project(camera);
+  const anchor = { x: Math.round(((foot.x + 1) / 2) * cell), y: Math.round(((1 - foot.y) / 2) * cell) };
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(1);
+  renderer.setSize(cell, cell);
+  renderer.setClearColor(0x000000, 0);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  const cols = clips.reduce((n, c) => n + c.frames, 0);
+  const atlas = document.createElement('canvas');
+  atlas.width = cols * cell;
+  atlas.height = dirs * cell;
+  const ctx = atlas.getContext('2d');
+  const mixer = new THREE.AnimationMixer(model);
+  const layout = {};
+  let col = 0;
+  for (const c of clips) {
+    layout[c.name] = { col, frames: c.frames, duration: fitted[c.name].duration };
+    const action = mixer.clipAction(fitted[c.name]);
+    for (let f = 0; f < c.frames; f++) {
+      mixer.stopAllAction();
+      action.reset().play();
+      const t = c.frames === 1 ? (c.at ?? 0) : (f / c.frames) * fitted[c.name].duration;
+      mixer.setTime(t);
+      for (let d = 0; d < dirs; d++) {
+        // 방향 d: 화면에서 동쪽(오른쪽)부터 시계 방향으로 360/dirs도씩. 모델은 +z(화면 아래)를 보고 서 있다.
+        const a = (d / dirs) * Math.PI * 2;
+        holder.rotation.y = Math.atan2(Math.cos(a), Math.sin(a));
+        renderer.render(scene, camera);
+        ctx.drawImage(renderer.domElement, (col + f) * cell, d * cell);
+      }
+    }
+    col += c.frames;
+  }
+  // 춤(랜드마크에 도착했을 때): 화면을 보는 한 방향(남쪽)만, 춤마다 한 줄. 초당 fps장, 길면 앞의 maxSec초만.
+  let dance = null;
+  if (dances?.length) {
+    const fittedDances = [];
+    for (const d of dances) {
+      const g = await loader.loadAsync(d.file);
+      fittedDances.push({ name: d.name, clip: fitClip(g.animations[0], names) });
+    }
+    const counts = fittedDances.map((d) => Math.max(2, Math.round(Math.min(d.clip.duration, maxSec) * fps)));
+    const danceCols = Math.max(...counts);
+    const sheet = document.createElement('canvas');
+    sheet.width = danceCols * cell;
+    sheet.height = fittedDances.length * cell;
+    const dctx = sheet.getContext('2d');
+    holder.rotation.y = 0;
+    const rows = [];
+    fittedDances.forEach((d, row) => {
+      const action = mixer.clipAction(d.clip);
+      for (let f = 0; f < counts[row]; f++) {
+        mixer.stopAllAction();
+        action.reset().play();
+        mixer.setTime(f / fps);
+        renderer.render(scene, camera);
+        dctx.drawImage(renderer.domElement, f * cell, row * cell);
+      }
+      rows.push({ name: d.name, frames: counts[row] });
+    });
+    dance = { url: sheet.toDataURL('image/webp', 0.86), meta: { cell, fps, anchor, dances: rows } };
+  }
+  // 장면용 서 있는 그림(랜드마크 도착 장면): 거의 정면에서, 조금 비스듬히 선 모습 한 장. 바닥 바로 위까지 잘라 발이 그림 아래 끝에 온다.
+  let stand = null;
+  if (portrait) {
+    const size = portrait.size;
+    renderer.setSize(size, size);
+    const pspan = height * 1.08;
+    const pcam = new THREE.OrthographicCamera(-pspan / 2, pspan / 2, pspan / 2, -pspan / 2, 0.01, 100);
+    const prad = (portrait.elevation * Math.PI) / 180;
+    pcam.position.set(0, height * 0.5 + Math.sin(prad) * 10, Math.cos(prad) * 10);
+    pcam.lookAt(0, height * 0.5, 0);
+    pcam.updateProjectionMatrix();
+    // 서 있기 동작의 한 장면
+    mixer.stopAllAction();
+    const action = mixer.clipAction(fitted[portrait.clip]);
+    action.reset().play();
+    mixer.setTime(portrait.at ?? 0);
+    holder.rotation.y = (portrait.yaw * Math.PI) / 180;
+    renderer.render(scene, pcam);
+    const out = document.createElement('canvas');
+    out.width = size;
+    out.height = size;
+    out.getContext('2d').drawImage(renderer.domElement, 0, 0);
+    // 그림 안에서 사람이 차지하는 가로 범위와 발 위치(아래 끝)를 잰다
+    const px = out.getContext('2d').getImageData(0, 0, size, size).data;
+    let left = size, right = 0, top = size, bottom = 0;
+    for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (px[(y * size + x) * 4 + 3] > 40) {
+      left = Math.min(left, x); right = Math.max(right, x); top = Math.min(top, y); bottom = Math.max(bottom, y);
+    }
+    stand = { url: out.toDataURL('image/webp', 0.9), meta: { size, box: { left, right, top, bottom } } };
+  }
+  return { url: atlas.toDataURL('image/webp', 0.86), meta: { cell, dirs, cols, anchor, clips: layout }, dance, stand };
+};
+</script>

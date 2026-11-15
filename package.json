@@ -31,12 +31,14 @@
     "water-shapes": "node scripts/build-water-shapes.mjs",
     "landmarks": "node scripts/build-landmarks.mjs",
     "intercity": "node scripts/fetch-intercity.mjs",
-    "intercity-build": "node scripts/build-intercity.mjs"
+    "intercity-build": "node scripts/build-intercity.mjs",
+    "hero": "node scripts/hero-bake.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
   },
   "devDependencies": {
+    "three": "0.186.1",
     "vite": "8.3.0",
     "vite-plugin-singlefile": "2.3.3"
   }
