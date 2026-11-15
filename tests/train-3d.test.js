@@ -119,3 +119,14 @@ test('시각표의 모든 이웃 정차역 사이에 선로가 있다', () => {
   }
   assert.deepEqual([...new Set(missing)], []);
 });
+
+test('headOf와 extendForward는 tailOf, extendBack의 거꾸로다', async () => {
+  const { headOf, extendForward } = await import('../src/sim/train-3d-path.js');
+  const pts = [[0, 0], [1, 0], [3, 0]];
+  const h = headOf(pts, 1.5);
+  assert.deepEqual(h[0], [0, 0]);
+  assert.ok(Math.abs(h.at(-1)[0] - 1.5) < 1e-9);
+  const f = extendForward([[0, 0], [0, 2]], 0.5);
+  assert.deepEqual(f[0], [0, 2]);
+  assert.ok(Math.abs(f[1][1] - 2.5) < 1e-9 && Math.abs(f[1][0]) < 1e-9);
+});

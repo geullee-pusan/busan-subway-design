@@ -244,3 +244,13 @@ export function joinPoints(a, b) {
   const first = b[0];
   return Math.hypot(last[0] - first[0], last[1] - first[1]) < 1e-9 ? [...a, ...b.slice(1)] : [...a, ...b];
 }
+
+/** 선 모양의 처음에서 km만큼만 남긴다(다음 구간 선로의 앞부분을 이 구간 뒤에 붙일 때) */
+export function headOf(points, km) {
+  return tailOf([...points].reverse(), km).reverse();
+}
+
+/** 선 모양의 끝 방향을 따라 앞으로 km만큼 곧게 늘인 두 점 [끝 점, 늘인 끝] */
+export function extendForward(points, km) {
+  return extendBack([...points].reverse(), km).reverse();
+}

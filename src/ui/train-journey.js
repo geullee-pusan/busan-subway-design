@@ -230,7 +230,12 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
       to: trainDestination(d.t),
       note: d.t === train ? '내 기차' : '',
     }));
-    area.append(departureBoard(rows, { title: `출발 안내 · ${fromName}`, highlight: shown.findIndex((d) => d.t === train) }));
+    // 3D 대합실(역 건물 안, 아이 눈높이). 안 되면 아래 출발 안내판만 보인다.
+    const hall = element('div', 'tr-hall-view');
+    area.append(hall);
+    const highlight = shown.findIndex((d) => d.t === train);
+    hallView(hall, `출발 안내 · ${fromName}`, rows, highlight);
+    area.append(departureBoard(rows, { title: `출발 안내 · ${fromName}`, highlight }));
     const wait = Math.max(0, stopDep(from) - readyMinute);
     area.append(element('p', null, `${hhmm(stopDep(from))}에 떠나는 ${kind} ${train.no}번을 타요.`));
     area.append(element('p', null, wait > 0 ? `떠나기까지 ${durationText(wait * 60)} 남았어요.` : '곧 떠나요.'));
@@ -296,6 +301,28 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     }, reduceMotion ? 0 : 1200);
   }
 
+  /** 3D 대합실을 연다(승강장, 객실과 같은 3D를 쓴다). 안 되면 아무것도 넣지 않는다. */
+  async function hallView(holder, title, rows, highlight) {
+    const route = routeFor(fromIndex);
+    if (!route || !webglAvailable()) return;
+    holder.replaceChildren(element('p', 'tr-status', '3D 그림을 준비해요.'));
+    try {
+      const o = await create3d();
+      if (!holder.isConnected) return;
+      route3d = route;
+      progress3d = 0;
+      o.setRoute(route);
+      o.setConcourseBoard(title, rows, highlight);
+      o.setView('concourse');
+      // 아직 기차는 승강장에 없다(처음 떠나는 역이면 서 있다)
+      o.waitAtPlatform(fromIndex === 0 && train.fromOrigin === true);
+      holder.replaceChildren(o.el);
+    } catch (error) {
+      if (import.meta.env?.DEV) console.warn('3D 대합실을 만들지 못했어요', error);
+      holder.replaceChildren();
+    }
+  }
+
   /**
    * 승강장 그림: 3D가 되면 3D 승강장(아이 눈높이, 들어오는 기차, 열리는 문), 안 되면 그림.
    * @returns {Promise<{arrive: (ms: number) => Promise<void>, openDoors: () => void}>}
@@ -345,10 +372,13 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     const seg = segment(i);
     let route = null;
     if (seg.path?.points?.length >= 2) {
-      // 앞 정차역에서 오는 선로. 지도 안에 앞 정차역이 없고 처음 떠나는 역도 아니면 곧게 늘인다.
+      // 앞 정차역에서 오는 선로와 다음 정차역 뒤로 가는 선로를 붙인다(없으면 곧게 늘인다).
+      // 기차는 역 지점을 가운데로 서고, 그 앞뒤 승강장·선로가 그려진다.
       const prev = i > 0 ? segment(i - 1).path?.points : null;
-      const lead = prev?.length >= 2 ? prev : i === 0 && train.fromOrigin === true ? null : 'extend';
-      route = { points: seg.path.points, lead, speedAt: seg.speedAt, fromName: seg.A.name, toName: seg.B.name };
+      const next = i + 2 < train.stops.length ? segment(i + 1).path?.points : null;
+      const lead = prev?.length >= 2 ? prev : 'extend';
+      const trail = next?.length >= 2 ? next : 'extend';
+      route = { points: seg.path.points, lead, trail, speedAt: seg.speedAt, fromName: seg.A.name, toName: seg.B.name, fromId: seg.A.id, toId: seg.B.id };
     }
     routes.set(i, route);
     return route;

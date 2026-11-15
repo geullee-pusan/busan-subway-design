@@ -28,13 +28,16 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
-import { buildTrain, Parts } from './train-3d-cars.js';
+import { buildTrain } from './train-3d-cars.js';
+import { boxPoint, buildStation, stationData } from './train-3d-station.js';
+import { railStationById } from '../data.js';
+import { Parts } from './train-3d-cars.js';
 import { buildCabin } from './train-3d-cabin.js';
 import { buildHero } from './hero-model.js';
 import { INTERIOR } from './train-interior.js';
 import heroData from '../content/hero/hero3d.json';
 import heroTextureUrl from '../content/hero/hero3d.webp';
-import { cellNoise, distanceFraction, extendBack, groundAt, joinPoints, pointAt, routeProfile, tailOf, terrainAt } from '../sim/train-3d-path.js';
+import { cellNoise, distanceFraction, extendBack, extendForward, groundAt, headOf, joinPoints, pointAt, routeProfile, tailOf, terrainAt } from '../sim/train-3d-path.js';
 
 /** 높이를 부풀리는 배수(1km 칸 높이는 산을 낮게 만든다) */
 const EX = 2.5;
@@ -50,9 +53,10 @@ const RAIL_TOP = 0.47;
 const WIRE_M = 5.3;
 /** 이 구간 앞에 붙이는 앞 구간 선로(km): 역에 들어오는 기차가 달려올 길 */
 const LEAD_KM = 1.2;
-/** 승강장 높이(선로 높이에서, 미터)와 승강장 가운데가 기차 선로에서 떨어진 거리(미터) */
+/** 이 구간 뒤에 붙이는 다음 구간 선로(km): 다음 역에서 기차 앞쪽 절반이 설 자리 */
+const TRAIL_KM = 0.6;
+/** 승강장 높이(선로 높이에서, 미터) */
 const PLATFORM_TOP = 1.1;
-const PLATFORM_OFF = 4.4;
 /** 승강장에서 보는 아이 눈높이(승강장 바닥에서, 미터) */
 const PLATFORM_EYE = 1.1;
 /** 들어오는 기차: 카메라 너머 이만큼(km) 뒤에서 나타나, 이 빠르기(m/s)로 달려오다 마지막 BRAKE_M에서 브레이크를 건다 */
@@ -135,7 +139,7 @@ function ribbonGeometry(profile, toWorld, { lateral = 0, half = 1, dy = 0, keep 
 }
 
 /** 터널 둥근 지붕(반원 관) */
-function tunnelGeometry(profile, toWorld, radius = 6.5, segs = 8) {
+function tunnelGeometry(profile, toWorld, radius = 6.5, segs = 8, skip = () => false) {
   const n = profile.s.length;
   const pos = [];
   const index = [];
@@ -154,7 +158,7 @@ function tunnelGeometry(profile, toWorld, radius = 6.5, segs = 8) {
       const side = Math.cos(ang) * radius;
       pos.push(wx + dz * side, wy + Math.sin(ang) * radius, wz - dx * side);
     }
-    if (i > 0 && profile.tunnel[i - 1] && profile.tunnel[i]) {
+    if (i > 0 && profile.tunnel[i - 1] && profile.tunnel[i] && !skip(i)) {
       for (let k = 0; k < segs; k++) {
         const p = (i - 1) * ring + k;
         index.push(p, p + ring, p + 1, p + 1, p + ring, p + ring + 1);
@@ -181,24 +185,126 @@ function arrivalDistance(distM, sec) {
   return Math.min(distM, distM - brake + vb * t - (decel * t * t) / 2);
 }
 
-/** 승강장 이름판(흰 바탕에 역 이름, 아래 꾸밈 띠) */
-function boardTexture(text, accent) {
-  const canvas = document.createElement('canvas');
-  canvas.width = 512;
-  canvas.height = 128;
+
+/** 대합실 출발 안내판(어두운 판에 줄마다 시각, 열차, 번호, 가는 곳) */
+function drawDepartureBoard(canvas, title, rows, highlight) {
   const g = canvas.getContext('2d');
-  g.fillStyle = '#ffffff';
-  g.fillRect(0, 0, 512, 128);
-  g.fillStyle = accent;
-  g.fillRect(0, 104, 512, 24);
-  g.fillStyle = '#1f2a36';
-  g.font = 'bold 72px sans-serif';
-  g.textAlign = 'center';
+  const W = canvas.width;
+  const H = canvas.height;
+  g.fillStyle = '#101317';
+  g.fillRect(0, 0, W, H);
+  g.fillStyle = '#ffb347';
+  g.font = 'bold 38px sans-serif';
   g.textBaseline = 'middle';
-  g.fillText(text, 256, 54, 480);
+  g.fillText(title, 24, 34);
+  const rowH = (H - 70) / 6;
+  rows.slice(0, 6).forEach((r, i) => {
+    const y = 70 + rowH * i + rowH / 2;
+    if (i === highlight) {
+      g.fillStyle = '#2f4a2a';
+      g.fillRect(8, y - rowH / 2 + 3, W - 16, rowH - 6);
+    }
+    g.fillStyle = i === highlight ? '#c8ff9c' : '#ffd27a';
+    g.font = 'bold 34px sans-serif';
+    g.fillText(r.time, 24, y);
+    g.fillText(r.kind, 150, y, 260);
+    g.fillText(String(r.no), 430, y);
+    g.fillText(r.to, 560, y, 280);
+    if (r.note) g.fillText(r.note, 860, y, 150);
+  });
+}
+
+/**
+ * 대합실 안(역 건물 안쪽): 바닥, 천장 등, 기둥, 개찰구, 출발 안내판, 의자, 승차권 발매기.
+ * @param {{o: object, base: number, top: number, vSide: number}} hall 역 건물(둘러싼 직사각형)
+ * @returns {{group: Group, eye: Vector3, look: Vector3, hero: Vector3, heroYaw: number, board: HTMLCanvasElement, texture: CanvasTexture, dispose: () => void}}
+ */
+function buildConcourse(hall, materials, accent) {
+  const { o, base, top, vSide } = hall;
+  const parts = new Parts();
+  const glow = new Parts();
+  const floor = base + 0.08;
+  const ceil = Math.min(top - 0.4, floor + 7.5);
+  // 대합실 방: 출입구 쪽 벽에 붙여 둔다(건물이 아주 넓으면 그 한쪽만 방으로 쓰고 안쪽 벽으로 막는다)
+  const A = Math.max(6, Math.min(28, o.A - 1));
+  const B = Math.max(4, Math.min(10, o.B - 1));
+  const roomCenter = vSide * (o.B - 1 - B);
+  /** 방 안의 점(u: 긴 축, v: 방 가운데에서 출입구 쪽이 +vSide) */
+  const at = (u, v) => boxPoint(o, u, roomCenter + v);
+  const yaw = Math.atan2(-o.uz, o.ux);
+  const put = (u, v, y0, y1, l, w, color, into = parts) => {
+    const [x, z] = at(u, v);
+    const g = new BoxGeometry(l, y1 - y0, w);
+    g.rotateY(yaw);
+    g.translate(x, (y0 + y1) / 2, z);
+    into.add(g, color);
+  };
+  put(0, 0, floor - 0.1, floor, A * 2, B * 2, '#cfd3d6'); // 바닥(반들반들한 돌)
+  for (let u = -A + 2; u < A - 1; u += 4) put(u, 0, floor + 0.001, floor + 0.004, 0.06, B * 2, '#bfc4c8'); // 바닥 줄눈
+  put(0, 0, ceil, ceil + 0.15, A * 2, B * 2, '#eef0f1'); // 천장
+  // 안쪽 벽(건물 벽이 아닌 쪽)
+  if (o.B - 1 - B > 0.5) put(0, -vSide * B, floor, ceil, A * 2, 0.25, '#e8e5de');
+  if (o.A - 1 - A > 0.5) for (const su of [-A, A]) put(su, 0, floor, ceil, 0.25, B * 2, '#e8e5de');
+  for (let u = -A + 2; u < A - 1; u += 4) for (let v = -B + 2; v < B - 1; v += 4) put(u, v, ceil - 0.03, ceil, 1.6, 0.4, '#ffffff', glow);
+  for (let u = -A + 4.5; u < A - 3; u += 9) for (const v of [-B * 0.45, B * 0.45]) put(u, v, floor, ceil, 0.7, 0.7, '#e2e4e6'); // 기둥
+  // 개찰구: 선로 쪽 벽 앞
+  const gv = -vSide * (B - 3.2);
+  const gates = Math.max(4, Math.min(10, Math.floor(A * 0.6)));
+  for (let k = 0; k <= gates; k++) {
+    const u = (k - gates / 2) * 1.3;
+    put(u, gv, floor, floor + 1.05, 0.28, 1.3, '#cfd4d8');
+    put(u, gv - vSide * 0.66, floor + 0.85, floor + 1.06, 0.3, 0.02, '#2d8a4e');
+    if (k < gates) put(u + 0.65, gv, floor + 0.55, floor + 0.95, 0.5, 0.03, '#9fc3dd');
+  }
+  put(-gates * 0.65 - 1.6, gv, floor, floor + 1.05, 2.6, 1.3, '#cfd4d8');
+  put(gates * 0.65 + 1.6, gv, floor, floor + 1.05, 2.6, 1.3, '#cfd4d8');
+  // 출발 안내판(개찰구 위)
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 380;
   const texture = new CanvasTexture(canvas);
   texture.colorSpace = SRGBColorSpace;
-  return texture;
+  const boardMat = new MeshBasicMaterial({ map: texture });
+  const boardGeo = new PlaneGeometry(8, 3);
+  const board = new Mesh(boardGeo, boardMat);
+  const bp = at(0, gv - vSide * 0.4);
+  board.position.set(bp[0], floor + 3.7, bp[1]);
+  board.rotation.y = yaw + (vSide > 0 ? 0 : Math.PI); // 출입구 쪽을 본다
+  put(0, gv - vSide * 0.5, floor + 2.1, floor + 5.3, 8.4, 0.15, '#2a2d31');
+  // 의자: 출입구 쪽, 파란 의자 줄
+  if (B > 6) {
+    for (const v of [vSide * (B * 0.25), vSide * (B * 0.25 + 1.6)]) {
+      for (let u = -A * 0.5; u < A * 0.5 - 1; u += 0.62) {
+        if (Math.abs(u) < 2.2) continue; // 가운데 길
+        put(u, v, floor + 0.42, floor + 0.48, 0.5, 0.5, '#2f5fa8');
+        put(u, v + vSide * 0.23, floor + 0.48, floor + 0.95, 0.5, 0.06, '#2f5fa8');
+      }
+      put(0, v, floor, floor + 0.42, A - 1, 0.35, '#5d6670');
+    }
+  }
+  // 승차권 발매기: 한쪽 벽
+  for (let k = 0; k < 3; k++) put(-A + 0.6, -vSide * (B * 0.2) + k * 1.1 * vSide, floor, floor + 1.7, 0.7, 0.9, k % 2 ? '#3a6fb2' : '#2f5fa8');
+  // 위쪽 이름 띠(역 꾸밈 색)
+  put(0, gv - vSide * 0.45, floor + 5.6, floor + 5.9, A * 1.6, 0.1, accent);
+  const group = new Group();
+  group.add(new Mesh(parts.geometry(), materials.car), new Mesh(glow.geometry(), materials.glowV), board);
+  const e = at(0, vSide * (B - 2.2));
+  const l = at(0, gv);
+  const h = at(0.7, vSide * (B - 5.6));
+  return {
+    group,
+    eye: new Vector3(e[0], floor + 1.1, e[1]),
+    look: new Vector3(l[0], floor + 3.1, l[1]),
+    hero: new Vector3(h[0], floor, h[1]),
+    heroYaw: Math.atan2(-o.uz * vSide, o.ux * vSide), // 출입구 쪽(카메라)을 본다
+    canvas,
+    texture,
+    dispose() {
+      boardGeo.dispose();
+      boardMat.dispose();
+      texture.dispose();
+    },
+  };
 }
 
 /**
@@ -224,7 +330,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   tunnelNote.hidden = true;
   overlay.append(displayBox, tunnelNote);
   el.append(overlay);
-  el.append(element('div', 'tr3d-credit', '선로 모양 © OpenStreetMap contributors'));
+  el.append(element('div', 'tr3d-credit', '선로·역 모양 © OpenStreetMap contributors'));
 
   const renderer = new WebGLRenderer({ canvas, antialias: true, powerPreference: 'low-power' });
   renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio || 1));
@@ -252,6 +358,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     tail: new MeshBasicMaterial({ color: 0xe0302a }),
     car: new MeshLambertMaterial({ vertexColors: true }),
     glowV: new MeshBasicMaterial({ vertexColors: true }),
+    carDouble: new MeshLambertMaterial({ vertexColors: true, side: DoubleSide }),
   };
 
   // 기차: 칸 수만큼(많아도 20칸). 칸 크기와 칠은 train-3d-cars.js
@@ -304,6 +411,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     heroAction = idle;
     heroDone('stand');
   });
+  /** 지금 기차가 선(또는 설) 역의 승강장 */
+  const stopHere = () => (Math.abs(front - startKm) <= Math.abs(front - endStopKm) ? stops.from : stops.to);
   /** 기차가 서 있을 때 탈 칸 뒤쪽 문의 자리(km) */
   const boardingDoorKm = () => startKm - carOffsets[cabinIndex] - (cabinCar.length - 1.4) / 1000;
   /** 들어오는 기차의 처음 머리 자리(km): 카메라(탈 문 옆) 너머에서 나타난다 */
@@ -318,6 +427,25 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   let origin = [0, 0];
   let frac = (t) => t;
   let startKm = 0;
+  let endStopKm = 0; // 다음 역에 섰을 때 기차 머리 자리
+  let segStartKm = 0; // 이 구간 첫 역 지점
+  let segEndKm = 0; // 다음 역 지점
+  /** 서는 승강장: from(이 역), to(다음 역). side 1 = 가는 쪽 왼편 */
+  let stops = { from: { side: 1, edge: 2.15, width: 4.5 }, to: { side: 1, edge: 2.15, width: 4.5 } };
+  const facadeMaterials = new Map(); // 역 건물 외벽 재질(무늬마다 하나, 구간이 바뀌어도 함께 쓴다)
+  let hallFrom = null; // 이 역 건물(대합실 자리)
+  let lastDebug = null; // 개발할 때만: 역 맞추기 숫자
+  let overTops = { from: [0, 0], to: [0, 0] }; // 선상역사 높이와 왼편 너비(밖에서 보기 역 장면 카메라)
+  let concourse = null; // 대합실 안(buildConcourse)
+  let boardRows = { title: '', rows: [], highlight: -1 };
+  const ensureConcourse = () => {
+    if (concourse || !hallFrom || !world) return concourse;
+    concourse = buildConcourse(hallFrom, materials, look.accent);
+    world.add(concourse.group);
+    drawDepartureBoard(concourse.canvas, boardRows.title, boardRows.rows, boardRows.highlight);
+    concourse.texture.needsUpdate = true;
+    return concourse;
+  };
   let front = 0;
   let mode = 'side'; // 처음에는 옆에서 본다(긴 기차가 한눈에 보인다)
   let outsideMode = 'side'; // 객실에 들어갔다 나오면 돌아갈 밖 보기
@@ -349,10 +477,36 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   }
 
   /** 한 구간의 땅과 선로를 짓는다 */
-  function buildWorld(points, fromName, toName, leadKm = 0) {
-    disposeWorld();
+  function buildWorld(points, route, leadKm, segKm) {
+    const { fromName, toName, fromId = null, toId = null } = route;
+    segStartKm = leadKm;
+    segEndKm = leadKm + segKm;
     // 고속선은 산을 터널로 곧게 뚫고 가서 오르내림이 더 적다
     profile = routeProfile(grid, points, { smoothKm: highSpeed ? 4 : 2, tunnelM: 20 });
+    // 실제 역 자리(선로 길은 역에서 수백 m 떨어진 꼭짓점에서 시작할 수 있다): 선로 위에서 역과 가장 가까운 점
+    const stationKm = (id, k0) => {
+      const g = stationData(id)?.origin ?? (railStationById.get(id) ? [railStationById.get(id).x, railStationById.get(id).y] : null);
+      if (!g) return k0;
+      let best = k0;
+      let bd = Infinity;
+      for (let i = 0; i < profile.s.length; i++) {
+        if (Math.abs(profile.s[i] - k0) > 1.1) continue;
+        const d = Math.hypot(profile.x[i] - g[0], profile.y[i] - g[1]);
+        if (d < bd) {
+          bd = d;
+          best = profile.s[i];
+        }
+      }
+      return best;
+    };
+    const fromK = stationKm(fromId, segStartKm);
+    const toK = Math.min(stationKm(toId, segEndKm), profile.lengthKm - 0.25);
+    // 역 안 선로 자료가 있는 역 둘레에서는 기본 두 번째 선로를 숨기고 실제 선로를 그린다(train-3d-station.js)
+    const yardFrom = (stationData(fromId)?.tracks?.length ?? 0) >= 2;
+    const yardTo = (stationData(toId)?.tracks?.length ?? 0) >= 2;
+    const inYard = (k) => (yardFrom && Math.abs(k - fromK) < 0.35) || (yardTo && Math.abs(k - toK) < 0.35);
+    const inStation = (k) => Math.abs(k - fromK) < trainLenKm / 2 + 0.08 || Math.abs(k - toK) < trainLenKm / 2 + 0.08;
+    disposeWorld();
     world = new Group();
     const xs = profile.x;
     const ys = profile.y;
@@ -463,12 +617,16 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     const notTunnelEnd = () => true;
     world.add(new Mesh(ribbonGeometry(profile, toWorld, { half: 6, dy: -0.4, keep: notTunnelEnd }), mat(0x9a948a)));
     for (const side of [TRACK_SIDE, -TRACK_SIDE]) {
-      world.add(new Mesh(ribbonGeometry(profile, toWorld, { lateral: side, half: 1.6, dy: 0.15 }), mat(0x857c70)));
-      for (const r of [0.72, -0.72]) world.add(new Mesh(ribbonGeometry(profile, toWorld, { lateral: side + r, half: 0.1, dy: 0.45 }), mat(0x55504a)));
+      const keep = side > 0 ? () => true : (i) => !inYard(profile.s[i]);
+      world.add(new Mesh(ribbonGeometry(profile, toWorld, { lateral: side, half: 1.6, dy: 0.15, keep }), mat(0x857c70)));
+      for (const r of [0.72, -0.72]) world.add(new Mesh(ribbonGeometry(profile, toWorld, { lateral: side + r, half: 0.1, dy: 0.45, keep }), mat(0x55504a)));
     }
     // 터널: 둥근 벽과 50m마다 등
     if (profile.tunnel.some(Boolean)) {
-      world.add(new Mesh(tunnelGeometry(profile, toWorld), new MeshLambertMaterial({ color: 0x77726a, emissive: 0x2c2a26, side: DoubleSide })));
+      // 지하역 안(큰 방)에는 둥근 터널 벽을 그리지 않는다
+      const undergroundAt = (k) => pointAt(profile, k).tunnel;
+      const skipArch = (i) => (undergroundAt(fromK) && Math.abs(profile.s[i] - fromK) < trainLenKm / 2 + 0.03) || (undergroundAt(toK) && Math.abs(profile.s[i] - toK) < trainLenKm / 2 + 0.03);
+      world.add(new Mesh(tunnelGeometry(profile, toWorld, 6.5, 8, skipArch), new MeshLambertMaterial({ color: 0x77726a, emissive: 0x2c2a26, side: DoubleSide })));
       const spots = [];
       for (let i = 0; i < profile.s.length; i++) if (profile.tunnel[i] && spots.length < 4000) spots.push(i);
       const lamps = new InstancedMesh(new BoxGeometry(1.2, 0.25, 0.5), new MeshBasicMaterial({ color: 0xffd27a }), spots.length * 2);
@@ -515,16 +673,19 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
         const p = pointAt(profile, profile.s[i]);
         const [wx, wy, wz] = toWorld(p.x, p.y, p.h);
         const yaw = Math.atan2(-p.dy, p.dx);
+        // 역(승강장) 안에는 기둥을 세우지 않는다(승강장 위에 서지 않게)
+        const shown = inStation(profile.s[i]) ? 0 : 1;
         for (const [m, side] of [[0, 6.3], [1, -6.3]]) {
           dummy.position.set(wx + p.dy * side, wy + 3.75, wz - p.dx * side);
           dummy.rotation.set(0, yaw, 0);
-          dummy.scale.set(1, 1, 1);
+          dummy.scale.set(shown, shown, shown);
           dummy.updateMatrix();
           poles.setMatrixAt(j * 2 + m, dummy.matrix);
         }
         dummy.position.set(wx, wy + 7.2, wz);
         dummy.updateMatrix();
         arms.setMatrixAt(j, dummy.matrix);
+        dummy.scale.set(1, 1, 1);
       });
       world.add(poles, arms);
       // 전차선(팬터그래프가 닿는 줄)과 그 위 조가선: 기둥 사이를 선로마다 잇는다
@@ -538,6 +699,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
         const p0 = pointAt(profile, profile.s[i0]);
         const p1 = pointAt(profile, profile.s[i1]);
         for (const side of [TRACK_SIDE, -TRACK_SIDE]) {
+          if (side < 0 && inYard(profile.s[i0])) continue;
           const [x0, y0, z0] = toWorld(p0.x, p0.y, p0.h);
           const [x1, y1, z1] = toWorld(p1.x, p1.y, p1.h);
           const a = [x0 + p0.dy * side, z0 - p0.dx * side];
@@ -624,128 +786,19 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
       world.add(mesh);
     }
 
-    // 역: 앞 역과 다음 역에 승강장, 지붕, 역 건물, 이름판
-    const platformKm = trainLenKm + 0.03;
-    // 앞 구간 선로(leadKm)가 붙어 있으면 기차 머리가 역 지점(이 구간의 시작)에 선다(앞 구간 끝에 섰을 때와 같은 자리).
-    // 붙어 있지 않으면(처음 떠나는 역) 기차가 구간 시작에서 앞으로 서 있다.
-    startKm = leadKm > 0 ? leadKm : Math.min(trainLenKm + 0.01, profile.lengthKm * 0.3);
-    const station = (centerKm, name) => {
-      // 승강장은 10m 조각으로 선로를 따라 짓는다(선로가 오르내리거나 굽어도 승강장이 선로 옆에 붙어 있게)
-      const half = platformKm / 2;
-      const k0 = Math.max(0, centerKm - half);
-      const k1 = Math.min(profile.lengthKm + half, centerKm + half);
-      const parts = new Parts();
-      const glow = new Parts();
-      const T = PLATFORM_TOP;
-      /** 선로 가운데에서 옆으로 lateral(미터, + = 가는 쪽 왼편) 떨어진 곳 */
-      const at = (km, lateral) => {
-        const p = pointAt(profile, km);
-        const [wx, wy, wz] = toWorld(p.x, p.y, p.h);
-        return { x: wx + p.dy * lateral, y: wy, z: wz - p.dx * lateral, yaw: Math.atan2(-p.dy, p.dx) };
-      };
-      /** km a~b 사이를 잇는 상자(선로 방향으로 길다) */
-      const piece = (ka, kb, lateral, lift, h, w, color, into = parts) => {
-        const a = at(ka, lateral);
-        const b = at(kb, lateral);
-        const len = Math.hypot(b.x - a.x, b.z - a.z);
-        const g = new BoxGeometry(len + 0.06, h, w);
-        g.rotateY(Math.atan2(-(b.z - a.z), b.x - a.x));
-        g.translate((a.x + b.x) / 2, (a.y + b.y) / 2 + lift, (a.z + b.z) / 2);
-        into.add(g, color);
-      };
-      /** km 지점에 서 있는 상자(선로 방향으로 l, 옆으로 w) */
-      const post = (km, lateral, lift, l, h, w, color, into = parts) => {
-        const c = at(km, lateral);
-        const g = new BoxGeometry(l, h, w);
-        g.rotateY(c.yaw);
-        g.translate(c.x, c.y + lift, c.z);
-        into.add(g, color);
-      };
-      const STEP_KM = 0.01;
-      const roofHalf = half * 0.96;
-      for (const side of [1, -1]) {
-        const mid = side * (TRACK_SIDE + PLATFORM_OFF);
-        const edge = side * (TRACK_SIDE + PLATFORM_OFF - 2.25); // 선로 쪽 끝
-        for (let k = k0; k < k1 - 1e-6; k += STEP_KM) {
-          const kb = Math.min(k1, k + STEP_KM);
-          piece(k, kb, mid, (T - 2) / 2, T + 2, 4.5, '#c9c4ba'); // 바닥(아래로 2m 더: 다리 위에서도 떠 보이지 않게)
-          piece(k, kb, edge + side * 0.08, T + 0.01, 0.02, 0.16, '#f4f4f0'); // 끝 흰 줄
-          piece(k, kb, edge + side * 0.85, T + 0.015, 0.03, 0.32, '#f2c230'); // 노란 점자 블록(안전선)
-          if (Math.abs((k + kb) / 2 - centerKm) < roofHalf) {
-            piece(k, kb, mid, 4.9, 0.35, 5.6, '#7b8794');
-            piece(k, kb, mid, 4.7, 0.12, 5.9, '#9aa4ae');
-          }
-        }
-        // 점자 블록 돌기 줄(0.6m마다)
-        for (let k = k0; k < k1; k += 0.0006) post(k, edge + side * 0.85, T + 0.018, 0.05, 0.035, 0.32, '#d9a91c');
-        // 기둥과 등(12m마다), 의자(24m마다)
-        for (let k = centerKm - roofHalf + 0.004; k < centerKm + roofHalf; k += 0.012) {
-          post(k, mid + side * 0.9, (T + 4.7) / 2, 0.32, 4.7 - T, 0.32, '#5d6670');
-          post(k + 0.006, mid, 4.62, 1.2, 0.06, 0.18, '#fffbe8', glow);
-        }
-        for (let k = centerKm - roofHalf + 0.01; k < centerKm + roofHalf - 0.004; k += 0.024) {
-          post(k, mid + side * 1.7, T + 0.45, 1.8, 0.07, 0.45, '#3f6fb3');
-          post(k, mid + side * 1.95, T + 0.7, 1.8, 0.45, 0.06, '#3f6fb3');
-          post(k, mid + side * 1.7, T + 0.22, 1.5, 0.45, 0.35, '#4b4f55');
-        }
-      }
-      // 선로를 건너는 다리와 승강장마다 계단 건물(다리 밑은 전차선보다 높다)
-      const BRIDGE_LOW = 8;
-      const BRIDGE_HIGH = 11;
-      const houseZ = TRACK_SIDE + 30; // 역 건물 가운데(가는 쪽 오른편)
-      const near = TRACK_SIDE + PLATFORM_OFF; // 우리 승강장(왼편) 가운데
-      post(centerKm, (near - houseZ) / 2, (BRIDGE_LOW + BRIDGE_HIGH) / 2, 7, BRIDGE_HIGH - BRIDGE_LOW, near + houseZ, '#d6d3cc');
-      post(centerKm, (near - houseZ) / 2, (BRIDGE_LOW + BRIDGE_HIGH) / 2 + 0.3, 7.1, 1.1, near + houseZ - 1, '#2c3a4a'); // 유리 띠
-      post(centerKm, (near - houseZ) / 2, BRIDGE_HIGH + 0.2, 7.6, 0.4, near + houseZ + 0.5, look.accent);
-      for (const side of [1, -1]) {
-        const zc = side * (TRACK_SIDE + PLATFORM_OFF) + side * 0.6;
-        post(centerKm, zc, (T + BRIDGE_LOW) / 2, 4.2, BRIDGE_LOW - T, 2.6, '#cfcac0');
-        post(centerKm + 0.0021, zc, T + 1.1, 0.05, 2.2, 1.4, '#2a2d31'); // 계단 입구
-      }
-      // 역 건물은 가는 쪽 오른편 땅 위에 선다(선로가 높은 다리 위에 있어도). 건너는 다리와 이어질 만큼 높다.
-      const p = pointAt(profile, centerKm);
-      const [wx, wy, wz] = toWorld(p.x, p.y, p.h);
-      const g = new Group();
-      g.position.set(wx, wy, wz);
-      g.rotation.y = Math.atan2(-p.dy, p.dx);
-      const off = houseZ / 1000;
-      const base = Math.min(0, meshHeight(p.x - p.dy * off, p.y + p.dx * off) - wy);
-      const tall = Math.max(10, BRIDGE_HIGH + 1.5 - base);
-      const house = new Parts();
-      house.box(48, tall, 16, 0, base + tall / 2, houseZ, '#e8e2d4');
-      house.box(48.2, 2.2, 16.2, 0, base + tall - 4, houseZ, '#2c3a4a'); // 유리 띠
-      house.box(50, 0.8, 17, 0, base + tall + 0.4, houseZ, look.accent);
-      house.box(14, 0.4, 4, 0, base + 3.6, houseZ + 9.5, '#7b8794'); // 앞 출입구 차양
-      house.box(10, 3.2, 0.2, 0, base + 1.6, houseZ + 8.05, '#2c3a4a'); // 출입문
-      g.add(new Mesh(house.geometry(), materials.car));
-      world.add(g, new Mesh(parts.geometry(), materials.car), new Mesh(glow.geometry(), materials.glowV));
-      // 승강장 역 이름판(선로 쪽을 본다): 지붕 아래에 40m마다
-      const boardTex = boardTexture(name, look.accent);
-      // 앞뒤 두 장(한 장을 양면으로 쓰면 뒤에서 글자가 거울처럼 뒤집힌다)
-      const boardMat = new MeshBasicMaterial({ map: boardTex });
-      const boardGeo = new PlaneGeometry(3.6, 0.9);
-      for (const side of [1, -1]) {
-        for (let k = centerKm - roofHalf + 0.02; k < centerKm + roofHalf; k += 0.04) {
-          const c = at(k, side * (TRACK_SIDE + PLATFORM_OFF - 1.4));
-          for (const turn of [0, Math.PI]) {
-            const b = new Mesh(boardGeo, boardMat);
-            b.position.set(c.x, c.y + 3.75, c.z);
-            b.rotation.y = c.yaw + turn;
-            world.add(b);
-          }
-        }
-      }
-      // 역 건물 이름판: 선로 쪽 벽과 앞 출입구 쪽 벽
-      const facadeGeo = new PlaneGeometry(14, 3.5);
-      for (const [z, turn] of [[houseZ - 8.06, Math.PI], [houseZ + 8.06, 0]]) {
-        const f = new Mesh(facadeGeo, boardMat);
-        f.position.set(0, base + tall - 1.3, z);
-        f.rotation.y = turn;
-        g.add(f);
-      }
-    };
-    station(startKm - trainLenKm / 2, fromName);
-    station(profile.lengthKm - trainLenKm / 2, toName);
+    // 역: 앞 역과 다음 역(역 지점을 가운데로 기차가 선다). 실제 역사·승강장 자료가 있으면 그대로(train-3d-station.js)
+    const stationCtx = { profile, toWorld, origin, meshHeight, look, materials, trainLenKm, TRACK_SIDE, PLATFORM_TOP, textures: facadeMaterials };
+    const fromStation = buildStation({ ...stationCtx, id: fromId, name: fromName, centerKm: segStartKm, secondTrackHidden: yardFrom });
+    const toStation = buildStation({ ...stationCtx, id: toId, name: toName, centerKm: segEndKm, secondTrackHidden: yardTo });
+    world.add(fromStation.group, toStation.group);
+    // 기차 가운데가 서는 승강장 가운데에 오게(실제 승강장이 역 지점에서 앞뒤로 떨어져 있을 수 있다)
+    startKm = segStartKm + fromStation.stopShiftKm + trainLenKm / 2;
+    endStopKm = segEndKm + toStation.stopShiftKm + trainLenKm / 2;
+    stops = { from: fromStation.stop, to: toStation.stop };
+    overTops = { from: [fromStation.overTop, fromStation.overSpan], to: [toStation.overTop, toStation.overSpan] };
+    lastDebug = { from: fromStation.debug, to: toStation.debug };
+    hallFrom = fromStation.hall;
+    concourse = null; // 대합실은 처음 볼 때 짓는다
 
     scene.add(world);
     snap = true;
@@ -785,12 +838,18 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
       const at = trackPoint(front - 0.017);
       const run = { pos: trackPoint(front - 0.017, 5, 30).v, look: at.v.clone().setY(at.v.y + 2.5) };
       // 역에 서 있거나 가까우면 조금 물러나 높이 올라가서 승강장 지붕, 건너는 다리, 역 건물까지 보이게
-      const fromStop = Math.min(Math.abs(front - startKm), Math.abs(profile.lengthKm - front));
+      const fromStop = Math.min(Math.abs(front - startKm), Math.abs(endStopKm - front));
       const w = Math.max(0, 1 - fromStop / 0.25);
       if (w <= 0) return run;
-      const stopCenter = (Math.abs(front - startKm) < Math.abs(profile.lengthKm - front) ? startKm : profile.lengthKm) - trainLenKm / 2;
-      // 역 가운데(건너는 다리) 조금 앞에서 비스듬히 뒤를 본다
-      const shot = { pos: trackPoint(stopCenter + 0.045, 9, 34).v, look: trackPoint(stopCenter - 0.01, 4.5, -8).v };
+      const atFrom = Math.abs(front - startKm) < Math.abs(endStopKm - front);
+      const stopCenter = (atFrom ? startKm : endStopKm) - trainLenKm / 2;
+      // 역 가운데 조금 앞에서 비스듬히 뒤를 본다. 선로 위에 걸친 역사가 있으면 그보다 높이.
+      const [over, span] = atFrom ? overTops.from : overTops.to;
+      // 선상역사가 있으면 건물 옆 바깥에서 건물 높이쯤으로 선로를 본다(선로 위 유리 띠와 그 아래 기차)
+      const shot =
+        over > 0
+          ? { pos: trackPoint(stopCenter + 0.06, over * 0.75, Math.max(36, span + 28)).v, look: trackPoint(stopCenter - 0.01, over * 0.45, 0).v }
+          : { pos: trackPoint(stopCenter + 0.05, 9, 36).v, look: trackPoint(stopCenter - 0.01, 4.5, -8).v };
       return { pos: run.pos.lerp(shot.pos, w), look: run.look.lerp(shot.look, w) };
     }
     if (mode === 'sky') return { pos: trackPoint(front - 0.4, 280, 90).v, look: trackPoint(front + 0.1).v };
@@ -831,7 +890,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     if (doorAmount !== doorTarget) {
       const stepAmt = reduceMotion ? 1 : dt / 0.9;
       doorAmount = doorTarget > doorAmount ? Math.min(doorTarget, doorAmount + stepAmt) : Math.max(doorTarget, doorAmount - stepAmt);
-      train.setDoors(doorAmount, -1);
+      train.setDoors(doorAmount, -stopHere().side);
     }
     placeTrain();
     const inTunnel = !tunnelNote.hidden;
@@ -843,19 +902,35 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
       scene.background.setHex(dark ? TUNNEL_DARK : SKY);
       scene.fog.color.setHex(dark ? TUNNEL_DARK : SKY);
     }
+    if (mode === 'concourse') {
+      // 대합실: 출입구 쪽 아이 눈높이에서 개찰구와 출발 안내판을 본다
+      mixer.update(reduceMotion ? 0 : dt);
+      const c = ensureConcourse();
+      if (c) {
+        camera.position.copy(c.eye);
+        camera.lookAt(c.look);
+        hero.root.position.copy(c.hero);
+        hero.root.rotation.set(0, c.heroYaw, 0);
+      }
+      scene.fog.near = 900;
+      scene.fog.far = 2900;
+      renderer.render(scene, camera);
+      return;
+    }
     if (mode === 'platform') {
       // 승강장: 아이 눈높이에서 기차가 들어오는 쪽을 본다. 주인공은 안전선 뒤에 서 있다.
       mixer.update(reduceMotion ? 0 : dt);
       // 탈 칸의 문 옆에 서서 기차가 들어오는 쪽을 비스듬히 본다
       const top = PLATFORM_TOP + PLATFORM_EYE;
       const door = boardingDoorKm();
-      camera.position.copy(trackPoint(door + 0.007, top, PLATFORM_OFF).v);
+      const st = stops.from;
+      camera.position.copy(trackPoint(door + 0.007, top, st.side * (st.edge + Math.min(3.2, st.width * 0.35))).v);
       camera.lookAt(trackPoint(door - 0.035, PLATFORM_TOP + 1.2, 0).v);
-      const spot = trackPoint(door + 0.0025, PLATFORM_TOP, PLATFORM_OFF - 1.0);
+      const spot = trackPoint(door + 0.0025, PLATFORM_TOP, st.side * (st.edge + 1.0));
       hero.root.position.copy(spot.v);
       // 선로 쪽을 보되 카메라 쪽으로 조금 돌아선다
       const { dx, dy } = spot.p;
-      const toTrack = [-dy, dx];
+      const toTrack = [-dy * st.side, dx * st.side];
       const toCam = [dx, dy];
       const fx = 0.6 * toTrack[0] + 0.8 * toCam[0];
       const fz = 0.6 * toTrack[1] + 0.8 * toCam[1];
@@ -936,6 +1011,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   el.append(camRow);
   el.append(element('p', 'panel-note', '3D 시험판이에요. 땅 높이는 1km 칸마다 잰 값이라 거칠어요. 산은 2.5배 높게 그렸어요.'));
   el.append(element('p', 'panel-note', '건물과 나무, 산의 작은 굴곡은 우리가 지어 놓은 거예요. 사는 사람 수와 땅 모양을 보고 정했어요.'));
+  el.append(element('p', 'panel-note', '역 건물과 승강장은 실제 자리와 모양을 따랐어요. 높이와 겉모습은 사진을 보고 어림했어요.'));
 
   const api = {
     el,
@@ -946,7 +1022,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     setRoute(route) {
       if (route === currentRoute) return;
       currentRoute = route;
-      const { points, speedAt, fromName, toName, lead = null } = route;
+      const { points, speedAt, lead = null, trail = null } = route;
       // 앞 구간 선로를 붙인다(역에 들어오는 기차가 달려올 길). 앞 구간을 모르면 첫 방향으로 곧게 늘인다.
       const leadPts = lead === 'extend' ? extendBack(points, LEAD_KM) : Array.isArray(lead) && lead.length >= 2 ? tailOf(lead, LEAD_KM) : null;
       const lengthOf = (pts) => pts.slice(1).reduce((sum, q, k) => sum + Math.hypot(q[0] - pts[k][0], q[1] - pts[k][1]), 0);
@@ -954,17 +1030,24 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
       // 앞 구간이 짧으면 그 앞을 곧게 늘여 들어오는 기차가 다 들어갈 만큼 둔다
       if (lead2 && lengthOf(lead2) < LEAD_KM - 0.01) lead2 = joinPoints(extendBack(lead2, LEAD_KM - lengthOf(lead2)), lead2);
       const leadKm = lead2 ? lengthOf(lead2) : 0;
-      buildWorld(lead2 ? joinPoints(lead2, points) : points, fromName, toName, leadKm);
+      // 뒤에도 다음 구간 선로(없으면 곧게)를 붙인다: 다음 역에서 기차가 역 지점을 가운데로 선다
+      const trailPts = Array.isArray(trail) && trail.length >= 2 ? headOf(trail, TRAIL_KM) : extendForward(points, TRAIL_KM);
+      let tail2 = trailPts;
+      if (lengthOf(tail2) < TRAIL_KM - 0.01) tail2 = joinPoints(tail2, extendForward(tail2, TRAIL_KM - lengthOf(tail2)));
+      let all = lead2 ? joinPoints(lead2, points) : points;
+      all = joinPoints(all, tail2);
+      buildWorld(all, route, leadKm, lengthOf(points));
       frac = distanceFraction(speedAt);
       front = startKm;
       approach = null;
+      train.setDoors(doorAmount, -stops.from.side); // 승강장 쪽이 바뀌었을 수 있다
       for (const g of carGroups) g.visible = true;
     },
     /** 구간 안에서 흐른 시간 비율(0~1) */
     setProgress(t) {
       if (!profile) return;
       if (approach) return;
-      front = startKm + (profile.lengthKm - startKm) * frac(t);
+      front = startKm + (endStopKm - startKm) * frac(t);
     },
     /**
      * 승강장에서 기차를 기다린다. 처음 떠나는 역이면 기차가 이미 서 있고, 아니면 아직 안 보인다.
@@ -998,8 +1081,9 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
      */
     setView(view) {
       const inCabin = view === 'cabin';
-      const onPlatform = view === 'platform';
-      mode = inCabin ? 'cabin' : onPlatform ? 'platform' : outsideMode;
+      const inHall = view === 'concourse';
+      const onPlatform = view === 'platform' || inHall; // 승강장·대합실은 화면 구성이 같다(카메라만 다르다)
+      mode = inCabin ? 'cabin' : inHall ? 'concourse' : view === 'platform' ? 'platform' : outsideMode;
       cabin.group.visible = inCabin;
       cabinCar.body.visible = !inCabin; // 칸 바깥 껍데기가 창을 가리지 않게
       for (const d of cabinCar.doors) d.mesh.visible = !inCabin;
@@ -1015,11 +1099,24 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
       camera.updateProjectionMatrix();
       camRow.style.display = inCabin || onPlatform ? 'none' : '';
       // 객실 천장처럼 아래를 보는 면이 풀빛 땅 색을 받지 않게, 객실 안에서는 아래쪽 빛을 밝게
-      hemi.groundColor.setHex(inCabin ? 0xd9d5cc : 0x6b7a4a);
+      hemi.groundColor.setHex(inCabin || onPlatform ? 0xd9d5cc : 0x6b7a4a);
       displayBox.hidden = inCabin || onPlatform; // 객실 안에는 안내판이 있다
-      canvas.setAttribute('aria-label', inCabin ? '기차 객실 안 3D 그림' : onPlatform ? '기차가 들어오는 승강장 3D 그림' : '기차 밖에서 본 3D 그림');
+      canvas.setAttribute('aria-label', inCabin ? '기차 객실 안 3D 그림' : inHall ? '역 대합실 3D 그림' : onPlatform ? '기차가 들어오는 승강장 3D 그림' : '기차 밖에서 본 3D 그림');
       snap = true;
       mark();
+    },
+    /**
+     * 대합실 출발 안내판의 줄
+     * @param {string} title
+     * @param {Array<{time: string, kind: string, no: (string|number), to: string, note?: string}>} rows
+     * @param {number} highlight 내 기차 줄(없으면 -1)
+     */
+    setConcourseBoard(title, rows, highlight) {
+      boardRows = { title, rows, highlight };
+      if (concourse) {
+        drawDepartureBoard(concourse.canvas, title, rows, highlight);
+        concourse.texture.needsUpdate = true;
+      }
     },
     /** 주인공 동작: 'stand'(서 있기) 또는 춤 이름. 춤은 한 번 춘 뒤 다시 선다. */
     playHero(id) {
@@ -1056,7 +1153,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   // 개발할 때만: 그림을 살펴보려고 진행 정도를 손으로 정한다(배포물에는 들어가지 않는다)
   if (import.meta.env?.DEV) {
     el.devApi = api;
-    el.dev3d = { scene, camera, trackPoint: (...x) => trackPoint(...x), hero: hero.root, get world() { return world; }, get startKm() { return startKm; } };
+    el.dev3d = { scene, camera, trackPoint: (...x) => trackPoint(...x), hero: hero.root, get world() { return world; }, get startKm() { return startKm; }, get stops() { return stops; }, get hall() { return hallFrom; }, get debug() { return lastDebug; } };
   }
   return api;
 }

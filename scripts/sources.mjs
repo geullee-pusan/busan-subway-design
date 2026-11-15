@@ -2,6 +2,8 @@
 // 사람이 읽는 설명(제목, 이용 조건, 표기 문구)은 data/SOURCES.md에 있다.
 // sha256이 있는 항목은 받은 뒤 해시가 같은지 확인한다.
 
+import { readFileSync } from 'node:fs';
+
 const DATA_GO_KR = 'https://www.data.go.kr/cmm/cmm/fileDownload.do';
 
 /** 공공데이터포털 파일데이터 주소. atchFileId는 판마다 바뀌므로 받은 판으로 고정한다. */
@@ -74,6 +76,65 @@ for (let i = 0; i < 6; i++) {
     if (!SPLIT_TILES.has(n)) PATH_TILES.push({ name: `${n}`, box: box(s, w, s + 0.26, w + 0.235) });
     else for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) PATH_TILES.push({ name: `${n}-${a * 2 + b + 1}`, box: box(s + a * 0.13, w + b * 0.1175, s + (a + 1) * 0.13, w + (b + 1) * 0.1175) });
   }
+}
+
+/**
+ * 기차역 둘레 자료를 받을 역(id, 위도, 경도). rail.json이 없으면 비운다(먼저 npm run rail).
+ * 열차가 많이 서는 역부터(trains.json): 서버 사정으로 받기가 끊겨도 주요 역부터 실제 모습이 된다.
+ */
+function railStationSpots() {
+  try {
+    const rail = JSON.parse(readFileSync(new URL('../data/build/rail.json', import.meta.url), 'utf8'));
+    let stops = new Map();
+    try {
+      const trains = JSON.parse(readFileSync(new URL('../data/build/trains.json', import.meta.url), 'utf8')).trains;
+      for (const t of trains) for (const s of t.stops) stops.set(s[0], (stops.get(s[0]) ?? 0) + 1);
+    } catch {
+      stops = new Map();
+    }
+    return rail.stations
+      .map((st) => ({ id: st.id, lat: Number(st.lat.toFixed(6)), lon: Number(st.lon.toFixed(6)), stops: stops.get(st.id) ?? 0 }))
+      .sort((a, b) => b.stops - a.stops || a.id.localeCompare(b.id));
+  } catch {
+    return [];
+  }
+}
+// Overpass가 바빠 큰 질의는 실패한다(502, 504). 역 하나씩 받는다.
+// 처음 8역(rail.json 차례 앞의 8곳)은 한 묶음(station-areas-1.json)으로 받아 두었다. 그 역은 다시 받지 않는다.
+const STATION_LEGACY = (() => {
+  try {
+    const rail = JSON.parse(readFileSync(new URL('../data/build/rail.json', import.meta.url), 'utf8'));
+    return rail.stations.slice(0, 8).map((st) => ({ id: st.id, lat: Number(st.lat.toFixed(6)), lon: Number(st.lon.toFixed(6)) }));
+  } catch {
+    return [];
+  }
+})();
+const legacyIds = new Set(STATION_LEGACY.map((s) => s.id));
+export const STATION_SPOTS = railStationSpots().filter((s) => !legacyIds.has(s.id));
+/**
+ * 역 하나 둘레에서 받는 것. 역 가운데에서 남북 약 450m, 동서 약 450m 네모(원 범위 around보다 Overpass가 훨씬 빨리 답한다).
+ * 어느 역의 것인지, 얼마나 먼지는 scripts/build-station-areas.mjs가 다시 고른다.
+ */
+function stationBox([lat, lon]) {
+  const dLat = 0.0041;
+  const dLon = 0.0041 / Math.cos((lat * Math.PI) / 180);
+  return `(${(lat - dLat).toFixed(5)},${(lon - dLon).toFixed(5)},${(lat + dLat).toFixed(5)},${(lon + dLon).toFixed(5)})`;
+}
+function stationAreaQuery([lat, lon]) {
+  const box = stationBox([lat, lon]);
+  return [
+    `  way["building"="train_station"]${box};`,
+    `  relation["building"="train_station"]${box};`,
+    `  way["building"]["railway"="station"]${box};`,
+    `  way["building"]["public_transport"="station"]${box};`,
+    `  way["building"]["name"~"역"]${box};`,
+    `  relation["building"]["name"~"역"]${box};`,
+    `  way["railway"="platform"]${box};`,
+    `  way["public_transport"="platform"]["train"="yes"]${box};`,
+    `  way["building"="roof"]${box};`,
+    `  way["bridge"]["highway"~"^(footway|steps|corridor|path)$"]${box};`,
+    `  way["railway"="rail"]${box};`,
+  ].join('\n');
 }
 
 export const SOURCES = [
@@ -436,6 +497,30 @@ out geom;`,
     overpass: `[out:json][timeout:600][maxsize:1073741824][bbox:${s},${w},${n},${e}];
 way["highway"~"^(residential|unclassified|living_street|pedestrian)$"];
 out skel geom qt;`,
+  })),
+  // 기차역 둘레(2026-11-16, 3D 역사): 역 건물 바닥 모양·층수·높이·지붕, 승강장, 승강장 지붕, 건너는 다리, 역 안 선로.
+  // 역 자리는 data/build/rail.json(npm run rail)의 기차역이다. 역 하나씩, 선 모양은 네모 안으로 자른다(out geom(네모)).
+  ...(STATION_LEGACY.length
+    ? [
+        {
+          key: 'osm-station-areas-1',
+          file: 'data/raw/osm/station-areas-1.json',
+          overpass: `[out:json][timeout:900][maxsize:1073741824];
+(
+${STATION_LEGACY.map((s) => stationAreaQuery([s.lat, s.lon])).join('\n')}
+);
+out geom;`,
+        },
+      ]
+    : []),
+  ...STATION_SPOTS.map((spot) => ({
+    key: `osm-station-area-${spot.id}`,
+    file: `data/raw/osm/station-areas/${spot.id}.json`,
+    overpass: `[out:json][timeout:180];
+(
+${stationAreaQuery([spot.lat, spot.lon])}
+);
+out geom${stationBox([spot.lat, spot.lon])};`,
   })),
   // 코레일(한국철도공사) 기차역 자리와 선구별 거리표
   { key: 'korail-stations', file: 'data/raw/datagokr/15127532.csv', url: dataGoKr('FILE_000000002898194'), size: 7453 },

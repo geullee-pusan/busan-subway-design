@@ -22,6 +22,7 @@
     "station-sounds": "node scripts/build-station-sounds.mjs",
     "api-key": "node scripts/api-key.mjs",
     "rail": "node scripts/build-rail.mjs && node scripts/build-trains.mjs",
+    "station-areas": "node scripts/build-station-areas.mjs",
     "trains": "node scripts/fetch-trains.mjs",
     "train-fares": "node scripts/fetch-train-extras.mjs",
     "roads": "node scripts/build-roads.mjs",

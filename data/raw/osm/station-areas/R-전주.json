@@ -1,0 +1,3094 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-15T19:20:36Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 137068607,
+  "bounds": {
+    "minlat": 35.8462070,
+    "minlon": 127.1648749,
+    "maxlat": 35.8464318,
+    "maxlon": 127.1650458
+  },
+  "nodes": [
+    804922497,
+    1503615317
+  ],
+  "geometry": [
+    { "lat": 35.8464318, "lon": 127.1648749 },
+    { "lat": 35.8462070, "lon": 127.1650458 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 137068611,
+  "bounds": {
+    "minlat": 35.8440459,
+    "minlon": 127.1650458,
+    "maxlat": 35.8462070,
+    "maxlon": 127.1665681
+  },
+  "nodes": [
+    1503615317,
+    804921572
+  ],
+  "geometry": [
+    { "lat": 35.8462070, "lon": 127.1650458 },
+    { "lat": 35.8440459, "lon": 127.1665681 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "150",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 380420644,
+  "bounds": {
+    "minlat": 35.8464318,
+    "minlon": 127.1638591,
+    "maxlat": 35.8478935,
+    "maxlon": 127.1648749
+  },
+  "nodes": [
+    3837561436,
+    13669324952,
+    804922497
+  ],
+  "geometry": [
+    { "lat": 35.8478935, "lon": 127.1638591 },
+    { "lat": 35.8464967, "lon": 127.1648298 },
+    { "lat": 35.8464318, "lon": 127.1648749 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 380420649,
+  "bounds": {
+    "minlat": 35.8478935,
+    "minlon": 127.1614111,
+    "maxlat": 35.8513216,
+    "maxlon": 127.1638591
+  },
+  "nodes": [
+    3837561498,
+    8145305752,
+    3837561436
+  ],
+  "geometry": [
+    { "lat": 35.8513216, "lon": 127.1614111 },
+    { "lat": 35.8500057, "lon": 127.1623472 },
+    { "lat": 35.8478935, "lon": 127.1638591 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "railway:track_ref": "4",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 380420650,
+  "bounds": {
+    "minlat": 35.8462028,
+    "minlon": 127.1648530,
+    "maxlat": 35.8464147,
+    "maxlon": 127.1650023
+  },
+  "nodes": [
+    3837561408,
+    3837561410
+  ],
+  "geometry": [
+    { "lat": 35.8462028, "lon": 127.1650023 },
+    { "lat": 35.8464147, "lon": 127.1648530 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 380420652,
+  "bounds": {
+    "minlat": 35.8450942,
+    "minlon": 127.1650023,
+    "maxlat": 35.8462028,
+    "maxlon": 127.1657592
+  },
+  "nodes": [
+    3837561404,
+    3837561406,
+    3837561408
+  ],
+  "geometry": [
+    null,
+    { "lat": 35.8450942, "lon": 127.1657592 },
+    { "lat": 35.8462028, "lon": 127.1650023 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "150",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 380420653,
+  "bounds": {
+    "minlat": 35.8499977,
+    "minlon": 127.1613763,
+    "maxlat": 35.8512945,
+    "maxlon": 127.1623071
+  },
+  "nodes": [
+    8145305754,
+    3837561497
+  ],
+  "geometry": [
+    { "lat": 35.8499977, "lon": 127.1623071 },
+    { "lat": 35.8512945, "lon": 127.1613763 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "railway:track_ref": "3",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 380420654,
+  "bounds": {
+    "minlat": 35.8464147,
+    "minlon": 127.1623071,
+    "maxlat": 35.8499977,
+    "maxlon": 127.1648530
+  },
+  "nodes": [
+    3837561410,
+    3837561412,
+    3837561418,
+    13669324942,
+    8145305754
+  ],
+  "geometry": [
+    { "lat": 35.8464147, "lon": 127.1648530 },
+    { "lat": 35.8466707, "lon": 127.1646655 },
+    { "lat": 35.8470765, "lon": 127.1643758 },
+    { "lat": 35.8479792, "lon": 127.1637461 },
+    { "lat": 35.8499977, "lon": 127.1623071 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 380420656,
+  "bounds": {
+    "minlat": 35.8512945,
+    "minlon": 127.1590522,
+    "maxlat": 35.8544894,
+    "maxlon": 127.1613763
+  },
+  "nodes": [
+    3837561497,
+    13669324947,
+    13669324948,
+    3837561533,
+    4541344928,
+    5596819448
+  ],
+  "geometry": [
+    { "lat": 35.8512945, "lon": 127.1613763 },
+    { "lat": 35.8519308, "lon": 127.1609070 },
+    { "lat": 35.8525148, "lon": 127.1604829 },
+    { "lat": 35.8528293, "lon": 127.1602660 },
+    { "lat": 35.8535221, "lon": 127.1597849 },
+    { "lat": 35.8544894, "lon": 127.1590522 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 380420658,
+  "bounds": {
+    "minlat": 35.8470497,
+    "minlon": 127.1604432,
+    "maxlat": 35.8527556,
+    "maxlon": 127.1645125
+  },
+  "nodes": [
+    3837561532,
+    13669324951,
+    13669324949,
+    3837561501,
+    13669324941,
+    3837561450,
+    3837561441,
+    3837561434,
+    3837561429,
+    3837561424
+  ],
+  "geometry": [
+    { "lat": 35.8527556, "lon": 127.1604432 },
+    { "lat": 35.8524780, "lon": 127.1606905 },
+    { "lat": 35.8518562, "lon": 127.1612037 },
+    { "lat": 35.8514295, "lon": 127.1615384 },
+    { "lat": 35.8496481, "lon": 127.1628018 },
+    { "lat": 35.8481592, "lon": 127.1638470 },
+    { "lat": 35.8476976, "lon": 127.1641230 },
+    { "lat": 35.8475632, "lon": 127.1641920 },
+    { "lat": 35.8473638, "lon": 127.1643147 },
+    { "lat": 35.8470497, "lon": 127.1645125 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420659,
+  "bounds": {
+    "minlat": 35.8481047,
+    "minlon": 127.1606648,
+    "maxlat": 35.8525622,
+    "maxlon": 127.1639734
+  },
+  "nodes": [
+    3837561531,
+    3837561525,
+    3837561522,
+    3837561511,
+    3837561503,
+    13669324939,
+    3837561459,
+    3837561455,
+    3837561452
+  ],
+  "geometry": [
+    { "lat": 35.8525622, "lon": 127.1606648 },
+    { "lat": 35.8522481, "lon": 127.1609678 },
+    { "lat": 35.8519117, "lon": 127.1612940 },
+    { "lat": 35.8517001, "lon": 127.1614577 },
+    { "lat": 35.8514564, "lon": 127.1616255 },
+    { "lat": 35.8496987, "lon": 127.1628648 },
+    { "lat": 35.8486212, "lon": 127.1636431 },
+    { "lat": 35.8484040, "lon": 127.1637894 },
+    { "lat": 35.8481047, "lon": 127.1639734 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420661,
+  "bounds": {
+    "minlat": 35.8462322,
+    "minlon": 127.1649215,
+    "maxlat": 35.8464693,
+    "maxlon": 127.1650908
+  },
+  "nodes": [
+    3837561411,
+    3837561409
+  ],
+  "geometry": [
+    { "lat": 35.8464693, "lon": 127.1649215 },
+    { "lat": 35.8462322, "lon": 127.1650908 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "gauge": "1435",
+    "layer": "1",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "yard"
+  }
+},
+{
+  "type": "way",
+  "id": 380420662,
+  "bounds": {
+    "minlat": 35.8464693,
+    "minlon": 127.1604432,
+    "maxlat": 35.8527556,
+    "maxlon": 127.1649215
+  },
+  "nodes": [
+    3837561532,
+    3837561531,
+    3837561526,
+    3837561514,
+    3837561505,
+    3837561500,
+    13669324937,
+    3837561462,
+    3837561460,
+    3837561458,
+    3837561452,
+    3837561445,
+    3837561424,
+    13669324953,
+    13669324944,
+    3837561411
+  ],
+  "geometry": [
+    { "lat": 35.8527556, "lon": 127.1604432 },
+    { "lat": 35.8525622, "lon": 127.1606648 },
+    { "lat": 35.8523000, "lon": 127.1610039 },
+    { "lat": 35.8518796, "lon": 127.1614146 },
+    { "lat": 35.8514822, "lon": 127.1616876 },
+    { "lat": 35.8512735, "lon": 127.1618398 },
+    { "lat": 35.8497385, "lon": 127.1629513 },
+    { "lat": 35.8489491, "lon": 127.1635621 },
+    { "lat": 35.8487617, "lon": 127.1636582 },
+    { "lat": 35.8483890, "lon": 127.1638383 },
+    { "lat": 35.8481047, "lon": 127.1639734 },
+    { "lat": 35.8472709, "lon": 127.1644061 },
+    { "lat": 35.8470497, "lon": 127.1645125 },
+    { "lat": 35.8468280, "lon": 127.1646501 },
+    { "lat": 35.8467896, "lon": 127.1646740 },
+    { "lat": 35.8464693, "lon": 127.1649215 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420663,
+  "bounds": {
+    "minlat": 35.8457808,
+    "minlon": 127.1650908,
+    "maxlat": 35.8462322,
+    "maxlon": 127.1654034
+  },
+  "nodes": [
+    3837561409,
+    3837561407,
+    13669324943,
+    3837561405
+  ],
+  "geometry": [
+    { "lat": 35.8462322, "lon": 127.1650908 },
+    { "lat": 35.8457808, "lon": 127.1654034 },
+    null,
+    null
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "yard"
+  }
+},
+{
+  "type": "way",
+  "id": 380420665,
+  "bounds": {
+    "minlat": 35.8510981,
+    "minlon": 127.1607917,
+    "maxlat": 35.8519323,
+    "maxlon": 127.1612455
+  },
+  "nodes": [
+    3837561521,
+    3837561506,
+    3837561494
+  ],
+  "geometry": [
+    { "lat": 35.8519323, "lon": 127.1607917 },
+    { "lat": 35.8515430, "lon": 127.1609945 },
+    { "lat": 35.8510981, "lon": 127.1612455 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420670,
+  "bounds": {
+    "minlat": 35.8474887,
+    "minlon": 127.1612822,
+    "maxlat": 35.8511251,
+    "maxlon": 127.1638833
+  },
+  "nodes": [
+    3837561433,
+    3837561446,
+    13669324945,
+    3837561487,
+    3837561496
+  ],
+  "geometry": [
+    { "lat": 35.8474887, "lon": 127.1638833 },
+    { "lat": 35.8478961, "lon": 127.1635426 },
+    { "lat": 35.8493415, "lon": 127.1624961 },
+    { "lat": 35.8507252, "lon": 127.1615331 },
+    { "lat": 35.8511251, "lon": 127.1612822 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "railway:track_ref": "2",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420672,
+  "bounds": {
+    "minlat": 35.8511251,
+    "minlon": 127.1602660,
+    "maxlat": 35.8528293,
+    "maxlon": 127.1612822
+  },
+  "nodes": [
+    3837561496,
+    3837561521,
+    3837561528,
+    13669324946,
+    3837561533
+  ],
+  "geometry": [
+    { "lat": 35.8511251, "lon": 127.1612822 },
+    { "lat": 35.8519323, "lon": 127.1607917 },
+    { "lat": 35.8523491, "lon": 127.1605446 },
+    { "lat": 35.8525900, "lon": 127.1604011 },
+    { "lat": 35.8528293, "lon": 127.1602660 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420674,
+  "bounds": {
+    "minlat": 35.8466707,
+    "minlon": 127.1638522,
+    "maxlat": 35.8474563,
+    "maxlon": 127.1646655
+  },
+  "nodes": [
+    3837561432,
+    3837561426,
+    3837561423,
+    3837561419,
+    3837561412
+  ],
+  "geometry": [
+    { "lat": 35.8474563, "lon": 127.1638522 },
+    { "lat": 35.8473285, "lon": 127.1639872 },
+    { "lat": 35.8471879, "lon": 127.1641302 },
+    { "lat": 35.8469632, "lon": 127.1643737 },
+    { "lat": 35.8466707, "lon": 127.1646655 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420677,
+  "bounds": {
+    "minlat": 35.8474563,
+    "minlon": 127.1612455,
+    "maxlat": 35.8510981,
+    "maxlon": 127.1638522
+  },
+  "nodes": [
+    3837561494,
+    3837561486,
+    3837561484,
+    3837561457,
+    3837561432
+  ],
+  "geometry": [
+    { "lat": 35.8510981, "lon": 127.1612455 },
+    { "lat": 35.8506283, "lon": 127.1615608 },
+    { "lat": 35.8498899, "lon": 127.1620744 },
+    { "lat": 35.8483765, "lon": 127.1631430 },
+    { "lat": 35.8474563, "lon": 127.1638522 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "railway:track_ref": "1",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420679,
+  "bounds": {
+    "minlat": 35.8466707,
+    "minlon": 127.1638833,
+    "maxlat": 35.8474887,
+    "maxlon": 127.1646655
+  },
+  "nodes": [
+    3837561412,
+    3837561420,
+    3837561427,
+    3837561433
+  ],
+  "geometry": [
+    { "lat": 35.8466707, "lon": 127.1646655 },
+    { "lat": 35.8469737, "lon": 127.1643838 },
+    { "lat": 35.8473060, "lon": 127.1640494 },
+    { "lat": 35.8474887, "lon": 127.1638833 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420681,
+  "bounds": {
+    "minlat": 35.8476921,
+    "minlon": 127.1612595,
+    "maxlat": 35.8512179,
+    "maxlon": 127.1638044
+  },
+  "nodes": [
+    3837561499,
+    3837561490,
+    3837561456,
+    13669324936,
+    3837561449,
+    13669324935
+  ],
+  "geometry": [
+    { "lat": 35.8512179, "lon": 127.1612595 },
+    { "lat": 35.8508116, "lon": 127.1615165 },
+    { "lat": 35.8482402, "lon": 127.1633160 },
+    { "lat": 35.8479996, "lon": 127.1635265 },
+    { "lat": 35.8478838, "lon": 127.1636277 },
+    { "lat": 35.8476921, "lon": 127.1638044 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "railway:track_ref": "5",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420684,
+  "bounds": {
+    "minlat": 35.8472709,
+    "minlon": 127.1606905,
+    "maxlat": 35.8524780,
+    "maxlon": 127.1644061
+  },
+  "nodes": [
+    13669324951,
+    13669324950,
+    3837561517,
+    3837561510,
+    3837561502,
+    13669324940,
+    3837561454,
+    3837561445
+  ],
+  "geometry": [
+    { "lat": 35.8524780, "lon": 127.1606905 },
+    { "lat": 35.8522667, "lon": 127.1608941 },
+    { "lat": 35.8518586, "lon": 127.1612755 },
+    { "lat": 35.8516926, "lon": 127.1614343 },
+    { "lat": 35.8514313, "lon": 127.1615918 },
+    { "lat": 35.8496647, "lon": 127.1628402 },
+    { "lat": 35.8482204, "lon": 127.1638705 },
+    { "lat": 35.8472709, "lon": 127.1644061 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420686,
+  "bounds": {
+    "minlat": 35.8483890,
+    "minlon": 127.1610039,
+    "maxlat": 35.8523000,
+    "maxlon": 127.1638383
+  },
+  "nodes": [
+    3837561526,
+    3837561516,
+    3837561512,
+    3837561504,
+    13669324938,
+    3837561461,
+    3837561458
+  ],
+  "geometry": [
+    { "lat": 35.8523000, "lon": 127.1610039 },
+    { "lat": 35.8518843, "lon": 127.1613848 },
+    { "lat": 35.8517109, "lon": 127.1615052 },
+    { "lat": 35.8514671, "lon": 127.1616657 },
+    { "lat": 35.8497158, "lon": 127.1629141 },
+    { "lat": 35.8488364, "lon": 127.1635887 },
+    { "lat": 35.8483890, "lon": 127.1638383 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 380420688,
+  "bounds": {
+    "minlat": 35.8512179,
+    "minlon": 127.1604011,
+    "maxlat": 35.8525900,
+    "maxlon": 127.1612595
+  },
+  "nodes": [
+    13669324946,
+    3837561519,
+    3837561508,
+    3837561499
+  ],
+  "geometry": [
+    { "lat": 35.8525900, "lon": 127.1604011 },
+    { "lat": 35.8519223, "lon": 127.1608415 },
+    { "lat": 35.8516829, "lon": 127.1609990 },
+    { "lat": 35.8512179, "lon": 127.1612595 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 458090851,
+  "bounds": {
+    "minlat": 35.8535221,
+    "minlon": 127.1595991,
+    "maxlat": 35.8539087,
+    "maxlon": 127.1597849
+  },
+  "nodes": [
+    4541344927,
+    4541344928
+  ],
+  "geometry": [
+    { "lat": 35.8539087, "lon": 127.1595991 },
+    { "lat": 35.8535221, "lon": 127.1597849 }
+  ],
+  "tags": {
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "crossover"
+  }
+},
+{
+  "type": "way",
+  "id": 469630778,
+  "bounds": {
+    "minlat": 35.8500260,
+    "minlon": 127.1603021,
+    "maxlat": 35.8501776,
+    "maxlon": 127.1604865
+  },
+  "nodes": [
+    4639286249,
+    6696032344,
+    4639286250,
+    6696032346,
+    6696032345,
+    4639286251,
+    6696031194,
+    4639286252,
+    4639286249
+  ],
+  "geometry": [
+    { "lat": 35.8501361, "lon": 127.1603021 },
+    { "lat": 35.8500927, "lon": 127.1603267 },
+    { "lat": 35.8500260, "lon": 127.1603644 },
+    { "lat": 35.8500532, "lon": 127.1604375 },
+    { "lat": 35.8500344, "lon": 127.1604482 },
+    { "lat": 35.8500487, "lon": 127.1604865 },
+    { "lat": 35.8501085, "lon": 127.1604527 },
+    { "lat": 35.8501776, "lon": 127.1604136 },
+    { "lat": 35.8501361, "lon": 127.1603021 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "amenity": "police",
+    "building": "public",
+    "name": "전주덕진경찰서 역전파출소",
+    "name:ko": "전주덕진경찰서 역전파출소"
+  }
+},
+{
+  "type": "way",
+  "id": 470088020,
+  "bounds": {
+    "minlat": 35.8513625,
+    "minlon": 127.1608387,
+    "maxlat": 35.8517865,
+    "maxlon": 127.1617348
+  },
+  "nodes": [
+    4643309417,
+    4643309418
+  ],
+  "geometry": [
+    { "lat": 35.8513625, "lon": 127.1608387 },
+    { "lat": 35.8517865, "lon": 127.1617348 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 585723644,
+  "bounds": {
+    "minlat": 35.8513216,
+    "minlon": 127.1601108,
+    "maxlat": 35.8531131,
+    "maxlon": 127.1614111
+  },
+  "nodes": [
+    3837561535,
+    8145305753,
+    3837561498
+  ],
+  "geometry": [
+    { "lat": 35.8531131, "lon": 127.1601108 },
+    { "lat": 35.8517112, "lon": 127.1611124 },
+    { "lat": 35.8513216, "lon": 127.1614111 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "140",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 840069929,
+  "bounds": {
+    "minlat": 35.8480094,
+    "minlon": 127.1614422,
+    "maxlat": 35.8513477,
+    "maxlon": 127.1638562
+  },
+  "nodes": [
+    7839157542,
+    7839157543,
+    7839157544,
+    7839157545,
+    7839157546,
+    7839157542
+  ],
+  "geometry": [
+    { "lat": 35.8480094, "lon": 127.1637847 },
+    { "lat": 35.8513105, "lon": 127.1614422 },
+    { "lat": 35.8513477, "lon": 127.1615264 },
+    { "lat": 35.8484438, "lon": 127.1635959 },
+    { "lat": 35.8480425, "lon": 127.1638562 },
+    { "lat": 35.8480094, "lon": 127.1637847 }
+  ],
+  "tags": {
+    "area": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "4;5",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 840069930,
+  "bounds": {
+    "minlat": 35.8479143,
+    "minlon": 127.1612579,
+    "maxlat": 35.8512575,
+    "maxlon": 127.1636661
+  },
+  "nodes": [
+    7839157547,
+    7839157548,
+    7839157549,
+    7839157550,
+    7839157551,
+    7839157547
+  ],
+  "geometry": [
+    { "lat": 35.8479143, "lon": 127.1636112 },
+    { "lat": 35.8484355, "lon": 127.1632438 },
+    { "lat": 35.8512327, "lon": 127.1612579 },
+    { "lat": 35.8512575, "lon": 127.1613048 },
+    { "lat": 35.8479379, "lon": 127.1636661 },
+    { "lat": 35.8479143, "lon": 127.1636112 }
+  ],
+  "tags": {
+    "area": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "1;2",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 840069931,
+  "bounds": {
+    "minlat": 35.8479379,
+    "minlon": 127.1613048,
+    "maxlat": 35.8512769,
+    "maxlon": 127.1637040
+  },
+  "nodes": [
+    7839157551,
+    7839157552,
+    7839157553,
+    7839157550,
+    7839157551
+  ],
+  "geometry": [
+    { "lat": 35.8479379, "lon": 127.1636661 },
+    { "lat": 35.8479584, "lon": 127.1637040 },
+    { "lat": 35.8512769, "lon": 127.1613511 },
+    { "lat": 35.8512575, "lon": 127.1613048 },
+    { "lat": 35.8479379, "lon": 127.1636661 }
+  ],
+  "tags": {
+    "area": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "3",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 875050831,
+  "bounds": {
+    "minlat": 35.8531131,
+    "minlon": 127.1591083,
+    "maxlat": 35.8545205,
+    "maxlon": 127.1601108
+  },
+  "nodes": [
+    5596819447,
+    4541344927,
+    3837561535
+  ],
+  "geometry": [
+    { "lat": 35.8545205, "lon": 127.1591083 },
+    { "lat": 35.8539087, "lon": 127.1595991 },
+    { "lat": 35.8531131, "lon": 127.1601108 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "name": "전라선",
+    "name:de": "Jeolla-Linie",
+    "name:en": "Jeolla Line",
+    "name:ja": "全羅線",
+    "name:ko": "전라선",
+    "name:ko-Hani": "全羅線",
+    "name:ko-Latn": "Jeollaseon",
+    "name:zh": "全羅線",
+    "name:zh-Hans": "全罗线",
+    "name:zh-Hant": "全羅線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:ctc": "yes",
+    "railway:etcs": "2",
+    "railway:ktcs": "2",
+    "railway:radio": "lte-r",
+    "ref": "309",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 981476165,
+  "bounds": {
+    "minlat": 35.8495188,
+    "minlon": 127.1614929,
+    "maxlat": 35.8502165,
+    "maxlon": 127.1620974
+  },
+  "nodes": [
+    9078398655,
+    9078398685,
+    9078398640,
+    9078398686,
+    9078401670,
+    9078398632,
+    13065585109,
+    9078398633,
+    9078401669,
+    9078398687,
+    9078398639,
+    9078398688,
+    9078398663,
+    9078398667,
+    9078398689,
+    9078398643,
+    9079106572,
+    9078398690,
+    9078398671,
+    9078398672,
+    9078398691,
+    9079106569,
+    9078398642,
+    9078398692,
+    9078398659,
+    9078398655
+  ],
+  "geometry": [
+    { "lat": 35.8501481, "lon": 127.1614929 },
+    { "lat": 35.8500044, "lon": 127.1615990 },
+    { "lat": 35.8499886, "lon": 127.1615661 },
+    { "lat": 35.8498872, "lon": 127.1616417 },
+    { "lat": 35.8498645, "lon": 127.1615944 },
+    { "lat": 35.8498598, "lon": 127.1615847 },
+    { "lat": 35.8497992, "lon": 127.1616297 },
+    { "lat": 35.8497323, "lon": 127.1616793 },
+    { "lat": 35.8497366, "lon": 127.1616882 },
+    { "lat": 35.8497599, "lon": 127.1617367 },
+    { "lat": 35.8496492, "lon": 127.1618191 },
+    { "lat": 35.8496617, "lon": 127.1618456 },
+    { "lat": 35.8495188, "lon": 127.1619501 },
+    { "lat": 35.8495889, "lon": 127.1620974 },
+    { "lat": 35.8497323, "lon": 127.1619918 },
+    { "lat": 35.8497424, "lon": 127.1620127 },
+    { "lat": 35.8497709, "lon": 127.1619909 },
+    { "lat": 35.8498487, "lon": 127.1619343 },
+    { "lat": 35.8498612, "lon": 127.1619606 },
+    { "lat": 35.8499901, "lon": 127.1618688 },
+    { "lat": 35.8499761, "lon": 127.1618413 },
+    { "lat": 35.8500375, "lon": 127.1617966 },
+    { "lat": 35.8500826, "lon": 127.1617617 },
+    { "lat": 35.8500723, "lon": 127.1617403 },
+    { "lat": 35.8502165, "lon": 127.1616341 },
+    { "lat": 35.8501481, "lon": 127.1614929 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "train_station",
+    "operator": "한국철도공사",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 981476170,
+  "bounds": {
+    "minlat": 35.8502295,
+    "minlon": 127.1613687,
+    "maxlat": 35.8504713,
+    "maxlon": 127.1616408
+  },
+  "nodes": [
+    9078398679,
+    9078401671,
+    9078398678,
+    9078398681,
+    9078398682,
+    9078398679
+  ],
+  "geometry": [
+    { "lat": 35.8504039, "lon": 127.1613687 },
+    { "lat": 35.8503015, "lon": 127.1614340 },
+    { "lat": 35.8502295, "lon": 127.1614799 },
+    { "lat": 35.8502979, "lon": 127.1616408 },
+    { "lat": 35.8504713, "lon": 127.1615273 },
+    { "lat": 35.8504039, "lon": 127.1613687 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "yes",
+    "military": "office",
+    "name": "국군수송사령부 제 3철도대 예하 전주역 TMO사무소"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376371,
+  "bounds": {
+    "minlat": 35.8466882,
+    "minlon": 127.1649963,
+    "maxlat": 35.8467587,
+    "maxlon": 127.1651661
+  },
+  "nodes": [
+    9775292016,
+    9775318417,
+    9775318418,
+    9775318419,
+    9775292009,
+    9775292016
+  ],
+  "geometry": [
+    { "lat": 35.8466882, "lon": 127.1650021 },
+    { "lat": 35.8467043, "lon": 127.1649963 },
+    { "lat": 35.8467124, "lon": 127.1650336 },
+    { "lat": 35.8467587, "lon": 127.1651568 },
+    { "lat": 35.8467384, "lon": 127.1651661 },
+    { "lat": 35.8466882, "lon": 127.1650021 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376372,
+  "bounds": {
+    "minlat": 35.8466177,
+    "minlon": 127.1650384,
+    "maxlat": 35.8466706,
+    "maxlon": 127.1651655
+  },
+  "nodes": [
+    9775318420,
+    9775318421,
+    9775318422,
+    9775318423,
+    9775318420
+  ],
+  "geometry": [
+    { "lat": 35.8466362, "lon": 127.1650384 },
+    { "lat": 35.8466177, "lon": 127.1650476 },
+    { "lat": 35.8466475, "lon": 127.1651655 },
+    { "lat": 35.8466706, "lon": 127.1651556 },
+    { "lat": 35.8466362, "lon": 127.1650384 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376388,
+  "bounds": {
+    "minlat": 35.8468689,
+    "minlon": 127.1654484,
+    "maxlat": 35.8469400,
+    "maxlon": 127.1655103
+  },
+  "nodes": [
+    9775318537,
+    9775318538,
+    9775318539,
+    9775318540,
+    9775318537
+  ],
+  "geometry": [
+    { "lat": 35.8468689, "lon": 127.1654750 },
+    { "lat": 35.8468790, "lon": 127.1655103 },
+    { "lat": 35.8469400, "lon": 127.1654837 },
+    { "lat": 35.8469299, "lon": 127.1654484 },
+    { "lat": 35.8468689, "lon": 127.1654750 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376389,
+  "bounds": {
+    "minlat": 35.8469490,
+    "minlon": 127.1654250,
+    "maxlat": 35.8469901,
+    "maxlon": 127.1654626
+  },
+  "nodes": [
+    9775318541,
+    9775318542,
+    9775318543,
+    9775318544,
+    9775318541
+  ],
+  "geometry": [
+    { "lat": 35.8469490, "lon": 127.1654401 },
+    { "lat": 35.8469553, "lon": 127.1654626 },
+    { "lat": 35.8469901, "lon": 127.1654476 },
+    { "lat": 35.8469837, "lon": 127.1654250 },
+    { "lat": 35.8469490, "lon": 127.1654401 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376401,
+  "bounds": {
+    "minlat": 35.8487679,
+    "minlon": 127.1642953,
+    "maxlat": 35.8488504,
+    "maxlon": 127.1643446
+  },
+  "nodes": [
+    9775291988,
+    9775318603,
+    9775318604,
+    9775291989,
+    9775291988
+  ],
+  "geometry": [
+    { "lat": 35.8488504, "lon": 127.1643254 },
+    { "lat": 35.8488455, "lon": 127.1642953 },
+    { "lat": 35.8487679, "lon": 127.1643145 },
+    { "lat": 35.8487729, "lon": 127.1643446 },
+    { "lat": 35.8488504, "lon": 127.1643254 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376402,
+  "bounds": {
+    "minlat": 35.8487558,
+    "minlon": 127.1643817,
+    "maxlat": 35.8487938,
+    "maxlon": 127.1644788
+  },
+  "nodes": [
+    9775318605,
+    9775318606,
+    9775318607,
+    9775291990,
+    9775318605
+  ],
+  "geometry": [
+    { "lat": 35.8487789, "lon": 127.1643817 },
+    { "lat": 35.8487558, "lon": 127.1643874 },
+    { "lat": 35.8487707, "lon": 127.1644788 },
+    { "lat": 35.8487938, "lon": 127.1644730 },
+    { "lat": 35.8487789, "lon": 127.1643817 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376403,
+  "bounds": {
+    "minlat": 35.8488625,
+    "minlon": 127.1643948,
+    "maxlat": 35.8488903,
+    "maxlon": 127.1644538
+  },
+  "nodes": [
+    9775291987,
+    9775318608,
+    9775318609,
+    9775318610,
+    9775291987
+  ],
+  "geometry": [
+    { "lat": 35.8488714, "lon": 127.1644538 },
+    { "lat": 35.8488903, "lon": 127.1644490 },
+    { "lat": 35.8488815, "lon": 127.1643948 },
+    { "lat": 35.8488625, "lon": 127.1643995 },
+    { "lat": 35.8488714, "lon": 127.1644538 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376471,
+  "bounds": {
+    "minlat": 35.8501228,
+    "minlon": 127.1646400,
+    "maxlat": 35.8502263,
+    "maxlon": 127.1648547
+  },
+  "nodes": [
+    9775319036,
+    9775319037,
+    9775319038,
+    9775319039,
+    9775319040,
+    9775319030,
+    9775319036
+  ],
+  "geometry": [
+    { "lat": 35.8501228, "lon": 127.1648000 },
+    { "lat": 35.8501327, "lon": 127.1648547 },
+    { "lat": 35.8502263, "lon": 127.1648289 },
+    { "lat": 35.8501921, "lon": 127.1646400 },
+    { "lat": 35.8501808, "lon": 127.1646431 },
+    { "lat": 35.8502051, "lon": 127.1647772 },
+    { "lat": 35.8501228, "lon": 127.1648000 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376475,
+  "bounds": {
+    "minlat": 35.8497102,
+    "minlon": 127.1645205,
+    "maxlat": 35.8498228,
+    "maxlon": 127.1647060
+  },
+  "nodes": [
+    9775318994,
+    9775319067,
+    9775319068,
+    9775319069,
+    9775318996,
+    9775318997,
+    9775318998,
+    9775318999,
+    9775319000,
+    9775319001,
+    9775318994
+  ],
+  "geometry": [
+    { "lat": 35.8497870, "lon": 127.1645205 },
+    { "lat": 35.8497973, "lon": 127.1645238 },
+    { "lat": 35.8498228, "lon": 127.1646791 },
+    { "lat": 35.8497159, "lon": 127.1647060 },
+    { "lat": 35.8497102, "lon": 127.1646733 },
+    { "lat": 35.8497385, "lon": 127.1646647 },
+    { "lat": 35.8497416, "lon": 127.1646800 },
+    { "lat": 35.8497600, "lon": 127.1646744 },
+    { "lat": 35.8497629, "lon": 127.1646884 },
+    { "lat": 35.8498173, "lon": 127.1646718 },
+    { "lat": 35.8497870, "lon": 127.1645205 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376478,
+  "bounds": {
+    "minlat": 35.8498435,
+    "minlon": 127.1648875,
+    "maxlat": 35.8498939,
+    "maxlon": 127.1650518
+  },
+  "nodes": [
+    9775319050,
+    9775319091,
+    9775319092,
+    9775319049,
+    9775319050
+  ],
+  "geometry": [
+    { "lat": 35.8498435, "lon": 127.1648924 },
+    { "lat": 35.8498573, "lon": 127.1648875 },
+    { "lat": 35.8498939, "lon": 127.1650470 },
+    { "lat": 35.8498801, "lon": 127.1650518 },
+    { "lat": 35.8498435, "lon": 127.1648924 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1064376479,
+  "bounds": {
+    "minlat": 35.8498050,
+    "minlon": 127.1647305,
+    "maxlat": 35.8498550,
+    "maxlon": 127.1648742
+  },
+  "nodes": [
+    9775319059,
+    9775319093,
+    9775319094,
+    9775319060,
+    9775319059
+  ],
+  "geometry": [
+    { "lat": 35.8498344, "lon": 127.1648742 },
+    { "lat": 35.8498550, "lon": 127.1648675 },
+    { "lat": 35.8498257, "lon": 127.1647305 },
+    { "lat": 35.8498050, "lon": 127.1647373 },
+    { "lat": 35.8498344, "lon": 127.1648742 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1143831455,
+  "bounds": {
+    "minlat": 35.8518320,
+    "minlon": 127.1604331,
+    "maxlat": 35.8518856,
+    "maxlon": 127.1604744
+  },
+  "nodes": [
+    10648074256,
+    10648074257,
+    10648074258,
+    10648074248,
+    10648074256
+  ],
+  "geometry": [
+    { "lat": 35.8518320, "lon": 127.1604597 },
+    { "lat": 35.8518802, "lon": 127.1604331 },
+    { "lat": 35.8518856, "lon": 127.1604478 },
+    { "lat": 35.8518374, "lon": 127.1604744 },
+    { "lat": 35.8518320, "lon": 127.1604597 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1143831477,
+  "bounds": {
+    "minlat": 35.8512863,
+    "minlon": 127.1598155,
+    "maxlat": 35.8513754,
+    "maxlon": 127.1599353
+  },
+  "nodes": [
+    10648074351,
+    10648074352,
+    10648074353,
+    10648074350,
+    10648074351
+  ],
+  "geometry": [
+    { "lat": 35.8513462, "lon": 127.1598155 },
+    { "lat": 35.8512863, "lon": 127.1598452 },
+    { "lat": 35.8513156, "lon": 127.1599353 },
+    { "lat": 35.8513754, "lon": 127.1599036 },
+    { "lat": 35.8513462, "lon": 127.1598155 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1156955441,
+  "bounds": {
+    "minlat": 35.8458902,
+    "minlon": 127.1641574,
+    "maxlat": 35.8459856,
+    "maxlon": 127.1642444
+  },
+  "nodes": [
+    10759043256,
+    10759043257,
+    10759043258,
+    10759043259,
+    10759043256
+  ],
+  "geometry": [
+    { "lat": 35.8458902, "lon": 127.1641585 },
+    { "lat": 35.8459850, "lon": 127.1641574 },
+    { "lat": 35.8459856, "lon": 127.1642434 },
+    { "lat": 35.8458908, "lon": 127.1642444 },
+    null
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1156955443,
+  "bounds": {
+    "minlat": 35.8459942,
+    "minlon": 127.1641738,
+    "maxlat": 35.8461255,
+    "maxlon": 127.1643936
+  },
+  "nodes": [
+    10759043264,
+    10759043265,
+    10759043266,
+    10759043267,
+    10759043268,
+    10759043269,
+    10759043270,
+    10759043264
+  ],
+  "geometry": [
+    { "lat": 35.8460194, "lon": 127.1641738 },
+    { "lat": 35.8459942, "lon": 127.1641996 },
+    { "lat": 35.8460771, "lon": 127.1643367 },
+    { "lat": 35.8460901, "lon": 127.1643349 },
+    { "lat": 35.8461132, "lon": 127.1643936 },
+    { "lat": 35.8461255, "lon": 127.1643865 },
+    { "lat": 35.8460959, "lon": 127.1643055 },
+    { "lat": 35.8460194, "lon": 127.1641738 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1156955457,
+  "bounds": {
+    "minlat": 35.8459594,
+    "minlon": 127.1646474,
+    "maxlat": 35.8459763,
+    "maxlon": 127.1647419
+  },
+  "nodes": [
+    10759043344,
+    10759043345,
+    10759043346,
+    10759043347,
+    10759043344
+  ],
+  "geometry": [
+    { "lat": 35.8459594, "lon": 127.1646493 },
+    { "lat": 35.8459713, "lon": 127.1646474 },
+    { "lat": 35.8459763, "lon": 127.1647408 },
+    { "lat": 35.8459641, "lon": 127.1647419 },
+    { "lat": 35.8459594, "lon": 127.1646493 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1156955487,
+  "bounds": {
+    "minlat": 35.8466045,
+    "minlon": 127.1639032,
+    "maxlat": 35.8468780,
+    "maxlon": 127.1641925
+  },
+  "nodes": [
+    10759043493,
+    10759043496,
+    10759043497,
+    10759043498,
+    10759043499,
+    10759043492,
+    10759043493
+  ],
+  "geometry": [
+    { "lat": 35.8468422, "lon": 127.1641925 },
+    { "lat": 35.8468780, "lon": 127.1641631 },
+    { "lat": 35.8467296, "lon": 127.1639032 },
+    { "lat": 35.8466045, "lon": 127.1640120 },
+    { "lat": 35.8466178, "lon": 127.1640352 },
+    { "lat": 35.8467050, "lon": 127.1639585 },
+    { "lat": 35.8468422, "lon": 127.1641925 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190522,
+  "bounds": {
+    "minlat": 35.8470044,
+    "minlon": 127.1634195,
+    "maxlat": 35.8470668,
+    "maxlon": 127.1634791
+  },
+  "nodes": [
+    11017693370,
+    11017693377,
+    11017693378,
+    11017693372,
+    11017693371,
+    11017693370
+  ],
+  "geometry": [
+    { "lat": 35.8470668, "lon": 127.1634310 },
+    { "lat": 35.8470566, "lon": 127.1634195 },
+    { "lat": 35.8470044, "lon": 127.1634631 },
+    { "lat": 35.8470077, "lon": 127.1634727 },
+    { "lat": 35.8470113, "lon": 127.1634791 },
+    { "lat": 35.8470668, "lon": 127.1634310 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190536,
+  "bounds": {
+    "minlat": 35.8465375,
+    "minlon": 127.1631790,
+    "maxlat": 35.8466248,
+    "maxlon": 127.1632740
+  },
+  "nodes": [
+    11017751362,
+    11017751363,
+    11017751364,
+    11017751359,
+    11017751362
+  ],
+  "geometry": [
+    { "lat": 35.8466031, "lon": 127.1631790 },
+    { "lat": 35.8466248, "lon": 127.1632169 },
+    { "lat": 35.8465592, "lon": 127.1632740 },
+    { "lat": 35.8465375, "lon": 127.1632361 },
+    { "lat": 35.8466031, "lon": 127.1631790 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190544,
+  "bounds": {
+    "minlat": 35.8469678,
+    "minlon": 127.1630055,
+    "maxlat": 35.8470546,
+    "maxlon": 127.1631242
+  },
+  "nodes": [
+    11017751408,
+    11017751411,
+    11017751412,
+    11017751413,
+    11017751414,
+    11017751403,
+    11017751404,
+    11017751405,
+    11017751406,
+    11017751407,
+    11017751408
+  ],
+  "geometry": [
+    { "lat": 35.8470546, "lon": 127.1631182 },
+    { "lat": 35.8470483, "lon": 127.1631242 },
+    { "lat": 35.8470059, "lon": 127.1630552 },
+    { "lat": 35.8469972, "lon": 127.1630639 },
+    { "lat": 35.8469678, "lon": 127.1630163 },
+    { "lat": 35.8469842, "lon": 127.1630055 },
+    { "lat": 35.8470043, "lon": 127.1630409 },
+    { "lat": 35.8470173, "lon": 127.1630297 },
+    { "lat": 35.8470377, "lon": 127.1630658 },
+    { "lat": 35.8470292, "lon": 127.1630732 },
+    { "lat": 35.8470546, "lon": 127.1631182 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190550,
+  "bounds": {
+    "minlat": 35.8475266,
+    "minlon": 127.1623344,
+    "maxlat": 35.8475992,
+    "maxlon": 127.1624292
+  },
+  "nodes": [
+    11017751444,
+    11017751445,
+    11017751446,
+    11017751447,
+    11017751448,
+    11017751437,
+    11017751444
+  ],
+  "geometry": [
+    { "lat": 35.8475554, "lon": 127.1623344 },
+    { "lat": 35.8475266, "lon": 127.1623581 },
+    { "lat": 35.8475651, "lon": 127.1624292 },
+    { "lat": 35.8475992, "lon": 127.1624011 },
+    { "lat": 35.8475840, "lon": 127.1623729 },
+    { "lat": 35.8475787, "lon": 127.1623773 },
+    { "lat": 35.8475554, "lon": 127.1623344 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190552,
+  "bounds": {
+    "minlat": 35.8472141,
+    "minlon": 127.1632793,
+    "maxlat": 35.8473131,
+    "maxlon": 127.1634595
+  },
+  "nodes": [
+    11017751461,
+    11017751462,
+    11017751463,
+    11017751464,
+    11017693384,
+    11017693383,
+    11017751461
+  ],
+  "geometry": [
+    { "lat": 35.8472697, "lon": 127.1634405 },
+    { "lat": 35.8472800, "lon": 127.1634595 },
+    { "lat": 35.8473131, "lon": 127.1634323 },
+    { "lat": 35.8472308, "lon": 127.1632793 },
+    { "lat": 35.8472141, "lon": 127.1632930 },
+    { "lat": 35.8472862, "lon": 127.1634270 },
+    { "lat": 35.8472697, "lon": 127.1634405 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190563,
+  "bounds": {
+    "minlat": 35.8471031,
+    "minlon": 127.1626677,
+    "maxlat": 35.8471869,
+    "maxlon": 127.1627862
+  },
+  "nodes": [
+    11017751534,
+    11017751535,
+    11017751536,
+    11017751537,
+    11017751534
+  ],
+  "geometry": [
+    { "lat": 35.8471391, "lon": 127.1626677 },
+    { "lat": 35.8471031, "lon": 127.1626969 },
+    { "lat": 35.8471509, "lon": 127.1627862 },
+    { "lat": 35.8471869, "lon": 127.1627570 },
+    { "lat": 35.8471391, "lon": 127.1626677 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:housenumber": "3-1",
+    "addr:postcode": "54817",
+    "addr:province": "전북특별자치도",
+    "addr:street": "신기2길",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190572,
+  "bounds": {
+    "minlat": 35.8476027,
+    "minlon": 127.1625648,
+    "maxlat": 35.8476311,
+    "maxlon": 127.1625953
+  },
+  "nodes": [
+    11017751575,
+    11017751582,
+    11017751583,
+    11017751584,
+    11017751575
+  ],
+  "geometry": [
+    { "lat": 35.8476089, "lon": 127.1625953 },
+    { "lat": 35.8476027, "lon": 127.1625835 },
+    { "lat": 35.8476243, "lon": 127.1625648 },
+    { "lat": 35.8476311, "lon": 127.1625759 },
+    { "lat": 35.8476089, "lon": 127.1625953 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190573,
+  "bounds": {
+    "minlat": 35.8475743,
+    "minlon": 127.1624990,
+    "maxlat": 35.8476611,
+    "maxlon": 127.1625807
+  },
+  "nodes": [
+    11017751585,
+    11017751586,
+    11017751587,
+    11017751588,
+    11017751578,
+    11017751579,
+    11017751580,
+    11017751581,
+    11017751585
+  ],
+  "geometry": [
+    { "lat": 35.8476339, "lon": 127.1625807 },
+    { "lat": 35.8476118, "lon": 127.1625421 },
+    { "lat": 35.8475969, "lon": 127.1625554 },
+    { "lat": 35.8475743, "lon": 127.1625170 },
+    { "lat": 35.8475944, "lon": 127.1624990 },
+    { "lat": 35.8476162, "lon": 127.1625362 },
+    { "lat": 35.8476377, "lon": 127.1625170 },
+    { "lat": 35.8476611, "lon": 127.1625570 },
+    { "lat": 35.8476339, "lon": 127.1625807 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190579,
+  "bounds": {
+    "minlat": 35.8473805,
+    "minlon": 127.1623146,
+    "maxlat": 35.8475057,
+    "maxlon": 127.1624353
+  },
+  "nodes": [
+    11017751610,
+    11017751615,
+    11017751616,
+    11017751607,
+    11017751610
+  ],
+  "geometry": [
+    { "lat": 35.8474923, "lon": 127.1623146 },
+    { "lat": 35.8475057, "lon": 127.1623380 },
+    { "lat": 35.8473939, "lon": 127.1624353 },
+    { "lat": 35.8473805, "lon": 127.1624119 },
+    { "lat": 35.8474923, "lon": 127.1623146 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190580,
+  "bounds": {
+    "minlat": 35.8472690,
+    "minlon": 127.1624182,
+    "maxlat": 35.8473799,
+    "maxlon": 127.1625254
+  },
+  "nodes": [
+    11017751603,
+    11017751617,
+    11017751618,
+    11017751604,
+    11017751603
+  ],
+  "geometry": [
+    { "lat": 35.8473661, "lon": 127.1624182 },
+    { "lat": 35.8473799, "lon": 127.1624428 },
+    { "lat": 35.8472828, "lon": 127.1625254 },
+    { "lat": 35.8472690, "lon": 127.1625008 },
+    { "lat": 35.8473661, "lon": 127.1624182 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190607,
+  "bounds": {
+    "minlat": 35.8458635,
+    "minlon": 127.1629868,
+    "maxlat": 35.8460086,
+    "maxlon": 127.1631189
+  },
+  "nodes": [
+    11017751803,
+    11017751804,
+    11017751805,
+    11017751806,
+    11017751803
+  ],
+  "geometry": [
+    { "lat": 35.8460086, "lon": 127.1630126 },
+    { "lat": 35.8459949, "lon": 127.1629868 },
+    { "lat": 35.8458635, "lon": 127.1630930 },
+    { "lat": 35.8458773, "lon": 127.1631189 },
+    { "lat": 35.8460086, "lon": 127.1630126 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190608,
+  "bounds": {
+    "minlat": 35.8461013,
+    "minlon": 127.1624927,
+    "maxlat": 35.8463162,
+    "maxlon": 127.1627440
+  },
+  "nodes": [
+    11017751807,
+    11017751808,
+    11017751809,
+    11017751810,
+    11017751807
+  ],
+  "geometry": [
+    { "lat": 35.8463162, "lon": 127.1626166 },
+    { "lat": 35.8461745, "lon": 127.1627440 },
+    { "lat": 35.8461013, "lon": 127.1626200 },
+    { "lat": 35.8462430, "lon": 127.1624927 },
+    { "lat": 35.8463162, "lon": 127.1626166 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190612,
+  "bounds": {
+    "minlat": 35.8463656,
+    "minlon": 127.1622576,
+    "maxlat": 35.8465389,
+    "maxlon": 127.1623855
+  },
+  "nodes": [
+    11017751825,
+    11017751826,
+    11017751827,
+    11017751824,
+    11017751825
+  ],
+  "geometry": [
+    { "lat": 35.8465240, "lon": 127.1622576 },
+    { "lat": 35.8465389, "lon": 127.1622985 },
+    { "lat": 35.8463817, "lon": 127.1623855 },
+    { "lat": 35.8463656, "lon": 127.1623412 },
+    { "lat": 35.8465240, "lon": 127.1622576 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190613,
+  "bounds": {
+    "minlat": 35.8465068,
+    "minlon": 127.1623997,
+    "maxlat": 35.8466787,
+    "maxlon": 127.1625609
+  },
+  "nodes": [
+    11017751828,
+    11017751829,
+    11017751830,
+    11017751831,
+    11017751828
+  ],
+  "geometry": [
+    { "lat": 35.8466787, "lon": 127.1624348 },
+    { "lat": 35.8466597, "lon": 127.1623997 },
+    { "lat": 35.8465068, "lon": 127.1625257 },
+    { "lat": 35.8465258, "lon": 127.1625609 },
+    { "lat": 35.8466787, "lon": 127.1624348 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190643,
+  "bounds": {
+    "minlat": 35.8479022,
+    "minlon": 127.1587865,
+    "maxlat": 35.8479908,
+    "maxlon": 127.1589444
+  },
+  "nodes": [
+    11017752123,
+    11017752124,
+    11017752125,
+    11017752126,
+    11017752123
+  ],
+  "geometry": [
+    { "lat": 35.8479437, "lon": 127.1587865 },
+    { "lat": 35.8479022, "lon": 127.1588083 },
+    { "lat": 35.8479492, "lon": 127.1589444 },
+    { "lat": 35.8479908, "lon": 127.1589225 },
+    { "lat": 35.8479437, "lon": 127.1587865 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "amenity": "parking_space",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190644,
+  "bounds": {
+    "minlat": 35.8478530,
+    "minlon": 127.1588083,
+    "maxlat": 35.8479492,
+    "maxlon": 127.1589701
+  },
+  "nodes": [
+    11017752125,
+    11017752127,
+    11017752128,
+    11017752124,
+    11017752125
+  ],
+  "geometry": [
+    { "lat": 35.8479492, "lon": 127.1589444 },
+    { "lat": 35.8478997, "lon": 127.1589701 },
+    { "lat": 35.8478530, "lon": 127.1588346 },
+    { "lat": 35.8479022, "lon": 127.1588083 },
+    { "lat": 35.8479492, "lon": 127.1589444 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190647,
+  "bounds": {
+    "minlat": 35.8476129,
+    "minlon": 127.1589291,
+    "maxlat": 35.8477611,
+    "maxlon": 127.1592603
+  },
+  "nodes": [
+    11017752136,
+    11017752144,
+    11017752150,
+    11017752137,
+    11017752138,
+    11017752139,
+    11017752140,
+    11017752141,
+    11017752142,
+    11017752143,
+    11017752136
+  ],
+  "geometry": [
+    { "lat": 35.8477209, "lon": 127.1592603 },
+    { "lat": 35.8476749, "lon": 127.1591282 },
+    { "lat": 35.8476579, "lon": 127.1590793 },
+    { "lat": 35.8476129, "lon": 127.1589500 },
+    { "lat": 35.8476523, "lon": 127.1589291 },
+    { "lat": 35.8477009, "lon": 127.1590686 },
+    { "lat": 35.8477404, "lon": 127.1590477 },
+    { "lat": 35.8477551, "lon": 127.1590897 },
+    { "lat": 35.8477162, "lon": 127.1591103 },
+    { "lat": 35.8477611, "lon": 127.1592390 },
+    { "lat": 35.8477209, "lon": 127.1592603 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190648,
+  "bounds": {
+    "minlat": 35.8475073,
+    "minlon": 127.1590171,
+    "maxlat": 35.8476749,
+    "maxlon": 127.1591889
+  },
+  "nodes": [
+    11017752144,
+    11017752145,
+    11017752146,
+    11017752147,
+    11017752148,
+    11017752149,
+    11017752150,
+    11017752144
+  ],
+  "geometry": [
+    { "lat": 35.8476749, "lon": 127.1591282 },
+    { "lat": 35.8475600, "lon": 127.1591889 },
+    { "lat": 35.8475073, "lon": 127.1590371 },
+    { "lat": 35.8475198, "lon": 127.1590171 },
+    { "lat": 35.8475423, "lon": 127.1590263 },
+    { "lat": 35.8475757, "lon": 127.1591227 },
+    { "lat": 35.8476579, "lon": 127.1590793 },
+    { "lat": 35.8476749, "lon": 127.1591282 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190649,
+  "bounds": {
+    "minlat": 35.8480219,
+    "minlon": 127.1593229,
+    "maxlat": 35.8481083,
+    "maxlon": 127.1594766
+  },
+  "nodes": [
+    11017752153,
+    11017752154,
+    11017752155,
+    11017752156,
+    11017752153
+  ],
+  "geometry": [
+    { "lat": 35.8480728, "lon": 127.1594766 },
+    { "lat": 35.8481083, "lon": 127.1594560 },
+    { "lat": 35.8480574, "lon": 127.1593229 },
+    { "lat": 35.8480219, "lon": 127.1593435 },
+    { "lat": 35.8480728, "lon": 127.1594766 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190650,
+  "bounds": {
+    "minlat": 35.8481011,
+    "minlon": 127.1592801,
+    "maxlat": 35.8481841,
+    "maxlon": 127.1594298
+  },
+  "nodes": [
+    11017752157,
+    11017752158,
+    11017752159,
+    11017752160,
+    11017752157
+  ],
+  "geometry": [
+    { "lat": 35.8481463, "lon": 127.1594298 },
+    { "lat": 35.8481841, "lon": 127.1594097 },
+    { "lat": 35.8481389, "lon": 127.1592801 },
+    { "lat": 35.8481011, "lon": 127.1593001 },
+    { "lat": 35.8481463, "lon": 127.1594298 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190651,
+  "bounds": {
+    "minlat": 35.8482253,
+    "minlon": 127.1592124,
+    "maxlat": 35.8483010,
+    "maxlon": 127.1593231
+  },
+  "nodes": [
+    11017752098,
+    11017752161,
+    11017752162,
+    11017752163,
+    11017752098
+  ],
+  "geometry": [
+    { "lat": 35.8482681, "lon": 127.1592124 },
+    { "lat": 35.8482253, "lon": 127.1592383 },
+    { "lat": 35.8482590, "lon": 127.1593231 },
+    { "lat": 35.8483010, "lon": 127.1592976 },
+    { "lat": 35.8482681, "lon": 127.1592124 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1186190663,
+  "bounds": {
+    "minlat": 35.8479976,
+    "minlon": 127.1595738,
+    "maxlat": 35.8480946,
+    "maxlon": 127.1596450
+  },
+  "nodes": [
+    11017752204,
+    11017752205,
+    11017752206,
+    11017752207,
+    11017752204
+  ],
+  "geometry": [
+    { "lat": 35.8480842, "lon": 127.1595738 },
+    { "lat": 35.8479976, "lon": 127.1596176 },
+    { "lat": 35.8480071, "lon": 127.1596450 },
+    { "lat": 35.8480946, "lon": 127.1596053 },
+    { "lat": 35.8480842, "lon": 127.1595738 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1219296503,
+  "bounds": {
+    "minlat": 35.8495516,
+    "minlon": 127.1581268,
+    "maxlat": 35.8497049,
+    "maxlon": 127.1583621
+  },
+  "nodes": [
+    11297740410,
+    11297740411,
+    11297740226,
+    11297740225,
+    11297740227,
+    11297740410
+  ],
+  "geometry": [
+    { "lat": 35.8496326, "lon": 127.1581268 },
+    { "lat": 35.8497049, "lon": 127.1583210 },
+    { "lat": 35.8496423, "lon": 127.1583621 },
+    { "lat": 35.8496093, "lon": 127.1583224 },
+    { "lat": 35.8495516, "lon": 127.1581730 },
+    { "lat": 35.8496326, "lon": 127.1581268 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1219296504,
+  "bounds": {
+    "minlat": 35.8495520,
+    "minlon": 127.1579927,
+    "maxlat": 35.8496356,
+    "maxlon": 127.1581275
+  },
+  "nodes": [
+    11297740408,
+    11297740412,
+    11297740413,
+    11297740405,
+    11297740406,
+    11297740407,
+    11297740408
+  ],
+  "geometry": [
+    { "lat": 35.8495813, "lon": 127.1579927 },
+    { "lat": 35.8495520, "lon": 127.1580148 },
+    { "lat": 35.8495878, "lon": 127.1581275 },
+    { "lat": 35.8496356, "lon": 127.1581042 },
+    { "lat": 35.8496224, "lon": 127.1580676 },
+    { "lat": 35.8496106, "lon": 127.1580741 },
+    { "lat": 35.8495813, "lon": 127.1579927 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1220045141,
+  "bounds": {
+    "minlat": 35.8479123,
+    "minlon": 127.1664387,
+    "maxlat": 35.8481020,
+    "maxlon": 127.1665235
+  },
+  "nodes": [
+    11304818947,
+    11304818946,
+    11304819130,
+    11304819131,
+    11304818947
+  ],
+  "geometry": [
+    { "lat": 35.8480971, "lon": 127.1664387 },
+    { "lat": 35.8479123, "lon": 127.1664663 },
+    { "lat": 35.8479196, "lon": 127.1665235 },
+    { "lat": 35.8481020, "lon": 127.1664979 },
+    { "lat": 35.8480971, "lon": 127.1664387 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1221027337,
+  "bounds": {
+    "minlat": 35.8528738,
+    "minlon": 127.1647222,
+    "maxlat": 35.8530300,
+    "maxlon": 127.1648221
+  },
+  "nodes": [
+    11314848949,
+    11314848950,
+    11314848951,
+    11314848952,
+    11314848949
+  ],
+  "geometry": [
+    { "lat": 35.8530279, "lon": 127.1647222 },
+    { "lat": 35.8528738, "lon": 127.1647272 },
+    { "lat": 35.8528758, "lon": 127.1648221 },
+    { "lat": 35.8530300, "lon": 127.1648171 },
+    { "lat": 35.8530279, "lon": 127.1647222 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1221027377,
+  "bounds": {
+    "minlat": 35.8521969,
+    "minlon": 127.1616988,
+    "maxlat": 35.8522531,
+    "maxlon": 127.1617953
+  },
+  "nodes": [
+    11314849175,
+    11314849239,
+    11314849177,
+    11314849178,
+    11314849176,
+    11314849175
+  ],
+  "geometry": [
+    { "lat": 35.8522166, "lon": 127.1617953 },
+    { "lat": 35.8522222, "lon": 127.1617931 },
+    { "lat": 35.8522531, "lon": 127.1617820 },
+    { "lat": 35.8522344, "lon": 127.1616988 },
+    { "lat": 35.8521969, "lon": 127.1617117 },
+    { "lat": 35.8522166, "lon": 127.1617953 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1221027392,
+  "bounds": {
+    "minlat": 35.8521711,
+    "minlon": 127.1617931,
+    "maxlat": 35.8522467,
+    "maxlon": 127.1619134
+  },
+  "nodes": [
+    11314849239,
+    11314849175,
+    11314849174,
+    11314849235,
+    11314849240,
+    11314849239
+  ],
+  "geometry": [
+    { "lat": 35.8522222, "lon": 127.1617931 },
+    { "lat": 35.8522166, "lon": 127.1617953 },
+    { "lat": 35.8521711, "lon": 127.1618117 },
+    { "lat": 35.8521949, "lon": 127.1619134 },
+    { "lat": 35.8522467, "lon": 127.1618900 },
+    { "lat": 35.8522222, "lon": 127.1617931 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1225149593,
+  "bounds": {
+    "minlat": 35.8472553,
+    "minlon": 127.1572728,
+    "maxlat": 35.8473908,
+    "maxlon": 127.1573985
+  },
+  "nodes": [
+    11361462331,
+    11361462336,
+    11361462337,
+    11361462329,
+    11361462330,
+    11361462331
+  ],
+  "geometry": [
+    { "lat": 35.8473678, "lon": 127.1572728 },
+    { "lat": 35.8472553, "lon": 127.1573311 },
+    { "lat": 35.8472782, "lon": 127.1573985 },
+    { "lat": 35.8472948, "lon": 127.1573899 },
+    { "lat": 35.8473908, "lon": 127.1573402 },
+    { "lat": 35.8473678, "lon": 127.1572728 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1225149597,
+  "bounds": {
+    "minlat": 35.8471171,
+    "minlon": 127.1573790,
+    "maxlat": 35.8472316,
+    "maxlon": 127.1574913
+  },
+  "nodes": [
+    11361462341,
+    11361462350,
+    11361462351,
+    11361462340,
+    11361462341
+  ],
+  "geometry": [
+    { "lat": 35.8472316, "lon": 127.1574436 },
+    { "lat": 35.8472097, "lon": 127.1573790 },
+    { "lat": 35.8471171, "lon": 127.1574267 },
+    { "lat": 35.8471389, "lon": 127.1574913 },
+    { "lat": 35.8472316, "lon": 127.1574436 }
+  ],
+  "tags": {
+    "addr:city": "전주시",
+    "addr:district": "덕진구",
+    "addr:province": "전북특별자치도",
+    "addr:subdistrict": "우아동3가",
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1491545291,
+  "bounds": {
+    "minlat": 35.8469737,
+    "minlon": 127.1638044,
+    "maxlat": 35.8476921,
+    "maxlon": 127.1643838
+  },
+  "nodes": [
+    13669324935,
+    3837561431,
+    3837561425,
+    3837561420
+  ],
+  "geometry": [
+    { "lat": 35.8476921, "lon": 127.1638044 },
+    { "lat": 35.8473707, "lon": 127.1640523 },
+    { "lat": 35.8471538, "lon": 127.1642620 },
+    { "lat": 35.8469737, "lon": 127.1643838 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 1491545292,
+  "bounds": {
+    "minlat": 35.8527556,
+    "minlon": 127.1601108,
+    "maxlat": 35.8531131,
+    "maxlon": 127.1604432
+  },
+  "nodes": [
+    3837561535,
+    3837561534,
+    3837561532
+  ],
+  "geometry": [
+    { "lat": 35.8531131, "lon": 127.1601108 },
+    { "lat": 35.8528338, "lon": 127.1603789 },
+    { "lat": 35.8527556, "lon": 127.1604432 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 1491545293,
+  "bounds": {
+    "minlat": 35.8464967,
+    "minlon": 127.1646740,
+    "maxlat": 35.8467896,
+    "maxlon": 127.1648298
+  },
+  "nodes": [
+    13669324944,
+    13669324952
+  ],
+  "geometry": [
+    { "lat": 35.8467896, "lon": 127.1646740 },
+    { "lat": 35.8464967, "lon": 127.1648298 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "crossover"
+  }
+}
+
+  ]
+}

@@ -2027,6 +2027,118 @@
     "sha256": "d0b859075ac38c27c56785a3ba7270bad0320872d00aeab6c6bc6fcddb0ae864",
     "fetched": "2026-11-14"
   },
+  "osm-station-area-R-광주송정": {
+    "file": "data/raw/osm/station-areas/R-광주송정.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 62011,
+    "sha256": "f791e3ed687a17f3d679671427eaa9581c90a15a351e2f33f2766a671aa589fe",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-구포": {
+    "file": "data/raw/osm/station-areas/R-구포.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 38071,
+    "sha256": "b6aa1ef4402c3575249e2caaf733dacc7a4dd25f513acb2d32e6624c5d77740d",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-김천": {
+    "file": "data/raw/osm/station-areas/R-김천.json",
+    "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "bytes": 60383,
+    "sha256": "426afc300557467602cd3e781b58696fb8031b85205671f928705bbe336aa56f",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-나주": {
+    "file": "data/raw/osm/station-areas/R-나주.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 33872,
+    "sha256": "8a253f578599585b0ae31bef306adab9c00833e57d0804d2989139049364b9db",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-남원": {
+    "file": "data/raw/osm/station-areas/R-남원.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 16489,
+    "sha256": "a2ac03b9ecb9a50a96fac8f4bae2bd0560cee2a0ec9edab056a5844c357e7d50",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-논산": {
+    "file": "data/raw/osm/station-areas/R-논산.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 25277,
+    "sha256": "6376cba4137e2b68aae9dd5f99fa469ef56bc1fe10e75077b0ac396b4bf52d6c",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-목포": {
+    "file": "data/raw/osm/station-areas/R-목포.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 51957,
+    "sha256": "ef5a49385c77b2a96cfb98c5c56dfb99946002285ef6535b2776f2b99db3306b",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-밀양": {
+    "file": "data/raw/osm/station-areas/R-밀양.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 17504,
+    "sha256": "cc888a07f76036e1ea94bcd74a267b483f5bfe6d1f6e3258e3aae970fbd3b034",
+    "fetched": "2026-11-16"
+  },
+  "osm-station-area-R-부산": {
+    "file": "data/raw/osm/station-areas/R-부산.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 120486,
+    "sha256": "25c8adf56fab9b0f92a15606203e157c4a6e27e99fd58d41af4076ab70114da0",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-서대전": {
+    "file": "data/raw/osm/station-areas/R-서대전.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 39736,
+    "sha256": "6fcd5c11e2499a56be673688ca2652b3ec4a3288bf9d8ec03d4e3200007f0a99",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-순천": {
+    "file": "data/raw/osm/station-areas/R-순천.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 57393,
+    "sha256": "22fe41e49ff7fa026712e94075e29f91ee553dc1fbbc5b3e583b2e7bb0b1eaed",
+    "fetched": "2026-11-16"
+  },
+  "osm-station-area-R-익산": {
+    "file": "data/raw/osm/station-areas/R-익산.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 101963,
+    "sha256": "3184c847a343f247fc9beb1ad58e0932f09e4b1d649ee7b7bf76acd7c778ebb9",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-전주": {
+    "file": "data/raw/osm/station-areas/R-전주.json",
+    "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "bytes": 72443,
+    "sha256": "01f0f032666bd0004f46a42ab5b3297f73cd5c30ba345d5c3935990496d11108",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-정읍": {
+    "file": "data/raw/osm/station-areas/R-정읍.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 19022,
+    "sha256": "e5f587c75a6e211ea976cec214c75b43a5f236ea85abcb96c0a5145f204fa353",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-천안": {
+    "file": "data/raw/osm/station-areas/R-천안.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 79609,
+    "sha256": "f3321510703251388e0e7c9ddd596913a2cfd4f81606e5d8cafd3859c54820d6",
+    "fetched": "2026-11-15"
+  },
+  "osm-station-areas-1": {
+    "file": "data/raw/osm/station-areas-1.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 525211,
+    "sha256": "586bb48e88f58d0376ca9b82558d7bedbcc8b2b06c02233b148512279d9d4dde",
+    "fetched": "2026-11-15"
+  },
   "osm-stations": {
     "file": "data/raw/osm/stations.json",
     "url": "https://overpass-api.de/api/interpreter",

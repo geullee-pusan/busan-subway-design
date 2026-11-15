@@ -7302,5 +7302,132 @@
         }
       ]
     }
+  },
+  "stationLooks": {
+    "_설명": "주요 기차역 역사(역 건물)의 겉모습 특징(2026-11-16 확인). 위키백과 정보 상자 사진과 본문, 위키미디어 공용 사진을 보고 특징(외벽 종류, 지붕 모양, 높이 형식)만 적었다. 사진과 글은 옮기지 않는다. 3D 보기(scripts/build-station-areas.mjs → src/ui/train-3d-station.js)가 쓴다. value의 낱말: facade(curtain 유리 커튼월, band 가로 띠창, punched 작은 창, hanok 한옥), roof(flat 평지붕, wave 물결 처마, shell 곡선 지붕, hipped 넓은 처마 모임지붕, hanok 한옥 지붕), type(over 선상역사, elevated 고가역), shed(wide 넓은 승강장 지붕, arch 아치 지붕).",
+    "부산": {
+      "value": {
+        "facade": "curtain",
+        "roof": "flat",
+        "tint": "#86a3bb",
+        "frontCanopy": true
+      },
+      "desc": "정면이 크게 휘어진 유리 벽(커튼월)이에요",
+      "source": "위키미디어 공용 \"Korea-Busan Station, exterior to north-07.jpg\"",
+      "url": "https://commons.wikimedia.org/wiki/File:Korea-Busan_Station,_exterior_to_north-07.jpg"
+    },
+    "동대구": {
+      "value": {
+        "facade": "curtain",
+        "roof": "flat",
+        "shed": "wide"
+      },
+      "desc": "낮고 넓은 유리 정면 역사, 여러 선로를 덮는 넓은 승강장 지붕",
+      "source": "위키백과 동대구역(역사·승강장 사진)",
+      "url": "https://ko.wikipedia.org/wiki/동대구역"
+    },
+    "대전": {
+      "value": {
+        "facade": "band",
+        "roof": "flat",
+        "levels": 4
+      },
+      "desc": "가로 유리 띠가 있는 넓은 평지붕 역사. 2017년 증축으로 4층이 생겼어요",
+      "source": "위키백과 대전역(서광장 사진, 본문)",
+      "url": "https://ko.wikipedia.org/wiki/대전역"
+    },
+    "오송": {
+      "value": {
+        "type": "elevated",
+        "facade": "curtain",
+        "roof": "flat",
+        "shed": "arch"
+      },
+      "desc": "고가 위 승강장을 큰 곡선 지붕이 덮어요",
+      "source": "위키백과 오송역(역사 사진)",
+      "url": "https://ko.wikipedia.org/wiki/오송역"
+    },
+    "익산": {
+      "value": {
+        "type": "over",
+        "facade": "curtain",
+        "roof": "flat",
+        "tint": "#3a78b0"
+      },
+      "desc": "선로 위에 올라앉은 파란 유리 역사(2014년 선상 역사)",
+      "source": "위키백과 익산역(신 역사 사진, 본문)",
+      "url": "https://ko.wikipedia.org/wiki/익산역"
+    },
+    "천안아산": {
+      "value": {
+        "type": "elevated",
+        "facade": "curtain",
+        "roof": "flat",
+        "shed": "arch",
+        "levels": 4
+      },
+      "desc": "지상 4층 고가역. 대합실은 2층, 승강장은 4층이고 긴 아치 철골 지붕이 덮어요",
+      "source": "위키백과 천안아산역(전경·승강장 사진, 본문)",
+      "url": "https://ko.wikipedia.org/wiki/천안아산역"
+    },
+    "광주송정": {
+      "value": {
+        "facade": "curtain",
+        "roof": "wave"
+      },
+      "desc": "유리와 흰 벽, 지붕 끝이 물결처럼 휜 역사(2015년)",
+      "source": "위키백과 광주송정역(신 역사 사진)",
+      "url": "https://ko.wikipedia.org/wiki/광주송정역"
+    },
+    "울산": {
+      "value": {
+        "facade": "curtain",
+        "roof": "flat",
+        "frontCanopy": true,
+        "bigSign": true
+      },
+      "desc": "앞 출입구에 큰 철골 차양과 그 위의 큰 역 이름판, 뒤로 유리 벽 역사",
+      "source": "위키백과 울산역(정보 상자 사진)",
+      "url": "https://ko.wikipedia.org/wiki/울산역"
+    },
+    "밀양": {
+      "value": {
+        "facade": "punched",
+        "roof": "hipped",
+        "colonnade": true,
+        "wall": "#b8a58a"
+      },
+      "desc": "넓은 처마의 모임지붕과 앞의 기둥 줄. TODO(확인 필요): 사진 설명이 \"舊 역사\"라 지금 역사와 같은지",
+      "source": "위키백과 밀양역(정보 상자 사진)",
+      "url": "https://ko.wikipedia.org/wiki/밀양역"
+    },
+    "구포": {
+      "value": {
+        "facade": "band",
+        "roof": "flat",
+        "roundSign": true
+      },
+      "desc": "2층 상자 모양에 가로 유리 띠, 모서리 위 둥근 역 이름판. 2022년부터 역사를 새로 짓는 중이라고 적혀 있어요. TODO(확인 필요): 새 역사 모습",
+      "source": "위키백과 구포역(한국철도공사)(전면 사진, 본문)",
+      "url": "https://ko.wikipedia.org/wiki/구포역_(한국철도공사)"
+    },
+    "전주": {
+      "value": {
+        "facade": "hanok",
+        "roof": "hanok"
+      },
+      "desc": "한옥 양식 역사(기와지붕). 옆에 새 유리 건물이 있어요",
+      "source": "위키백과 전주역(본문 \"역사가 한옥 양식\", 역사 사진)",
+      "url": "https://ko.wikipedia.org/wiki/전주역"
+    },
+    "포항": {
+      "value": {
+        "facade": "curtain",
+        "roof": "shell"
+      },
+      "desc": "큰 곡선 지붕이 한쪽 끝에서 땅으로 휘어 내려오는 유리 역사(2015년)",
+      "source": "위키백과 포항역(역사 사진)",
+      "url": "https://ko.wikipedia.org/wiki/포항역"
+    }
   }
 }
