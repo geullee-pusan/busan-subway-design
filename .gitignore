@@ -17,6 +17,7 @@ data/raw/datagokr/15063230.zip
 data/raw/osm/roads.json
 # 넓힌 범위의 차도 원본(51MB, 지도 범위 넓히기 4)
 data/raw/osm/roads-2.json
+data/raw/osm/roads-4.json
 # OpenStreetMap 동네 길 원본(조각마다 수 MB). 줄인 것은 data/build/roads.json에 둔다.
 data/raw/osm/paths-*.json
 

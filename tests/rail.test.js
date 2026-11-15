@@ -13,7 +13,8 @@ const load = () => JSON.parse(readFileSync(path, 'utf8'));
 test('경부고속선과 경부선의 주요 역이 차례대로 있다', { skip }, () => {
   const rail = load();
   const names = (id) => rail.lines.find((l) => l.id === id).stations.map((s) => s.replace(/^R-/, ''));
-  assert.deepEqual(names('KTX'), ['대전', '김천구미', '대구', '동대구', '경주', '울산', '부산']);
+  // 지도를 경북 본토까지 넓혀(2026-11-15) 천안아산·오송이 지도 안에 들어왔다
+  assert.deepEqual(names('KTX'), ['천안아산', '오송', '대전', '김천구미', '대구', '동대구', '경주', '울산', '부산']);
   const gb = names('GB');
   for (const [a, b] of [
     ['구미', '왜관'],

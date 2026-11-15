@@ -6,7 +6,7 @@
 //   - 고도(SRTM)와 경사
 // 를 구하고, 칸 안의 점들로 지형을 정한다. 인구는 행정동 인구를 그 동의 "살 수 있는 점"에 똑같이 나눈다.
 // 격자 가장자리에 걸친 동도 동 전체에서 몫을 나누도록, 격자보다 넓은 범위(확장 격자)에서 계산한 뒤 잘라 낸다.
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { assembleRings, projectRing, ringsBBox, bboxOverlaps } from '../lib/geo.mjs';
 import { loadDem } from '../lib/hgt.mjs';
 import { readCsv, toNumber } from '../lib/csv.mjs';
@@ -119,6 +119,24 @@ function waterFeatures(osm, issues) {
   return features;
 }
 
+/**
+ * OSM 섬(place=island/islet)을 GeoJSON MultiPolygon 좌표([[고리]] 목록, 경도·위도)로. 닫히지 않은 고리는 뺀다.
+ * @param {{elements: object[]}} osm
+ */
+function islandPolygons(osm) {
+  const polygons = [];
+  for (const e of osm.elements) {
+    if (e.type === 'way' && e.geometry) {
+      const coords = e.geometry.map((p) => [p.lon, p.lat]);
+      if (coords.length > 3 && coords[0][0] === coords.at(-1)[0] && coords[0][1] === coords.at(-1)[1]) polygons.push([coords]);
+    } else if (e.type === 'relation') {
+      const segments = (e.members ?? []).filter((m) => m.type === 'way' && m.geometry && m.role !== 'inner').map((m) => m.geometry.map((p) => [p.lon, p.lat]));
+      for (const ring of assembleRings(segments)) if (ring.closed && ring.coords.length > 3) polygons.push([ring.coords]);
+    }
+  }
+  return polygons;
+}
+
 /** 몫을 정수로 나눈다(최대 나머지 방식). 합계가 total과 정확히 같다. 동점이면 칸 번호가 작은 쪽이 먼저다. */
 export function allocateInteger(total, weights) {
   const entries = [...weights.entries()].sort((a, b) => a[0] - b[0]);
@@ -165,9 +183,24 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
     lonLat: lonLatBBox(f.geometry),
   }));
 
-  // 2. 지도 범위: 대상 지역(config.area: 부산·울산·김해·양산·창원) 행정동 전체 + 추가 점 + 여유 칸
+  // 1-2. 우리나라 행정동이 아닌 땅(config.extraLand, 대마도): OSM 섬 모양을 인구 없는 "동"으로 넣는다.
+  // 그래야 이미 받은 그곳의 길이 바다 위가 아니라 땅 위에 놓인다. 인구 자료에는 이 번호가 없어서 사람은 0명이다.
+  for (const land of config.extraLand ?? []) {
+    const file = raw(land.file);
+    if (!existsSync(file)) {
+      issues.push(`${land.name}: 섬 모양 원본(${land.file})이 없어 바다로 둬요(npm run fetch).`);
+      continue;
+    }
+    const polygons = islandPolygons(JSON.parse(readFileSync(file, 'utf8')));
+    if (!polygons.length) continue;
+    const geometry = { type: 'MultiPolygon', coordinates: polygons };
+    allDongs.push({ code: land.code, name: land.name, sido: land.sido, sgg: land.sgg, sggCode: land.code, geometry, lonLat: lonLatBBox(geometry) });
+  }
+
+  // 2. 지도 범위: 대상 지역(config.area) 행정동 전체 + 추가 점 + 여유 칸. excludePrefixes는 빼는 곳(울릉군)
   const prefixes = config.area?.codePrefixes ?? ['26'];
-  const busan = allDongs.filter((d) => prefixes.some((prefix) => d.code.startsWith(prefix)));
+  const excluded = config.area?.excludePrefixes ?? [];
+  const busan = allDongs.filter((d) => prefixes.some((prefix) => d.code.startsWith(prefix)) && !excluded.some((prefix) => d.code.startsWith(prefix)));
   let minX = Infinity;
   let minY = Infinity;
   let maxX = -Infinity;

@@ -21,7 +21,7 @@ const TERRAIN_COLORS = {
 const INK = '#1F3342';
 /** 기본으로 그리는 노선망. setNetwork로 옛날 부산으로 바꿀 수 있다. */
 const NOW_NETWORK = { lines, stations, stationById };
-// 지도가 407 × 267칸으로 커져서(경남·전남광주까지), 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
+// 지도가 커져서(경남·전남광주, 2026-11-15 경북 본토까지), 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
 const MIN_ZOOM = 0.05;
 const MAX_ZOOM = 6;
 
@@ -69,6 +69,7 @@ const CITY_COLORS = {
   경남: ['#E9E4C6', '#DFD9B4', '#F1EDD8'],
   광주: ['#F2D0E8', '#EABBDD', '#F7E1F1'],
   전남: ['#DCEBC9', '#CDE2B5', '#E8F2DC'],
+  경북: ['#D9E3EC', '#C9D6E2', '#E6EDF3'],
   이웃: ['#E6E6E0', '#DADAD2', '#EEEEE8'],
 };
 
@@ -86,6 +87,8 @@ function districtParts(name) {
   if (rest === '칠곡군') return { city: '칠곡', short: rest, main: true };
   // 경남의 다른 시·군, 전남광주통합특별시(옛 광주광역시의 다섯 구는 광주로 묶는다)
   if (name.startsWith('경상남도')) return { city: '경남', short: rest, main: true };
+  // 경북의 다른 시·군(2026-11-15 경북 본토 전체를 넣음. 울릉군은 지도 밖)
+  if (name.startsWith('경상북도')) return { city: '경북', short: rest, main: true };
   if (name.startsWith('전남광주')) return { city: ['동구', '서구', '남구', '북구', '광산구'].includes(rest) ? '광주' : '전남', short: rest, main: true };
   // 지도 네모 안에 함께 들어온 이웃 시·군
   return { city: rest, short: rest, main: false };

@@ -356,6 +356,34 @@
     "sha256": "d643bf2de4344e6972fbe8c30c11f8b3f51b432e150553d6a90241b056fc76f2",
     "fetched": "2026-10-18"
   },
+  "dem-N37E126": {
+    "file": "data/raw/dem/N37E126.hgt.gz",
+    "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N37/N37E126.hgt.gz",
+    "bytes": 5990516,
+    "sha256": "50823f56c5b9574cd61d52ea1122a1377b922eb4ea568aff6da93b4e57dc59c8",
+    "fetched": "2026-11-15"
+  },
+  "dem-N37E127": {
+    "file": "data/raw/dem/N37E127.hgt.gz",
+    "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N37/N37E127.hgt.gz",
+    "bytes": 13027283,
+    "sha256": "ef253d549196ce2239cb8c8c85f912b7f660855dc2cdf969dd174d2689b44a11",
+    "fetched": "2026-11-15"
+  },
+  "dem-N37E128": {
+    "file": "data/raw/dem/N37E128.hgt.gz",
+    "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N37/N37E128.hgt.gz",
+    "bytes": 15221758,
+    "sha256": "9761db5f9d2b3f3fdc85e0c8d50e254e91369e7b5af657544a241db7f0c1a2e7",
+    "fetched": "2026-11-15"
+  },
+  "dem-N37E129": {
+    "file": "data/raw/dem/N37E129.hgt.gz",
+    "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N37/N37E129.hgt.gz",
+    "bytes": 5312050,
+    "sha256": "d82a05b8b18f2f49d4f209fdd65ba81a3fd153d2f2580f1201d62f3143c5bb6e",
+    "fetched": "2026-11-15"
+  },
   "donghae-stations": {
     "file": "data/raw/datagokr/15137827.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003029206&fileDetailSn=1&insertDataPrcus=N",
@@ -539,9 +567,9 @@
   "osm-bus-terminals": {
     "file": "data/raw/osm/bus-terminals.json",
     "url": "https://overpass-api.de/api/interpreter",
-    "bytes": 141580,
-    "sha256": "98633aea0ada3fe80fafae3cc934b3e4cfc3933fad0509c1264023accf8714c5",
-    "fetched": "2026-11-14"
+    "bytes": 208425,
+    "sha256": "9c6291214ca7e1688f58ec0631fe515d9ae4367444a6dc6df1019e677ccaa046",
+    "fetched": "2026-11-15"
   },
   "osm-landmarks": {
     "file": "data/raw/osm/landmarks.json",
@@ -1173,6 +1201,34 @@
     "sha256": "d501258d405d05f245106a05e5ebb6cb58a00364d799b5bff78c505e3af64b41",
     "fetched": "2026-11-14"
   },
+  "osm-paths-u0-0": {
+    "file": "data/raw/osm/paths-u0-0.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 287,
+    "sha256": "39e349ad29e35fd5082d45841be96b47677594dd663cb59daf167f7ef9f65677",
+    "fetched": "2026-11-15"
+  },
+  "osm-paths-u0-2": {
+    "file": "data/raw/osm/paths-u0-2.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 287,
+    "sha256": "6db38abdba21419611d22c851ba7940281cab3a5c11fc538052e7d2c093b8557",
+    "fetched": "2026-11-15"
+  },
+  "osm-paths-u0-4": {
+    "file": "data/raw/osm/paths-u0-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 1458502,
+    "sha256": "a9d55168ccc2922159e8e365df3d54d53511b68138b5bf1e7b521551f9ef8089",
+    "fetched": "2026-11-15"
+  },
+  "osm-paths-u0-8": {
+    "file": "data/raw/osm/paths-u0-8.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 6604014,
+    "sha256": "38648580b60801937dd38156b58ca0137257b1602392decaf8ab4df1ae1e7869",
+    "fetched": "2026-11-15"
+  },
   "osm-paths-w0-0": {
     "file": "data/raw/osm/paths-w0-0.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -1733,6 +1789,13 @@
     "sha256": "93abdf5eb29c534ff06057efe38820f508f1f7ea320982e6e3c2d92f94daedf2",
     "fetched": "2026-11-14"
   },
+  "osm-rail-lines-4": {
+    "file": "data/raw/osm/rail-lines-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 4624542,
+    "sha256": "3c7daf0b952b8acd2828ac2e33f4d5f6c77d8b51449d4d5c10ffd1456f87a0c1",
+    "fetched": "2026-11-15"
+  },
   "osm-roads": {
     "file": "data/raw/osm/roads.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -1753,6 +1816,13 @@
     "bytes": 17515627,
     "sha256": "7c31bc129e113a4d24560d45f4200f51d0061b95e6d87cc5f585afe35d12ddd6",
     "fetched": "2026-11-14"
+  },
+  "osm-roads-4": {
+    "file": "data/raw/osm/roads-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 56322618,
+    "sha256": "016951b906bab3a031b73bf47a81ded2d84321cb8a1355573d0978e8263183fb",
+    "fetched": "2026-11-15"
   },
   "osm-routes": {
     "file": "data/raw/osm/routes.json",
@@ -1789,6 +1859,20 @@
     "sha256": "8baed3e1efe7b2bbfdf16c4350d9caa29d11c07b8c3a0b37193512b745f451d6",
     "fetched": "2026-11-14"
   },
+  "osm-stations-4": {
+    "file": "data/raw/osm/stations-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 227506,
+    "sha256": "cafc7daccd50d7cbc44fbd2527baa3141d258cf0dc0a600fd1f658d7f77b1be2",
+    "fetched": "2026-11-15"
+  },
+  "osm-tsushima": {
+    "file": "data/raw/osm/tsushima.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 4307406,
+    "sha256": "3823c13c05f629b819ac2c6451cb887e69e4938e74807d403e9dce8a1c6b0fff",
+    "fetched": "2026-11-15"
+  },
   "osm-water": {
     "file": "data/raw/osm/water.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -1809,6 +1893,13 @@
     "bytes": 4345847,
     "sha256": "277826538379ab7794ad7cde342fd20371e69b229dd08d0b0b03e0af4a9a27af",
     "fetched": "2026-11-14"
+  },
+  "osm-water-4": {
+    "file": "data/raw/osm/water-4.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 13232688,
+    "sha256": "816fe5048dc0312cc8f9d6b2579c019920e904dc3d68df527aea42ca5240db08",
+    "fetched": "2026-11-15"
   },
   "population": {
     "file": "data/raw/datagokr/15097972.csv",

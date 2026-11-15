@@ -15,14 +15,14 @@ export function readOsm(root, name) {
 
 /**
  * 파일 자리로 읽는다(data/raw/osm/water.json이면 곁의 water-2.json, water-3.json도 합친다).
- * -2는 경남·전남광주, -3은 지도 네모 안 북서쪽 띠(scripts/sources.mjs의 OSM_BOXES_2, OSM_BOX_3).
+ * -2는 경남·전남광주, -3은 지도 네모 안 북서쪽 띠, -4는 경북 북쪽까지 넓힌 북쪽 띠(scripts/sources.mjs의 OSM_BOXES_2, OSM_BOX_3, OSM_BOXES_4).
  * @param {string} path
  */
 export function readOsmFile(path) {
   const first = JSON.parse(readFileSync(path, 'utf8'));
   const seen = new Set(first.elements.map((e) => `${e.type}/${e.id}`));
   const elements = [...first.elements];
-  for (const n of [2, 3]) {
+  for (const n of [2, 3, 4]) {
     const morePath = path.replace(/\.json$/, `-${n}.json`);
     if (!existsSync(morePath)) continue;
     for (const e of JSON.parse(readFileSync(morePath, 'utf8')).elements) {

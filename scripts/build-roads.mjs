@@ -24,7 +24,7 @@ const osm = readOsm(ROOT, 'roads');
 const { landmarks } = JSON.parse(readFileSync(resolve(ROOT, 'data/build/landmarks.json'), 'utf8'));
 // 동네 길 조각(paths-1.json, 다시 나눈 조각은 paths-17-1.json 꼴, 넓힌 범위는 paths-w0-3.json, paths-s1-2.json, paths-n0-4.json 꼴)
 const pathFiles = readdirSync(resolve(ROOT, 'data/raw/osm'))
-  .filter((f) => /^paths-[wsn]?[\d-]+\.json$/.test(f))
+  .filter((f) => /^paths-[wsnu]?[\d-]+\.json$/.test(f))
   .sort()
   .map((f) => resolve(ROOT, 'data/raw/osm', f));
 

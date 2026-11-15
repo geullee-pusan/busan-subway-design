@@ -25,6 +25,13 @@ const inBoxes2 = (lines) => OSM_BOXES_2.map((box) => lines.map((line) => line.re
 // 지도 네모 안 이웃 지역(2026-11-14): 위 두 범위가 비워 둔 북서쪽 띠(위도 35.95~36.45, 경도 124.95~127.80. 군산, 익산 북쪽,
 // 논산, 부여, 금산, 대전 남쪽). 수면과 차도를 "<이름>-3.json"으로 받는다. 동네 길은 경도 128.1까지 n 조각으로 받는다.
 export const OSM_BOX_3 = '35.95,124.95,36.45,127.80';
+// 지도 범위 넓히기 5(경북 본토 전체, 2026-11-15): 격자 북쪽 끝이 북위 약 37.2도까지 올라간다. 위 범위들이 비워 둔 북쪽 띠를
+// "<이름>-4.json"으로 받는다(서쪽: 위도 36.45~37.25, 경도 124.95~127.80 / 동쪽: 위도 36.65~37.25, 경도 127.80~129.75).
+// 충남·충북·세종·대전 북쪽·경기 남쪽 끝·강원 남쪽 끝이 함께 들어온다(길과 인구까지만 넣는다).
+export const OSM_BOXES_4 = ['36.45,124.95,37.25,127.80', '36.65,127.80,37.25,129.75'];
+const inBoxes4 = (lines) => OSM_BOXES_4.map((box) => lines.map((line) => line.replace('(BOX)', `(${box})`)).join('\n')).join('\n');
+/** 대마도(쓰시마): 지형을 만들 때 땅으로 그릴 섬 모양(OSM place=island). 인구는 넣지 않는다. */
+export const TSUSHIMA_BOX = '34.05,129.10,34.75,129.55';
 /** 동네 길을 나눠 받는 조각 [남, 서, 북, 동] */
 const PATH_TILES = [];
 /**
@@ -52,6 +59,8 @@ const PATH_TILES_2 = [];
   add('w', 33.85, 124.95, 35.95, 128.1);
   add('s', 33.85, 128.1, 34.9, 129.6);
   add('n', 35.95, 124.95, 36.45, 128.1);
+  // 지도 범위 넓히기 5: 북쪽 띠(위도 36.45~37.25, 경도 124.95~129.6)
+  add('u', 36.45, 124.95, 37.25, 129.6);
 }
 // 6×6 조각(부산 시내처럼 길이 많은 곳은 3×3 조각으로도 서버가 버거워했다).
 // 그래도 받지 못한 조각(17, 18, 20, 23번: 양산·울산·대구 서쪽·경주 둘레)은 다시 2×2로 나눈다(예: 17-1 ~ 17-4).
@@ -155,7 +164,8 @@ export const SOURCES = [
   { key: 'dem-N36E128', file: 'data/raw/dem/N36E128.hgt.gz', url: `${SKADI_BASE}/N36/N36E128.hgt.gz`, size: 13521169 },
   { key: 'dem-N36E129', file: 'data/raw/dem/N36E129.hgt.gz', url: `${SKADI_BASE}/N36/N36E129.hgt.gz`, size: 8473868 },
   // 지도 범위 넓히기 4(경남 전체, 전남광주): 서쪽과 남쪽 타일. 크기는 받은 뒤 적는다.
-  ...['N33E126', 'N34E125', 'N34E126', 'N34E127', 'N35E125', 'N35E126', 'N36E125', 'N36E126'].map((tile) => ({
+  // 지도 범위 넓히기 5(경북 본토, 2026-11-15): 북쪽 띠 타일(N37E125는 바다뿐이라 타일이 없다)
+  ...['N33E126', 'N34E125', 'N34E126', 'N34E127', 'N35E125', 'N35E126', 'N36E125', 'N36E126', 'N37E126', 'N37E127', 'N37E128', 'N37E129'].map((tile) => ({
     key: `dem-${tile}`,
     file: `data/raw/dem/${tile}.hgt.gz`,
     url: `${SKADI_BASE}/${tile.slice(0, 3)}/${tile}.hgt.gz`,
@@ -259,6 +269,7 @@ out center tags qt;`,
   nwr["amenity"="bus_station"](${OSM_BBOX});
 ${inBoxes2(['  nwr["amenity"="bus_station"](BOX);'])}
   nwr["amenity"="bus_station"](${OSM_BOX_3});
+${inBoxes4(['  nwr["amenity"="bus_station"](BOX);'])}
 );
 out center tags;`,
   },
@@ -363,6 +374,61 @@ out geom;`,
     overpass: `[out:json][timeout:900][maxsize:1073741824][bbox:${OSM_BOX_3}];
 way["highway"~"^(trunk|primary|secondary|tertiary)(_link)?$"];
 out geom qt;`,
+  },
+  // 지도 범위 넓히기 5: 북쪽 띠(OSM_BOXES_4)의 수면, 기차역, 선로, 차도
+  {
+    key: 'osm-water-4',
+    file: 'data/raw/osm/water-4.json',
+    overpass: `[out:json][timeout:300];
+(
+${inBoxes4(['  way["natural"="water"](BOX);', '  relation["natural"="water"](BOX);', '  way["waterway"="riverbank"](BOX);', '  relation["waterway"="riverbank"](BOX);'])}
+);
+out geom;`,
+  },
+  {
+    key: 'osm-stations-4',
+    file: 'data/raw/osm/stations-4.json',
+    overpass: `[out:json][timeout:180];
+(
+${inBoxes4([
+  '  nwr["railway"~"^(station|halt|stop)$"](BOX);',
+  '  nwr["public_transport"~"^(station|stop_position)$"]["train"="yes"](BOX);',
+  '  nwr["public_transport"~"^(station|stop_position)$"]["subway"="yes"](BOX);',
+  '  relation["public_transport"="stop_area"](BOX);',
+  '  nwr["railway"="construction"]["construction"~"station"](BOX);',
+  '  nwr["construction:railway"~"station"](BOX);',
+])}
+);
+out center;`,
+  },
+  {
+    key: 'osm-rail-lines-4',
+    file: 'data/raw/osm/rail-lines-4.json',
+    overpass: `[out:json][timeout:300];
+(
+${inBoxes4(['  way["railway"="rail"][!"service"](BOX);'])}
+);
+out geom;`,
+  },
+  {
+    key: 'osm-roads-4',
+    file: 'data/raw/osm/roads-4.json',
+    overpass: `[out:json][timeout:900][maxsize:1073741824];
+(
+${inBoxes4(['  way["highway"~"^(trunk|primary|secondary|tertiary)(_link)?$"](BOX);'])}
+);
+out geom qt;`,
+  },
+  // 대마도(쓰시마) 섬 모양: 길(OSM 차도·동네 길)은 이미 받은 원본에 들어 있는데 땅이 바다로 그려져서, 섬 모양으로 땅을 그린다.
+  {
+    key: 'osm-tsushima',
+    file: 'data/raw/osm/tsushima.json',
+    overpass: `[out:json][timeout:180][bbox:${TSUSHIMA_BOX}];
+(
+  way["place"~"^(island|islet)$"];
+  relation["place"~"^(island|islet)$"];
+);
+out geom;`,
   },
   ...PATH_TILES_2.map(({ name, box: [s, w, n, e] }) => ({
     key: `osm-paths-${name}`,
