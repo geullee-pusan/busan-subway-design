@@ -6481,6 +6481,244 @@
           "evidence": "충청남도 토박이들은 예로부터 한듬산이라고 불렀고"
         }
       ]
+    },
+    "geojeipark1": {
+      "name": "거제아이파크 1차",
+      "facts": [
+        {
+          "text": "거제시 양정동에 있는 아파트예요.",
+          "source": "아파트 정보 사이트 dapt.kr",
+          "url": "https://dapt.kr/apt/JaA099.html",
+          "checked": "2026-11-15",
+          "evidence": "경상남도 거제시 양정동 279 거제아이파크1차아파트. 사용자가 부른 이름은 \"양정현대아이파크 1차\"(시공사 현대산업개발)."
+        },
+        {
+          "text": "2017년에 사람들이 들어와 살기 시작했어요.",
+          "source": "아파트 정보 사이트 seonsu.ai",
+          "url": "https://seonsu.ai/complex/50092-%EC%96%91%EC%A0%95%EB%8F%99-%EA%B1%B0%EC%A0%9C%EC%95%84%EC%9D%B4%ED%8C%8C%ED%81%AC1%EC%B0%A8",
+          "checked": "2026-11-15",
+          "evidence": "입주 2017.03. dapt.kr 사용승인 2017년 03월 30일."
+        },
+        {
+          "text": "11개 동에 995세대가 살아요.",
+          "source": "아파트 정보 사이트 dapt.kr",
+          "url": "https://dapt.kr/apt/JaA099.html",
+          "checked": "2026-11-15",
+          "evidence": "총 세대수는 995 세대, 11 개 동"
+        },
+        {
+          "text": "가장 높은 동은 25층이에요.",
+          "source": "이투데이 2014-10-07 분양 기사",
+          "url": "https://www.etoday.co.kr/news/view/994774",
+          "checked": "2026-11-15",
+          "evidence": "지하 3층~지상 최고 25층 11개동"
+        }
+      ]
+    },
+    "pungamkumho2": {
+      "name": "풍암금호타운 2차",
+      "facts": [
+        {
+          "text": "광주 서구 풍암동에 있는 아파트예요.",
+          "source": "아파트 정보 사이트 dapt.kr",
+          "url": "https://dapt.kr/apt/GeA087.html",
+          "checked": "2026-11-15",
+          "evidence": "광주광역시 서구 풍암동 1093 금호2차. aptgin 이름은 금호타운2단지."
+        },
+        {
+          "text": "2000년에 사람들이 들어와 살기 시작했어요.",
+          "source": "아파트 정보 사이트 aptgin",
+          "url": "https://aptgin.com/home/popup/pp_danji/apt/am1167em0",
+          "checked": "2026-11-15",
+          "evidence": "2000-08. dapt.kr 사용승인일 2000년 08월 24일."
+        },
+        {
+          "text": "4개 동에 336세대가 살아요.",
+          "source": "아파트 정보 사이트 dapt.kr",
+          "url": "https://dapt.kr/apt/GeA087.html",
+          "checked": "2026-11-15",
+          "evidence": "총 세대수는 336 세대, 4 개 동"
+        },
+        {
+          "text": "가장 높은 층은 20층이에요.",
+          "source": "아파트 정보 사이트 aptgin",
+          "url": "https://aptgin.com/home/popup/pp_danji/apt/am1167em0",
+          "checked": "2026-11-15",
+          "evidence": "20 층(한 곳에서만 확인)"
+        }
+      ]
+    },
+    "dadaelottecastle": {
+      "name": "다대롯데캐슬몰운대",
+      "facts": [
+        {
+          "text": "부산 사하구 다대동에 있는 아파트예요.",
+          "source": "KB부동산",
+          "url": "https://kbland.kr/se/c/343677",
+          "checked": "2026-11-15",
+          "evidence": "부산광역시 사하구 다대동 1624, 다대낙조2길 100"
+        },
+        {
+          "text": "2007년에 사람들이 들어와 살기 시작했어요.",
+          "source": "KB부동산",
+          "url": "https://kbland.kr/se/c/343677",
+          "checked": "2026-11-15",
+          "evidence": "사용승인일 2007.11.26. 리치고·aptgin 입주 2007-11."
+        },
+        {
+          "text": "49개 동이 있는 아주 큰 단지예요.",
+          "source": "KB부동산, aptgin",
+          "url": "https://kbland.kr/se/c/343677",
+          "checked": "2026-11-15",
+          "evidence": "3,462세대 / 49개동"
+        },
+        {
+          "text": "3,462세대가 살아요.",
+          "source": "KB부동산, aptgin",
+          "url": "https://kbland.kr/se/c/343677",
+          "checked": "2026-11-15",
+          "evidence": "3,462세대"
+        },
+        {
+          "text": "가장 높은 동은 20층이에요.",
+          "source": "KB부동산, 리치고, aptgin",
+          "url": "https://kbland.kr/se/c/343677",
+          "checked": "2026-11-15",
+          "evidence": "최고 9~20층"
+        }
+      ]
+    },
+    "busanscience": {
+      "name": "부산과학체험관",
+      "facts": [
+        {
+          "text": "2016년 10월 20일에 문을 열었어요.",
+          "source": "한국일보 2016-10-18 기사",
+          "url": "https://www.hankookilbo.com/News/Read/201610181863529936",
+          "checked": "2026-11-15",
+          "evidence": "20일 개관(매일일보 2016-10-17 기사도 같음)"
+        },
+        {
+          "text": "옛 부산디자인고등학교 자리에 지었어요.",
+          "source": "한국일보 2016-10-18 기사",
+          "url": "https://www.hankookilbo.com/News/Read/201610181863529936",
+          "checked": "2026-11-15",
+          "evidence": "옛 부산디자인고 부지"
+        },
+        {
+          "text": "부산광역시교육청이 운영해요.",
+          "source": "한국일보 2016-10-18 기사, ktriptips",
+          "url": "https://www.ktriptips.com/kor/tourspot/3016002",
+          "checked": "2026-11-15",
+          "evidence": "2016년: 부산시교육청 부산시과학교육원 분관. 지금 안내: 부산광역시 교육청 창의융합교육원 분원"
+        },
+        {
+          "text": "빛, 소리, 전기 같은 과학을 직접 해 보며 배워요.",
+          "source": "한국일보 2016-10-18 기사",
+          "url": "https://www.hankookilbo.com/News/Read/201610181863529936",
+          "checked": "2026-11-15",
+          "evidence": "전시 영역: 빛, 전자기, 소리·파동, 지구·생명, 열·역학, 수학·융합"
+        },
+        {
+          "text": "바깥 마당에는 DNA 모형이 있어요.",
+          "source": "ktriptips",
+          "url": "https://www.ktriptips.com/kor/tourspot/3016002",
+          "checked": "2026-11-15",
+          "evidence": "야외전시실: 단층구조, DNA 모형 등"
+        }
+      ]
+    },
+    "cmssajik": {
+      "name": "CMS 부산사직영재교육센터",
+      "facts": [
+        {
+          "text": "부산 동래구 온천동에 있는 수학 학원이에요.",
+          "source": "CMS 공식 누리집(크레버스)",
+          "url": "https://www.creverse.com/mt/busansajik/",
+          "checked": "2026-11-15",
+          "evidence": "부산 동래구 아시아드대로 245 (온천동) 14층. 나무위키에는 석사로 42-1 행터빌딩 2층으로 적혀 있다."
+        },
+        {
+          "text": "건물 14층에 있어요.",
+          "source": "CMS 공식 누리집(크레버스)",
+          "url": "https://www.creverse.com/mt/busansajik/",
+          "checked": "2026-11-15",
+          "evidence": "아시아드대로 245 (온천동) 14층"
+        },
+        {
+          "text": "생각하는 힘을 기르는 수학을 가르쳐요.",
+          "source": "CMS 공식 누리집(크레버스)",
+          "url": "https://www.creverse.com/mt/busansajik/",
+          "checked": "2026-11-15",
+          "evidence": "CMS 융합 사고 프로그램, 사고력수학"
+        }
+      ]
+    },
+    "cmssaha": {
+      "name": "CMS 부산사하영재교육센터",
+      "facts": [
+        {
+          "text": "부산 사하구 괴정동에 있는 수학 학원이에요.",
+          "source": "CMS 공식 누리집(크레버스)",
+          "url": "https://creverse.com/mt/busansaha",
+          "checked": "2026-11-15",
+          "evidence": "부산 사하구 낙동대로 316 (괴정동) 3층. 나무위키에는 낙동대로 420 거종빌딩 5층으로 적혀 있다."
+        },
+        {
+          "text": "건물 3층에 있어요.",
+          "source": "CMS 공식 누리집(크레버스)",
+          "url": "https://creverse.com/mt/busansaha",
+          "checked": "2026-11-15",
+          "evidence": "낙동대로 316 (괴정동) 3층"
+        },
+        {
+          "text": "생각하는 힘을 기르는 수학을 가르쳐요.",
+          "source": "CMS 공식 누리집(크레버스)",
+          "url": "https://creverse.com/mt/busansaha",
+          "checked": "2026-11-15",
+          "evidence": "CMS사고력수학"
+        }
+      ]
+    },
+    "sunaroi": {
+      "name": "수나로이",
+      "facts": [
+        {
+          "text": "거제시 거제면 명진리에 있는 식당이에요.",
+          "source": "다이닝코드",
+          "url": "https://www.diningcode.com/profile.php?rid=K5WlBcGy1n17",
+          "checked": "2026-11-15",
+          "evidence": "경남 거제시 거제면 동상명진길 119-1(명진리 636-1). 자료에는 브런치 카페로 적혀 있고, 사용자가 식당이라고 알려 줌(2026-11-15)."
+        },
+        {
+          "text": "샌드위치와 샐러드를 팔아요.",
+          "source": "다이닝코드",
+          "url": "https://www.diningcode.com/profile.php?rid=K5WlBcGy1n17",
+          "checked": "2026-11-15",
+          "evidence": "감자뇨끼, 시금치그릴샌드위치, 드롭샌드위치, 부라타토마토샐러드"
+        },
+        {
+          "text": "빨간 지붕에 하얀 벽인 집이에요.",
+          "source": "스마트관광신문 2022-10-31 기사",
+          "url": "https://www.st-news.co.kr/news/articleView.html?idxno=6145",
+          "checked": "2026-11-15",
+          "evidence": "빨간 지붕, 하얀 벽(다이닝코드 후기: 빨간 지붕의 유럽풍 건물)"
+        },
+        {
+          "text": "집 앞에는 푸른 잔디밭이 있어요.",
+          "source": "스마트관광신문 2022-10-31 기사",
+          "url": "https://www.st-news.co.kr/news/articleView.html?idxno=6145",
+          "checked": "2026-11-15",
+          "evidence": "푸른 잔디밭"
+        },
+        {
+          "text": "둘레에는 논과 시골 마을이 있어요.",
+          "source": "스마트관광신문 2022-10-31 기사",
+          "url": "https://www.st-news.co.kr/news/articleView.html?idxno=6145",
+          "checked": "2026-11-15",
+          "evidence": "논과 시골 마을"
+        }
+      ]
     }
   }
 }

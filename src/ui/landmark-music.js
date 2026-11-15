@@ -40,6 +40,10 @@ const TUNES = {
   apartment: { root: 67, bpm: 104, scale: MAJOR_PENTA, voice: 'musicbox', notes: [[2, 0.5], [3, 0.5], [4, 1], [3, 0.5], [2, 0.5], [0, 1.5]], chord: [0, 4, 7] },
   school: { root: 72, bpm: 100, scale: MAJOR_PENTA, voice: 'bell', notes: [[4, 1], [2, 1], [3, 1], [0, 2]], chord: [0, 4, 7, 12] },
   university: { root: 62, bpm: 116, scale: MAJOR_PENTA, voice: 'brass', notes: [[0, 0.5], [2, 0.5], [3, 1], [4, 0.5], [3, 0.5], [5, 1.5]], chord: [0, 7, 12] },
+  // 과학관: 반짝이는 오르골, 학원: 또박또박 종소리, 식당: 느긋한 오르간
+  science: { root: 74, bpm: 112, scale: MAJOR_PENTA, voice: 'musicbox', notes: [[0, 0.5], [4, 0.5], [2, 0.5], [5, 0.5], [3, 0.5], [7, 1.5]], extra: 'sparkle', chord: [0, 4, 7] },
+  academy: { root: 69, bpm: 108, scale: MAJOR_PENTA, voice: 'bell', notes: [[0, 0.5], [2, 0.5], [4, 0.5], [2, 0.5], [3, 1], [4, 1]], chord: [0, 4, 7] },
+  restaurant: { root: 65, bpm: 88, scale: MAJOR_PENTA, voice: 'organ', notes: [[2, 1], [3, 0.5], [4, 0.5], [3, 1], [0, 2]], chord: [0, 4, 7] },
   stadium: { root: 60, bpm: 132, scale: MAJOR_PENTA, voice: 'brass', notes: [[0, 0.5], [0, 0.5], [3, 0.5], [5, 1], [3, 0.5], [5, 1.5]], extra: 'cheer', chord: [0, 4, 7, 12] },
 };
 

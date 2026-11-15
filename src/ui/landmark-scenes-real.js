@@ -413,4 +413,190 @@ export const REAL_SCENES = {
     kid(g, 244, 288, 1.4, '#E8590C');
     kid(g, 336, 256, 1.1, '#2F9E44');
   },
+
+  // 아래 일곱 곳은 사진을 보지 않고 자료에 적힌 모양(층수, 동 수, 지붕과 벽 색)만 따라 그렸다. 실제와 다를 수 있다.
+
+  /** 거제아이파크 1차: 산을 등진 판상형(옆으로 긴) 11개 동, 20~25층 */
+  geojeIpark(g) {
+    skyAndClouds(g, ['#4C8CC8', '#9FCAE8', '#ECF5FA'], [[140, 62, 78, 13, 0.8], [460, 44, 70, 12, 0.7]]);
+    ridge(g, [[0, 150], [90, 118], [200, 132], [300, 100], [410, 126], [520, 108], [600, 132]], ['#5E8A64', '#7FA77E']);
+    ridge(g, [[0, 196], [150, 176], [300, 186], [460, 172], [600, 190]], ['#4F7C52', '#6C9A66']);
+    const body = { front: ['#F6F4EE', '#DEDAD0', '#B3AEA2'], sideColor: ['#9E998D', '#77736A'], glass: '#4B6073', band: '#8C6A4F' };
+    const back = [[30, 150, 92], [150, 168, 96], [276, 178, 100], [404, 160, 96], [520, 146, 76]];
+    back.forEach(([x, h, w], i) => tower(g, { ...body, x, base: 232, w, h, side: 14, floors: Math.round(h / 7.2), cols: 10, bandAt: 0.5, seed: 70 + i }));
+    const front = [[0, 132, 104], [124, 150, 108], [262, 158, 110], [398, 144, 108], [520, 128, 80]];
+    front.forEach(([x, h, w], i) => tower(g, { ...body, x, base: 262, w, h, side: 16, floors: Math.round(h / 6.6), cols: 11, bandAt: i % 2 ? 0.25 : 0.75, seed: 80 + i }));
+    g.append(el('rect', { x: 0, y: 258, width: 600, height: 62, fill: paint(g, ['#86B068', '#64944F', '#4C7C3E']) }));
+    g.append(el('path', { d: 'M0 300 Q220 270 380 284 T600 276 L600 296 Q470 294 380 304 T0 320 Z', fill: '#D9D2C2' }));
+    for (const [x, h, s] of [[40, 64, 2], [180, 74, 3], [330, 66, 4], [470, 78, 5], [574, 70, 6]]) leafyTree(g, x, 282, h, s);
+    kid(g, 270, 296, 1.1, '#E8590C');
+  },
+
+  /** 풍암금호타운 2차: 20층 4개 동, 뒤로 산, 앞에 놀이터 */
+  pungamKumho(g) {
+    skyAndClouds(g, ['#5A93CC', '#A8CDEA', '#EFF6FA'], [[170, 58, 80, 13, 0.8], [470, 76, 70, 12, 0.7]]);
+    ridge(g, [[0, 146], [120, 112], [240, 128], [360, 104], [480, 124], [600, 112]], ['#5D8A66', '#83AB84']);
+    const body = { front: ['#FAFAF7', '#E3E2DB', '#B8B6AC'], sideColor: ['#A3A197', '#7E7C73'], glass: '#4D6276', band: '#3E6FA6', crown: '#5D6B78' };
+    [[44, 176, 96], [176, 196, 100], [316, 190, 100], [452, 170, 96]].forEach(([x, h, w], i) => tower(g, { ...body, x, base: 256, w, h, side: 22, floors: 20, cols: 8, bandAt: 0.5, seed: 90 + i }));
+    g.append(el('rect', { x: 0, y: 252, width: 600, height: 68, fill: paint(g, ['#83AE66', '#61934D', '#4A7A3C']) }));
+    // 놀이터
+    g.append(el('rect', { x: 360, y: 276, width: 150, height: 34, rx: 6, fill: '#E5C98F' }));
+    g.append(el('path', { d: 'M380 300 V270 H430 V300 M392 270 V292 M418 270 V292', stroke: '#D9480F', 'stroke-width': 3, fill: 'none' }));
+    g.append(el('path', { d: 'M450 302 L470 274 L486 274 L500 302', stroke: '#1971C2', 'stroke-width': 3, fill: 'none' }));
+    for (const [x, h, s] of [[30, 66, 2], [150, 72, 3], [300, 64, 4], [560, 70, 5]]) leafyTree(g, x, 284, h, s);
+    kid(g, 420, 304, 1.1, '#2F9E44');
+    kid(g, 250, 300, 1.2, '#E8590C');
+  },
+
+  /** 다대롯데캐슬몰운대: 9~20층 여러 동이 넓게 퍼진 큰 단지, 옆으로 다대포 바다 */
+  lotteCastleMolundae(g) {
+    skyAndClouds(g, ['#4E8EC9', '#A3CCEA', '#F2EEE2'], [[130, 54, 74, 12, 0.8], [430, 70, 84, 13, 0.75]]);
+    // 오른쪽 바다와 몰운대 숲
+    g.append(el('rect', { x: 380, y: 196, width: 220, height: 124, fill: paint(g, ['#5C9CC4', '#3F7FA9', '#2F6890']) }));
+    g.append(el('path', { d: 'M470 200 Q520 168 600 176 L600 214 Q540 208 470 214 Z', fill: '#4E7D4E' }));
+    const waves = [];
+    for (let k = 0; k < 8; k++) waves.push(`M${396 + (k % 4) * 52} ${232 + Math.floor(k / 4) * 30}q10 -5 20 0`);
+    g.append(el('path', { d: waves.join(''), stroke: '#E6F2F8', 'stroke-width': 1.6, fill: 'none', opacity: 0.8 }));
+    ridge(g, [[0, 168], [110, 140], [230, 156], [360, 136], [380, 196], [0, 196]], ['#6A9170', '#86AA86']);
+    const body = { front: ['#F3EEE4', '#DAD2C2', '#AEA592'], sideColor: ['#958C7B', '#706858'], glass: '#4A5C6C', crown: '#8E3B2E' };
+    const far = [[10, 84], [70, 104], [130, 92], [190, 112], [250, 98], [310, 88]];
+    far.forEach(([x, h], i) => tower(g, { ...body, x, base: 214, w: 46, h, side: 10, floors: Math.round(h / 6), cols: 5, seed: 100 + i }));
+    const near = [[0, 128, 66], [84, 150, 70], [172, 140, 70], [262, 118, 66], [340, 96, 60]];
+    near.forEach(([x, h, w], i) => tower(g, { ...body, x, base: 262, w, h, side: 16, floors: Math.round(h / 7.4), cols: 7, seed: 110 + i }));
+    g.append(el('rect', { x: 0, y: 258, width: 420, height: 62, fill: paint(g, ['#86B068', '#64944F', '#4C7C3E']) }));
+    g.append(el('path', { d: 'M420 258 L600 258 L600 320 L380 320 Z', fill: paint(g, ['#EEDCAE', '#DCC48E']) }));
+    for (const [x, h, s] of [[46, 62, 2], [150, 70, 3], [262, 66, 4], [360, 60, 5]]) leafyTree(g, x, 282, h, s);
+    kid(g, 470, 296, 1.2, '#1971C2');
+  },
+
+  /** 부산과학체험관: 지하 1층·지상 4층 넓은 체험관, 마당에 DNA 모형과 땅이 어긋난 단층 모형 */
+  busanScienceHall(g) {
+    skyAndClouds(g, ['#4A8BC9', '#A2CBE9', '#EEF6FA'], [[120, 50, 70, 12, 0.8], [480, 66, 76, 12, 0.75]]);
+    // 뒤편 초량 산동네
+    ridge(g, [[0, 140], [140, 110], [280, 124], [420, 98], [600, 122]], ['#6F9576', '#8DAF8C']);
+    for (let i = 0; i < 18; i++) g.append(el('rect', { x: 8 + i * 33, y: 128 + (i % 4) * 9, width: 24, height: 22, fill: ['#E9E2D3', '#D7DEE4', '#F0E6D8'][i % 3] }));
+    // 4층 체험관: 가운데 유리 벽, 양쪽 하얀 판
+    g.append(el('rect', { x: 70, y: 112, width: 460, height: 138, fill: paint(g, ['#F7F7F4', '#E1E3E1', '#C3C7C6'], 'right') }));
+    g.append(el('rect', { x: 210, y: 104, width: 180, height: 146, fill: paint(g, ['#7FB4D9', '#4E86B4', '#36698F'], 'right') }));
+    const mullion = [];
+    for (let k = 1; k < 9; k++) mullion.push(`M${210 + k * 20} 104V250`);
+    for (let k = 1; k < 4; k++) mullion.push(`M210 ${104 + k * 36.5}H390`);
+    g.append(el('path', { d: mullion.join(''), stroke: '#DDEBF5', 'stroke-width': 1.2, opacity: 0.85 }));
+    const panes = [];
+    for (let f = 0; f < 4; f++) for (let c = 0; c < 5; c++) { panes.push([86 + c * 24, 122 + f * 32, 16, 18]); panes.push([408 + c * 24, 122 + f * 32, 16, 18]); }
+    g.append(el('path', { d: rects(panes), fill: '#5B7A90' }));
+    g.append(el('rect', { x: 62, y: 104, width: 476, height: 9, fill: '#6C7A84' }));
+    g.append(el('text', { x: 300, y: 98, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 800, fill: '#21456B', 'font-family': 'sans-serif' }, '부산과학체험관'));
+    g.append(el('rect', { x: 270, y: 222, width: 60, height: 28, fill: '#2E4A5E' }));
+    // 마당
+    g.append(el('rect', { x: 0, y: 250, width: 600, height: 70, fill: paint(g, ['#D8D2C4', '#C2BBAA']) }));
+    // DNA 모형: 두 줄이 꼬인 사다리
+    const left = [];
+    const right = [];
+    const rungs = [];
+    for (let k = 0; k <= 24; k++) {
+      const y = 300 - k * 4.4;
+      const s = Math.sin(k * 0.55) * 16;
+      left.push(`${k ? 'L' : 'M'}${74 + s} ${y}`);
+      right.push(`${k ? 'L' : 'M'}${74 - s} ${y}`);
+      if (k % 2 === 0) rungs.push(`M${74 + s} ${y}H${74 - s}`);
+    }
+    g.append(el('path', { d: rungs.join(''), stroke: '#F2C94C', 'stroke-width': 2.4 }));
+    g.append(el('path', { d: left.join(''), stroke: '#E8590C', 'stroke-width': 3.4, fill: 'none' }));
+    g.append(el('path', { d: right.join(''), stroke: '#1971C2', 'stroke-width': 3.4, fill: 'none' }));
+    // 단층 모형: 지층이 비스듬히 어긋난 돌
+    const layers = ['#B5835A', '#D8B07A', '#8E6A4C', '#E3C79A'];
+    layers.forEach((c, k) => {
+      g.append(el('path', { d: `M470 ${300 - k * 10} L512 ${300 - k * 10} L516 ${290 - k * 10} L474 ${290 - k * 10} Z`, fill: c }));
+      g.append(el('path', { d: `M516 ${290 - k * 10} L556 ${290 - k * 10} L556 ${280 - k * 10} L520 ${280 - k * 10} Z`, fill: c }));
+    });
+    for (const [x, h, s] of [[150, 60, 2], [450, 56, 3]]) leafyTree(g, x, 256, h, s);
+    kid(g, 250, 290, 1.2, '#E8590C');
+    kid(g, 340, 296, 1.3, '#2F9E44');
+  },
+
+  /** CMS 부산사직영재교육센터: 큰길가 높은 건물의 14층 교실 */
+  cmsSajik(g) {
+    academyBuilding(g, { floors: 16, classFloor: 14, label: 'CMS 사직' });
+  },
+
+  /** CMS 부산사하영재교육센터: 큰길가 건물의 3층 교실 */
+  cmsSaha(g) {
+    academyBuilding(g, { floors: 6, classFloor: 3, label: 'CMS 사하' });
+  },
+
+  /** 수나로이: 빨간 지붕과 하얀 벽의 유럽풍 집, 앞에 잔디밭, 둘레에 논, 뒤뜰에 큰 밤나무 */
+  sunaroi(g) {
+    skyAndClouds(g, ['#5A98D2', '#AFD4EE', '#F4F2E6'], [[150, 56, 80, 13, 0.85], [450, 44, 66, 11, 0.75]]);
+    ridge(g, [[0, 150], [120, 120], [250, 140], [380, 112], [500, 134], [600, 118]], ['#5C8A62', '#7FA87C']);
+    // 둘레의 논: 줄지은 벼
+    g.append(el('rect', { x: 0, y: 190, width: 600, height: 130, fill: paint(g, ['#B9C96E', '#9DB458', '#7F9A44']) }));
+    const rows = [];
+    for (let k = 0; k < 9; k++) rows.push(`M0 ${200 + k * 13}H600`);
+    g.append(el('path', { d: rows.join(''), stroke: '#6F8A3A', 'stroke-width': 1.2, opacity: 0.6 }));
+    // 시골 마을 집들
+    for (const [x, c] of [[24, '#5B7FA6'], [76, '#A3553A'], [520, '#4F7B6A'], [566, '#7B6A9A']]) {
+      g.append(el('rect', { x, y: 172, width: 34, height: 22, fill: '#EFE9DC' }));
+      g.append(el('path', { d: `M${x - 4} 174 L${x + 17} 160 L${x + 38} 174 Z`, fill: c }));
+    }
+    // 뒤뜰 큰 밤나무
+    leafyTree(g, 452, 218, 150, 7);
+    // 빨간 지붕과 하얀 벽의 집
+    g.append(el('rect', { x: 196, y: 150, width: 210, height: 84, fill: paint(g, ['#FFFFFF', '#F1EEE7', '#D9D4C9'], 'right') }));
+    g.append(el('path', { d: 'M180 154 L250 98 L352 98 L422 154 Z', fill: paint(g, ['#D9432F', '#B4321F'], 'right') }));
+    g.append(el('path', { d: 'M250 98 L352 98 L356 104 L246 104 Z', fill: '#8E2516' }));
+    g.append(el('rect', { x: 328, y: 76, width: 16, height: 30, fill: '#9C4A36' }));
+    // 창과 문(나무 창틀)
+    for (const x of [214, 262, 352]) {
+      g.append(el('rect', { x, y: 170, width: 32, height: 30, fill: '#F2D98A' }));
+      g.append(el('path', { d: `M${x + 16} 170V200M${x} 185H${x + 32}`, stroke: '#6B4A2E', 'stroke-width': 2 }));
+      g.append(el('rect', { x, y: 170, width: 32, height: 30, fill: 'none', stroke: '#6B4A2E', 'stroke-width': 2.4 }));
+    }
+    g.append(el('rect', { x: 306, y: 178, width: 34, height: 56, rx: 3, fill: '#7A5233' }));
+    g.append(el('circle', { cx: 334, cy: 208, r: 2, fill: '#E6C46A' }));
+    // 앞의 푸른 잔디밭과 돌길
+    g.append(el('path', { d: 'M120 234 L480 234 L560 320 L40 320 Z', fill: paint(g, ['#7FBF5E', '#5EA348', '#4A8B3A']) }));
+    g.append(el('path', { d: 'M312 234 L336 234 L380 320 L292 320 Z', fill: '#D8CBB3' }));
+    for (const [x, y, r, s] of [[150, 236, 16, 3], [470, 236, 16, 4]]) foliage(g, x, y, r, s);
+    // 바깥 자리: 탁자와 파라솔
+    g.append(el('path', { d: 'M430 268 Q456 246 482 268 Z', fill: '#F4E3C3', stroke: '#C9A36A', 'stroke-width': 1 }));
+    g.append(el('line', { x1: 456, y1: 262, x2: 456, y2: 292, stroke: '#7A5233', 'stroke-width': 2 }));
+    g.append(el('rect', { x: 440, y: 286, width: 32, height: 4, fill: '#7A5233' }));
+  },
 };
+
+/** 학원이 든 큰길가 건물: 층마다 창, 교실 층에는 수학 기호와 큰 창 */
+function academyBuilding(g, { floors, classFloor, label }) {
+  skyAndClouds(g, ['#4F8FCB', '#A6CEEA', '#EEF6FA'], [[140, 50, 72, 12, 0.8], [470, 62, 80, 12, 0.75]]);
+  ridge(g, [[0, 176], [120, 150], [260, 166], [400, 144], [600, 168]], ['#7397A0', '#97B4B0']);
+  // 옆 건물들
+  tower(g, { x: 14, base: 262, w: 80, h: 118, side: 16, floors: 12, cols: 6, front: ['#E9E4DA', '#CDC6B8'], sideColor: ['#A49C8E', '#857E70'], seed: 121 });
+  tower(g, { x: 470, base: 262, w: 96, h: 140, side: 18, floors: 14, cols: 7, front: ['#E4E9EE', '#C1CAD3'], sideColor: ['#8E9AA6', '#6E7A86'], seed: 122 });
+  const top = 262 - Math.min(230, floors * 14);
+  const fh = (262 - top) / floors;
+  g.append(el('path', { d: `M390 ${top} L420 ${top + 8} L420 262 L390 262 Z`, fill: paint(g, ['#7C8C9B', '#5C6B79']) }));
+  g.append(el('rect', { x: 150, y: top, width: 240, height: 262 - top, fill: paint(g, ['#F1F3F5', '#D3D9DF', '#A9B3BD'], 'right') }));
+  const panes = [];
+  for (let f = 0; f < floors; f++) {
+    const y = top + f * fh;
+    const floorNo = floors - f;
+    if (floorNo === classFloor) continue;
+    for (let c = 0; c < 8; c++) panes.push([160 + c * 28.5, y + fh * 0.2, 20, fh * 0.6]);
+  }
+  g.append(el('path', { d: rects(panes), fill: '#56718A' }));
+  // 교실 층: 밝은 큰 창과 수학 기호
+  const cy = top + (floors - classFloor) * fh;
+  g.append(el('rect', { x: 156, y: cy + fh * 0.1, width: 228, height: fh * 0.8, fill: '#FFF4C7', stroke: '#E8590C', 'stroke-width': 1.6 }));
+  const size = Math.max(9, Math.min(14, fh * 0.7));
+  ['+', '×', '÷', '=', '△', '□', '?'].forEach((s, k) => g.append(el('text', { x: 172 + k * 32, y: cy + fh * 0.5 + size * 0.36, 'text-anchor': 'middle', 'font-size': size, 'font-weight': 800, fill: ['#D9480F', '#1971C2', '#2F9E44', '#7048E8'][k % 4], 'font-family': 'sans-serif' }, s)));
+  // 간판
+  g.append(el('rect', { x: 196, y: top - 22, width: 148, height: 20, rx: 4, fill: '#1F4E79' }));
+  g.append(el('text', { x: 270, y: top - 7, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 800, fill: '#FFFFFF', 'font-family': 'sans-serif' }, label));
+  g.append(el('rect', { x: 246, y: 232, width: 48, height: 30, fill: '#2E4556' }));
+  // 큰길과 가로수
+  g.append(el('rect', { x: 0, y: 262, width: 600, height: 58, fill: paint(g, ['#83878C', '#5A5E63']) }));
+  g.append(el('rect', { x: 0, y: 262, width: 600, height: 8, fill: '#CFC7B6' }));
+  g.append(el('path', { d: rects(Array.from({ length: 13 }, (_, i) => [i * 50, 294, 26, 2.5])), fill: '#EDEDE6' }));
+  for (const [x, h, s] of [[110, 70, 2], [430, 74, 3], [560, 66, 4]]) leafyTree(g, x, 268, h, s);
+  kid(g, 300, 286, 1.2, '#E8590C');
+}

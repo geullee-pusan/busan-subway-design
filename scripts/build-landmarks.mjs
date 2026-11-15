@@ -34,6 +34,10 @@ for (const item of config.landmarks) {
       .map((e) => ({ e, d: Math.hypot(pointOf(e)[0] - lon0, pointOf(e)[1] - lat0) }))
       .sort((a, b) => a.d - b.d)[0]?.e;
   }
+  if (!element && item.point) {
+    // OpenStreetMap에 없는 곳: 도로명 주소로 어림한 자리(어림한 까닭은 item.point.note와 data/SOURCES.md)
+    element = { type: 'point', id: `${item.point.lat},${item.point.lon}`, lat: item.point.lat, lon: item.point.lon };
+  }
   if (!element) {
     problems.push(`${item.name}: OpenStreetMap 요소를 찾지 못했어요`);
     continue;

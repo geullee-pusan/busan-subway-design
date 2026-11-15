@@ -46,6 +46,9 @@ export const LANDMARK_ICON = {
   apartment: ['🏢', '아파트'],
   school: ['🏫', '초등학교'],
   university: ['🎓', '대학교'],
+  science: ['🔬', '과학관'],
+  academy: ['✏️', '학원'],
+  restaurant: ['🍽️', '식당'],
 };
 
 let skyCount = 0;

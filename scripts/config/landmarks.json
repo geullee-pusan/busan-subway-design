@@ -1750,6 +1750,77 @@
       "osm": "node/368863842",
       "kind": "mountain",
       "radius": 500
+    },
+    {
+      "id": "geojeipark1",
+      "name": "거제아이파크 1차",
+      "city": "거제",
+      "osm": "way/473696864",
+      "kind": "apartment",
+      "scene": "geojeIpark",
+      "radius": 200
+    },
+    {
+      "id": "pungamkumho2",
+      "name": "풍암금호타운 2차",
+      "city": "광주",
+      "osm": "way/485112591",
+      "kind": "apartment",
+      "scene": "pungamKumho",
+      "radius": 130
+    },
+    {
+      "id": "dadaelottecastle",
+      "name": "다대롯데캐슬몰운대",
+      "city": "부산",
+      "osm": "way/1349542863",
+      "kind": "apartment",
+      "scene": "lotteCastleMolundae",
+      "radius": 300
+    },
+    {
+      "id": "busanscience",
+      "name": "부산과학체험관",
+      "city": "부산",
+      "osm": "way/457907599",
+      "kind": "science",
+      "scene": "busanScienceHall",
+      "radius": 120
+    },
+    {
+      "id": "cmssajik",
+      "name": "CMS 부산사직영재교육센터",
+      "city": "부산",
+      "kind": "academy",
+      "scene": "cmsSajik",
+      "radius": 150,
+      "point": {
+        "lat": 35.2057,
+        "lon": 129.0679,
+        "note": "아시아드대로 245. OpenStreetMap에 없어 같은 길 229번(한마당)에서 번호 차이(16)만큼 북쪽으로 어림했다. TODO(확인 필요)"
+      }
+    },
+    {
+      "id": "cmssaha",
+      "name": "CMS 부산사하영재교육센터",
+      "city": "부산",
+      "kind": "academy",
+      "scene": "cmsSaha",
+      "radius": 150,
+      "point": {
+        "lat": 35.1017,
+        "lon": 128.9832,
+        "note": "낙동대로 316. OpenStreetMap에 없어 같은 길 221번(괴정역)과 380번(당리동 행정복지센터) 사이를 번호로 나눠 어림했다. TODO(확인 필요)"
+      }
+    },
+    {
+      "id": "sunaroi",
+      "name": "수나로이",
+      "city": "거제",
+      "osm": "way/493554808",
+      "kind": "restaurant",
+      "scene": "sunaroi",
+      "radius": 80
     }
   ]
 }
