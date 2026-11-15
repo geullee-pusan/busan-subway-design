@@ -415,12 +415,20 @@
     "fetched": "2026-10-18"
   },
   "korail-run-info": {
-    "file": "data/raw/korail/run-info-20261014.json",
+    "file": "data/raw/korail/run-info-20261111.json",
     "url": "https://apis.data.go.kr/B551457/run/v2/travelerTrainRunInfo2",
+    "bytes": 1275518,
+    "sha256": "6a7e468297957151c2c44cae82336abc99c889050416d2f0411ec10164487451",
+    "fetched": "2026-11-15",
+    "note": "인증키가 필요한 API(npm run trains). 주소에는 인증키를 적지 않는다."
+  },
+  "korail-run-info-20261014": {
+    "file": "data/raw/korail/run-info-20261014.json",
+    "url": "https://apis.data.go.kr",
     "bytes": 567020,
     "sha256": "dcaf6cad00583a02a0e968347f3bda24473aa338e2b896d97a5530e64dd0eaec",
     "fetched": "2026-10-18",
-    "note": "인증키가 필요한 API(npm run trains). 주소에는 인증키를 적지 않는다."
+    "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "korail-run-info-20261111": {
     "file": "data/raw/korail/run-info-20261111.json",
@@ -431,12 +439,20 @@
     "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "korail-run-plan": {
-    "file": "data/raw/korail/run-plan-20261014.json",
+    "file": "data/raw/korail/run-plan-20261111.json",
     "url": "https://apis.data.go.kr/B551457/run/v2/travelerTrainRunPlan2",
+    "bytes": 194134,
+    "sha256": "e2b780aad07194a74f2242342eb7f00767b744b3a2e5bdb2acbafcfca63fe94b",
+    "fetched": "2026-11-15",
+    "note": "인증키가 필요한 API(npm run train-fares). 주소에는 인증키를 적지 않는다."
+  },
+  "korail-run-plan-20261014": {
+    "file": "data/raw/korail/run-plan-20261014.json",
+    "url": "https://apis.data.go.kr",
     "bytes": 194582,
     "sha256": "438155045737e26096d42cfdc2293e71c61609fea44c3eeefb31d89238f1ac59",
-    "fetched": "2026-10-19",
-    "note": "인증키가 필요한 API(npm run train-fares). 주소에는 인증키를 적지 않는다."
+    "fetched": "2026-10-18",
+    "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "korail-run-plan-20261111": {
     "file": "data/raw/korail/run-plan-20261111.json",
@@ -456,17 +472,33 @@
   "korail-tago-fares": {
     "file": "data/raw/korail/tago-fares-20261118.json",
     "url": "https://apis.data.go.kr",
-    "bytes": 2065851,
-    "sha256": "fc7c20a3d4f4fb900b5cd29873494591f73d20135112d09ba53521932a66abb4",
-    "fetched": "2026-11-14",
+    "bytes": 2072753,
+    "sha256": "825f259ffc0cd7a73b42e8921814e02da9ea83780440b63c19945a1aca8b2ea2",
+    "fetched": "2026-11-15",
+    "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
+  },
+  "korail-tago-fares-20261020": {
+    "file": "data/raw/korail/tago-fares-20261020.json",
+    "url": "https://apis.data.go.kr",
+    "bytes": 719934,
+    "sha256": "b2d7d34143d3996a8dc0498fabab3ef286d978f01bba90df98786b7ccf5b7f0c",
+    "fetched": "2026-10-18",
     "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "korail-tago-trains": {
     "file": "data/raw/korail/tago-trains-20261118.json",
     "url": "https://apis.data.go.kr",
-    "bytes": 319465,
-    "sha256": "947c9c22b18d33593a639888521e08b866b6f6aa58c2dfddfc1e227c3889b049",
-    "fetched": "2026-11-14",
+    "bytes": 321964,
+    "sha256": "68b40fe44b1c06589accf55fc75f3f49d05b24563daf60a578f41d77bca55535",
+    "fetched": "2026-11-15",
+    "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
+  },
+  "korail-tago-trains-20261021": {
+    "file": "data/raw/korail/tago-trains-20261021.json",
+    "url": "https://apis.data.go.kr",
+    "bytes": 167245,
+    "sha256": "f00102daa6fccc2595308bb838e91de0c488c843e1c95b55c44c049f71388758",
+    "fetched": "2026-10-18",
     "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "krna-line1": {
@@ -2449,19 +2481,19 @@
     "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
   },
   "tago-train-fares": {
-    "file": "data/raw/korail/tago-fares-20261020.json",
+    "file": "data/raw/korail/tago-fares-20261118.json",
     "url": "https://apis.data.go.kr/1613000/TrainInfo/GetStrtpntAlocFndTrainInfo",
-    "bytes": 719934,
-    "sha256": "b2d7d34143d3996a8dc0498fabab3ef286d978f01bba90df98786b7ccf5b7f0c",
-    "fetched": "2026-10-19",
+    "bytes": 2072753,
+    "sha256": "825f259ffc0cd7a73b42e8921814e02da9ea83780440b63c19945a1aca8b2ea2",
+    "fetched": "2026-11-15",
     "note": "인증키가 필요한 API(npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "tago-train-info": {
-    "file": "data/raw/korail/tago-trains-20261021.json",
+    "file": "data/raw/korail/tago-trains-20261118.json",
     "url": "https://apis.data.go.kr/1613000/TrainInfo/GetStrtpntAlocFndTrainInfo",
-    "bytes": 167245,
-    "sha256": "f00102daa6fccc2595308bb838e91de0c488c843e1c95b55c44c049f71388758",
-    "fetched": "2026-10-18",
+    "bytes": 321964,
+    "sha256": "68b40fe44b1c06589accf55fc75f3f49d05b24563daf60a578f41d77bca55535",
+    "fetched": "2026-11-15",
     "note": "인증키가 필요한 API(npm run trains). 주소에는 인증키를 적지 않는다."
   },
   "timetable": {

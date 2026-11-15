@@ -368,6 +368,38 @@ for (const def of config.lines) {
     ids.push(id);
     kms.push(point.km);
   }
+  // insert: 거리표(2024-09)보다 뒤에 새 선로로 생긴 역을 두 역 사이에 끼운다(중앙선 군위 등).
+  // 거리표에 새 선로 거리가 없어서, 그 구간은 OSM에 그린 선로 길이로 센다(우리가 잰 값, data/SOURCES.md).
+  for (const ins of def.insert ?? []) {
+    const ia = ids.indexOf(`R-${key(ins.after)}`);
+    const ib = ids.indexOf(`R-${key(ins.before)}`);
+    const s = osmByName(key(ins.name)).filter(inGrid)[0];
+    if (ia < 0 || ib !== ia + 1 || !s) {
+      issues.push(`${def.name} ${ins.name}: ${ins.after}–${ins.before} 사이에 끼우지 못했어요.`);
+      continue;
+    }
+    const snap = nearestNode(s);
+    const id = `R-${s.label}`;
+    const trackKm = (a, b) => {
+      const path = railPath(nodesNear(a, 0.6), nodesNear(b, 0.6), 200);
+      return path ? path.slice(1).reduce((sum, n, k) => sum + Math.hypot(nodes[n].x - nodes[path[k]].x, nodes[n].y - nodes[path[k]].y), 0) : null;
+    };
+    const a = stations.get(ids[ia]);
+    const b = stations.get(ids[ib]);
+    const l1 = trackKm(a, s);
+    const l2 = trackKm(s, b);
+    if (snap.km > 0.5 || l1 === null || l2 === null) {
+      issues.push(`${def.name} ${ins.name}: 선로에 붙이지 못했어요.`);
+      continue;
+    }
+    if (!stations.has(id)) stations.set(id, { id, name: s.label, x: round2(s.x), y: round2(s.y), lon: s.lon, lat: s.lat, lines: [], osm: s.osm, node: snap.node });
+    stations.get(id).lines.push(def.id);
+    const delta = l1 + l2 - (kms[ib] - kms[ia]);
+    ids.splice(ib, 0, id);
+    kms.splice(ib, 0, Math.round((kms[ia] + l1) * 10) / 10);
+    for (let k = ib + 1; k < kms.length; k++) kms[k] = Math.round((kms[k] + delta) * 10) / 10;
+    issues.push(`${def.name} ${ins.after}–${ins.name}–${ins.before}: 거리표에 없는 새 선로라 그린 선로 길이(${l1.toFixed(1)}km, ${l2.toFixed(1)}km)를 써요.`);
+  }
   if (ids.length < 2) {
     issues.push(`${def.name}: 지도 안 여객역이 ${ids.length}개뿐이라 뺐어요.`);
     // 이 노선 때문에 넣은 역은 뺀다(다른 노선에도 있으면 남는다).

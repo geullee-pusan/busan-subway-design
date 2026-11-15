@@ -62,6 +62,33 @@ for (const list of Object.values(runInfo.runs)) {
   }
 }
 
+// 코레일 기록에 없는 역(코레일 역 코드가 없는 새 역, 예: 중앙선 군위): TAGO에서 받은 그 역의 도착·출발 시각을 열차번호로 끼워 넣는다.
+// TAGO 날짜(같은 요일)의 시각을 코레일 날짜의 열차에 쓴다.
+const tagoMinutes = (text) => {
+  const m = /^(\d{8})(\d{2})(\d{2})/.exec(String(text ?? ''));
+  return m ? (m[1] > tago.runDate ? 1440 : 0) + Number(m[2]) * 60 + Number(m[3]) : null;
+};
+let extraAdded = 0;
+const extraAt = new Map(); // "열차번호|역" → {arr, dep}
+for (const e of tago.extraStops ?? []) {
+  const station = stationOf.get(key(e.station));
+  if (!station) continue;
+  for (const t of e.trains) {
+    const k = `${Number(t.trainno)}|${station}`;
+    const at = extraAt.get(k) ?? { no: Number(t.trainno), station, arr: null, dep: null };
+    if (e.toName === e.station) at.arr = tagoMinutes(t.arrplandtime);
+    else at.dep = tagoMinutes(t.depplandtime);
+    extraAt.set(k, at);
+  }
+}
+for (const at of extraAt.values()) {
+  const train = byTrain.get(String(at.no).padStart(5, '0')) ?? [...byTrain.values()].find((t) => t.no === at.no);
+  if (!train || train.stops.some((s) => s.station === at.station)) continue;
+  train.stops.push({ station: at.station, arr: at.arr, dep: at.dep ?? at.arr, first: false, last: false });
+  extraAdded += 1;
+}
+if (extraAt.size) issues.push(`코레일 기록에 없는 역의 정차 ${extraAdded}개를 TAGO 시각으로 넣었어요(${[...new Set([...extraAt.values()].map((a) => a.station))].join(', ')}).`);
+
 const trains = [];
 let oneStop = 0;
 let noKind = 0;

@@ -125,6 +125,31 @@ for (const pair of pairs.values()) {
   await sleep(100);
 }
 
+// 5-2. 코레일 역 코드 목록에 없는 기차역(중앙선 군위처럼 새로 생긴 역)은 코레일 기록에 빠진다.
+// 그 역과 노선 위 이웃 역 사이를 두 방향으로 TAGO에 물어, 그 역에 서는 열차의 시각을 받는다(build-trains가 열차번호로 끼워 넣는다).
+const extraStops = [];
+for (const s of rail.stations) {
+  const name = nameKey(s.name);
+  if (codeOf.has(name) || !tagoId.has(name)) continue;
+  const neighbors = new Set();
+  for (const line of rail.lines) {
+    const i = line.stations.indexOf(s.id);
+    if (i < 0) continue;
+    for (const j of [i - 1, i + 1]) if (line.stations[j]) neighbors.add(nameKey(rail.stations.find((o) => o.id === line.stations[j]).name));
+  }
+  for (const other of neighbors) {
+    for (const [from, to] of [[name, other], [other, name]]) {
+      if (!tagoId.has(other)) continue;
+      const json = await getJson(
+        `${TAGO}/GetStrtpntAlocFndTrainInfo?serviceKey=${encodedKey}&_type=json&numOfRows=500&pageNo=1&depPlaceId=${tagoId.get(from)}&arrPlaceId=${tagoId.get(to)}&depPlandTime=${TAGO_DATE}`,
+      );
+      extraStops.push({ station: name, fromName: from, toName: to, trains: items(json) });
+      await sleep(100);
+    }
+  }
+}
+if (extraStops.length) console.log(`코레일 코드가 없는 역의 TAGO 시각: ${[...new Set(extraStops.map((e) => e.station))].join(', ')}, 열차 ${extraStops.reduce((n, e) => n + e.trains.length, 0)}건`);
+
 // 6. 저장(인증키는 넣지 않는다)과 잠금 기록
 mkdirSync(OUT, { recursive: true });
 const files = {
@@ -134,7 +159,7 @@ const files = {
   },
   'tago-train-info': {
     file: `data/raw/korail/tago-trains-${TAGO_DATE}.json`,
-    data: { source: '공공데이터포털 15098552 국토교통부_(TAGO)_열차정보 GetStrtpntAlocFndTrainInfo', runDate: TAGO_DATE, stations: tagoStations, pairs: tago },
+    data: { source: '공공데이터포털 15098552 국토교통부_(TAGO)_열차정보 GetStrtpntAlocFndTrainInfo', runDate: TAGO_DATE, stations: tagoStations, pairs: tago, extraStops },
   },
 };
 const lockPath = resolve(ROOT, 'data/raw-lock.json');
