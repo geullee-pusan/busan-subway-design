@@ -916,6 +916,34 @@
         "value": "2004-04-01",
         "source": "코레일 보도자료 \"KTX, 20년간 10억 5천만의 생활과 내일을 싣고 달리다\"(2024-04-01로 보임)",
         "url": "https://info.korail.com/DATA/preview/202606/_DATA_bbs_199_20240401104617911_xMtr.hwp.xhtml"
+      },
+      "composition": {
+        "value": "동력차 2칸, 동력객차 2칸, 객차 16칸(20칸 한 편성), 열차 길이 388m",
+        "source": "코레일 홍보센터 기차소개 KTX 소개 > 차량구성(사용자가 보내 준 인쇄본, 2026-11-16 확인)",
+        "url": "https://info.korail.com/info/contents.do?key=847"
+      },
+      "carSizes": {
+        "value": {
+          "power": [
+            22517,
+            2814,
+            4100
+          ],
+          "paxPower": [
+            22854,
+            2904,
+            3484
+          ],
+          "pax": [
+            18700,
+            2904,
+            3484
+          ]
+        },
+        "detail": "길이×폭×높이(mm). 대차 23개(구동대차 6, 관절대차 17), 객차는 관절 방식으로 잇는다.",
+        "source": "다음 카페 \"서울교통공사 5호선 고객서비스 포럼\" 글 \"KTX 제원\"(2011-10-09, 2차 출처)",
+        "url": "https://cafe.daum.net/smrt5line/M7Zi/4",
+        "other": "3D 보기의 칸 크기에만 쓴다(화면에 숫자로 적지 않는다)"
       }
     },
     "KTX-산천": {
@@ -967,6 +995,11 @@
         "value": "현대로템",
         "source": "현대로템 고속전철 제품 페이지",
         "url": "https://www.hyundai-rotem.co.kr/ko/business/rail/details.do?productNm=%EA%B3%A0%EC%86%8D%EC%A0%84%EC%B2%A0"
+      },
+      "composition": {
+        "value": "동력차 2칸, 객차 8칸(10칸 한 편성), 열차 길이 201m. 두 편성을 이어 20칸으로 달릴 수 있다",
+        "source": "코레일 홍보센터 기차소개 KTX 소개 > 차량구성(사용자가 보내 준 인쇄본, 2026-11-16 확인)",
+        "url": "https://info.korail.com/info/contents.do?key=847"
       }
     },
     "KTX-청룡": {

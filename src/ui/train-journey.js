@@ -375,7 +375,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
       try {
         const { createTrain3D } = await import('./train-3d.js');
         if (outside || !outsideBox.isConnected) return;
-        outside = createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion });
+        outside = createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind });
         outsideBox.replaceChildren(outside.el);
         routeTo3d();
       } catch {

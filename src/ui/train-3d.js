@@ -26,6 +26,7 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
+import { buildTrain } from './train-3d-cars.js';
 import { cellNoise, distanceFraction, groundAt, pointAt, routeProfile, terrainAt } from '../sim/train-3d-path.js';
 
 /** 높이를 부풀리는 배수(1km 칸 높이는 산을 낮게 만든다) */
@@ -34,11 +35,12 @@ const EX = 2.5;
 const BAND = 3.5;
 /** 땅 그물 간격(km) */
 const STEP = 0.15;
-/** 차 한 칸 길이와 칸 사이(미터) */
-const CAR_L = 19;
-const CAR_GAP = 0.8;
 /** 기차가 다니는 선로: 가는 쪽에서 왼쪽 선로(미터) */
 const TRACK_SIDE = 2.3;
+/** 레일 윗면 높이(선로 높이에서, 미터) */
+const RAIL_TOP = 0.47;
+/** 전차선 높이(레일 윗면에서, 미터). 팬터그래프가 닿는다(train-3d-cars.js). */
+const WIRE_M = 5.3;
 const SKY = 0xcfe6f5;
 const TUNNEL_DARK = 0x1d2026;
 
@@ -170,80 +172,6 @@ function nameSign(text, accent) {
   return sprite;
 }
 
-/** 앞이 좁아지는 코(뒤 끝 x=0, 앞으로 +x) */
-function noseGeometry(length, height, width, drop, narrow) {
-  const geometry = new BoxGeometry(length, height, width, 3, 1, 1);
-  const p = geometry.attributes.position;
-  for (let i = 0; i < p.count; i++) {
-    const f = (p.getX(i) + length / 2) / length; // 0(뒤) ~ 1(앞)
-    const curve = f * f;
-    if (p.getY(i) > 0) p.setY(i, height / 2 - height * drop * curve);
-    p.setZ(i, p.getZ(i) * (1 - narrow * curve));
-  }
-  geometry.translate(length / 2, height / 2, 0);
-  geometry.computeVertexNormals();
-  return geometry;
-}
-
-/** 열차 종류마다 코 모양(실제 차를 베끼지 않고 길이와 기울기만 달리 한다) */
-const NOSE = {
-  tgv: { length: 7, drop: 0.62, narrow: 0.5 },
-  sancheon: { length: 7.5, drop: 0.66, narrow: 0.45 },
-  long: { length: 9, drop: 0.7, narrow: 0.5 },
-  short: { length: 4, drop: 0.5, narrow: 0.35 },
-  itx: { length: 2.4, drop: 0.35, narrow: 0.2 },
-  flat: { length: 1.2, drop: 0.2, narrow: 0.1 },
-  loco: { length: 1.4, drop: 0.25, narrow: 0.1 },
-};
-
-/**
- * 차 한 칸. 앞은 +x. nose가 'front'/'back'/'both'면 그쪽 끝에 코를 단다.
- */
-function carMesh(look, materials, { nose = null, loco = false }) {
-  const group = new Group();
-  const W = 3.0;
-  const box = (l, h, w, y, mat, x = 0) => {
-    const m = new Mesh(new BoxGeometry(l, h, w), mat);
-    m.position.set(x, y, 0);
-    group.add(m);
-    return m;
-  };
-  const bodyMat = loco ? materials.lower : materials.body;
-  box(CAR_L - 3, 0.8, W * 0.8, 0.55, materials.under);
-  box(CAR_L, 0.7, W, 1.25, loco ? materials.body : materials.lower);
-  box(CAR_L, 2.0, W, 2.6, bodyMat);
-  box(CAR_L - (loco ? 6 : 1.4), 0.8, W + 0.04, 2.95, materials.band, loco ? 2.5 : 0);
-  box(CAR_L - 0.4, 0.24, W + 0.06, 1.75, materials.stripe);
-  box(CAR_L, 0.55, W * 0.9, 3.85, materials.roof);
-  const shape = NOSE[look.nose] ?? NOSE.flat;
-  const addNose = (dir) => {
-    const geometry = noseGeometry(shape.length, 3.0, W, shape.drop, shape.narrow);
-    const m = new Mesh(geometry, loco ? materials.lower : materials.body);
-    m.position.set((dir * CAR_L) / 2, 0.9, 0);
-    if (dir < 0) m.rotation.y = Math.PI;
-    group.add(m);
-    // 앞 유리
-    const glass = new Mesh(new BoxGeometry(0.9, 0.55, W * 0.72), materials.band);
-    glass.position.set(dir * (CAR_L / 2 + Math.min(1.4, shape.length * 0.35)), 3.35 - shape.drop * 0.9, 0);
-    glass.rotation.z = -dir * (0.25 + shape.drop * 0.5);
-    group.add(glass);
-    // 앞 불빛 두 개
-    for (const side of [-0.95, 0.95]) {
-      const lamp = new Mesh(new BoxGeometry(0.6, 0.36, 0.55), materials.light);
-      lamp.position.set(dir * (CAR_L / 2 + shape.length * 0.92), 1.45, side * (1 - shape.narrow * 0.8));
-      group.add(lamp);
-    }
-    // 앞 꾸밈 띠
-    const band = new Mesh(new BoxGeometry(shape.length * 0.7, 0.3, W * 0.9), materials.accent);
-    band.position.set(dir * (CAR_L / 2 + shape.length * 0.35), 1.7, 0);
-    band.scale.z = 1 - shape.narrow * 0.4;
-    group.add(band);
-  };
-  if (nose === 'front' || nose === 'both') addNose(1);
-  if (nose === 'back' || nose === 'both') addNose(-1);
-  return group;
-}
-
 /**
  * 기차 3D 보기를 만든다. 만들 수 없으면 오류를 던진다(부르는 쪽이 창밖 그림으로 돌아간다).
  * @param {object} p
@@ -252,8 +180,9 @@ function carMesh(look, materials, { nose = null, loco = false }) {
  * @param {number} p.cars 칸 수
  * @param {boolean} p.highSpeed 고속열차(선로를 더 곧게 놓는다)
  * @param {boolean} p.reduceMotion
+ * @param {string} p.kind 열차 종류 이름(ITX-마음처럼 같은 앞모습 안에서 칠이 다른 열차를 가른다)
  */
-export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceMotion = false }) {
+export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceMotion = false, kind = '' }) {
   const el = element('div', 'tr3d');
   const canvas = element('canvas', 'tr3d-canvas');
   canvas.setAttribute('aria-label', '기차 밖에서 본 3D 그림');
@@ -289,20 +218,27 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     accent: mat(look.accent),
     under: mat(0x3a3d40),
     light: new MeshBasicMaterial({ color: 0xfff4c8 }),
+    tail: new MeshBasicMaterial({ color: 0xe0302a }),
+    car: new MeshLambertMaterial({ vertexColors: true }),
   };
 
-  // 기차: 칸 수만큼(많아도 20칸)
-  const carCount = Math.max(2, Math.min(20, Math.round(cars)));
-  const loco = look.nose === 'loco';
-  const both = !loco; // 동력차가 양 끝에 있는 열차는 뒤에도 코가 있다
-  const carGroups = [];
-  for (let i = 0; i < carCount; i++) {
-    const nose = i === 0 ? (both && carCount === 1 ? 'both' : 'front') : i === carCount - 1 && both ? 'back' : null;
-    const car = carMesh(look, materials, { nose, loco: loco && i === 0 });
-    scene.add(car);
-    carGroups.push(car);
+  // 기차: 칸 수만큼(많아도 20칸). 칸 크기와 칠은 train-3d-cars.js
+  const train = buildTrain(look, cars, {
+    material: materials.car,
+    headMaterial: materials.light,
+    tailMaterial: materials.tail,
+    name: kind,
+  });
+  const carGroups = train.cars.map((c) => c.group);
+  for (const g of carGroups) scene.add(g);
+  /** 칸마다 머리가 기차 머리에서 떨어진 거리(km) */
+  const carOffsets = [];
+  let trainLenM = 0;
+  for (const c of train.cars) {
+    carOffsets.push(trainLenM / 1000);
+    trainLenM += c.length + c.gapAfter;
   }
-  const trainLenKm = (carCount * (CAR_L + CAR_GAP)) / 1000;
+  const trainLenKm = trainLenM / 1000;
 
   let world = null; // 지금 구간의 땅, 선로, 건물
   let profile = null;
@@ -312,7 +248,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   let frac = (t) => t;
   let startKm = 0;
   let front = 0;
-  let mode = 'chase';
+  let mode = 'side'; // 처음에는 옆에서 본다(긴 기차가 한눈에 보인다)
   let raf = 0;
   let last = 0;
   const camPos = new Vector3();
@@ -515,6 +451,34 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
         arms.setMatrixAt(j, dummy.matrix);
       });
       world.add(poles, arms);
+      // 전차선(팬터그래프가 닿는 줄)과 그 위 조가선: 기둥 사이를 선로마다 잇는다
+      const spans = [];
+      for (let k = 0; k + 1 < poleSpots.length; k++) {
+        if (profile.s[poleSpots[k + 1]] - profile.s[poleSpots[k]] < 0.06) spans.push([poleSpots[k], poleSpots[k + 1]]);
+      }
+      const wires = new InstancedMesh(new BoxGeometry(1, 0.05, 0.05), mat(0x3b3f44), spans.length * 4);
+      let w = 0;
+      for (const [i0, i1] of spans) {
+        const p0 = pointAt(profile, profile.s[i0]);
+        const p1 = pointAt(profile, profile.s[i1]);
+        for (const side of [TRACK_SIDE, -TRACK_SIDE]) {
+          const [x0, y0, z0] = toWorld(p0.x, p0.y, p0.h);
+          const [x1, y1, z1] = toWorld(p1.x, p1.y, p1.h);
+          const a = [x0 + p0.dy * side, z0 - p0.dx * side];
+          const b = [x1 + p1.dy * side, z1 - p1.dx * side];
+          const run = Math.hypot(b[0] - a[0], b[1] - a[1]);
+          for (const lift of [RAIL_TOP + WIRE_M, 6.95]) {
+            dummy.position.set((a[0] + b[0]) / 2, (y0 + y1) / 2 + lift, (a[1] + b[1]) / 2);
+            dummy.rotation.order = 'YZX';
+            dummy.rotation.set(0, Math.atan2(-(b[1] - a[1]), b[0] - a[0]), Math.atan2(y1 - y0, run));
+            dummy.scale.set(Math.hypot(run, y1 - y0), 1, 1);
+            dummy.updateMatrix();
+            wires.setMatrixAt(w++, dummy.matrix);
+          }
+        }
+      }
+      dummy.rotation.order = 'XYZ';
+      world.add(wires);
     }
 
     // 건물(사람이 많이 사는 칸일수록 많이, 아주 많으면 높은 아파트)과 나무(산과 언덕)
@@ -632,11 +596,12 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   function placeTrain() {
     let inTunnel = false;
     for (let i = 0; i < carGroups.length; i++) {
-      const head = front - (i * (CAR_L + CAR_GAP)) / 1000;
+      const head = front - carOffsets[i];
       const a = trackPoint(head);
-      const b = trackPoint(head - CAR_L / 1000);
+      const b = trackPoint(head - train.cars[i].length / 1000);
       const car = carGroups[i];
-      car.position.set((a.v.x + b.v.x) / 2, (a.v.y + b.v.y) / 2 + 0.5, (a.v.z + b.v.z) / 2);
+      // 칸 안 높이 0은 레일 윗면이다
+      car.position.set((a.v.x + b.v.x) / 2, (a.v.y + b.v.y) / 2 + RAIL_TOP, (a.v.z + b.v.z) / 2);
       // 오르막·내리막에서는 차도 기운다(먼저 기울이고 그다음 방향을 돌린다)
       const run = Math.hypot(a.v.x - b.v.x, a.v.z - b.v.z) || 1;
       car.rotation.order = 'YZX';
@@ -650,8 +615,9 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     // 터널 안: 기차 앞에서 다가오는 기차를 본다(하늘에서 볼 때는 산만 보인다)
     if (inTunnel && mode !== 'sky') return { pos: trackPoint(front + 0.02, 3.4, -1.8).v, look: trackPoint(front - 0.025, 2.6).v };
     if (mode === 'side') {
-      const at = trackPoint(front - 0.03);
-      return { pos: trackPoint(front - 0.03, 7, 46).v, look: at.v.clone().setY(at.v.y + 3) };
+      // 기차 머리(코)와 첫 칸이 화면에 들어오게
+      const at = trackPoint(front - 0.017);
+      return { pos: trackPoint(front - 0.017, 5, 30).v, look: at.v.clone().setY(at.v.y + 2.5) };
     }
     if (mode === 'sky') return { pos: trackPoint(front - 0.4, 280, 90).v, look: trackPoint(front + 0.1).v };
     return { pos: trackPoint(front - 0.1, 24, 14).v, look: trackPoint(front + 0.14, 2).v };
@@ -714,8 +680,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   camRow.setAttribute('role', 'group');
   camRow.setAttribute('aria-label', '3D에서 보는 곳');
   const camButtons = [
-    ['chase', '뒤에서'],
     ['side', '옆에서'],
+    ['chase', '뒤에서'],
     ['sky', '하늘에서'],
   ].map(([id, label]) => {
     const b = element('button', 'button', label);
@@ -762,6 +728,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     destroy() {
       cancelAnimationFrame(raf);
       disposeWorld();
+      train.dispose();
       scene.traverse((o) => o.geometry?.dispose());
       for (const m of Object.values(materials)) m.dispose();
       renderer.dispose();
