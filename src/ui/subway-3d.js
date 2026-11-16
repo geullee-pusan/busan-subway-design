@@ -815,6 +815,7 @@ function carCabin(spec, car, material) {
   const look = INSIDE[spec.inside] ?? INSIDE.default;
   const seats = [];
   const glassPanes = [];
+  const leafSpecs = [];
   const { L, W, H } = spec;
   const { floor, wt, doorXs } = car;
   const parts = new Parts();
@@ -896,9 +897,14 @@ function carCabin(spec, car, material) {
     for (const dx of doorXs) {
       const dh = wt - floor + 0.05;
       const zz = s * (iw - 0.02);
-      parts.box(1.3, dh, 0.04, dx, floor + dh / 2, zz, look.doorColor ?? '#c9cdd2');
-      parts.box(0.03, dh, 0.05, dx, floor + dh / 2, zz - s * 0.01, '#3a3f45');
-      for (const e of [-0.33, 0.33]) parts.box(0.46, 0.85, 0.05, dx + e, wt - 0.5, zz - s * 0.012, '#4a6070');
+      if (s < 0) {
+        parts.box(1.3, dh, 0.04, dx, floor + dh / 2, zz, look.doorColor ?? '#c9cdd2');
+        parts.box(0.03, dh, 0.05, dx, floor + dh / 2, zz - s * 0.01, '#3a3f45');
+        for (const e of [-0.33, 0.33]) parts.box(0.46, 0.85, 0.05, dx + e, wt - 0.5, zz - s * 0.012, '#4a6070');
+      } else {
+        // 승강장 쪽 문짝은 역에서 열린다(문짝 두 장, 위쪽 창)
+        for (const side of [-1, 1]) leafSpecs.push({ x: dx + side * 0.33, y: floor + dh / 2, z: zz, h: dh, side });
+      }
       parts.box(1.44, 0.08, 0.06, dx, floor + dh, zz - s * 0.01, '#8c9399');
       for (const e of [-0.7, 0.7]) parts.box(0.07, dh, 0.06, dx + e, floor + dh / 2, zz - s * 0.01, '#8c9399');
       parts.box(1.3, 0.01, 0.12, dx, floor + 0.006, s * (iw - 0.12), '#e8b92a');
@@ -923,6 +929,18 @@ function carCabin(spec, car, material) {
   }
   const group = new Group();
   group.add(new Mesh(parts.geometry(), material), new Mesh(glow.geometry(), new MeshBasicMaterial({ vertexColors: true })));
+  // 움직이는 문짝
+  const leafMat = new MeshLambertMaterial({ color: look.doorColor ?? '#c9cdd2' });
+  const leafGlass = new MeshLambertMaterial({ color: '#4a6070' });
+  const leaves = leafSpecs.map((l) => {
+    const m = new Mesh(new BoxGeometry(0.65, l.h, 0.04), leafMat);
+    m.position.set(l.x, l.y, l.z);
+    const w = new Mesh(new BoxGeometry(0.46, 0.85, 0.02), leafGlass);
+    w.position.set(0, wt - 0.5 - l.y, -0.02);
+    m.add(w);
+    group.add(m);
+    return { mesh: m, x: l.x, side: l.side };
+  });
   // 옅은 유리(창 너머가 조금 어둡게 보인다)
   const glassMat = new MeshBasicMaterial({ color: 0x2a3a46, transparent: true, opacity: 0.35, depthWrite: false });
   for (const [w, h, x, y, z] of glassPanes) {
@@ -938,6 +956,9 @@ function carCabin(spec, car, material) {
     hero: { x: -L * 0.3 + 2.2, y: floor, z: 0.05 },
     seats,
     floor,
+    leaves,
+    doorXs,
+    iw,
     dispose() {
       group.traverse((o) => {
         o.geometry?.dispose();
@@ -1153,7 +1174,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       world.add(obj);
       const mixer = new AnimationMixer(obj);
       const pick = (name) => kind.clips[name] ?? Object.values(kind.clips)[0];
-      const idleNames = Object.keys(kind.clips).filter((n) => n.includes('idle'));
+      const idleNames = Object.keys(kind.clips).filter((n) => n.includes('idle') && !n.includes('sit'));
       const idle = mixer.clipAction(pick(idleNames[i % Math.max(1, idleNames.length)] ?? 'idle'));
       idle.time = cellNoise(i, 9, 3) * (idle.getClip().duration || 1);
       idle.play();
@@ -1168,7 +1189,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
    */
   const seated = [];
   function seatRiders() {
-    const sitNames = Object.keys(riderKinds[0]?.clips ?? {}).filter((n) => n.includes('sit'));
+    const sitNames = Object.keys(riderKinds[0]?.clips ?? {}).filter((n) => n.includes('sit') && !n.includes('stand'));
     if (!riderKinds.length || !sitNames.length) return;
     const fill = Math.min(0.9, 0.25 + crowd * 0.6);
     cabin.seats.forEach((seat, i) => {
@@ -1186,7 +1207,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       const action = mixer.clipAction(kind.clips[sitNames[i % sitNames.length]]);
       action.time = cellNoise(i, 8, 2) * (action.getClip().duration || 1);
       action.play();
-      seated.push({ obj, mixer });
+      seated.push({ obj, mixer, kind, action, seat, state: 'seated' });
     });
   }
 
@@ -1371,9 +1392,141 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     hero.root.position.y = cabin.hero.y + cab.lift;
   }
 
+  /**
+   * 열차 안 승객이 역마다 내리고 탄다.
+   * 떠날 때(driveTo): 다음 역에서 내릴 사람을 고르고, 그 사람은 달리는 동안 미리 일어나 승강장 쪽 문 앞에 가서 선다.
+   * 문이 열리면: 내릴 사람이 문으로 나가고, 조금 뒤 새 사람이 문으로 들어와 빈자리에 가서 앉는다.
+   * 승객 차례(state): seated → standup → toDoor → atDoor → out(사라짐) / in → toSeat → turn → sitdown → seated
+   */
+  let nextSlot = 1000;
+  function riderPlay(sd, name, loop) {
+    const clip = sd.kind.clips[name];
+    if (!clip) return null;
+    const a = sd.mixer.clipAction(clip);
+    a.reset();
+    a.setLoop(loop ? LoopRepeat : LoopOnce, loop ? Infinity : 1);
+    a.clampWhenFinished = !loop;
+    a.play();
+    if (sd.action && sd.action !== a) sd.action.crossFadeTo(a, 0.25, false);
+    sd.action = a;
+    return a;
+  }
+  const doorSpot = (dx) => ({ x: dx, z: cabin.iw - 0.55 });
+  function nearestDoor(x) {
+    return cabin.doorXs.reduce((a, b) => (Math.abs(b - x) < Math.abs(a - x) ? b : a));
+  }
+  /** 다음 역에서 내릴 사람을 정한다(앉은 사람의 4분의 1쯤, 우리가 정한 어림) */
+  function planAlight() {
+    const list = seated.filter((sd) => sd.state === 'seated');
+    list.forEach((sd, i) => {
+      if (cellNoise(i + nextSlot, seg, 31) < 0.28) {
+        sd.state = 'standup';
+        sd.wait = 0.4 + cellNoise(i, seg, 5) * 1.6;
+        sd.door = nearestDoor(sd.seat.x);
+      }
+    });
+  }
+  /** 문이 열렸다: 새로 탈 사람(빈자리 수와 붐빔으로) */
+  function planBoard() {
+    // 내린 사람은 목록에서 뺀다
+    for (let i = seated.length - 1; i >= 0; i--) if (seated[i].state === 'gone') seated.splice(i, 1);
+    const taken = new Set(seated.filter((sd) => sd.state !== 'gone').map((sd) => sd.seat));
+    const free = cabin.seats.filter((st) => !taken.has(st) && Math.abs(st.x - cabin.hero.x) > 0.6);
+    const want = Math.min(free.length, Math.round(1 + crowd * 3 + cellNoise(seg, 3, 9) * 2));
+    const sitNames = Object.keys(riderKinds[0]?.clips ?? {}).filter((n) => n.includes('sit') && !n.includes('stand'));
+    for (let i = 0; i < want; i++) {
+      const seat = free[Math.floor(cellNoise(seg, i, 17) * free.length)];
+      free.splice(free.indexOf(seat), 1);
+      const kind = riderKinds[(seg * 3 + i * 5) % riderKinds.length];
+      const obj = cloneSkinned(kind.root);
+      obj.scale.setScalar(1.62 + cellNoise(i, seg, 3) * 0.18);
+      const door = nearestDoor(seat.x);
+      obj.position.set(door, cabin.floor - 0.06, cabin.iw + 1.2);
+      obj.visible = false;
+      obj.userData.slot = nextSlot++;
+      cabin.group.add(obj);
+      const sd = { obj, mixer: new AnimationMixer(obj), kind, seat, door, state: 'in', wait: 1.6 + i * 0.7, sitName: sitNames[i % Math.max(1, sitNames.length)] };
+      seated.push(sd);
+    }
+  }
+  function walkRider(sd, x, z, dt) {
+    const p = sd.obj.position;
+    const dx = x - p.x;
+    const dz = z - p.z;
+    const dist = Math.hypot(dx, dz);
+    if (dist < 0.06) return true;
+    const step = Math.min(dist, 1.0 * dt);
+    p.x += (dx / dist) * step;
+    p.z += (dz / dist) * step;
+    sd.obj.rotation.y = Math.atan2(dx, dz);
+    return false;
+  }
+  function updateSeated(dt) {
+    for (const sd of seated) {
+      sd.mixer.update(reduceMotion ? 0 : dt);
+      if (sd.state === 'standup') {
+        sd.wait -= dt;
+        if (sd.wait > 0) continue;
+        if (!sd.up) {
+          sd.up = riderPlay(sd, 'sit-to-stand', false) ?? true;
+          continue;
+        }
+        if (sd.up === true || sd.up.time >= sd.up.getClip().duration - 0.02) {
+          sd.obj.position.z = sd.seat.z + sd.seat.face * 0.35;
+          sd.state = 'toDoor';
+          riderPlay(sd, 'walking', true);
+        }
+      } else if (sd.state === 'toDoor') {
+        const t = doorSpot(sd.door + (cellNoise(sd.obj.userData.slot, 1, 2) - 0.5) * 0.5);
+        if (walkRider(sd, t.x, t.z, dt)) {
+          sd.state = 'atDoor';
+          sd.obj.rotation.y = 0; // 문(승강장 쪽)을 본다
+          riderPlay(sd, Object.keys(sd.kind.clips).find((n) => n.includes('idle') && !n.includes('sit')) ?? 'idle', true);
+        }
+      } else if (sd.state === 'atDoor') {
+        if (doorAmount > 0.9) {
+          sd.state = 'out';
+          riderPlay(sd, 'walking', true);
+        }
+      } else if (sd.state === 'out') {
+        if (walkRider(sd, sd.door, cabin.iw + 1.4, dt)) {
+          sd.state = 'gone';
+          sd.obj.removeFromParent();
+          sd.mixer.stopAllAction();
+        }
+      } else if (sd.state === 'in') {
+        if (doorAmount < 0.9) continue;
+        sd.wait -= dt;
+        if (sd.wait > 0) continue;
+        if (!sd.obj.visible) {
+          sd.obj.visible = true;
+          riderPlay(sd, 'walking', true);
+        }
+        if (walkRider(sd, sd.door, cabin.iw - 0.6, dt)) sd.state = 'toSeat';
+      } else if (sd.state === 'toSeat') {
+        if (walkRider(sd, sd.seat.x, sd.seat.z + sd.seat.face * 0.35, dt)) sd.state = 'turn';
+      } else if (sd.state === 'turn') {
+        const target = sd.seat.face > 0 ? 0 : Math.PI;
+        let d = target - sd.obj.rotation.y;
+        d = Math.atan2(Math.sin(d), Math.cos(d));
+        if (Math.abs(d) < 0.05) {
+          sd.obj.rotation.y = target;
+          sd.obj.position.z = sd.seat.z;
+          sd.state = 'sitdown';
+          sd.down = riderPlay(sd, 'stand-to-sit', false);
+        } else sd.obj.rotation.y += Math.sign(d) * Math.min(Math.abs(d), 3 * dt);
+      } else if (sd.state === 'sitdown') {
+        if (!sd.down || sd.down.time >= sd.down.getClip().duration - 0.02) {
+          sd.state = 'seated';
+          riderPlay(sd, sd.sitName ?? 'sitting', true);
+        }
+      }
+    }
+  }
+
   /** 문이 열리면 기다리던 승객이 문으로 걸어 들어간다 */
   function updateRiders(dt) {
-    if (mode === 'cabin') for (const sd of seated) sd.mixer.update(reduceMotion ? 0 : dt);
+    updateSeated(dt);
     for (const rd of riders) {
       rd.mixer.update(reduceMotion ? 0 : dt);
       if (rd.state === 'wait' && doorAmount > 0.9 && mode !== 'cabin') {
@@ -1932,6 +2085,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       const s = reduceMotion ? 1 : dt / 1.2;
       doorAmount = doorTarget > doorAmount ? Math.min(doorTarget, doorAmount + s) : Math.max(doorTarget, doorAmount - s);
       for (const c of cars) for (const d of c.doors) d.mesh.position.set(d.base[0] + d.s * 0.62 * doorAmount, d.base[1], d.base[2] + 0.02);
+      for (const l of cabin.leaves) l.mesh.position.x = l.x + l.side * 0.62 * doorAmount;
       for (const p of psd) p.mesh.position.set(p.base[0] + p.ux * p.side * 0.9 * doorAmount, p.base[1], p.base[2] + p.uz * p.side * 0.9 * doorAmount);
     }
     placeTrain();
@@ -2080,6 +2234,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     },
     /** 역 k까지 달린다(여러 역을 건너뛰면 마지막 구간만 달린다) */
     driveTo(k, ms = 7000) {
+      planAlight();
       const from = Math.max(0, Math.min(k - 1, stops.length - 2));
       if (seg !== from || !world) buildWorld(from);
       platformAt = kmA;
@@ -2089,6 +2244,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       });
     },
     setDoors(open) {
+      if (open && doorTarget === 0 && posKm > 0) planBoard();
       doorTarget = open ? 1 : 0;
     },
     setDisplay(lines) {
@@ -2169,6 +2325,6 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       renderer.forceContextLoss?.();
     },
   };
-  if (import.meta.env?.DEV) el.devApi = { ...api, world: () => world, scene, camera, riders: () => riders, doors: () => [doorAmount, doorTarget, mode], tick: (t) => frame(t), cab: () => ({ ...cab, action: undefined, clip: heroAction.getClip().name, t: heroAction.time }) };
+  if (import.meta.env?.DEV) el.devApi = { ...api, world: () => world, scene, camera, riders: () => riders, doors: () => [doorAmount, doorTarget, mode], tick: (t) => frame(t), seated: () => seated.map((sd) => sd.state), cab: () => ({ ...cab, action: undefined, clip: heroAction.getClip().name, t: heroAction.time }) };
   return api;
 }
