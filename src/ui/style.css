@@ -3158,3 +3158,63 @@ body {
 .tr3d-tunnel { background: rgba(255, 255, 255, 0.9); color: #222; border-radius: 8px; padding: 4px 10px; font-weight: 700; }
 .tr3d-credit { position: absolute; right: 8px; top: 8px; background: rgba(255, 255, 255, 0.8); color: #333; font-size: 0.72rem; padding: 2px 6px; border-radius: 6px; }
 .tr3d-cams { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+/* 잠깐 기다리기 화면(src/ui/busy.js): 새 화면이나 3D를 만드는 동안 */
+.busy-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(31 51 66 / 45%);
+}
+
+.busy-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 28px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.busy-text {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.busy-train {
+  position: relative;
+  width: 160px;
+  height: 26px;
+  border-bottom: 4px solid #9aa5ae;
+  overflow: hidden;
+}
+
+.busy-train::before {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: -60px;
+  width: 56px;
+  height: 18px;
+  border-radius: 6px 10px 3px 3px;
+  background: #F7941D;
+  animation: busy-run 1.4s linear infinite;
+}
+
+@keyframes busy-run {
+  from { left: -60px; }
+  to { left: 160px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .busy-train::before {
+    animation: none;
+    left: 52px;
+  }
+}

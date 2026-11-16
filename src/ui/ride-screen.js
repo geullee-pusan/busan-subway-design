@@ -3,6 +3,7 @@
 // 역마다 역명판과 안내 방송이 나오고, 열차 안 그림에 타고 있는 사람 수만큼 사람이 보인다.
 // 다음 역으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
 import { futureLines, grid, lineById, ruleTables, stationById, stationInfo, stationSounds, stations as allStations } from '../data.js';
+import { withBusy } from './busy.js';
 import { concourseArt, concourseSign, platformArt, platformSigns } from './station-scenes.js';
 import { terrainAt } from '../sim/design.js';
 import { isNewLineId } from '../sim/plan.js';
@@ -352,20 +353,25 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     }
     const tripNow = trip;
     sub3dMade = import('./subway-3d.js')
-      .then(({ createSubway3D }) => {
+      .then((mod) => withBusy(() => (({ createSubway3D, SUBWAY_CARS }) => {
         if (trip !== tripNow) return null;
         const list = trip.stops.map((st) => {
           const where = stationById.get(st.id);
           return { id: st.id, name: st.name, x: where?.x ?? 0, y: where?.y ?? 0, under: isUnderground(stationInfo?.[st.id]?.address) };
         });
         if (list.some((st) => !st.x)) return null;
-        sub3d = createSubway3D({ grid, lineId: design.id, color, stops: list, variant: Math.floor(startHour() * 7), reduceMotion });
+        // 이 칸 사람 수: 탈 역에서 열차 안 사람(탄 사람을 빼면 타기 전) ÷ 칸 수(시뮬레이션 값)
+        const here = trip.stops[at];
+        const carsN = SUBWAY_CARS[design.id]?.cars ?? 6;
+        const beforeBoard = Math.max(0, (here?.load ?? 0) - (here?.on ?? 0));
+        sub3d = createSubway3D({ grid, lineId: design.id, color, stops: list, variant: Math.floor(startHour() * 7), carPeople: Math.round(beforeBoard / carsN), reduceMotion });
+        sub3d.setFlow({ before: beforeBoard / carsN, off: (here?.off ?? 0) / carsN, on: (here?.on ?? 0) / carsN, after: (here?.load ?? 0) / carsN });
         sub3d.onHero((id) => heroPicker.mark(id));
         // 3D 승객을 누르면 그림 승객과 같은 대화창(같은 승객 모임에서 그 자리의 사람)
         sub3d.onRider((slot) => crowd && talkTo(crowd.personAt(slot)));
         sub3dHost.replaceChildren(subRow, sub3d.el);
         return sub3d;
-      })
+      })(mod), '3D를 준비하고 있어요.'))
       .catch((error) => {
         if (import.meta.env?.DEV) console.warn('3D 지하철을 만들지 못했어요', error);
         return null;
@@ -1451,6 +1457,10 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     if (sub3d) {
       const c = sub3d;
       const target = at;
+      // 다음 역의 승하차(칸 하나 몫, 시뮬레이션 값)
+      const prevStop = trip.stops[target - 1];
+      const nextStop = trip.stops[target];
+      c.setFlow({ before: (prevStop?.load ?? 0) / c.cars, off: (nextStop?.off ?? 0) / c.cars, on: (nextStop?.on ?? 0) / c.cars, after: (nextStop?.load ?? 0) / c.cars });
       c.setDoors(false);
       const run3d = new Promise((done) => setTimeout(done, reduceMotion ? 0 : 800)).then(() => c.driveTo(target, 7000));
       if (subView !== 'picture') drove = within(run3d, 12000);

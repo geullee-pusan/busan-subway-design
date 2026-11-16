@@ -3,6 +3,7 @@
 // 시각과 요금은 TAGO 배차 자료(data/build/intercity.json)이다. 휴게소 장면은 게임에서 넣은 것이다(실제로 들르는지는 버스마다 다르다).
 // 다음 단계로는 아이가 단추를 눌러야 간다.
 import { hasRestStop } from '../sim/intercity.js';
+import { withBusy } from './busy.js';
 import { grid } from '../data.js';
 import { distanceText, durationText } from './format.js';
 import { coachLookOf, parkedCoachLooks } from './coach-looks.js';
@@ -157,7 +158,7 @@ export function runCoachTrip(area, { kind, fromName, toName, from, to, km, dep, 
   const made =
     from && to && webglAvailable()
       ? import('./coach-3d.js')
-          .then(({ createCoach3D }) => {
+          .then((mod) => withBusy(() => (({ createCoach3D }) => {
             if (gone) return null;
             coach3d = createCoach3D({
               grid,
@@ -170,7 +171,7 @@ export function runCoachTrip(area, { kind, fromName, toName, from, to, km, dep, 
               reduceMotion,
             });
             return coach3d;
-          })
+          })(mod), '3D를 준비하고 있어요.'))
           .catch((error) => {
             if (import.meta.env?.DEV) console.warn('3D 고속버스를 만들지 못했어요', error);
             return null;

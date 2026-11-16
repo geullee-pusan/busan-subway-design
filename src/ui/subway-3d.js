@@ -956,6 +956,7 @@ function carCabin(spec, car, material) {
     hero: { x: -L * 0.3 + 2.2, y: floor, z: 0.05 },
     seats,
     floor,
+    L,
     leaves,
     doorXs,
     iw,
@@ -973,7 +974,10 @@ function carCabin(spec, car, material) {
  * @param {{grid: object, lineId: string, color: string, stops: Array<{id: string, name: string, x: number, y: number, under: boolean}>,
  *   variant?: number, reduceMotion?: boolean}} p stops: 탈 노선의 역들(가는 차례), x·y는 격자 km
  */
-export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopList, variant = 0, crowd = 0.5, reduceMotion = false }) {
+export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopList, variant = 0, crowd = 0.5, carPeople: carPeopleStart = null, reduceMotion = false }) {
+  /** 이 칸(가운데 칸)에 탄 사람 수와 다음 역의 승하차(역 정보, 칸 하나 몫). 없으면 어림 */
+  let carPeople = carPeopleStart;
+  let flow = null;
   const spec = SUBWAY_CARS[lineId === '1' && variant % 2 ? '1b' : lineId];
   const look = STATION_LOOK[lineId] ?? STATION_LOOK.default;
   if (!spec) throw new Error(`3D 차량이 없는 노선: ${lineId}`);
@@ -1188,28 +1192,63 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
    * 앉기 동작의 엉덩이 높이는 Mixamo 의자 높이에 맞춰져 있어 의자 높이(바닥 + 0.45m)에 맞춰 내려 앉힌다.
    */
   const seated = [];
-  function seatRiders() {
-    const sitNames = Object.keys(riderKinds[0]?.clips ?? {}).filter((n) => n.includes('sit') && !n.includes('stand'));
-    if (!riderKinds.length || !sitNames.length) return;
-    const fill = Math.min(0.9, 0.25 + crowd * 0.6);
-    cabin.seats.forEach((seat, i) => {
-      // 주인공 앞 자리는 비워 둔다
-      if (Math.abs(seat.x - cabin.hero.x) < 0.6) return;
-      if (cellNoise(i, 13, 7) > fill) return;
-      const kind = riderKinds[(i * 7 + 3) % riderKinds.length];
-      const obj = cloneSkinned(kind.root);
-      obj.scale.setScalar(1.62 + cellNoise(i, 3, 3) * 0.18);
-      obj.position.set(seat.x, cabin.floor - 0.06, seat.z);
-      obj.rotation.y = seat.face > 0 ? 0 : Math.PI;
-      obj.userData.slot = seated.length;
-      cabin.group.add(obj);
-      const mixer = new AnimationMixer(obj);
-      const action = mixer.clipAction(kind.clips[sitNames[i % sitNames.length]]);
-      action.time = cellNoise(i, 8, 2) * (action.getClip().duration || 1);
-      action.play();
-      seated.push({ obj, mixer, kind, action, seat, state: 'seated' });
-    });
+  /**
+   * 서 있을 자리(복도): 손잡이 줄 아래, 칸을 따라 0.9m마다 양쪽. 주인공 자리 둘레는 비운다.
+   * 서 있는 사람은 화면에 많아야 MAX_STAND명까지 그린다(태블릿 성능, 우리가 정한 값).
+   */
+  const MAX_STAND = 14;
+  const standSpots = [];
+  for (let x = -cabin.L / 2 + 1.0; x < cabin.L / 2 - 0.8; x += 0.9) {
+    for (const z of [-0.42, 0.42]) {
+      if (Math.abs(x - cabin.hero.x) < 0.9) continue;
+      standSpots.push({ x, z, stand: true });
+    }
   }
+  const sitNamesOf = () => Object.keys(riderKinds[0]?.clips ?? {}).filter((n) => n.includes('sit') && !n.includes('stand'));
+  const idleNameOf = (kind, i) => {
+    const names = Object.keys(kind.clips).filter((n) => n.includes('idle') && !n.includes('sit'));
+    return names[i % Math.max(1, names.length)] ?? 'idle';
+  };
+  /** 이 칸에 한 사람을 둔다(앉을 자리 또는 서 있을 자리) */
+  function placeRider(place, i, state = 'seated') {
+    const kind = riderKinds[(i * 7 + 3 + nextSlot) % riderKinds.length];
+    const obj = cloneSkinned(kind.root);
+    obj.scale.setScalar(1.62 + cellNoise(i, 3, 3) * 0.18);
+    obj.position.set(place.x, cabin.floor - 0.06, place.z);
+    obj.rotation.y = place.stand ? (place.z > 0 ? Math.PI : 0) + (cellNoise(i, 5, 5) - 0.5) * 1.2 : place.face > 0 ? 0 : Math.PI;
+    obj.userData.slot = nextSlot++;
+    cabin.group.add(obj);
+    const sd = { obj, mixer: new AnimationMixer(obj), kind, seat: place, state };
+    const clip = place.stand ? kind.clips[idleNameOf(kind, i)] : kind.clips[sitNamesOf()[i % Math.max(1, sitNamesOf().length)]];
+    if (clip) {
+      sd.action = sd.mixer.clipAction(clip);
+      sd.action.time = cellNoise(i, 8, 2) * (clip.duration || 1);
+      sd.action.play();
+    }
+    seated.push(sd);
+    return sd;
+  }
+  /** 내리려는 사람(일어섬, 문으로 감, 문 앞, 나감, 내림)은 자리를 비운 것으로 본다 */
+  const leaving = (sd) => ['gone', 'out', 'atDoor', 'toDoor', 'standup'].includes(sd.state);
+  function freePlaces() {
+    const taken = new Set(seated.filter((sd) => !leaving(sd)).map((sd) => sd.seat));
+    const seats = cabin.seats.filter((st) => !taken.has(st) && Math.abs(st.x - cabin.hero.x) > 0.6);
+    const spots = standSpots.filter((st) => !taken.has(st));
+    return { seats, spots, standing: seated.filter((sd) => !leaving(sd) && sd.seat?.stand).length };
+  }
+  /** 같은 씨앗이면 같은 차례로 섞는다 */
+  const shuffle = (list, salt) => list.map((v, i) => [cellNoise(i, salt, 23), v]).sort((a, b) => a[0] - b[0]).map((x) => x[1]);
+  function seatRiders() {
+    if (!riderKinds.length || !sitNamesOf().length) return;
+    // 이 칸 사람 수: 역 정보로 받은 값(carPeople), 없으면 붐빔 어림
+    const people = carPeople ?? Math.round(cabin.seats.length * Math.min(0.9, 0.25 + crowd * 0.6));
+    const { seats, spots } = freePlaces();
+    const sit = Math.min(people, seats.length);
+    shuffle(seats, 13).slice(0, sit).forEach((st, i) => placeRider(st, i));
+    const stand = Math.min(MAX_STAND, people - sit);
+    shuffle(spots, 19).slice(0, Math.max(0, stand)).forEach((st, i) => placeRider(st, i + 50, 'standing'));
+  }
+
 
   /**
    * 주인공 타기: 승강장에서 기다리다 문이 열리면 사람들과 함께 가장 가까운 문으로 걸어가 탄다(그 뒤로는 승강장에서 보이지 않는다).
@@ -1415,28 +1454,39 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
   function nearestDoor(x) {
     return cabin.doorXs.reduce((a, b) => (Math.abs(b - x) < Math.abs(a - x) ? b : a));
   }
-  /** 다음 역에서 내릴 사람을 정한다(앉은 사람의 4분의 1쯤, 우리가 정한 어림) */
+  /**
+   * 다음 역에서 내릴 사람을 정한다. 내리는 비율은 역 정보(flow.off ÷ flow.before)로, 없으면 4분의 1쯤(우리가 정한 어림).
+   * 앉은 사람은 일어나서, 서 있는 사람은 바로 문 앞으로 간다.
+   */
   function planAlight() {
-    const list = seated.filter((sd) => sd.state === 'seated');
-    list.forEach((sd, i) => {
-      if (cellNoise(i + nextSlot, seg, 31) < 0.28) {
-        sd.state = 'standup';
-        sd.wait = 0.4 + cellNoise(i, seg, 5) * 1.6;
+    const share = flow && flow.before > 0 ? Math.min(1, flow.off / flow.before) : 0.28;
+    const list = seated.filter((sd) => sd.state === 'seated' || sd.state === 'standing');
+    const n = Math.round(list.length * share);
+    shuffle(list, seg * 7 + 3)
+      .slice(0, n)
+      .forEach((sd, i) => {
         sd.door = nearestDoor(sd.seat.x);
-      }
-    });
+        sd.wait = 0.4 + cellNoise(i, seg, 5) * 1.6;
+        if (sd.state === 'standing') {
+          sd.state = 'toDoor';
+          riderPlay(sd, 'walking', true);
+        } else sd.state = 'standup';
+      });
   }
   /** 문이 열렸다: 새로 탈 사람(빈자리 수와 붐빔으로) */
   function planBoard() {
     // 내린 사람은 목록에서 뺀다
     for (let i = seated.length - 1; i >= 0; i--) if (seated[i].state === 'gone') seated.splice(i, 1);
-    const taken = new Set(seated.filter((sd) => sd.state !== 'gone').map((sd) => sd.seat));
-    const free = cabin.seats.filter((st) => !taken.has(st) && Math.abs(st.x - cabin.hero.x) > 0.6);
-    const want = Math.min(free.length, Math.round(1 + crowd * 3 + cellNoise(seg, 3, 9) * 2));
-    const sitNames = Object.keys(riderKinds[0]?.clips ?? {}).filter((n) => n.includes('sit') && !n.includes('stand'));
-    for (let i = 0; i < want; i++) {
-      const seat = free[Math.floor(cellNoise(seg, i, 17) * free.length)];
-      free.splice(free.indexOf(seat), 1);
+    const { seats: freeSeats, spots: freeSpots, standing } = freePlaces();
+    const staying = seated.filter((sd) => !['gone', 'out', 'atDoor', 'toDoor', 'standup'].includes(sd.state)).length;
+    // 탈 사람 수: 역 정보가 있으면 (이 칸에 남을 사람 - 남아 있는 사람), 없으면 어림
+    const want = flow ? Math.max(0, Math.round(flow.after - staying)) : Math.round(1 + crowd * 3 + cellNoise(seg, 3, 9) * 2);
+    const sitNames = sitNamesOf();
+    const seatsShuffled = shuffle(freeSeats, seg * 5 + 1);
+    const spotsShuffled = shuffle(freeSpots, seg * 5 + 2).slice(0, Math.max(0, MAX_STAND - standing));
+    const places = [...seatsShuffled, ...spotsShuffled].slice(0, want);
+    for (let i = 0; i < places.length; i++) {
+      const seat = places[i];
       const kind = riderKinds[(seg * 3 + i * 5) % riderKinds.length];
       const obj = cloneSkinned(kind.root);
       obj.scale.setScalar(1.62 + cellNoise(i, seg, 3) * 0.18);
@@ -1504,7 +1554,13 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
         }
         if (walkRider(sd, sd.door, cabin.iw - 0.6, dt)) sd.state = 'toSeat';
       } else if (sd.state === 'toSeat') {
-        if (walkRider(sd, sd.seat.x, sd.seat.z + sd.seat.face * 0.35, dt)) sd.state = 'turn';
+        if (sd.seat.stand) {
+          if (walkRider(sd, sd.seat.x, sd.seat.z, dt)) {
+            sd.state = 'standing';
+            sd.obj.rotation.y = sd.seat.z > 0 ? Math.PI : 0;
+            riderPlay(sd, idleNameOf(sd.kind, sd.obj.userData.slot), true);
+          }
+        } else if (walkRider(sd, sd.seat.x, sd.seat.z + sd.seat.face * 0.35, dt)) sd.state = 'turn';
       } else if (sd.state === 'turn') {
         const target = sd.seat.face > 0 ? 0 : Math.PI;
         let d = target - sd.obj.rotation.y;
@@ -1951,7 +2007,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     }
     world.add(new Mesh(parts.geometry(), material), new Mesh(glow.geometry(), glowMat), new Mesh(glassParts.geometry(), glassMat));
     // 탈 역 승강장의 승객(사람 수는 crowd: 0~1, 우리가 정한 어림)
-    spawnRiders(kmA, Math.round(3 + crowd * 7));
+    spawnRiders(kmA, flow ? Math.min(10, Math.max(1, Math.round(flow.on ?? 0))) : Math.round(3 + crowd * 7));
     ceiling = new Mesh(ceil.geometry(), material);
     world.add(ceiling);
     scene.add(world);
@@ -2258,6 +2314,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     },
     /** 'platform'(승강장, 아이 눈높이), 'cabin'(열차 안), 'outside'(밖에서) */
     setView(view) {
+      const wasCabin = mode === 'cabin';
       mode = view === 'outside' ? outsideMode : view;
       const inCabin = mode === 'cabin';
       cabin.group.visible = inCabin;
@@ -2265,7 +2322,8 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       for (const d of cars[cabinIndex].doors) d.mesh.visible = !inCabin;
       camRow.style.display = view === 'outside' ? '' : 'none';
       displayBox.hidden = view === 'platform';
-      if (inCabin) {
+      // 이미 열차 안을 보고 있으면 주인공을 그대로 둔다(화면을 다시 그릴 때마다 불려서 제자리로 순간이동하던 것)
+      if (inCabin && !wasCabin) {
         hero.root.visible = true;
         cab.state = 'stand';
         cab.lift = 0;
@@ -2273,7 +2331,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
         hero.root.position.set(cabin.hero.x, cabin.hero.y, cabin.hero.z);
         hero.root.rotation.set(0, -Math.PI / 2, 0);
       } else if (mode === 'platform') scene.add(hero.root);
-      else hero.root.removeFromParent();
+      else if (!inCabin) hero.root.removeFromParent();
       hemi.groundColor.setHex(inCabin || mode === 'platform' ? 0xd9d5cc : 0xb9b3a6);
       camera.fov = inCabin || mode === 'platform' ? 62 : 55;
       camera.updateProjectionMatrix();
@@ -2290,6 +2348,15 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     },
     onHero(fn) {
       heroDone = fn;
+    },
+    /** 칸 수 */
+    cars: N,
+    /**
+     * 다음 역의 승하차(칸 하나 몫): before 서기 전 사람, off 내릴 사람, after 떠날 때 사람.
+     * driveTo 전에 부르면 내릴 사람과 탈 사람 수를 이것으로 정한다.
+     */
+    setFlow(f) {
+      flow = f;
     },
     /** 승객을 누르면 fn(자리 번호): 앉은 승객 0~, 승강장 승객 100~ */
     onRider(fn) {

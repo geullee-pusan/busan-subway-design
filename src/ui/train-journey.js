@@ -2,6 +2,7 @@
 // 여행 모드(가 보기)와 시승 모드(진짜 기차 타 보기)가 함께 쓴다. 다음 단계로는 아이가 단추를 눌러야 간다.
 // 시각은 실제 시각표(코레일 2026-10-14 기록)대로 흐른다. 방송 문구는 우리가 지은 것이다(공식 문구를 찾지 못함).
 import { grid, rail, railStationById, trains as trainData } from '../data.js';
+import { withBusy } from './busy.js';
 import { railPathBetween, seatFor, segmentScenes, speedProfile } from '../sim/train-ride.js';
 import { trainGroup } from '../sim/train-trip.js';
 import { clockText, distanceText, durationText, stationLabel } from './format.js';
@@ -359,7 +360,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     if (outside) return outside;
     const { createTrain3D } = await import('./train-3d.js');
     if (!outside) {
-      outside = createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind, seatCar: seat.car });
+      outside = await withBusy(() => createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind, seatCar: seat.car }), '3D를 준비하고 있어요.');
       outside.onHero((id) => heroPicker.mark(id));
     }
     return outside;

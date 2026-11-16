@@ -4,6 +4,7 @@
 // 요금: 버스·지하철은 처음 탈 때 그 요금을 내고, 마지막에 내릴 때 모자란 요금(2구간 등)을 더 낸다.
 //       택시는 미터기(부산 중형택시 요금표)가 달리는 만큼 올라가고 내릴 때 낸다.
 import { grid, lineById, railStationById, stationById, stationInfo, stationSounds } from '../data.js';
+import { withBusy } from './busy.js';
 import { runTrainTrip, trainOfLeg, webglAvailable } from './train-journey.js';
 import { chimeSide, platformInfo } from '../sim/platform.js';
 import { romanize } from '../sim/romanize.js';
@@ -129,7 +130,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     try {
       const { createBus3D } = await import('./bus-3d.js');
       dropBus3d();
-      bus3d = createBus3D({ grid, route: busStep.route, reduceMotion });
+      bus3d = await withBusy(() => createBus3D({ grid, route: busStep.route, reduceMotion }), '3D를 준비하고 있어요.');
       bus3d.onHero((id) => heroPicker.mark(id));
       bus3d.setRide(busStep.stops, { fromFirst: busStep.fromFirst === true });
       return bus3d;
@@ -395,7 +396,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     const made3d =
       ride?.stations?.length >= 2 && webglAvailable()
         ? import('./subway-3d.js')
-            .then(({ createSubway3D, hasSubway3D }) => {
+            .then((mod) => withBusy(() => (({ createSubway3D, hasSubway3D }) => {
               if (!hasSubway3D(place.lineId) || !area.isConnected) return null;
               const list = ride.stations.slice(0, 2).map((id) => {
                 const st = stationById.get(id);
@@ -407,7 +408,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
               platform3d.setView('platform');
               art.svg.replaceWith(platform3d.el);
               return platform3d;
-            })
+            })(mod), '3D를 준비하고 있어요.'))
             .catch((error) => {
               if (import.meta.env?.DEV) console.warn('3D 승강장을 만들지 못했어요', error);
               return null;

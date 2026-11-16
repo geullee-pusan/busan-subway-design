@@ -1,5 +1,6 @@
 import faresFile from './content/fares.json';
 import { renderTrainRide } from './ui/train-ride-screen.js';
+import { withBusy } from './ui/busy.js';
 import { renderWalk } from './ui/walk-screen.js';
 import { grid, ridership, ruleTables, stations } from './data.js';
 import { BASE_YEAR, networkOfYear, rules, runWithDesign, setRules, worldFor } from './model.js';
@@ -53,13 +54,21 @@ function dropBoot() {
   document.getElementById('boot-style')?.remove();
 }
 
+let showToken = 0;
+/** 화면 바꾸기. 처음(로딩 화면이 있을 때)이 아니면 "불러오고 있어요"를 먼저 그린 뒤 새 화면을 만든다 */
 function show(render) {
-  cleanup?.();
-  cleanup = render() ?? null;
-  dropBoot();
-  // 모든 화면의 위쪽 줄 오른쪽 끝에 "안내 숨기기" 단추를 둔다.
-  const bar = root.querySelector('.top-bar, .home-head');
-  if (bar && !bar.querySelector('.guide-toggle')) bar.append(guideToggle());
+  const token = ++showToken;
+  const paint = () => {
+    if (token !== showToken) return; // 그 사이에 다른 화면을 골랐다
+    cleanup?.();
+    cleanup = render() ?? null;
+    dropBoot();
+    // 모든 화면의 위쪽 줄 오른쪽 끝에 "안내 숨기기" 단추를 둔다.
+    const bar = root.querySelector('.top-bar, .home-head');
+    if (bar && !bar.querySelector('.guide-toggle')) bar.append(guideToggle());
+  };
+  if (document.getElementById('boot')) paint();
+  else withBusy(paint);
 }
 
 function showHome() {
