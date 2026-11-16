@@ -53,7 +53,9 @@ export function coachCompaniesFor({ kind, fromName, toName }) {
 function lookOfCompany(id, grade) {
   const c = coachLooksFile.companies?.[id];
   if (!c) return { ...DEFAULT_COACH_LOOK, company: null };
-  const src = String(grade ?? '').includes('프리미엄') && c.premium ? { ...c, ...c.premium } : c;
+  const g = String(grade ?? '');
+  // 프리미엄·우등 버스는 따로 칠이 있으면 그것(우등: deluxe)
+  const src = g.includes('프리미엄') && c.premium ? { ...c, ...c.premium } : g.includes('우등') && c.deluxe ? { ...c, ...c.deluxe } : c;
   const look = { ...DEFAULT_COACH_LOOK };
   for (const k of COLOR_KEYS) if (src[k] !== undefined && src[k] !== null) look[k] = src[k];
   return { ...look, company: id };

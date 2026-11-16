@@ -87,6 +87,7 @@ console.log(`확인 필요(todo) ${todo.length}곳`);
     }
     companies[id] = cpick(c);
     if (c.premium) companies[id].premium = cpick(c.premium);
+    if (c.deluxe) companies[id].deluxe = cpick(c.deluxe);
   }
   const keep = (ids) => (ids ?? []).filter((id) => companies[id]);
   const names = new Set(intercity.terminals.map((t) => t.name));
