@@ -48,16 +48,26 @@ const EDGE = 1.75;
  * 칠: 바탕(body), 앞판(front), 띠(band, band2), 창 둘레(win).
  */
 export const SUBWAY_CARS = {
-  1: { L: 17.5, W: 2.75, H: 3.67, cars: 8, doors: 3, body: '#C9CDD2', front: '#1F2327', band: '#F07A1A', band2: null, frontBand: '#F07A1A', lower: '#B9BEC3', seat: '#3F6FB3', rubber: false },
+  1: { L: 17.5, W: 2.75, H: 3.67, cars: 8, doors: 3, body: '#C9CDD2', front: '#1F2327', band: '#F07A1A', band2: null, frontBand: '#F07A1A', lower: '#B9BEC3', seat: '#2F5FB8', rubber: false, inside: 'one' },
   // 1호선은 새 차가 두 가지(빨강에 가까운 주황 띠와 주황 띠)라서 편성마다 고른다
-  '1b': { L: 17.5, W: 2.75, H: 3.67, cars: 8, doors: 3, body: '#CDD0D4', front: '#1F2327', band: '#E8451E', band2: null, frontBand: '#E8451E', lower: '#C2C5C9', seat: '#3F6FB3', rubber: false },
-  2: { L: 17.5, W: 2.75, H: 3.64, cars: 6, doors: 4, body: '#C5C9CE', front: '#2A2E33', band: '#4DB848', band2: '#2E8B3E', frontBand: '#4DB848', lower: '#B8BCC1', seat: '#3E8E4A', rubber: false },
-  3: { L: 17.5, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#D3CFC6', front: '#D8D5CE', band: '#C8743A', band2: '#F2C230', frontBand: '#C8743A', lower: '#BDB8AE', seat: '#B5652E', rubber: false },
-  4: { L: 9.14, W: 2.4, H: 3.5, cars: 6, doors: 2, body: '#F2F3F5', front: '#1E2125', band: '#4A7FDB', band2: '#A9C4F0', frontBand: '#3F78D9', lower: '#3A3F45', seat: '#3F6FB3', rubber: true, panel: true },
+  '1b': { L: 17.5, W: 2.75, H: 3.67, cars: 8, doors: 3, body: '#CDD0D4', front: '#1F2327', band: '#E8451E', band2: null, frontBand: '#E8451E', lower: '#C2C5C9', seat: '#2F5FB8', rubber: false, inside: 'one' },
+  2: { L: 17.5, W: 2.75, H: 3.64, cars: 6, doors: 4, body: '#C5C9CE', front: '#2A2E33', band: '#4DB848', band2: '#2E8B3E', frontBand: '#4DB848', lower: '#B8BCC1', seat: '#1F6E73', rubber: false, inside: 'two' },
+  3: { L: 17.5, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#D3CFC6', front: '#D8D5CE', band: '#C8743A', band2: '#F2C230', frontBand: '#C8743A', lower: '#BDB8AE', seat: '#1F3470', rubber: false, inside: 'three' },
+  4: { L: 9.14, W: 2.4, H: 3.5, cars: 6, doors: 2, body: '#F2F3F5', front: '#1E2125', band: '#4A7FDB', band2: '#A9C4F0', frontBand: '#3F78D9', lower: '#3A3F45', seat: '#2F5FB8', rubber: true, panel: true, inside: 'four' },
   // 부산김해경전철: 길이·폭·높이와 2칸(Mc-Mc)은 사용자가 붙여 준 제원(data/facts.json subwayCars.BGL, 나무위키로 보임), 한쪽 문 수는 어림
-  BGL: { L: 14.0, W: 2.65, H: 3.4, cars: 2, doors: 2, thirdRail: true, body: '#F1F2F2', front: '#1E2125', band: '#E8401C', band2: null, frontBand: '#E8401C', lower: '#6B7076', seat: '#C8402A', rubber: false, rim: true },
+  BGL: { L: 14.0, W: 2.65, H: 3.4, cars: 2, doors: 2, thirdRail: true, body: '#F1F2F2', front: '#1E2125', band: '#E8401C', band2: null, frontBand: '#E8401C', lower: '#6B7076', seat: '#7A3F3A', rubber: false, rim: true, inside: 'bgl' },
   // 동해선(코레일 광역전철): 길이·폭·높이와 4칸(Tc-M'-M'-Tc)은 사용자가 붙여 준 제원(data/facts.json subwayCars.DH), 한쪽 문 수는 어림. 은색 차체, 파란 앞 테두리
-  DH: { L: 19.5, W: 3.12, H: 3.75, cars: 4, doors: 4, body: '#C9CDD2', front: '#F2F3F4', band: '#1F4FB5', band2: null, frontBand: '#1F4FB5', lower: '#B9BEC3', seat: '#3F6FB3', rubber: false, rim: true },
+  DH: { L: 19.5, W: 3.12, H: 3.75, cars: 4, doors: 4, body: '#C9CDD2', front: '#F2F3F4', band: '#1F4FB5', band2: null, frontBand: '#1F4FB5', lower: '#B9BEC3', seat: '#9A8FA6', rubber: false, rim: true, inside: 'dh' },
+  // 대구 1호선: 사용자가 보내 준 사진(은색 차체, 창 아래 빨간 띠, 앞 유리 둘레 빨강). 치수와 6칸, 문 수는 어림(TODO 확인 필요). 역 주소 자료가 없어 땅속으로 그린다(어림)
+  DG1: { L: 17.5, W: 2.75, H: 3.6, cars: 6, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#D7262E', band: '#D7262E', band2: '#F2F3F4', frontBand: '#D7262E', lower: '#B9BEC3', seat: '#2257D6', rubber: false, under: true, inside: 'dg1' },
+  // 대구 2호선: 사용자가 보내 준 사진(은색 차체, 창 아래 초록 띠, 앞 전조등 둘레 초록). 치수와 칸 수, 문 수는 어림(TODO 확인 필요), 땅속으로 그린다(어림)
+  DG2: { L: 17.5, W: 2.75, H: 3.6, cars: 6, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#2EAA6B', band2: '#F2F3F4', frontBand: '#2EAA6B', lower: '#B9BEC3', seat: '#5A6FA8', rubber: false, under: true, inside: 'dg2' },
+  // 대구 3호선(모노레일): 사용자가 보내 준 사진(흰 차체, 노란 줄 여러 개, 노란 앞 테두리, 검은 앞 유리). 치수와 3칸, 문 수는 어림(TODO 확인 필요)
+  DG3: { L: 15, W: 2.9, H: 3.6, cars: 3, doors: 2, body: '#F2F3F4', front: '#1E2125', band: '#F2C200', band2: '#F2C200', frontBand: '#F2C200', lower: '#9AA0A6', seat: '#9AA0AE', rubber: true, monorail: true, rim: true, stripes: 4, inside: 'dg3' },
+  // 대경선(코레일 광역전철): 사용자가 보내 준 사진(은색 차체, 파란 문, 짙은 남색 지붕선, 파란 앞판). 치수와 4칸, 문 수는 어림(TODO 확인 필요)
+  DK: { L: 19.5, W: 3.12, H: 3.75, cars: 4, doors: 4, body: '#B5BBC2', front: '#1F55C8', frontTop: '#1E2125', band: '#1F55C8', band2: null, frontBand: '#1F55C8', lower: '#8C939A', seat: '#EEF0F2', rubber: false, rim: true, doorColor: '#2A5FCC', rimColor: '#1B2A4A', inside: 'dk' },
+  // 광주 1호선: 사용자가 보내 준 사진(은색 차체, 창 아래 청록 띠, 앞 전조등 둘레 청록). 치수와 4칸, 문 수는 어림(TODO 확인 필요), 땅속으로 그린다(어림)
+  GJ1: { L: 17.5, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#1BB5A0', band2: '#11695F', frontBand: '#1BB5A0', lower: '#B9BEC3', seat: '#1F5A4A', rubber: false, under: true, inside: 'gj1' },
 };
 
 /**
@@ -74,6 +84,9 @@ const STATION_LOOK = {
   BGL: { ceil: '#e6e8ea', floor: '#b7babd', pillar: '#c9ccd0', round: false, tactileLine: false, psdHeader: '#5b6066', psdFull: true, arch: true },
   // 동해선(땅 위 역): 회색 타일 바닥, 둥근 흰 기둥, 밝은 철골 지붕, 회색 안전문 틀에 남색 줄, 돌 의자
   DH: { ceil: '#e6e8ea', floor: '#a8abae', pillar: '#eeeeec', round: true, tactileLine: false, psdHeader: '#b9bdc1', psdStripe: '#1F3F8F', roof: '#d9dcdc', benches: true },
+  // 대구 1호선: 흰 안전문 틀에 빨간 줄, 회색 점무늬 타일, 이어진 점자 블록, 둥근 기둥. 대구 2호선: 초록 줄, 반짝이는 연회색 바닥
+  DG1: { ceil: '#eceeee', floor: '#c3c5c6', pillar: '#ddd5c8', round: true, tactileLine: true },
+  DG2: { ceil: '#eef0f0', floor: '#d3d5d6', pillar: '#eeeeec', round: false, tactileLine: true },
   default: { ceil: '#e9ebeb', floor: '#c9cbcc', pillar: '#e3d6c4', round: true, tactileLine: true },
 };
 
@@ -131,7 +144,9 @@ function carMesh(spec, material, { head = false, tail = false } = {}) {
     } else {
       parts.box(L, 0.22, 0.03, 0, wb - 0.15, z + side * 0.005, spec.band);
       if (spec.band2) parts.box(L, 0.08, 0.03, 0, wb - 0.34, z + side * 0.005, spec.band2);
-      if (spec.rim) parts.box(L, 0.1, 0.03, 0, H - 0.1, z + side * 0.005, spec.band);
+      if (spec.rim) parts.box(L, spec.rimColor ? 0.35 : 0.1, 0.03, 0, H - (spec.rimColor ? 0.2 : 0.1), z + side * 0.005, spec.rimColor ?? spec.band);
+      // 모노레일: 창 아래 노란 줄 여러 개
+      for (let k = 1; k < (spec.stripes ?? 0); k++) parts.box(L * 0.7, 0.07, 0.03, -L * 0.1, wb - 0.15 - k * 0.18, z + side * 0.006, spec.band);
     }
     // 창(문 사이)
     for (let i = 0; i <= spec.doors; i++) {
@@ -141,12 +156,13 @@ function carMesh(spec, material, { head = false, tail = false } = {}) {
       parts.box(b - a - 0.2, wt - wb - 0.1, 0.04, (a + b) / 2, (wb + wt) / 2, z + side * 0.01, GLASS);
     }
     // 반대쪽 문은 닫힌 모양
-    if (side < 0) for (const dx of doorXs) parts.box(1.3, wt - floor + 0.05, 0.04, dx, (floor + wt + 0.05) / 2, z - 0.02, '#8C9399');
+    if (side < 0) for (const dx of doorXs) parts.box(1.3, wt - floor + 0.05, 0.04, dx, (floor + wt + 0.05) / 2, z - 0.02, spec.doorColor ?? '#8C9399');
   }
   // 운전실 앞모습
   const cab = (sx) => {
     const fx = sx > 0 ? x1 : x0;
     parts.box(0.08, H - 0.55, W, fx + sx * 0.04, 0.55 + (H - 0.55) / 2, 0, spec.front);
+    if (spec.frontTop) parts.box(0.07, 1.5, W, fx + sx * 0.07, floor + 1.5, 0, spec.frontTop); // 앞 유리 둘레
     parts.box(0.06, 1.1, W - 0.5, fx + sx * 0.09, floor + 1.45, 0, GLASS); // 앞 유리
     parts.box(0.06, spec.panel ? 0.5 : 0.42, W, fx + sx * 0.1, floor + 0.65, 0, spec.frontBand); // 앞 띠
     if (spec.rim) for (const s of [-1, 1]) parts.box(0.09, H - 0.7, 0.18, fx + sx * 0.08, 0.55 + (H - 0.7) / 2, s * (W / 2 - 0.09), spec.band); // 빨간 테두리
@@ -157,7 +173,7 @@ function carMesh(spec, material, { head = false, tail = false } = {}) {
   if (head) cab(1);
   if (tail) cab(-1);
   // 바퀴(쇠바퀴 또는 고무바퀴)
-  for (const ax of [x0 + L * 0.18, x1 - L * 0.18]) {
+  for (const ax of spec.monorail ? [] : [x0 + L * 0.18, x1 - L * 0.18]) {
     for (const d of spec.rubber ? [0] : [-0.9, 0.9]) {
       for (const s of [-1, 1]) {
         const r = spec.rubber ? 0.48 : 0.42;
@@ -173,7 +189,7 @@ function carMesh(spec, material, { head = false, tail = false } = {}) {
   group.add(new Mesh(parts.geometry(), material));
   // 승강장 쪽 문짝(따로 움직인다): 두 짝 미닫이
   const doors = [];
-  const doorMat = new MeshLambertMaterial({ color: spec.body });
+  const doorMat = new MeshLambertMaterial({ color: spec.doorColor ?? spec.body });
   for (const dx of doorXs) {
     for (const s of [-1, 1]) {
       const m = new Mesh(new BoxGeometry(0.65, wt - floor + 0.05, 0.05), doorMat);
@@ -186,25 +202,70 @@ function carMesh(spec, material, { head = false, tail = false } = {}) {
   return { group, doors, doorXs, floor, wb, wt, doorMat };
 }
 
-/** 열차 안: 긴 의자, 노란 손잡이 기둥, 손잡이, 천장 등, 문 위 안내 화면. 칸 하나 */
+/**
+ * 열차 안 색과 손잡이 모양. 사용자가 보내 준 차 안 사진(1·2·3호선)을 보고 정했다.
+ * 1호선: 흰 점무늬 파란 의자, 주황 세모 손잡이, 하늘색 바닥. 2호선: 점무늬 청록 의자, 파란 둥근 손잡이, 연청록 바닥.
+ * 3호선: 점무늬 남색 의자, 민트 세모 손잡이, 청록 바닥, 천장 가운데 안내 화면. 모두 은색 기둥, 흰 벽, 의자 끝 흰 칸막이.
+ * 4호선: 흰 새 무늬 파란 의자, 파란 세모 손잡이. 부산김해경전철: 한 자리씩 나뉜 적갈색 의자. 동해선: 연보라빛 회색 의자, 흰 손잡이. 나머지 노선은 노란 기둥과 노란 손잡이(우리가 정한 값).
+ */
+const INSIDE = {
+  one: { pole: '#C9CDD2', strap: '#F0601E', shape: 'triangle', floor: '#9FC1D9', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#E8EEF8' },
+  two: { pole: '#C9CDD2', strap: '#3B7DD8', shape: 'ring', floor: '#8FC1BE', wall: '#F0F1EE', partition: '#F4F5F5', dots: '#7FB8B4' },
+  three: { pole: '#C9CDD2', strap: '#8FD3C8', shape: 'triangle', floor: '#3E8B80', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#3F57A0', screen: true },
+  // 4호선: 흰 새 무늬 파란 의자, 파란 세모 손잡이, 밝은 바닥, 옆 칸과 넓게 이어진 통로
+  four: { pole: '#C9CDD2', strap: '#3F78D9', shape: 'triangle', floor: '#C6D3D1', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#F2F4F8', wide: true },
+  // 부산김해경전철: 한 자리씩 나뉜 적갈색 의자(네모 무늬), 흰 세모 손잡이, 회색 바닥
+  bgl: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'triangle', floor: '#8F938F', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#C9A79A', buckets: true },
+  // 동해선: 연보라빛 회색 점무늬 의자, 흰 손잡이, 회색 바닥, 천장 안내 화면
+  dh: { pole: '#C9CDD2', strap: '#F2F2F2', shape: 'triangle', floor: '#B9BCBE', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#C9C2D0', screen: true },
+  // 대구 1호선: 파란 민무늬 의자, 검은 둥근 손잡이, 회색 바닥. 대구 2호선: 한 자리씩 나뉜 청회색 의자, 붉은 둥근 손잡이
+  dg1: { pole: '#C9CDD2', strap: '#2A2D31', shape: 'ring', floor: '#B4B8BC', wall: '#F2F0EA', partition: '#EFEBE2', dots: null },
+  dg2: { pole: '#C9CDD2', strap: '#B03A3A', shape: 'ring', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#EEEEEC', dots: null, buckets: true },
+  // 대구 3호선: 한 자리씩 나뉜 회색 의자, 흰 둥근 손잡이, 연회색 바닥, 민트색 칸막이
+  dg3: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'ring', floor: '#CDD1D0', wall: '#F4F5F5', partition: '#BFE5DE', dots: null, buckets: true },
+  // 대경선: 흰 긴 의자에 자리마다 파란 등받이 판, 회색 세모 손잡이, 회색 바닥, 천장 안내 화면
+  dk: { pole: '#C9CDD2', strap: '#B9BEC3', shape: 'triangle', floor: '#9EA3A8', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, pads: '#3F7FD9', screen: true },
+  // 광주 1호선: 한 자리씩 나뉜 짙은 초록 의자(흰 칸막이), 흰 세모 손잡이, 반짝이는 회색 바닥, 천장 안내 화면
+  gj1: { pole: '#C9CDD2', strap: '#EDEEEE', shape: 'triangle', floor: '#8A9095', wall: '#F2F1EC', partition: '#F2F1EC', dots: null, buckets: true, screen: true },
+  default: { pole: '#f2c230', strap: '#f2c230', shape: 'box', floor: '#7d8186', wall: '#e6e8e6', partition: null, dots: null },
+};
+
+/** 열차 안: 긴 의자, 손잡이 기둥, 손잡이, 천장 등, 문 위 안내 화면. 칸 하나 */
 function carCabin(spec, car, material) {
+  const look = INSIDE[spec.inside] ?? INSIDE.default;
   const { L, W, H } = spec;
   const { floor, wt, doorXs } = car;
   const parts = new Parts();
   const glow = new Parts();
   const iw = W / 2 - 0.08;
-  parts.box(L - 0.3, 0.06, iw * 2, 0, floor - 0.03, 0, '#7d8186');
+  parts.box(L - 0.3, 0.06, iw * 2, 0, floor - 0.03, 0, look.floor);
   parts.box(L - 0.3, 0.05, iw * 2, 0, H - 0.25, 0, '#eef0f1');
   for (const s of [-1, 1]) {
     glow.box(L - 1, 0.02, 0.22, 0, H - 0.28, s * 0.55, '#fffdf2');
     parts.box(L - 0.3, 0.04, 0.04, 0, H - 0.55, s * 0.55, '#c9ccd0');
     for (let x = -L / 2 + 0.6; x < L / 2 - 0.5; x += 0.45) {
-      parts.box(0.02, 0.16, 0.02, x, H - 0.65, s * 0.55, '#d9dcdf');
-      parts.box(0.03, 0.1, 0.1, x, H - 0.78, s * 0.55, '#f2c230');
+      parts.box(0.02, 0.16, 0.02, x, H - 0.65, s * 0.55, look.shape === 'box' ? '#d9dcdf' : look.strap);
+      if (look.shape === 'triangle') {
+        // 세모 손잡이: 두 빗변과 밑변
+        // 위에서 모이고 아래가 벌어진 세모
+        for (const sd of [-1, 1]) {
+          const g = new BoxGeometry(0.02, 0.13, 0.02);
+          g.rotateX(-sd * 0.4);
+          g.translate(x, H - 0.79, s * 0.55 + sd * 0.027);
+          parts.add(g, look.strap);
+        }
+        parts.box(0.025, 0.025, 0.12, x, H - 0.855, s * 0.55, look.strap);
+      } else if (look.shape === 'ring') {
+        // 둥근 손잡이
+        const g = new CylinderGeometry(0.07, 0.07, 0.025, 12, 1, true);
+        g.rotateX(Math.PI / 2);
+        g.translate(x, H - 0.82, s * 0.55);
+        parts.add(g, look.strap);
+      } else parts.box(0.03, 0.1, 0.1, x, H - 0.78, s * 0.55, look.strap);
     }
     // 벽: 창 아래, 창 위, 문 사이 기둥
-    parts.box(L - 0.3, car.wb - floor, 0.05, 0, (floor + car.wb) / 2, s * iw, '#e6e8e6');
-    parts.box(L - 0.3, H - 0.25 - wt, 0.05, 0, (wt + H - 0.25) / 2, s * iw, '#e6e8e6');
+    parts.box(L - 0.3, car.wb - floor, 0.05, 0, (floor + car.wb) / 2, s * iw, look.wall);
+    parts.box(L - 0.3, H - 0.25 - wt, 0.05, 0, (wt + H - 0.25) / 2, s * iw, look.wall);
     // 긴 의자(문 사이)
     for (let i = 0; i <= doorXs.length; i++) {
       const a = i === 0 ? -L / 2 + 0.5 : doorXs[i - 1] + 0.75;
@@ -212,11 +273,24 @@ function carCabin(spec, car, material) {
       if (b - a < 0.8) continue;
       parts.box(b - a, 0.1, 0.45, (a + b) / 2, floor + 0.45, s * (iw - 0.25), spec.seat);
       parts.box(b - a, 0.45, 0.08, (a + b) / 2, floor + 0.75, s * (iw - 0.04), spec.seat);
+      if (look.dots) {
+        // 의자 천의 잔점 무늬
+        for (let x = a + 0.15; x < b - 0.1; x += 0.3) {
+          parts.box(0.035, 0.008, 0.035, x, floor + 0.505, s * (iw - 0.25), look.dots);
+          parts.box(0.035, 0.035, 0.008, x + 0.15, floor + 0.82, s * (iw - 0.081), look.dots);
+        }
+      }
+      // 한 자리씩 나뉜 의자(부산김해경전철): 자리 사이 틈
+      if (look.buckets) for (let x = a + 0.5; x < b - 0.2; x += 0.5) parts.box(0.04, 0.5, 0.47, x, floor + 0.72, s * (iw - 0.24), look.wall);
+      // 자리마다 파란 등받이 판(대경선)
+      if (look.pads) for (let x = a + 0.25; x < b - 0.15; x += 0.48) parts.box(0.38, 0.3, 0.02, x, floor + 0.8, s * (iw - 0.085), look.pads);
+      // 의자 끝 흰 칸막이
+      if (look.partition) for (const x of [a, b]) parts.box(0.05, 0.75, 0.5, x, floor + 0.7, s * (iw - 0.25), look.partition);
       // 의자 끝 기둥
       for (const x of [a, b]) {
         const g = new CylinderGeometry(0.025, 0.025, H - 0.25 - floor, 8);
         g.translate(x, (floor + H - 0.25) / 2, s * (iw - 0.5));
-        parts.add(g, '#f2c230');
+        parts.add(g, look.pole);
       }
     }
     // 문 위 안내 화면(노선 색 테두리)
@@ -225,10 +299,17 @@ function carCabin(spec, car, material) {
       parts.box(0.8, 0.26, 0.04, dx, wt + 0.15, s * (iw - 0.01), spec.band);
     }
   }
+  if (look.screen) {
+    parts.box(0.06, 0.45, 1.3, 0, H - 0.55, 0, '#2a2e33');
+    glow.box(0.07, 0.36, 0.55, 0.01, H - 0.55, -0.32, '#9fd0e8');
+    glow.box(0.07, 0.36, 0.55, 0.01, H - 0.55, 0.32, '#e8f1f4');
+  }
   // 칸 끝 벽(통로 문)
   for (const ex of [-L / 2 + 0.12, L / 2 - 0.12]) {
-    parts.box(0.06, H - 0.3 - floor, iw * 2, ex, (floor + H - 0.3) / 2, 0, '#d9dcdd');
-    parts.box(0.07, 1.8, 0.8, ex, floor + 0.95, 0, '#8C9399');
+    // 넓은 통로(4호선)는 가운데를 비운다
+    if (look.wide) for (const z of [-1, 1]) parts.box(0.06, H - 0.3 - floor, iw - 0.75, ex, (floor + H - 0.3) / 2, z * (iw / 2 + 0.375), '#d9dcdd');
+    else parts.box(0.06, H - 0.3 - floor, iw * 2, ex, (floor + H - 0.3) / 2, 0, '#d9dcdd');
+    if (!look.wide) parts.box(0.07, 1.8, 0.8, ex, floor + 0.95, 0, '#8C9399');
   }
   const group = new Group();
   group.add(new Mesh(parts.geometry(), material), new Mesh(glow.geometry(), new MeshBasicMaterial({ vertexColors: true })));
@@ -251,10 +332,12 @@ function carCabin(spec, car, material) {
  * @param {{grid: object, lineId: string, color: string, stops: Array<{id: string, name: string, x: number, y: number, under: boolean}>,
  *   variant?: number, reduceMotion?: boolean}} p stops: 탈 노선의 역들(가는 차례), x·y는 격자 km
  */
-export function createSubway3D({ grid, lineId, color = '#1F3342', stops, variant = 0, reduceMotion = false }) {
+export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopList, variant = 0, reduceMotion = false }) {
   const spec = SUBWAY_CARS[lineId === '1' && variant % 2 ? '1b' : lineId];
   const look = STATION_LOOK[lineId] ?? STATION_LOOK.default;
   if (!spec) throw new Error(`3D 차량이 없는 노선: ${lineId}`);
+  // 주소 자료가 없는 노선은 노선 값(spec.under)을 쓴다
+  const stops = stopList.map((st) => (spec.under && !st.under ? { ...st, under: true } : st));
   const el = document.createElement('div');
   el.className = 'tr3d';
   const canvas = document.createElement('canvas');
@@ -504,7 +587,10 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops, variant
       const under = (s.under + t.under) / 2;
       // 선로 바닥과 레일(경전철 고무바퀴는 콘크리트 주행로)
       for (const o of [0, OTHER]) {
-        if (spec.rubber) {
+        if (spec.monorail) {
+          // 콘크리트 빔 하나(차가 빔을 감싸고 달린다)
+          plate(s, t, o, 0.85, 1.6, -0.3, '#c9c6be');
+        } else if (spec.rubber) {
           for (const r of [-0.85, 0.85]) plate(s, t, o + r, 0.5, 0.2, 0.1, '#a7a9a6');
           for (const r of [-1.3, 1.3]) plate(s, t, o + r, 0.08, 0.35, 0.35, '#6b7076');
         } else {
@@ -544,9 +630,12 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops, variant
         // 고가: 바닥판, 낮은 벽, 기둥
         const right = st ? 8 : 2.4;
         const left = OTHER - 2.2;
-        plate(s, t, (right + left) / 2, right - left, 0.8, -0.45, '#bdbab2');
-        plate(s, t, right, 0.3, 1.1, 0.4, '#c9c6be');
-        plate(s, t, left, 0.3, 1.1, 0.4, '#c9c6be');
+        // 모노레일은 역에서만 바닥판이 있다(역 밖은 빔과 기둥뿐)
+        if (!spec.monorail || st) {
+          plate(s, t, (right + left) / 2, right - left, 0.8, -0.45, '#bdbab2');
+          plate(s, t, right, 0.3, 1.1, 0.4, '#c9c6be');
+          plate(s, t, left, 0.3, 1.1, 0.4, '#c9c6be');
+        }
         if (i % 3 === 0) {
           const h = Math.max(1, t.y - t.g);
           const g = new BoxGeometry(1.6, h, 2.2);
