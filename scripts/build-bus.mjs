@@ -436,17 +436,22 @@ for (const r of rawCsv('15156436.csv')) {
   if (point) yangsanPos.set(r['정류장아이디'], { ...point, name: r['정류장명'].trim() });
 }
 /**
- * 양산 원본의 노선명 가운데 "01월 17일"처럼 날짜로 적힌 것은 "1-17"로 되돌린다.
- * 원본을 만들 때 표 프로그램이 "1-17"을 날짜로 바꾼 것으로 보인다(우리가 짐작한 것, data/SOURCES.md). TODO(확인 필요)
+ * 양산 원본의 노선명 가운데 표 프로그램이 날짜로 바꾼 것("01월 16일", "12월 01일", "Jan-32")은 노선아이디로 되돌린다.
+ * 양산 노선아이디는 "번호 + 가지 번호 두 자리 + 네 자리"다(예: 128019002 = 128-1, 24019002 = 24-1A, 16009009 = 16).
+ * 그래서 16019001("01월 16일")은 16-1, 32019001("Jan-32")은 32-1이다("16-1"이 1월 16일로, "32-1"이 1932년 1월로 바뀐 것).
  */
-function yangsanRouteName(name) {
-  const m = /^(\d{1,2})월\s*(\d{1,2})일(.*)$/.exec(String(name).trim());
-  return m ? `${Number(m[1])}-${Number(m[2])}${m[3]}` : String(name).trim();
+function yangsanRouteName(name, id) {
+  const text = String(name).trim();
+  const looksLikeDate = /^\d{1,2}월\s*\d{1,2}일/.test(text) || /^[A-Z][a-z]{2}-\d{2}$/.test(text);
+  if (!looksLikeDate) return text;
+  const m = /^(\d+)(\d{2})\d{4}$/.exec(String(id).trim());
+  if (!m || Number(m[2]) === 0) throw new Error(`양산 노선 ${id} "${text}": 날짜로 바뀐 이름을 노선아이디로 되돌리지 못했어요`);
+  return `${Number(m[1])}-${Number(m[2])}`;
 }
 const yangsanRoutes = new Map(); // 노선아이디 → {no, rows}
 for (const r of rawCsv('15160339.csv')) {
   if (r['적용시작일'] > YANGSAN_DATE || r['적용종료일'] < YANGSAN_DATE) continue;
-  if (!yangsanRoutes.has(r['노선아이디'])) yangsanRoutes.set(r['노선아이디'], { no: yangsanRouteName(r['노선명']), rows: [] });
+  if (!yangsanRoutes.has(r['노선아이디'])) yangsanRoutes.set(r['노선아이디'], { no: yangsanRouteName(r['노선명'], r['노선아이디']), rows: [] });
   yangsanRoutes.get(r['노선아이디']).rows.push({ order: Number(r['순번']), id: r['정류장아이디'] });
 }
 const yangsanStats = { routes: 0, rows: 0, placed: 0, skipped: [] };
