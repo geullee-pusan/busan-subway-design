@@ -5,6 +5,7 @@
 import {
   AmbientLight,
   AnimationMixer,
+  Box3,
   BoxGeometry,
   BufferAttribute,
   BufferGeometry,
@@ -24,6 +25,8 @@ import {
   MeshLambertMaterial,
   PerspectiveCamera,
   PlaneGeometry,
+  Raycaster,
+  Vector2,
   RepeatWrapping,
   Scene,
   SRGBColorSpace,
@@ -1155,6 +1158,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       const idle = mixer.clipAction(pick(idleNames[i % Math.max(1, idleNames.length)] ?? 'idle'));
       idle.time = cellNoise(i, 9, 3) * (idle.getClip().duration || 1);
       idle.play();
+      obj.userData.slot = 100 + i;
       riders.push({ obj, mixer, idle, walk: kind.clips.walking ? mixer.clipAction(kind.clips.walking) : null, state: 'wait', doorKm: d, delay: 0.3 + cellNoise(i, 6, 2) * 1.5 });
     }
   }
@@ -1177,6 +1181,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       obj.scale.setScalar(1.62 + cellNoise(i, 3, 3) * 0.18);
       obj.position.set(seat.x, cabin.floor - 0.06, seat.z);
       obj.rotation.y = seat.face > 0 ? 0 : Math.PI;
+      obj.userData.slot = seated.length;
       cabin.group.add(obj);
       const mixer = new AnimationMixer(obj);
       const action = mixer.clipAction(kind.clips[sitNames[i % sitNames.length]]);
@@ -1800,6 +1805,35 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
   }
   raf = requestAnimationFrame(frame);
 
+  // 승객 누르기: 누른 곳에서 광선을 쏘아 맞은 승객의 자리 번호를 알린다(대화는 부르는 쪽이 연다)
+  let onRider = null;
+  const ray = new Raycaster();
+  const ndc = new Vector2();
+  let downAt = null;
+  canvas.addEventListener('pointerdown', (e) => {
+    downAt = [e.clientX, e.clientY];
+  });
+  canvas.addEventListener('pointerup', (e) => {
+    if (!onRider || !downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 8) return;
+    const rect = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const targets = [...seated.map((sd) => sd.obj), ...riders.filter((rd) => rd.obj.visible).map((rd) => rd.obj)];
+    // 사람 모양은 뼈로 움직여 광선이 빗나가기 쉬워서, 사람마다 키 높이 상자로 맞힌다
+    let best = null;
+    for (const obj of targets) {
+      if (!obj.visible || !obj.parent) continue;
+      const box = new Box3().setFromCenterAndSize(new Vector3(0, 0.5, 0).applyMatrix4(obj.matrixWorld), new Vector3(0.6, 1.8, 0.6));
+      const hit = ray.ray.intersectBox(box, new Vector3());
+      if (hit) {
+        const d = hit.distanceTo(camera.position);
+        if (!best || d < best.d) best = { d, slot: obj.userData.slot };
+      }
+    }
+    if (best) onRider(best.slot);
+  });
+  canvas.style.cursor = 'pointer';
+
   // 보는 곳 단추(밖에서 볼 때)
   const camRow = document.createElement('div');
   camRow.className = 'tr3d-cams';
@@ -1957,6 +1991,10 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     },
     onHero(fn) {
       heroDone = fn;
+    },
+    /** 승객을 누르면 fn(자리 번호): 앉은 승객 0~, 승강장 승객 100~ */
+    onRider(fn) {
+      onRider = fn;
     },
     destroy() {
       cancelAnimationFrame(raf);

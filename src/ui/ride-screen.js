@@ -361,6 +361,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
         if (list.some((st) => !st.x)) return null;
         sub3d = createSubway3D({ grid, lineId: design.id, color, stops: list, variant: Math.floor(startHour() * 7), reduceMotion });
         sub3d.onHero((id) => heroPicker.mark(id));
+        // 3D 승객을 누르면 그림 승객과 같은 대화창(같은 승객 모임에서 그 자리의 사람)
+        sub3d.onRider((slot) => crowd && talkTo(crowd.personAt(slot)));
         sub3dHost.replaceChildren(subRow, sub3d.el);
         return sub3d;
       })
