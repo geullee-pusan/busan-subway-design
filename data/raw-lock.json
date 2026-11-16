@@ -419,6 +419,20 @@
     "sha256": "4829cc57d4ad9aa6c8496c2014d9b01b7d56c28144d69c9c8b64c9ed429df12c",
     "fetched": "2026-11-14"
   },
+  "humetro-car-page": {
+    "file": "data/raw/humetro/전동차-현황-및-주요제원.html",
+    "url": "https://www.humetro.busan.kr/homepage/chs/page/subLocation.do?menu_no=1001050403",
+    "bytes": 192033,
+    "sha256": "c1adb0cc3096271aaf0b61c0d59a1c9eb05aa5acacf4dd83eb87d265442bb63b",
+    "fetched": "2026-11-16"
+  },
+  "humetro-car-specs-csv": {
+    "file": "data/raw/humetro/전동차-호선별-주요제원-20260728.csv",
+    "url": "공공데이터포털 \"부산교통공사_전동차 호선별 주요제원\"(2026-07-28 판). 사용자가 내려받아 준 파일",
+    "bytes": 1112,
+    "sha256": "5a87d9d506edcb73750f01deac9a5263127fcb2c1b2662c0332155ad9328913c",
+    "fetched": "2026-11-16"
+  },
   "intercity-express": {
     "file": "data/raw/intercity/express-20261116.json",
     "url": "https://apis.data.go.kr/1613000/ExpBusInfo/GetStrtpntAlocFndExpbusInfo",
