@@ -924,9 +924,19 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
       const top = PLATFORM_TOP + PLATFORM_EYE;
       const door = boardingDoorKm();
       const st = stops.from;
-      camera.position.copy(trackPoint(door + 0.007, top, st.side * (st.edge + Math.min(3.2, st.width * 0.35))).v);
+      // 그 자리의 승강장 끝(기차 선로에서). 주인공은 노란 안전선(끝에서 약 1m) 뒤, 끝에서 2m 안쪽에서 기다린다.
+      const edgeNear = (k) => {
+        if (!st.edgeAt?.length) return st.edge;
+        let best = st.edgeAt[0];
+        for (const e of st.edgeAt) if (Math.abs(e[0] - k) < Math.abs(best[0] - k)) best = e;
+        return Math.abs(best[0] - k) < 0.03 ? best[1] : st.edge;
+      };
+      const room = (e) => Math.max(1.2, st.width - 0.6); // 승강장 안쪽 끝을 넘지 않게
+      const eHero = edgeNear(door + 0.0025);
+      const eCam = edgeNear(door + 0.007);
+      camera.position.copy(trackPoint(door + 0.007, top, st.side * (eCam + Math.min(room(eCam), 3.2))).v);
       camera.lookAt(trackPoint(door - 0.035, PLATFORM_TOP + 1.2, 0).v);
-      const spot = trackPoint(door + 0.0025, PLATFORM_TOP, st.side * (st.edge + 1.0));
+      const spot = trackPoint(door + 0.0025, PLATFORM_TOP, st.side * (eHero + Math.min(room(eHero), 2.0)));
       hero.root.position.copy(spot.v);
       // 선로 쪽을 보되 카메라 쪽으로 조금 돌아선다
       const { dx, dy } = spot.p;
@@ -1009,9 +1019,6 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   };
   mark();
   el.append(camRow);
-  el.append(element('p', 'panel-note', '3D 시험판이에요. 땅 높이는 1km 칸마다 잰 값이라 거칠어요. 산은 2.5배 높게 그렸어요.'));
-  el.append(element('p', 'panel-note', '건물과 나무, 산의 작은 굴곡은 우리가 지어 놓은 거예요. 사는 사람 수와 땅 모양을 보고 정했어요.'));
-  el.append(element('p', 'panel-note', '역 건물과 승강장은 실제 자리와 모양을 따랐어요. 높이와 겉모습은 사진을 보고 어림했어요.'));
 
   const api = {
     el,

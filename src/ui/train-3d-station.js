@@ -532,12 +532,20 @@ export function buildStation(ctx) {
     for (const p of W.platforms) {
       const ring = platformRing(p);
       if (!ring) continue;
-      const lats = ring.map(([x, z]) => lateralOf(x, z));
+      // 둘레를 5m마다 촘촘히 잰다(꼭짓점 사이가 멀면 굽은 선로에서 승강장 끝이 몇 m 벌어진다)
+      const dense = [];
+      for (let i = 0; i < ring.length; i++) {
+        const a = ring[i];
+        const b = ring[(i + 1) % ring.length];
+        const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 5));
+        for (let j = 0; j < n; j++) dense.push([a[0] + ((b[0] - a[0]) * j) / n, a[1] + ((b[1] - a[1]) * j) / n]);
+      }
+      const lats = dense.map(([x, z]) => lateralOf(x, z));
       const minL = Math.min(...lats.map((l) => l.lat));
       const maxL = Math.max(...lats.map((l) => l.lat));
       const ks = lats.map((l) => l.k);
       const overlap = Math.max(0, Math.min(Math.max(...ks), stopRange[1]) - Math.max(Math.min(...ks), stopRange[0]));
-      platformRings.push({ ring, minL, maxL, overlap, covered: p.covered });
+      platformRings.push({ ring, minL, maxL, overlap, covered: p.covered, lats });
     }
     // 기차 바로 옆 승강장(가장 가까운 끝이 1~4m)을 고른다. 기차와 겹치는 승강장은 뺀다.
     const candidates = platformRings.filter((p) => p.overlap > 0.03 && ((p.minL > 0.9 && p.minL < 4) || (p.maxL < -0.9 && p.maxL > -4)));
@@ -552,7 +560,16 @@ export function buildStation(ctx) {
       chosen.ring = chosen.ring.map(([x, z]) => [x + c.lx * move, z + c.lz * move]);
       chosen.minL += move;
       chosen.maxL += move;
-      stop = { side, edge: 1.75, width: Math.max(3, Math.min(12, chosen.maxL - chosen.minL)) };
+      // 자리마다 승강장 끝(기차 선로에서, km 10m 칸마다 가장 가까운 끝): 주인공과 카메라를 그 자리 끝에서 안쪽에 세운다
+      const edges = new Map();
+      for (const l of chosen.lats) {
+        const d = side * (l.lat + move);
+        if (d <= 0) continue;
+        const key = Math.round(l.k * 100);
+        if (!edges.has(key) || d < edges.get(key)) edges.set(key, d);
+      }
+      const edgeAt = [...edges].sort((a, b) => a[0] - b[0]).map(([k, d]) => [k / 100, d]);
+      stop = { side, edge: 1.75, width: Math.max(3, Math.min(12, chosen.maxL - chosen.minL)), edgeAt };
     }
     for (const p of platformRings) {
       if (p !== chosen && p.minL < 1.6 && p.maxL > -1.6) p.drop = true; // 기차와 겹친다
