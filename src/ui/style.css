@@ -2621,7 +2621,7 @@ body {
   pointer-events: none;
 }
 
-/* 역·터미널 가까이 안내 말풍선: 지도 위 가운데 */
+/* 역·터미널 가까이 알림 말풍선: 지도 위 가운데 */
 .walk-toast {
   position: absolute;
   top: 58px;

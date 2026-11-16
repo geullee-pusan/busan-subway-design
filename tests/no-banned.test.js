@@ -1,5 +1,5 @@
 // SPEC 2.1절(중독 방지)과 CLAUDE.md 절대 규칙을 코드 전체에서 검사한다.
-// 넣지 않기로 한 것: 점수, 별, 배지, 등급, 순위표, 연속 접속 보상, 알림, 제한 시간, 카운트다운,
+// 넣지 않기로 한 것: 점수, 별, 배지, 등급, 순위표, 연속 접속 보상, 푸시 알림, 제한 시간, 카운트다운,
 // 자동으로 이어지는 다음 판, 광고, 외부 링크, 결제, 사용 추적.
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -49,7 +49,8 @@ const BANNED = [
   [/순위표|리더보드|leaderboard|랭킹|ranking/i, '순위표'],
   [/등급|레벨업|levelUp/i, '등급'],
   [/연속 접속|출석 체크|streak/i, '연속 접속 보상'],
-  [/알림|푸시|Notification|PushManager/i, '알림'],
+  // "알림"이라는 낱말은 막지 않는다(화면 안내 말풍선 등은 괜찮다). 막는 것은 푸시 알림 기능이다.
+  [/푸시|Notification|PushManager/i, '푸시 알림'],
   [/제한 시간|카운트다운|countdown/i, '제한 시간과 카운트다운'],
   [/광고|advert|adsense/i, '광고'],
   [/결제|payment|checkout/i, '결제'],
