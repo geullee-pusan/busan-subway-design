@@ -78,10 +78,10 @@ function roadPath(a, b) {
 }
 
 /** 선 모양 길이(격자 km) */
-const lengthOf = (pts) => pts.slice(1).reduce((s, q, i) => s + Math.hypot(q[0] - pts[i][0], q[1] - pts[i][1]), 0);
+export const lengthOf = (pts) => pts.slice(1).reduce((s, q, i) => s + Math.hypot(q[0] - pts[i][0], q[1] - pts[i][1]), 0);
 
 /** 선 위 거리 km 지점과 방향 */
-function along(pts, km) {
+export function along(pts, km) {
   let left = Math.max(0, km);
   for (let i = 1; i < pts.length; i++) {
     const [x0, y0] = pts[i - 1];
@@ -99,7 +99,7 @@ function along(pts, km) {
 }
 
 /** 버스 표시판 글씨(검은 바탕에 주황 글자) */
-function signTexture(text, { width = 512, height = 96, color = '#ffb347' } = {}) {
+export function signTexture(text, { width = 512, height = 96, color = '#ffb347' } = {}) {
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
@@ -135,17 +135,19 @@ function stopTexture(text) {
 }
 
 /** 차체 치수(미터, 우리가 정한 어림): 길이, 폭, 높이, 바닥, 창 아래, 창 위 */
-const BODY = {
+export const BODY = {
   step: { L: 11, W: 2.5, H: 3.1, floor: 0.95, wb: 1.45, wt: 2.55, doors: [3.9, -0.7], axles: [3.2, -2.9] },
   low: { L: 11, W: 2.5, H: 3.2, floor: 0.38, wb: 1.05, wt: 2.65, doors: [4.0, -0.2], axles: [3.3, -3.0], pod: true },
   coach: { L: 12, W: 2.5, H: 3.45, floor: 1.35, wb: 1.95, wt: 3.0, doors: [4.6], axles: [3.6, -3.3], luggage: true },
+  // 고속·시외버스(높은 바닥 관광형). 뒤 축이 둘이다.
+  express: { L: 12.5, W: 2.5, H: 3.65, floor: 1.55, wb: 2.1, wt: 3.25, doors: [4.9], axles: [4.0, -2.6, -3.9], luggage: true, big: true },
   mini: { L: 7.4, W: 2.1, H: 2.75, floor: 0.75, wb: 1.3, wt: 2.3, doors: [2.5], axles: [2.0, -2.0], hood: true },
 };
 
 /**
  * 버스 한 대(밖 껍데기, 문짝, 표시판). 앞은 +x, 오른편(문 쪽)은 +z.
  */
-function busMesh(look, routeNo, material) {
+export function busMesh(look, routeNo, material) {
   const b = BODY[look.vehicle] ?? BODY.step;
   const { L, W, H, wb, wt } = b;
   const parts = new Parts();
@@ -202,6 +204,31 @@ function busMesh(look, routeNo, material) {
       }
     }
   }
+  // 고속·시외버스 무늬: 가로 띠 여러 줄, 뒤로 솟는 물결
+  if (pat === 'stripes') {
+    const cols = [look.stripe ?? stripe, look.stripe2 ?? look.stripe ?? stripe];
+    for (const side of [-1, 1]) {
+      cols.forEach((c, i) => parts.box(len - 0.4, 0.16, 0.03, mid, wb - 0.35 - i * 0.3, side * (W / 2 + 0.02), c));
+    }
+  }
+  if (pat === 'swoosh') {
+    const cols = [look.stripe ?? stripe, look.stripe2 ?? look.stripe ?? stripe];
+    for (const side of [-1, 1]) {
+      cols.forEach((c, i) => {
+        // 앞 아래에서 뒤 위로 비스듬히 오르는 띠 두 토막
+        for (const [ax, ay, bx, by] of [
+          [x1 - 0.6, 0.7 + i * 0.32, mid, 0.9 + i * 0.32],
+          [mid, 0.9 + i * 0.32, x0 + 0.3, wb + 0.9 + i * 0.25],
+        ]) {
+          const l2 = Math.hypot(bx - ax, by - ay);
+          const g = new BoxGeometry(l2, 0.22, 0.03);
+          g.rotateZ(Math.atan2(by - ay, bx - ax));
+          g.translate((ax + bx) / 2, (ay + by) / 2, side * (W / 2 + 0.02 + i * 0.002));
+          parts.add(g, c);
+        }
+      });
+    }
+  }
   // 앞(마을버스는 짧게 튀어나온 코)
   if (b.hood) {
     parts.box(0.8, 1.0, W - 0.1, x1 + 0.4, 0.9, 0, front);
@@ -220,7 +247,8 @@ function busMesh(look, routeNo, material) {
   }
   // 뒤: 작은 뒷유리(관광버스형은 크게)
   parts.box(0.05, wb - 0.35, W, x0 - 0.02, 0.35 + (wb - 0.35) / 2, 0, lower);
-  parts.box(0.05, look.vehicle === 'coach' ? wt - wb : 0.7, W - 0.5, x0 - 0.03, look.vehicle === 'coach' ? (wb + wt) / 2 : wt - 0.45, 0, GLASS);
+  const bigRear = look.vehicle === 'coach' || look.vehicle === 'express';
+  parts.box(0.05, bigRear ? wt - wb : 0.7, W - 0.5, x0 - 0.03, bigRear ? (wb + wt) / 2 : wt - 0.45, 0, GLASS);
   // 바퀴와 바퀴집
   for (const ax of b.axles) {
     for (const s of [-1, 1]) {

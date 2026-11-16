@@ -39,3 +39,19 @@ test('모든 칠은 색 형식이 맞고 출처가 있다', () => {
 test('자료가 없는 도시는 게임 기본 칠을 쓴다', () => {
   assert.equal(looks.busLookOf('없는곳 1').lower, looks.DEFAULT_BUS_LOOK.lower);
 });
+
+test('고속·시외버스: 같은 배차는 늘 같은 회사 칠이고, 노선에 다니는 회사에서 고른다', async () => {
+  const coach = await server.ssrLoadModule('/src/ui/coach-looks.js');
+  const file = JSON.parse(readFileSync(new URL('../data/build/coach-looks.json', import.meta.url), 'utf8'));
+  const [key, ids] = Object.entries(file.routes)[0];
+  const [, from, to, kind] = /^(.+)→(.+) (고속|시외)$/.exec(key);
+  const a = coach.coachLookOf({ kind, fromName: from, toName: to, grade: '우등', dep: 600 });
+  const b = coach.coachLookOf({ kind, fromName: from, toName: to, grade: '우등', dep: 600 });
+  assert.deepEqual(a, b);
+  assert.ok(ids.includes(a.company), `${key}: ${a.company}`);
+  for (const [id, c] of Object.entries(file.companies)) {
+    assert.match(c.lower, /^#[0-9A-Fa-f]{6}$/, id);
+    assert.ok(c.source, id);
+  }
+  assert.ok(!JSON.stringify(file).includes('http'), '배포물에 바깥 주소를 넣지 않는다');
+});

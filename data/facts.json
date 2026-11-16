@@ -11297,5 +11297,1465 @@
         }
       }
     }
+  },
+  "coachLooks": {
+    "_설명": "고속·시외버스 회사별 칠과 다니는 노선·터미널. 2026-11-16 나무위키(회사 문서의 도색 절, 터미널 운행노선 문서)에서 모았다. 색값과 칠 배치(아래·위·띠 모양)는 글을 보고 어림한 것이고, 확인 정도는 confidence(high/medium/low)다. placeholder가 true인 회사는 칠 자료를 못 찾아 흰 바탕에 회색 띠로 둔 것이다. 배차 자료(TAGO)에는 회사가 없다. 회사 이름·로고·상징은 게임 화면에 넣지 않는다.",
+    "companies": {
+      "kumho": {
+        "name": "금호고속",
+        "kinds": [
+          "고속",
+          "시외"
+        ],
+        "lower": "#D7141A",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "two-tone",
+        "premium": {
+          "lower": "#D7141A",
+          "upper": "#FFFFFF",
+          "roof": "#F2F2F2",
+          "stripe": "#C9A54A",
+          "stripe2": null,
+          "pattern": "two-tone"
+        },
+        "desc": "하얀 바탕에 빨간색이 크게 칠해져 있고, 가운데에 비스듬한 회색 네모 두 개가 있어요.",
+        "source": "나무위키 금호고속(도색 절)",
+        "url": "https://namu.wiki/w/금호고속",
+        "confidence": "medium",
+        "sourceNote": "\"빨간색과 하얀색을 기본 색상\", 가운데 비스듬한 회색 직사각형 두 개. 빨강·하양의 배치(아래·위)는 사진 기억에 따른 추정. 프리미엄은 예전 금색 공통 도색에서 자사 도색으로 바뀜(프리미엄 고속버스 문서)."
+      },
+      "dongyang": {
+        "name": "동양고속",
+        "kinds": [
+          "고속"
+        ],
+        "lower": "#F3EEDF",
+        "upper": "#F3EEDF",
+        "roof": "#F3EEDF",
+        "stripe": "#1F5FB5",
+        "stripe2": "#1B1B1B",
+        "pattern": "diagonal",
+        "desc": "살짝 베이지빛이 도는 하얀 바탕에, 뒤쪽 옆면에 파란색이 비스듬히 칠해져 있고 앞뒤 범퍼는 검은색이에요.",
+        "source": "나무위키 동양고속",
+        "url": "https://namu.wiki/w/동양고속",
+        "confidence": "high",
+        "sourceNote": "\"베이지 색이 감도는 흰색 바탕에 후측면에 사선으로 칠해진 파란색과 검은색의 앞뒤 범퍼\". 범퍼의 빨간 띠는 없앤 차가 많음. 프리미엄도 고유 도색."
+      },
+      "jungang": {
+        "name": "중앙고속",
+        "kinds": [
+          "고속"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#D2232A",
+        "stripe2": "#1C3F94",
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 빨간 줄과 파란 줄이 길게 그어져 있어요.",
+        "source": "나무위키 중앙고속",
+        "url": "https://namu.wiki/w/중앙고속",
+        "confidence": "low",
+        "sourceNote": "\"코리아그레이하운드 인수 이후 그레이하운드의 도색을 앞뒤 반전시켜\" 사용. 빨강·파랑 계열이라는 것만 확인, 흰 바탕과 줄 모양은 추정. 2023년 9월부터 프리미엄도 자체 도색."
+      },
+      "cheonil": {
+        "name": "천일고속",
+        "kinds": [
+          "고속"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#1D3D8F",
+        "stripe2": "#E2551B",
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 진한 파란 줄과 주황 줄이 있어요.",
+        "source": "나무위키 천일고속",
+        "url": "https://namu.wiki/w/천일고속",
+        "confidence": "low",
+        "sourceNote": "문서에 \"고유 도색\"만 있고 색 설명이 없음. 색은 추정. 프리미엄은 2022년 말부터 금색 공통 도색 대신 고유 도색으로 바꿈."
+      },
+      "hanil": {
+        "name": "한일고속",
+        "kinds": [
+          "고속"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#F5C400",
+        "stripe2": "#8C8F94",
+        "pattern": "swoosh",
+        "desc": "하얀 바탕에 노란색과 회색 무늬가 붙어 있어요.",
+        "source": "나무위키 한일고속(여담)",
+        "url": "https://namu.wiki/w/한일고속",
+        "confidence": "medium",
+        "sourceNote": "현재 일반·우등 도색은 흰 바탕에 노란색·회색 데칼. 무늬 모양은 미확인. 예전엔 하늘색 도색."
+      },
+      "samhwa": {
+        "name": "삼화고속",
+        "kinds": [
+          "고속"
+        ],
+        "lower": "#8E9196",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8B1E5A",
+        "stripe2": null,
+        "pattern": "swoosh",
+        "desc": "회색과 자주색이 어우러진 무늬가 칠해져 있어요.",
+        "source": "나무위키 삼화고속",
+        "url": "https://namu.wiki/w/삼화고속",
+        "confidence": "low",
+        "sourceNote": "\"회색과 자주색이 조합된 신도색\"(2005~2006년부터). 흰 바탕 여부와 배치는 추정."
+      },
+      "chungnam": {
+        "name": "충남고속",
+        "kinds": [
+          "고속",
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#F08A1C",
+        "stripe2": "#2E9B48",
+        "pattern": "stripes",
+        "premium": {
+          "lower": "#C9A54A",
+          "upper": "#C9A54A",
+          "roof": "#D9BE73",
+          "stripe": "#1B1B1B",
+          "stripe2": null,
+          "pattern": "solid"
+        },
+        "desc": "주황색과 초록색이 함께 칠해져 있어요.",
+        "source": "나무위키 충남고속",
+        "url": "https://namu.wiki/w/충남고속",
+        "confidence": "medium",
+        "sourceNote": "\"충남고속 특유의 주황+초록 도색\". 바탕색·배치는 추정. 2023~2024년 프리미엄은 KOBUS 금색 공통 도색(색은 추정). 한일고속에서 넘어온 차는 한일 도색 그대로."
+      },
+      "donggwang": {
+        "name": "동광고속",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#D7141A",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": null,
+        "stripe2": null,
+        "pattern": "two-tone",
+        "desc": "빨간색이 차 아래쪽까지 넓게 칠해져 있어요.",
+        "source": "나무위키 동광고속",
+        "url": "https://namu.wiki/w/동광고속",
+        "confidence": "low",
+        "sourceNote": "\"아래쪽까지 빨강색으로 통일시켜 현재의 도색이 완성\". 시내·농어촌 차 설명일 수 있어 시외 차에도 맞는지 미확인."
+      },
+      "gyeongnam": {
+        "name": "경남고속뉴부산관광",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#F08A1C",
+        "stripe2": "#1C3F94",
+        "pattern": "swoosh",
+        "premium": {
+          "lower": "#F08A1C",
+          "upper": "#F08A1C",
+          "roof": "#F5B266",
+          "stripe": "#FFFFFF",
+          "stripe2": null,
+          "pattern": "swoosh"
+        },
+        "desc": "갈매기가 날개를 편 모양의 무늬가 옆면에 그려져 있어요.",
+        "source": "나무위키 경남고속뉴부산관광, 프리미엄 고속버스",
+        "url": "https://namu.wiki/w/경남고속뉴부산관광",
+        "confidence": "low",
+        "sourceNote": "일반 차는 옛 동부강남고속의 \"갈매기 도색\"으로 다시 칠함(색 미확인, 추정). 프리미엄은 \"주황색 바탕에 갈매기 1마리 형상을 크게\"(이건 확인)."
+      },
+      "busangyotong": {
+        "name": "부산교통",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#F4EFDC",
+        "upper": "#F4EFDC",
+        "roof": "#F4EFDC",
+        "stripe": "#1E8A4C",
+        "stripe2": null,
+        "pattern": "stripes",
+        "premium": {
+          "lower": "#C9A54A",
+          "upper": "#C9A54A",
+          "roof": "#D9BE73",
+          "stripe": "#1E8A4C",
+          "stripe2": null,
+          "pattern": "stripes"
+        },
+        "desc": "밝은 바탕에 초록색 가로줄이 길게 그어져 있어요.",
+        "source": "나무위키 프리미엄 고속버스",
+        "url": "https://namu.wiki/w/프리미엄 고속버스",
+        "confidence": "low",
+        "sourceNote": "프리미엄은 \"금색 바탕 ... 부산교통 특유의 녹색 가로줄\"(확인). 일반 차도 녹색 가로줄이 특징이라는 것만 유추, 바탕색은 추정."
+      },
+      "gyeongwon": {
+        "name": "경원여객",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#1C3F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "premium": {
+          "lower": "#C9A54A",
+          "upper": "#C9A54A",
+          "roof": "#D9BE73",
+          "stripe": null,
+          "stripe2": null,
+          "pattern": "solid"
+        },
+        "desc": "하얀 바탕에 색 띠가 둘러진 시외버스예요.",
+        "source": "나무위키 프리미엄 고속버스",
+        "url": "https://namu.wiki/w/프리미엄 고속버스",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "프리미엄은 \"전체가 금색\"(확인). 일반 도색은 출처 없음, 자리표시 색."
+      },
+      "jeonbuk": {
+        "name": "전북고속",
+        "kinds": [
+          "고속",
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/전북고속",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "옛 도색은 옆면에 산과 호수 그림, 신도색은 J자 로고와 1920. 몸통 색은 문서에 없음."
+      },
+      "gwangshin": {
+        "name": "광신고속",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/광신고속",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 설명 없음. 프리미엄은 공통 도색과 비슷한 디자인(프리미엄 고속버스 문서)."
+      },
+      "gwangwoo": {
+        "name": "광우고속",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/광우고속",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 설명 없음."
+      },
+      "daehan": {
+        "name": "대한고속",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/대한고속",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "시외 차 도색 설명 없음(2026년 9월 시내 전기버스만 초록 도색)."
+      },
+      "dongbang": {
+        "name": "동방고속",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/동방고속",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 설명 없음(옆면 여객선 광고만 언급)."
+      },
+      "jeonbukyeogaek": {
+        "name": "전북여객",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/유스퀘어/운행노선",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 미조사."
+      },
+      "geuma": {
+        "name": "금아여행",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/부산종합버스터미널/운행노선",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 미조사."
+      },
+      "geojehyundai": {
+        "name": "거제현대고속",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/부산종합버스터미널/운행노선",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 미조사."
+      },
+      "sinheung": {
+        "name": "신흥여객",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/창원종합버스터미널",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 미조사."
+      },
+      "cheonilyeogaek": {
+        "name": "천일여객",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/창원종합버스터미널",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 미조사. 프리미엄은 자사 도색에 진한 갈색을 보조색으로 씀(프리미엄 고속버스 문서)."
+      },
+      "goryeo": {
+        "name": "고려여객",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/창원종합버스터미널",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 미조사. 프리미엄은 자사 도색에 진한 갈색 보조색."
+      },
+      "daehanyeogaek": {
+        "name": "대한여객",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/창원종합버스터미널",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "창원의 시외 운수사. 도색 미조사."
+      },
+      "gyeongjeon": {
+        "name": "경전여객",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/창원종합버스터미널",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "도색 미조사. 프리미엄은 기존 도색에 PREMIUM 글자만 더함."
+      },
+      "dongil": {
+        "name": "동일고속",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/부산서부버스터미널",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "부산서부-합천(우등) 운행. 도색 미조사."
+      },
+      "taeyoung": {
+        "name": "태영고속",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/부산서부버스터미널",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "부산서부-합천(일반) 운행. 도색 미조사."
+      },
+      "purun": {
+        "name": "푸른교통",
+        "kinds": [
+          "시외"
+        ],
+        "lower": "#FFFFFF",
+        "upper": "#FFFFFF",
+        "roof": "#F2F2F2",
+        "stripe": "#8C8F94",
+        "stripe2": null,
+        "pattern": "stripes",
+        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
+        "source": "나무위키",
+        "url": "https://namu.wiki/w/부산종합버스터미널/운행노선",
+        "confidence": "low",
+        "placeholder": true,
+        "sourceNote": "부산종합-통도사·언양 운행. 도색 미조사."
+      }
+    },
+    "terminals": {
+      "유·스퀘어": [
+        "kumho",
+        "samhwa",
+        "jungang",
+        "jeonbuk",
+        "gwangwoo",
+        "donggwang",
+        "jeonbukyeogaek",
+        "gwangshin",
+        "daehan",
+        "gyeongnam"
+      ],
+      "순천종합버스터미널": [
+        "kumho"
+      ],
+      "목포종합버스터미널": [
+        "kumho",
+        "gwangwoo",
+        "daehan"
+      ],
+      "동광양(중마)버스터미널": [
+        "kumho"
+      ],
+      "부산종합버스터미널": [
+        "kumho",
+        "samhwa",
+        "jungang",
+        "cheonil",
+        "hanil",
+        "dongyang",
+        "chungnam",
+        "geojehyundai",
+        "gyeongwon",
+        "sinheung",
+        "gyeongnam",
+        "geuma",
+        "jeonbuk",
+        "purun"
+      ],
+      "진해시외버스터미널": [
+        "kumho",
+        "geojehyundai",
+        "gyeongwon"
+      ],
+      "마산고속버스터미널": [
+        "kumho",
+        "geojehyundai",
+        "jeonbuk"
+      ],
+      "부산서부시외버스터미널": [
+        "kumho",
+        "jungang",
+        "cheonil",
+        "hanil",
+        "dongil",
+        "taeyoung",
+        "busangyotong",
+        "gyeongjeon",
+        "cheonilyeogaek",
+        "goryeo",
+        "sinheung"
+      ],
+      "내서고속버스터미널": [
+        "kumho"
+      ],
+      "울산고속버스터미널": [
+        "kumho"
+      ],
+      "창원종합버스터미널": [
+        "kumho",
+        "gyeongwon",
+        "sinheung",
+        "geojehyundai",
+        "dongyang",
+        "jungang",
+        "cheonilyeogaek",
+        "goryeo",
+        "daehanyeogaek",
+        "gyeongjeon"
+      ],
+      "진주시외버스터미널": [
+        "jungang",
+        "gyeongnam",
+        "cheonil"
+      ],
+      "동대구터미널": [
+        "kumho",
+        "jungang",
+        "cheonil",
+        "hanil",
+        "dongyang",
+        "samhwa"
+      ],
+      "서대구고속버스터미널": [
+        "kumho",
+        "jungang",
+        "cheonil",
+        "dongyang",
+        "samhwa",
+        "hanil"
+      ],
+      "여수종합버스터미널": [
+        "kumho",
+        "daehanyeogaek",
+        "jeonbuk",
+        "gwangwoo",
+        "dongbang"
+      ],
+      "나주시외버스터미널": [
+        "kumho",
+        "gwangwoo"
+      ],
+      "대전청사 터미널": [
+        "kumho",
+        "jungang",
+        "dongyang"
+      ],
+      "전주고속버스터미널": [
+        "kumho",
+        "dongyang",
+        "samhwa",
+        "jungang"
+      ],
+      "유성복합터미널": [
+        "jeonbuk"
+      ],
+      "논산 시외버스터미널": [
+        "kumho",
+        "chungnam"
+      ],
+      "포항시외버스터미널": [
+        "kumho"
+      ],
+      "경주고속버스터미널": [
+        "kumho"
+      ],
+      "담양공용버스터미널": [
+        "donggwang",
+        "jeonbukyeogaek"
+      ],
+      "정읍공용버스터미널": [
+        "gwangshin",
+        "daehan"
+      ],
+      "통영종합버스터미널": [
+        "kumho",
+        "gyeongnam",
+        "gyeongwon",
+        "daehanyeogaek",
+        "geojehyundai",
+        "sinheung"
+      ],
+      "영광종합버스터미널": [
+        "kumho"
+      ],
+      "홍농버스터미널": [
+        "kumho"
+      ],
+      "완도공용버스터미널": [
+        "kumho"
+      ],
+      "진도공용터미널": [
+        "kumho"
+      ],
+      "해남종합버스터미널": [
+        "kumho"
+      ],
+      "강진시외버스터미널": [
+        "kumho"
+      ],
+      "장흥시외버스터미널": [
+        "kumho",
+        "gwangwoo",
+        "dongbang"
+      ],
+      "무안 터미널": [
+        "kumho"
+      ],
+      "보성공용터미널": [
+        "gwangwoo"
+      ],
+      "장성시외버스터미널": [
+        "gwangshin"
+      ],
+      "옥과터미널": [
+        "donggwang",
+        "gwangwoo"
+      ],
+      "구례공용버스터미널": [
+        "donggwang",
+        "gwangwoo",
+        "gwangshin"
+      ],
+      "고금시외버스터미널": [
+        "kumho"
+      ],
+      "군산시외버스터미널": [
+        "jeonbuk",
+        "geuma"
+      ],
+      "전주시외버스터미널": [
+        "jeonbuk",
+        "daehan"
+      ],
+      "부안터미널": [
+        "daehan"
+      ],
+      "고창공용버스터미널": [
+        "gwangshin",
+        "jeonbuk",
+        "daehan"
+      ],
+      "여천 시외버스 정류장": [
+        "kumho"
+      ],
+      "연무대터미널": [
+        "chungnam"
+      ],
+      "언양 시외버스터미널": [
+        "purun"
+      ],
+      "선산터미널": [
+        "kumho",
+        "jungang",
+        "cheonil",
+        "hanil",
+        "dongyang",
+        "samhwa"
+      ],
+      "합천시외버스터미널": [
+        "dongil",
+        "taeyoung",
+        "gyeongjeon"
+      ],
+      "의령시외버스터미널": [
+        "gyeongjeon"
+      ],
+      "삼천포 시외버스 터미널": [
+        "busangyotong",
+        "gyeongjeon",
+        "gyeongwon"
+      ],
+      "성전터미널(Seongjeon Terminal)": [
+        "kumho"
+      ],
+      "마량 버스터미널": [
+        "kumho"
+      ],
+      "신태인공용버스터미널": [
+        "daehan"
+      ]
+    },
+    "routes": {
+      "유·스퀘어→부산종합버스터미널 고속": [
+        "kumho",
+        "samhwa"
+      ],
+      "부산종합버스터미널→유·스퀘어 고속": [
+        "kumho",
+        "samhwa"
+      ],
+      "유·스퀘어→부산서부시외버스터미널 고속": [
+        "kumho"
+      ],
+      "부산서부시외버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→순천종합버스터미널 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→동광양(중마)버스터미널 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→진해시외버스터미널 고속": [
+        "kumho"
+      ],
+      "진해시외버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→마산고속버스터미널 고속": [
+        "kumho"
+      ],
+      "마산고속버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→내서고속버스터미널 고속": [
+        "kumho"
+      ],
+      "내서고속버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→창원종합버스터미널 고속": [
+        "kumho"
+      ],
+      "창원종합버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→울산고속버스터미널 고속": [
+        "kumho"
+      ],
+      "울산고속버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→진주시외버스터미널 고속": [
+        "jungang"
+      ],
+      "진주시외버스터미널→유·스퀘어 고속": [
+        "jungang"
+      ],
+      "유·스퀘어→동대구터미널 고속": [
+        "kumho",
+        "jungang"
+      ],
+      "동대구터미널→유·스퀘어 고속": [
+        "kumho",
+        "jungang"
+      ],
+      "유·스퀘어→서대구고속버스터미널 고속": [
+        "kumho",
+        "jungang"
+      ],
+      "서대구고속버스터미널→유·스퀘어 고속": [
+        "kumho",
+        "jungang"
+      ],
+      "유·스퀘어→대전청사 터미널 고속": [
+        "kumho",
+        "jungang"
+      ],
+      "대전청사 터미널→유·스퀘어 고속": [
+        "kumho",
+        "jungang"
+      ],
+      "유·스퀘어→유성복합터미널 고속": [
+        "jeonbuk"
+      ],
+      "유성복합터미널→유·스퀘어 고속": [
+        "jeonbuk"
+      ],
+      "유·스퀘어→논산 시외버스터미널 고속": [
+        "kumho"
+      ],
+      "논산 시외버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→전주고속버스터미널 고속": [
+        "kumho"
+      ],
+      "전주고속버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→포항시외버스터미널 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→경주고속버스터미널 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→목포종합버스터미널 고속": [
+        "kumho"
+      ],
+      "목포종합버스터미널→유·스퀘어 고속": [
+        "kumho"
+      ],
+      "유·스퀘어→목포종합버스터미널 시외": [
+        "kumho",
+        "gwangwoo"
+      ],
+      "목포종합버스터미널→유·스퀘어 시외": [
+        "kumho",
+        "gwangwoo"
+      ],
+      "유·스퀘어→동광양(중마)버스터미널 시외": [
+        "kumho"
+      ],
+      "동광양(중마)버스터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→여수종합버스터미널 시외": [
+        "kumho"
+      ],
+      "여수종합버스터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→나주시외버스터미널 시외": [
+        "kumho",
+        "gwangwoo"
+      ],
+      "나주시외버스터미널→유·스퀘어 시외": [
+        "kumho",
+        "gwangwoo"
+      ],
+      "유·스퀘어→담양공용버스터미널 시외": [
+        "donggwang",
+        "jeonbukyeogaek"
+      ],
+      "담양공용버스터미널→유·스퀘어 시외": [
+        "donggwang",
+        "jeonbukyeogaek"
+      ],
+      "유·스퀘어→정읍공용버스터미널 시외": [
+        "gwangshin",
+        "daehan"
+      ],
+      "유·스퀘어→통영종합버스터미널 시외": [
+        "kumho",
+        "gyeongnam"
+      ],
+      "유·스퀘어→영광종합버스터미널 시외": [
+        "kumho"
+      ],
+      "영광종합버스터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→홍농버스터미널 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→완도공용버스터미널 시외": [
+        "kumho"
+      ],
+      "완도공용버스터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→진도공용터미널 시외": [
+        "kumho"
+      ],
+      "진도공용터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→해남종합버스터미널 시외": [
+        "kumho"
+      ],
+      "해남종합버스터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→강진시외버스터미널 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→장흥시외버스터미널 시외": [
+        "kumho"
+      ],
+      "장흥시외버스터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→무안 터미널 시외": [
+        "kumho"
+      ],
+      "무안 터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→보성공용터미널 시외": [
+        "gwangwoo"
+      ],
+      "유·스퀘어→장성시외버스터미널 시외": [
+        "gwangshin"
+      ],
+      "유·스퀘어→옥과터미널 시외": [
+        "donggwang",
+        "gwangwoo"
+      ],
+      "유·스퀘어→구례공용버스터미널 시외": [
+        "donggwang",
+        "gwangwoo",
+        "gwangshin"
+      ],
+      "유·스퀘어→고금시외버스터미널 시외": [
+        "kumho"
+      ],
+      "유·스퀘어→군산시외버스터미널 시외": [
+        "jeonbuk"
+      ],
+      "유·스퀘어→전주시외버스터미널 시외": [
+        "jeonbuk"
+      ],
+      "유·스퀘어→부안터미널 시외": [
+        "daehan"
+      ],
+      "유·스퀘어→고창공용버스터미널 시외": [
+        "gwangshin"
+      ],
+      "고창공용버스터미널→유·스퀘어 시외": [
+        "gwangshin"
+      ],
+      "마량 버스터미널→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "신태인공용버스터미널→유·스퀘어 시외": [
+        "daehan"
+      ],
+      "성전터미널(Seongjeon Terminal)→유·스퀘어 시외": [
+        "kumho"
+      ],
+      "부산종합버스터미널→순천종합버스터미널 고속": [
+        "kumho"
+      ],
+      "순천종합버스터미널→부산종합버스터미널 고속": [
+        "kumho"
+      ],
+      "부산종합버스터미널→동광양(중마)버스터미널 고속": [
+        "kumho"
+      ],
+      "동광양(중마)버스터미널→부산종합버스터미널 고속": [
+        "kumho"
+      ],
+      "부산종합버스터미널→여천 시외버스 정류장 고속": [
+        "kumho"
+      ],
+      "여천 시외버스 정류장→부산종합버스터미널 고속": [
+        "kumho"
+      ],
+      "부산종합버스터미널→여수종합버스터미널 고속": [
+        "kumho"
+      ],
+      "여수종합버스터미널→부산종합버스터미널 고속": [
+        "kumho"
+      ],
+      "부산종합버스터미널→동대구터미널 고속": [
+        "jungang",
+        "cheonil",
+        "hanil"
+      ],
+      "동대구터미널→부산종합버스터미널 고속": [
+        "jungang",
+        "cheonil",
+        "hanil"
+      ],
+      "부산종합버스터미널→전주고속버스터미널 고속": [
+        "dongyang"
+      ],
+      "전주고속버스터미널→부산종합버스터미널 고속": [
+        "dongyang"
+      ],
+      "부산종합버스터미널→논산 시외버스터미널 고속": [
+        "chungnam"
+      ],
+      "논산 시외버스터미널→부산종합버스터미널 고속": [
+        "chungnam"
+      ],
+      "부산종합버스터미널→연무대터미널 고속": [
+        "chungnam"
+      ],
+      "연무대터미널→부산종합버스터미널 고속": [
+        "chungnam"
+      ],
+      "부산종합버스터미널→진해시외버스터미널 시외": [
+        "geojehyundai",
+        "gyeongwon"
+      ],
+      "부산종합버스터미널→마산고속버스터미널 시외": [
+        "geojehyundai"
+      ],
+      "부산종합버스터미널→창원종합버스터미널 시외": [
+        "gyeongwon",
+        "sinheung",
+        "geojehyundai"
+      ],
+      "부산종합버스터미널→진주시외버스터미널 시외": [
+        "gyeongnam"
+      ],
+      "부산종합버스터미널→통영종합버스터미널 시외": [
+        "gyeongnam",
+        "gyeongwon"
+      ],
+      "부산종합버스터미널→군산시외버스터미널 시외": [
+        "geuma",
+        "jeonbuk"
+      ],
+      "부산종합버스터미널→언양 시외버스터미널 시외": [
+        "purun"
+      ],
+      "순천종합버스터미널→부산서부시외버스터미널 고속": [
+        "kumho"
+      ],
+      "동광양(중마)버스터미널→부산서부시외버스터미널 고속": [
+        "kumho"
+      ],
+      "부산서부시외버스터미널→여천 시외버스 정류장 고속": [
+        "kumho"
+      ],
+      "여천 시외버스 정류장→부산서부시외버스터미널 고속": [
+        "kumho"
+      ],
+      "부산서부시외버스터미널→여수종합버스터미널 고속": [
+        "kumho"
+      ],
+      "여수종합버스터미널→부산서부시외버스터미널 고속": [
+        "kumho"
+      ],
+      "부산서부시외버스터미널→나주시외버스터미널 고속": [
+        "kumho"
+      ],
+      "나주시외버스터미널→부산서부시외버스터미널 고속": [
+        "kumho"
+      ],
+      "부산서부시외버스터미널→선산터미널 고속": [
+        "kumho",
+        "jungang",
+        "cheonil",
+        "hanil"
+      ],
+      "선산터미널→부산서부시외버스터미널 고속": [
+        "kumho",
+        "jungang",
+        "cheonil",
+        "hanil"
+      ],
+      "목포종합버스터미널→부산서부시외버스터미널 시외": [
+        "kumho"
+      ],
+      "진도공용터미널→부산서부시외버스터미널 시외": [
+        "kumho"
+      ],
+      "완도공용버스터미널→부산서부시외버스터미널 시외": [
+        "kumho"
+      ],
+      "성전터미널(Seongjeon Terminal)→부산서부시외버스터미널 시외": [
+        "kumho"
+      ],
+      "합천시외버스터미널→부산서부시외버스터미널 시외": [
+        "dongil",
+        "taeyoung"
+      ],
+      "삼천포 시외버스 터미널→부산서부시외버스터미널 시외": [
+        "busangyotong",
+        "gyeongjeon"
+      ],
+      "창원종합버스터미널→선산터미널 고속": [
+        "dongyang",
+        "jungang"
+      ],
+      "선산터미널→창원종합버스터미널 고속": [
+        "dongyang",
+        "jungang"
+      ],
+      "창원종합버스터미널→나주시외버스터미널 고속": [
+        "kumho"
+      ],
+      "나주시외버스터미널→창원종합버스터미널 고속": [
+        "kumho"
+      ],
+      "창원종합버스터미널→부산종합버스터미널 시외": [
+        "gyeongwon",
+        "sinheung",
+        "geojehyundai"
+      ],
+      "창원종합버스터미널→부산서부시외버스터미널 시외": [
+        "cheonilyeogaek",
+        "goryeo",
+        "sinheung"
+      ],
+      "창원종합버스터미널→여수종합버스터미널 시외": [
+        "daehanyeogaek"
+      ],
+      "여수종합버스터미널→창원종합버스터미널 시외": [
+        "daehanyeogaek"
+      ],
+      "창원종합버스터미널→통영종합버스터미널 시외": [
+        "daehanyeogaek",
+        "geojehyundai",
+        "gyeongwon",
+        "sinheung"
+      ],
+      "창원종합버스터미널→합천시외버스터미널 시외": [
+        "gyeongjeon"
+      ],
+      "의령시외버스터미널→창원종합버스터미널 시외": [
+        "gyeongjeon"
+      ],
+      "창원종합버스터미널→삼천포 시외버스 터미널 시외": [
+        "gyeongwon"
+      ],
+      "삼천포 시외버스 터미널→창원종합버스터미널 시외": [
+        "gyeongwon"
+      ],
+      "나주시외버스터미널→마산고속버스터미널 고속": [
+        "kumho"
+      ],
+      "마산고속버스터미널→나주시외버스터미널 고속": [
+        "kumho"
+      ],
+      "나주시외버스터미널→내서고속버스터미널 고속": [
+        "kumho"
+      ],
+      "내서고속버스터미널→나주시외버스터미널 고속": [
+        "kumho"
+      ],
+      "동대구터미널→진주시외버스터미널 고속": [
+        "jungang",
+        "cheonil"
+      ],
+      "진주시외버스터미널→동대구터미널 고속": [
+        "jungang",
+        "cheonil"
+      ],
+      "서대구고속버스터미널→진주시외버스터미널 고속": [
+        "jungang",
+        "cheonil"
+      ],
+      "진주시외버스터미널→서대구고속버스터미널 고속": [
+        "jungang",
+        "cheonil"
+      ],
+      "동대구터미널→선산터미널 고속": [
+        "kumho",
+        "dongyang",
+        "samhwa",
+        "jungang",
+        "cheonil",
+        "hanil"
+      ],
+      "선산터미널→동대구터미널 고속": [
+        "kumho",
+        "dongyang",
+        "samhwa",
+        "jungang",
+        "cheonil",
+        "hanil"
+      ],
+      "서대구고속버스터미널→선산터미널 고속": [
+        "kumho",
+        "dongyang",
+        "samhwa",
+        "jungang",
+        "cheonil",
+        "hanil"
+      ],
+      "선산터미널→서대구고속버스터미널 고속": [
+        "kumho",
+        "dongyang",
+        "samhwa",
+        "jungang",
+        "cheonil",
+        "hanil"
+      ],
+      "동대구터미널→전주고속버스터미널 고속": [
+        "dongyang",
+        "samhwa"
+      ],
+      "전주고속버스터미널→동대구터미널 고속": [
+        "dongyang",
+        "samhwa"
+      ],
+      "서대구고속버스터미널→전주고속버스터미널 고속": [
+        "dongyang",
+        "samhwa"
+      ],
+      "전주고속버스터미널→서대구고속버스터미널 고속": [
+        "dongyang",
+        "samhwa"
+      ],
+      "대전청사 터미널→전주고속버스터미널 고속": [
+        "dongyang",
+        "jungang"
+      ],
+      "전주고속버스터미널→대전청사 터미널 고속": [
+        "dongyang",
+        "jungang"
+      ],
+      "목포종합버스터미널→포항시외버스터미널 고속": [
+        "kumho"
+      ],
+      "목포종합버스터미널→경주고속버스터미널 고속": [
+        "kumho"
+      ],
+      "유성복합터미널→전주시외버스터미널 시외": [
+        "jeonbuk"
+      ],
+      "유성복합터미널→군산시외버스터미널 시외": [
+        "jeonbuk"
+      ],
+      "마산고속버스터미널→군산시외버스터미널 시외": [
+        "jeonbuk"
+      ],
+      "마산고속버스터미널→전주시외버스터미널 시외": [
+        "jeonbuk"
+      ],
+      "여수종합버스터미널→전주시외버스터미널 시외": [
+        "jeonbuk"
+      ],
+      "목포종합버스터미널→전주시외버스터미널 시외": [
+        "daehan"
+      ],
+      "고창공용버스터미널→전주시외버스터미널 시외": [
+        "jeonbuk",
+        "daehan"
+      ],
+      "고창공용버스터미널→군산시외버스터미널 시외": [
+        "jeonbuk"
+      ],
+      "신태인공용버스터미널→전주시외버스터미널 시외": [
+        "daehan"
+      ],
+      "신태인공용버스터미널→부안터미널 시외": [
+        "daehan"
+      ],
+      "목포종합버스터미널→여수종합버스터미널 시외": [
+        "kumho",
+        "gwangwoo"
+      ],
+      "여수종합버스터미널→목포종합버스터미널 시외": [
+        "kumho",
+        "gwangwoo"
+      ],
+      "장흥시외버스터미널→여수종합버스터미널 시외": [
+        "kumho",
+        "gwangwoo",
+        "dongbang"
+      ]
+    },
+    "notes": [
+      "출처는 모두 나무위키(2026-11-16 조회). 웹 요약 도구로 읽어서 노선표 일부를 놓쳤을 수 있다.",
+      "왕복 노선은 출처가 한 방향만 적어도 양방향 모두 같은 운수사로 넣었다(시외·고속 노선은 왕복 인가가 보통이라는 가정).",
+      "선산터미널 노선은 서울행 고속버스가 선산휴게소에서 갈아타는 표로 보고, 서울경부-선산-대구/부산서부/창원 노선의 운수사를 넣었다. 마산·내서·진해-선산은 운수사 확인 못 함.",
+      "부산서부→유·스퀘어 등 순천·동광양 고속은 \"김해공항(순천, 동광양 경유): 금호고속\", 부산종합의 \"동광양·광양·순천·여천·여수: 금호고속(2024년 이후 시외로 전환)\"에 근거.",
+      "동대구·구미→목포 고속은 금호고속 문서에 \"다른 회사와 공동 운행\"이라고만 나와 짝 회사를 몰라 routes에서 뺐다(금호고속은 확실).",
+      "부산서부-창원·마산 노선은 각주에 해운대고속 1대(1017호)만 나와 확실하지 않아 넣지 않았다.",
+      "유·스퀘어 승차홈 23번이 \"KD운송그룹 전용\"이라는 설명이 있었으나 어느 행선지인지 불분명해 넣지 않았다.",
+      "전라남도 안쪽 짧은 시외 노선(목포·해남·진도·완도·장흥·강진·성전·영암·독천·벌교·화원·마량·원동·덕양 사이, 영광·홍농·무안끼리 등)은 운수사를 확인하지 못했다. 유·스퀘어 문서상 대부분 금호고속이 운행하지만 노선별 근거는 없다.",
+      "도색 문서는 사진이 대부분이고 글 설명이 짧다. 글로 확인된 것: 금호(빨강+하양, 비스듬한 회색 네모 둘), 동양(베이지빛 흰 바탕, 뒤 옆면 파란 사선, 검은 범퍼), 중앙(빨강·파랑, 그레이하운드 도색 반전), 한일(흰 바탕에 노랑·회색 데칼), 삼화(회색+자주색), 충남(주황+초록), 동광(빨강), 경남고속뉴부산관광 프리미엄(주황 바탕에 큰 갈매기), 부산교통 프리미엄(금색 바탕에 녹색 가로줄), 경원여객 프리미엄(전체 금색). 나머지 색 배치는 추정이라 confidence low.",
+      "placeholder:true 회사는 도색 출처를 찾지 못해 흰 바탕+회색 띠 자리표시 색을 넣었다. 게임에서 회사 고유색처럼 보이면 안 된다.",
+      "프리미엄 공통 도색(KOBUS)은 \"금색\"이라는 것만 확인. 금호·동양·천일·중앙·속리산·한일은 프리미엄도 자사 고유 도색으로 바꿨다."
+    ],
+    "missingRoutes": [
+      "목포종합버스터미널→동대구터미널 고속",
+      "목포종합버스터미널→구미종합터미널 고속",
+      "목포종합버스터미널→영광종합버스터미널 시외",
+      "목포종합버스터미널→완도공용버스터미널 시외",
+      "목포종합버스터미널→진도공용터미널 시외",
+      "목포종합버스터미널→해남종합버스터미널 시외",
+      "목포종합버스터미널→보성공용터미널 시외",
+      "목포종합버스터미널→군산시외버스터미널 시외",
+      "동광양(중마)버스터미널→목포종합버스터미널 시외",
+      "동광양(중마)버스터미널→여수종합버스터미널 시외",
+      "동광양(중마)버스터미널→독천시외버스터미널 시외",
+      "동광양(중마)버스터미널→완도공용버스터미널 시외",
+      "진해시외버스터미널→선산터미널 고속",
+      "마산고속버스터미널→부산종합버스터미널 시외",
+      "마산고속버스터미널→부산서부시외버스터미널 시외",
+      "마산고속버스터미널→진주시외버스터미널 시외",
+      "마산고속버스터미널→선산터미널 고속",
+      "마산고속버스터미널→합천시외버스터미널 시외",
+      "마산고속버스터미널→창녕 시외버스 터미널 시외",
+      "마산고속버스터미널→의령시외버스터미널 시외",
+      "내서고속버스터미널→선산터미널 고속",
+      "울산고속버스터미널→전주고속버스터미널 고속",
+      "동대구터미널→목포종합버스터미널 고속",
+      "구미종합터미널→목포종합버스터미널 고속",
+      "구미종합터미널→황간 터미널 고속",
+      "여수종합버스터미널→해남종합버스터미널 시외",
+      "나주시외버스터미널→목포종합버스터미널 시외",
+      "나주시외버스터미널→완도공용버스터미널 시외",
+      "나주시외버스터미널→진도공용터미널 시외",
+      "나주시외버스터미널→해남종합버스터미널 시외",
+      "나주시외버스터미널→강진시외버스터미널 시외",
+      "나주시외버스터미널→장흥시외버스터미널 시외",
+      "선산터미널→진해시외버스터미널 고속",
+      "선산터미널→마산고속버스터미널 고속",
+      "선산터미널→내서고속버스터미널 고속",
+      "전주고속버스터미널→울산고속버스터미널 고속",
+      "유성복합터미널→논산 시외버스터미널 시외",
+      "논산 시외버스터미널→유성복합터미널 시외",
+      "논산 시외버스터미널→군산시외버스터미널 시외",
+      "담양공용버스터미널→정읍공용버스터미널 고속",
+      "정읍공용버스터미널→담양공용버스터미널 고속",
+      "합천시외버스터미널→마산고속버스터미널 시외",
+      "합천시외버스터미널→삼천포 시외버스 터미널 시외",
+      "진영시외버스터미널→부산서부시외버스터미널 시외",
+      "의령시외버스터미널→마산고속버스터미널 시외",
+      "의령시외버스터미널→합천시외버스터미널 시외",
+      "영광종합버스터미널→목포종합버스터미널 시외",
+      "영광종합버스터미널→홍농버스터미널 시외",
+      "영광종합버스터미널→군산시외버스터미널 시외",
+      "영광종합버스터미널→전주시외버스터미널 시외",
+      "독천시외버스터미널→해남종합버스터미널 시외",
+      "완도공용버스터미널→목포종합버스터미널 시외",
+      "완도공용버스터미널→여수종합버스터미널 시외",
+      "완도공용버스터미널→강진시외버스터미널 시외",
+      "완도공용버스터미널→원동버스터미널 시외",
+      "진도공용터미널→목포종합버스터미널 시외",
+      "진도공용터미널→나주시외버스터미널 시외",
+      "진도공용터미널→해남종합버스터미널 시외",
+      "진도공용터미널→강진시외버스터미널 시외",
+      "진도공용터미널→장흥시외버스터미널 시외",
+      "진도공용터미널→보성공용터미널 시외",
+      "진도공용터미널→영암버스터미널 시외",
+      "진도공용터미널→성전터미널(Seongjeon Terminal) 시외",
+      "진도공용터미널→벌교공용버스터미널 시외",
+      "해남종합버스터미널→목포종합버스터미널 시외",
+      "해남종합버스터미널→완도공용버스터미널 시외",
+      "해남종합버스터미널→진도공용터미널 시외",
+      "해남종합버스터미널→강진시외버스터미널 시외",
+      "해남종합버스터미널→화원터미널 시외",
+      "장흥시외버스터미널→목포종합버스터미널 시외",
+      "장흥시외버스터미널→나주시외버스터미널 시외",
+      "장흥시외버스터미널→완도공용버스터미널 시외",
+      "장흥시외버스터미널→해남종합버스터미널 시외",
+      "장흥시외버스터미널→영암버스터미널 시외",
+      "장흥시외버스터미널→마량 버스터미널 시외",
+      "장흥시외버스터미널→덕양시외버스터미널 시외",
+      "무안 터미널→목포종합버스터미널 시외",
+      "무안 터미널→나주시외버스터미널 시외",
+      "무안 터미널→정읍공용버스터미널 시외",
+      "무안 터미널→영광종합버스터미널 시외",
+      "무안 터미널→전주시외버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→목포종합버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→여수종합버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→나주시외버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→독천시외버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→완도공용버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→진도공용터미널 시외",
+      "성전터미널(Seongjeon Terminal)→해남종합버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→강진시외버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→장흥시외버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→보성공용터미널 시외",
+      "성전터미널(Seongjeon Terminal)→영암버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→벌교공용버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→원동버스터미널 시외",
+      "성전터미널(Seongjeon Terminal)→마량 버스터미널 시외",
+      "벌교공용버스터미널→마산고속버스터미널 시외",
+      "강진공용버스터미널→전주시외버스터미널 시외",
+      "고창공용버스터미널→목포종합버스터미널 시외",
+      "고창공용버스터미널→정읍공용버스터미널 시외"
+    ],
+    "missingTerminals": [
+      "구미종합터미널",
+      "독천시외버스터미널",
+      "창녕 시외버스 터미널",
+      "황간 터미널",
+      "진영시외버스터미널",
+      "원동버스터미널",
+      "영암버스터미널",
+      "벌교공용버스터미널",
+      "화원터미널",
+      "덕양시외버스터미널",
+      "강진공용버스터미널"
+    ]
   }
 }

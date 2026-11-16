@@ -1387,6 +1387,8 @@ export function renderWalk(root, { onHome }) {
           kind,
           fromName: terminal.name,
           toName: dest.name,
+          from: { x: terminal.x, y: terminal.y },
+          to: { x: dest.x, y: dest.y },
           km: Math.hypot(dest.x - terminal.x, dest.y - terminal.y),
           dep: d.dep,
           dur: d.dur,

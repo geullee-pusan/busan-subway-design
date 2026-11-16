@@ -1,12 +1,17 @@
-// 고속·시외버스 타기 장면(걸어서 여행하기): 터미널 대합실(출발 안내판) → 버스 안(고속도로) → 휴게소(오래 달리는 버스) → 도착.
+// 고속·시외버스 타기 장면(걸어서 여행하기): 터미널 승차홈(출발 안내판) → 버스 안(고속도로) → 휴게소(오래 달리는 버스) → 도착 터미널.
+// 3D가 되면 coach-3d.js로 보여 주고, 안 되면 그림으로 보여 준다.
 // 시각과 요금은 TAGO 배차 자료(data/build/intercity.json)이다. 휴게소 장면은 게임에서 넣은 것이다(실제로 들르는지는 버스마다 다르다).
 // 다음 단계로는 아이가 단추를 눌러야 간다.
 import { hasRestStop } from '../sim/intercity.js';
+import { grid } from '../data.js';
 import { distanceText, durationText } from './format.js';
+import { coachLookOf, parkedCoachLooks } from './coach-looks.js';
+import { loadView, saveView } from './storage.js';
+import { webglAvailable } from './train-journey.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 /** 버스 그림이 달리는 시간(밀리초) */
-const DRIVE_MS = 6000;
+const DRIVE_MS = 7000;
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -122,25 +127,71 @@ function restStopArt(kind) {
 }
 
 /**
- * 버스 한 대 타기.
+ * 버스 한 대 타기. 3D가 되면 승차홈, 고속도로, 휴게소, 도착 터미널을 3D로 보여 준다(coach-3d.js). 안 되면 그림.
  * @param {HTMLElement} area
- * @param {{kind: '고속'|'시외', fromName: string, toName: string, km: number, dep: number, dur: number, fare: number|null, grade: string,
- *   readyMinute: number, rider: 'adult'|'child', reduceMotion?: boolean, onDone: (minutes: number) => void}} p
+ * @param {{kind: '고속'|'시외', fromName: string, toName: string, from?: {x: number, y: number}, to?: {x: number, y: number},
+ *   km: number, dep: number, dur: number, fare: number|null, grade: string,
+ *   readyMinute: number, rider: 'adult'|'child', onDone: (minutes: number) => void}} p
  * @returns {() => void} 치우기
  */
-export function runCoachTrip(area, { kind, fromName, toName, km, dep, dur, fare, grade, readyMinute, rider, onDone }) {
+export function runCoachTrip(area, { kind, fromName, toName, from, to, km, dep, dur, fare, grade, readyMinute, rider, onDone }) {
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
   let frame = null;
+  let coach3d = null;
+  let gone = false;
+  const timers = [];
+  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
   const cleanup = () => {
+    gone = true;
     if (frame) cancelAnimationFrame(frame);
     frame = null;
+    for (const t of timers) clearTimeout(t);
+    coach3d?.destroy();
+    coach3d = null;
   };
   const rest = hasRestStop(dur);
+  const VIEWS = { outside: '밖에서 보기 (3D)', cabin: '버스 안 (3D)', picture: '고속도로 그림' };
+  let view = VIEWS[loadView().coachView] ? loadView().coachView : 'outside';
 
-  /** 1. 대합실: 출발 안내판 */
+  /** 3D를 만든다(처음 한 번). 못 만들면 null */
+  const made =
+    from && to && webglAvailable()
+      ? import('./coach-3d.js')
+          .then(({ createCoach3D }) => {
+            if (gone) return null;
+            coach3d = createCoach3D({
+              grid,
+              look: coachLookOf({ kind, fromName, toName, grade, dep }),
+              others: parkedCoachLooks(kind, fromName),
+              from: { ...from, name: fromName },
+              to: { ...to, name: toName },
+              grade,
+              bay: 1 + (Math.round(dep) % 12),
+              reduceMotion,
+            });
+            return coach3d;
+          })
+          .catch((error) => {
+            if (import.meta.env?.DEV) console.warn('3D 고속버스를 만들지 못했어요', error);
+            return null;
+          })
+      : Promise.resolve(null);
+  /** 3D 자리(장면마다 다시 붙인다) */
+  const holder3d = () => {
+    const box = element('div');
+    made.then((c) => {
+      if (c && box.isConnected) box.append(c.el);
+    });
+    return box;
+  };
+  /** 늦어도 ms 뒤에는 끝나는 약속(3D가 멈춰도 단추가 풀린다) */
+  const within = (promise, ms) => Promise.race([promise, new Promise((r) => later(r, ms))]);
+
+  /** 1. 승차홈: 출발 안내판, 버스가 들어와 문을 연다 */
   function waitingRoom() {
     area.replaceChildren();
-    area.append(element('h3', null, `${fromName} 대합실`));
+    area.append(element('h3', null, `${fromName} 승차홈`));
+    area.append(holder3d());
     const board = element('div', 'tr-board coach-board');
     board.append(element('p', 'coach-board-title', '출발 안내'));
     const row = element('p', 'coach-board-row');
@@ -154,30 +205,90 @@ export function runCoachTrip(area, { kind, fromName, toName, km, dep, dur, fare,
     else area.append(element('p', null, '요금 자료가 없어요.'));
     if (rider === 'child') area.append(element('p', 'panel-note', '어린이 요금 자료가 없어서 어른 요금으로 셈해요.'));
     area.append(element('p', 'panel-note', '시각과 요금은 국토교통부 TAGO 배차 자료예요.'));
-    area.append(button('버스에 타요', () => drive(0, rest ? 0.5 : 1, rest ? restStop : arrive), 'button big ride-go'));
+    const go = button('버스에 타요', () => drive(0, rest ? 0.5 : 1, rest ? restStop : arriveScene), 'button big ride-go');
+    area.append(go);
+    // 3D를 만드는 동안은 기다린다(다 되면 버스가 들어온 뒤 풀린다)
+    go.disabled = true;
+    made.then(async (c) => {
+      if (!c || gone || !go.isConnected) {
+        go.disabled = false;
+        return;
+      }
+      area.insertBefore(element('p', 'panel-note', '버스 칠은 이 노선에 다니는 회사 가운데 하나로 골랐어요.'), go);
+      go.disabled = true;
+      c.atTerminal(false);
+      c.setView('stop');
+      await new Promise((r) => later(r, reduceMotion ? 0 : 1200));
+      await within(c.pullIn(7000), 12000);
+      c.setDoors(true);
+      go.disabled = false;
+    });
   }
 
-  /** 2. 버스 안: from~to(0~1)까지 달린다 */
-  function drive(from, to, next) {
+  /** 2. 버스 안: fromAt~toAt(0~1)까지 달린다 */
+  function drive(fromAt, toAt, next) {
     area.replaceChildren();
     area.append(element('h3', null, `${toName}(으)로 가는 ${kind}버스`));
+    const viewRow = element('div', 'tr-sound-row');
+    viewRow.setAttribute('role', 'group');
+    viewRow.setAttribute('aria-label', '보는 곳 고르기');
+    const box3d = holder3d();
     const art = highwayArt(kind, toName, km);
-    area.append(art.svg);
+    const pick = (id) => {
+      view = id;
+      saveView({ coachView: id });
+      const shown = coach3d ? view : 'picture';
+      for (const b of viewButtons) {
+        b.className = b.dataset.view === shown ? 'button is-on' : 'button';
+        b.setAttribute('aria-pressed', String(b.dataset.view === shown));
+      }
+      box3d.style.display = shown === 'picture' ? 'none' : '';
+      art.svg.style.display = shown === 'picture' ? '' : 'none';
+      if (coach3d && shown !== 'picture') coach3d.setView(shown === 'cabin' ? 'cabin' : 'outside');
+    };
+    const viewButtons = Object.entries(VIEWS).map(([id, label]) => {
+      const b = button(label, () => pick(id));
+      b.dataset.view = id;
+      return b;
+    });
+    viewRow.append(...viewButtons);
+    area.append(viewRow, box3d, art.svg);
     const clock = element('p', 'walk-next');
     area.append(clock);
     const nextButton = button(next === restStop ? '휴게소에 들러요' : '다 왔어요', next, 'button big ride-go');
     nextButton.disabled = true;
     area.append(nextButton);
+    let artDone = false;
+    let roadDone = false;
+    const release = () => {
+      if (artDone && roadDone) nextButton.disabled = false;
+    };
+    made.then(async (c) => {
+      if (gone || !nextButton.isConnected) return;
+      if (!c) {
+        viewRow.remove();
+        pick('picture');
+        roadDone = true;
+        release();
+        return;
+      }
+      pick(view);
+      c.setDoors(false);
+      await within(c.cruise(fromAt + (toAt - fromAt) * 0.4, DRIVE_MS), DRIVE_MS + 6000);
+      roadDone = true;
+      release();
+    });
     const start = performance.now();
     const step = (t) => {
       const p = reduceMotion ? 1 : Math.min(1, (t - start) / DRIVE_MS);
-      const at = from + (to - from) * p;
+      const at = fromAt + (toAt - fromAt) * p;
       art.setProgress(at);
       clock.textContent = `지금 ${hhmm(dep + dur * at)} · ${durationText(Math.round(dur * at) * 60)} 달렸어요`;
       if (p < 1) frame = requestAnimationFrame(step);
       else {
         frame = null;
-        nextButton.disabled = false;
+        artDone = true;
+        release();
       }
     };
     frame = requestAnimationFrame(step);
@@ -187,15 +298,51 @@ export function runCoachTrip(area, { kind, fromName, toName, km, dep, dur, fare,
   function restStop() {
     area.replaceChildren();
     area.append(element('h3', null, '휴게소에서 쉬어요'));
-    area.append(restStopArt(kind));
+    const box3d = holder3d();
+    const art = restStopArt(kind);
+    area.append(box3d, art);
     area.append(element('p', null, '오래 달리는 버스는 휴게소에서 잠깐 쉬기도 해요.'));
     area.append(element('p', 'panel-note', '실제로 휴게소에 들르는지는 버스마다 달라요.'));
     area.append(element('p', 'panel-note', '쉬는 시간도 도착 시각 안에 들어 있어요.'));
-    area.append(button('다시 버스에 타요', () => drive(0.5, 1, arrive), 'button big ride-go'));
+    const again = button('다시 버스에 타요', () => drive(0.5, 1, arriveScene), 'button big ride-go');
+    area.append(again);
+    made.then(async (c) => {
+      if (!c || gone || !again.isConnected) return;
+      art.remove();
+      again.disabled = true;
+      c.atRest();
+      c.setView('stop');
+      await within(c.parkAtRest(6000), 10000);
+      c.setDoors(true);
+      again.disabled = false;
+    });
   }
 
-  /** 4. 도착 */
-  function arrive() {
+  /** 4. 도착 터미널: 버스가 승차홈에 들어와 문을 연다(3D가 없으면 바로 끝) */
+  function arriveScene() {
+    if (!coach3d) {
+      finish();
+      return;
+    }
+    area.replaceChildren();
+    area.append(element('h3', null, `${toName}에 왔어요`));
+    area.append(holder3d());
+    area.append(element('p', null, `지금 ${hhmm(dep + dur)}이에요.`));
+    const off = button('내려요', finish, 'button big ride-go');
+    off.disabled = true;
+    area.append(off);
+    const c = coach3d;
+    c.atTerminal(true);
+    c.setView('stop');
+    c.setDoors(false);
+    within(c.pullIn(7000), 12000).then(() => {
+      c.setDoors(true);
+      off.disabled = false;
+    });
+  }
+
+  /** 5. 끝 */
+  function finish() {
     cleanup();
     onDone(dep + dur - readyMinute);
   }

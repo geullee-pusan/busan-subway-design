@@ -71,3 +71,53 @@ if (missingCity.size) console.log(`칠 자료가 없는 시·군: ${[...missingC
 for (const p of problems) console.log(`! ${p}`);
 const todo = Object.entries(cities).flatMap(([c, e]) => [...e.types, e.default].filter((t) => t?.todo).map((t) => `${c} ${t.type ?? '기본'}`));
 console.log(`확인 필요(todo) ${todo.length}곳`);
+
+// 고속·시외버스 회사별 칠(data/facts.json coachLooks) → data/build/coach-looks.json
+// 회사 이름은 게임 화면에 쓰지 않는다(칠을 고르는 데만 쓴다). 주소(url)는 빼고 출처 이름만 둔다.
+{
+  const coach = facts.coachLooks ?? { companies: {}, terminals: {}, routes: {} };
+  const intercity = JSON.parse(readFileSync(resolve(ROOT, 'data/build/intercity.json'), 'utf8'));
+  const CKEEP = [...COLOR_KEYS, 'stripe2', 'pattern', 'kinds', 'source', 'confidence'];
+  const cpick = (t) => Object.fromEntries(CKEEP.filter((k) => t?.[k] !== undefined && t[k] !== null).map((k) => [k, t[k]]));
+  const companies = {};
+  for (const [id, c] of Object.entries(coach.companies ?? {})) {
+    if (!/^#[0-9A-Fa-f]{6}$/.test(c.lower ?? '')) {
+      console.log(`! 고속버스 ${id}: 칠 색이 없어 뺐어요`);
+      continue;
+    }
+    companies[id] = cpick(c);
+    if (c.premium) companies[id].premium = cpick(c.premium);
+  }
+  const keep = (ids) => (ids ?? []).filter((id) => companies[id]);
+  const names = new Set(intercity.terminals.map((t) => t.name));
+  const terminals = {};
+  for (const [name, ids] of Object.entries(coach.terminals ?? {})) {
+    if (!names.has(name)) console.log(`! 고속버스 터미널 이름이 자료에 없어요: ${name}`);
+    else if (keep(ids).length) terminals[name] = keep(ids);
+  }
+  const routes = {};
+  for (const [key, ids] of Object.entries(coach.routes ?? {})) if (keep(ids).length) routes[key] = keep(ids);
+  writeFileSync(
+    resolve(ROOT, 'data/build/coach-looks.json'),
+    JSON.stringify({
+      _설명:
+        '고속·시외버스 회사별 칠. scripts/build-bus-looks.mjs가 data/facts.json coachLooks(출처와 확인 정도)로 만든다. 배차 자료에 회사가 없어서 노선(routes) → 터미널(terminals)에 다니는 회사 가운데 하나를 고른다(src/ui/coach-looks.js). 회사 이름·로고·상징 무늬는 화면에 넣지 않는다.',
+      companies,
+      terminals,
+      routes,
+    }) + '\n',
+  );
+  // 노선마다 회사를 고를 수 있는지
+  let byRoute = 0;
+  let byTerminal = 0;
+  let none = 0;
+  for (const r of intercity.routes) {
+    const a = intercity.terminals[r[0]].name;
+    const b = intercity.terminals[r[1]].name;
+    const kindOk = (id) => !companies[id].kinds?.length || companies[id].kinds.includes(r[2]);
+    if ([...(routes[`${a}→${b} ${r[2]}`] ?? []), ...(routes[`${b}→${a} ${r[2]}`] ?? [])].some(kindOk)) byRoute++;
+    else if ([...(terminals[a] ?? []), ...(terminals[b] ?? [])].some(kindOk)) byTerminal++;
+    else none++;
+  }
+  console.log(`고속·시외버스 회사 ${Object.keys(companies).length}곳, 터미널 ${Object.keys(terminals).length}곳, 노선 ${intercity.routes.length}개: 노선 자료로 ${byRoute}, 터미널 자료로 ${byTerminal}, 그 종류 아무 회사 ${none}`);
+}
