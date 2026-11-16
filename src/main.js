@@ -47,9 +47,16 @@ function ruleSetName() {
   return activeRuleSet()?.name ?? null;
 }
 
+/** 로딩 화면(vite.config.js bootScreen)을 치운다 */
+function dropBoot() {
+  document.getElementById('boot')?.remove();
+  document.getElementById('boot-style')?.remove();
+}
+
 function show(render) {
   cleanup?.();
   cleanup = render() ?? null;
+  dropBoot();
   // 모든 화면의 위쪽 줄 오른쪽 끝에 "안내 숨기기" 단추를 둔다.
   const bar = root.querySelector('.top-bar, .home-head');
   if (bar && !bar.querySelector('.guide-toggle')) bar.append(guideToggle());
