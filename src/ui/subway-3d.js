@@ -1477,6 +1477,22 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
   function planBoard() {
     // 내린 사람은 목록에서 뺀다
     for (let i = seated.length - 1; i >= 0; i--) if (seated[i].state === 'gone') seated.splice(i, 1);
+    // 서 있던 사람이 먼저 빈자리로 가서 앉는다(내린 사람 자리, 가까운 자리부터)
+    {
+      const { seats } = freePlaces();
+      const standers = seated.filter((sd) => sd.state === 'standing');
+      for (const sd of standers) {
+        if (!seats.length) break;
+        let best = 0;
+        seats.forEach((st, i) => {
+          if (Math.abs(st.x - sd.obj.position.x) < Math.abs(seats[best].x - sd.obj.position.x)) best = i;
+        });
+        sd.seat = seats.splice(best, 1)[0];
+        sd.sitName = sitNamesOf()[sd.obj.userData.slot % Math.max(1, sitNamesOf().length)];
+        sd.state = 'toSeat';
+        riderPlay(sd, 'walking', true);
+      }
+    }
     const { seats: freeSeats, spots: freeSpots, standing } = freePlaces();
     const staying = seated.filter((sd) => !['gone', 'out', 'atDoor', 'toDoor', 'standup'].includes(sd.state)).length;
     // 탈 사람 수: 역 정보가 있으면 (이 칸에 남을 사람 - 남아 있는 사람), 없으면 어림
