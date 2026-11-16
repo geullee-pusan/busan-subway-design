@@ -23,3 +23,6 @@ data/raw/osm/paths-*.json
 
 # 주인공 3D 원본(아이를 닮은 모델, C:\joosan에서 복사, Mixamo FBX). 구운 그림만 src/content에 넣는다.
 assets/hero/
+
+# Mixamo 승객 원본(FBX, 크고 다시 배포하지 않는다): npm run passengers가 src/content/passengers/로 굽는다
+assets/passengers/

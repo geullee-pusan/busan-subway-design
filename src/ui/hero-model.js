@@ -26,7 +26,7 @@ function decode(b64, Type) {
   return new Type(bytes.buffer);
 }
 
-const TYPES = { f32: Float32Array, u16: Uint16Array, u32: Uint32Array, i16: Int16Array };
+const TYPES = { f32: Float32Array, u16: Uint16Array, u32: Uint32Array, i16: Int16Array, u8: Uint8Array };
 const arr = (a) => decode(a.data, TYPES[a.type]);
 /** 동작 값: 16비트 정수로 담은 회전은 -1~1로 되돌린다 */
 const values = (a) => (a.type === 'i16' ? Float32Array.from(arr(a), (x) => x / 32767) : arr(a));
@@ -39,11 +39,13 @@ const values = (a) => (a.type === 'i16' ? Float32Array.from(arr(a), (x) => x / 3
 export function buildHero(data, image) {
   const geo = new BufferGeometry();
   const g = data.geometry;
-  geo.setAttribute('position', new BufferAttribute(arr(g.position), 3));
-  if (g.normal) geo.setAttribute('normal', new BufferAttribute(arr(g.normal), 3));
-  if (g.uv) geo.setAttribute('uv', new BufferAttribute(arr(g.uv), 2));
-  geo.setAttribute('skinIndex', new BufferAttribute(arr(g.skinIndex), 4));
-  geo.setAttribute('skinWeight', new BufferAttribute(arr(g.skinWeight), 4));
+  // norm: 정수로 담은 값(0~1)으로 읽는다(승객 묶음은 질감 좌표와 무게를 작게 담는다)
+  const attr = (a, size) => new BufferAttribute(arr(a), size, Boolean(a.norm));
+  geo.setAttribute('position', attr(g.position, 3));
+  if (g.normal) geo.setAttribute('normal', attr(g.normal, 3));
+  if (g.uv) geo.setAttribute('uv', attr(g.uv, 2));
+  geo.setAttribute('skinIndex', attr(g.skinIndex, 4));
+  geo.setAttribute('skinWeight', attr(g.skinWeight, 4));
   if (g.index) geo.setIndex(new BufferAttribute(arr(g.index), 1));
   if (!g.normal) geo.computeVertexNormals();
 
@@ -90,11 +92,14 @@ export function buildHero(data, image) {
   outer.add(root);
 
   const clips = {};
+  // 뼈 이름: 승객 동작은 "mixamorig" 앞붙이를 뗀 이름(bone)으로 담아 여러 캐릭터가 함께 쓴다
+  const boneKey = (name) => name.replace(/^mixamorig\d*:?/, '');
+  const boneNames = new Map(data.bones.map((b) => [boneKey(b.name), b.name]));
   for (const c of data.clips) {
-    const tracks = c.tracks.map((t) => {
+    const tracks = c.tracks.filter((t) => !t.bone || boneNames.has(t.bone)).map((t) => {
       const T = t.kind === 'q' ? QuaternionKeyframeTrack : VectorKeyframeTrack;
       const times = t.times ? arr(t.times) : Float32Array.from({ length: t.n }, (_, k) => Math.min(c.duration, k / t.fps));
-      return new T(t.name, times, values(t.values));
+      return new T(t.name ?? `${boneNames.get(t.bone)}.quaternion`, times, values(t.values));
     });
     clips[c.name] = new AnimationClip(c.name, c.duration, tracks);
   }

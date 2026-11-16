@@ -821,3 +821,8 @@ TODO(확인 필요)
 - 역명판에서 열차가 가는 쪽(다음 역)은 승강장에서 볼 때 왼쪽에 둔다(우리 3D의 선로와 승강장 자리에 맞춘 것). 실제 역에서는 판마다 방향이 다를 수 있다.
 - 역 번호는 역 자료의 code(부산 1~4호선 세 자리, 대구, 광주)와 부산김해경전철 역 순번을 쓴다. 동해선·대경선은 번호 자료가 없어 넣지 않았다. TODO(확인 필요).
 - 역 한자: 한국어 위키백과 노선 문서(부산 도시철도 1~4호선, 부산-김해 경전철, 동해선, 대구 도시철도 1~3호선, 대경선, 광주 도시철도 1호선)의 역 목록 한자 칸(2026-11-16, 위키백과 API 원문). `data/facts.json` stationHanja, `npm run hanja` → `data/build/station-hanja.json`. 한자가 없는 역(낫개, 벡스코, 센텀시티 등)은 비워 둔다. 순우리말을 뜻으로 옮긴 것(못골 池谷, 수성못 壽城池)과 한글이 섞인 것은 출처대로 두었다. TODO(확인 필요): 이런 역의 실제 역명판 표기.
+
+## 승강장 승객(2026-11-16)
+
+- 지하철 3D 승강장에 서서 기다리다가 문이 열리면 걸어서 타는 승객을 세운다(`src/ui/subway-3d.js`). 사람 수는 우리가 정한 어림(3~10명)이다. TODO: 그 역·그 시각 승하차 자료로 정하기.
+- 캐릭터와 동작은 사용자가 Adobe Mixamo(https://www.mixamo.com)에서 받아 준 FBX다: 캐릭터 Ch22, Ch23, Ch31, Ch33, Ch42(FBX, 몸 뼈대와 질감), 동작 Idle, Standing Idle, Happy Idle, Walking. 원본은 git에 넣지 않는 `assets/passengers/`에 두고, `npm run passengers`(scripts/passengers-pack.mjs)가 메시를 합치고 꼭짓점을 줄이고(three에 들어 있는 meshoptimizer) 질감을 512px 칸으로 모아 `src/content/passengers/`로 만든다. Mixamo 이용 조건(Adobe)에 따라 게임에 넣어 쓴다.

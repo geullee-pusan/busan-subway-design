@@ -42,6 +42,13 @@ import hanjaFile from '../../data/build/station-hanja.json';
 /** 역 한자 이름(자료가 없으면 null). data/build/station-hanja.json, 출처는 data/facts.json stationHanja */
 const stationHanja = (id) => hanjaFile.stations?.[id] ?? null;
 import heroData from '../content/hero/hero3d.json';
+import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
+import passengerData from '../content/passengers/passengers.json';
+
+/** 승객 질감 그림 주소(캐릭터 id → 주소) */
+const passengerTextures = Object.fromEntries(
+  Object.entries(import.meta.glob('../content/passengers/*.webp', { eager: true, query: '?url', import: 'default' })).map(([path, url]) => [path.split('/').pop().replace('.webp', ''), url]),
+);
 import heroTextureUrl from '../content/hero/hero3d.webp';
 
 const SKY = 0xcfe6f5;
@@ -901,7 +908,7 @@ function carCabin(spec, car, material) {
  * @param {{grid: object, lineId: string, color: string, stops: Array<{id: string, name: string, x: number, y: number, under: boolean}>,
  *   variant?: number, reduceMotion?: boolean}} p stops: 탈 노선의 역들(가는 차례), x·y는 격자 km
  */
-export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopList, variant = 0, reduceMotion = false }) {
+export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopList, variant = 0, crowd = 0.5, reduceMotion = false }) {
   const spec = SUBWAY_CARS[lineId === '1' && variant % 2 ? '1b' : lineId];
   const look = STATION_LOOK[lineId] ?? STATION_LOOK.default;
   if (!spec) throw new Error(`3D 차량이 없는 노선: ${lineId}`);
@@ -1056,10 +1063,99 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     return { pts: out, kmA: ka - from, kmB: kb - from };
   }
 
+  // 승객: 캐릭터마다 한 번 조립(틀)하고 복제해서 세운다. 틀의 모양과 재료는 함께 쓰므로 세상을 다시 지어도 치우지 않는다
+  const riderKinds = [];
+  for (const person of passengerData.people ?? []) {
+    const image = new Image();
+    const kind = buildHero({ ...person, clips: passengerData.clips ?? [] }, image);
+    image.onload = () => kind.root.traverse((o) => o.material?.map && (o.material.map.needsUpdate = true));
+    image.src = passengerTextures[person.id] ?? '';
+    // 키: 어른은 1.6~1.8m(우리가 정한 값), 틀은 키 1
+    riderKinds.push(kind);
+  }
+  const riderShared = new Set();
+  for (const k of riderKinds) k.root.traverse((o) => (o.geometry || o.material) && riderShared.add(o.geometry).add(o.material));
+  let riders = []; // {obj, mixer, actions, state, target, speed}
+
+  /** 역(구간 안 km kmS)에 열차를 기다리는 승객을 세운다: 문 자리마다 노란 선 뒤에 줄 선다 */
+  function spawnRiders(kmS, count) {
+    if (!riderKinds.length || !world) return;
+    const headKm = kmS + trainLen / 2000;
+    const doorKms = [];
+    for (let c = 0; c < N; c++) {
+      const centerKm = headKm - (offs[c] + lens[c] / 2) / 1000;
+      for (const dx of cars[c].doorXs) doorKms.push(centerKm + dx / 1000);
+    }
+    // 주인공 자리(문 하나)는 비운다
+    const heroKm = kmS + trainLen / 2000 - 0.012;
+    // 주인공과 가까운 문부터(아이 눈에 보이는 곳에 사람이 있게)
+    const free = doorKms.filter((d) => Math.abs(d - heroKm) > 0.004).sort((x, y) => Math.abs(x - heroKm) - Math.abs(y - heroKm)).slice(0, 4);
+    for (let i = 0; i < count && free.length; i++) {
+      const d = free[i % free.length];
+      const row = Math.floor(i / free.length);
+      const side = i % 2 ? 1 : -1;
+      const q = sampleAt(d + side * 0.0009);
+      if (!q) continue;
+      const kind = riderKinds[i % riderKinds.length];
+      const obj = cloneSkinned(kind.root);
+      const tall = 1.62 + cellNoise(i, seg, 7) * 0.2;
+      obj.scale.setScalar(tall);
+      const off = EDGE + 1.1 + row * 0.7 + cellNoise(i, 2, 5) * 0.3;
+      obj.position.set(q.x + q.rx * off, q.y + 1.0, q.z + q.rz * off);
+      // 선로 쪽을 보되 조금씩 다르게
+      obj.rotation.y = Math.atan2(-q.rx, -q.rz) + (cellNoise(i, 4, 1) - 0.5) * 0.8;
+      world.add(obj);
+      const mixer = new AnimationMixer(obj);
+      const pick = (name) => kind.clips[name] ?? Object.values(kind.clips)[0];
+      const idleNames = Object.keys(kind.clips).filter((n) => n.includes('idle'));
+      const idle = mixer.clipAction(pick(idleNames[i % Math.max(1, idleNames.length)] ?? 'idle'));
+      idle.time = cellNoise(i, 9, 3) * (idle.getClip().duration || 1);
+      idle.play();
+      riders.push({ obj, mixer, idle, walk: kind.clips.walking ? mixer.clipAction(kind.clips.walking) : null, state: 'wait', doorKm: d, delay: 0.3 + cellNoise(i, 6, 2) * 1.5 });
+    }
+  }
+
+  /** 문이 열리면 기다리던 승객이 문으로 걸어 들어간다 */
+  function updateRiders(dt) {
+    for (const rd of riders) {
+      rd.mixer.update(reduceMotion ? 0 : dt);
+      if (rd.state === 'wait' && doorAmount > 0.9 && mode !== 'cabin') {
+        rd.delay -= dt;
+        if (rd.delay <= 0) {
+          rd.state = 'board';
+          if (rd.walk) {
+            rd.walk.reset().play();
+            rd.idle.crossFadeTo(rd.walk, 0.3, false);
+          }
+        }
+      } else if (rd.state === 'board') {
+        const q = sampleAt(rd.doorKm);
+        if (!q) continue;
+        const tx = q.x + q.rx * (EDGE - 0.6);
+        const tz = q.z + q.rz * (EDGE - 0.6);
+        const dx = tx - rd.obj.position.x;
+        const dz = tz - rd.obj.position.z;
+        const dist = Math.hypot(dx, dz);
+        if (dist < 0.15) {
+          rd.state = 'in';
+          rd.obj.visible = false;
+          continue;
+        }
+        const step = Math.min(dist, 1.2 * dt);
+        rd.obj.position.x += (dx / dist) * step;
+        rd.obj.position.z += (dz / dist) * step;
+        rd.obj.rotation.y = Math.atan2(dx, dz);
+      }
+    }
+  }
+
   function disposeWorld() {
     if (!world) return;
     scene.remove(world);
+    for (const rd of riders) rd.mixer.stopAllAction();
+    riders = [];
     world.traverse((o) => {
+      if (riderShared.has(o.geometry) || riderShared.has(o.material)) return;
       o.geometry?.dispose();
       const m = o.material;
       if (m && m !== material && m !== glowMat && m !== glassMat && m !== lowDoorMat && ![...facadeMats.values()].includes(m) && !Object.values(stMats ?? {}).includes(m)) {
@@ -1444,6 +1540,8 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       }
     }
     world.add(new Mesh(parts.geometry(), material), new Mesh(glow.geometry(), glowMat), new Mesh(glassParts.geometry(), glassMat));
+    // 탈 역 승강장의 승객(사람 수는 crowd: 0~1, 우리가 정한 어림)
+    spawnRiders(kmA, Math.round(3 + crowd * 7));
     ceiling = new Mesh(ceil.geometry(), material);
     world.add(ceiling);
     scene.add(world);
@@ -1579,6 +1677,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       for (const p of psd) p.mesh.position.set(p.base[0] + p.ux * p.side * 0.9 * doorAmount, p.base[1], p.base[2] + p.uz * p.side * 0.9 * doorAmount);
     }
     placeTrain();
+    updateRiders(dt);
     const head = cars[0].group;
     const bp = cars[Math.min(N - 1, 1)].group.position;
     const ux = Math.cos(-head.rotation.y);
@@ -1756,6 +1855,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       disposeWorld();
       mixer.stopAllAction();
       hero.dispose();
+      for (const k of riderKinds) k.dispose();
       cabin.dispose();
       for (const c of cars) {
         c.group.traverse((o) => o.geometry?.dispose());
@@ -1778,6 +1878,6 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       renderer.forceContextLoss?.();
     },
   };
-  if (import.meta.env?.DEV) el.devApi = { ...api, world: () => world, scene, camera };
+  if (import.meta.env?.DEV) el.devApi = { ...api, world: () => world, scene, camera, riders: () => riders, doors: () => [doorAmount, doorTarget, mode], tick: (t) => frame(t) };
   return api;
 }
