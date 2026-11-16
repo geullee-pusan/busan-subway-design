@@ -1,7 +1,7 @@
 // 주인공 그림 굽기(개발용): 아이를 닮은 3D 주인공(Mixamo FBX)을 걸어서 여행하기 지도에서 쓸 그림 묶음으로 굽는다.
 //   node scripts/hero-bake.mjs   (npm run hero)
 //   - 넣는 것(git에 넣지 않는 assets/hero/, C:\joosan에서 복사): anim/defeated.fbx(뼈대와 메시), hero.png(텍스처),
-//     anim/idle.fbx(서 있기), anim/running.fbx(달리기)
+//     anim/idle.fbx(서 있기), anim/running.fbx(달리기), anim/near-hiphop.fbx(역·터미널 가까이에서 움직이며 추는 춤)
 //   - 만드는 것: src/content/hero/walker.webp(방향 × 장면 그림 묶음), src/content/hero/walker.json(칸 크기, 발 위치, 장면 차례)
 // 게임에는 3D 코드가 들어가지 않는다. three.js는 이 스크립트에서만 쓴다(개발용 의존성).
 // 이 폴더에서 Vite 서버를 잠깐 띄우고, 화면 없는 Chrome·Edge로 scripts/hero-bake.html을 연다.
@@ -20,6 +20,8 @@ const job = {
   clips: [
     { name: 'idle', file: '/assets/hero/anim/idle.fbx', frames: 1, at: 0 },
     { name: 'run', file: '/assets/hero/anim/running.fbx', frames: 8 },
+    // 역·터미널 가까이에서 움직일 때 추는 춤(사용자가 준 Mixamo "Hip Hop Dancing"). sec: 앞의 몇 초만 장면으로 나눈다
+    { name: 'hop', file: '/assets/hero/anim/near-hiphop.fbx', frames: 16, sec: 2 },
   ],
   cell: 112,
   dirs: 8,

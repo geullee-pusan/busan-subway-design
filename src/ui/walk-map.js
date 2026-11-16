@@ -657,7 +657,8 @@ function shadeHex(hex, f) {
 /**
  * 나(아이를 닮은 주인공): 걷는 방향에 맞는 줄을 고르고, 걷는 동안 달리기 장면을 걸음 박자(step)에 맞춰 넘긴다.
  * dance가 있으면 그 춤의 장면을 그린다(랜드마크 도착, 화면을 본다).
- * @param {{heading?: number, moving?: boolean, step: number, dance?: {row: number, seconds: number}}} me
+ * @param {{heading?: number, moving?: boolean, near?: boolean, step: number, dance?: {row: number, seconds: number}}} me
+ *   near: 역·터미널 가까이(움직이면 달리기 대신 춤 hop)
  */
 function drawHero(ctx, x, y, me) {
   if (me.dance && danceImage) {
@@ -676,9 +677,14 @@ function drawHero(ctx, x, y, me) {
   const { cell, dirs, anchor, clips } = walker;
   const turn = (((me.heading ?? Math.PI / 2) / (Math.PI * 2)) * dirs + dirs) % dirs;
   const row = Math.round(turn) % dirs;
-  const clip = me.moving ? clips.run : clips.idle;
-  // 달리기 한 바퀴(장면 전부) = 걸음 박자 두 번(왼발·오른발)
-  const frame = clip.frames > 1 ? Math.floor((((me.step / (Math.PI * 4)) % 1) + 1) % 1 * clip.frames) : 0;
+  const hop = me.moving && me.near && clips.hop;
+  const clip = hop ? clips.hop : me.moving ? clips.run : clips.idle;
+  // 달리기 한 바퀴(장면 전부) = 걸음 박자 두 번(왼발·오른발). 춤은 시간에 맞춰(clip.duration초에 한 바퀴)
+  const frame = hop
+    ? Math.floor(((performance.now() / 1000 / clip.duration) % 1) * clip.frames)
+    : clip.frames > 1
+      ? Math.floor((((me.step / (Math.PI * 4)) % 1) + 1) % 1 * clip.frames)
+      : 0;
   const size = 84;
   const k = size / cell;
   ctx.fillStyle = 'rgba(0,0,0,0.22)';

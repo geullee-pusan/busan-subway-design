@@ -58,16 +58,18 @@ export const SUBWAY_CARS = {
   BGL: { L: 14.0, W: 2.65, H: 3.4, cars: 2, doors: 2, thirdRail: true, body: '#F1F2F2', front: '#1E2125', band: '#E8401C', band2: null, frontBand: '#E8401C', lower: '#6B7076', seat: '#7A3F3A', rubber: false, rim: true, inside: 'bgl' },
   // 동해선(코레일 광역전철): 길이·폭·높이와 4칸(Tc-M'-M'-Tc)은 사용자가 붙여 준 제원(data/facts.json subwayCars.DH), 한쪽 문 수는 어림. 은색 차체, 파란 앞 테두리
   DH: { L: 19.5, W: 3.12, H: 3.75, cars: 4, doors: 4, body: '#C9CDD2', front: '#F2F3F4', band: '#1F4FB5', band2: null, frontBand: '#1F4FB5', lower: '#B9BEC3', seat: '#9A8FA6', rubber: false, rim: true, inside: 'dh' },
-  // 대구 1호선: 사용자가 보내 준 사진(은색 차체, 창 아래 빨간 띠, 앞 유리 둘레 빨강). 치수와 6칸, 문 수는 어림(TODO 확인 필요). 역 주소 자료가 없어 땅속으로 그린다(어림)
+  // 대구 1호선: 칠은 사용자가 보내 준 사진(은색 차체, 창 아래 빨간 띠, 앞 유리 둘레 빨강). 길이·폭과 6칸(3M3T)은 사용자가 붙여 준 제원(data/facts.json subwayCars.DG1).
+  // 제원의 전고 4,000㎜는 각주가 있어 지붕 위 장치까지로 보고 차체 높이는 3.6m로 둔다(어림). 문 수는 어림(TODO). 역 주소 자료가 없어 땅속으로 그린다(어림)
   DG1: { L: 17.5, W: 2.75, H: 3.6, cars: 6, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#D7262E', band: '#D7262E', band2: '#F2F3F4', frontBand: '#D7262E', lower: '#B9BEC3', seat: '#2257D6', rubber: false, under: true, inside: 'dg1' },
-  // 대구 2호선: 사용자가 보내 준 사진(은색 차체, 창 아래 초록 띠, 앞 전조등 둘레 초록). 치수와 칸 수, 문 수는 어림(TODO 확인 필요), 땅속으로 그린다(어림)
+  // 대구 2호선: 칠은 사용자가 보내 준 사진(은색 차체, 창 아래 초록 띠, 앞 전조등 둘레 초록). 길이·폭과 6칸(3M3T)은 사용자가 붙여 준 제원(subwayCars.DG2).
+  // 차체 높이(3.6m)와 문 수는 어림(TODO), 땅속으로 그린다(어림)
   DG2: { L: 17.5, W: 2.75, H: 3.6, cars: 6, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#2EAA6B', band2: '#F2F3F4', frontBand: '#2EAA6B', lower: '#B9BEC3', seat: '#5A6FA8', rubber: false, under: true, inside: 'dg2' },
-  // 대구 3호선(모노레일): 사용자가 보내 준 사진(흰 차체, 노란 줄 여러 개, 노란 앞 테두리, 검은 앞 유리). 치수와 3칸, 문 수는 어림(TODO 확인 필요)
-  DG3: { L: 15, W: 2.9, H: 3.6, cars: 3, doors: 2, body: '#F2F3F4', front: '#1E2125', band: '#F2C200', band2: '#F2C200', frontBand: '#F2C200', lower: '#9AA0A6', seat: '#9AA0AE', rubber: true, monorail: true, rim: true, stripes: 4, inside: 'dg3' },
-  // 대경선(코레일 광역전철): 사용자가 보내 준 사진(은색 차체, 파란 문, 짙은 남색 지붕선, 파란 앞판). 치수와 4칸, 문 수는 어림(TODO 확인 필요)
-  DK: { L: 19.5, W: 3.12, H: 3.75, cars: 4, doors: 4, body: '#B5BBC2', front: '#1F55C8', frontTop: '#1E2125', band: '#1F55C8', band2: null, frontBand: '#1F55C8', lower: '#8C939A', seat: '#EEF0F2', rubber: false, rim: true, doorColor: '#2A5FCC', rimColor: '#1B2A4A', inside: 'dk' },
-  // 광주 1호선: 사용자가 보내 준 사진(은색 차체, 창 아래 청록 띠, 앞 전조등 둘레 청록). 치수와 4칸, 문 수는 어림(TODO 확인 필요), 땅속으로 그린다(어림)
-  GJ1: { L: 17.5, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#1BB5A0', band2: '#11695F', frontBand: '#1BB5A0', lower: '#B9BEC3', seat: '#1F5A4A', rubber: false, under: true, inside: 'gj1' },
+  // 대구 3호선(모노레일): 칠은 사용자가 보내 준 사진(흰 차체, 노란 줄 여러 개, 노란 앞 테두리, 검은 앞 유리). 끝 칸 15.1m·가운데 칸 13.9m, 폭 2.98m, 3칸은 사용자가 붙여 준 제원(subwayCars.DG3). 차체 높이·문 수는 어림(TODO)
+  DG3: { L: 15.1, Lmid: 13.9, W: 2.98, H: 3.6, cars: 3, doors: 2, body: '#F2F3F4', front: '#1E2125', band: '#F2C200', band2: '#F2C200', frontBand: '#F2C200', lower: '#9AA0A6', seat: '#9AA0AE', rubber: true, monorail: true, rim: true, stripes: 4, inside: 'dg3' },
+  // 대경선(코레일 광역전철): 칠은 사용자가 보내 준 사진(은색 차체, 파란 문, 짙은 남색 지붕선, 파란 앞판). 칸 20.47m·폭 3.12m·지붕 높이 3.75m는 사용자가 붙여 준 제원(subwayCars.DK). 4칸(1M1T 두 묶음)은 사진을 보고 정함, 문 수는 어림(TODO)
+  DK: { L: 20.47, W: 3.12, H: 3.75, cars: 4, doors: 4, body: '#B5BBC2', front: '#1F55C8', frontTop: '#1E2125', band: '#1F55C8', band2: null, frontBand: '#1F55C8', lower: '#8C939A', seat: '#EEF0F2', rubber: false, rim: true, doorColor: '#2A5FCC', rimColor: '#1B2A4A', inside: 'dk' },
+  // 광주 1호선: 칠은 사용자가 보내 준 사진(은색 차체, 창 아래 청록 띠, 앞 전조등 둘레 청록). 18m×2.75m×3.6m, 4칸(2M2T)은 사용자가 붙여 준 제원(subwayCars.GJ1). 문 수는 어림(TODO), 땅속으로 그린다(어림)
+  GJ1: { L: 18, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#1BB5A0', band2: '#11695F', frontBand: '#1BB5A0', lower: '#B9BEC3', seat: '#1F5A4A', rubber: false, under: true, inside: 'gj1' },
 };
 
 /**
@@ -91,6 +93,8 @@ const STATION_LOOK = {
   DK: { ceil: '#e6e8ea', floor: '#b9bcbe', pillar: '#c9ccd0', round: false, tactileLine: false, psdHeader: '#c3c7cb', psdStripe: '#1F3F8F', psdFull: true, roof: '#3a3f45' },
   // 광주 1호선: 청록 안전문 틀, 반짝이는 연회색 바닥, 이어진 점자 블록, 밝은 천장
   GJ1: { ceil: '#eceeee', floor: '#d5d7d8', pillar: '#e6e6e2', round: false, tactileLine: true, psdHeader: '#1F6E73', psdStripe: '#7FC7C0' },
+  // 대구 3호선(모노레일 고가역): 흰 아치 지붕, 허리 높이의 낮은 흰 안전문과 노란 문, 밝은 바닥, 이어진 점자 블록
+  DG3: { ceil: '#f2f3f3', floor: '#e2e4e5', pillar: '#f2f3f3', round: false, tactileLine: true, psdLow: true, lowDoor: '#F2C200', arch: true, archColor: '#eef0f0' },
   default: { ceil: '#e9ebeb', floor: '#c9cbcc', pillar: '#e3d6c4', round: true, tactileLine: true },
 };
 
@@ -371,21 +375,25 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
   const material = new MeshLambertMaterial({ vertexColors: true });
   const glowMat = new MeshBasicMaterial({ vertexColors: true });
   const glassMat = new MeshLambertMaterial({ color: 0x9fc3d6, transparent: true, opacity: 0.35, side: DoubleSide });
+  const lowDoorMat = new MeshLambertMaterial({ color: look.lowDoor ?? '#f4f5f5' });
   const facadeMats = new Map();
   const textures = [];
 
   // 열차: 칸 N개
   const N = spec.cars;
   const GAP = 0.6;
-  const trainLen = N * spec.L + (N - 1) * GAP;
+  // 칸마다 길이: 끝 칸 spec.L, 가운데 칸 spec.Lmid(없으면 같은 길이)
+  const lens = Array.from({ length: N }, (_, i) => (i === 0 || i === N - 1 ? spec.L : spec.Lmid ?? spec.L));
+  const offs = lens.map((_, i) => lens.slice(0, i).reduce((a, b) => a + b + GAP, 0)); // 머리에서 칸 앞까지(미터)
+  const trainLen = lens.reduce((a, b) => a + b, 0) + (N - 1) * GAP;
   const cars = [];
   for (let i = 0; i < N; i++) {
-    const c = carMesh(spec, material, { head: i === 0, tail: i === N - 1 });
+    const c = carMesh({ ...spec, L: lens[i] }, material, { head: i === 0, tail: i === N - 1 });
     scene.add(c.group);
     cars.push(c);
   }
   const cabinIndex = Math.floor(N / 2);
-  const cabin = carCabin(spec, cars[cabinIndex], material);
+  const cabin = carCabin({ ...spec, L: lens[cabinIndex] }, cars[cabinIndex], material);
   cabin.group.visible = false;
   cars[cabinIndex].group.add(cabin.group);
 
@@ -493,7 +501,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     world.traverse((o) => {
       o.geometry?.dispose();
       const m = o.material;
-      if (m && m !== material && m !== glowMat && m !== glassMat && ![...facadeMats.values()].includes(m)) {
+      if (m && m !== material && m !== glowMat && m !== glassMat && m !== lowDoorMat && ![...facadeMats.values()].includes(m)) {
         m.map?.dispose();
         m.dispose();
       }
@@ -658,9 +666,9 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
           plate(s, t, (EDGE + 0.05 + right) / 2, right - EDGE - 0.05, 1.1, 0.45, look.floor);
           if (look.arch) {
             // 철골 아치 지붕: 가운데가 높은 세 토막
-            plate(s, t, EDGE + 0.8, 2.6, 0.2, 5.0, '#a9afb4');
-            plate(s, t, (EDGE + right) / 2 + 0.4, 2.8, 0.2, 5.6, '#a9afb4');
-            plate(s, t, right - 0.6, 2.6, 0.2, 5.0, '#a9afb4');
+            plate(s, t, EDGE + 0.8, 2.6, 0.2, 5.0, look.archColor ?? '#a9afb4');
+            plate(s, t, (EDGE + right) / 2 + 0.4, 2.8, 0.2, 5.6, look.archColor ?? '#a9afb4');
+            plate(s, t, right - 0.6, 2.6, 0.2, 5.0, look.archColor ?? '#a9afb4');
             if (i % 2 === 0) plate(s, t, (EDGE + right) / 2, right - EDGE + 0.6, 0.12, 5.3, '#6d757b');
           } else plate(s, t, (EDGE + right) / 2, right - EDGE + 0.6, 0.25, 4.8, look.roof ?? '#8e979e'); // 승강장 지붕
           if (look.benches && i % 15 === 0) {
@@ -685,7 +693,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       const headKm = kmS + trainLen / 2000;
       const doorKms = [];
       for (let c = 0; c < N; c++) {
-        const centerKm = headKm - (c * (spec.L + GAP) + spec.L / 2) / 1000;
+        const centerKm = headKm - (offs[c] + lens[c] / 2) / 1000;
         for (const dx of cars[c].doorXs) doorKms.push(centerKm + dx / 1000);
       }
       const startKm = headKm - trainLen / 1000 - 0.004;
@@ -694,10 +702,15 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
         const t = sampleAt(km + 0.002);
         if (!s || !t) continue;
         const nearDoor = doorKms.some((d) => Math.abs(km + 0.001 - d) < 0.0009);
-        if (!nearDoor) plate(s, t, EDGE + 0.05, 0.04, look.psdFull ? 2.4 : 2.1, look.psdFull ? 1.7 : 1.55, '#9fc3d6', glassParts);
-        // 안전문 위 흰 틀과 노선 색 줄(1호선 승강장 사진)
-        plate(s, t, EDGE + 0.05, 0.2, 0.75, 2.98, look.psdHeader ?? '#e9eaea');
-        plate(s, t, EDGE + 0.17, 0.02, 0.08, 3.12, look.psdStripe ?? color);
+        if (look.psdLow) {
+          // 허리 높이 안전문(흰 판)
+          if (!nearDoor) plate(s, t, EDGE + 0.05, 0.12, 1.3, 1.65, '#f4f5f5');
+        } else {
+          if (!nearDoor) plate(s, t, EDGE + 0.05, 0.04, look.psdFull ? 2.4 : 2.1, look.psdFull ? 1.7 : 1.55, '#9fc3d6', glassParts);
+          // 안전문 위 흰 틀과 노선 색 줄(1호선 승강장 사진)
+          plate(s, t, EDGE + 0.05, 0.2, 0.75, 2.98, look.psdHeader ?? '#e9eaea');
+          plate(s, t, EDGE + 0.17, 0.02, 0.08, 3.12, look.psdStripe ?? color);
+        }
         plate(s, t, EDGE + 0.12, 0.08, 0.08, 0.54, '#d4d6d6'); // 문 아래 틀
       }
       for (const d of doorKms) {
@@ -717,8 +730,8 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
           parts.add(tg, '#E8B92A');
         }
         for (const side of [-1, 1]) {
-          const m = new Mesh(new BoxGeometry(0.95, 2.05, 0.04), glassMat);
-          const base = [s.x + s.rx * (EDGE + 0.05) + s.ux * side * 0.48, s.y + 1.55, s.z + s.rz * (EDGE + 0.05) + s.uz * side * 0.48];
+          const m = look.psdLow ? new Mesh(new BoxGeometry(0.95, 1.25, 0.08), lowDoorMat) : new Mesh(new BoxGeometry(0.95, 2.05, 0.04), glassMat);
+          const base = [s.x + s.rx * (EDGE + 0.05) + s.ux * side * 0.48, s.y + (look.psdLow ? 1.65 : 1.55), s.z + s.rz * (EDGE + 0.05) + s.uz * side * 0.48];
           m.position.set(...base);
           m.rotation.y = Math.atan2(-s.uz, s.ux);
           world.add(m);
@@ -858,9 +871,9 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
 
   function placeTrain() {
     for (let c = 0; c < N; c++) {
-      const center = posKm - (c * (spec.L + GAP) + spec.L / 2) / 1000;
-      const f = sampleAt(center + spec.L / 2000 - 0.002);
-      const r = sampleAt(center - spec.L / 2000 + 0.002);
+      const center = posKm - (offs[c] + lens[c] / 2) / 1000;
+      const f = sampleAt(center + lens[c] / 2000 - 0.002);
+      const r = sampleAt(center - lens[c] / 2000 + 0.002);
       if (!f || !r) continue;
       const g = cars[c].group;
       g.position.set((f.x + r.x) / 2, (f.y + r.y) / 2 + 0.2, (f.z + r.z) / 2);
@@ -1083,6 +1096,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       material.dispose();
       glowMat.dispose();
       glassMat.dispose();
+      lowDoorMat.dispose();
       for (const t of textures) t.dispose();
       for (const m of facadeMats.values()) {
         m.map?.dispose();

@@ -2621,6 +2621,29 @@ body {
   pointer-events: none;
 }
 
+/* 역·터미널 가까이 안내 말풍선: 지도 위 가운데 */
+.walk-toast {
+  position: absolute;
+  top: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 24px);
+  padding: 8px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff6d8;
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-align: center;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.walk-toast[hidden] {
+  display: none;
+}
+
 .walk-message {
   min-height: 1.5em;
   font-weight: 700;

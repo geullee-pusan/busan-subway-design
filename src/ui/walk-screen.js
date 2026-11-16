@@ -454,6 +454,10 @@ export function renderWalk(root, { onHome }) {
   let hud = null;
   let nearBox = null;
   let messageBox = null;
+  /** 역·터미널 가까이 안내 말풍선(지도 위)과 지금 가까이 있는 곳 이름 */
+  let nearToast = null;
+  let nearPlace = null;
+  let toastTimer = null;
   let addressBox = null;
   let zoomNote = null;
   let goalBox = null;
@@ -514,6 +518,10 @@ export function renderWalk(root, { onHome }) {
     const legend = element('div', 'walk-legend');
     legend.append(element('span', 'walk-legend-bus', '버'), element('span', null, '버스 타는 곳'), element('span', 'walk-legend-train', '기차'), element('span', null, '기차역'), element('span', 'walk-legend-terminal', '터미널'), element('span', null, '고속·시외버스'));
     stage.append(legend);
+    nearToast = element('div', 'walk-toast');
+    nearToast.setAttribute('role', 'status');
+    nearToast.hidden = true;
+    stage.append(nearToast);
     body.append(stage);
     messageBox = element('div', 'walk-message');
     body.append(messageBox);
@@ -723,9 +731,33 @@ export function renderWalk(root, { onHome }) {
       persist();
     }
     updateNear();
+    updateNearPlace();
     updateAddress();
     checkLandmarks();
     needsDraw = true;
+  }
+
+  /**
+   * 가장 가까운 지하철역·기차역·고속/시외버스 터미널(탈 수 있는 거리 안, 근처 카드와 같은 거리). 없으면 null.
+   * 새로 가까워지면 지도 위에 "OO 근처예요!"를 잠깐 띄운다. 가까이 있는 동안 주인공은 달리지 않고 춤추며 움직인다.
+   */
+  function updateNearPlace() {
+    const found = [
+      ...nearby(subwayStations, me, NEAR_KM, 1).map(({ item, km }) => ({ key: `s-${item.id}`, name: stationLabel(item.name), km })),
+      ...nearby(rail.stations, me, NEAR_KM + 0.2, 1).map(({ item, km }) => ({ key: `r-${item.id}`, name: stationLabel(item.name), km })),
+      ...nearby(terminals, me, NEAR_KM + 0.2, 1).map(({ item, km }) => ({ key: item.id, name: item.name, km })),
+    ].sort((a, b) => a.km - b.km)[0] ?? null;
+    if (found?.key === nearPlace?.key) return;
+    // 같은 곳 둘레에서 가장 가까운 곳만 바뀐 것이면(같은 이름) 다시 띄우지 않는다
+    const sameName = found && nearPlace && found.name === nearPlace.name;
+    nearPlace = found;
+    if (!found || sameName || !nearToast) return;
+    nearToast.textContent = `${found.name} 근처예요!`;
+    nearToast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      if (nearToast) nearToast.hidden = true;
+    }, 3500);
   }
 
   function tick(t) {
@@ -812,7 +844,7 @@ export function renderWalk(root, { onHome }) {
     if (needsDraw || taxiNow) {
       needsDraw = false;
       // 택시를 타는 동안에는 사람 대신 택시를 그린다
-      map.draw(taxiNow ? me : center(), { goal, me: taxiNow ? null : { ...me, facing, step: stepPhase, heading, moving: performance.now() - lastMoved < 200, dance: dancing ? { row: dancing.row, seconds: (performance.now() - dancing.start) / 1000 } : null }, target, taxi: taxiNow, route: taxiPlan?.route?.points ?? walkPath?.points ?? null, routeKind: taxiPlan ? 'taxi' : 'walk' });
+      map.draw(taxiNow ? me : center(), { goal, me: taxiNow ? null : { ...me, facing, step: stepPhase, heading, moving: performance.now() - lastMoved < 200, near: Boolean(nearPlace), dance: dancing ? { row: dancing.row, seconds: (performance.now() - dancing.start) / 1000 } : null }, target, taxi: taxiNow, route: taxiPlan?.route?.points ?? walkPath?.points ?? null, routeKind: taxiPlan ? 'taxi' : 'walk' });
     }
   }
 

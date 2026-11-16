@@ -102,12 +102,13 @@ window.bake = async ({ base, texture, clips, cell, dirs, elevation, dances, fps 
   const layout = {};
   let col = 0;
   for (const c of clips) {
-    layout[c.name] = { col, frames: c.frames, duration: fitted[c.name].duration };
+    layout[c.name] = { col, frames: c.frames, duration: c.sec ? Math.min(c.sec, fitted[c.name].duration) : fitted[c.name].duration };
     const action = mixer.clipAction(fitted[c.name]);
     for (let f = 0; f < c.frames; f++) {
       mixer.stopAllAction();
       action.reset().play();
-      const t = c.frames === 1 ? (c.at ?? 0) : (f / c.frames) * fitted[c.name].duration;
+      const span = c.sec ? Math.min(c.sec, fitted[c.name].duration) : fitted[c.name].duration;
+      const t = c.frames === 1 ? (c.at ?? 0) : (f / c.frames) * span;
       mixer.setTime(t);
       for (let d = 0; d < dirs; d++) {
         // 방향 d: 화면에서 동쪽(오른쪽)부터 시계 방향으로 360/dirs도씩. 모델은 +z(화면 아래)를 보고 서 있다.

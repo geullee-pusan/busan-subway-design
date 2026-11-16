@@ -2,7 +2,7 @@
   "_설명": "걸어서 여행하기 주인공 그림 묶음(walker.webp). 줄은 방향(0 = 동쪽에서 시계 방향으로 360/dirs도씩), 칸은 clips의 장면. anchor는 칸 안의 발 위치(px). 만든 곳: scripts/hero-bake.mjs",
   "cell": 112,
   "dirs": 8,
-  "cols": 9,
+  "cols": 25,
   "anchor": {
     "x": 56,
     "y": 92
@@ -17,6 +17,11 @@
       "col": 1,
       "frames": 8,
       "duration": 0.699999988079071
+    },
+    "hop": {
+      "col": 9,
+      "frames": 16,
+      "duration": 2
     }
   }
 }
