@@ -54,7 +54,7 @@ export function boardTexture(text, accent, { bg = '#ffffff', fg = '#1f2a36', wid
  * 외벽 무늬(한 칸 = 가로 3m × 세로 한 층 4m). 꼭짓점 색(벽 색)을 곱해 쓴다.
  * curtain: 유리 커튼월, band: 가로 띠창, punched: 작은 창, hanok: 한옥(흰 벽과 나무 틀), brick: 벽돌
  */
-function facadeTexture(style) {
+export function facadeTexture(style) {
   const canvas = document.createElement('canvas');
   canvas.width = 128;
   canvas.height = 160;
@@ -137,7 +137,7 @@ function facadeTexture(style) {
 }
 
 /** 무늬 있는 그물 모으기(자리, 법선, 색, 무늬 좌표) */
-class Mesher {
+export class Mesher {
   constructor() {
     this.pos = [];
     this.nor = [];

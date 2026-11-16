@@ -14,7 +14,7 @@ import { trainInteriorArt } from './train-interior.js';
 import { createHeroActor, heroInside, heroMotionPicker } from './hero-actor.js';
 
 /** 이 기기에서 WebGL을 쓸 수 있는지(3D 단추를 보일지). three.js는 3D를 고를 때에야 불러온다. */
-function webglAvailable() {
+export function webglAvailable() {
   try {
     const canvas = document.createElement('canvas');
     return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'));

@@ -288,7 +288,7 @@ export function busTimeTable(network, zones, centers, rules) {
  *   minutes: number,
  *   legs: ({type: 'walk', minutes: number, km: number, to: string|null}
  *     | {type: 'wait', minutes: number, route: string}
- *     | {type: 'bus', route: string, minutes: number, endsAtTerminal: boolean, toward: string|null,
+ *     | {type: 'bus', route: string, minutes: number, endsAtTerminal: boolean, toward: string|null, fromFirst: boolean,
  *        stops: {name: string, x: number, y: number, board: number, alight: number, load: number}[]})[]
  *   load: 이 노선에서 가장 붐비는 곳을 1로 둔 붐빔(하루 승하차로 어림한 값, 버스 한 대에 탄 사람 수가 아니다)
  * }} 걸어갈 거리에 정류장이 없거나 버스로 갈 수 없으면 null
@@ -383,7 +383,9 @@ export function busJourney(network, from, to, rules) {
     const endsAtTerminal = toPos === route.stops.length - 1;
     // 탈 때 보는 방면: 이 버스가 다음에 서는 정류장
     const toward = route.stops[fromPos + 1] ? nameOf(route.stops[fromPos + 1][0]) : null;
-    legs.push({ type: 'bus', route: route.no, stops, minutes: dist[nodes[j]] - dist[b], endsAtTerminal, toward });
+    // 이 노선의 첫 정류장(기점)에서 타는지: 3D 정류장 장면에서 버스가 차고지에서 나온다
+    const fromFirst = fromPos === 0;
+    legs.push({ type: 'bus', route: route.no, stops, minutes: dist[nodes[j]] - dist[b], endsAtTerminal, toward, fromFirst });
     i = j + 1; // 내린 정류장
   }
   const lastStop = network.stops[best.end.node];

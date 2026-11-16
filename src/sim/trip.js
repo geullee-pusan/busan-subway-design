@@ -117,7 +117,7 @@ function realBusLegs(journey, endStation = null) {
     } else {
       let km = 0;
       for (let k = 1; k < leg.stops.length; k++) km += straightKm(leg.stops[k - 1], leg.stops[k]);
-      legs.push({ mode: '버스', minutes: leg.minutes, meters: meters(km), route: leg.route, stops: leg.stops, endsAtTerminal: leg.endsAtTerminal, toward: leg.toward });
+      legs.push({ mode: '버스', minutes: leg.minutes, meters: meters(km), route: leg.route, stops: leg.stops, endsAtTerminal: leg.endsAtTerminal, toward: leg.toward, fromFirst: leg.fromFirst ?? false });
     }
   });
   return legs;

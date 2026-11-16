@@ -58,6 +58,7 @@
 - `npm run station-areas`: OpenStreetMap 기차역 둘레 원본(`data/raw/osm/station-areas-*.json`, `npm run fetch`)과 `data/facts.json`의 stationLooks로 기차 3D 보기의 역사·승강장 자료(`data/build/station-areas.json`)와 보고서(`docs/station-areas.md`)를 만든다
 - `npm run station-sounds`: 역사 안내방송 원본에서 승강장 소리(열차진입 안내음, 진입 방송)를 `data/build/station-sounds.json`으로 만든다
 - `npm run api-key`: 공공데이터포털 인증키를 저장하고(git에 넣지 않는 `.data-go-kr-key`) 열차 API(TAGO 열차정보, 코레일 열차운행정보)가 되는지 시험한다(네트워크를 쓴다)
+- `npm run bus-looks`: `data/facts.json` busLooks(시·군 시내버스 칠과 출처)로 버스 3D 칠(`data/build/bus-looks.json`)을 만든다
 - `npm run validate`: 데이터 검증
 - `npm run hero`: 아이를 닮은 주인공(`assets/hero/`의 Mixamo FBX, git에 넣지 않음)을 걸어서 여행하기용 그림(`src/content/hero/`)으로 굽는다. 개발용 three를 쓰고 화면 없는 Chrome·Edge를 연다
 - `npm run hero-3d`: 같은 주인공을 기차 3D 객실에서 움직이는 3D 모델(`src/content/hero/hero3d.json`, `hero3d.webp`)로 묶는다. 개발용 three의 FBX 로더를 쓰고 화면 없는 Chrome·Edge를 연다

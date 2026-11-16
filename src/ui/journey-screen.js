@@ -3,8 +3,8 @@
 // 다음 구간으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
 // 요금: 버스·지하철은 처음 탈 때 그 요금을 내고, 마지막에 내릴 때 모자란 요금(2구간 등)을 더 낸다.
 //       택시는 미터기(부산 중형택시 요금표)가 달리는 만큼 올라가고 내릴 때 낸다.
-import { lineById, railStationById, stationById, stationSounds } from '../data.js';
-import { runTrainTrip, trainOfLeg } from './train-journey.js';
+import { grid, lineById, railStationById, stationById, stationSounds } from '../data.js';
+import { runTrainTrip, trainOfLeg, webglAvailable } from './train-journey.js';
 import { chimeSide, platformInfo } from '../sim/platform.js';
 import { romanize } from '../sim/romanize.js';
 import { lineRoutes } from '../sim/train-motion.js';
@@ -17,6 +17,7 @@ import announcementsFile from '../content/announcements.json';
 import { fillTemplate } from '../sim/announce.js';
 import { createRideSound } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
+import { busLookOf } from './bus-looks.js';
 import { BUS_PEOPLE_MAX, busInteriorArt, taxiInteriorArt, walkSceneArt } from './vehicle-art.js';
 import { createCrowd, openTalk, talkLines } from './passengers.js';
 import { createHeroActor, heroInside, heroMotionPicker } from './hero-actor.js';
@@ -95,7 +96,9 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
   // 버스·택시 안의 주인공과 동작 고르기(지하철은 ride-screen, 기차는 train-journey가 따로 둔다)
   const hero = createHeroActor({ reduceMotion });
-  const heroPicker = heroMotionPicker((id) => hero.play(id), { reduceMotion });
+  // 3D 버스 안이 보이면 3D 주인공이, 아니면 그림 주인공이 움직인다
+  let hero3d = null;
+  const heroPicker = heroMotionPicker((id) => (hero3d ? hero3d.playHero(id) : hero.play(id)), { reduceMotion });
   hero.onChange((id) => heroPicker.mark(id));
   /** 버스는 통로 앞쪽에 서 있고, 택시는 뒷자리 오른쪽(운전석 반대편)에 앉아 있다(아래가 그림 밖으로 나가 가려진다) */
   const BUS_PLACE = { left: 30, bottom: 2, height: 56 };
@@ -112,6 +115,29 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
   let paid = 0; // 원
   const timers = [];
   let rideCleanup = null;
+  /** 3D 버스: 정류장에서 만들어 버스 안까지 이어 쓴다(src/ui/bus-3d.js). 버스 단계가 끝나면 없앤다. */
+  let bus3d = null;
+  const dropBus3d = () => {
+    bus3d?.destroy();
+    bus3d = null;
+    hero3d = null;
+  };
+  /** 3D 버스를 만든다(못 만들면 null) */
+  async function makeBus3d(busStep) {
+    if (!busStep?.stops || busStep.stops.length < 2 || !webglAvailable()) return null;
+    try {
+      const { createBus3D } = await import('./bus-3d.js');
+      dropBus3d();
+      bus3d = createBus3D({ grid, route: busStep.route, reduceMotion });
+      bus3d.onHero((id) => heroPicker.mark(id));
+      bus3d.setRide(busStep.stops, { fromFirst: busStep.fromFirst === true });
+      return bus3d;
+    } catch (error) {
+      if (import.meta.env?.DEV) console.warn('3D 버스를 만들지 못했어요', error);
+      dropBus3d();
+      return null;
+    }
+  }
 
   const screen = element('div', 'screen journey');
   const bar = element('header', 'top-bar');
@@ -167,6 +193,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       return;
     }
     const step = steps[index];
+    if (step.kind !== '버스' && step.kind !== '버스 기다리기') dropBus3d();
     const area = element('div', 'journey-step');
     body.append(area);
     const renderers = {
@@ -525,6 +552,17 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     svg.append(svgEl('rect', { x: 180, y: 70, width: 200, height: 10, fill: '#7A8691' }));
     walker(svg).setAttribute('transform', 'translate(240 -34)');
     area.append(svg);
+    // 3D 정류장: 아이 눈높이에서 버스가 들어오고 앞문이 열린다(안 되면 위 그림)
+    const holder = element('div');
+    svg.before(holder);
+    const made = makeBus3d(step.next).then((b) => {
+      if (!b || !holder.isConnected) return null;
+      b.waitAtStop();
+      b.setView('stop');
+      holder.replaceChildren(b.el);
+      svg.remove();
+      return b;
+    });
     if (step.route) {
       if (toward) area.append(element('p', null, `${toward} 방면으로 가는 버스를 타요.`));
       area.append(element('p', null, `버스를 약 ${minutesText(step.minutes)} 기다려요.`));
@@ -533,7 +571,14 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       area.append(element('p', null, `정류장까지 걷고 버스를 기다리는 데 약 ${minutesText(step.minutes)} 걸려요.`));
       area.append(element('p', 'panel-note', '가까운 정류장이 없어서 버스를 어림으로 셈해요.'));
     }
-    const ready = progress(area, '버스를 기다리는 중이에요.');
+    const waited = progress(area, '버스를 기다리는 중이에요.');
+    // 3D가 있으면 버스가 들어와 서고 앞문이 열린 뒤에 탈 수 있다
+    const ready = Promise.all([waited, made]).then(async ([, b]) => {
+      if (!b || !b.el.isConnected) return;
+      // 3D 그림이 멈춰도(창을 숨기는 등) 12초 뒤에는 탈 수 있다
+      await Promise.race([b.arrive(7000), new Promise((r) => later(r, 12000))]);
+      b.setDoors(true);
+    });
     nextButton(area, '버스에 타요', () => done(step), ready);
   }
 
@@ -605,6 +650,48 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
 
     area.append(element('h2', null, `${busRouteText(step.route)} 버스를 타고 가요`));
     payNote(area, step, '탈 때');
+    // 보기: 밖에서(3D), 버스 안(3D), 버스 안 그림(사람을 누르면 이야기). 3D가 안 되면 그림만.
+    const VIEWS = { outside: '밖에서 보기 (3D)', cabin: '버스 안 (3D)', picture: '버스 안 그림' };
+    let busView = VIEWS[loadView().busView] ? loadView().busView : 'outside';
+    const viewRow = element('div', 'tr-sound-row');
+    viewRow.setAttribute('role', 'group');
+    viewRow.setAttribute('aria-label', '보는 곳 고르기');
+    const view3dBox = element('div');
+    const viewButtons = Object.entries(VIEWS).map(([id, label]) => {
+      const b = button(label, () => pickView(id));
+      b.dataset.view = id;
+      return b;
+    });
+    viewRow.append(...viewButtons);
+    area.append(viewRow, view3dBox);
+    let moving = false;
+    function pickView(id) {
+      busView = bus3d ? id : 'picture';
+      saveView({ busView: id });
+      for (const b of viewButtons) {
+        b.className = b.dataset.view === busView ? 'button is-on' : 'button';
+        b.setAttribute('aria-pressed', String(b.dataset.view === busView));
+      }
+      view3dBox.style.display = busView === 'picture' ? 'none' : '';
+      if (bus3d) bus3d.setView(busView === 'cabin' ? 'cabin' : 'outside');
+      hero3d = bus3d && busView === 'cabin' ? bus3d : null;
+      heroPicker.mark('stand');
+      draw();
+    }
+    (async () => {
+      await null; // 아래 그림 상자(box)가 만들어진 뒤에 붙인다
+      const b = bus3d ?? (await makeBus3d(step));
+      if (!b || !area.isConnected) {
+        viewRow.remove();
+        busView = 'picture';
+        draw();
+        return;
+      }
+      b.atStop(0);
+      b.setDoors(true);
+      view3dBox.append(b.el);
+      pickView(busView);
+    })();
     const box = element('div');
     area.append(box);
 
@@ -624,13 +711,14 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       const led = element('div', 'ride-led');
       for (const text of lines()) led.append(element('span', 'ride-led-text', text));
       box.append(led);
+      bus3d?.setDisplay(lines());
       // 붐빔: 떠난 정류장 뒤 버스 안(사람 그림 수)
       syncCrowd(Math.min(k, last - 1));
       const count = countAt(k);
       const people = Array.from({ length: count }, (_, n) => crowd.personAt(n));
       const art = busInteriorArt({
         count,
-        color: '#2E8B3E',
+        color: busLookOf(step.route).lower,
         label: busRouteText(step.route),
         reduceMotion,
         bellLit: bellRung && k < last,
@@ -639,8 +727,8 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       });
       art.setAttribute('role', 'group');
       art.setAttribute('aria-label', `버스 안 그림이에요. 사람 그림이 ${count}개 있어요. 사람을 누르면 이야기를 들을 수 있어요.`);
-      box.append(heroInside(art, hero, BUS_PLACE));
-      box.append(heroPicker.el);
+      if (busView === 'picture') box.append(heroInside(art, hero, BUS_PLACE));
+      if (busView !== 'outside') box.append(heroPicker.el);
       if (noLoadData) {
         box.append(element('p', 'panel-note', '이 버스는 승하차 자료가 없어요.'));
         box.append(element('p', 'panel-note', '버스 안 사람 수는 우리가 정한 값이에요.'));
@@ -690,8 +778,22 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
       sound.announce({ korean: lines(), english: [], voice: voiceOn, music: soundOn, melody: 'busChime' });
     }
 
-    function go(target) {
+    async function go(target) {
       sound.wake();
+      if (moving) return;
+      if (bus3d) {
+        // 3D: 문을 닫고 실제 도로를 따라 달려 다음 정류장에 선 뒤 문을 연다
+        moving = true;
+        for (const b of box.querySelectorAll('button')) b.disabled = true;
+        bus3d.setDoors(false);
+        await new Promise((r) => later(r, reduceMotion ? 0 : 900));
+        // 그림 보기일 때는 3D를 기다리지 않고 바로 옮긴다
+        if (busView === 'picture') bus3d.atStop(target);
+        else await Promise.race([bus3d.driveTo(target, 7000), new Promise((r) => later(r, 15000))]);
+        bus3d.setDoors(true);
+        moving = false;
+        if (!area.isConnected) return;
+      }
       // "내릴 정류장까지"로 건너뛰면 가는 길에 하차벨을 누른다.
       if (target === last && !bellRung) {
         bellRung = true;
@@ -753,6 +855,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
   }
 
   function renderArrived() {
+    dropBus3d();
     if (onDone) {
       // 걸어서 여행하기: 내린 곳에서 다시 걷는다
       const card = element('div', 'journey-done');
