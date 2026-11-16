@@ -62,7 +62,7 @@ window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
 
   // 동작: 뼈대 이름을 이 모델에 맞추고, 1초 fps장으로 고른다. 길면 앞의 maxSec초만.
   const names = new Map(bones.map((b) => [boneKey(b.name), b.name]));
-  const clipData = (clip, name, keepHip = false) => {
+  const clipData = (clip, name, keepHip = false, stripYaw = false) => {
     const duration = Math.min(clip.duration, maxSec);
     const tracks = [];
     for (const t of clip.tracks) {
@@ -77,9 +77,9 @@ window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
       const values = new Float32Array(n * sz);
       for (let k = 0; k < n; k++) values.set(interp.evaluate(Math.min(duration, k / fps)), k * sz);
       if (prop === 'position' && keepHip) {
-        // 앉기 동작 파일의 엉덩이 자리는 단위가 다를 수 있다(센티미터): 첫 장면 높이를 앉은 키(서 있을 때 엉덩이의 0.55배, 어림)에 맞춘다
+        // 앉기 동작 파일의 엉덩이 자리는 단위가 다르다(센티미터): 그 파일 캐릭터의 서 있는 엉덩이 높이(standHipY)를 주인공 엉덩이 높이에 맞춘다
         const hip = bones.find((b) => b.name === node).position;
-        const k0 = (hip.y * 0.55) / (values[1] || 1);
+        const k0 = hip.y / (standHipY || values[1] || 1);
         for (let k = 0; k < n * 3; k++) values[k] *= k0;
         for (let k = 0; k < n; k++) {
           values[k * 3] = hip.x;
@@ -94,6 +94,19 @@ window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
           values[k * 3 + 2] = hip.z;
         }
       }
+      if (prop === 'quaternion' && stripYaw && boneKey(node) === 'Hips') {
+        // 도는 동작: 엉덩이의 위 축 둘레 돌기를 빼고 발걸음만 남긴다(몸을 도는 것은 게임이 한다)
+        const yawOf = (q) => {
+          const f = new THREE.Vector3(0, 0, 1).applyQuaternion(q);
+          return Math.atan2(f.x, f.z);
+        };
+        const y0 = yawOf(new THREE.Quaternion().fromArray(values, 0));
+        const up = new THREE.Vector3(0, 1, 0);
+        for (let k = 0; k < n; k++) {
+          const q = new THREE.Quaternion().fromArray(values, k * 4);
+          new THREE.Quaternion().setFromAxisAngle(up, y0 - yawOf(q)).multiply(q).toArray(values, k * 4);
+        }
+      }
       if (prop === 'quaternion') {
         for (let k = 0; k < n; k++) new THREE.Quaternion().fromArray(values, k * 4).normalize().toArray(values, k * 4);
         const v16 = Int16Array.from(values, (x) => Math.round(Math.max(-1, Math.min(1, x)) * 32767));
@@ -105,9 +118,18 @@ window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
     return { name, duration, tracks };
   };
   const clips = [];
+  // 앉기 동작들의 기준: 서 있다가 앉는 동작의 첫 장면(서 있는 엉덩이 높이)
+  let standHipY = null;
+  const ref = clipJobs.find((j) => j.name === 'sitdown');
+  if (ref) {
+    const g = await loader.loadAsync(ref.file);
+    const t = g.animations[0].tracks.find((tr) => /Hips.position$/.test(tr.name));
+    standHipY = t ? t.values[1] : null;
+  }
   for (const job of clipJobs) {
     const g = await loader.loadAsync(job.file);
-    clips.push(clipData(g.animations[0], job.name, job.keepHip));
+    // 파일에 빈 동작(Take 001)이 먼저 있을 때가 있다
+    clips.push(clipData(g.animations.find((a) => a.tracks.length) ?? g.animations[0], job.name, job.keepHip, job.stripYaw));
   }
 
   // 텍스처 → WebP(긴 변 1024px)

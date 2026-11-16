@@ -1019,9 +1019,8 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
   let heroAction = mixer.clipAction(hero.clips.idle);
   heroAction.play();
   let heroDone = () => {};
-  let sitting = false;
   mixer.addEventListener('finished', () => {
-    if (sitting) return;
+    if (cab.state !== 'stand') return;
     const idle = mixer.clipAction(hero.clips.idle);
     idle.reset().play();
     heroAction.crossFadeTo(idle, 0.4, false);
@@ -1189,6 +1188,187 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       action.play();
       seated.push({ obj, mixer });
     });
+  }
+
+  /**
+   * 주인공 타기: 승강장에서 기다리다 문이 열리면 사람들과 함께 가장 가까운 문으로 걸어가 탄다(그 뒤로는 승강장에서 보이지 않는다).
+   * heroBoard: null(기다림) | {t: 남은 기다림(초)} | {walking: true} | {in: true}
+   */
+  let heroBoard = null;
+  function heroBoardStep(h, dt) {
+    const wait = [h.x + h.rx * (EDGE + 1.8), h.y + 1.0, h.z + h.rz * (EDGE + 1.8)];
+    if (!heroBoard) {
+      hero.root.visible = true;
+      hero.root.position.set(...wait);
+      hero.root.rotation.set(0, Math.atan2(-h.rx, -h.rz), 0);
+      if (doorAmount > 0.9 && hero.clips.walk) heroBoard = { t: reduceMotion ? 0 : 1.4 };
+      return;
+    }
+    if (heroBoard.in) {
+      hero.root.visible = false;
+      return;
+    }
+    if (heroBoard.t !== undefined) {
+      heroBoard.t -= dt;
+      if (heroBoard.t > 0) return;
+      // 가장 가까운 문
+      const headKm = platformAt + trainLen / 2000;
+      let best = null;
+      for (let c = 0; c < N; c++) {
+        const centerKm = headKm - (offs[c] + lens[c] / 2) / 1000;
+        for (const dx of cars[c].doorXs) {
+          const km = centerKm + dx / 1000;
+          if (!best || Math.abs(km - h.k) < Math.abs(best - h.k)) best = km;
+        }
+      }
+      const d = sampleAt(best ?? h.k);
+      heroBoard = { walking: true, path: [[d.x + d.rx * (EDGE + 1.0), d.z + d.rz * (EDGE + 1.0)], [d.x + d.rx * (EDGE - 0.8), d.z + d.rz * (EDGE - 0.8)]], leg: 0 };
+      const walk = mixer.clipAction(hero.clips.walk);
+      walk.reset().setLoop(LoopRepeat, Infinity).play();
+      heroAction.crossFadeTo(walk, 0.3, false);
+      heroAction = walk;
+      return;
+    }
+    if (heroBoard.walking) {
+      const [tx, tz] = heroBoard.path[heroBoard.leg];
+      const dx = tx - hero.root.position.x;
+      const dz = tz - hero.root.position.z;
+      const dist = Math.hypot(dx, dz);
+      if (dist < 0.1) {
+        heroBoard.leg += 1;
+        if (heroBoard.leg >= heroBoard.path.length) heroBoard = { in: true };
+        return;
+      }
+      const step = Math.min(dist, 1.1 * dt);
+      hero.root.position.x += (dx / dist) * step;
+      hero.root.position.z += (dz / dist) * step;
+      hero.root.rotation.y = Math.atan2(dx, dz);
+    }
+  }
+
+  /** 동작 하나 틀기: 서 있기·앉아 있기·걷기는 되풀이, 나머지는 한 번 */
+  function playClip(id, { fade = 0.3 } = {}) {
+    const clip = hero.clips[id] ?? hero.clips.idle;
+    const next = mixer.clipAction(clip);
+    next.reset();
+    if (id === 'stand' || id === 'sit' || id === 'walk' || clip === hero.clips.idle) next.setLoop(LoopRepeat, Infinity);
+    else {
+      next.setLoop(LoopOnce, 1);
+      next.clampWhenFinished = true;
+    }
+    next.play();
+    if (heroAction !== next) heroAction.crossFadeTo(next, fade, false);
+    heroAction = next;
+    return next;
+  }
+
+  /**
+   * 열차 안 주인공 차례: 'stand'(복도 제자리) → 'toSeat'(걸어감) → 'sitdown'(앉는 동작) → 'seated'
+   *   → 'standup'(일어서는 동작) → 'toSpot'(제자리로 걸어감) → 'stand'. after: 일어선 뒤 할 동작.
+   * 앉는 높이: 의자 위에 엉덩이가 오도록 매 장면 엉덩이 뼈 높이를 재서 몸을 올린다.
+   */
+  const cab = { state: 'stand', seat: null, after: 'stand', lift: 0 };
+  const hipBone = (() => {
+    let b = null;
+    hero.root.traverse((o) => {
+      if (!b && o.isBone && /Hips$/.test(o.name)) b = o;
+    });
+    return b;
+  })();
+  const SEAT_HIP = 0.5; // 의자 윗면(0.45m) 위 엉덩이 높이(미터, 어림)
+  function cabinRequest(id) {
+    if (id === 'sit') {
+      if (cab.state !== 'stand') return;
+      cab.seat = cabin.seats.find((st) => Math.abs(st.x - cabin.hero.x) < 0.6) ?? cabin.seats[0];
+      cab.state = 'toSeat';
+      playClip(hero.clips.walk ? 'walk' : 'stand');
+      return;
+    }
+    cab.after = id;
+    if (cab.state === 'seated') {
+      cab.state = 'standup';
+      playClip(hero.clips.standup ? 'standup' : 'stand');
+    }
+  }
+  /** 걸어서 (x, z)로. 다 오면 true */
+  function walkTo(x, z, dt) {
+    const p = hero.root.position;
+    const dx = x - p.x;
+    const dz = z - p.z;
+    const dist = Math.hypot(dx, dz);
+    if (dist < 0.05) return true;
+    const step = Math.min(dist, (reduceMotion ? 99 : 0.9) * dt);
+    p.x += (dx / dist) * step;
+    p.z += (dz / dist) * step;
+    hero.root.rotation.y = Math.atan2(dx, dz);
+    return false;
+  }
+  /** 제자리에서 target(라디안)으로 돈다: 왼쪽·오른쪽 돌기 발걸음을 하며 몸을 천천히 돌린다. 다 돌면 true */
+  function turnTo(target, dt) {
+    let d = target - hero.root.rotation.y;
+    d = Math.atan2(Math.sin(d), Math.cos(d));
+    if (Math.abs(d) < 0.03) {
+      hero.root.rotation.y = target;
+      return true;
+    }
+    const want = d > 0 ? 'turnL' : 'turnR';
+    if (hero.clips[want] && heroAction.getClip() !== hero.clips[want]) playClip(want, { fade: 0.15 }).setLoop(LoopRepeat, Infinity);
+    hero.root.rotation.y += Math.sign(d) * Math.min(Math.abs(d), (reduceMotion ? 99 : 2.2) * dt);
+    return false;
+  }
+  function cabinStep(dt) {
+    if (mode !== 'cabin') return;
+    const seatFront = () => [cab.seat.x, cab.seat.z + cab.seat.face * 0.35];
+    const faceAisle = () => (cab.seat.face > 0 ? 0 : Math.PI);
+    if (cab.state === 'toSeat') {
+      const [x, z] = seatFront();
+      if (walkTo(x, z, dt)) cab.state = 'turnSeat';
+    } else if (cab.state === 'turnSeat') {
+      if (turnTo(faceAisle(), dt)) {
+        cab.state = 'sitdown';
+        const a = playClip(hero.clips.sitdown ? 'sitdown' : 'sit', { fade: 0.2 });
+        cab.action = a;
+      }
+    } else if (cab.state === 'sitdown') {
+      // 앉는 동안 의자 쪽으로 조금 물러난다
+      const a = cab.action;
+      const u = Math.min(1, a.time / (a.getClip().duration || 1));
+      hero.root.position.z = cab.seat.z + cab.seat.face * 0.35 * (1 - u);
+      if (u >= 0.999 || !hero.clips.sitdown) {
+        cab.state = 'seated';
+        playClip('sit', { fade: 0.25 });
+      }
+    } else if (cab.state === 'standup') {
+      const a = heroAction;
+      const u = Math.min(1, a.time / (a.getClip().duration || 1));
+      hero.root.position.z = cab.seat.z + cab.seat.face * 0.35 * u;
+      if (u >= 0.999 || !hero.clips.standup) {
+        cab.state = 'toSpot';
+        playClip(hero.clips.walk ? 'walk' : 'stand', { fade: 0.2 });
+      }
+    } else if (cab.state === 'toSpot') {
+      if (walkTo(cabin.hero.x, cabin.hero.z, dt)) cab.state = 'turnSpot';
+    } else if (cab.state === 'turnSpot') {
+      if (turnTo(-Math.PI / 2, dt)) {
+        cab.state = 'stand';
+        playClip(cab.after === 'sit' ? 'stand' : cab.after);
+        heroDone(cab.after === 'sit' ? 'stand' : cab.after);
+      }
+    }
+    // 엉덩이를 의자 높이에: 앉는 중·앉아 있는 중·일어서는 중
+    let want = 0;
+    if (hipBone && (cab.state === 'sitdown' || cab.state === 'seated' || cab.state === 'standup')) {
+      hero.root.updateMatrixWorld(true);
+      const hipY = hipBone.getWorldPosition(new Vector3()).y;
+      const g = cars[cabinIndex].group;
+      g.updateMatrixWorld(true);
+      const floorY = new Vector3(0, cabin.floor, 0).applyMatrix4(g.matrixWorld).y;
+      const sitDepth = cab.state === 'seated' ? 1 : Math.min(1, heroAction.time / (heroAction.getClip().duration || 1));
+      const k = cab.state === 'standup' ? 1 - sitDepth : sitDepth;
+      want = Math.max(0, floorY + SEAT_HIP - (hipY - cab.lift)) * k;
+    }
+    cab.lift += (want - cab.lift) * Math.min(1, dt * 12);
+    hero.root.position.y = cabin.hero.y + cab.lift;
   }
 
   /** 문이 열리면 기다리던 승객이 문으로 걸어 들어간다 */
@@ -1756,6 +1936,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     }
     placeTrain();
     updateRiders(dt);
+    cabinStep(dt);
     const head = cars[0].group;
     const bp = cars[Math.min(N - 1, 1)].group.position;
     const ux = Math.cos(-head.rotation.y);
@@ -1777,8 +1958,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
         camera.position.set(p.x + p.rx * (EDGE + 2.6), p.y + 0.95 + EYE, p.z + p.rz * (EDGE + 2.6));
         camera.lookAt(p.x - p.ux * 60 + p.rx * EDGE, p.y + 1.9, p.z - p.uz * 60 + p.rz * EDGE);
         const h = sampleAt(platformAt + trainLen / 2000 - 0.012);
-        hero.root.position.set(h.x + h.rx * (EDGE + 1.8), h.y + 1.0, h.z + h.rz * (EDGE + 1.8));
-        hero.root.rotation.set(0, Math.atan2(-h.rx, -h.rz), 0);
+        heroBoardStep(h, dt);
       }
     } else if (mode === 'front') {
       // 열차 머리보다 앞, 맞은편 선로 쪽에서 머리 끝을 비스듬히 본다
@@ -1886,6 +2066,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     },
     /** 승강장에서 기다린다(열차는 아직 안 보인다) */
     waitAtPlatform(k = 0) {
+      heroBoard = null;
       api.atStation(k);
       for (const c of cars) c.group.visible = false;
       posKm = Math.max(trainLen / 1000, 0.05);
@@ -1929,6 +2110,9 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       camRow.style.display = view === 'outside' ? '' : 'none';
       displayBox.hidden = view === 'platform';
       if (inCabin) {
+        hero.root.visible = true;
+        cab.state = 'stand';
+        cab.lift = 0;
         cars[cabinIndex].group.add(hero.root);
         hero.root.position.set(cabin.hero.x, cabin.hero.y, cabin.hero.z);
         hero.root.rotation.set(0, -Math.PI / 2, 0);
@@ -1941,53 +2125,12 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       mark();
     },
     playHero(id) {
-      // 일어서기: 앉아 있다가 다른 동작을 고르면 의자에서 일어서는 동작(standup)을 한 번 하고 그 동작을 한다
-      if (id !== 'sit' && id !== 'sitdown' && id !== 'standup' && sitting && hero.clips.standup) {
-        api.playHero('standup');
-        const done = (e) => {
-          if (e.action.getClip() !== hero.clips.standup) return;
-          mixer.removeEventListener('finished', done);
-          sitting = false;
-          api.playHero(id);
-        };
-        mixer.addEventListener('finished', done);
+      // 열차 안: 앉기와 일어서기는 걸어서 오가는 차례로(cabinMove)
+      if (mode === 'cabin' && (id === 'sit' || cab.state !== 'stand')) {
+        cabinRequest(id);
         return;
       }
-      // 앉기: 서 있다가 앉는 동작(sitdown)을 한 번 하고 앉아 있기(sit)로 넘어간다
-      if (id === 'sit' && hero.clips.sitdown && heroAction.getClip() !== hero.clips.sit) {
-        api.playHero('sitdown');
-        const done = (e) => {
-          if (e.action.getClip() !== hero.clips.sitdown) return;
-          mixer.removeEventListener('finished', done);
-          sitting = true;
-          api.playHero('sit');
-        };
-        mixer.addEventListener('finished', done);
-        return;
-      }
-      const clip = hero.clips[id] ?? hero.clips.idle;
-      const next = mixer.clipAction(clip);
-      next.reset();
-      // 앉기: 빈 자리(주인공 앞 긴 의자)로 옮겨 앉는다. 다른 동작이면 복도에 다시 선다
-      if (mode === 'cabin') {
-        const seat = id === 'sit' || id === 'sitdown' || id === 'standup' ? cabin.seats.find((st) => Math.abs(st.x - cabin.hero.x) < 0.6) : null;
-        if (seat) {
-          hero.root.position.set(seat.x, cabin.floor - 0.06, seat.z);
-          hero.root.rotation.set(0, seat.face > 0 ? 0 : Math.PI, 0);
-        } else {
-          hero.root.position.set(cabin.hero.x, cabin.hero.y, cabin.hero.z);
-          hero.root.rotation.set(0, -Math.PI / 2, 0);
-        }
-      }
-      if (id === 'stand' || id === 'sit' || clip === hero.clips.idle) next.setLoop(LoopRepeat, Infinity);
-      else {
-        next.setLoop(LoopOnce, 1);
-        next.clampWhenFinished = true;
-      }
-      sitting = id === 'sit' || id === 'sitdown' || id === 'standup';
-      next.play();
-      if (heroAction !== next) heroAction.crossFadeTo(next, 0.3, false);
-      heroAction = next;
+      playClip(id);
     },
     onHero(fn) {
       heroDone = fn;
@@ -2026,6 +2169,6 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       renderer.forceContextLoss?.();
     },
   };
-  if (import.meta.env?.DEV) el.devApi = { ...api, world: () => world, scene, camera, riders: () => riders, doors: () => [doorAmount, doorTarget, mode], tick: (t) => frame(t) };
+  if (import.meta.env?.DEV) el.devApi = { ...api, world: () => world, scene, camera, riders: () => riders, doors: () => [doorAmount, doorTarget, mode], tick: (t) => frame(t), cab: () => ({ ...cab, action: undefined, clip: heroAction.getClip().name, t: heroAction.time }) };
   return api;
 }

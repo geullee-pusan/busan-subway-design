@@ -164,7 +164,7 @@ async function packPerson({ file, targetVerts, skip, atlasCell = 512 }) {
 /** 동작 하나(Mixamo, 뼈대 이름으로 맞춘다). 엉덩이 자리 움직임은 뺀다(그 자리에서 움직인다). 앉는 동작(이름에 sit)은 엉덩이 자리를 남긴다(의자 높이로 내려앉는다) */
 async function packClip({ name, file }, fps, maxSec) {
   const g = await new FBXLoader().loadAsync(file);
-  const clip = g.animations[0];
+  const clip = g.animations.find((a) => a.tracks.length) ?? g.animations[0];
   const duration = Math.min(clip.duration, maxSec);
   const tracks = [];
   for (const t of clip.tracks) {

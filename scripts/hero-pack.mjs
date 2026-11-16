@@ -27,6 +27,11 @@ const job = {
     { name: 'sitdown', file: `${ANIM}/stand-to-sit.fbx`, keepHip: true },
     // 앉았다가 일어서기(사용자가 준 Mixamo "Sit To Stand"): 앉아 있을 때 서 있기를 누르면 이것을 한 번 하고 선다
     { name: 'standup', file: `${ANIM}/sit-to-stand.fbx`, keepHip: true },
+    // 걷기(사용자가 준 Mixamo "Walking"): 승강장에서 문까지 걸어가 열차에 탄다
+    { name: 'walk', file: `${ANIM}/walking.fbx` },
+    // 제자리에서 돌기(사용자가 준 Mixamo "Left Turn", "Right Turn"): 도는 각은 빼고 발걸음만, 몸은 게임이 돌린다
+    { name: 'turnL', file: `${ANIM}/turn-left.fbx`, stripYaw: true },
+    { name: 'turnR', file: `${ANIM}/turn-right.fbx`, stripYaw: true },
     { name: 'hiphop', file: `${ANIM}/dance-hiphop.fbx` },
     { name: 'hiphop2', file: `${ANIM}/dance-hiphop2.fbx` },
     { name: 'hiphop3', file: `${ANIM}/dance-hiphop3.fbx` },
