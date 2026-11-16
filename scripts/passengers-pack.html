@@ -161,7 +161,7 @@ async function packPerson({ file, targetVerts, skip, atlasCell = 512 }) {
   };
 }
 
-/** 동작 하나(Mixamo, 뼈대 이름으로 맞춘다). 엉덩이 자리 움직임은 뺀다(그 자리에서 움직인다) */
+/** 동작 하나(Mixamo, 뼈대 이름으로 맞춘다). 엉덩이 자리 움직임은 뺀다(그 자리에서 움직인다). 앉는 동작(이름에 sit)은 엉덩이 자리를 남긴다(의자 높이로 내려앉는다) */
 async function packClip({ name, file }, fps, maxSec) {
   const g = await new FBXLoader().loadAsync(file);
   const clip = g.animations[0];
@@ -171,9 +171,16 @@ async function packClip({ name, file }, fps, maxSec) {
     const dot = t.name.lastIndexOf('.');
     const node = t.name.slice(0, dot);
     const prop = t.name.slice(dot + 1);
-    if (prop !== 'quaternion') continue;
+    const keepHip = prop === 'position' && name.includes('sit') && boneKey(node) === 'Hips';
+    if (prop !== 'quaternion' && !keepHip) continue;
     const n = Math.max(2, Math.round(duration * fps) + 1);
     const interp = t.createInterpolant();
+    if (keepHip) {
+      const v = new Float32Array(n * 3);
+      for (let k = 0; k < n; k++) v.set(interp.evaluate(Math.min(duration, k / fps)), k * 3);
+      tracks.push({ bone: 'Hips', prop: 'position', kind: 'v', fps, n, values: pack(v, 'f32') });
+      continue;
+    }
     const values = new Float32Array(n * 4);
     for (let k = 0; k < n; k++) values.set(interp.evaluate(Math.min(duration, k / fps)), k * 4);
     for (let k = 0; k < n; k++) new THREE.Quaternion().fromArray(values, k * 4).normalize().toArray(values, k * 4);
@@ -199,7 +206,7 @@ window.packAll = async ({ people, clips, fps, maxSec }) => {
       im.onload = () => ok(im);
       im.src = p.texture;
     });
-    const data = { ...p.data, clips: packedClips.map((c) => ({ ...c, tracks: c.tracks.map((t) => ({ ...t, name: `${p.data.bones.find((b) => boneKey(b.name) === t.bone)?.name ?? t.bone}.quaternion` })) })) };
+    const data = { ...p.data, clips: packedClips };
     const person = buildHero(data, image);
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x8899aa);
@@ -208,7 +215,9 @@ window.packAll = async ({ people, clips, fps, maxSec }) => {
     sun.position.set(1, 2, 2);
     scene.add(sun, person.root);
     const mixer = new THREE.AnimationMixer(person.root);
-    if (packedClips[0]) mixer.clipAction(person.clips[packedClips[0].name]).play();
+    // 확인용: 앉는 동작이 있으면 그것으로(의자 높이 확인)
+    const show = packedClips.find((c) => c.name.includes('sit')) ?? packedClips[0];
+    if (show) mixer.clipAction(person.clips[show.name]).play();
     mixer.update(0.5);
     const cam = new THREE.PerspectiveCamera(30, 200 / 300, 0.1, 20);
     cam.position.set(0, 0.55, 2.6);

@@ -99,7 +99,7 @@ export function buildHero(data, image) {
     const tracks = c.tracks.filter((t) => !t.bone || boneNames.has(t.bone)).map((t) => {
       const T = t.kind === 'q' ? QuaternionKeyframeTrack : VectorKeyframeTrack;
       const times = t.times ? arr(t.times) : Float32Array.from({ length: t.n }, (_, k) => Math.min(c.duration, k / t.fps));
-      return new T(t.name ?? `${boneNames.get(t.bone)}.quaternion`, times, values(t.values));
+      return new T(t.name ?? `${boneNames.get(t.bone)}.${t.prop ?? 'quaternion'}`, times, values(t.values));
     });
     clips[c.name] = new AnimationClip(c.name, c.duration, tracks);
   }
