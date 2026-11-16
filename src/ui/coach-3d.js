@@ -239,7 +239,7 @@ export function createCoach3D({ grid, look, from, to, grade, others = [], bay = 
   let world = null;
   let place = 'terminal'; // 'terminal' | 'road' | 'rest'
   let mode = 'stop';
-  let outsideMode = 'side';
+  let outsideMode = 'front';
   let doorAmount = 0;
   let doorTarget = 0;
   let drive = null; // {from, to, start, ms, done}
@@ -698,6 +698,13 @@ export function createCoach3D({ grid, look, from, to, grade, others = [], bay = 
       camera.position.set(viewSpot.x, base + 0.2 + EYE, viewSpot.z);
       if (place === 'rest') camera.lookAt(-14, base + 3, 30);
       else camera.lookAt(-40, base + 1.7, -2);
+    } else if (mode === 'front') {
+      // 앞에서: 버스 머리보다 조금 앞에서 비스듬히 머리를 본다(고속도로는 바깥 갓길 쪽, 터미널은 차로 쪽)
+      const sd = place === 'road' ? 7 : -6;
+      const cx = bp.x + ux * 17 + rx * sd;
+      const cz = bp.z + uz * 17 + rz * sd;
+      camera.position.set(cx, place === 'road' ? Math.max(bp.y + 2.6, groundUnder(cx, cz) + 2) : bp.y + 2.6, cz);
+      camera.lookAt(bp.x + ux * 2, bp.y + 1.7, bp.z + uz * 2);
     } else if (mode === 'chase') {
       const cx = bp.x - ux * 18 + rx * 3;
       const cz = bp.z - uz * 18 + rz * 3;
@@ -725,6 +732,7 @@ export function createCoach3D({ grid, look, from, to, grade, others = [], bay = 
   camRow.setAttribute('role', 'group');
   camRow.setAttribute('aria-label', '3D에서 보는 곳');
   const camButtons = [
+    ['front', '앞에서'],
     ['side', '옆에서'],
     ['chase', '뒤에서'],
     ['sky', '하늘에서'],

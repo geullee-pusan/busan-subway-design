@@ -35,7 +35,8 @@
     "intercity-build": "node scripts/build-intercity.mjs",
     "hero": "node scripts/hero-bake.mjs",
     "hero-3d": "node scripts/hero-pack.mjs",
-    "bus-looks": "node scripts/build-bus-looks.mjs"
+    "bus-looks": "node scripts/build-bus-looks.mjs",
+    "hanja": "node scripts/build-station-hanja.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

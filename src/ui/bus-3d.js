@@ -508,8 +508,8 @@ export function createBus3D({ grid, route, reduceMotion = false }) {
   let seg = 0; // 지금 구간(정류장 seg → seg+1)
   let posKm = 0; // 구간 안 버스 머리 자리
   let drive = null; // 달리는 중: {from, to, start, ms, done}
-  let mode = 'side';
-  let outsideMode = 'side';
+  let mode = 'front';
+  let outsideMode = 'front';
   let doorAmount = 0;
   let doorTarget = 0;
   let approach = null; // 정류장 장면: 버스가 들어오는 길(격자 점)
@@ -969,6 +969,10 @@ export function createBus3D({ grid, route, reduceMotion = false }) {
         hero.root.position.set(p.x + fx * 2.6 - rx2 * 0.2, p.y + 0.12, p.z + fz * 2.6 - rz2 * 0.2);
         hero.root.rotation.set(0, Math.atan2(-rx2 * 0.7 + fx * 0.7, -rz2 * 0.7 + fz * 0.7), 0);
       }
+    } else if (mode === 'front') {
+      // 앞에서: 버스 머리보다 조금 앞, 보도 쪽에서 비스듬히 머리를 본다
+      camera.position.set(bp.x + ux * 15 + rx * 4.5, bp.y + 2.4, bp.z + uz * 15 + rz * 4.5);
+      camera.lookAt(bp.x + ux * 2, bp.y + 1.5, bp.z + uz * 2);
     } else if (mode === 'chase') {
       camera.position.set(bp.x - ux * 16 + rx * 3, bp.y + 6, bp.z - uz * 16 + rz * 3);
       camera.lookAt(bp.x + ux * 10, bp.y + 1.5, bp.z + uz * 10);
@@ -990,6 +994,7 @@ export function createBus3D({ grid, route, reduceMotion = false }) {
   camRow.setAttribute('role', 'group');
   camRow.setAttribute('aria-label', '3D에서 보는 곳');
   const camButtons = [
+    ['front', '앞에서'],
     ['side', '옆에서'],
     ['chase', '뒤에서'],
     ['sky', '하늘에서'],
