@@ -26,8 +26,11 @@ import {
   voicesReady,
 } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
+import { isUnderground } from '../sim/station-depth.js';
 import { BUS_PEOPLE_MAX, busInteriorArt } from './vehicle-art.js';
 import { createHeroActor, heroInside, heroMotionPicker } from './hero-actor.js';
+import { webglAvailable } from './train-journey.js';
+import { hasSubway3D } from './subway-3d.js';
 import { createCrowd, frontPassenger, makeTappable, openTalk, talkLines } from './passengers.js';
 import { BASE_YEAR, busNetwork } from '../model.js';
 import { routesAtStop, routesNear } from '../sim/bus-network.js';
@@ -157,7 +160,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
   // 차 안에 서 있는 주인공과 동작 고르기(다시 그려도 같은 주인공이 하던 동작을 이어 간다)
   const hero = createHeroActor({ reduceMotion });
-  const heroPicker = heroMotionPicker((id) => hero.play(id), { reduceMotion });
+  const heroPicker = heroMotionPicker((id) => (sub3d && subView === 'cabin' ? sub3d.playHero(id) : hero.play(id)), { reduceMotion });
   hero.onChange((id) => heroPicker.mark(id));
   /** 차 안에서 주인공이 서는 곳(그림 틀 안 %): 열차는 왼쪽 문 앞 바닥, 버스는 통로 앞쪽 */
   const HERO_PLACE = isBus ? { left: 30, bottom: 2, height: 56 } : { left: 11, bottom: 3, height: 66 };
@@ -298,6 +301,77 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 이번에 탄 승객들(src/ui/passengers.js)과, 몇 번째 역까지 타고 내림을 반영했는지 */
   let crowd = null;
   let crowdAt = -1;
+  /**
+   * 지하철 3D(1~4호선, 부산김해경전철, 동해선): 승강장, 열차 안, 밖에서. 탈 때마다 새로 만든다. 3D가 안 되면 그림만.
+   * subView: 'outside' | 'cabin' | 'picture'
+   */
+  let sub3d = null;
+  let sub3dMade = null;
+  const SUB_VIEWS = { outside: '밖에서 보기 (3D)', cabin: '열차 안 (3D)', picture: '열차 안 그림' };
+  let subView = SUB_VIEWS[loadView().subwayView] ? loadView().subwayView : 'outside';
+  /** 3D 자리(다시 그려도 같은 것을 붙인다)와 지금 그린 열차 안 그림 */
+  const sub3dHost = element('div');
+  let pictureNode = null;
+  const subRow = element('div', 'tr-sound-row');
+  subRow.setAttribute('role', 'group');
+  subRow.setAttribute('aria-label', '보는 곳 고르기');
+  const subButtons = Object.entries(SUB_VIEWS).map(([id, label]) => {
+    const b = button(label, () => pickSubView(id));
+    b.dataset.view = id;
+    return b;
+  });
+  subRow.append(...subButtons);
+  function pickSubView(id) {
+    subView = id;
+    saveView({ subwayView: id });
+    applySubView();
+  }
+  /** 고른 보기를 화면에 맞춘다(승강장에서는 승강장 3D) */
+  function applySubView() {
+    if (!sub3d) return;
+    const onPlatform = phase === '승강장';
+    const shown = onPlatform ? 'platform' : subView;
+    for (const b of subButtons) {
+      b.className = b.dataset.view === subView ? 'button is-on' : 'button';
+      b.setAttribute('aria-pressed', String(b.dataset.view === subView));
+    }
+    subRow.hidden = onPlatform;
+    sub3d.el.style.display = shown === 'picture' ? 'none' : '';
+    if (pictureNode) pictureNode.style.display = shown === 'picture' || onPlatform ? '' : 'none';
+    if (shown !== 'picture') sub3d.setView(shown === 'cabin' ? 'cabin' : shown === 'platform' ? 'platform' : 'outside');
+    heroPicker.mark('stand');
+  }
+  /** 이 탈 것에 맞춰 3D를 만든다(실제 노선의 열차만) */
+  function makeSub3d() {
+    sub3d?.destroy();
+    sub3d = null;
+    sub3dHost.replaceChildren();
+    if (isBus || !hasSubway3D(design.id) || !lineById.get(design.id) || !webglAvailable()) {
+      sub3dMade = Promise.resolve(null);
+      return sub3dMade;
+    }
+    const tripNow = trip;
+    sub3dMade = import('./subway-3d.js')
+      .then(({ createSubway3D }) => {
+        if (trip !== tripNow) return null;
+        const list = trip.stops.map((st) => {
+          const where = stationById.get(st.id);
+          return { id: st.id, name: st.name, x: where?.x ?? 0, y: where?.y ?? 0, under: isUnderground(stationInfo?.[st.id]?.address) };
+        });
+        if (list.some((st) => !st.x)) return null;
+        sub3d = createSubway3D({ grid, lineId: design.id, color, stops: list, variant: Math.floor(startHour() * 7), reduceMotion });
+        sub3d.onHero((id) => heroPicker.mark(id));
+        sub3dHost.replaceChildren(subRow, sub3d.el);
+        return sub3d;
+      })
+      .catch((error) => {
+        if (import.meta.env?.DEV) console.warn('3D 지하철을 만들지 못했어요', error);
+        return null;
+      });
+    return sub3dMade;
+  }
+  /** 3D가 멈춰도 ms 뒤에는 끝나는 약속 */
+  const within = (promise, ms) => Promise.race([promise, new Promise((done) => setTimeout(done, ms))]);
   /** 버스: 하차벨을 눌렀는지, 눌러서 내렸는지 */
   let bellRung = false;
   let gotOff = false;
@@ -613,6 +687,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     crowd = createCrowd(Math.floor(Math.random() * 2147483647), { startStop: at, lastStop: trip.stops.length - 1 });
     crowdAt = at;
     legToken += 1;
+    makeSub3d();
     sound.wake();
     // 내 열차 노선은 역 안을 걸어 승강장에서 기다린 뒤 탄다. 버스와 여행 모드 한 구간 타기는 바로 탄다.
     if (!segment && !isBus) {
@@ -628,6 +703,12 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     sound.hush();
     phase = '역';
     renderRide();
+    sub3dMade?.then((c) => {
+      if (!c || phase !== '역') return;
+      c.atStation(at);
+      c.setDoors(true);
+      applySubView();
+    });
     announceNow();
   }
 
@@ -701,7 +782,13 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     led.append(ledText);
     box.append(led);
     const art = platformArt({ color, reduceMotion });
-    box.append(art.svg);
+    box.append(sub3dHost, art.svg);
+    pictureNode = art.svg;
+    sub3dMade?.then((c) => {
+      if (!c || phase !== '승강장') return;
+      c.waitAtPlatform(at);
+      applySubView();
+    });
     const gap = 60 / (design.trainsPerHour || 1);
     box.append(element('p', null, `열차는 ${durationText(Math.round(gap * 60))}마다 와요.`));
     if (soundOn) box.append(element('p', 'panel-note', '열차가 들어올 때 나오는 안내음은 부산교통공사의 실제 녹음이에요.'));
@@ -723,9 +810,10 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       if (chime) await sound.playClip(chime);
       if (leg !== legToken || phase !== '승강장') return;
       const spoken = voiceOn ? sound.announce({ korean: [text], english: [], voice: true, music: false }) : Promise.resolve();
-      await Promise.all([art.arrive(3000), spoken]);
+      await Promise.all([art.arrive(3000), spoken, sub3d ? within(sub3d.arrive(6000), 9000) : null]);
       if (leg !== legToken || phase !== '승강장') return;
       art.openDoors();
+      sub3d?.setDoors(true);
       ledText.textContent = `${end.name}행 열차가 도착했어요`;
     }, reduceMotion ? 0 : 2500);
   }
@@ -1190,8 +1278,11 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     const scene = view?.scene ?? null;
     syncCrowd(moving ? at - 1 : at);
     const car = interior(inside, scene, moving ? null : stop.name);
-    left.append(heroInside(car.svg, hero, HERO_PLACE));
+    pictureNode = heroInside(car.svg, hero, HERO_PLACE);
+    left.append(sub3dHost, pictureNode);
     left.append(heroPicker.el);
+    sub3d?.setDisplay(ledLines);
+    applySubView();
     if (moving) left.append(element('p', 'panel-note', SCENE_TEXT[scene]));
     if (moving && view.why) left.append(element('p', 'panel-note guide', view.why));
     if (!moving) left.append(stationSign());
@@ -1321,6 +1412,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 역에 선다. 방송이 끝나기를 기다렸든 끊었든 여기로 온다. */
   function stopAtStation() {
     timer = null;
+    sub3d?.setDoors(true);
     runFinished = false;
     movingButton = null;
     sound.stopRumble();
@@ -1350,9 +1442,18 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     renderRide();
     // 방송이 나오는 동안은 계속 달린다. 가장 짧게 달리는 시간과 방송이 모두 끝나면 역에 선다.
     const leg = ++legToken;
-    const shortest = new Promise((resolve) => {
+    const timed = new Promise((resolve) => {
       timer = setTimeout(resolve, reduceMotion ? 0 : MOVE_MS);
     });
+    let drove = Promise.resolve();
+    if (sub3d) {
+      const c = sub3d;
+      const target = at;
+      c.setDoors(false);
+      const run3d = new Promise((done) => setTimeout(done, reduceMotion ? 0 : 800)).then(() => c.driveTo(target, 7000));
+      if (subView !== 'picture') drove = within(run3d, 12000);
+    }
+    const shortest = Promise.all([timed, drove]);
     shortest.then(() => {
       if (leg !== legToken || phase !== '달리기') return;
       runFinished = true;
@@ -1387,6 +1488,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
 
   return () => {
     hero.destroy();
+    sub3d?.destroy();
+    sub3d = null;
     legToken += 1;
     if (timer) clearTimeout(timer);
     clearTimeout(ledTimer);

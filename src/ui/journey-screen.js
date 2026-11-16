@@ -3,7 +3,7 @@
 // 다음 구간으로는 아이가 단추를 눌러야 간다(저절로 넘어가지 않는다).
 // 요금: 버스·지하철은 처음 탈 때 그 요금을 내고, 마지막에 내릴 때 모자란 요금(2구간 등)을 더 낸다.
 //       택시는 미터기(부산 중형택시 요금표)가 달리는 만큼 올라가고 내릴 때 낸다.
-import { grid, lineById, railStationById, stationById, stationSounds } from '../data.js';
+import { grid, lineById, railStationById, stationById, stationInfo, stationSounds } from '../data.js';
 import { runTrainTrip, trainOfLeg, webglAvailable } from './train-journey.js';
 import { chimeSide, platformInfo } from '../sim/platform.js';
 import { romanize } from '../sim/romanize.js';
@@ -17,6 +17,7 @@ import announcementsFile from '../content/announcements.json';
 import { fillTemplate } from '../sim/announce.js';
 import { createRideSound } from './ride-sound.js';
 import { loadView, saveView } from './storage.js';
+import { isUnderground } from '../sim/station-depth.js';
 import { busLookOf } from './bus-looks.js';
 import { BUS_PEOPLE_MAX, busInteriorArt, taxiInteriorArt, walkSceneArt } from './vehicle-art.js';
 import { createCrowd, openTalk, talkLines } from './passengers.js';
@@ -388,6 +389,30 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     area.append(led);
     const art = platformArt({ color: place.color, reduceMotion });
     area.append(art.svg);
+    // 3D 승강장: 아이 눈높이에서 안전문 뒤에 서 있으면 열차가 들어온다(1~4호선, 부산김해경전철, 동해선. 안 되면 위 그림)
+    let platform3d = null;
+    const ride = step.next;
+    const made3d =
+      ride?.stations?.length >= 2 && webglAvailable()
+        ? import('./subway-3d.js')
+            .then(({ createSubway3D, hasSubway3D }) => {
+              if (!hasSubway3D(place.lineId) || !area.isConnected) return null;
+              const list = ride.stations.slice(0, 2).map((id) => {
+                const st = stationById.get(id);
+                return { id, name: st?.name ?? '', x: st?.x ?? 0, y: st?.y ?? 0, under: isUnderground(stationInfo?.[id]?.address) };
+              });
+              if (list.some((st) => !st.x)) return null;
+              platform3d = createSubway3D({ grid, lineId: place.lineId, color: place.color, stops: list, reduceMotion });
+              platform3d.waitAtPlatform(0);
+              platform3d.setView('platform');
+              art.svg.replaceWith(platform3d.el);
+              return platform3d;
+            })
+            .catch((error) => {
+              if (import.meta.env?.DEV) console.warn('3D 승강장을 만들지 못했어요', error);
+              return null;
+            })
+        : Promise.resolve(null);
     if (waitText) area.append(element('p', null, waitText));
 
     // 소리: 켜 두면 실제 녹음(안내음, 진입 방송)이 나온다. 시승 모드의 소리 설정과 같다.
@@ -408,6 +433,8 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     rideCleanup = () => {
       left = true;
       sound.stopAll();
+      platform3d?.destroy();
+      platform3d = null;
     };
 
     const board = nextButton(area, '열차에 타요', () => done(step), new Promise(() => {}));
@@ -425,9 +452,11 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
         if (soundOn && spoken) await sound.playClip(spoken);
         if (!left && soundOn && spokenEnglish) await sound.playClip(spokenEnglish);
       })();
-      await Promise.all([art.arrive(3000), voice]);
+      const c = await made3d;
+      await Promise.all([art.arrive(3000), voice, c ? Promise.race([c.arrive(6000), new Promise((d) => later(d, 9000))]) : null]);
       if (left) return;
       art.openDoors();
+      c?.setDoors(true);
       ledText.textContent = `${end.ko}행 열차가 도착했어요`;
     });
   }

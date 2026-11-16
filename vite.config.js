@@ -22,6 +22,8 @@ export default defineConfig({
   // 상대 주소로 뽑는다. 하위 폴더 주소(GitHub Pages)에서도 열린다.
   base: './',
   plugins: [stripThreeLinks(), viteSingleFile()],
+  // 받은 원본(data/raw/)은 게임이 읽지 않는다. 큰 파일이 많고, 막 복사한 파일을 지켜보다 개발 서버가 멈춘 적이 있다.
+  server: { watch: { ignored: ['**/data/raw/**'] } },
   build: {
     // 모듈 미리 읽기 보조 코드(fetch를 쓴다)를 넣지 않는다. 한 파일이라 필요 없다.
     modulePreload: { polyfill: false },
