@@ -11369,14 +11369,14 @@
         "lower": "#FFFFFF",
         "upper": "#FFFFFF",
         "roof": "#F2F2F2",
-        "stripe": "#1D3D8F",
-        "stripe2": "#E2551B",
+        "stripe": "#F5C518",
+        "stripe2": "#8C8F94",
         "pattern": "stripes",
-        "desc": "하얀 바탕에 진한 파란 줄과 주황 줄이 있어요.",
-        "source": "나무위키 천일고속",
-        "url": "https://namu.wiki/w/천일고속",
+        "desc": "하얀 바탕에 노란색과 회색이 섞여 칠해져 있어요.",
+        "source": "루리웹 버스 사진 게시판",
+        "url": "https://m.ruliweb.com/hobby/board/500022/read/462",
         "confidence": "low",
-        "sourceNote": "문서에 \"고유 도색\"만 있고 색 설명이 없음. 색은 추정. 프리미엄은 2022년 말부터 금색 공통 도색 대신 고유 도색으로 바꿈."
+        "sourceNote": "'천일고속은 흰색 바탕에 노란색과 회색을 섞은 방식의 도색을 사용'(동호인 글 한 곳). 나무위키 천일고속은 '고유 도색'이라고만 쓰고 색 없음; 2022년 말부터 프리미엄도 금색 공통 도색 대신 고유 도색, 2024년부터 금색 공통 도색 안 씀(프리미엄은 일반과 같은 칠로 두면 됨). 천일여객 문서: 옛날엔 천일고속도 노랑 갈매기=일반, 분홍 갈매기=우등 방식이었음. 노랑·회색의 위치는 추정. 기존 자리표시(파랑·주황)는 근거 없음."
       },
       "hanil": {
         "name": "한일고속",
@@ -11510,26 +11510,25 @@
         "kinds": [
           "시외"
         ],
-        "lower": "#FFFFFF",
-        "upper": "#FFFFFF",
-        "roof": "#F2F2F2",
+        "lower": "#D7141A",
+        "upper": "#D7141A",
+        "roof": "#FFFFFF",
         "stripe": "#1C3F94",
         "stripe2": null,
         "pattern": "stripes",
         "premium": {
           "lower": "#C9A54A",
           "upper": "#C9A54A",
-          "roof": "#D9BE73",
+          "roof": "#C9A54A",
           "stripe": null,
           "stripe2": null,
           "pattern": "solid"
         },
-        "desc": "하얀 바탕에 색 띠가 둘러진 시외버스예요.",
-        "source": "나무위키 프리미엄 고속버스",
-        "url": "https://namu.wiki/w/프리미엄 고속버스",
-        "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "프리미엄은 \"전체가 금색\"(확인). 일반 도색은 출처 없음, 자리표시 색."
+        "desc": "빨간색과 파란색이 강하게 맞서는 칠이에요.",
+        "source": "나무위키 경원여객(경남), 프리미엄 버스",
+        "url": "https://namu.wiki/w/경원여객(경남)",
+        "confidence": "medium",
+        "sourceNote": "'현재는 패턴은 동일하고 색상만 다른 빨강-파랑 도색', '원색인 빨강-파랑의 강한 대비', '프리미엄 차량을 제외한 전 차량 빨강색 도색'(옛 일반고속은 노란색, AM939EF 기본 도색에서 유래). 프리미엄: '도색은 별도의 패턴 없이 완전 금색', '사명 폰트는 검은색'(확인). 빨강이 몸통, 파랑이 줄이라는 배치는 추정."
       },
       "jeonbuk": {
         "name": "전북고속",
@@ -11548,7 +11547,7 @@
         "url": "https://namu.wiki/w/전북고속",
         "confidence": "low",
         "placeholder": true,
-        "sourceNote": "옛 도색은 옆면에 산과 호수 그림, 신도색은 J자 로고와 1920. 몸통 색은 문서에 없음."
+        "sourceNote": "옛 도색은 옆면에 산과 호수 그림, 신도색은 J자 로고와 1920. 몸통 색은 문서에 없음. / 2026-11-16 다시 찾음: 나무위키 전북고속·전북여객: 옛 도색은 옆면 산과 호수 그림, 2015년 5월부터 신도색은 J자 로고와 1920 숫자. 몸통 색 낱말은 없음. 프리미엄은 '기존 도색에 Premium Gold 글씨만'(나무위키 프리미엄 버스). ko.wikipedia 전북고속, Commons(File:Jeonbuk Express 1076.JPG, 색 설명 없음), 웹 검색(초록/파랑/흰색, 1920 J 로고) 모두 색 설명 없음."
       },
       "gwangshin": {
         "name": "광신고속",
@@ -11566,7 +11565,7 @@
         "url": "https://namu.wiki/w/광신고속",
         "confidence": "low",
         "placeholder": true,
-        "sourceNote": "도색 설명 없음. 프리미엄은 공통 도색과 비슷한 디자인(프리미엄 고속버스 문서)."
+        "sourceNote": "도색 설명 없음. 프리미엄은 공통 도색과 비슷한 디자인(프리미엄 고속버스 문서). / 2026-11-16 다시 찾음: 나무위키 광신고속: 지금 도색 전에는 '광주/전남 공통 구도색'을 썼다는 말뿐, 색 없음. 프리미엄은 '공통 도색과 유사한 느낌의 다른 디자인'(나무위키 프리미엄 버스, 색 없음). 광주·전남 공통 도색 색도 검색으로 못 찾음."
       },
       "gwangwoo": {
         "name": "광우고속",
@@ -11584,7 +11583,7 @@
         "url": "https://namu.wiki/w/광우고속",
         "confidence": "low",
         "placeholder": true,
-        "sourceNote": "도색 설명 없음."
+        "sourceNote": "도색 설명 없음. / 2026-11-16 다시 찾음: 나무위키 광우고속, ko.wikipedia 광우고속(사진 설명 '3426호 버스'뿐), 광주·전남 공통 도색 검색 모두 색 설명 없음."
       },
       "daehan": {
         "name": "대한고속",
@@ -11594,15 +11593,14 @@
         "lower": "#FFFFFF",
         "upper": "#FFFFFF",
         "roof": "#F2F2F2",
-        "stripe": "#8C8F94",
+        "stripe": "#D7141A",
         "stripe2": null,
         "pattern": "stripes",
-        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
-        "source": "나무위키",
-        "url": "https://namu.wiki/w/대한고속",
-        "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "시외 차 도색 설명 없음(2026년 9월 시내 전기버스만 초록 도색)."
+        "desc": "하얀 바탕에 빨간 줄무늬가 있어요.",
+        "source": "나무위키 전북특별자치도 시내, 농어촌버스",
+        "url": "https://namu.wiki/w/전북특별자치도 시내, 농어촌버스",
+        "confidence": "medium",
+        "sourceNote": "옛 전북 시외직행 공통 도색 설명: '바탕은 흰색', '시외직행이 빨간색 줄무늬(현재의 대한고속의 도색과 비슷)'. 대한고속 문서 자체에는 시외 차 색 설명 없음(2026년 9월 시내 전기버스만 초록). 줄의 굵기·위치는 옛 공통 도색이 '일반버스와 유사한 형태'라는 말뿐이라 추정."
       },
       "dongbang": {
         "name": "동방고속",
@@ -11620,7 +11618,7 @@
         "url": "https://namu.wiki/w/동방고속",
         "confidence": "low",
         "placeholder": true,
-        "sourceNote": "도색 설명 없음(옆면 여객선 광고만 언급)."
+        "sourceNote": "도색 설명 없음(옆면 여객선 광고만 언급). / 2026-11-16 다시 찾음: 나무위키 동방고속: 도색·색 언급 없음(계열사 동방택시, 고흥여객과 같은 사무실). 광주·전남 공통 도색 검색도 색 없음."
       },
       "jeonbukyeogaek": {
         "name": "전북여객",
@@ -11638,25 +11636,24 @@
         "url": "https://namu.wiki/w/유스퀘어/운행노선",
         "confidence": "low",
         "placeholder": true,
-        "sourceNote": "도색 미조사."
+        "sourceNote": "도색 미조사. / 2026-11-16 다시 찾음: 나무위키는 '전북고속·전북여객'을 한 문서로 다루고 전북여객은 전북고속 계열사(같은 J자 1920 도색으로 보임). 전북고속 몸통 색을 못 찾았으므로 미확인. 게임에서는 전북고속과 같은 칠을 쓰면 됨."
       },
       "geuma": {
         "name": "금아여행",
         "kinds": [
           "시외"
         ],
-        "lower": "#FFFFFF",
+        "lower": "#5E9E6E",
         "upper": "#FFFFFF",
         "roof": "#F2F2F2",
-        "stripe": "#8C8F94",
+        "stripe": "#F2C200",
         "stripe2": null,
         "pattern": "stripes",
-        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
-        "source": "나무위키",
-        "url": "https://namu.wiki/w/부산종합버스터미널/운행노선",
+        "desc": "하얀 바탕에 연한 초록색과 노란색이 칠해져 있어요.",
+        "source": "나무위키 금아버스그룹, 금아여행",
+        "url": "https://namu.wiki/w/금아버스그룹",
         "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "도색 미조사."
+        "sourceNote": "금아버스그룹: '물 빠진 초록색과 흰색을 쓰는데, 시외버스들은 진짜 옛날 시외버스 같은 느낌'(그룹 전체 말, 금아여행을 따로 짚지는 않음). 금아여행: 어떤 4대는 '회사명 폰트가 노란색 부분이 아닌 초록색 부분에 붙어 있다'(노란·초록 부분이 함께 있음). 어느 곳이 어떤 색인지는 추정."
       },
       "geojehyundai": {
         "name": "거제현대고속",
@@ -11674,7 +11671,7 @@
         "url": "https://namu.wiki/w/부산종합버스터미널/운행노선",
         "confidence": "low",
         "placeholder": true,
-        "sourceNote": "도색 미조사."
+        "sourceNote": "도색 미조사. / 2026-11-16 다시 찾음: 나무위키 경남고속투어(옛 태영고속): '삼도고속 당시의 도색을 그대로 사용했는데, 해운대고속, 거제현대고속과 도색이 같으나'. 즉 거제현대고속은 옛 삼도고속 도색. 거제현대고속·해운대고속(나무위키, ko.wikipedia)·'삼도고속 도색' 검색 모두 색 낱말 없음."
       },
       "sinheung": {
         "name": "신흥여객",
@@ -11692,43 +11689,41 @@
         "url": "https://namu.wiki/w/창원종합버스터미널",
         "confidence": "low",
         "placeholder": true,
-        "sourceNote": "도색 미조사."
+        "sourceNote": "도색 미조사. / 2026-11-16 다시 찾음: 나무위키 신흥여객(경남): 옆면 사명 위치, 옛 '빨강색으로 고속관광' 글씨, '로고가 루프트한자와 닮았다'뿐 몸통 색 없음. ko.wikipedia 신흥여객 (경남)도 색 없음. (대한고속 계열인 익산 신흥여객은 다른 회사.)"
       },
       "cheonilyeogaek": {
         "name": "천일여객",
         "kinds": [
           "시외"
         ],
-        "lower": "#FFFFFF",
-        "upper": "#FFFFFF",
-        "roof": "#F2F2F2",
-        "stripe": "#8C8F94",
+        "lower": "#F5C518",
+        "upper": "#F5C518",
+        "roof": "#FFFFFF",
+        "stripe": "#6B3A1E",
         "stripe2": null,
-        "pattern": "stripes",
-        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
-        "source": "나무위키",
-        "url": "https://namu.wiki/w/창원종합버스터미널",
-        "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "도색 미조사. 프리미엄은 자사 도색에 진한 갈색을 보조색으로 씀(프리미엄 고속버스 문서)."
+        "pattern": "swoosh",
+        "desc": "노란색 몸에 갈매기 무늬가 있고, 앞 범퍼는 밤색이에요.",
+        "source": "나무위키 천일여객",
+        "url": "https://namu.wiki/w/천일여객",
+        "confidence": "medium",
+        "sourceNote": "'도색은 갈매기 도색을 사용한다', '노란색(범퍼는 갈색) 갈매기 도색 차량은 부산발 경남 각지행 단거리', '기본도색은 노랑색 우등도색에 앞범퍼를 밤색으로'. 장거리·우등 차는 '분홍색 갈매기 도색'(루리웹 글은 '자주색 갈매기'). 프리미엄은 자체 도색에 'Premium Gold' 글씨(색 설명 없음). 갈매기 무늬의 위치·색은 문서에 없어 지붕 흰색과 무늬 배치는 추정."
       },
       "goryeo": {
         "name": "고려여객",
         "kinds": [
           "시외"
         ],
-        "lower": "#FFFFFF",
-        "upper": "#FFFFFF",
-        "roof": "#F2F2F2",
-        "stripe": "#8C8F94",
+        "lower": "#F5C518",
+        "upper": "#F5C518",
+        "roof": "#FFFFFF",
+        "stripe": "#6B3A1E",
         "stripe2": null,
-        "pattern": "stripes",
-        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
-        "source": "나무위키",
-        "url": "https://namu.wiki/w/창원종합버스터미널",
-        "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "도색 미조사. 프리미엄은 자사 도색에 진한 갈색 보조색."
+        "pattern": "swoosh",
+        "desc": "노란색 몸에 갈매기 무늬가 있고, 앞 범퍼는 밤색이에요.",
+        "source": "나무위키 고려여객",
+        "url": "https://namu.wiki/w/고려여객",
+        "confidence": "medium",
+        "sourceNote": "'천일여객과 도색을 공유하며 모든 노선들을 천일여객과 공동 배차', '노란색 갈매기 도색을 한 차량'. 색은 천일여객 문서의 노란색·밤색 범퍼를 따름. 프리미엄은 자체 도색(색 설명 없음)."
       },
       "daehanyeogaek": {
         "name": "대한여객",
@@ -11738,15 +11733,22 @@
         "lower": "#FFFFFF",
         "upper": "#FFFFFF",
         "roof": "#F2F2F2",
-        "stripe": "#8C8F94",
+        "stripe": "#1E7B3A",
         "stripe2": null,
         "pattern": "stripes",
-        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
-        "source": "나무위키",
-        "url": "https://namu.wiki/w/창원종합버스터미널",
+        "desc": "녹색 가로줄이 길게 그어져 있어요.",
+        "source": "나무위키 프리미엄 버스, 부산교통",
+        "url": "https://namu.wiki/w/프리미엄 버스",
         "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "창원의 시외 운수사. 도색 미조사."
+        "sourceNote": "대한여객은 부산교통의 정식 계열사(나무위키 부산교통). 프리미엄: '부산교통은 자체 도색으로 출고를 했는데, 금색 바탕까지는 같지만 부산교통 특유의 녹색 가로줄'(확인). 일반 도색은 '미쓰비시 FUSO MS7 Aero Bus 카탈로그 기본 도색에서 유래', '하단부 스커트 도색을 없앤 변형'이라는 말뿐 색 없음. 일반 차의 하얀 바탕은 추정이고, 녹색 가로줄은 '특유의'라는 말에 기댄 추정.",
+        "premium": {
+          "lower": "#C9A54A",
+          "upper": "#C9A54A",
+          "roof": "#D9BE73",
+          "stripe": "#1E7B3A",
+          "stripe2": null,
+          "pattern": "stripes"
+        }
       },
       "gyeongjeon": {
         "name": "경전여객",
@@ -11756,15 +11758,22 @@
         "lower": "#FFFFFF",
         "upper": "#FFFFFF",
         "roof": "#F2F2F2",
-        "stripe": "#8C8F94",
+        "stripe": "#1F5FB5",
         "stripe2": null,
-        "pattern": "stripes",
-        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
-        "source": "나무위키",
-        "url": "https://namu.wiki/w/창원종합버스터미널",
+        "pattern": "diagonal",
+        "desc": "하얀 바탕에 파란 별이 줄지어 붙어 있어요.",
+        "source": "나무위키 경전여객",
+        "url": "https://namu.wiki/w/경전여객",
         "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "도색 미조사. 프리미엄은 기존 도색에 PREMIUM 글자만 더함."
+        "sourceNote": "'도색만 보면 동양고속과 묘하게 닮았다', 옆면 별 열 개 로고: '경전여객은 흰 바탕에다가 파랑 별이다'. 프리미엄은 '기존 도색을 그대로 쓰고 전면에 PREMIUM 엠블럼'. 파란 칠의 비스듬한 배치는 동양고속을 닮았다는 말에서 추정.",
+        "premium": {
+          "lower": "#FFFFFF",
+          "upper": "#FFFFFF",
+          "roof": "#F2F2F2",
+          "stripe": "#1F5FB5",
+          "stripe2": null,
+          "pattern": "diagonal"
+        }
       },
       "dongil": {
         "name": "동일고속",
@@ -11774,15 +11783,14 @@
         "lower": "#FFFFFF",
         "upper": "#FFFFFF",
         "roof": "#F2F2F2",
-        "stripe": "#8C8F94",
+        "stripe": "#1F5FB5",
         "stripe2": null,
-        "pattern": "stripes",
-        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
-        "source": "나무위키",
-        "url": "https://namu.wiki/w/부산서부버스터미널",
+        "pattern": "diagonal",
+        "desc": "하얀 바탕에 파란색이 비스듬히 칠해져 있어요.",
+        "source": "나무위키 동일고속",
+        "url": "https://namu.wiki/w/동일고속",
         "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "부산서부-합천(우등) 운행. 도색 미조사."
+        "sourceNote": "동일고속(동일익스프레스)은 경전여객이 세운 자회사. '시외버스 회사 도색이 경전고속과 함께 동양고속이랑 닮았다'. 색은 경전여객(흰 바탕, 파랑 별)과 동양고속(흰 바탕, 사선 파랑)을 따른 추정."
       },
       "taeyoung": {
         "name": "태영고속",
@@ -11800,25 +11808,24 @@
         "url": "https://namu.wiki/w/부산서부버스터미널",
         "confidence": "low",
         "placeholder": true,
-        "sourceNote": "부산서부-합천(일반) 운행. 도색 미조사."
+        "sourceNote": "부산서부-합천(일반) 운행. 도색 미조사. / 2026-11-16 다시 찾음: 태영고속은 2025년 7월 시외부가 경남고속뉴부산관광에 인수돼 경남고속투어가 됨(나무위키 경남고속투어). 문서: 삼도고속 시절 도색을 그대로 써 '해운대고속, 거제현대고속과 도색이 같으나', 공항리무진·시티투어 출신 차가 섞여 '도색이 다양한 편'. 사진 설명('창원고속 시절 구도색', '현재 사용중인 도색')뿐 색 낱말 없음."
       },
       "purun": {
         "name": "푸른교통",
         "kinds": [
           "시외"
         ],
-        "lower": "#FFFFFF",
+        "lower": "#C8102E",
         "upper": "#FFFFFF",
         "roof": "#F2F2F2",
-        "stripe": "#8C8F94",
+        "stripe": "#F08A1C",
         "stripe2": null,
         "pattern": "stripes",
-        "desc": "하얀 바탕에 회색 띠가 있는 버스예요.",
-        "source": "나무위키",
-        "url": "https://namu.wiki/w/부산종합버스터미널/운행노선",
-        "confidence": "low",
-        "placeholder": true,
-        "sourceNote": "부산종합-통도사·언양 운행. 도색 미조사."
+        "desc": "붉은색과 주황색이 칠해져 있어요.",
+        "source": "나무위키 푸른교통",
+        "url": "https://namu.wiki/w/푸른교통",
+        "confidence": "medium",
+        "sourceNote": "'시외버스 도색이 사명에 걸맞지 않게 붉은색+주황색이다'. 시내좌석은 같은 무늬에 파란색+녹색. 붉은색·주황색의 위치와 하얀 윗부분은 추정."
       }
     },
     "terminals": {
@@ -12641,7 +12648,13 @@
       "전라남도 안쪽 짧은 시외 노선(목포·해남·진도·완도·장흥·강진·성전·영암·독천·벌교·화원·마량·원동·덕양 사이, 영광·홍농·무안끼리 등)은 운수사를 확인하지 못했다. 유·스퀘어 문서상 대부분 금호고속이 운행하지만 노선별 근거는 없다.",
       "도색 문서는 사진이 대부분이고 글 설명이 짧다. 글로 확인된 것: 금호(빨강+하양, 비스듬한 회색 네모 둘), 동양(베이지빛 흰 바탕, 뒤 옆면 파란 사선, 검은 범퍼), 중앙(빨강·파랑, 그레이하운드 도색 반전), 한일(흰 바탕에 노랑·회색 데칼), 삼화(회색+자주색), 충남(주황+초록), 동광(빨강), 경남고속뉴부산관광 프리미엄(주황 바탕에 큰 갈매기), 부산교통 프리미엄(금색 바탕에 녹색 가로줄), 경원여객 프리미엄(전체 금색). 나머지 색 배치는 추정이라 confidence low.",
       "placeholder:true 회사는 도색 출처를 찾지 못해 흰 바탕+회색 띠 자리표시 색을 넣었다. 게임에서 회사 고유색처럼 보이면 안 된다.",
-      "프리미엄 공통 도색(KOBUS)은 \"금색\"이라는 것만 확인. 금호·동양·천일·중앙·속리산·한일은 프리미엄도 자사 고유 도색으로 바꿨다."
+      "프리미엄 공통 도색(KOBUS)은 \"금색\"이라는 것만 확인. 금호·동양·천일·중앙·속리산·한일은 프리미엄도 자사 고유 도색으로 바꿨다.",
+      "같은 칠을 나누는 회사: 고려여객=천일여객(갈매기 도색 공유), 동일고속≈경전여객(둘 다 동양고속을 닮음), 전북여객=전북고속(한 문서, 계열사), 거제현대고속=태영고속(경남고속투어)=해운대고속(옛 삼도고속 도색, 색은 못 찾음).",
+      "천일여객·고려여객의 장거리·우등 차는 분홍(또는 자주)색 갈매기 도색이에요. 형식에 우등 칠 칸이 없어 sourceNote에만 적었어요. 쓰려면 lower/upper #D9608C 정도.",
+      "대한여객은 부산교통의 계열사(나무위키 '대한여객' 문서가 부산교통 문서로 연결). 프리미엄 금색+녹색 가로줄은 부산교통 이름으로 적힌 것.",
+      "프리미엄 버스 문서: 전북고속은 '기존 도색에 Premium Gold 글씨만'. 광신고속 프리미엄은 공통 도색과 비슷한 다른 디자인(색 미기재).",
+      "색 hex는 모두 색 낱말에서 고른 대략값이에요. 몸통·띠 배치는 대부분 추정이라 sourceNote에 적었어요.",
+      "못 찾은 회사(검색한 곳: 나무위키 회사 문서·지역 버스 문서·프리미엄 버스 문서, 한국어 위키백과, 위키미디어 공용, 웹 검색): 전북고속, 전북여객, 광신고속, 광우고속, 동방고속, 거제현대고속, 신흥여객, 태영고속."
     ],
     "missingRoutes": [
       "목포종합버스터미널→동대구터미널 고속",
