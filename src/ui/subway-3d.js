@@ -87,6 +87,10 @@ const STATION_LOOK = {
   // 대구 1호선: 흰 안전문 틀에 빨간 줄, 회색 점무늬 타일, 이어진 점자 블록, 둥근 기둥. 대구 2호선: 초록 줄, 반짝이는 연회색 바닥
   DG1: { ceil: '#eceeee', floor: '#c3c5c6', pillar: '#ddd5c8', round: true, tactileLine: true },
   DG2: { ceil: '#eef0f0', floor: '#d3d5d6', pillar: '#eeeeec', round: false, tactileLine: true },
+  // 대경선(땅 위 역): 높은 유리 안전문, 회색 틀에 남색 줄, 어두운 철골 지붕, 문 앞 점자 블록
+  DK: { ceil: '#e6e8ea', floor: '#b9bcbe', pillar: '#c9ccd0', round: false, tactileLine: false, psdHeader: '#c3c7cb', psdStripe: '#1F3F8F', psdFull: true, roof: '#3a3f45' },
+  // 광주 1호선: 청록 안전문 틀, 반짝이는 연회색 바닥, 이어진 점자 블록, 밝은 천장
+  GJ1: { ceil: '#eceeee', floor: '#d5d7d8', pillar: '#e6e6e2', round: false, tactileLine: true, psdHeader: '#1F6E73', psdStripe: '#7FC7C0' },
   default: { ceil: '#e9ebeb', floor: '#c9cbcc', pillar: '#e3d6c4', round: true, tactileLine: true },
 };
 
