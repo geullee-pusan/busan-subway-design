@@ -14,7 +14,7 @@ export const DEFAULT_COACH_LOOK = {
   pattern: 'stripes',
 };
 
-const COLOR_KEYS = ['lower', 'upper', 'roof', 'front', 'stripe', 'stripe2', 'pattern'];
+const COLOR_KEYS = ['lower', 'upper', 'roof', 'front', 'stripe', 'stripe2', 'cap', 'pattern'];
 
 /** 글자열 → 0 이상 정수(같은 글자열은 늘 같은 수) */
 function hashOf(text) {

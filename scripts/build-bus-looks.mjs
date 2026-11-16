@@ -77,7 +77,7 @@ console.log(`확인 필요(todo) ${todo.length}곳`);
 {
   const coach = facts.coachLooks ?? { companies: {}, terminals: {}, routes: {} };
   const intercity = JSON.parse(readFileSync(resolve(ROOT, 'data/build/intercity.json'), 'utf8'));
-  const CKEEP = [...COLOR_KEYS, 'stripe2', 'pattern', 'kinds', 'source', 'confidence'];
+  const CKEEP = [...COLOR_KEYS, 'stripe2', 'cap', 'pattern', 'kinds', 'source', 'confidence'];
   const cpick = (t) => Object.fromEntries(CKEEP.filter((k) => t?.[k] !== undefined && t[k] !== null).map((k) => [k, t[k]]));
   const companies = {};
   for (const [id, c] of Object.entries(coach.companies ?? {})) {

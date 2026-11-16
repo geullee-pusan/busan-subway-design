@@ -213,6 +213,49 @@ export function busMesh(look, routeNo, material) {
     parts.box(len, 0.24, W + 0.03, mid, 0.47, 0, c); // 맨 아래 띠
     parts.box(0.1, 0.32, W, x1 + 0.06, 0.5, 0, c); // 앞 범퍼
   }
+  // 고속·시외버스 무늬: 바탕색 차체에 흰 쐐기(창 아래 뒤쪽 흰 띠, 앞문 뒤에서 비스듬히 오르는 흰 띠), 앞·뒤 지붕 모자
+  if (pat === 'wedge') {
+    const c = look.stripe ?? '#FFFFFF';
+    parts.box(len * 0.55, 0.5, W + 0.03, x0 + len * 0.275, wb - 0.27, 0, c); // 뒤쪽 창 아래 흰 띠
+    parts.box(1.5, 1.0, W + 0.03, x1 - 0.75, 0.95, 0, c); // 앞 아래 흰 판
+    for (const side of [-1, 1]) {
+      // 앞 흰 판에서 뒤 흰 띠로 비스듬히 오르는 흰 띠
+      const ax = x1 - 1.4;
+      const ay = 0.75;
+      const bx = x0 + len * 0.55;
+      const by = wb - 0.27;
+      const l2 = Math.hypot(bx - ax, by - ay);
+      const g = new BoxGeometry(l2, 0.5, 0.03);
+      g.rotateZ(Math.atan2(by - ay, bx - ax));
+      g.translate((ax + bx) / 2, (ay + by) / 2, side * (W / 2 + 0.02));
+      parts.add(g, c);
+    }
+    const capC = look.cap ?? lower;
+    parts.box(1.6, 0.3, W + 0.03, x1 - 0.8, H - 0.12, 0, capC); // 앞 지붕 모자
+    parts.box(1.8, 0.4, W + 0.03, x0 + 0.9, H - 0.08, 0, capC); // 뒤 지붕 모자
+    parts.box(0.1, 0.3, W, x1 + 0.06, 0.45, 0, lower); // 앞 범퍼
+  }
+  // 고속·시외버스 무늬: 바탕색 차체에 창 아래 앞에서 뒤 아래로 내려가는 흰 띠와 주황 띠
+  if (pat === 'sweep') {
+    const cols = [look.stripe ?? '#FFFFFF', look.stripe2 ?? look.stripe ?? '#FFFFFF'];
+    parts.box(0.06, 0.25, W - 0.2, x1 + 0.05, 1.25, 0, cols[0]); // 앞 흰 V 띠(어림)
+    for (const side of [-1, 1]) {
+      cols.forEach((c, i) => {
+        const dy = i * 0.32;
+        for (const [ax, ay, bx, by] of [
+          [x1 - 0.4, wb - 0.3 - dy, x1 - len * 0.45, wb - 0.3 - dy],
+          [x1 - len * 0.45, wb - 0.3 - dy, x0 + len * 0.18, 0.75 - dy * 0.3],
+          [x0 + len * 0.18, 0.75 - dy * 0.3, x0 + 0.2, 0.75 - dy * 0.3],
+        ]) {
+          const l2 = Math.hypot(bx - ax, by - ay);
+          const g = new BoxGeometry(l2 + 0.05, 0.24 - i * 0.06, 0.03);
+          g.rotateZ(Math.atan2(by - ay, bx - ax));
+          g.translate((ax + bx) / 2, (ay + by) / 2, side * (W / 2 + 0.02 + i * 0.002));
+          parts.add(g, c);
+        }
+      });
+    }
+  }
   // 고속·시외버스 무늬: 가로 띠 여러 줄, 뒤로 솟는 물결
   if (pat === 'stripes') {
     const cols = [look.stripe ?? stripe, look.stripe2 ?? look.stripe ?? stripe];
