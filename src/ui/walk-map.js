@@ -1,6 +1,7 @@
 // 걸어서 여행하기의 동네 지도(캔버스). 캐릭터가 늘 가운데 있고 지도가 따라 움직인다.
 // 바탕은 격자 지형(1km 칸), 길은 OpenStreetMap 차도, 건물·나무·논밭은 칸의 인구와 지형으로 어림해 그린다(4단계 거리 꾸미기).
 // 건물 자리와 크기는 칸 번호로 늘 같게 정한다(실제 건물 자리가 아니다).
+import { stationRoofColor, stationShapes } from './station-shapes.js';
 import { dongAt } from '../sim/address.js';
 import { indexRoads, nearestRoad, MADE_ROAD } from '../sim/roads.js';
 import { waterAt, waterInBox } from '../sim/water.js';
@@ -385,6 +386,61 @@ export function createWalkMap(canvas, world) {
         ctx.beginPath();
         ctx.arc(sx(d.x) - r * 0.3, sy(d.y) - r * 0.3, r * 0.5, 0, Math.PI * 2);
         ctx.fill();
+      }
+    }
+
+    // 5½. 기차역의 실제 모양(OpenStreetMap): 승강장, 승강장 지붕, 역 건물, 건너는 다리
+    if (scale >= 120) {
+      const path = (ring) => {
+        ctx.beginPath();
+        ring.forEach(([x, y], i) => (i ? ctx.lineTo(sx(x), sy(y)) : ctx.moveTo(sx(x), sy(y))));
+        ctx.closePath();
+      };
+      for (const st of stationShapes()) {
+        const [bx0, by0, bx1, by1] = st.box;
+        if (bx1 < left - 0.1 || bx0 > right + 0.1 || by1 < top - 0.1 || by0 > bottom + 0.1) continue;
+        // 승강장(밝은 회색, 가까이 보면 끝을 따라 노란 점자 블록)
+        for (const pl of st.platforms) {
+          path(pl.ring);
+          ctx.fillStyle = '#D3CEC4';
+          ctx.fill();
+          ctx.strokeStyle = scale >= 400 ? '#E8B92A' : '#B9B3A7';
+          ctx.lineWidth = scale >= 400 ? Math.max(1.5, 0.0005 * scale) : 1;
+          ctx.stroke();
+        }
+        // 승강장 지붕(반쯤 비치게)
+        for (const roof of st.roofs) {
+          path(roof);
+          ctx.fillStyle = 'rgba(96,108,120,0.45)';
+          ctx.fill();
+        }
+        // 역 건물: 그림자를 조금 비켜 그려 도톰하게
+        for (const b of st.buildings) {
+          const shade = Math.max(2, Math.min(6, 0.006 * scale));
+          ctx.save();
+          ctx.translate(shade, shade);
+          path(b.ring);
+          ctx.fillStyle = 'rgba(40,44,50,0.25)';
+          ctx.fill();
+          ctx.restore();
+          path(b.ring);
+          ctx.fillStyle = stationRoofColor(st.facade, b.area);
+          ctx.fill();
+          ctx.strokeStyle = '#6F6A60';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        }
+        // 건너는 다리
+        for (const br of st.bridges) {
+          ctx.beginPath();
+          br.line.forEach(([x, y], i) => (i ? ctx.lineTo(sx(x), sy(y)) : ctx.moveTo(sx(x), sy(y))));
+          ctx.strokeStyle = '#8A867E';
+          ctx.lineWidth = Math.max(2, (br.width / 1000) * scale + 2);
+          ctx.stroke();
+          ctx.strokeStyle = '#E4E1DA';
+          ctx.lineWidth = Math.max(1, (br.width / 1000) * scale);
+          ctx.stroke();
+        }
       }
     }
 

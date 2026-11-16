@@ -11,6 +11,7 @@ import { railPathBetween } from '../sim/train-ride.js';
 import { busRouteText, distanceText, durationText, roParticle, stationLabel } from './format.js';
 import { CELL, createMap } from './map.js';
 import { legendBox, mapCorners, northArrow, scaleBar, zoomButtons } from './map-furniture.js';
+import { stationRoofColor, stationShapes } from './station-shapes.js';
 import { loadView, saveView } from './storage.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -365,6 +366,14 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
   function draw() {
     const layer = map.overlay();
     layer.replaceChildren();
+    // 기차역의 실제 모양(OpenStreetMap): 크게 볼 때만 승강장과 역 건물
+    if ((map.zoom || 1) >= 2.5) {
+      const pts = (ring) => ring.map(([x, y]) => `${(x * CELL).toFixed(2)},${(y * CELL).toFixed(2)}`).join(' ');
+      for (const st of stationShapes()) {
+        for (const pl of st.platforms) layer.append(svgEl('polygon', { points: pts(pl.ring), fill: '#D3CEC4', stroke: '#B9B3A7', 'stroke-width': 1, 'vector-effect': 'non-scaling-stroke' }));
+        for (const b of st.buildings) layer.append(svgEl('polygon', { points: pts(b.ring), fill: stationRoofColor(st.facade, b.area), stroke: '#6F6A60', 'stroke-width': 1, 'vector-effect': 'non-scaling-stroke' }));
+      }
+    }
     const at = (p) => ({ x: p.x * CELL, y: p.y * CELL });
     const trip = trips.find((t) => t.id === chosen);
     if (trip) {
