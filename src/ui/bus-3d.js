@@ -204,6 +204,15 @@ export function busMesh(look, routeNo, material) {
       }
     }
   }
+  // 고속·시외버스 무늬: 흰 차체에 띠 색 지붕 테두리·앞 지붕 모자·뒤쪽 아래·맨 아래 띠·앞 범퍼
+  if (pat === 'cap-tail') {
+    const c = look.stripe ?? stripe;
+    parts.box(len, 0.16, W + 0.03, mid, H - 0.23, 0, c); // 지붕 테두리
+    parts.box(1.4, 0.42, W + 0.03, x1 - 0.7, H - 0.36, 0, c); // 앞 지붕 모자
+    parts.box(len * 0.42, wb - 0.35 + 0.02, W + 0.03, x0 + len * 0.21, 0.35 + (wb - 0.35) / 2, 0, c); // 뒤쪽 아래
+    parts.box(len, 0.24, W + 0.03, mid, 0.47, 0, c); // 맨 아래 띠
+    parts.box(0.1, 0.32, W, x1 + 0.06, 0.5, 0, c); // 앞 범퍼
+  }
   // 고속·시외버스 무늬: 가로 띠 여러 줄, 뒤로 솟는 물결
   if (pat === 'stripes') {
     const cols = [look.stripe ?? stripe, look.stripe2 ?? look.stripe ?? stripe];
