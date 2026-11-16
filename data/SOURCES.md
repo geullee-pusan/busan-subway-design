@@ -826,3 +826,5 @@ TODO(확인 필요)
 
 - 지하철 3D 승강장에 서서 기다리다가 문이 열리면 걸어서 타는 승객을 세운다(`src/ui/subway-3d.js`). 사람 수는 우리가 정한 어림(3~10명)이다. TODO: 그 역·그 시각 승하차 자료로 정하기.
 - 캐릭터와 동작은 사용자가 Adobe Mixamo(https://www.mixamo.com)에서 받아 준 FBX다: 캐릭터 Ch22, Ch23, Ch27, Ch31, Ch33, Ch42(FBX, 몸 뼈대와 질감, Ch27은 앉기 동작 파일에 들어 있던 캐릭터), 동작 Idle, Standing Idle, Happy Idle, Walking, Sitting(두 가지), Sitting Idle. 열차 안 긴 의자에는 앉기 동작으로 승객을 앉힌다(자리 채움은 우리가 정한 어림). 원본은 git에 넣지 않는 `assets/passengers/`에 두고, `npm run passengers`(scripts/passengers-pack.mjs)가 메시를 합치고 꼭짓점을 줄이고(three에 들어 있는 meshoptimizer) 질감을 512px 칸으로 모아 `src/content/passengers/`로 만든다. Mixamo 이용 조건(Adobe)에 따라 게임에 넣어 쓴다.
+- 주인공 앉기·일어서기(2026-11-16): 지하철 열차 안 3D에서 '앉기'를 누르면 주인공이 빈 긴 의자에 앉고, 다른 동작을 누르면 일어선다. 동작은 사용자가 준 Mixamo "Stand To Sit", "Sitting Idle", "Sit To Stand"(git에 넣지 않는 assets/hero/anim/, `npm run hero-3d`). 앉기 동작 파일의 엉덩이 높이는 단위가 달라(센티미터) 앉은 키를 서 있을 때 엉덩이 높이의 0.55배로 맞췄다(어림).
+- 열차 안 문(차 안에서 본 문짝, 창, 문틀, 문 앞 노란 줄)과 창틀을 넣었다. 역 벽의 조명판은 열차 창 너머로 잘려 보여 뺐다.

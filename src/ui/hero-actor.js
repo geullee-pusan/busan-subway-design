@@ -132,7 +132,11 @@ export function heroInside(art, actor, place) {
  * @param {(id: string) => void} onPick
  * @param {{reduceMotion?: boolean}} [options]
  */
-export function heroMotionPicker(onPick, { reduceMotion = false } = {}) {
+/**
+ * @param {(id: string) => void} onPick
+ * @param {{reduceMotion?: boolean, sit?: boolean}} [options] sit: 앉기 단추도 보여 준다(3D 열차 안처럼 앉을 수 있는 곳)
+ */
+export function heroMotionPicker(onPick, { reduceMotion = false, sit = false } = {}) {
   const box = document.createElement('div');
   box.className = 'hero-motions';
   box.setAttribute('role', 'group');
@@ -144,13 +148,13 @@ export function heroMotionPicker(onPick, { reduceMotion = false } = {}) {
   const row = document.createElement('div');
   row.className = 'hero-motions-row';
   const buttons = new Map();
-  for (const m of HERO_MOTIONS) {
+  for (const m of sit ? [HERO_MOTIONS[0], { id: 'sit', name: '앉기' }, ...HERO_MOTIONS.slice(1)] : HERO_MOTIONS) {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'button hero-motion';
     b.textContent = m.name;
     b.setAttribute('aria-pressed', m.id === 'stand' ? 'true' : 'false');
-    b.disabled = reduceMotion && m.id !== 'stand';
+    b.disabled = reduceMotion && m.id !== 'stand' && m.id !== 'sit';
     b.addEventListener('click', () => onPick(m.id));
     buttons.set(m.id, b);
     row.append(b);

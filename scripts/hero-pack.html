@@ -18,7 +18,7 @@ const toB64 = (typed) => {
 const pack = (typed, type) => ({ type, data: toB64(typed) });
 
 /** 뼈대 이름에서 "mixamorig" 앞붙이를 맞춘다(파일마다 콜론 유무가 다를 수 있다) */
-const boneKey = (name) => name.replace(/^mixamorig:?/, '');
+const boneKey = (name) => name.replace(/^mixamorig\d*:?/, '');
 
 window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
   const loader = new FBXLoader();
@@ -62,7 +62,7 @@ window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
 
   // 동작: 뼈대 이름을 이 모델에 맞추고, 1초 fps장으로 고른다. 길면 앞의 maxSec초만.
   const names = new Map(bones.map((b) => [boneKey(b.name), b.name]));
-  const clipData = (clip, name) => {
+  const clipData = (clip, name, keepHip = false) => {
     const duration = Math.min(clip.duration, maxSec);
     const tracks = [];
     for (const t of clip.tracks) {
@@ -76,7 +76,17 @@ window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
       const interp = t.createInterpolant();
       const values = new Float32Array(n * sz);
       for (let k = 0; k < n; k++) values.set(interp.evaluate(Math.min(duration, k / fps)), k * sz);
-      if (prop === 'position') {
+      if (prop === 'position' && keepHip) {
+        // 앉기 동작 파일의 엉덩이 자리는 단위가 다를 수 있다(센티미터): 첫 장면 높이를 앉은 키(서 있을 때 엉덩이의 0.55배, 어림)에 맞춘다
+        const hip = bones.find((b) => b.name === node).position;
+        const k0 = (hip.y * 0.55) / (values[1] || 1);
+        for (let k = 0; k < n * 3; k++) values[k] *= k0;
+        for (let k = 0; k < n; k++) {
+          values[k * 3] = hip.x;
+          values[k * 3 + 2] = hip.z;
+        }
+      }
+      if (prop === 'position' && !keepHip) {
         // 엉덩이는 위아래로만 움직인다(좁은 복도에서 옆이나 뒤로 미끄러지지 않게): 앞뒤·옆은 묶인 자세 자리로
         const hip = bones.find((b) => b.name === node).position;
         for (let k = 0; k < n; k++) {
@@ -97,7 +107,7 @@ window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
   const clips = [];
   for (const job of clipJobs) {
     const g = await loader.loadAsync(job.file);
-    clips.push(clipData(g.animations[0], job.name));
+    clips.push(clipData(g.animations[0], job.name, job.keepHip));
   }
 
   // 텍스처 → WebP(긴 변 1024px)

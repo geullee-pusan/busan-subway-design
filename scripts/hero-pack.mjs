@@ -21,6 +21,12 @@ const job = {
   textureFile: '/assets/hero/hero.png',
   clips: [
     { name: 'idle', file: `${ANIM}/idle.fbx` },
+    // 앉아 있기(사용자가 준 Mixamo "Sitting Idle", 엉덩이 높이를 남긴다)
+    { name: 'sit', file: `${ANIM}/sitting-idle.fbx`, keepHip: true },
+    // 서 있다가 앉기(사용자가 준 Mixamo "Stand To Sit"): 앉기 단추를 누르면 이것을 한 번 하고 앉아 있기로 넘어간다
+    { name: 'sitdown', file: `${ANIM}/stand-to-sit.fbx`, keepHip: true },
+    // 앉았다가 일어서기(사용자가 준 Mixamo "Sit To Stand"): 앉아 있을 때 서 있기를 누르면 이것을 한 번 하고 선다
+    { name: 'standup', file: `${ANIM}/sit-to-stand.fbx`, keepHip: true },
     { name: 'hiphop', file: `${ANIM}/dance-hiphop.fbx` },
     { name: 'hiphop2', file: `${ANIM}/dance-hiphop2.fbx` },
     { name: 'hiphop3', file: `${ANIM}/dance-hiphop3.fbx` },

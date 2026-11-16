@@ -732,6 +732,7 @@ function carMesh(spec, material, { head = false, tail = false } = {}) {
       parts.box(b - a - 0.2, wt - wb - 0.1, 0.04, (a + b) / 2, (wb + wt) / 2, z + side * 0.01, GLASS);
     }
     // 반대쪽 문은 닫힌 모양
+    // 반대쪽 문은 닫힌 모양
     if (side < 0) for (const dx of doorXs) parts.box(1.3, wt - floor + 0.05, 0.04, dx, (floor + wt + 0.05) / 2, z - 0.02, spec.doorColor ?? '#8C9399');
   }
   // 운전실 앞모습
@@ -810,6 +811,7 @@ const INSIDE = {
 function carCabin(spec, car, material) {
   const look = INSIDE[spec.inside] ?? INSIDE.default;
   const seats = [];
+  const glassPanes = [];
   const { L, W, H } = spec;
   const { floor, wt, doorXs } = car;
   const parts = new Parts();
@@ -840,9 +842,24 @@ function carCabin(spec, car, material) {
         parts.add(g, look.strap);
       } else parts.box(0.03, 0.1, 0.1, x, H - 0.78, s * 0.55, look.strap);
     }
-    // 벽: 창 아래, 창 위, 문 사이 기둥
+    // 벽: 창 아래, 창 위
     parts.box(L - 0.3, car.wb - floor, 0.05, 0, (floor + car.wb) / 2, s * iw, look.wall);
     parts.box(L - 0.3, H - 0.25 - wt, 0.05, 0, (wt + H - 0.25) / 2, s * iw, look.wall);
+    // 창(문 사이): 창 사이 벽 기둥과 창틀. 창 너머(승강장 벽)가 창틀 안에서만 보이게 한다
+    for (let i = 0; i <= doorXs.length; i++) {
+      const a = i === 0 ? -L / 2 + 0.15 : doorXs[i - 1] + 0.72;
+      const b = i === doorXs.length ? L / 2 - 0.15 : doorXs[i] - 0.72;
+      if (b - a < 0.3) continue;
+      const panes = Math.max(1, Math.round((b - a) / 1.6));
+      const pw = (b - a) / panes;
+      for (let k = 0; k <= panes; k++) parts.box(k === 0 || k === panes ? 0.22 : 0.14, wt - car.wb, 0.06, a + k * pw, (car.wb + wt) / 2, s * iw, look.wall);
+      for (let k = 0; k < panes; k++) {
+        const cx = a + (k + 0.5) * pw;
+        parts.box(pw - 0.1, 0.05, 0.07, cx, car.wb + 0.04, s * (iw - 0.01), '#8c9399');
+        parts.box(pw - 0.1, 0.05, 0.07, cx, wt - 0.04, s * (iw - 0.01), '#8c9399');
+        glassPanes.push([pw - 0.16, wt - car.wb - 0.1, cx, (car.wb + wt) / 2, s * (iw + 0.01)]);
+      }
+    }
     // 긴 의자(문 사이)
     for (let i = 0; i <= doorXs.length; i++) {
       const a = i === 0 ? -L / 2 + 0.5 : doorXs[i - 1] + 0.75;
@@ -872,6 +889,17 @@ function carCabin(spec, car, material) {
         parts.add(g, look.pole);
       }
     }
+    // 차 안에서 본 문: 문짝 두 장(위쪽 창), 가운데 틈, 문틀, 문 앞 바닥 노란 줄(사진의 차 안 문 모습)
+    for (const dx of doorXs) {
+      const dh = wt - floor + 0.05;
+      const zz = s * (iw - 0.02);
+      parts.box(1.3, dh, 0.04, dx, floor + dh / 2, zz, look.doorColor ?? '#c9cdd2');
+      parts.box(0.03, dh, 0.05, dx, floor + dh / 2, zz - s * 0.01, '#3a3f45');
+      for (const e of [-0.33, 0.33]) parts.box(0.46, 0.85, 0.05, dx + e, wt - 0.5, zz - s * 0.012, '#4a6070');
+      parts.box(1.44, 0.08, 0.06, dx, floor + dh, zz - s * 0.01, '#8c9399');
+      for (const e of [-0.7, 0.7]) parts.box(0.07, dh, 0.06, dx + e, floor + dh / 2, zz - s * 0.01, '#8c9399');
+      parts.box(1.3, 0.01, 0.12, dx, floor + 0.006, s * (iw - 0.12), '#e8b92a');
+    }
     // 문 위 안내 화면(노선 색 테두리)
     for (const dx of doorXs) {
       glow.box(0.7, 0.18, 0.03, dx, wt + 0.15, s * (iw - 0.03), '#ffb347');
@@ -892,6 +920,14 @@ function carCabin(spec, car, material) {
   }
   const group = new Group();
   group.add(new Mesh(parts.geometry(), material), new Mesh(glow.geometry(), new MeshBasicMaterial({ vertexColors: true })));
+  // 옅은 유리(창 너머가 조금 어둡게 보인다)
+  const glassMat = new MeshBasicMaterial({ color: 0x2a3a46, transparent: true, opacity: 0.35, depthWrite: false });
+  for (const [w, h, x, y, z] of glassPanes) {
+    const g = new Mesh(new PlaneGeometry(w, h), glassMat);
+    g.position.set(x, y, z);
+    g.rotation.y = z > 0 ? Math.PI : 0;
+    group.add(g);
+  }
   return {
     group,
     eye: new Vector3(-L * 0.3, floor + EYE + 0.25, 0.15),
@@ -980,7 +1016,9 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
   let heroAction = mixer.clipAction(hero.clips.idle);
   heroAction.play();
   let heroDone = () => {};
+  let sitting = false;
   mixer.addEventListener('finished', () => {
+    if (sitting) return;
     const idle = mixer.clipAction(hero.clips.idle);
     idle.reset().play();
     heroAction.crossFadeTo(idle, 0.4, false);
@@ -1595,8 +1633,9 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     const mk = (map, basic = false) => (basic ? new MeshBasicMaterial({ map, side: DoubleSide }) : new MeshLambertMaterial({ map, side: DoubleSide }));
     stMats = {
       ceil: mk(ceilingTexture(look.ceilStyle ?? 'panel', look.ceil ?? '#e9ebeb'), true),
-      wall: mk(wallTexture({ tile: look.wallTile ?? '#ece6da', band, grout: look.grout ?? null, square: Boolean(look.grout) })),
-      track: mk(wallTexture({ tile: look.trackTile ?? look.wall ?? '#e8e6e0', band, wave: look.wave ?? null, dark: true })),
+      // 벽 조명판은 두지 않는다(열차 창 너머로 판이 잘려 보여서, 사용자 의견)
+      wall: mk(wallTexture({ tile: look.wallTile ?? '#ece6da', band, ads: false, grout: look.grout ?? null, square: Boolean(look.grout) })),
+      track: mk(wallTexture({ tile: look.trackTile ?? look.wall ?? '#e8e6e0', band, ads: false, wave: look.wave ?? null, dark: true })),
       floor: mk(floorTexture(look.floor ?? '#c9cbcc')),
       roof: mk(roofTexture(look.roof ?? '#8e979e')),
     };
@@ -1868,14 +1907,50 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       mark();
     },
     playHero(id) {
+      // 일어서기: 앉아 있다가 다른 동작을 고르면 의자에서 일어서는 동작(standup)을 한 번 하고 그 동작을 한다
+      if (id !== 'sit' && id !== 'sitdown' && id !== 'standup' && sitting && hero.clips.standup) {
+        api.playHero('standup');
+        const done = (e) => {
+          if (e.action.getClip() !== hero.clips.standup) return;
+          mixer.removeEventListener('finished', done);
+          sitting = false;
+          api.playHero(id);
+        };
+        mixer.addEventListener('finished', done);
+        return;
+      }
+      // 앉기: 서 있다가 앉는 동작(sitdown)을 한 번 하고 앉아 있기(sit)로 넘어간다
+      if (id === 'sit' && hero.clips.sitdown && heroAction.getClip() !== hero.clips.sit) {
+        api.playHero('sitdown');
+        const done = (e) => {
+          if (e.action.getClip() !== hero.clips.sitdown) return;
+          mixer.removeEventListener('finished', done);
+          sitting = true;
+          api.playHero('sit');
+        };
+        mixer.addEventListener('finished', done);
+        return;
+      }
       const clip = hero.clips[id] ?? hero.clips.idle;
       const next = mixer.clipAction(clip);
       next.reset();
-      if (id === 'stand' || clip === hero.clips.idle) next.setLoop(LoopRepeat, Infinity);
+      // 앉기: 빈 자리(주인공 앞 긴 의자)로 옮겨 앉는다. 다른 동작이면 복도에 다시 선다
+      if (mode === 'cabin') {
+        const seat = id === 'sit' || id === 'sitdown' || id === 'standup' ? cabin.seats.find((st) => Math.abs(st.x - cabin.hero.x) < 0.6) : null;
+        if (seat) {
+          hero.root.position.set(seat.x, cabin.floor - 0.06, seat.z);
+          hero.root.rotation.set(0, seat.face > 0 ? 0 : Math.PI, 0);
+        } else {
+          hero.root.position.set(cabin.hero.x, cabin.hero.y, cabin.hero.z);
+          hero.root.rotation.set(0, -Math.PI / 2, 0);
+        }
+      }
+      if (id === 'stand' || id === 'sit' || clip === hero.clips.idle) next.setLoop(LoopRepeat, Infinity);
       else {
         next.setLoop(LoopOnce, 1);
         next.clampWhenFinished = true;
       }
+      sitting = id === 'sit' || id === 'sitdown' || id === 'standup';
       next.play();
       if (heroAction !== next) heroAction.crossFadeTo(next, 0.3, false);
       heroAction = next;

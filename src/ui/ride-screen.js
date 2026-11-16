@@ -160,7 +160,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
   // 차 안에 서 있는 주인공과 동작 고르기(다시 그려도 같은 주인공이 하던 동작을 이어 간다)
   const hero = createHeroActor({ reduceMotion });
-  const heroPicker = heroMotionPicker((id) => (sub3d && subView === 'cabin' ? sub3d.playHero(id) : hero.play(id)), { reduceMotion });
+  const heroPicker = heroMotionPicker((id) => (sub3d && subView === 'cabin' ? sub3d.playHero(id) : hero.play(id === 'sit' ? 'stand' : id)), { reduceMotion, sit: true });
   hero.onChange((id) => heroPicker.mark(id));
   /** 차 안에서 주인공이 서는 곳(그림 틀 안 %): 열차는 왼쪽 문 앞 바닥, 버스는 통로 앞쪽 */
   const HERO_PLACE = isBus ? { left: 30, bottom: 2, height: 56 } : { left: 11, bottom: 3, height: 66 };
