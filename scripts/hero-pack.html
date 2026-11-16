@@ -87,6 +87,12 @@ window.pack = async ({ base, clips: clipJobs, textureFile, fps, maxSec }) => {
         }
       }
       if (prop === 'position' && !keepHip) {
+        // 단위가 다른 파일(센티미터, 엉덩이 높이가 주인공의 3배를 넘으면): 첫 장면 엉덩이 높이를 주인공 엉덩이 높이에 맞춘다
+        const restHip = bones.find((b) => b.name === node).position;
+        if (Math.abs(values[1]) > restHip.y * 3) {
+          const k1 = restHip.y / values[1];
+          for (let k = 0; k < n * 3; k++) values[k] *= k1;
+        }
         // 엉덩이는 위아래로만 움직인다(좁은 복도에서 옆이나 뒤로 미끄러지지 않게): 앞뒤·옆은 묶인 자세 자리로
         const hip = bones.find((b) => b.name === node).position;
         for (let k = 0; k < n; k++) {
