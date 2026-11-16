@@ -1335,7 +1335,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     });
     return b;
   })();
-  const SEAT_HIP = 0.47; // 엉덩이 높이 맞춤 값(바닥에서, 미터). 재어 보니 실제 엉덩이 관절은 이보다 0.1m 위에 와서, 엉덩이 아래가 의자 윗면(0.5m)에 닿는다
+  const SEAT_HIP = 0.56; // 엉덩이 높이 맞춤 값(바닥에서, 미터). 0.47은 다리 굵기만큼 빠지고 0.62는 떠서(사용자 확인) 그 사이로 맞춤
   function cabinRequest(id) {
     if (id === 'sit') {
       if (cab.state !== 'stand') return;
