@@ -109,6 +109,14 @@ export const CITIES = [
   { code: 34050, name: '서산시' },
   { code: 34380, name: '태안군' },
   { code: 34390, name: '당진시' },
+  // 충북 넓히기(2026-11-18, getCtyCodeList로 확인): 보은·옥천·영동 말고 나머지. 증평군은 TAGO에 없다.
+  { code: 33010, name: '청주시' },
+  { code: 33020, name: '충주시' },
+  { code: 33030, name: '제천시' },
+  { code: 33350, name: '진천군' },
+  { code: 33360, name: '괴산군' },
+  { code: 33370, name: '음성군' },
+  { code: 33380, name: '단양군' },
 ];
 
 const key = readApiKey();

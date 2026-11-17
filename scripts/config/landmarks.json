@@ -2221,6 +2221,118 @@
       "osm": "way/892874476",
       "kind": "garden",
       "radius": 400
+    },
+    {
+      "id": "cheongnamdae",
+      "name": "청남대",
+      "city": "청주",
+      "osm": "way/968080608",
+      "kind": "park",
+      "radius": 500
+    },
+    {
+      "id": "sangdang_sanseong",
+      "name": "상당산성",
+      "city": "청주",
+      "osm": "way/563973122",
+      "kind": "fortress",
+      "radius": 500
+    },
+    {
+      "id": "tangeumdae",
+      "name": "탄금대",
+      "city": "충주",
+      "osm": "way/179562590",
+      "kind": "park",
+      "radius": 300
+    },
+    {
+      "id": "chungju_dam",
+      "name": "충주댐",
+      "city": "충주",
+      "osm": "way/200227245",
+      "kind": "lake",
+      "radius": 500
+    },
+    {
+      "id": "cheongpung_heritage",
+      "name": "청풍문화재단지",
+      "city": "제천",
+      "osm": "node/4388657789",
+      "kind": "hanok",
+      "radius": 350
+    },
+    {
+      "id": "beopjusa",
+      "name": "법주사",
+      "city": "보은",
+      "osm": "way/58586419",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "jeongjiyong_house",
+      "name": "정지용 생가",
+      "city": "옥천",
+      "osm": "node/5414365452",
+      "kind": "hanok",
+      "radius": 150
+    },
+    {
+      "id": "wollyubong",
+      "name": "월류봉",
+      "city": "영동",
+      "osm": "node/5187546525",
+      "kind": "mountain",
+      "radius": 400
+    },
+    {
+      "id": "nangye_museum",
+      "name": "난계국악박물관",
+      "city": "영동",
+      "osm": "node/368734856",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "nongdari",
+      "name": "농다리",
+      "city": "진천",
+      "osm": "way/1207394117",
+      "kind": "bridge",
+      "radius": 250
+    },
+    {
+      "id": "hwayang_gugok",
+      "name": "화양구곡",
+      "city": "괴산",
+      "osm": "node/724188922",
+      "kind": "valley",
+      "radius": 500
+    },
+    {
+      "id": "gamgok_church",
+      "name": "감곡성당",
+      "city": "음성",
+      "osm": "way/942121491",
+      "kind": "museum",
+      "radius": 150
+    },
+    {
+      "id": "dodam_sambong",
+      "name": "도담삼봉",
+      "city": "단양",
+      "osm": "node/10252764169",
+      "kind": "mountain",
+      "radius": 300
+    },
+    {
+      "id": "gosu_cave",
+      "name": "고수동굴",
+      "city": "단양",
+      "osm": "node/368662170",
+      "kind": "mountain",
+      "radius": 200
     }
   ]
 }

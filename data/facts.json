@@ -8297,6 +8297,461 @@
           "evidence": "아시아에서는 최초로 '세계의 아름다운 수목원'으로 인증하였다"
         }
       ]
+    },
+    "cheongnamdae": {
+      "name": "청남대",
+      "facts": [
+        {
+          "text": "대통령이 쉬러 오던 별장이었어요.",
+          "source": "한국어 위키백과: 청남대",
+          "url": "https://ko.wikipedia.org/wiki/청남대",
+          "checked": "2026-11-18",
+          "evidence": "대한민국의 대통령 전용 별장이었다"
+        },
+        {
+          "text": "1983년 12월에 다 지었어요.",
+          "source": "한국어 위키백과: 청남대",
+          "url": "https://ko.wikipedia.org/wiki/청남대",
+          "checked": "2026-11-18",
+          "evidence": "1983년 12월에 완공되었으며"
+        },
+        {
+          "text": "2003년 4월 18일에 모두에게 문을 열었어요.",
+          "source": "한국어 위키백과: 청남대",
+          "url": "https://ko.wikipedia.org/wiki/청남대",
+          "checked": "2026-11-18",
+          "evidence": "2003년에 갓 취임한 노무현 대통령의 지시로 동년 4월 18일에 전면 개방되었고"
+        },
+        {
+          "text": "대청호 바로 옆에 있어요.",
+          "source": "한국어 위키백과: 청남대",
+          "url": "https://ko.wikipedia.org/wiki/청남대",
+          "checked": "2026-11-18",
+          "evidence": "대청호와 인접한 곳이라"
+        }
+      ]
+    },
+    "sangdang_sanseong": {
+      "name": "상당산성",
+      "facts": [
+        {
+          "text": "백제 때 쌓은 산성이에요.",
+          "source": "한국어 위키백과: 청주 상당산성",
+          "url": "https://ko.wikipedia.org/wiki/청주_상당산성",
+          "checked": "2026-11-18",
+          "evidence": "삼국시대 백제가 쌓은 산성이다"
+        },
+        {
+          "text": "성벽 둘레는 4km 100m예요.",
+          "source": "한국어 위키백과: 청주 상당산성",
+          "url": "https://ko.wikipedia.org/wiki/청주_상당산성",
+          "checked": "2026-11-18",
+          "evidence": "둘레가 4.1km"
+        },
+        {
+          "text": "지금 모습은 조선 때 크게 고쳐 쌓은 거예요.",
+          "source": "한국어 위키백과: 청주 상당산성",
+          "url": "https://ko.wikipedia.org/wiki/청주_상당산성",
+          "checked": "2026-11-18",
+          "evidence": "숙종 42년(1716년)부터 영조 23년(1747년)까지 대대적으로 개축되었다"
+        },
+        {
+          "text": "동문, 서문, 남문 세 문이 남아 있어요.",
+          "source": "한국어 위키백과: 청주 상당산성",
+          "url": "https://ko.wikipedia.org/wiki/청주_상당산성",
+          "checked": "2026-11-18",
+          "evidence": "동문·서문·남문의 3개문"
+        }
+      ]
+    },
+    "tangeumdae": {
+      "name": "탄금대",
+      "facts": [
+        {
+          "text": "우륵이 가야금을 타던 곳이라서 붙은 이름이에요.",
+          "source": "한국어 위키백과: 충주 탄금대",
+          "url": "https://ko.wikipedia.org/wiki/충주_탄금대",
+          "checked": "2026-11-18",
+          "evidence": "우륵이 가야금을 연주하던 곳이라 하여 명칭이 붙은 곳"
+        },
+        {
+          "text": "남한강이 절벽을 휘감아 흘러요.",
+          "source": "한국어 위키백과: 충주 탄금대",
+          "url": "https://ko.wikipedia.org/wiki/충주_탄금대",
+          "checked": "2026-11-18",
+          "evidence": "남한강이 절벽을 따라 휘감아 돌고"
+        },
+        {
+          "text": "소나무 숲이 울창해요.",
+          "source": "한국어 위키백과: 충주 탄금대",
+          "url": "https://ko.wikipedia.org/wiki/충주_탄금대",
+          "checked": "2026-11-18",
+          "evidence": "울창한 송림이 우거져 있어"
+        },
+        {
+          "text": "2008년에 나라의 명승이 됐어요.",
+          "source": "한국어 위키백과: 충주 탄금대",
+          "url": "https://ko.wikipedia.org/wiki/충주_탄금대",
+          "checked": "2026-11-18",
+          "evidence": "2008년 7월 9일 대한민국의 명승 제42호로 지정되었다"
+        }
+      ]
+    },
+    "chungju_dam": {
+      "name": "충주댐",
+      "facts": [
+        {
+          "text": "남한강을 막아 만든 댐이에요.",
+          "source": "한국어 위키백과: 충주댐",
+          "url": "https://ko.wikipedia.org/wiki/충주댐",
+          "checked": "2026-11-18",
+          "evidence": "남한강 유역의 수자원을 개발하여"
+        },
+        {
+          "text": "우리나라에서 가장 큰 콘크리트 댐이에요.",
+          "source": "한국어 위키백과: 충주댐",
+          "url": "https://ko.wikipedia.org/wiki/충주댐",
+          "checked": "2026-11-18",
+          "evidence": "대한민국 최대의 콘크리트 중력식 댐이다"
+        },
+        {
+          "text": "댐은 높이 97m 50cm, 길이 447m예요.",
+          "source": "한국어 위키백과: 충주댐",
+          "url": "https://ko.wikipedia.org/wiki/충주댐",
+          "checked": "2026-11-18",
+          "evidence": "높이 97.5m, 길이 447m"
+        },
+        {
+          "text": "약 30만 집이 1년 동안 쓸 전기를 만들어요.",
+          "source": "한국어 위키백과: 충주댐",
+          "url": "https://ko.wikipedia.org/wiki/충주댐",
+          "checked": "2026-11-18",
+          "evidence": "약 30만 가구가 1년동안 사용할 수 있는 전력량을 생산한다"
+        }
+      ]
+    },
+    "cheongpung_heritage": {
+      "name": "청풍문화재단지",
+      "facts": [
+        {
+          "text": "충주댐 물에 잠길 문화유산을 옮겨 온 곳이에요.",
+          "source": "한국어 위키백과: 청풍 문화재 단지",
+          "url": "https://ko.wikipedia.org/wiki/청풍_문화재_단지",
+          "checked": "2026-11-18",
+          "evidence": "수몰지역 내에 산재되어 있는 문화유산을 1983년부터 만6천 평의 부지 위에 원형대로 이전 복원하여"
+        },
+        {
+          "text": "1985년에 문을 열었어요.",
+          "source": "한국어 위키백과: 청풍 문화재 단지",
+          "url": "https://ko.wikipedia.org/wiki/청풍_문화재_단지",
+          "checked": "2026-11-18",
+          "evidence": "1985년에 개장하였다"
+        },
+        {
+          "text": "옛날 살림 물건이 2천 개 넘게 있어요.",
+          "source": "한국어 위키백과: 청풍 문화재 단지",
+          "url": "https://ko.wikipedia.org/wiki/청풍_문화재_단지",
+          "checked": "2026-11-18",
+          "evidence": "생활유물 2천여 점이 보관되어 있다"
+        }
+      ]
+    },
+    "beopjusa": {
+      "name": "법주사",
+      "facts": [
+        {
+          "text": "속리산에 있는 절이에요.",
+          "source": "한국어 위키백과: 법주사",
+          "url": "https://ko.wikipedia.org/wiki/법주사",
+          "checked": "2026-11-18",
+          "evidence": "충청북도 보은군, 속리산에 있는 절이다"
+        },
+        {
+          "text": "신라 때인 553년에 처음 지었어요.",
+          "source": "한국어 위키백과: 법주사",
+          "url": "https://ko.wikipedia.org/wiki/법주사",
+          "checked": "2026-11-18",
+          "evidence": "신라 진흥왕 14년(553년)에 의신조사가 창건하였다"
+        },
+        {
+          "text": "팔상전은 우리나라에 하나뿐인 옛 나무 탑이에요.",
+          "source": "한국어 위키백과: 법주사",
+          "url": "https://ko.wikipedia.org/wiki/법주사",
+          "checked": "2026-11-18",
+          "evidence": "대한민국의 유일한 고식(古式) 목탑인 팔상전"
+        },
+        {
+          "text": "2018년에 유네스코 세계유산이 되었어요.",
+          "source": "한국어 위키백과: 법주사",
+          "url": "https://ko.wikipedia.org/wiki/법주사",
+          "checked": "2026-11-18",
+          "evidence": "2018년, '산사, 한국의 산지승원'이라는 명칭으로 유네스코 세계문화유산에 등재되었다"
+        }
+      ]
+    },
+    "jeongjiyong_house": {
+      "name": "정지용 생가",
+      "facts": [
+        {
+          "text": "시인 정지용이 태어나 자란 집이에요.",
+          "source": "한국어 위키백과: 옥천 정지용생가",
+          "url": "https://ko.wikipedia.org/wiki/옥천_정지용생가",
+          "checked": "2026-11-18",
+          "evidence": "시인 정지용이 태어나 자랐던"
+        },
+        {
+          "text": "정지용은 1902년에 태어났어요.",
+          "source": "한국어 위키백과: 옥천 정지용생가",
+          "url": "https://ko.wikipedia.org/wiki/옥천_정지용생가",
+          "checked": "2026-11-18",
+          "evidence": "1902년 시인 정지용이 태어나게 되었던 집으로"
+        },
+        {
+          "text": "1996년에 초가집 두 채를 다시 지었어요.",
+          "source": "한국어 위키백과: 옥천 정지용생가",
+          "url": "https://ko.wikipedia.org/wiki/옥천_정지용생가",
+          "checked": "2026-11-18",
+          "evidence": "1996년에 생가지에 초가집 두 채를 복원하였으며"
+        },
+        {
+          "text": "바로 옆에 정지용문학관이 있어요.",
+          "source": "한국어 위키백과: 옥천 정지용생가",
+          "url": "https://ko.wikipedia.org/wiki/옥천_정지용생가",
+          "checked": "2026-11-18",
+          "evidence": "바로 옆에 정지용 시인의 문학세계를 전시하는 정지용문학관이"
+        }
+      ]
+    },
+    "wollyubong": {
+      "name": "월류봉",
+      "facts": [
+        {
+          "text": "달도 머물다 간다는 봉우리예요.",
+          "source": "한국어 위키백과: 월류봉",
+          "url": "https://ko.wikipedia.org/wiki/월류봉",
+          "checked": "2026-11-18",
+          "evidence": "달도 머물다 간다는 월류봉(月留峰)"
+        },
+        {
+          "text": "높이는 407m예요.",
+          "source": "한국어 위키백과: 월류봉",
+          "url": "https://ko.wikipedia.org/wiki/월류봉",
+          "checked": "2026-11-18",
+          "evidence": "407 m의"
+        },
+        {
+          "text": "꼭대기에 월류정이라는 정자가 있어요.",
+          "source": "한국어 위키백과: 월류봉",
+          "url": "https://ko.wikipedia.org/wiki/월류봉",
+          "checked": "2026-11-18",
+          "evidence": "봉우리 꼭대기에는 월류정이 자리하고 있다"
+        },
+        {
+          "text": "한천팔경 여덟 경치 가운데 하나예요.",
+          "source": "한국어 위키백과: 월류봉",
+          "url": "https://ko.wikipedia.org/wiki/월류봉",
+          "checked": "2026-11-18",
+          "evidence": "한천팔경(寒泉八景)중 하나다"
+        }
+      ]
+    },
+    "nangye_museum": {
+      "name": "난계국악박물관",
+      "facts": [
+        {
+          "text": "조선 초 음악가 박연을 알려 주는 박물관이에요.",
+          "source": "한국어 위키백과: 난계국악박물관",
+          "url": "https://ko.wikipedia.org/wiki/난계국악박물관",
+          "checked": "2026-11-18",
+          "evidence": "조선 초기의 음악가인, 난계 박연을 주제로"
+        },
+        {
+          "text": "옛 악기와 옷, 책이 있어요.",
+          "source": "한국어 위키백과: 난계국악박물관",
+          "url": "https://ko.wikipedia.org/wiki/난계국악박물관",
+          "checked": "2026-11-18",
+          "evidence": "전통악기, 복색, 고서 등을 전시하여"
+        },
+        {
+          "text": "2층에서는 악기를 직접 연주해 볼 수 있어요.",
+          "source": "한국어 위키백과: 난계국악박물관",
+          "url": "https://ko.wikipedia.org/wiki/난계국악박물관",
+          "checked": "2026-11-18",
+          "evidence": "2층 체험장은 운영 악기를 연주해볼 수 있도록"
+        },
+        {
+          "text": "2000년 9월 23일에 문을 열었어요.",
+          "source": "한국어 위키백과: 난계국악박물관",
+          "url": "https://ko.wikipedia.org/wiki/난계국악박물관",
+          "checked": "2026-11-18",
+          "evidence": "2000년 9월 23일 개관하였다"
+        }
+      ]
+    },
+    "nongdari": {
+      "name": "농다리",
+      "facts": [
+        {
+          "text": "세금천 냇물에 돌로 놓은 다리예요.",
+          "source": "한국어 위키백과: 진천 농다리",
+          "url": "https://ko.wikipedia.org/wiki/진천_농다리",
+          "checked": "2026-11-18",
+          "evidence": "세금천에 놓여 있는 다리이다"
+        },
+        {
+          "text": "고려 초에 임 장군이 세웠다고 적혀 있어요.",
+          "source": "한국어 위키백과: 진천 농다리",
+          "url": "https://ko.wikipedia.org/wiki/진천_농다리",
+          "checked": "2026-11-18",
+          "evidence": "고려 초 임장군이 세웠으며"
+        },
+        {
+          "text": "작은 돌을 물고기 비늘처럼 쌓았어요.",
+          "source": "한국어 위키백과: 진천 농다리",
+          "url": "https://ko.wikipedia.org/wiki/진천_농다리",
+          "checked": "2026-11-18",
+          "evidence": "작은 돌을 물고기 비늘처럼 쌓아 올린 후"
+        },
+        {
+          "text": "지네처럼 길게 28칸이 이어져요.",
+          "source": "한국어 위키백과: 진천 농다리",
+          "url": "https://ko.wikipedia.org/wiki/진천_농다리",
+          "checked": "2026-11-18",
+          "evidence": "지네모양을 본떠 길게 늘여 만들어졌으며, 총 28칸의 마디모양으로"
+        }
+      ]
+    },
+    "hwayang_gugok": {
+      "name": "화양구곡",
+      "facts": [
+        {
+          "text": "속리산 국립공원 안의 화양천 계곡이에요.",
+          "source": "한국어 위키백과: 괴산 화양구곡",
+          "url": "https://ko.wikipedia.org/wiki/괴산_화양구곡",
+          "checked": "2026-11-18",
+          "evidence": "화양구곡은 속리산국립공원 내 화양천을"
+        },
+        {
+          "text": "3km를 따라 아홉 곳의 멋진 경치가 있어요.",
+          "source": "한국어 위키백과: 괴산 화양구곡",
+          "url": "https://ko.wikipedia.org/wiki/괴산_화양구곡",
+          "checked": "2026-11-18",
+          "evidence": "3 km에 걸쳐 하류에서 상류로 올라가며 제1곡 경천벽부터 제9곡 파곶까지"
+        },
+        {
+          "text": "송시열이 공부하고 제자를 가르친 암서재가 있어요.",
+          "source": "한국어 위키백과: 괴산 화양구곡",
+          "url": "https://ko.wikipedia.org/wiki/괴산_화양구곡",
+          "checked": "2026-11-18",
+          "evidence": "송시열(宋時烈)이 정계에서 은퇴한 후 학문을 닦고 제자들을 가르치던 곳이다"
+        },
+        {
+          "text": "2014년에 나라의 명승이 됐어요.",
+          "source": "한국어 위키백과: 괴산 화양구곡",
+          "url": "https://ko.wikipedia.org/wiki/괴산_화양구곡",
+          "checked": "2026-11-18",
+          "evidence": "2014년 8월 28일 대한민국의 명승 제110호로 지정되었다"
+        }
+      ]
+    },
+    "gamgok_church": {
+      "name": "감곡성당",
+      "facts": [
+        {
+          "text": "1896년에 프랑스 신부가 세운 성당이에요.",
+          "source": "한국어 위키백과: 감곡성당",
+          "url": "https://ko.wikipedia.org/wiki/감곡성당",
+          "checked": "2026-11-18",
+          "evidence": "1896년 프랑스인 임가밀로 신부가 건립한"
+        },
+        {
+          "text": "충청북도에서 가장 먼저 세운 성당이에요.",
+          "source": "한국어 위키백과: 감곡성당",
+          "url": "https://ko.wikipedia.org/wiki/감곡성당",
+          "checked": "2026-11-18",
+          "evidence": "충청북도 내에서는 최초로 건립된 성당이다"
+        },
+        {
+          "text": "신부님은 학교를 세워 한글을 가르쳤어요.",
+          "source": "한국어 위키백과: 감곡성당",
+          "url": "https://ko.wikipedia.org/wiki/감곡성당",
+          "checked": "2026-11-18",
+          "evidence": "학교를 설립하여 일본 식민지하에서 억압받는 청년과 아이들에게 민족의식을 심어주고 한글을 가르쳐"
+        },
+        {
+          "text": "지금 성당 건물은 1930년에 지었어요.",
+          "source": "한국어 위키백과: 감곡성당",
+          "url": "https://ko.wikipedia.org/wiki/감곡성당",
+          "checked": "2026-11-18",
+          "evidence": "1930년 지금의 고딕식 성당을 건립하고"
+        }
+      ]
+    },
+    "dodam_sambong": {
+      "name": "도담삼봉",
+      "facts": [
+        {
+          "text": "남한강 깊은 물에 봉우리 세 개가 솟아 있어요.",
+          "source": "한국어 위키백과: 도담삼봉",
+          "url": "https://ko.wikipedia.org/wiki/도담삼봉",
+          "checked": "2026-11-18",
+          "evidence": "세 개의 봉우리가 우뚝 솟아"
+        },
+        {
+          "text": "가운데 큰 봉우리는 장군봉이에요.",
+          "source": "한국어 위키백과: 도담삼봉",
+          "url": "https://ko.wikipedia.org/wiki/도담삼봉",
+          "checked": "2026-11-18",
+          "evidence": "크고 높은 장군봉을 중심으로"
+        },
+        {
+          "text": "단양팔경 가운데 으뜸으로 꼽혀요.",
+          "source": "한국어 위키백과: 도담삼봉",
+          "url": "https://ko.wikipedia.org/wiki/도담삼봉",
+          "checked": "2026-11-18",
+          "evidence": "단양팔경 중 으뜸으로 손꼽히며"
+        },
+        {
+          "text": "정도전은 이곳을 아껴 호를 삼봉이라고 했어요.",
+          "source": "한국어 위키백과: 도담삼봉",
+          "url": "https://ko.wikipedia.org/wiki/도담삼봉",
+          "checked": "2026-11-18",
+          "evidence": "자신을 삼봉이라 자호할 정도로 이곳을 사랑했다고 전한다"
+        }
+      ]
+    },
+    "gosu_cave": {
+      "name": "고수동굴",
+      "facts": [
+        {
+          "text": "석회암으로 된 자연 동굴이에요.",
+          "source": "한국어 위키백과: 단양 고수동굴",
+          "url": "https://ko.wikipedia.org/wiki/단양_고수동굴",
+          "checked": "2026-11-18",
+          "evidence": "석회암 자연동굴"
+        },
+        {
+          "text": "들어가 볼 수 있는 길이는 1km 700m예요.",
+          "source": "한국어 위키백과: 단양 고수동굴",
+          "url": "https://ko.wikipedia.org/wiki/단양_고수동굴",
+          "checked": "2026-11-18",
+          "evidence": "현재 개방된 길이는 1.7 km"
+        },
+        {
+          "text": "종유석과 석순이 많이 자랐어요.",
+          "source": "한국어 위키백과: 단양 고수동굴",
+          "url": "https://ko.wikipedia.org/wiki/단양_고수동굴",
+          "checked": "2026-11-18",
+          "evidence": "다양한 형태의 종유석과 석순이 잘 발달되어 있으며"
+        },
+        {
+          "text": "1976년에 천연기념물이 됐어요.",
+          "source": "한국어 위키백과: 단양 고수동굴",
+          "url": "https://ko.wikipedia.org/wiki/단양_고수동굴",
+          "checked": "2026-11-18",
+          "evidence": "1976년 9월 1일 천연기념물 제256호로 지정되었다"
+        }
+      ]
     }
   },
   "stationLooks": {
@@ -11418,10 +11873,11 @@
           "pattern": "splash",
           "vehicle": "step",
           "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
-          "source": "나무위키 「충청북도 시내버스」",
-          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4%EB%B2%84%EC%8A%A4",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
           "confidence": "low",
-          "note": "파란 원(북)과 색동무늬는 확인. 바탕 흰색과 색동 색·위치는 추정"
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 지금 facts.json 값과 색은 같음. 다시 확인했으나 바탕·색동 색을 적은 글은 못 찾아 todo를 붙임",
+          "todo": true
         }
       },
       "옥천": {
@@ -11436,10 +11892,11 @@
           "pattern": "splash",
           "vehicle": "step",
           "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
-          "source": "나무위키 「충청북도 시내버스」",
-          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4%EB%B2%84%EC%8A%A4",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
           "confidence": "low",
-          "note": "파란 원(북)과 색동무늬는 확인. 바탕 흰색과 색동 색·위치는 추정"
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 지금 facts.json 값과 색은 같음. 다시 확인했으나 바탕·색동 색을 적은 글은 못 찾아 todo를 붙임",
+          "todo": true
         }
       },
       "영동": {
@@ -11454,10 +11911,11 @@
           "pattern": "splash",
           "vehicle": "step",
           "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
-          "source": "나무위키 「충청북도 시내버스」",
-          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4%EB%B2%84%EC%8A%A4",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
           "confidence": "low",
-          "note": "파란 원(북)과 색동무늬는 확인. 바탕 흰색과 색동 색·위치는 추정"
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 지금 facts.json 값과 색은 같음. 다시 확인했으나 바탕·색동 색을 적은 글은 못 찾아 todo를 붙임",
+          "todo": true
         }
       },
       "광주": {
@@ -12627,6 +13085,139 @@
           "url": "https://namu.wiki/w/%EC%98%88%EC%82%B0%EA%B5%90%ED%86%B5",
           "confidence": "medium",
           "note": "사진: 419번 중형(예산교통), 앞·창 둘레 주황, 뒤·아래 흰색, 뒷문 옆 빨간 칸. 나무위키: '신차 출고시 서울 구도색이었던 몬드리안 도색을 사용한다'. 몬드리안 칸 배치는 단순화함"
+        }
+      },
+      "청주": {
+        "types": [],
+        "default": {
+          "type": "시내",
+          "lower": "#ffffff",
+          "upper": "#ffffff",
+          "roof": "#ffffff",
+          "front": "#ffffff",
+          "stripe": "#1f5fbf",
+          "pattern": "splash",
+          "vehicle": "step",
+          "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」; 나무위키 「청주시 시내버스」; 뉴시스 2026-11-07",
+          "url": "https://namu.wiki/w/%EC%B2%AD%EC%A3%BC%EC%8B%9C%20%EC%8B%9C%EB%82%B4%EB%B2%84%EC%8A%A4",
+          "confidence": "low",
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 청주 문서 \"도색은 2000년부터 사용 중인 북을 형상화한 충청북도 공용 도색을 사용한다.\" 뉴시스(2026-11-07): 지금 디자인은 \"1999년 충북도가 지정한 것\", 새 디자인은 2027년 하반기부터 순차 도색(색은 미정). 좌석 도색 차는 「청주시 시내버스/차량」에 \"2025년 12월에 한성운수를 마지막으로 전멸\"이라 따로 안 나눔. 범퍼 색은 회사마다 다름(검정·파랑)",
+          "todo": true
+        }
+      },
+      "충주": {
+        "types": [],
+        "default": {
+          "type": "시내",
+          "lower": "#ffffff",
+          "upper": "#ffffff",
+          "roof": "#ffffff",
+          "front": "#ffffff",
+          "stripe": "#1f5fbf",
+          "pattern": "splash",
+          "vehicle": "step",
+          "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」; 나무위키 「충주시 시내버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
+          "confidence": "low",
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 충주 문서 \"기존 내연기관 버스들은 충청북도 공용도색을 적용했으나, 전기 저상버스들은 앞부분 가운데에만 색을 입히고 나머지 부분은 무도색으로 굴리고 있다.\" 충북 문서 각주 \"무도색 혹은 위는 파랑 아래는 흰색 도색을 새로 출고하고 있다\"(2022년 뒤 신차). 노선 번호로 전기·신차를 가를 근거가 없어 종류를 안 나눔",
+          "todo": true
+        }
+      },
+      "제천": {
+        "types": [],
+        "default": {
+          "type": "시내",
+          "lower": "#ffffff",
+          "upper": "#ffffff",
+          "roof": "#ffffff",
+          "front": "#ffffff",
+          "stripe": "#1f5fbf",
+          "pattern": "splash",
+          "vehicle": "step",
+          "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
+          "confidence": "low",
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 충북 문서 \"제천도 아폴로 전기버스 차량 한정으로 충북 공용 도색에서 조금 변형된 색상을 사용하고 있다.\" 변형 색 이름은 없고 번호로 가를 근거도 없어 안 나눔. 「제천시 시내버스」 문서에는 도색 설명 없음",
+          "todo": true
+        }
+      },
+      "진천": {
+        "types": [],
+        "default": {
+          "type": "농어촌",
+          "lower": "#ffffff",
+          "upper": "#ffffff",
+          "roof": "#ffffff",
+          "front": "#ffffff",
+          "stripe": "#1f5fbf",
+          "pattern": "splash",
+          "vehicle": "step",
+          "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
+          "confidence": "low",
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 「진천군·음성군 농어촌버스」와 그 /차량 문서에는 도색 설명 없음. 충북 단일 도색 문장에 기댐",
+          "todo": true
+        }
+      },
+      "괴산": {
+        "types": [],
+        "default": {
+          "type": "농어촌",
+          "lower": "#ffffff",
+          "upper": "#ffffff",
+          "roof": "#ffffff",
+          "front": "#ffffff",
+          "stripe": "#1f5fbf",
+          "pattern": "splash",
+          "vehicle": "step",
+          "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
+          "confidence": "low",
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 「괴산군·증평군 농어촌버스」 문서에는 도색 설명 없음. 충북 단일 도색 문장에 기댐",
+          "todo": true
+        }
+      },
+      "음성": {
+        "types": [],
+        "default": {
+          "type": "농어촌",
+          "lower": "#ffffff",
+          "upper": "#ffffff",
+          "roof": "#ffffff",
+          "front": "#ffffff",
+          "stripe": "#1f5fbf",
+          "pattern": "splash",
+          "vehicle": "step",
+          "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
+          "confidence": "low",
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 「진천군·음성군 농어촌버스」와 그 /차량 문서에는 도색 설명 없음. 충북 단일 도색 문장에 기댐",
+          "todo": true
+        }
+      },
+      "단양": {
+        "types": [],
+        "default": {
+          "type": "농어촌",
+          "lower": "#ffffff",
+          "upper": "#ffffff",
+          "roof": "#ffffff",
+          "front": "#ffffff",
+          "stripe": "#1f5fbf",
+          "pattern": "splash",
+          "vehicle": "step",
+          "desc": "북(파란 원)과 색동 줄무늬를 그린 충북 공용 도색으로, 시내버스와 농어촌버스가 함께 써요.",
+          "source": "나무위키 「충청북도 시내, 농어촌버스」",
+          "url": "https://namu.wiki/w/%EC%B6%A9%EC%B2%AD%EB%B6%81%EB%8F%84%20%EC%8B%9C%EB%82%B4,%20%EB%86%8D%EC%96%B4%EC%B4%8C%EB%B2%84%EC%8A%A4",
+          "confidence": "low",
+          "note": "나무위키 \"2000년경부터 현재까지 북과 색동무늬를 형상화한 도색\", \"모든 시군 버스의 도색이 단일화 되어 있다.\" 좌석 시범 도색 각주 \"파란색 원 부분이 녹색이었고\"로 보통 차의 원이 파란색임을 짐작. 바탕 흰색, 색동 색과 위치는 글로 확인 못 함(사진 필요). 「단양군 농어촌버스」 문서에는 도색 설명 없음. 충북 단일 도색 문장에 기댐",
+          "todo": true
         }
       }
     }

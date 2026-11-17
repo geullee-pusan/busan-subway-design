@@ -80,6 +80,7 @@ export function legendBox({ view = '실제 지도', showDesign = false, future =
       ['대전', '대전'],
       ['세종', '세종'],
       ['충남', '충남'],
+      ['충북', '충북'],
       ['이웃', '이웃 시·군'],
     ]) {
       const item = element('li');

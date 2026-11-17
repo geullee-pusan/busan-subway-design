@@ -73,6 +73,7 @@ const CITY_COLORS = {
   대전: ['#F7D6C8', '#F0C2AE', '#FAE4DA'],
   세종: ['#D6D9F2', '#C4C8EA'],
   충남: ['#EEE0CC', '#E5D1B5', '#F4EADC'],
+  충북: ['#D3EAE0', '#BFE0D2', '#E3F2EB'],
   이웃: ['#E6E6E0', '#DADAD2', '#EEEEE8'],
 };
 
@@ -97,6 +98,8 @@ function districtParts(name) {
   if (name.startsWith('대전광역시')) return { city: '대전', short: rest, main: true };
   if (name.startsWith('세종특별자치시')) return { city: '세종', short: '세종시', main: true };
   if (name.startsWith('충청남도')) return { city: '충남', short: rest, main: true };
+  // 충북(2026-11-18)
+  if (name.startsWith('충청북도')) return { city: '충북', short: rest, main: true };
   // 지도 네모 안에 함께 들어온 이웃 시·군
   return { city: rest, short: rest, main: false };
 }
