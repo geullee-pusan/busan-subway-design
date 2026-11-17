@@ -12421,22 +12421,51 @@
         }
       },
       "아산": {
-        "types": [],
+        "types": [
+          {
+            "type": "충남형 M버스",
+            "match": "^2000$",
+            "lower": "#E1251B",
+            "upper": "#E1251B",
+            "roof": "#FFFFFF",
+            "front": "#E1251B",
+            "stripe": null,
+            "pattern": "solid",
+            "vehicle": "coach",
+            "desc": "빨간색으로 칠한 충남형 M버스예요.",
+            "source": "사용자가 보내 준 아산 시내버스 사진(2026-11-18)",
+            "confidence": "medium",
+            "note": "사진: 2000번(공주대·평택지제역) 고상 좌석버스, 빨간 몸통, 흰 지붕 냉방기. 다른 번호(1000·1001·1100·1200)는 사진이 없어 넣지 않음"
+          },
+          {
+            "type": "마을(공영)",
+            "match": "^(d{1,2}(-d+)?|심야d+)$",
+            "lower": "#3FA535",
+            "upper": "#3FA535",
+            "roof": "#F2F2EE",
+            "front": "#3FA535",
+            "stripe": "#2B6CC4",
+            "pattern": "solid",
+            "vehicle": "mini",
+            "desc": "초록색으로 칠한 작은 마을버스예요.",
+            "source": "사용자가 보내 준 아산 시내버스 사진(2026-11-18); 사용자 설명(공영버스는 마을버스)",
+            "confidence": "medium",
+            "note": "사진: 46번 공영버스(아산시시설관리공단) 중형, 초록 몸통, 흰 지붕, 지붕 아래 얇은 파란 띠. 번호대는 TAGO routetp 지선버스(1~2자리, -가지, 심야)에 맞춤"
+          }
+        ],
         "default": {
-          "type": "기본",
-          "lower": "#FFFFFF",
-          "upper": "#FFFFFF",
+          "type": "일반",
+          "lower": "#1F6FD1",
+          "upper": "#1F6FD1",
           "roof": "#FFFFFF",
-          "front": null,
+          "front": "#1F6FD1",
           "stripe": null,
           "pattern": "solid",
           "vehicle": "step",
-          "desc": "시내버스예요.",
-          "source": "나무위키 「아산시 시내버스」(색 이름 없음)",
-          "url": "https://namu.wiki/w/아산시%20시내버스",
-          "confidence": "low",
-          "note": "도색 절에 사진뿐이고 색 이름이 없음. 확인된 것은 '2021년 이후 … 완전한 떡칠도색'(천안과 같음)뿐. 위키백과·차량 문서·검색에도 없음. 색은 자리표시",
-          "todo": true
+          "desc": "파란색으로 칠한 시내버스예요.",
+          "source": "사용자가 보내 준 아산 시내버스 사진(2026-11-18)",
+          "confidence": "medium",
+          "note": "사진: 일반 시내버스(아산여객, 계단), 파란 몸통, 흰 지붕. 500번 전기 저상버스(온양교통)도 파란 몸통이나 창 둘레가 검고 초록 줄이 있음. 번호로 전기버스를 가를 근거가 없어 나누지 않음"
         }
       },
       "서산": {
