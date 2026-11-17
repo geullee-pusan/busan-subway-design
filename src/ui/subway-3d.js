@@ -1215,7 +1215,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     const obj = cloneSkinned(kind.root);
     obj.scale.setScalar(1.62 + cellNoise(i, 3, 3) * 0.18);
     obj.position.set(place.x, cabin.floor - 0.06, place.z);
-    obj.rotation.y = place.stand ? (place.z > 0 ? Math.PI : 0) + (cellNoise(i, 5, 5) - 0.5) * 1.2 : place.face > 0 ? 0 : Math.PI;
+    obj.rotation.y = place.stand ? (place.z > 0 ? 0 : Math.PI) + (cellNoise(i, 5, 5) - 0.5) * 1.2 : place.face > 0 ? 0 : Math.PI;
     obj.userData.slot = nextSlot++;
     cabin.group.add(obj);
     const sd = { obj, mixer: new AnimationMixer(obj), kind, seat: place, state };
@@ -1573,7 +1573,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
         if (sd.seat.stand) {
           if (walkRider(sd, sd.seat.x, sd.seat.z, dt)) {
             sd.state = 'standing';
-            sd.obj.rotation.y = sd.seat.z > 0 ? Math.PI : 0;
+            sd.obj.rotation.y = sd.seat.z > 0 ? 0 : Math.PI;
             riderPlay(sd, idleNameOf(sd.kind, sd.obj.userData.slot), true);
           }
         } else if (walkRider(sd, sd.seat.x, sd.seat.z + sd.seat.face * 0.35, dt)) sd.state = 'turn';
