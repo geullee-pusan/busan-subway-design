@@ -31,7 +31,9 @@ test('로마자 표기: 부산 역 이름 가운데 소리대로 적은 공식 �
   const stations = JSON.parse(readFileSync(resolve(ROOT, 'data/build/stations.json'), 'utf8')).stations;
   const norm = (text) => text.toLowerCase().replace(/[^a-z]/g, '');
   const pairs = new Map();
-  for (const s of stations) if (s.nameEn && /^[가-힣]+$/.test(s.name) && !pairs.has(s.name)) pairs.set(s.name, s.nameEn);
+  // 부산 노선(1~4호선, 부산김해경전철, 동해선)만 본다. 대전 1호선 영어 이름(City Hall, Yuseong Spa 등)은 뜻으로 옮긴 것이 많다.
+  const busan = new Set(['1', '2', '3', '4', 'BGL', 'DH']);
+  for (const s of stations) if (busan.has(s.line) && s.nameEn && /^[가-힣]+$/.test(s.name) && !pairs.has(s.name)) pairs.set(s.name, s.nameEn);
   let same = 0;
   for (const [name, en] of pairs) if (norm(romanize(name)) === norm(en)) same += 1;
   // 다른 것은 뜻으로 옮긴 이름(Dadaepo Beach, City Hall)이나 예전 표기(Dongeui)다.

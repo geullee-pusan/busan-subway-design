@@ -2525,7 +2525,7 @@
     "J101": {
       "name": "판암",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Panam",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2534,7 +2534,7 @@
     "J102": {
       "name": "신흥",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Sinheung",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2543,7 +2543,7 @@
     "J103": {
       "name": "대동",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Dae-dong",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2552,7 +2552,7 @@
     "J104": {
       "name": "대전역",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Daejeon Station",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2561,7 +2561,7 @@
     "J105": {
       "name": "중앙로",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Jungangno",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2570,7 +2570,7 @@
     "J106": {
       "name": "중구청",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Jung-gu Office",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2579,7 +2579,7 @@
     "J107": {
       "name": "서대전네거리",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Seodaejeonnegeori",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2588,7 +2588,7 @@
     "J108": {
       "name": "오룡",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Oryong",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2597,7 +2597,7 @@
     "J109": {
       "name": "용문",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Yongmun",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2606,7 +2606,7 @@
     "J110": {
       "name": "탄방",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Tanbang",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2615,7 +2615,7 @@
     "J111": {
       "name": "시청",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "City Hall",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2624,7 +2624,7 @@
     "J112": {
       "name": "정부청사",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Government Complex Daejeon",
       "address": null,
       "origin": null,
       "openedOn": "2006-03-16",
@@ -2633,7 +2633,7 @@
     "J113": {
       "name": "갈마",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Galma",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2642,7 +2642,7 @@
     "J114": {
       "name": "월평",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Wolpyeong",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2651,7 +2651,7 @@
     "J115": {
       "name": "갑천",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Gapcheon",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2660,7 +2660,7 @@
     "J116": {
       "name": "유성온천",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Yuseong Spa",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2669,7 +2669,7 @@
     "J117": {
       "name": "구암",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Guam",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2678,7 +2678,7 @@
     "J118": {
       "name": "현충원",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "National Cemetery",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2687,7 +2687,7 @@
     "J119": {
       "name": "월드컵경기장",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "World Cup Stadium",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2696,7 +2696,7 @@
     "J120": {
       "name": "노은",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Noeun",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2705,7 +2705,7 @@
     "J121": {
       "name": "지족",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Jijok",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",
@@ -2714,7 +2714,7 @@
     "J122": {
       "name": "반석",
       "line": "DJ1",
-      "nameEn": null,
+      "nameEn": "Banseok",
       "address": null,
       "origin": null,
       "openedOn": "2007-04-17",

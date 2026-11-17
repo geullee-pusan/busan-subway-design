@@ -1306,7 +1306,11 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     pictureNode = heroInside(car.svg, hero, HERO_PLACE);
     left.append(sub3dHost, pictureNode);
     left.append(heroPicker.el);
-    sub3d?.setDisplay(ledLines);
+    {
+      // 행선지(끝 역)도 넘긴다: 동해선·대경선 차 안 화면은 "○○행"을 보여 준다
+      const endStop = trip.stops.at(-1);
+      sub3d?.setDisplay(ledLines, { end: endStop?.name, endEn: englishName(endStop?.id), lineName: design.name ?? '' });
+    }
     applySubView();
     if (moving) left.append(element('p', 'panel-note', SCENE_TEXT[scene]));
     if (moving && view.why) left.append(element('p', 'panel-note guide', view.why));

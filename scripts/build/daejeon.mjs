@@ -84,6 +84,13 @@ export function daejeonOfficial(raw) {
   }));
 }
 
+/** 공식 로마자(괄호 속 부역명을 뺀 것). 게임 이름이 "…역"이면 Station을 붙인다(대전역 역명판 사진) */
+function englishOf(o) {
+  const en = String(o.roman ?? '').replace(/\(.*?\)/g, '').trim();
+  if (!en) return null;
+  return o.name.replace(/\(.*?\)/g, '') === '대전' ? `${en} Station` : en;
+}
+
 /** 관계의 선로(way)를 한 줄로 잇는다 */
 function chainWays(rel) {
   const ways = rel.members.filter((m) => m.type === 'way' && m.geometry?.length).map((m) => m.geometry.map((p) => ({ lat: p.lat, lon: p.lon })));
@@ -189,6 +196,8 @@ export function daejeonLines(raw, issues) {
       lon: Math.round(osm.lon * 1e6) / 1e6,
       coordSource: 'OSM 노선의 역 자리',
       osmId: osm.osmId,
+      // 영어 이름: 15083331 로마자 칸(괄호 속 부역명은 뺀다). 대전역은 역명판 사진처럼 "Daejeon Station"
+      nameEn: englishOf(o),
     });
     ids.push(id);
     if (i > 0) {

@@ -87,6 +87,8 @@ export const SUBWAY_CARS = {
   DK: { L: 20.47, W: 3.12, H: 3.75, cars: 4, doors: 4, body: '#B5BBC2', front: '#1F55C8', frontTop: '#1E2125', band: '#1F55C8', band2: null, frontBand: '#1F55C8', lower: '#8C939A', seat: '#EEF0F2', rubber: false, rim: true, doorColor: '#2A5FCC', rimColor: '#1B2A4A', inside: 'dk' },
   // 광주 1호선: 칠은 사용자가 보내 준 사진(은색 차체, 창 아래 청록 띠, 앞 전조등 둘레 청록). 18m×2.75m×3.6m, 4칸(2M2T)은 사용자가 붙여 준 제원(subwayCars.GJ1). 문 수는 어림(TODO), 땅속으로 그린다(어림)
   GJ1: { L: 18, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#1BB5A0', band2: '#11695F', frontBand: '#1BB5A0', lower: '#B9BEC3', seat: '#1F5A4A', rubber: false, under: true, inside: 'gj1' },
+  // 대전 1호선: 칠은 사용자가 보내 준 사진(은색 차체, 창 아래 청록빛 초록 띠, 앞유리와 행선판을 잇는 검은 띠). 18m×2.75m×3.6m, 4칸(Tc-M'-M'-Tc)은 사용자가 붙여 준 제원(subwayCars.DJ1). 문 수는 어림(TODO), 땅속으로 그린다(어림)
+  DJ1: { L: 18, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#1FB592', band2: null, frontBand: '#1FB592', lower: '#B9BEC3', seat: '#36B5AA', rubber: false, under: true, inside: 'dj1' },
 };
 
 /**
@@ -94,26 +96,37 @@ export const SUBWAY_CARS = {
  * 2호선(그리고 나머지)은 밝은 천장, 회색 타일 바닥, 승강장을 따라 이어진 점자 블록, 둥근 타일 기둥.
  */
 const STATION_LOOK = {
-  1: { ceilStyle: 'slat', wallTile: '#d9d4c9', trackTile: '#d6d36a', wave: '#3B78C8', ceil: '#34383b', floor: '#d8cdb8', pillar: '#e2e0da', round: false, tactileLine: false },
+  // 벽 앞 긴 의자(사용자가 보내 준 토성역 사진): 회색 돌 받침 두 개 위에 주황빛 나무 앉음판
+  1: { ceilStyle: 'slat', wallTile: '#d9d4c9', trackTile: '#d6d36a', wave: '#3B78C8', ceil: '#34383b', floor: '#d8cdb8', pillar: '#e2e0da', round: false, tactileLine: false, wallBench: { seat: '#C9862F', base: '#A9A9A3' } },
   // 3호선: 밝은 천장, 연회색 타일, 문 앞 점자 블록, 안전문 위 초록 줄, 선로 건너편 짙은 초록 벽
-  3: { ceilStyle: 'linear', wallTile: '#ecebe6', trackTile: '#2F6B4A', ceil: '#eceeee', floor: '#d9dbdc', pillar: '#e6e6e2', round: false, tactileLine: false, psdStripe: '#3BAA4A', wall: '#2F6B4A' },
+  // 벽 앞 긴 의자(사용자가 보내 준 망미역 사진): 화강석 받침 세 개 위에 스테인리스 앉음판
+  3: { ceilStyle: 'linear', wallTile: '#ecebe6', trackTile: '#2F6B4A', ceil: '#eceeee', floor: '#d9dbdc', pillar: '#e6e6e2', round: false, tactileLine: false, psdStripe: '#3BAA4A', wall: '#2F6B4A', wallBench: { seat: '#C4C9CE', base: '#B3B1AC', legs: 3, length: 3.2 } },
   // 4호선: 밝은 천장, 회색 대리석 바닥, 짙은 회색 안전문 위 틀(파란 노선 줄), 문 앞 점자 블록
-  4: { ceilStyle: 'linear', wallTile: '#e6e6e2', trackTile: '#d9dcdf', ceil: '#e6e8ea', floor: '#aeb2b6', pillar: '#e6e6e2', round: false, tactileLine: false, psdHeader: '#2b2f33' },
+  // 벽 앞 긴 의자(사용자가 보내 준 미남역 사진): 구멍 뚫린 스테인리스 자리 세 개, 양 끝 검은 받침
+  4: { ceilStyle: 'linear', wallTile: '#e6e6e2', trackTile: '#d9dcdf', ceil: '#e6e8ea', floor: '#aeb2b6', pillar: '#e6e6e2', round: false, tactileLine: false, psdHeader: '#2b2f33', wallBench: { seat: '#C9CED3', base: '#26292C', legs: 2, length: 2.4, seats: 3 } },
   // 부산김해경전철(고가역): 천장까지 닿는 높은 유리 안전문, 회색 위 틀, 회색 타일 바닥, 철골 아치 지붕
   BGL: { ceil: '#e6e8ea', floor: '#b7babd', pillar: '#c9ccd0', round: false, tactileLine: false, psdHeader: '#5b6066', psdFull: true, arch: true },
   // 동해선(땅 위 역): 회색 타일 바닥, 둥근 흰 기둥, 밝은 철골 지붕, 회색 안전문 틀에 남색 줄, 돌 의자
   DH: { ceil: '#e6e8ea', floor: '#a8abae', pillar: '#eeeeec', round: true, tactileLine: false, psdHeader: '#b9bdc1', psdStripe: '#1F3F8F', roof: '#d9dcdc', benches: true },
   // 대구 1호선: 흰 안전문 틀에 빨간 줄, 회색 점무늬 타일, 이어진 점자 블록, 둥근 기둥. 대구 2호선: 초록 줄, 반짝이는 연회색 바닥
-  DG1: { grout: '#2b2f33', ceilStyle: 'panel', wallTile: '#f2f0ea', trackTile: '#d8d4cc', ceil: '#eceeee', floor: '#c3c5c6', pillar: '#ddd5c8', round: true, tactileLine: true },
-  DG2: { grout: '#2b2f33', ceilStyle: 'linear', wallTile: '#f4f2ea', trackTile: '#e4e4e2', ceil: '#eef0f0', floor: '#d3d5d6', pillar: '#eeeeec', round: false, tactileLine: true },
+  // 대구 1호선 벽 앞 긴 의자(사용자가 보내 준 칠성·안심·동대구역 사진): 화강석 받침 세 개 위에 나무 또는 검은 앉음판(역마다 하나)
+  DG1: { grout: '#2b2f33', ceilStyle: 'panel', wallTile: '#f2f0ea', trackTile: '#d8d4cc', ceil: '#eceeee', floor: '#c3c5c6', pillar: '#ddd5c8', round: true, tactileLine: true, wallBench: { seat: '#B5762F', seatChoices: ['#B5762F', '#2E3134', '#2E3134'], base: '#B3B1AC', legs: 3, length: 3.0 } },
+  // 대구 2호선 긴 의자(사용자가 보내 준 연호·서문시장역 사진): 화강석 받침 두 개 위에 밝은 나무 앉음판
+  DG2: { grout: '#2b2f33', ceilStyle: 'linear', wallTile: '#f4f2ea', trackTile: '#e4e4e2', ceil: '#eef0f0', floor: '#d3d5d6', pillar: '#eeeeec', round: false, tactileLine: true, wallBench: { seat: '#D2A85E', base: '#B3B1AC', legs: 2, length: 2.8 } },
   // 대경선(땅 위 역): 높은 유리 안전문, 회색 틀에 남색 줄, 어두운 철골 지붕, 문 앞 점자 블록
   DK: { ceil: '#e6e8ea', floor: '#b9bcbe', pillar: '#c9ccd0', round: false, tactileLine: false, psdHeader: '#c3c7cb', psdStripe: '#1F3F8F', psdFull: true, roof: '#3a3f45' },
   // 광주 1호선: 청록 안전문 틀, 반짝이는 연회색 바닥, 이어진 점자 블록, 밝은 천장
-  GJ1: { ceilStyle: 'panel', wallTile: '#efe9d8', trackTile: '#cfe0e8', ceil: '#eceeee', floor: '#d5d7d8', pillar: '#e6e6e2', round: false, tactileLine: true, psdHeader: '#1F6E73', psdStripe: '#7FC7C0' },
+  // 광주 1호선 긴 의자(사용자가 보내 준 도산·돌고개역 사진): 초록 쇠틀과 가는 초록 다리 위에 나무 앉음판
+  GJ1: { ceilStyle: 'panel', wallTile: '#efe9d8', trackTile: '#cfe0e8', ceil: '#eceeee', floor: '#d5d7d8', pillar: '#e6e6e2', round: false, tactileLine: true, psdHeader: '#1F6E73', psdStripe: '#7FC7C0', wallBench: { seat: '#C99A5A', base: '#3FAE4A', legs: 2, length: 2.4, legWidth: 0.1 } },
   // 대구 3호선(모노레일 고가역): 흰 아치 지붕, 허리 높이의 낮은 흰 안전문과 노란 문, 밝은 바닥, 이어진 점자 블록
   DG3: { ceil: '#f2f3f3', floor: '#e2e4e5', pillar: '#f2f3f3', round: false, tactileLine: true, psdLow: true, lowDoor: '#F2C200', arch: true, archColor: '#eef0f0' },
+  // 대전 1호선(사진): 긴 의자는 판암·구암역 사진처럼 회색 받침 위 나무 앉음판. 은색 틀의 높은 유리 안전문, 밝은 회색 타일 벽, 흰 네모 천장판에 긴 등, 둥근 흰 기둥, 밝은 돌 바닥, 이어진 점자 블록
+  DJ1: { ceilStyle: 'linear', wallTile: '#e4e5e5', trackTile: '#dcdedf', ceil: '#f0f1f1', floor: '#d9d8d4', pillar: '#f2f2f0', round: true, tactileLine: true, psdHeader: '#e8eaec', wallBench: { seat: '#C49A5E', base: '#A3A7AB', legs: 2, length: 2.4 } },
   default: { ceilStyle: 'panel', wallTile: '#ece6da', trackTile: '#e8e6e0', ceil: '#e9ebeb', floor: '#c9cbcc', pillar: '#e3d6c4', round: true, tactileLine: true },
 };
+// 2호선: 기본 모양에 벽 앞 긴 의자(사용자가 보내 준 덕천역 사진: 화강석 받침 위 짙은 초록 앉음판)
+STATION_LOOK[2] = { ...STATION_LOOK.default, wallBench: { seat: '#2F5E4E', base: '#B3B1AC', legs: 3, length: 3.2 } };
+
 
 /** 이 노선을 3D로 보여 줄 수 있는지 */
 export const hasSubway3D = (lineId) => Boolean(SUBWAY_CARS[lineId]);
@@ -155,6 +168,279 @@ function tex(width, height, draw) {
   t.anisotropy = 4;
   return t;
 }
+/**
+ * 차 안 LED 전광판 글씨(점 글자처럼 보이게 촘촘한 검은 격자를 덮는다).
+ * 첫 줄 "다음 역은 ○○": 앞말은 초록, 역 이름은 주황. 둘째 줄(영어)은 주황.
+ */
+function ledTexture({ head: headColor = '#3FE0B0', name: nameColor = '#FFA43A', en: enColor = '#FFC27A', arrow = null, strip = false, lcd = false, twin = false, door = false } = {}) {
+  const canvas = document.createElement('canvas');
+  canvas.width = strip || twin || door ? 1024 : 640;
+  canvas.height = strip ? 96 : door ? 256 : 160;
+  const t = new CanvasTexture(canvas);
+  t.colorSpace = SRGBColorSpace;
+  const draw = (lines = [], extra = {}) => {
+    const g = canvas.getContext('2d');
+    const W = canvas.width;
+    const H = canvas.height;
+    g.fillStyle = '#0d0f10';
+    g.fillRect(0, 0, W, H);
+    const [ko = '', en = ''] = lines;
+    const m = /^(.*?은 )(.*)$/.exec(ko);
+    const head = m ? m[1] : '';
+    const name = m ? m[2] : ko;
+    if (door) {
+      // 문 위 넓은 화면(부산 1호선 새 차): 왼쪽 검은 바탕에 주황 둥근 테두리 역 이름과 진행 줄. 오른쪽(사진의 홍보 화면)은 노선 그림
+      g.fillStyle = '#141414';
+      g.fillRect(0, 0, W / 2, H);
+      g.fillStyle = '#eceeef';
+      g.fillRect(W / 2, 0, W / 2, H);
+      g.textBaseline = 'middle';
+      g.fillStyle = '#c9ccd0';
+      g.font = '20px sans-serif';
+      g.textAlign = 'left';
+      g.fillText(head.replace(/은\s*$/, '').replace(/\s/g, ''), 24, 22);
+      const ox = 50;
+      const oy = 48;
+      const ow = 400;
+      const oh = 104;
+      const pill = (fill) => {
+        g.beginPath();
+        g.moveTo(ox + oh / 2, oy);
+        g.lineTo(ox + ow - oh / 2, oy);
+        g.arc(ox + ow - oh / 2, oy + oh / 2, oh / 2, -Math.PI / 2, Math.PI / 2);
+        g.lineTo(ox + oh / 2, oy + oh);
+        g.arc(ox + oh / 2, oy + oh / 2, oh / 2, Math.PI / 2, (Math.PI * 3) / 2);
+        g[fill ? 'fill' : 'stroke']();
+      };
+      g.fillStyle = '#ffffff';
+      pill(true);
+      g.strokeStyle = '#F08A1C';
+      g.lineWidth = 10;
+      pill(false);
+      g.textAlign = 'center';
+      g.fillStyle = '#1b1d20';
+      g.font = 'bold 46px sans-serif';
+      g.fillText(name, ox + ow / 2, oy + 42, ow - 90);
+      g.font = '20px sans-serif';
+      g.fillText(en.replace(/^(Next stop|This stop)\s*/, ''), ox + ow / 2, oy + 80, ow - 90);
+      // 진행 줄
+      g.fillStyle = '#F08A1C';
+      g.fillRect(20, 200, W / 2 - 40, 5);
+      g.font = 'bold 26px sans-serif';
+      g.fillText('› › › › ›', 170, 202);
+      for (const [x, big] of [[70, false], [280, true], [440, false]]) {
+        g.fillStyle = big ? '#F5C400' : '#ffffff';
+        g.beginPath();
+        g.arc(x, 202, big ? 14 : 9, 0, Math.PI * 2);
+        g.fill();
+        g.strokeStyle = '#F08A1C';
+        g.lineWidth = 4;
+        g.stroke();
+      }
+      // 오른쪽: 노선 그림
+      g.fillStyle = '#F08A1C';
+      g.fillRect(W / 2 + 50, H / 2 - 5, W / 2 - 100, 10);
+      for (let k = 0; k < 7; k++) {
+        g.fillStyle = '#ffffff';
+        g.beginPath();
+        g.arc(W / 2 + 60 + k * ((W / 2 - 120) / 6), H / 2, 12, 0, Math.PI * 2);
+        g.fill();
+        g.strokeStyle = '#F08A1C';
+        g.lineWidth = 5;
+        g.stroke();
+      }
+      t.needsUpdate = true;
+      return;
+    }
+    if (twin === 'dh' || twin === 'dk') {
+      // 화면 둘(코레일 광역전철, 사용자가 보내 준 사진)
+      // 동해선: 짙은 화면 둘에 주황 역 이름과 초록 "○○행". 대경선: 왼쪽은 같은 짙은 화면(사진의 영상 자리), 오른쪽은 흰 바탕에 파란 노선 동그라미와 "○○행 For ○○"
+      g.fillStyle = '#d5d7d9';
+      g.fillRect(0, 0, W, H);
+      const screen = (x0, w) => {
+        g.fillStyle = '#1d2230';
+        g.fillRect(x0, 14, w, H - 28);
+        g.textAlign = 'center';
+        g.textBaseline = 'middle';
+        g.fillStyle = '#F2A23A';
+        g.font = 'bold 50px sans-serif';
+        g.fillText(name, x0 + w / 2, 66, w - 30);
+        if (extra.end) {
+          g.fillStyle = '#4FE05A';
+          g.font = 'bold 26px sans-serif';
+          g.fillText(`${extra.end}행`, x0 + w / 2, 124, w - 30);
+        }
+      };
+      screen(40, W / 2 - 60);
+      if (twin === 'dh') screen(W / 2 + 20, W / 2 - 60);
+      else {
+        const x0 = W / 2 + 20;
+        const w = W / 2 - 60;
+        g.fillStyle = '#f4f5f6';
+        g.fillRect(x0, 14, w, H - 28);
+        g.fillStyle = '#1F55C8';
+        g.beginPath();
+        g.arc(x0 + 80, H / 2, 46, 0, Math.PI * 2);
+        g.fill();
+        g.fillStyle = '#ffffff';
+        g.textAlign = 'center';
+        g.textBaseline = 'middle';
+        g.font = 'bold 20px sans-serif';
+        g.fillText(extra.lineName ?? '', x0 + 80, H / 2, 84);
+        g.fillStyle = '#1b1d20';
+        g.textAlign = 'left';
+        g.font = 'bold 46px sans-serif';
+        g.fillText(extra.end ? `${extra.end}행` : name, x0 + 150, H / 2 - 20, w - 170);
+        g.font = 'bold 26px sans-serif';
+        g.fillText(extra.endEn ? `For ${extra.endEn}` : '', x0 + 150, H / 2 + 28, w - 170);
+      }
+      t.needsUpdate = true;
+      return;
+    }
+    if (twin) {
+      // 화면 둘(대전 1호선): 왼쪽은 노선 그림(사진의 광고·영상 자리, 광고는 넣지 않는다), 오른쪽은 흰 바탕에 초록 둥근 테두리 역 이름
+      g.fillStyle = '#c9ccd0';
+      g.fillRect(0, 0, W, H);
+      g.fillStyle = '#eef3f1';
+      g.fillRect(40, 12, W / 2 - 60, H - 24);
+      g.fillStyle = '#2BA84A';
+      g.fillRect(70, H / 2 - 4, W / 2 - 120, 8);
+      for (let k = 0; k < 6; k++) {
+        g.beginPath();
+        g.arc(80 + k * ((W / 2 - 140) / 5), H / 2, 9, 0, Math.PI * 2);
+        g.fill();
+      }
+      const x0 = W / 2 + 20;
+      const w = W / 2 - 60;
+      g.fillStyle = '#ffffff';
+      g.fillRect(x0, 12, w, H - 24);
+      g.textBaseline = 'middle';
+      g.textAlign = 'center';
+      const cx = x0 + w / 2;
+      g.fillStyle = '#1b1d20';
+      g.font = '15px sans-serif';
+      g.fillText(head.replace(/은\s*$/, '').trim(), cx, 30);
+      // 초록 둥근 테두리
+      g.strokeStyle = '#2BA84A';
+      g.lineWidth = 6;
+      const rx = cx - 150;
+      const ry = 44;
+      const rw = 300;
+      const rh = 70;
+      g.beginPath();
+      g.moveTo(rx + rh / 2, ry);
+      g.lineTo(rx + rw - rh / 2, ry);
+      g.arc(rx + rw - rh / 2, ry + rh / 2, rh / 2, -Math.PI / 2, Math.PI / 2);
+      g.lineTo(rx + rh / 2, ry + rh);
+      g.arc(rx + rh / 2, ry + rh / 2, rh / 2, Math.PI / 2, (Math.PI * 3) / 2);
+      g.stroke();
+      g.fillStyle = '#1b1d20';
+      g.font = 'bold 44px sans-serif';
+      g.fillText(name, cx, ry + rh / 2 + 2, rw - 70);
+      g.font = '14px sans-serif';
+      g.fillText(en.replace(/^(Next stop|This stop)\s*/, ''), cx, 128, w - 30);
+      // 아래 진행 표시: ○ ››› ●
+      g.fillStyle = '#9aa0a6';
+      g.fillRect(x0 + 20, 146, w / 2 - 70, 3);
+      g.strokeStyle = '#9aa0a6';
+      g.lineWidth = 3;
+      g.beginPath();
+      g.arc(x0 + w / 2 - 44, 147, 6, 0, Math.PI * 2);
+      g.stroke();
+      g.fillStyle = '#2BA84A';
+      g.font = 'bold 16px sans-serif';
+      g.fillText('›››', cx, 147);
+      g.beginPath();
+      g.arc(x0 + w / 2 + 44, 147, 8, 0, Math.PI * 2);
+      g.fill();
+      t.needsUpdate = true;
+      return;
+    }
+    if (lcd) {
+      // 흰 LCD 화면(광주 1호선): 빨간 앞말, 검은 큰 역 이름, 작은 영어, 청록 밑줄, 양옆 초록 세모
+      g.fillStyle = '#c9ccd0';
+      g.fillRect(0, 0, W, H);
+      g.fillStyle = '#f7f6f6';
+      g.fillRect(90, 10, W - 180, H - 20);
+      for (const [x, d] of [[44, -1], [W - 44, 1]]) {
+        g.fillStyle = '#4C8F5A';
+        g.beginPath();
+        g.moveTo(x + d * 26, H / 2);
+        g.lineTo(x - d * 18, H / 2 - 30);
+        g.lineTo(x - d * 18, H / 2 + 30);
+        g.fill();
+      }
+      g.textBaseline = 'middle';
+      g.textAlign = 'center';
+      g.fillStyle = headColor;
+      g.font = 'bold 24px sans-serif';
+      g.fillText(head.trim(), W / 2, 34, W - 220);
+      g.fillStyle = nameColor;
+      g.font = 'bold 54px sans-serif';
+      g.fillText(name, W / 2, 80, W - 220);
+      g.fillStyle = enColor;
+      g.font = '20px sans-serif';
+      g.fillText(en, W / 2, 120, W - 220);
+      g.fillStyle = '#1F6E73';
+      g.fillRect(130, 138, W - 260, 4);
+      t.needsUpdate = true;
+      return;
+    }
+    if (strip) {
+      // 긴 띠(대구 3호선): 역 이름과 화살표 한 줄
+      g.textBaseline = 'middle';
+      g.textAlign = 'left';
+      g.font = 'bold 64px sans-serif';
+      g.fillStyle = nameColor;
+      g.fillText(name, 60, H / 2, 480);
+      if (arrow) {
+        g.fillStyle = arrow;
+        g.fillRect(560, H / 2 - 12, 300, 24);
+        g.beginPath();
+        g.moveTo(900, H / 2);
+        g.lineTo(850, H / 2 - 34);
+        g.lineTo(850, H / 2 + 34);
+        g.fill();
+      }
+      g.fillStyle = 'rgba(13,15,16,0.85)';
+      for (let i = 0; i < W; i += 4) g.fillRect(i, 0, 1.4, H);
+      for (let j = 0; j < H; j += 4) g.fillRect(0, j, W, 1.4);
+      t.needsUpdate = true;
+      return;
+    }
+    g.textBaseline = 'middle';
+    g.font = 'bold 56px sans-serif';
+    const total = g.measureText(head + name).width;
+    let x = Math.max(12, (W - Math.min(total, W - 24)) / 2);
+    g.textAlign = 'left';
+    g.fillStyle = headColor;
+    g.fillText(head, x, 52, W - 24);
+    x += g.measureText(head).width;
+    g.fillStyle = nameColor;
+    g.fillText(name, x, 52, Math.max(40, W - x - 12));
+    g.font = 'bold 40px sans-serif';
+    g.textAlign = 'center';
+    g.fillStyle = enColor;
+    g.fillText(en, arrow ? W / 2 - 60 : W / 2, 120, arrow ? W - 160 : W - 24);
+    if (arrow) {
+      g.fillStyle = arrow;
+      g.fillRect(W - 150, 112, 90, 14);
+      g.beginPath();
+      g.moveTo(W - 30, 119);
+      g.lineTo(W - 64, 98);
+      g.lineTo(W - 64, 140);
+      g.fill();
+    }
+    // 점 글자: 4px마다 검은 줄
+    g.fillStyle = 'rgba(13,15,16,0.85)';
+    for (let i = 0; i < W; i += 4) g.fillRect(i, 0, 1.4, H);
+    for (let j = 0; j < H; j += 4) g.fillRect(0, j, W, 1.4);
+    t.needsUpdate = true;
+  };
+  draw();
+  return { texture: t, draw };
+}
+
 /** 같은 씨앗이면 같은 수(0~1) */
 function seeded(seed) {
   let s = seed >>> 0 || 1;
@@ -662,6 +948,59 @@ function gwangjuSignTexture({ name, en, hanja, num, next, nextEn, nextNum, prev,
   });
 }
 
+/**
+ * 대전 1호선 역명판(사용자가 보내 준 대전역 사진): 둥근 기둥에 붙은 세로 판.
+ * 위는 아주 연한 회청색 바탕에 초록 동그라미 역 번호, 검은 역 이름, 영어, 한자. 아래는 짙은 청록 띠를 둘로 나눠 왼쪽 앞 역, 오른쪽 다음 역(→).
+ * 부역명(괄호 속 광고 이름)은 넣지 않는다.
+ */
+function daejeonSignTexture({ name, en, hanja, num, next, nextEn, nextHanja, prev, prevEn, prevHanja }) {
+  return tex(512, 640, (g, W, H) => {
+    g.fillStyle = '#e6eaee';
+    g.fillRect(0, 0, W, H);
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    if (num) {
+      g.fillStyle = '#2BA84A';
+      g.beginPath();
+      g.arc(W / 2, 80, 58, 0, Math.PI * 2);
+      g.fill();
+      g.fillStyle = '#ffffff';
+      g.font = 'bold 54px sans-serif';
+      g.fillText(String(num), W / 2, 82);
+    }
+    g.fillStyle = '#1b1d20';
+    g.font = 'bold 76px sans-serif';
+    g.fillText(name, W / 2, 200, W - 40);
+    g.font = 'bold 32px sans-serif';
+    g.fillText(en ?? '', W / 2, 262, W - 40);
+    g.font = '32px sans-serif';
+    g.fillText(hanja ?? '', W / 2, 310, W - 40);
+    // 아래 띠
+    const top = 410;
+    g.fillStyle = '#0F5E5A';
+    g.fillRect(0, top, W, H - top);
+    g.fillStyle = '#e6eaee';
+    g.fillRect(W / 2 - 2, top + 20, 4, H - top - 40);
+    const side = (cx, ko, e, hj, isNext) => {
+      if (!ko) return;
+      if (isNext) {
+        g.fillStyle = '#ffffff';
+        g.font = 'bold 40px sans-serif';
+        g.fillText('→', cx, top + 44);
+      }
+      g.fillStyle = isNext ? '#ffffff' : '#B8E6C0';
+      g.font = 'bold 46px sans-serif';
+      g.fillText(ko, cx, top + 104, W / 2 - 30);
+      g.fillStyle = '#ffffff';
+      g.font = '20px sans-serif';
+      g.fillText(e ?? '', cx, top + 154, W / 2 - 30);
+      g.fillText(hj ?? '', cx, top + 186, W / 2 - 30);
+    };
+    side(W / 4, prev, prevEn, prevHanja, false);
+    side((W * 3) / 4, next, nextEn, nextHanja, true);
+  });
+}
+
 /** 부산김해경전철 역명판(사진): 세로로 긴 밝은 판, 위에 동그라미 번호, 세로로 쓴 역 이름, 영어 이름 */
 function bglSignTexture({ name, en, hanja, num }) {
   return tex(256, 640, (g, W, H) => {
@@ -789,24 +1128,36 @@ function carMesh(spec, material, { head = false, tail = false } = {}) {
  * 4호선: 흰 새 무늬 파란 의자, 파란 세모 손잡이. 부산김해경전철: 한 자리씩 나뉜 적갈색 의자. 동해선: 연보라빛 회색 의자, 흰 손잡이. 나머지 노선은 노란 기둥과 노란 손잡이(우리가 정한 값).
  */
 const INSIDE = {
-  one: { pole: '#C9CDD2', strap: '#F0601E', shape: 'triangle', floor: '#9FC1D9', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#E8EEF8' },
-  two: { pole: '#C9CDD2', strap: '#3B7DD8', shape: 'ring', floor: '#8FC1BE', wall: '#F0F1EE', partition: '#F4F5F5', dots: '#7FB8B4' },
-  three: { pole: '#C9CDD2', strap: '#8FD3C8', shape: 'triangle', floor: '#3E8B80', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#3F57A0', screen: true },
+  // 문 위 넓은 안내 화면(사용자가 보내 준 1호선 새 차 사진)
+  one: { pole: '#C9CDD2', strap: '#F0601E', shape: 'triangle', floor: '#9FC1D9', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#E8EEF8', led: 'door' },
+  // 차 안 전광판: 칸 끝 통로문 위의 검은 LED 판(사용자가 보내 준 2호선 사진)
+  two: { pole: '#C9CDD2', strap: '#3B7DD8', shape: 'ring', floor: '#8FC1BE', wall: '#F0F1EE', partition: '#F4F5F5', dots: '#7FB8B4', led: 'end' },
+  // 차 안 전광판: 천장 가운데에 매단 회색 틀 LED 판(사용자가 보내 준 3호선 사진)
+  three: { pole: '#C9CDD2', strap: '#8FD3C8', shape: 'triangle', floor: '#3E8B80', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#3F57A0', led: 'ceiling' },
   // 4호선: 흰 새 무늬 파란 의자, 파란 세모 손잡이, 밝은 바닥, 옆 칸과 넓게 이어진 통로
-  four: { pole: '#C9CDD2', strap: '#3F78D9', shape: 'triangle', floor: '#C6D3D1', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#F2F4F8', wide: true },
+  // 차 안 전광판: 천장 가운데에 매단 작은 LED 상자(사용자가 보내 준 4호선 사진)
+  four: { pole: '#C9CDD2', strap: '#3F78D9', shape: 'triangle', floor: '#C6D3D1', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#F2F4F8', wide: true, led: 'ceiling-small' },
   // 부산김해경전철: 한 자리씩 나뉜 적갈색 의자(네모 무늬), 흰 세모 손잡이, 회색 바닥
   bgl: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'triangle', floor: '#8F938F', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#C9A79A', buckets: true },
   // 동해선: 연보라빛 회색 점무늬 의자, 흰 손잡이, 회색 바닥, 천장 안내 화면
-  dh: { pole: '#C9CDD2', strap: '#F2F2F2', shape: 'triangle', floor: '#B9BCBE', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#C9C2D0', screen: true },
+  // 동해선·대경선 차 안 안내: 천장에 매단 틀에 화면 둘(사용자가 보내 준 사진)
+  dh: { pole: '#C9CDD2', strap: '#F2F2F2', shape: 'triangle', floor: '#B9BCBE', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#C9C2D0', led: 'twin', twinStyle: 'dh', ledFrame: '#d5d7d9' },
   // 대구 1호선: 파란 민무늬 의자, 검은 둥근 손잡이, 회색 바닥. 대구 2호선: 한 자리씩 나뉜 청회색 의자, 붉은 둥근 손잡이
-  dg1: { pole: '#C9CDD2', strap: '#2A2D31', shape: 'ring', floor: '#B4B8BC', wall: '#F2F0EA', partition: '#EFEBE2', dots: null },
-  dg2: { pole: '#C9CDD2', strap: '#B03A3A', shape: 'ring', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#EEEEEC', dots: null, buckets: true },
+  // 대구 1호선 차 안 전광판: 연회색 판 안의 LED(사용자가 보내 준 사진)
+  dg1: { pole: '#C9CDD2', strap: '#2A2D31', shape: 'ring', floor: '#B4B8BC', wall: '#F2F0EA', partition: '#EFEBE2', dots: null, led: 'end', ledFrame: '#D3D4D1' },
+  // 대구 2호선 차 안 전광판: 흰 틀의 작은 LED 상자, 연두 글자와 빨간 역 이름, 분홍 화살표(사용자가 보내 준 사진)
+  dg2: { pole: '#C9CDD2', strap: '#B03A3A', shape: 'ring', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#EEEEEC', dots: null, buckets: true, led: 'ceiling-small', ledFrame: '#EEF0F0', ledColors: { head: '#C8E04A', name: '#FF4A4A', en: '#C8E04A', arrow: '#FF4FA0' } },
   // 대구 3호선: 한 자리씩 나뉜 회색 의자, 흰 둥근 손잡이, 연회색 바닥, 민트색 칸막이
-  dg3: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'ring', floor: '#CDD1D0', wall: '#F4F5F5', partition: '#BFE5DE', dots: null, buckets: true },
+  // 대구 3호선 차 안 전광판: 천장의 길고 가는 검은 LED 띠, 빨간 역 이름과 화살표(사용자가 보내 준 사진)
+  dg3: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'ring', floor: '#CDD1D0', wall: '#F4F5F5', partition: '#BFE5DE', dots: null, buckets: true, led: 'strip', ledFrame: '#1a1c1e', ledColors: { name: '#FF3B30', arrow: '#FF3B30' } },
   // 대경선: 흰 긴 의자에 자리마다 파란 등받이 판, 회색 세모 손잡이, 회색 바닥, 천장 안내 화면
-  dk: { pole: '#C9CDD2', strap: '#B9BEC3', shape: 'triangle', floor: '#9EA3A8', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, pads: '#3F7FD9', screen: true },
+  dk: { pole: '#C9CDD2', strap: '#B9BEC3', shape: 'triangle', floor: '#9EA3A8', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, pads: '#3F7FD9', led: 'twin', twinStyle: 'dk', ledFrame: '#d5d7d9' },
   // 광주 1호선: 한 자리씩 나뉜 짙은 초록 의자(흰 칸막이), 흰 세모 손잡이, 반짝이는 회색 바닥, 천장 안내 화면
-  gj1: { pole: '#C9CDD2', strap: '#EDEEEE', shape: 'triangle', floor: '#8A9095', wall: '#F2F1EC', partition: '#F2F1EC', dots: null, buckets: true, screen: true },
+  // 광주 1호선 차 안 안내: 천장에 매단 회색 틀의 흰 LCD 화면(사용자가 보내 준 사진)
+  gj1: { pole: '#C9CDD2', strap: '#EDEEEE', shape: 'triangle', floor: '#8A9095', wall: '#F2F1EC', partition: '#F2F1EC', dots: null, buckets: true, led: 'lcd', ledFrame: '#c9ccd0', ledColors: { head: '#C8302A', name: '#1b1d20', en: '#5a5f64' } },
+  // 대전 1호선(사진): 흰 벽과 흰 의자 틀, 민트빛 청록 무늬 긴 의자, 검은 세모 손잡이, 위로 휜 은색 기둥, 밝은 회색 바닥
+  // 차 안 안내: 천장에 매단 틀에 화면 둘(사용자가 보내 준 사진). 왼쪽 화면의 광고·영상은 넣지 않는다
+  dj1: { pole: '#C9CDD2', strap: '#1E2125', shape: 'triangle', floor: '#C9CBCC', wall: '#F4F4F2', partition: '#F4F4F2', dots: '#7FD3CC', led: 'twin', ledFrame: '#c9ccd0' },
   default: { pole: '#f2c230', strap: '#f2c230', shape: 'box', floor: '#7d8186', wall: '#e6e8e6', partition: null, dots: null },
 };
 
@@ -816,6 +1167,8 @@ function carCabin(spec, car, material) {
   const seats = [];
   const glassPanes = [];
   const leafSpecs = [];
+  // 차 안 LED·LCD 안내판 자리
+  const ledSpots = [];
   const { L, W, H } = spec;
   const { floor, wt, doorXs } = car;
   const parts = new Parts();
@@ -909,8 +1262,13 @@ function carCabin(spec, car, material) {
       for (const e of [-0.7, 0.7]) parts.box(0.07, dh, 0.06, dx + e, floor + dh / 2, zz - s * 0.01, '#8c9399');
       parts.box(1.3, 0.01, 0.12, dx, floor + 0.006, s * (iw - 0.12), '#e8b92a');
     }
-    // 문 위 안내 화면(노선 색 테두리)
+    // 문 위 안내 화면(노선 색 테두리). 넓은 화면(부산 1호선 새 차)은 글자를 그린다
     for (const dx of doorXs) {
+      if (look.led === 'door') {
+        parts.box(1.2, 0.34, 0.04, dx, wt + 0.17, s * (iw - 0.01), '#8c9399');
+        ledSpots.push({ x: dx, y: wt + 0.17, z: s * (iw - 0.035), ry: s > 0 ? Math.PI : 0, w: 1.12, h: 0.28 });
+        continue;
+      }
       glow.box(0.7, 0.18, 0.03, dx, wt + 0.15, s * (iw - 0.03), '#ffb347');
       parts.box(0.8, 0.26, 0.04, dx, wt + 0.15, s * (iw - 0.01), spec.band);
     }
@@ -927,8 +1285,35 @@ function carCabin(spec, car, material) {
     else parts.box(0.06, H - 0.3 - floor, iw * 2, ex, (floor + H - 0.3) / 2, 0, '#d9dcdd');
     if (!look.wide) parts.box(0.07, 1.8, 0.8, ex, floor + 0.95, 0, '#8C9399');
   }
+  // 차 안 LED 전광판 틀
+  if (look.led === 'ceiling' || look.led === 'ceiling-small' || look.led === 'strip' || look.led === 'lcd' || look.led === 'twin') {
+    const small = look.led === 'ceiling-small';
+    const strip = look.led === 'strip';
+    const lcd = look.led === 'lcd' || look.led === 'twin';
+    const [bw, bh] = strip ? [1.9, 0.22] : small ? [0.8, 0.24] : look.led === 'twin' ? [1.9, 0.5] : lcd ? [1.6, 0.52] : [1.5, 0.42];
+    for (const x of small || strip ? [0] : [-L / 4, L / 4]) {
+      parts.box(0.14, bh, bw, x, H - 0.62, 0, look.ledFrame ?? '#c9ccd0');
+      for (const side of [-1, 1]) ledSpots.push({ x: x + side * 0.075, y: H - 0.62, z: 0, ry: side > 0 ? Math.PI / 2 : -Math.PI / 2, w: bw - 0.12, h: bh - 0.1 });
+    }
+  } else if (look.led === 'end') {
+    for (const ex of [-L / 2 + 0.12, L / 2 - 0.12]) {
+      const inward = ex < 0 ? 1 : -1;
+      parts.box(0.08, 0.4, 1.3, ex + inward * 0.06, floor + 2.12, 0, look.ledFrame ?? '#141618');
+      ledSpots.push({ x: ex + inward * 0.105, y: floor + 2.12, z: 0, ry: inward > 0 ? Math.PI / 2 : -Math.PI / 2, w: 1.2, h: 0.3 });
+    }
+  }
   const group = new Group();
   group.add(new Mesh(parts.geometry(), material), new Mesh(glow.geometry(), new MeshBasicMaterial({ vertexColors: true })));
+  const led = ledSpots.length ? ledTexture({ ...(look.ledColors ?? {}), strip: look.led === 'strip', lcd: look.led === 'lcd', twin: look.led === 'twin' ? look.twinStyle ?? true : false, door: look.led === 'door' }) : null;
+  if (led) {
+    const ledMat = new MeshBasicMaterial({ map: led.texture });
+    for (const sp of ledSpots) {
+      const m = new Mesh(new PlaneGeometry(sp.w, sp.h), ledMat);
+      m.position.set(sp.x, sp.y, sp.z);
+      m.rotation.y = sp.ry;
+      group.add(m);
+    }
+  }
   // 움직이는 문짝
   const leafMat = new MeshLambertMaterial({ color: look.doorColor ?? '#c9cdd2' });
   const leafGlass = new MeshLambertMaterial({ color: '#4a6070' });
@@ -960,7 +1345,9 @@ function carCabin(spec, car, material) {
     leaves,
     doorXs,
     iw,
+    led,
     dispose() {
+      led?.texture.dispose();
       group.traverse((o) => {
         o.geometry?.dispose();
         if (o.material && o.material !== material) o.material.dispose();
@@ -1745,6 +2132,30 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       g.translate((ax + bx) / 2, (s.y + t.y) / 2 + dy, (az + bz) / 2);
       into.add(g, col);
     };
+    /** 승강장 벽 앞 긴 의자: 받침(돌·검은 쇠) 위에 앉음판(나무·스테인리스). out은 선로 가운데에서 의자까지(m) */
+    const wallBench = (t, out) => {
+      const yaw = Math.atan2(-t.uz, t.ux);
+      const at = (along, h, w, d, y, col) => {
+        const g = new BoxGeometry(w, h, d);
+        g.rotateY(yaw);
+        g.translate(t.x + t.ux * along + t.rx * out, t.y + y, t.z + t.uz * along + t.rz * out);
+        parts.add(g, col);
+      };
+      const wb = look.wallBench;
+      // 역마다 의자 색 하나(가까운 역의 id로 고른다. 같은 역은 늘 같다)
+      const stopHere = t.k < (kmA + kmB) / 2 ? A : B;
+      const seatColor = wb.seatChoices ? wb.seatChoices[[...String(stopHere?.id ?? '')].reduce((h, ch) => h + ch.charCodeAt(0), 0) % wb.seatChoices.length] : wb.seat;
+      const len = wb.length ?? 2.6;
+      const legs = wb.legs ?? 2;
+      if (wb.seats) {
+        // 한 자리씩 나뉜 앉음판(4호선): 자리 사이에 틈
+        const w = (len - 0.5) / wb.seats;
+        for (let n = 0; n < wb.seats; n++) at(-len / 2 + 0.25 + w * (n + 0.5), 0.07, w - 0.06, 0.5, 1.46, seatColor);
+      } else at(0, 0.09, len, 0.5, 1.46, seatColor);
+      const lw = wb.legWidth ?? (wb.seats ? 0.22 : 0.42);
+      for (let n = 0; n < legs; n++) at((n / (legs - 1) - 0.5) * (len - (wb.seats ? 0.2 : 0.6)), 0.42, lw, wb.legWidth ? 0.4 : 0.46, 1.2, wb.base);
+      if (wb.legWidth) at(0, 0.05, len - 0.2, 0.42, 1.4, wb.base); // 앉음판 아래 쇠틀
+    };
     const atStation = (km) => Math.abs(km - kmA) < trainLen / 2000 + 0.012 || Math.abs(km - kmB) < trainLen / 2000 + 0.012;
     // 두 선로: 우리 선로(가운데 0), 맞은편 선로(-4.2)
     const OTHER = -4.2;
@@ -1779,6 +2190,8 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
         if (st) {
           // 승강장 바닥, 천장 등
           plate(s, t, (EDGE + 0.05 + right) / 2, right - EDGE - 0.05, 1.1, 0.45, look.floor);
+          // 벽 앞 긴 의자(기둥 사이마다)
+          if (look.wallBench && i % 4 === 1) wallBench(t, 8.25);
           // 승강장을 따라 이어진 노란 점자 블록(2호선 사진)
           if (look.tactileLine) plate(s, t, EDGE + 0.85, 0.4, 0.03, 1.02, '#E8B92A');
           // 승강장 기둥(노선 색 띠)
@@ -1824,6 +2237,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
             plate(s, t, right - 0.6, 2.6, 0.2, 5.0, look.archColor ?? '#a9afb4');
             if (i % 2 === 0) plate(s, t, (EDGE + right) / 2, right - EDGE + 0.6, 0.12, 5.3, '#6d757b');
           } else plate(s, t, (EDGE + right) / 2, right - EDGE + 0.6, 0.25, 4.8, look.roof ?? '#8e979e'); // 승강장 지붕
+          if (look.wallBench && i % 4 === 1) wallBench(t, 6.6);
           if (look.benches && i % 15 === 0) {
             plate(s, t, 5.2, 0.7, 0.12, 1.45, '#b59a6e'); // 의자 판
             plate(s, t, 5.2, 0.5, 0.4, 1.2, '#9aa0a6'); // 의자 다리
@@ -1906,6 +2320,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       const korail = lineId === 'DH';
       const korailWide = lineId === 'DK';
       const gwangju = lineId === 'GJ1';
+      const daejeon = lineId === 'DJ1';
       const signTex = busan
         ? busanSignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: code ? String(code).padStart(3, '0') : '', next: nx?.ko, nextEn: nx?.en, prev: pv?.ko, prevEn: pv?.en, color })
         : bgl
@@ -1914,6 +2329,8 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
             ? daegu2SignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: here.num, next: nx?.ko, nextEn: nx?.en, nextNum: nx?.num, prev: pv?.ko, prevEn: pv?.en, prevNum: pv?.num, color })
           : daegu
             ? daeguSignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: here.num, next: nx?.ko, nextEn: nx?.en, nextNum: nx?.num, prev: pv?.ko, prevEn: pv?.en, prevNum: pv?.num, color })
+            : daejeon
+              ? daejeonSignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: here.num, next: nx?.ko, nextEn: nx?.en, nextHanja: nx?.hanja, prev: pv?.ko, prevEn: pv?.en, prevHanja: pv?.hanja })
             : gwangju
               ? gwangjuSignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: here.num, next: nx?.ko, nextEn: nx?.en, nextNum: nx?.num, prev: pv?.ko, prevEn: pv?.en, prevNum: pv?.num, color })
             : korailWide
@@ -1923,7 +2340,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
               : boardTexture([stop.name], { bg: '#ffffff', fg: '#1F3342', bar: color, width: 512, height: 128 });
       textures.push(signTex);
       const tex = signTex;
-      const [pw, ph] = busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : [6, 1.5];
+      const [pw, ph] = busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
       for (const off of [-0.06, -0.03, 0, 0.03, 0.06]) {
         const s = sampleAt(kmS + off);
         if (!s) continue;
@@ -2384,7 +2801,9 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       if (open && doorTarget === 0 && posKm > 0) planBoard();
       doorTarget = open ? 1 : 0;
     },
-    setDisplay(lines) {
+    /** 차 안 안내 글. extra: { end: 끝 역 이름, endEn, lineName } (행선지를 보여 주는 안내판에 쓴다) */
+    setDisplay(lines, extra = {}) {
+      cabin.led?.draw(lines, extra);
       displayBox.replaceChildren(
         ...lines.map((t) => {
           const d = document.createElement('div');
@@ -2402,7 +2821,8 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       cars[cabinIndex].group.children[0].visible = !inCabin;
       for (const d of cars[cabinIndex].doors) d.mesh.visible = !inCabin;
       camRow.style.display = view === 'outside' ? '' : 'none';
-      displayBox.hidden = view === 'platform';
+      // 차 안에 LED 전광판이 있으면 화면 위 글자판은 열차 안에서 숨긴다
+      displayBox.hidden = view === 'platform' || (inCabin && Boolean(cabin.led));
       // 이미 열차 안을 보고 있으면 주인공을 그대로 둔다(화면을 다시 그릴 때마다 불려서 제자리로 순간이동하던 것)
       if (inCabin && !wasCabin) {
         hero.root.visible = true;
