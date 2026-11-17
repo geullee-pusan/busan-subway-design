@@ -141,7 +141,9 @@ for (const pair of pairs.values()) {
 const extraStops = [];
 for (const s of rail.stations) {
   const name = nameKey(s.name);
-  if (codeOf.has(name) || !tagoId.has(name)) continue;
+  // 코레일 코드가 있어도 그날 기록이 0건이면(문경: 옛 역 코드만 있다) TAGO에 묻는다.
+  const korailRuns = (codesOf.get(name) ?? []).some(({ code }) => runs[code]?.length);
+  if (korailRuns || !tagoId.has(name)) continue;
   const neighbors = new Set();
   for (const line of rail.lines) {
     const i = line.stations.indexOf(s.id);

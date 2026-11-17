@@ -1,0 +1,1744 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-17T18:22:59Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 628218239,
+  "bounds": {
+    "minlat": 36.9753395,
+    "minlon": 127.9087044,
+    "maxlat": 36.9762643,
+    "maxlon": 127.9096398
+  },
+  "nodes": [
+    12852475798,
+    12852475797,
+    5930809366,
+    5930809359,
+    12852475795,
+    13232731513,
+    13232731512,
+    13232731510,
+    13232731511,
+    12852475794,
+    13232731509,
+    13232731508,
+    12852475793,
+    13232731507,
+    12852475792,
+    12852475791,
+    12852475790,
+    5930809369,
+    12852502506,
+    12852502509,
+    5930809360,
+    13232731514,
+    13232731515,
+    12852475800,
+    12852502501,
+    12852475799,
+    12852475798
+  ],
+  "geometry": [
+    { "lat": 36.9756889, "lon": 127.9091434 },
+    { "lat": 36.9756298, "lon": 127.9093003 },
+    { "lat": 36.9757135, "lon": 127.9093514 },
+    { "lat": 36.9756336, "lon": 127.9095462 },
+    { "lat": 36.9756143, "lon": 127.9095972 },
+    { "lat": 36.9755870, "lon": 127.9096182 },
+    { "lat": 36.9755666, "lon": 127.9096265 },
+    { "lat": 36.9755480, "lon": 127.9096364 },
+    { "lat": 36.9755277, "lon": 127.9096398 },
+    { "lat": 36.9755017, "lon": 127.9096351 },
+    { "lat": 36.9753970, "lon": 127.9095727 },
+    { "lat": 36.9753686, "lon": 127.9095485 },
+    { "lat": 36.9753452, "lon": 127.9095110 },
+    { "lat": 36.9753395, "lon": 127.9094686 },
+    { "lat": 36.9753452, "lon": 127.9094201 },
+    { "lat": 36.9755310, "lon": 127.9089064 },
+    { "lat": 36.9755709, "lon": 127.9089273 },
+    { "lat": 36.9756570, "lon": 127.9087044 },
+    { "lat": 36.9757261, "lon": 127.9087410 },
+    { "lat": 36.9757666, "lon": 127.9087605 },
+    { "lat": 36.9762271, "lon": 127.9090182 },
+    { "lat": 36.9761930, "lon": 127.9091287 },
+    { "lat": 36.9762643, "lon": 127.9091646 },
+    { "lat": 36.9762161, "lon": 127.9092991 },
+    { "lat": 36.9760807, "lon": 127.9092212 },
+    { "lat": 36.9760378, "lon": 127.9093379 },
+    { "lat": 36.9756889, "lon": 127.9091434 }
+  ],
+  "tags": {
+    "addr:city": "충주시",
+    "addr:housenumber": "539",
+    "addr:postcode": "27476",
+    "addr:province": "충청북도",
+    "addr:street": "충원대로",
+    "addr:subdistrict": "봉방동",
+    "building": "train_station",
+    "name": "충주역",
+    "name:en": "Chungju Station",
+    "name:ko": "충주역",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad",
+    "wikidata": "Q50014",
+    "wikipedia": "ko:충주역"
+  }
+},
+{
+  "type": "way",
+  "id": 840139356,
+  "bounds": {
+    "minlat": 36.9793501,
+    "minlon": 127.9104342,
+    "maxlat": 36.9799204,
+    "maxlon": 127.9107515
+  },
+  "nodes": [
+    1899567634,
+    8449061731,
+    1899567588
+  ],
+  "geometry": [
+    { "lat": 36.9793501, "lon": 127.9104342 },
+    { "lat": 36.9799204, "lon": 127.9107515 },
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "source": "bing",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 840139357,
+  "bounds": {
+    "minlat": 36.9784742,
+    "minlon": 127.9099459,
+    "maxlat": 36.9793501,
+    "maxlon": 127.9104342
+  },
+  "nodes": [
+    1899567993,
+    13232312343,
+    13232312344,
+    1899567634
+  ],
+  "geometry": [
+    { "lat": 36.9784742, "lon": 127.9099459 },
+    { "lat": 36.9788036, "lon": 127.9101313 },
+    { "lat": 36.9791297, "lon": 127.9103095 },
+    { "lat": 36.9793501, "lon": 127.9104342 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "source": "bing",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 840161189,
+  "bounds": {
+    "minlat": 36.9784879,
+    "minlon": 127.9099057,
+    "maxlat": 36.9793611,
+    "maxlon": 127.9103896
+  },
+  "nodes": [
+    1899567820,
+    7839805557
+  ],
+  "geometry": [
+    { "lat": 36.9784879, "lon": 127.9099057 },
+    { "lat": 36.9793611, "lon": 127.9103896 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "source": "bing",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970322537,
+  "bounds": {
+    "minlat": 36.9785432,
+    "minlon": 127.9097481,
+    "maxlat": 36.9794057,
+    "maxlon": 127.9102198
+  },
+  "nodes": [
+    8979515462,
+    8979515461
+  ],
+  "geometry": [
+    { "lat": 36.9785432, "lon": 127.9097481 },
+    { "lat": 36.9794057, "lon": 127.9102198 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "120",
+    "name": "중부내륙선",
+    "name:en": "Jungbunaeryuk Line",
+    "name:ja": "中部内陸線",
+    "name:ko": "중부내륙선",
+    "name:ko-Hani": "中部內陸線",
+    "name:zh-Hans": "中部内陆线",
+    "name:zh-Hant": "中部內陸線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "204",
+    "start_date": "2021-12-31",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970322539,
+  "bounds": {
+    "minlat": 36.9707728,
+    "minlon": 127.9056803,
+    "maxlat": 36.9712078,
+    "maxlon": 127.9059226
+  },
+  "nodes": [
+    8467934345,
+    9385350791,
+    9385350793,
+    8979515475
+  ],
+  "geometry": [
+    null,
+    null,
+    { "lat": 36.9707728, "lon": 127.9056803 },
+    { "lat": 36.9712078, "lon": 127.9059226 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "source": "bing",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970322540,
+  "bounds": {
+    "minlat": 36.9763378,
+    "minlon": 127.9090219,
+    "maxlat": 36.9769300,
+    "maxlon": 127.9092164
+  },
+  "nodes": [
+    8979515489,
+    13232312329,
+    13232312331,
+    8979515463
+  ],
+  "geometry": [
+    { "lat": 36.9763378, "lon": 127.9090219 },
+    { "lat": 36.9765565, "lon": 127.9091098 },
+    { "lat": 36.9767381, "lon": 127.9091673 },
+    { "lat": 36.9769300, "lon": 127.9092164 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "yard",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 970322547,
+  "bounds": {
+    "minlat": 36.9727940,
+    "minlon": 127.9068877,
+    "maxlat": 36.9735685,
+    "maxlon": 127.9074158
+  },
+  "nodes": [
+    8979515484,
+    11171643161,
+    13232385537,
+    13232385538,
+    13232385539,
+    13232385541,
+    13232385540,
+    8979515491
+  ],
+  "geometry": [
+    { "lat": 36.9727940, "lon": 127.9068877 },
+    { "lat": 36.9729925, "lon": 127.9070627 },
+    { "lat": 36.9730548, "lon": 127.9071119 },
+    { "lat": 36.9731213, "lon": 127.9071603 },
+    { "lat": 36.9731779, "lon": 127.9071963 },
+    { "lat": 36.9732374, "lon": 127.9072318 },
+    { "lat": 36.9733081, "lon": 127.9072713 },
+    { "lat": 36.9735685, "lon": 127.9074158 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "yard",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 970322548,
+  "bounds": {
+    "minlat": 36.9723652,
+    "minlon": 127.9065107,
+    "maxlat": 36.9736460,
+    "maxlon": 127.9072198
+  },
+  "nodes": [
+    9385350797,
+    13232385552,
+    13232385553,
+    11171643156,
+    13232385554,
+    13232385555,
+    8979515501
+  ],
+  "geometry": [
+    { "lat": 36.9723652, "lon": 127.9065107 },
+    { "lat": 36.9725508, "lon": 127.9066122 },
+    { "lat": 36.9727341, "lon": 127.9067140 },
+    { "lat": 36.9729676, "lon": 127.9068445 },
+    { "lat": 36.9731196, "lon": 127.9069265 },
+    { "lat": 36.9733218, "lon": 127.9070398 },
+    { "lat": 36.9736460, "lon": 127.9072198 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970322550,
+  "bounds": {
+    "minlat": 36.9728501,
+    "minlon": 127.9069986,
+    "maxlat": 36.9772671,
+    "maxlon": 127.9093869
+  },
+  "nodes": [
+    11171643167,
+    8979515464,
+    13232312325,
+    13232312326,
+    13232312328,
+    13232312327,
+    8979515489,
+    13232312335,
+    11171643148,
+    8979515488,
+    8979515483,
+    13232385528,
+    13232385529,
+    11171643165,
+    11171643159
+  ],
+  "geometry": [
+    { "lat": 36.9772671, "lon": 127.9093869 },
+    { "lat": 36.9769409, "lon": 127.9093060 },
+    { "lat": 36.9768078, "lon": 127.9092650 },
+    { "lat": 36.9767310, "lon": 127.9092337 },
+    { "lat": 36.9766242, "lon": 127.9091824 },
+    { "lat": 36.9764364, "lon": 127.9090777 },
+    { "lat": 36.9763378, "lon": 127.9090219 },
+    { "lat": 36.9759589, "lon": 127.9088142 },
+    { "lat": 36.9748055, "lon": 127.9081743 },
+    { "lat": 36.9735542, "lon": 127.9074808 },
+    { "lat": 36.9732406, "lon": 127.9073089 },
+    { "lat": 36.9731695, "lon": 127.9072620 },
+    { "lat": 36.9730716, "lon": 127.9071906 },
+    { "lat": 36.9729952, "lon": 127.9071279 },
+    { "lat": 36.9728501, "lon": 127.9069986 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "yard",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 970322551,
+  "bounds": {
+    "minlat": 36.9735685,
+    "minlon": 127.9074158,
+    "maxlat": 36.9772853,
+    "maxlon": 127.9093221
+  },
+  "nodes": [
+    8979515491,
+    13232385542,
+    11171643147,
+    13232385547,
+    8979515490,
+    13232312334,
+    13232312333,
+    13232312332,
+    8979515463,
+    13232312330,
+    13232312336,
+    8979515465
+  ],
+  "geometry": [
+    { "lat": 36.9735685, "lon": 127.9074158 },
+    { "lat": 36.9746101, "lon": 127.9079917 },
+    { "lat": 36.9749164, "lon": 127.9081624 },
+    { "lat": 36.9752070, "lon": 127.9083220 },
+    { "lat": 36.9760466, "lon": 127.9087881 },
+    { "lat": 36.9763617, "lon": 127.9089613 },
+    { "lat": 36.9765420, "lon": 127.9090508 },
+    { "lat": 36.9766750, "lon": 127.9091110 },
+    { "lat": 36.9769300, "lon": 127.9092164 },
+    { "lat": 36.9769970, "lon": 127.9092332 },
+    { "lat": 36.9771227, "lon": 127.9092678 },
+    { "lat": 36.9772853, "lon": 127.9093221 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "yard",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 970322552,
+  "bounds": {
+    "minlat": 36.9721629,
+    "minlon": 127.9064529,
+    "maxlat": 36.9776377,
+    "maxlon": 127.9094832
+  },
+  "nodes": [
+    8979515480,
+    11171643160,
+    11171643162,
+    13232385534,
+    13232385535,
+    8979515484,
+    13232385536,
+    11171643164,
+    13232385546,
+    13232385545,
+    13232385544,
+    13232385543,
+    8979515493,
+    13232385549,
+    8979515492,
+    13232312339,
+    13232312340,
+    13232385548,
+    13232312341,
+    13232312342,
+    8979515465,
+    8979515458
+  ],
+  "geometry": [
+    { "lat": 36.9721629, "lon": 127.9064529 },
+    { "lat": 36.9724428, "lon": 127.9066433 },
+    { "lat": 36.9724827, "lon": 127.9066721 },
+    { "lat": 36.9726374, "lon": 127.9067788 },
+    { "lat": 36.9727591, "lon": 127.9068628 },
+    { "lat": 36.9727940, "lon": 127.9068877 },
+    { "lat": 36.9728824, "lon": 127.9069455 },
+    { "lat": 36.9730991, "lon": 127.9070900 },
+    { "lat": 36.9731805, "lon": 127.9071408 },
+    { "lat": 36.9732420, "lon": 127.9071770 },
+    { "lat": 36.9733054, "lon": 127.9072153 },
+    { "lat": 36.9734140, "lon": 127.9072753 },
+    { "lat": 36.9736270, "lon": 127.9073948 },
+    { "lat": 36.9748233, "lon": 127.9080552 },
+    { "lat": 36.9760724, "lon": 127.9087498 },
+    { "lat": 36.9763293, "lon": 127.9088910 },
+    { "lat": 36.9764536, "lon": 127.9089556 },
+    { "lat": 36.9765369, "lon": 127.9089964 },
+    { "lat": 36.9766221, "lon": 127.9090357 },
+    { "lat": 36.9767157, "lon": 127.9090764 },
+    { "lat": 36.9772853, "lon": 127.9093221 },
+    { "lat": 36.9776377, "lon": 127.9094832 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "siding",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 970322553,
+  "bounds": {
+    "minlat": 36.9740066,
+    "minlon": 127.9075124,
+    "maxlat": 36.9761553,
+    "maxlon": 127.9087637
+  },
+  "nodes": [
+    8979515497,
+    8979515496,
+    11171643146,
+    11171643173,
+    8979515495,
+    8979515494,
+    11171643172,
+    8979515497
+  ],
+  "geometry": [
+    { "lat": 36.9740244, "lon": 127.9075124 },
+    { "lat": 36.9740066, "lon": 127.9075730 },
+    { "lat": 36.9747270, "lon": 127.9079814 },
+    { "lat": 36.9749810, "lon": 127.9081168 },
+    { "lat": 36.9761299, "lon": 127.9087637 },
+    { "lat": 36.9761553, "lon": 127.9086912 },
+    { "lat": 36.9750559, "lon": 127.9080764 },
+    { "lat": 36.9740244, "lon": 127.9075124 }
+  ],
+  "tags": {
+    "area": "yes",
+    "layer": "1",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "2;1",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 970322554,
+  "bounds": {
+    "minlat": 36.9721629,
+    "minlon": 127.9064529,
+    "maxlat": 36.9784742,
+    "maxlon": 127.9099459
+  },
+  "nodes": [
+    8979515480,
+    11171643158,
+    13232312338,
+    11171643157,
+    8979515499,
+    13232385551,
+    13232385550,
+    11171643145,
+    8979515498,
+    11171643168,
+    11171643170,
+    11171643166,
+    13232312337,
+    8979515458,
+    12871005680,
+    1899567993
+  ],
+  "geometry": [
+    { "lat": 36.9721629, "lon": 127.9064529 },
+    { "lat": 36.9724602, "lon": 127.9066160 },
+    { "lat": 36.9727057, "lon": 127.9067510 },
+    { "lat": 36.9730679, "lon": 127.9069520 },
+    { "lat": 36.9736165, "lon": 127.9072581 },
+    { "lat": 36.9738521, "lon": 127.9073890 },
+    { "lat": 36.9743372, "lon": 127.9076574 },
+    { "lat": 36.9745822, "lon": 127.9077893 },
+    { "lat": 36.9760936, "lon": 127.9086277 },
+    { "lat": 36.9763456, "lon": 127.9087673 },
+    { "lat": 36.9768490, "lon": 127.9090451 },
+    { "lat": 36.9771734, "lon": 127.9092244 },
+    { "lat": 36.9772901, "lon": 127.9092919 },
+    { "lat": 36.9776377, "lon": 127.9094832 },
+    { "lat": 36.9779451, "lon": 127.9096526 },
+    { "lat": 36.9784742, "lon": 127.9099459 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970322555,
+  "bounds": {
+    "minlat": 36.9736460,
+    "minlon": 127.9072198,
+    "maxlat": 36.9776075,
+    "maxlon": 127.9094093
+  },
+  "nodes": [
+    8979515501,
+    11164922963,
+    8979515500,
+    11171643169,
+    8979515459
+  ],
+  "geometry": [
+    { "lat": 36.9736460, "lon": 127.9072198 },
+    { "lat": 36.9750029, "lon": 127.9079710 },
+    { "lat": 36.9761024, "lon": 127.9085795 },
+    { "lat": 36.9763551, "lon": 127.9087209 },
+    { "lat": 36.9776075, "lon": 127.9094093 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970322556,
+  "bounds": {
+    "minlat": 36.9740714,
+    "minlon": 127.9073617,
+    "maxlat": 36.9762117,
+    "maxlon": 127.9086036
+  },
+  "nodes": [
+    8979515505,
+    8979515504,
+    8979515503,
+    8979515502,
+    8979515505
+  ],
+  "geometry": [
+    { "lat": 36.9740947, "lon": 127.9073617 },
+    { "lat": 36.9740714, "lon": 127.9074208 },
+    { "lat": 36.9761868, "lon": 127.9086036 },
+    { "lat": 36.9762117, "lon": 127.9085291 },
+    { "lat": 36.9740947, "lon": 127.9073617 }
+  ],
+  "tags": {
+    "area": "yes",
+    "layer": "1",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "4;3",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 970322557,
+  "bounds": {
+    "minlat": 36.9723652,
+    "minlon": 127.9065107,
+    "maxlat": 36.9776075,
+    "maxlon": 127.9094093
+  },
+  "nodes": [
+    9385350797,
+    13232385563,
+    13232385564,
+    8979515481,
+    11171643154,
+    13232385562,
+    8979515507,
+    13232385561,
+    11164922962,
+    8979515506,
+    13232385558,
+    13232385559,
+    13232385560,
+    13232385557,
+    11171643171,
+    13232385556,
+    8979515459
+  ],
+  "geometry": [
+    { "lat": 36.9723652, "lon": 127.9065107 },
+    { "lat": 36.9725370, "lon": 127.9065945 },
+    { "lat": 36.9726634, "lon": 127.9066517 },
+    { "lat": 36.9730046, "lon": 127.9068009 },
+    { "lat": 36.9733304, "lon": 127.9069426 },
+    { "lat": 36.9734676, "lon": 127.9070056 },
+    { "lat": 36.9737127, "lon": 127.9071273 },
+    { "lat": 36.9738769, "lon": 127.9072145 },
+    { "lat": 36.9750737, "lon": 127.9078775 },
+    { "lat": 36.9761687, "lon": 127.9084833 },
+    { "lat": 36.9764417, "lon": 127.9086361 },
+    { "lat": 36.9765813, "lon": 127.9087198 },
+    { "lat": 36.9766573, "lon": 127.9087677 },
+    { "lat": 36.9767368, "lon": 127.9088207 },
+    { "lat": 36.9768955, "lon": 127.9089279 },
+    { "lat": 36.9772656, "lon": 127.9091804 },
+    { "lat": 36.9776075, "lon": 127.9094093 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "siding",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 970322558,
+  "bounds": {
+    "minlat": 36.9747438,
+    "minlon": 127.9075063,
+    "maxlat": 36.9759870,
+    "maxlon": 127.9082779
+  },
+  "nodes": [
+    8979515510,
+    8979515509,
+    8979515508,
+    11171643144,
+    13232731505,
+    11171643143,
+    8979515510
+  ],
+  "geometry": [
+    { "lat": 36.9747438, "lon": 127.9076214 },
+    { "lat": 36.9759509, "lon": 127.9082779 },
+    { "lat": 36.9759870, "lon": 127.9081766 },
+    { "lat": 36.9757663, "lon": 127.9080477 },
+    { "lat": 36.9753439, "lon": 127.9078131 },
+    { "lat": 36.9747865, "lon": 127.9075063 },
+    { "lat": 36.9747438, "lon": 127.9076214 }
+  ],
+  "tags": {
+    "area": "yes",
+    "departures_board": "realtime",
+    "layer": "1",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "6;5",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 970322559,
+  "bounds": {
+    "minlat": 36.9747436,
+    "minlon": 127.9076396,
+    "maxlat": 36.9778158,
+    "maxlon": 127.9093425
+  },
+  "nodes": [
+    11164922961,
+    12871005672,
+    8979515512,
+    13232385590,
+    8979515460,
+    13232385591,
+    13232385592,
+    12871005678
+  ],
+  "geometry": [
+    { "lat": 36.9747436, "lon": 127.9076396 },
+    { "lat": 36.9759294, "lon": 127.9082958 },
+    { "lat": 36.9762081, "lon": 127.9084513 },
+    { "lat": 36.9765339, "lon": 127.9086321 },
+    { "lat": 36.9769084, "lon": 127.9088411 },
+    { "lat": 36.9772498, "lon": 127.9090278 },
+    { "lat": 36.9775336, "lon": 127.9091859 },
+    { "lat": 36.9778158, "lon": 127.9093425 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "name": "중부내륙선",
+    "name:ja": "中部内陸線",
+    "name:ko": "중부내륙선",
+    "name:ko-Hani": "中部內陸線",
+    "name:zh-Hans": "中部内陆线",
+    "name:zh-Hant": "中部內陸線",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "204",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 970322560,
+  "bounds": {
+    "minlat": 36.9759233,
+    "minlon": 127.9081221,
+    "maxlat": 36.9785432,
+    "maxlon": 127.9097481
+  },
+  "nodes": [
+    11164922960,
+    13232385599,
+    8449061729,
+    12871005677,
+    13232385595,
+    13232385594,
+    12871005673,
+    13232385593,
+    12871005678,
+    8979515462
+  ],
+  "geometry": [
+    { "lat": 36.9759233, "lon": 127.9081221 },
+    { "lat": 36.9761706, "lon": 127.9082761 },
+    { "lat": 36.9762513, "lon": 127.9083285 },
+    { "lat": 36.9771001, "lon": 127.9088867 },
+    { "lat": 36.9771911, "lon": 127.9089450 },
+    { "lat": 36.9772841, "lon": 127.9090071 },
+    { "lat": 36.9774498, "lon": 127.9091162 },
+    { "lat": 36.9775992, "lon": 127.9092120 },
+    { "lat": 36.9778158, "lon": 127.9093425 },
+    { "lat": 36.9785432, "lon": 127.9097481 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "120",
+    "name": "중부내륙선",
+    "name:ja": "中部内陸線",
+    "name:ko": "중부내륙선",
+    "name:ko-Hani": "中部內陸線",
+    "name:zh-Hans": "中部内陆线",
+    "name:zh-Hant": "中部內陸線",
+    "operator": "한국철도공사",
+    "operator:en": "Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "204",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1204654348,
+  "bounds": {
+    "minlat": 36.9737563,
+    "minlon": 127.9069115,
+    "maxlat": 36.9759233,
+    "maxlon": 127.9081221
+  },
+  "nodes": [
+    8449061741,
+    11171643149,
+    12871005671,
+    13232385600,
+    13232387201,
+    11164922960
+  ],
+  "geometry": [
+    { "lat": 36.9737563, "lon": 127.9069115 },
+    { "lat": 36.9743568, "lon": 127.9072435 },
+    { "lat": 36.9747847, "lon": 127.9074801 },
+    { "lat": 36.9754840, "lon": 127.9078703 },
+    { "lat": 36.9757908, "lon": 127.9080396 },
+    { "lat": 36.9759233, "lon": 127.9081221 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "name": "중부내륙선",
+    "name:ja": "中部内陸線",
+    "name:ko": "중부내륙선",
+    "name:ko-Hani": "中部內陸線",
+    "name:zh-Hans": "中部内陆线",
+    "name:zh-Hant": "中部內陸線",
+    "operator": "한국철도공사",
+    "operator:en": "Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "204",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1204654349,
+  "bounds": {
+    "minlat": 36.9714962,
+    "minlon": 127.9058381,
+    "maxlat": 36.9747436,
+    "maxlon": 127.9076396
+  },
+  "nodes": [
+    12388056706,
+    12871005638,
+    11171643155,
+    13232385589,
+    11164922961
+  ],
+  "geometry": [
+    { "lat": 36.9714962, "lon": 127.9058381 },
+    { "lat": 36.9722231, "lon": 127.9062410 },
+    { "lat": 36.9735884, "lon": 127.9069997 },
+    { "lat": 36.9745613, "lon": 127.9075397 },
+    { "lat": 36.9747436, "lon": 127.9076396 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "name": "중부내륙선",
+    "name:en": "Jungbu Naeryuk Line",
+    "name:ja": "中部内陸線",
+    "name:ko": "중부내륙선",
+    "name:ko-Hani": "中部內陸線",
+    "name:zh-Hans": "中部内陆线",
+    "name:zh-Hant": "中部內陸線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "204",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1204654350,
+  "bounds": {
+    "minlat": 36.9712078,
+    "minlon": 127.9059226,
+    "maxlat": 36.9721629,
+    "maxlon": 127.9064529
+  },
+  "nodes": [
+    8979515475,
+    13232385579,
+    11171643153,
+    13232385580,
+    13232385578,
+    8979515480
+  ],
+  "geometry": [
+    { "lat": 36.9712078, "lon": 127.9059226 },
+    { "lat": 36.9715364, "lon": 127.9061053 },
+    { "lat": 36.9717363, "lon": 127.9062146 },
+    { "lat": 36.9718602, "lon": 127.9062829 },
+    { "lat": 36.9719161, "lon": 127.9063148 },
+    { "lat": 36.9721629, "lon": 127.9064529 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1204654352,
+  "bounds": {
+    "minlat": 36.9776075,
+    "minlon": 127.9094093,
+    "maxlat": 36.9784879,
+    "maxlon": 127.9099057
+  },
+  "nodes": [
+    8979515459,
+    12871005679,
+    1899567820
+  ],
+  "geometry": [
+    { "lat": 36.9776075, "lon": 127.9094093 },
+    { "lat": 36.9782481, "lon": 127.9097705 },
+    { "lat": 36.9784879, "lon": 127.9099057 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1205462203,
+  "bounds": {
+    "minlat": 36.9711273,
+    "minlon": 127.9058232,
+    "maxlat": 36.9723652,
+    "maxlon": 127.9065107
+  },
+  "nodes": [
+    9385350794,
+    13232385567,
+    13232385568,
+    12871005665,
+    13232385566,
+    13232385582,
+    8979515485,
+    13232385565,
+    9385350797
+  ],
+  "geometry": [
+    null,
+    null,
+    { "lat": 36.9711273, "lon": 127.9058232 },
+    { "lat": 36.9712240, "lon": 127.9058783 },
+    { "lat": 36.9713299, "lon": 127.9059376 },
+    { "lat": 36.9714249, "lon": 127.9059888 },
+    { "lat": 36.9717639, "lon": 127.9061777 },
+    { "lat": 36.9719918, "lon": 127.9063038 },
+    { "lat": 36.9723652, "lon": 127.9065107 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "120",
+    "name": "충북선",
+    "name:de": "Chungbuk-Linie",
+    "name:en": "Chungbuk Line",
+    "name:ja": "忠北線",
+    "name:ko": "충북선",
+    "name:ko-Hani": "忠北線",
+    "name:zh-Hans": "忠北线",
+    "name:zh-Hant": "忠北線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "306",
+    "source": "bing",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1205462204,
+  "bounds": {
+    "minlat": 36.9707293,
+    "minlon": 127.9057295,
+    "maxlat": 36.9728501,
+    "maxlon": 127.9069986
+  },
+  "nodes": [
+    9385350789,
+    13232385576,
+    9385350788,
+    13232385577,
+    8979515487,
+    11171643163,
+    13232385530,
+    13232385531,
+    13232385532,
+    11171643159
+  ],
+  "geometry": [
+    { "lat": 36.9707293, "lon": 127.9057295 },
+    { "lat": 36.9713766, "lon": 127.9060871 },
+    { "lat": 36.9718144, "lon": 127.9063308 },
+    { "lat": 36.9721249, "lon": 127.9065034 },
+    { "lat": 36.9722849, "lon": 127.9065968 },
+    { "lat": 36.9725152, "lon": 127.9067494 },
+    { "lat": 36.9726295, "lon": 127.9068273 },
+    { "lat": 36.9726883, "lon": 127.9068677 },
+    { "lat": 36.9727457, "lon": 127.9069108 },
+    { "lat": 36.9728501, "lon": 127.9069986 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 1205462205,
+  "bounds": {
+    "minlat": 36.9724827,
+    "minlon": 127.9066721,
+    "maxlat": 36.9728501,
+    "maxlon": 127.9069986
+  },
+  "nodes": [
+    11171643159,
+    13232385533,
+    11171643162
+  ],
+  "geometry": [
+    { "lat": 36.9728501, "lon": 127.9069986 },
+    { "lat": 36.9725515, "lon": 127.9067293 },
+    { "lat": 36.9724827, "lon": 127.9066721 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 1246302031,
+  "bounds": {
+    "minlat": 36.9765171,
+    "minlon": 127.9128347,
+    "maxlat": 36.9766668,
+    "maxlon": 127.9129555
+  },
+  "nodes": [
+    11586874273,
+    11586874272
+  ],
+  "geometry": [
+    { "lat": 36.9766668, "lon": 127.9129555 },
+    { "lat": 36.9765171, "lon": 127.9128347 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1339218246,
+  "bounds": {
+    "minlat": 36.9704991,
+    "minlon": 127.9052855,
+    "maxlat": 36.9737563,
+    "maxlon": 127.9069115
+  },
+  "nodes": [
+    7756477388,
+    12871005657,
+    13232387204,
+    12388056706,
+    13232387203,
+    12871005637,
+    12871005670,
+    13232387202,
+    8449061741
+  ],
+  "geometry": [
+    null,
+    null,
+    { "lat": 36.9704991, "lon": 127.9052855 },
+    { "lat": 36.9714962, "lon": 127.9058381 },
+    { "lat": 36.9718013, "lon": 127.9059876 },
+    { "lat": 36.9722654, "lon": 127.9062005 },
+    { "lat": 36.9733584, "lon": 127.9067030 },
+    { "lat": 36.9735424, "lon": 127.9067945 },
+    { "lat": 36.9737563, "lon": 127.9069115 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "180",
+    "name": "중부내륙선",
+    "name:en": "Jungbu Naeryuk Line",
+    "name:ja": "中部内陸線",
+    "name:ko": "중부내륙선",
+    "name:ko-Hani": "中部內陸線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "204",
+    "source": "bing",
+    "start_date": "2024-11-30",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1390438954,
+  "bounds": {
+    "minlat": 36.9711120,
+    "minlon": 127.9058047,
+    "maxlat": 36.9712240,
+    "maxlon": 127.9058783
+  },
+  "nodes": [
+    12871005657,
+    13232387207,
+    13232387206,
+    13232387205,
+    12871005664,
+    13232385569,
+    13232385570,
+    13232385571,
+    13232385572,
+    12871005665
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 36.9711120, "lon": 127.9058047 },
+    { "lat": 36.9712240, "lon": 127.9058783 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "service": "crossover",
+    "start_date": "2024-11-30",
+    "tracks": "1",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 1390438955,
+  "bounds": {
+    "minlat": 36.9710998,
+    "minlon": 127.9056852,
+    "maxlat": 36.9722231,
+    "maxlon": 127.9062410
+  },
+  "nodes": [
+    12871005666,
+    13232385585,
+    13232385586,
+    12871005668,
+    12871005669,
+    13232385587,
+    13232385588,
+    12871005638
+  ],
+  "geometry": [
+    { "lat": 36.9710998, "lon": 127.9056852 },
+    { "lat": 36.9714670, "lon": 127.9058914 },
+    { "lat": 36.9715687, "lon": 127.9059454 },
+    { "lat": 36.9716282, "lon": 127.9059733 },
+    { "lat": 36.9717254, "lon": 127.9060166 },
+    { "lat": 36.9719752, "lon": 127.9061230 },
+    { "lat": 36.9721204, "lon": 127.9061894 },
+    { "lat": 36.9722231, "lon": 127.9062410 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "service": "yard",
+    "start_date": "2024-11-30",
+    "tracks": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1390438956,
+  "bounds": {
+    "minlat": 36.9771001,
+    "minlon": 127.9088867,
+    "maxlat": 36.9780636,
+    "maxlon": 127.9094056
+  },
+  "nodes": [
+    12871005675,
+    13232385598,
+    13232385597,
+    12871005676,
+    13232385596,
+    12871005677
+  ],
+  "geometry": [
+    { "lat": 36.9780636, "lon": 127.9094056 },
+    { "lat": 36.9775518, "lon": 127.9091213 },
+    { "lat": 36.9774838, "lon": 127.9090835 },
+    { "lat": 36.9774008, "lon": 127.9090389 },
+    { "lat": 36.9773003, "lon": 127.9089928 },
+    { "lat": 36.9771001, "lon": 127.9088867 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "yard",
+    "start_date": "2021-12-31"
+  }
+},
+{
+  "type": "way",
+  "id": 1390438957,
+  "bounds": {
+    "minlat": 36.9779451,
+    "minlon": 127.9096526,
+    "maxlat": 36.9782481,
+    "maxlon": 127.9097705
+  },
+  "nodes": [
+    12871005679,
+    12871005680
+  ],
+  "geometry": [
+    { "lat": 36.9782481, "lon": 127.9097705 },
+    { "lat": 36.9779451, "lon": 127.9096526 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "crossover"
+  }
+},
+{
+  "type": "way",
+  "id": 1442090978,
+  "bounds": {
+    "minlat": 36.9714249,
+    "minlon": 127.9059888,
+    "maxlat": 36.9718602,
+    "maxlon": 127.9062829
+  },
+  "nodes": [
+    13232385580,
+    13232385584,
+    13232385583,
+    13232385581,
+    13232385582
+  ],
+  "geometry": [
+    { "lat": 36.9718602, "lon": 127.9062829 },
+    { "lat": 36.9717665, "lon": 127.9062227 },
+    { "lat": 36.9716747, "lon": 127.9061606 },
+    { "lat": 36.9715585, "lon": 127.9060766 },
+    { "lat": 36.9714249, "lon": 127.9059888 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "railway": "rail",
+    "service": "crossover"
+  }
+},
+{
+  "type": "relation",
+  "id": 19158192,
+  "bounds": {
+    "minlat": 36.9753395,
+    "minlon": 127.9078875,
+    "maxlat": 36.9764776,
+    "maxlon": 127.9096398
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 628218239,
+      "role": "outer",
+      "geometry": [
+         { "lat": 36.9756889, "lon": 127.9091434 },
+         { "lat": 36.9756298, "lon": 127.9093003 },
+         { "lat": 36.9757135, "lon": 127.9093514 },
+         { "lat": 36.9756336, "lon": 127.9095462 },
+         { "lat": 36.9756143, "lon": 127.9095972 },
+         { "lat": 36.9755870, "lon": 127.9096182 },
+         { "lat": 36.9755666, "lon": 127.9096265 },
+         { "lat": 36.9755480, "lon": 127.9096364 },
+         { "lat": 36.9755277, "lon": 127.9096398 },
+         { "lat": 36.9755017, "lon": 127.9096351 },
+         { "lat": 36.9753970, "lon": 127.9095727 },
+         { "lat": 36.9753686, "lon": 127.9095485 },
+         { "lat": 36.9753452, "lon": 127.9095110 },
+         { "lat": 36.9753395, "lon": 127.9094686 },
+         { "lat": 36.9753452, "lon": 127.9094201 },
+         { "lat": 36.9755310, "lon": 127.9089064 },
+         { "lat": 36.9755709, "lon": 127.9089273 },
+         { "lat": 36.9756570, "lon": 127.9087044 },
+         { "lat": 36.9757261, "lon": 127.9087410 },
+         { "lat": 36.9757666, "lon": 127.9087605 },
+         { "lat": 36.9762271, "lon": 127.9090182 },
+         { "lat": 36.9761930, "lon": 127.9091287 },
+         { "lat": 36.9762643, "lon": 127.9091646 },
+         { "lat": 36.9762161, "lon": 127.9092991 },
+         { "lat": 36.9760807, "lon": 127.9092212 },
+         { "lat": 36.9760378, "lon": 127.9093379 },
+         { "lat": 36.9756889, "lon": 127.9091434 }
+      ]
+    },
+    {
+      "type": "way",
+      "ref": 1388447315,
+      "role": "outer",
+      "geometry": [
+         { "lat": 36.9760213, "lon": 127.9080409 },
+         { "lat": 36.9761600, "lon": 127.9079872 },
+         { "lat": 36.9760732, "lon": 127.9079393 },
+         { "lat": 36.9760645, "lon": 127.9079664 },
+         { "lat": 36.9759892, "lon": 127.9079957 },
+         { "lat": 36.9757261, "lon": 127.9087410 }
+      ]
+    },
+    {
+      "type": "way",
+      "ref": 1442133260,
+      "role": "outer",
+      "geometry": [
+         { "lat": 36.9757261, "lon": 127.9087410 },
+         { "lat": 36.9757666, "lon": 127.9087605 },
+         { "lat": 36.9760213, "lon": 127.9080409 }
+      ]
+    },
+    {
+      "type": "way",
+      "ref": 1388447316,
+      "role": "outer",
+      "geometry": [
+         { "lat": 36.9760732, "lon": 127.9079393 },
+         { "lat": 36.9761600, "lon": 127.9079872 },
+         { "lat": 36.9764593, "lon": 127.9081605 },
+         { "lat": 36.9764776, "lon": 127.9081057 },
+         { "lat": 36.9760856, "lon": 127.9078875 },
+         { "lat": 36.9760732, "lon": 127.9079393 }
+      ]
+    },
+    {
+      "type": "node",
+      "ref": 5930809359,
+      "role": "outer",
+      "lat": 36.9756336,
+      "lon": 127.9095462
+    }
+  ],
+  "tags": {
+    "addr:city": "충주시",
+    "addr:housenumber": "539",
+    "addr:postcode": "27476",
+    "addr:province": "충청북도",
+    "addr:street": "충원대로",
+    "addr:subdistrict": "봉방동",
+    "building": "train_station",
+    "building:levels": "2",
+    "height": "10",
+    "layer": "1",
+    "name": "충주역",
+    "name:en": "Chungju Station",
+    "name:ja": "忠州駅",
+    "type": "multipolygon",
+    "wikidata": "Q50014",
+    "wikipedia": "ko:충주역"
+  }
+}
+
+  ]
+}
