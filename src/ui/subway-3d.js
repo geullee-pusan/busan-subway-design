@@ -2159,7 +2159,8 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     last = now;
     resize();
     mixer.update(reduceMotion ? 0 : dt);
-    if (drive) {
+    if (drive?.phys) stepDrive(dt);
+    else if (drive) {
       if (!drive.start) drive.start = now;
       const u = drive.ms > 0 ? Math.min(1, (now - drive.start) / drive.ms) : 1;
       const e = drive.ease === 'out' ? 1 - (1 - u) * (1 - u) : u < 0.5 ? 2 * u * u : 1 - 2 * (1 - u) * (1 - u);
@@ -2290,6 +2291,46 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
   mark();
   el.append(camRow);
 
+  /**
+   * 역 사이 달리기(속도로 움직인다): 빨라지기 → 같은 빠르기 → 멈추기.
+   * release(방송이 끝나면 풀리는 약속)가 풀리기 전에는 역 앞 HOLD_KM에서 멈춰 기다렸다가(신호 대기처럼), 풀리면 역으로 들어가 선다.
+   * 빠르기는 방송 길이를 어림한 ms 동안 역에 닿도록 정한다(빨라지기·멈추기가 각각 4분의 1쯤).
+   */
+  const HOLD_KM = 0.09;
+  function stepDrive(dt) {
+    const d = drive;
+    const goal = d.released ? d.to : Math.max(d.from, d.to - HOLD_KM);
+    const remain = goal - d.pos;
+    const brakeDist = (d.v * d.v) / (2 * d.b);
+    if (remain <= 1e-6) d.v = 0;
+    else if (remain <= brakeDist + d.v * dt) d.v = Math.sqrt(2 * d.b * Math.max(0, remain - d.v * dt * 0.5));
+    else d.v = Math.min(d.vmax, d.v + d.a * dt);
+    d.pos = Math.min(goal, d.pos + d.v * dt);
+    posKm = d.pos;
+    if (d.released && d.to - d.pos < 1e-5) {
+      posKm = d.to;
+      drive = null;
+      d.done();
+    }
+  }
+  function runPhys({ from, to, ms, release }) {
+    return new Promise((done) => {
+      if (reduceMotion || ms <= 0) {
+        posKm = to;
+        done();
+        return;
+      }
+      const D = Math.max(0.001, to - from);
+      const T = ms / 1000;
+      const vmax = D / (0.75 * T);
+      const a = vmax / (0.25 * T);
+      drive = { phys: true, from, to, pos: from, v: 0, vmax, a, b: a, released: !release, done };
+      const me = drive;
+      release?.then(() => {
+        me.released = true;
+      });
+    });
+  }
   const run = (spec2) =>
     new Promise((done) => {
       drive = { start: 0, ...spec2, ms: reduceMotion ? 0 : spec2.ms, done };
@@ -2322,14 +2363,21 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       return run({ from: Math.max(0.02, stopHead() - 0.28), to: stopHead(), ms, ease: 'out' });
     },
     /** 역 k까지 달린다(여러 역을 건너뛰면 마지막 구간만 달린다) */
-    driveTo(k, ms = 7000) {
+    driveTo(k, ms = 7000, { release } = {}) {
       planAlight();
       const from = Math.max(0, Math.min(k - 1, stops.length - 2));
       if (seg !== from || !world) buildWorld(from);
       platformAt = kmA;
       for (const c of cars) c.group.visible = true;
-      return run({ from: stopHead(), to: kmB + trainLen / 2000, ms }).then(() => {
+      return runPhys({ from: stopHead(), to: kmB + trainLen / 2000, ms, release }).then(() => {
         platformAt = kmB;
+      });
+    },
+    /** 문이 다 열리거나 닫히면 풀린다 */
+    doorsSettled() {
+      return new Promise((done) => {
+        const check = () => (Math.abs(doorAmount - doorTarget) < 1e-3 || reduceMotion ? done() : setTimeout(check, 100));
+        check();
       });
     },
     setDoors(open) {

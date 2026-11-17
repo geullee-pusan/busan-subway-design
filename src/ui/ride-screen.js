@@ -820,10 +820,27 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       const spoken = voiceOn ? sound.announce({ korean: [text], english: [], voice: true, music: false }) : Promise.resolve();
       await Promise.all([art.arrive(3000), spoken, sub3d ? within(sub3d.arrive(6000), 9000) : null]);
       if (leg !== legToken || phase !== '승강장') return;
+      // 열차가 선 뒤 조금 있다가 문이 열린다
+      await new Promise((done) => setTimeout(done, reduceMotion ? 0 : 900));
+      if (leg !== legToken || phase !== '승강장') return;
       art.openDoors();
       sub3d?.setDoors(true);
       ledText.textContent = `${end.name}행 열차가 도착했어요`;
     }, reduceMotion ? 0 : 2500);
+  }
+
+  /**
+   * 지금 방송이 걸릴 시간 어림(밀리초). 3D 열차가 이만큼 달려 역에 닿게 한다.
+   * 우리말은 한 글자에 0.17초, 영어는 0.07초, 가락은 3초로 어림했다(기기 목소리 빠르기에 따라 다르다. 우리가 정한 값).
+   * 방송이 더 길면 열차는 역 앞에서 기다린다. 가장 짧게 7초.
+   */
+  function announceMs() {
+    if (!voiceOn) return 7000 + (soundOn && melodyHere() ? 3000 : 0);
+    const { korean, english } = announcement();
+    const ko = korean.join('').length * 170;
+    const en = english.join('').length * 70;
+    const tune = soundOn && melodyHere() ? 3000 : 0;
+    return Math.max(7000, Math.min(40000, ko + en + tune + 2500));
   }
 
   /** 지금 방송을 소리로 낸다(켜 둔 것만). 방송이 끝나면 풀리는 약속을 돌려준다. */
@@ -1454,6 +1471,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       timer = setTimeout(resolve, reduceMotion ? 0 : MOVE_MS);
     });
     let drove = Promise.resolve();
+    let spoken = null;
     if (sub3d) {
       const c = sub3d;
       const target = at;
@@ -1461,9 +1479,19 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       const prevStop = trip.stops[target - 1];
       const nextStop = trip.stops[target];
       c.setFlow({ before: (prevStop?.load ?? 0) / c.cars, off: (nextStop?.off ?? 0) / c.cars, on: (nextStop?.on ?? 0) / c.cars, after: (nextStop?.load ?? 0) / c.cars });
+      // 문이 다 닫힌 뒤 조금 쉬었다가 떠난다. 방송은 열차가 움직이기 시작할 때 나오고,
+      // 방송이 끝나기 전에는 역 앞에서 기다렸다가(release) 방송이 끝나면 역으로 들어가 선다.
       c.setDoors(false);
-      const run3d = new Promise((done) => setTimeout(done, reduceMotion ? 0 : 800)).then(() => c.driveTo(target, 7000));
-      if (subView !== 'picture') drove = within(run3d, 12000);
+      const pause = (ms) => new Promise((done) => setTimeout(done, reduceMotion ? 0 : ms));
+      const moving = c.doorsSettled().then(() => pause(1000));
+      if (subView !== 'picture') {
+        spoken = moving.then(() => (leg === legToken ? announceNow() : null));
+        const run3d = moving.then(() => c.driveTo(target, announceMs(), { release: spoken }));
+        drove = within(run3d.then(() => pause(1000)), 90000);
+      } else {
+        // 그림 보기: 3D 열차는 뒤에서 그냥 달려 둔다(방송은 아래에서 바로 낸다)
+        moving.then(() => c.driveTo(target, 7000));
+      }
     }
     const shortest = Promise.all([timed, drove]);
     shortest.then(() => {
@@ -1471,7 +1499,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       runFinished = true;
       offerLeave();
     });
-    Promise.all([shortest, announceNow()]).then(() => {
+    Promise.all([shortest, spoken ?? announceNow()]).then(() => {
       if (leg !== legToken || phase !== '달리기') return;
       stopAtStation();
       renderRide();

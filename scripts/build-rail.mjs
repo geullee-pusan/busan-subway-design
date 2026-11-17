@@ -311,6 +311,8 @@ function simplify(points, tol) {
 // 4. 노선마다: 거리표 사슬(여럿이면 차례로 이음) → 지도 안 여객역 차례, 역 사이 거리, 선 모양
 const stations = new Map();
 const lines = [];
+// 여객역 목록에 없지만 지도 안 OSM 코레일 역이 있는 이름: npm run trains가 이 역의 열차 기록도 받아서, 실제로 열차가 서면 여객역으로 본다.
+const unconfirmed = new Set();
 const findChain = (sheet, names) =>
   allChains.find((c) => c.sheet === sheet && names.every((n) => c.seq.some((p) => p.name === key(n))));
 for (const def of config.lines) {
@@ -347,7 +349,10 @@ for (const def of config.lines) {
   const kms = [];
   for (const point of along) {
     // 여객역인지: 코레일 목록(2024-04)에 이름이 있거나, 그 뒤 이름이 바뀐 역이면 OSM의 옛 이름(old_name)이 목록에 있다(예: 신경주 → 경주).
-    if (!passenger.has(point.name) && !osmByName(point.name).some((c) => c.oldNames.some((n) => passenger.has(n)))) continue;
+    if (!passenger.has(point.name) && !osmByName(point.name).some((c) => c.oldNames.some((n) => passenger.has(n)))) {
+      if (osmByName(point.name).some(inGrid)) unconfirmed.add(point.name);
+      continue;
+    }
     const candidates = osmByName(point.name).filter(inGrid);
     if (candidates.length === 0) {
       if (osmByName(point.name).length === 0 && koreanInGrid.has(point.name)) issues.push(`${def.name} ${point.name}: OSM에 이 이름의 역이 없어 뺐어요(문을 닫았거나 이름이 바뀐 역일 수 있어요).`);
@@ -465,6 +470,8 @@ const out = {
     '공공데이터포털 15137040 한국철도공사 철도운행거리 전체(각 선구별 거리표, 2024-09-01), 15127532 한국철도공사 역 위치 정보(2024-04-01, 여객역 목록), OpenStreetMap 역과 철도 선로(© OpenStreetMap contributors)',
   lines,
   stations: [...stations.values()].map(({ node: _, ...s }) => s),
+  // 여객역인지 아직 모르는 역(열차 기록을 받아 볼 역 이름)
+  candidates: [...unconfirmed].sort(),
   issues,
 };
 writeFileSync(resolve(ROOT, 'data/build/rail.json'), JSON.stringify(out));

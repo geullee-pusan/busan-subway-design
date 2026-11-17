@@ -312,14 +312,20 @@
       "region": "대전",
       "color": "#007448",
       "colorSource": "OSM colour 태그",
+      "carsPerTrain": 4,
+      "capacityPerCar": {
+        "lead": "113",
+        "middle": "124"
+      },
+      "capacityPerTrain": 474,
+      "vehicle": "통근형 직류 전동차(직류 1,500V, 알루미늄 차체)",
       "trainsPerHourPeak": 10,
       "trainsPerHourTypical": 6.6,
       "headwayMin": 9.1,
       "serviceSource": "15000960 시각표에서 셈(평일 6~22시, 정부청사역, 판암→반석)",
       "hourly": [1,0,0,0,0,3,5,9,10,6,6,6,6,6,6,6,6,7,10,6,6,6,5,5],
       "hourlySource": "15000960 시각표, 평일 정부청사역을 지나는 열차(판암→반석)",
-      "capacityPerTrain": null,
-      "capacitySource": null
+      "capacitySource": "사용자가 붙여 준 대전 1호선 차량 제원 글(2026-11-17, 나무위키 문서로 보임): 선두차 113명 × 2 + 중간차 124명 × 2"
     }
   ],
   "planned": [

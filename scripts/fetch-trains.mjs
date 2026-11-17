@@ -19,8 +19,8 @@ export { KORAIL_DATE, TAGO_DATE };
 const OUT = resolve(ROOT, 'data/raw/korail');
 const KORAIL = 'https://apis.data.go.kr/B551457/run/v2';
 const TAGO = 'https://apis.data.go.kr/1613000/TrainInfo';
-/** TAGO 시·도 코드: 지도 안 부산, 대구, 광주, 대전, 울산, 충북, 충남, 전북, 전남, 경북, 경남 */
-const TAGO_CITIES = ['21', '22', '24', '25', '26', '32', '33', '34', '35', '36', '37', '38'];
+/** TAGO 시·도 코드: 지도 안 부산, 대구, 광주, 대전, 울산, 세종(12), 경기(31, 서해선 안중·향남과 경부선 평택 쪽), 충북, 충남, 전북, 전남, 경북, 경남 */
+const TAGO_CITIES = ['12', '21', '22', '24', '25', '26', '31', '32', '33', '34', '35', '36', '37', '38'];
 
 const key = readApiKey();
 if (!key) {
@@ -69,7 +69,8 @@ const nameKey = (name) => String(name ?? '').replace(/\s+/g, '').replace(/[()]/g
 // 1. 지도 안 기차역 이름: 일반·고속 철도(rail.json)와 코레일이 운영하는 광역전철(동해선, 대경선)
 const rail = JSON.parse(readFileSync(resolve(ROOT, 'data/build/rail.json'), 'utf8'));
 const metro = JSON.parse(readFileSync(resolve(ROOT, 'data/build/stations.json'), 'utf8')).stations;
-const wanted = new Set([...rail.stations.map((s) => nameKey(s.name)), ...metro.filter((s) => s.line === 'DH' || s.line === 'DK').map((s) => nameKey(s.name))]);
+// candidates: 여객역 목록에 없어 아직 넣지 않은 지도 안 역(열차가 서는지 보려고 함께 받는다)
+const wanted = new Set([...rail.stations.map((s) => nameKey(s.name)), ...(rail.candidates ?? []).map(nameKey), ...metro.filter((s) => s.line === 'DH' || s.line === 'DK').map((s) => nameKey(s.name))]);
 
 // 2. 코레일 역 코드
 console.log('코레일 역 코드를 받아요.');

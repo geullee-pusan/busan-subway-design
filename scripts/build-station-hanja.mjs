@@ -20,7 +20,9 @@ for (const [line, entry] of Object.entries(facts.stationHanja?.lines ?? {})) {
   if (!entry.source) console.log(`! ${line}: 출처가 없어요`);
 }
 for (const o of daejeonOfficial((f) => resolve(ROOT, 'data/raw', f))) {
-  const hanja = o.hanja.replace(/\(.*?\)/g, '');
+  // 게임 역 이름이 "대전역"이면 역명판처럼 "驛"을 붙인다(사용자가 보낸 대전역 역명판 사진의 "大田驛", 2026-11-17)
+  let hanja = o.hanja.replace(/\(.*?\)/g, '');
+  if (o.name.replace(/\(.*?\)/g, '') === '대전' && hanja && !hanja.endsWith('驛')) hanja += '驛';
   if (hanja) {
     stations[`J${o.code}`] = hanja;
     found++;

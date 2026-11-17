@@ -1,0 +1,606 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-17T11:13:07Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 968843156,
+  "bounds": {
+    "minlat": 37.1242500,
+    "minlon": 126.9062028,
+    "maxlat": 37.1249763,
+    "maxlon": 126.9084554
+  },
+  "nodes": [
+    9931812455,
+    7743195764,
+    4744760969
+  ],
+  "geometry": [
+    null,
+    { "lat": 37.1249763, "lon": 126.9062028 },
+    { "lat": 37.1242500, "lon": 126.9084554 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "embankment": "yes",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 968843157,
+  "bounds": {
+    "minlat": 37.1205757,
+    "minlon": 126.9084628,
+    "maxlat": 37.1242759,
+    "maxlon": 126.9202999
+  },
+  "nodes": [
+    9931812447,
+    9931812456,
+    9931812448,
+    7649181136,
+    9931812444,
+    7743195763,
+    9034272971,
+    9034272968,
+    9034272970,
+    7743195761
+  ],
+  "geometry": [
+    { "lat": 37.1242759, "lon": 126.9084628 },
+    { "lat": 37.1242456, "lon": 126.9085650 },
+    { "lat": 37.1239644, "lon": 126.9095102 },
+    { "lat": 37.1234357, "lon": 126.9111632 },
+    { "lat": 37.1231466, "lon": 126.9120579 },
+    { "lat": 37.1223988, "lon": 126.9144491 },
+    { "lat": 37.1216679, "lon": 126.9168112 },
+    { "lat": 37.1215008, "lon": 126.9173261 },
+    { "lat": 37.1205757, "lon": 126.9202999 },
+    null
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "level": "1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 968843169,
+  "bounds": {
+    "minlat": 37.1205267,
+    "minlon": 126.9084554,
+    "maxlat": 37.1242500,
+    "maxlon": 126.9202676
+  },
+  "nodes": [
+    4744760969,
+    9931812479,
+    9931812443,
+    9931812445,
+    9931812446,
+    9034272969,
+    7743195760,
+    7743195762
+  ],
+  "geometry": [
+    { "lat": 37.1242500, "lon": 126.9084554 },
+    { "lat": 37.1242235, "lon": 126.9085390 },
+    { "lat": 37.1231165, "lon": 126.9120320 },
+    { "lat": 37.1223724, "lon": 126.9144380 },
+    { "lat": 37.1216254, "lon": 126.9167954 },
+    { "lat": 37.1214521, "lon": 126.9173142 },
+    { "lat": 37.1205267, "lon": 126.9202676 },
+    null
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "level": "1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1042807394,
+  "bounds": {
+    "minlat": 37.1188043,
+    "minlon": 126.9149988,
+    "maxlat": 37.1192508,
+    "maxlon": 126.9151940
+  },
+  "nodes": [
+    9598764169,
+    9598764178,
+    9598764173,
+    9598764202,
+    9598764170
+  ],
+  "geometry": [
+    { "lat": 37.1192508, "lon": 126.9151940 },
+    { "lat": 37.1192327, "lon": 126.9151858 },
+    { "lat": 37.1189143, "lon": 126.9150469 },
+    { "lat": 37.1188118, "lon": 126.9150021 },
+    { "lat": 37.1188043, "lon": 126.9149988 }
+  ],
+  "tags": {
+    "bridge": "viaduct",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1042807398,
+  "bounds": {
+    "minlat": 37.1189051,
+    "minlon": 126.9150469,
+    "maxlat": 37.1189143,
+    "maxlon": 126.9150796
+  },
+  "nodes": [
+    9598764173,
+    9598764174
+  ],
+  "geometry": [
+    { "lat": 37.1189143, "lon": 126.9150469 },
+    { "lat": 37.1189051, "lon": 126.9150796 }
+  ],
+  "tags": {
+    "bridge": "viaduct",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1042807400,
+  "bounds": {
+    "minlat": 37.1192233,
+    "minlon": 126.9151858,
+    "maxlat": 37.1192327,
+    "maxlon": 126.9152209
+  },
+  "nodes": [
+    9598764178,
+    9598764180
+  ],
+  "geometry": [
+    { "lat": 37.1192327, "lon": 126.9151858 },
+    { "lat": 37.1192233, "lon": 126.9152209 }
+  ],
+  "tags": {
+    "bridge": "viaduct",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1042807401,
+  "bounds": {
+    "minlat": 37.1187553,
+    "minlon": 126.9148614,
+    "maxlat": 37.1189064,
+    "maxlon": 126.9150534
+  },
+  "nodes": [
+    9598764185,
+    9598764186,
+    9598764187,
+    9598764188,
+    9598764189,
+    9598764190,
+    9598764191,
+    9598764192,
+    9598764193,
+    9598764194,
+    9598764195,
+    9598764196,
+    9598764197,
+    9598764198,
+    9598764199,
+    9598764200,
+    9598764201,
+    9598764202
+  ],
+  "geometry": [
+    { "lat": 37.1189064, "lon": 126.9149330 },
+    { "lat": 37.1187553, "lon": 126.9148614 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 37.1187863, "lon": 126.9150534 },
+    { "lat": 37.1188026, "lon": 126.9150295 },
+    { "lat": 37.1188118, "lon": 126.9150021 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "highway": "footway",
+    "incline": "up",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1042807402,
+  "bounds": {
+    "minlat": 37.1189143,
+    "minlon": 126.9150134,
+    "maxlat": 37.1189236,
+    "maxlon": 126.9150469
+  },
+  "nodes": [
+    9598764203,
+    9598764173
+  ],
+  "geometry": [
+    { "lat": 37.1189236, "lon": 126.9150134 },
+    { "lat": 37.1189143, "lon": 126.9150469 }
+  ],
+  "tags": {
+    "bridge": "viaduct",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1042807403,
+  "bounds": {
+    "minlat": 37.1192327,
+    "minlon": 126.9151518,
+    "maxlat": 37.1192419,
+    "maxlon": 126.9151858
+  },
+  "nodes": [
+    9598764204,
+    9598764178
+  ],
+  "geometry": [
+    { "lat": 37.1192419, "lon": 126.9151518 },
+    { "lat": 37.1192327, "lon": 126.9151858 }
+  ],
+  "tags": {
+    "bridge": "viaduct",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1083787952,
+  "bounds": {
+    "minlat": 37.1242759,
+    "minlon": 126.9060765,
+    "maxlat": 37.1250770,
+    "maxlon": 126.9084628
+  },
+  "nodes": [
+    7743195765,
+    9931812447
+  ],
+  "geometry": [
+    { "lat": 37.1250770, "lon": 126.9060765 },
+    { "lat": 37.1242759, "lon": 126.9084628 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "embankment": "yes",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "level": "1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1083787953,
+  "bounds": {
+    "minlat": 37.1216679,
+    "minlon": 126.9085650,
+    "maxlat": 37.1242456,
+    "maxlon": 126.9168112
+  },
+  "nodes": [
+    9931812456,
+    9931812457,
+    9931812458,
+    9931812459,
+    9931812460,
+    9931812461,
+    9931812472,
+    9034272971
+  ],
+  "geometry": [
+    { "lat": 37.1242456, "lon": 126.9085650 },
+    { "lat": 37.1240975, "lon": 126.9091863 },
+    { "lat": 37.1236874, "lon": 126.9105419 },
+    { "lat": 37.1231804, "lon": 126.9120780 },
+    { "lat": 37.1226630, "lon": 126.9137056 },
+    { "lat": 37.1221519, "lon": 126.9154028 },
+    { "lat": 37.1220749, "lon": 126.9156188 },
+    { "lat": 37.1216679, "lon": 126.9168112 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding",
+    "start_date": "2024-11-02",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 1083787954,
+  "bounds": {
+    "minlat": 37.1225992,
+    "minlon": 126.9120956,
+    "maxlat": 37.1232485,
+    "maxlon": 126.9132743
+  },
+  "nodes": [
+    9931812463,
+    9931812464,
+    9931812465,
+    9931812466,
+    9931812467,
+    9931812468,
+    9931812469,
+    9931812470,
+    9931812463
+  ],
+  "geometry": [
+    { "lat": 37.1229032, "lon": 126.9132743 },
+    { "lat": 37.1225992, "lon": 126.9131125 },
+    { "lat": 37.1226620, "lon": 126.9129269 },
+    { "lat": 37.1226098, "lon": 126.9128991 },
+    { "lat": 37.1227686, "lon": 126.9124301 },
+    { "lat": 37.1228277, "lon": 126.9124615 },
+    { "lat": 37.1229515, "lon": 126.9120956 },
+    { "lat": 37.1232485, "lon": 126.9122537 },
+    { "lat": 37.1229032, "lon": 126.9132743 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "start_date": "2024-11-02"
+  }
+},
+{
+  "type": "way",
+  "id": 1083787955,
+  "bounds": {
+    "minlat": 37.1216254,
+    "minlon": 126.9085390,
+    "maxlat": 37.1242235,
+    "maxlon": 126.9167954
+  },
+  "nodes": [
+    9931812446,
+    9931812474,
+    9931812475,
+    9931812480,
+    9931812476,
+    9931812477,
+    9931812478,
+    9931812479
+  ],
+  "geometry": [
+    { "lat": 37.1216254, "lon": 126.9167954 },
+    { "lat": 37.1218208, "lon": 126.9160425 },
+    { "lat": 37.1221414, "lon": 126.9150057 },
+    { "lat": 37.1225534, "lon": 126.9136881 },
+    { "lat": 37.1226881, "lon": 126.9132666 },
+    { "lat": 37.1231539, "lon": 126.9118049 },
+    { "lat": 37.1236050, "lon": 126.9102895 },
+    { "lat": 37.1242235, "lon": 126.9085390 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding",
+    "start_date": "2024-11-02",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 1083787956,
+  "bounds": {
+    "minlat": 37.1224912,
+    "minlon": 126.9119865,
+    "maxlat": 37.1230664,
+    "maxlon": 126.9136848
+  },
+  "nodes": [
+    9931812481,
+    9931812482,
+    9931812483,
+    9931812484,
+    9931812481
+  ],
+  "geometry": [
+    { "lat": 37.1225400, "lon": 126.9136848 },
+    { "lat": 37.1224912, "lon": 126.9136598 },
+    { "lat": 37.1230268, "lon": 126.9119865 },
+    { "lat": 37.1230664, "lon": 126.9120090 },
+    { "lat": 37.1225400, "lon": 126.9136848 }
+  ],
+  "tags": {
+    "layer": "1",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "2",
+    "start_date": "2024-11-02",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1083787957,
+  "bounds": {
+    "minlat": 37.1226831,
+    "minlon": 126.9120848,
+    "maxlat": 37.1232523,
+    "maxlon": 126.9137335
+  },
+  "nodes": [
+    9931812485,
+    9931812486,
+    9931812487,
+    9931812488,
+    9931812485
+  ],
+  "geometry": [
+    { "lat": 37.1227319, "lon": 126.9137335 },
+    { "lat": 37.1226831, "lon": 126.9137086 },
+    { "lat": 37.1232142, "lon": 126.9120848 },
+    { "lat": 37.1232523, "lon": 126.9121035 },
+    { "lat": 37.1227319, "lon": 126.9137335 }
+  ],
+  "tags": {
+    "layer": "1",
+    "public_transport": "platform",
+    "railway": "platform",
+    "ref": "1",
+    "start_date": "2024-11-02",
+    "train": "yes"
+  }
+}
+
+  ]
+}

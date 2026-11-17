@@ -195,12 +195,14 @@ export function renderTrip(root, { onHome, onGo = null, initial = null }) {
     return item;
   }
 
-  /** 이 역 이름으로 지나는 노선 이름들(갈아타는 역이면 여럿) */
+  /** 이 역 이름으로 지나는 노선 이름들(갈아타는 역이면 여럿). 다른 도시의 같은 이름 역(부산 시청, 대전 시청)은 빼려고 1km 안의 역만 본다. */
   function linesAt(station) {
     const base = station.name.replace(/역$/, '');
     const names = new Set();
     for (const st of stations) {
-      if (st.name.replace(/역$/, '') === base) names.add(lineById.get(st.line)?.name ?? st.line);
+      if (st.name.replace(/역$/, '') !== base) continue;
+      if (Number.isFinite(st.x) && Number.isFinite(station.x) && Math.hypot(st.x - station.x, st.y - station.y) > 1) continue;
+      names.add(lineById.get(st.line)?.name ?? st.line);
     }
     return [...names];
   }
