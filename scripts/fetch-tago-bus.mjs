@@ -102,6 +102,13 @@ export const CITIES = [
   { code: 34330, name: '부여군' },
   { code: 34340, name: '서천군' },
   { code: 34350, name: '청양군' },
+  // 충남·대전·세종 넓히기(2026-11-17, getCtyCodeList로 확인): 세종과 충남 북쪽. 홍성군·예산군은 TAGO에 없다.
+  { code: 12, name: '세종특별시' },
+  { code: 34010, name: '천안시' },
+  { code: 34040, name: '아산시' },
+  { code: 34050, name: '서산시' },
+  { code: 34380, name: '태안군' },
+  { code: 34390, name: '당진시' },
 ];
 
 const key = readApiKey();
