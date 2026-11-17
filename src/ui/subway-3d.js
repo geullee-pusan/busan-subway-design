@@ -1205,6 +1205,23 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     }
   }
   const sitNamesOf = () => Object.keys(riderKinds[0]?.clips ?? {}).filter((n) => n.includes('sit') && !n.includes('stand'));
+  /**
+   * 앉아 있는 동작 고르기(같은 수면 늘 같은 동작). 고개를 끄덕거리며 조는 동작(sitting-2)은 사용자 요청으로
+   * 다른 동작의 3분의 1만큼만 나온다(넷이 같을 때 4분의 1 → 12분의 1).
+   */
+  const NOD = 'sitting-2';
+  function pickSitName(seed) {
+    const names = sitNamesOf();
+    if (!names.length) return 'sitting';
+    const w = names.map((n) => (n === NOD ? (names.length - 1) / (3 * names.length - 1) : 1));
+    const total = w.reduce((a, b) => a + b, 0);
+    let x = cellNoise(seed, 41, 7) * total;
+    for (let i = 0; i < names.length; i++) {
+      x -= w[i];
+      if (x < 0) return names[i];
+    }
+    return names[0];
+  }
   const idleNameOf = (kind, i) => {
     const names = Object.keys(kind.clips).filter((n) => n.includes('idle') && !n.includes('sit'));
     return names[i % Math.max(1, names.length)] ?? 'idle';
@@ -1219,7 +1236,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
     obj.userData.slot = nextSlot++;
     cabin.group.add(obj);
     const sd = { obj, mixer: new AnimationMixer(obj), kind, seat: place, state };
-    const clip = place.stand ? kind.clips[idleNameOf(kind, i)] : kind.clips[sitNamesOf()[i % Math.max(1, sitNamesOf().length)]];
+    const clip = place.stand ? kind.clips[idleNameOf(kind, i)] : kind.clips[pickSitName(obj.userData.slot)];
     if (clip) {
       sd.action = sd.mixer.clipAction(clip);
       sd.action.time = cellNoise(i, 8, 2) * (clip.duration || 1);
@@ -1488,7 +1505,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
           if (Math.abs(st.x - sd.obj.position.x) < Math.abs(seats[best].x - sd.obj.position.x)) best = i;
         });
         sd.seat = seats.splice(best, 1)[0];
-        sd.sitName = sitNamesOf()[sd.obj.userData.slot % Math.max(1, sitNamesOf().length)];
+        sd.sitName = pickSitName(sd.obj.userData.slot);
         sd.state = 'toSeat';
         riderPlay(sd, 'walking', true);
       }
@@ -1511,7 +1528,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       obj.visible = false;
       obj.userData.slot = nextSlot++;
       cabin.group.add(obj);
-      const sd = { obj, mixer: new AnimationMixer(obj), kind, seat, door, state: 'in', wait: 1.6 + i * 0.7, sitName: sitNames[i % Math.max(1, sitNames.length)] };
+      const sd = { obj, mixer: new AnimationMixer(obj), kind, seat, door, state: 'in', wait: 1.6 + i * 0.7, sitName: pickSitName(obj.userData.slot) };
       seated.push(sd);
     }
   }
