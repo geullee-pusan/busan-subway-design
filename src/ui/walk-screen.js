@@ -31,9 +31,9 @@ const SCREEN_KM_PER_SEC = 0.12;
 /** 택시가 화면에서 달리는 빠르기: 1초에 몇 km. 우리가 정한 값. */
 const TAXI_SCREEN_KM_PER_SEC = 0.6;
 /** 지하철 노선 표시 글자 */
-const LINE_MARK = { BGL: '김', DH: '동', DK: '경', DG1: 'D1', DG2: 'D2', DG3: 'D3', GJ1: 'G1' };
-/** 서로 이어진 지하철 묶음(부산·김해·양산·울산 쪽, 대구 쪽, 광주 쪽은 서로 이어져 있지 않다) */
-const NETWORK_OF = { DG1: '대구', DG2: '대구', DG3: '대구', DK: '대구', GJ1: '광주' };
+const LINE_MARK = { BGL: '김', DH: '동', DK: '경', DG1: 'D1', DG2: 'D2', DG3: 'D3', GJ1: 'G1', DJ1: 'J1' };
+/** 서로 이어진 지하철 묶음(부산·김해·양산·울산 쪽, 대구 쪽, 광주 쪽, 대전 쪽은 서로 이어져 있지 않다) */
+const NETWORK_OF = { DG1: '대구', DG2: '대구', DG3: '대구', DK: '대구', GJ1: '광주', DJ1: '대전' };
 const sameNetwork = (a, b) => (NETWORK_OF[a] ?? '부산') === (NETWORK_OF[b] ?? '부산');
 const START_HOURS = [
   [8, '아침 8시'],

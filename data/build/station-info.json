@@ -2521,6 +2521,204 @@
       "origin": null,
       "openedOn": "2008-04-11",
       "openedWith": "김대중컨벤션센터(마륵)~평동"
+    },
+    "J101": {
+      "name": "판암",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J102": {
+      "name": "신흥",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J103": {
+      "name": "대동",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J104": {
+      "name": "대전역",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J105": {
+      "name": "중앙로",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J106": {
+      "name": "중구청",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J107": {
+      "name": "서대전네거리",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J108": {
+      "name": "오룡",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J109": {
+      "name": "용문",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J110": {
+      "name": "탄방",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J111": {
+      "name": "시청",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J112": {
+      "name": "정부청사",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2006-03-16",
+      "openedWith": "판암~정부청사"
+    },
+    "J113": {
+      "name": "갈마",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J114": {
+      "name": "월평",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J115": {
+      "name": "갑천",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J116": {
+      "name": "유성온천",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J117": {
+      "name": "구암",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J118": {
+      "name": "현충원",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J119": {
+      "name": "월드컵경기장",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J120": {
+      "name": "노은",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J121": {
+      "name": "지족",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
+    },
+    "J122": {
+      "name": "반석",
+      "line": "DJ1",
+      "nameEn": null,
+      "address": null,
+      "origin": null,
+      "openedOn": "2007-04-17",
+      "openedWith": "갈마~반석"
     }
   }
 }

@@ -60,7 +60,7 @@
 - `npm run station-sounds`: 역사 안내방송 원본에서 승강장 소리(열차진입 안내음, 진입 방송)를 `data/build/station-sounds.json`으로 만든다
 - `npm run api-key`: 공공데이터포털 인증키를 저장하고(git에 넣지 않는 `.data-go-kr-key`) 열차 API(TAGO 열차정보, 코레일 열차운행정보)가 되는지 시험한다(네트워크를 쓴다)
 - `npm run bus-looks`: `data/facts.json` busLooks(시·군 시내버스 칠)와 coachLooks(고속·시외버스 회사별 칠과 다니는 노선)로 버스 3D 칠(`data/build/bus-looks.json`, `coach-looks.json`)을 만든다
-- `npm run hanja`: `data/facts.json` stationHanja(위키백과 노선 문서의 역 한자)로 역명판 한자(`data/build/station-hanja.json`)를 만든다
+- `npm run hanja`: `data/facts.json` stationHanja(위키백과 노선 문서의 역 한자)와 대전교통공사 역명 자료(15083331)로 역명판 한자(`data/build/station-hanja.json`)를 만든다
 - `npm run passengers`: Mixamo 승객 캐릭터와 동작(`assets/passengers/`, git에 넣지 않음)을 지하철 승강장 승객 묶음(`src/content/passengers/`)으로 만든다. 개발용 three와 화면 없는 Chrome·Edge를 쓴다
 - `npm run validate`: 데이터 검증
 - `npm run hero`: 아이를 닮은 주인공(`assets/hero/`의 Mixamo FBX, git에 넣지 않음)을 걸어서 여행하기용 그림(`src/content/hero/`)으로 굽는다. 역·터미널 가까이에서 추는 춤(hop)도 함께 굽는다. 개발용 three를 쓰고 화면 없는 Chrome·Edge를 연다

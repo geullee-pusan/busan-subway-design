@@ -5,6 +5,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { daeguRidership, daeguService } from './build/daegu.mjs';
 import { GWANGJU_LINE, gwangjuRidership, gwangjuService } from './build/gwangju.mjs';
+import { DAEJEON_LINE, daejeonRidership, daejeonService } from './build/daejeon.mjs';
 import { buildDistricts } from './build/districts.mjs';
 import { buildFutureLines } from './build/future.mjs';
 import { buildGrid } from './build/grid.mjs';
@@ -168,6 +169,13 @@ ridership.gwangju = {
   source: '광주교통공사 역일시간대별 승하차량 2026년 1~9월(공공데이터포털 15060048)',
   stations: gwangjuRidership(raw, network.stations, issues),
 };
+{
+  const dj = daejeonRidership(raw, network.stations, issues);
+  ridership.daejeon = {
+    source: `대전교통공사 시간대별 승하차인원 ${dj.period ?? ''}(공공데이터포털 15060591)`,
+    stations: dj.stations,
+  };
+}
 if (ridershipRaw.unusedRows.length) issues.push(`[이용객] 역 목록에 없는 역번호 자료: ${ridershipRaw.unusedRows.join(', ')}`);
 
 // 4. 역 정보(유래, 주소, 개통일)와 노선도 보기 좌표
@@ -199,6 +207,9 @@ const daeguRuns = daeguService(raw, network.lines, network.stations, issues);
   const gwangjuLine = network.lines.find((l) => l.id === GWANGJU_LINE.id);
   const run = gwangjuService(raw, gwangjuLine, network.links.filter((l) => l.line === GWANGJU_LINE.id), network.stations, issues);
   if (run) daeguRuns.set(GWANGJU_LINE.id, run);
+  const daejeonLine = network.lines.find((l) => l.id === DAEJEON_LINE.id);
+  const djRun = daejeonService(raw, daejeonLine, network.stations, issues);
+  if (djRun) daeguRuns.set(DAEJEON_LINE.id, djRun);
 }
 for (const line of network.lines) {
   const summary = service.weekday.find((s) => s.line === line.id);

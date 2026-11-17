@@ -293,6 +293,33 @@
       "hourlySource": "15111497 시간표, 평일 화정역을 지나는 열차(한 방향)",
       "capacityPerTrain": null,
       "capacitySource": null
+    },
+    {
+      "id": "DJ1",
+      "label": "대전1",
+      "name": "대전 1호선",
+      "fullName": "대전 도시철도 1호선",
+      "operator": "대전교통공사",
+      "status": "운행 중",
+      "stations": ["J101","J102","J103","J104","J105","J106","J107","J108","J109","J110","J111","J112","J113","J114","J115","J116","J117","J118","J119","J120","J121","J122"],
+      "lengthKm": 20.7,
+      "lengthSource": "OSM 노선 선로를 따라 잰 역 사이 거리의 합(판암~반석)",
+      "runSource": "15000960 평일 시각표",
+      "dwellS": 0,
+      "dwellSource": "역 사이 시간에 포함(시각표가 분 단위)",
+      "osmRelation": 7792527,
+      "osmColour": "#007448",
+      "region": "대전",
+      "color": "#007448",
+      "colorSource": "OSM colour 태그",
+      "trainsPerHourPeak": 10,
+      "trainsPerHourTypical": 6.6,
+      "headwayMin": 9.1,
+      "serviceSource": "15000960 시각표에서 셈(평일 6~22시, 정부청사역, 판암→반석)",
+      "hourly": [1,0,0,0,0,3,5,9,10,6,6,6,6,6,6,6,6,7,10,6,6,6,5,5],
+      "hourlySource": "15000960 시각표, 평일 정부청사역을 지나는 열차(판암→반석)",
+      "capacityPerTrain": null,
+      "capacitySource": null
     }
   ],
   "planned": [

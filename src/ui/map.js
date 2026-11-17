@@ -70,6 +70,9 @@ const CITY_COLORS = {
   광주: ['#F2D0E8', '#EABBDD', '#F7E1F1'],
   전남: ['#DCEBC9', '#CDE2B5', '#E8F2DC'],
   경북: ['#D9E3EC', '#C9D6E2', '#E6EDF3'],
+  대전: ['#F7D6C8', '#F0C2AE', '#FAE4DA'],
+  세종: ['#D6D9F2', '#C4C8EA'],
+  충남: ['#EEE0CC', '#E5D1B5', '#F4EADC'],
   이웃: ['#E6E6E0', '#DADAD2', '#EEEEE8'],
 };
 
@@ -90,6 +93,10 @@ function districtParts(name) {
   // 경북의 다른 시·군(2026-11-15 경북 본토 전체를 넣음. 울릉군은 지도 밖)
   if (name.startsWith('경상북도')) return { city: '경북', short: rest, main: true };
   if (name.startsWith('전남광주')) return { city: ['동구', '서구', '남구', '북구', '광산구'].includes(rest) ? '광주' : '전남', short: rest, main: true };
+  // 충남·대전·세종(2026-11-17)
+  if (name.startsWith('대전광역시')) return { city: '대전', short: rest, main: true };
+  if (name.startsWith('세종특별자치시')) return { city: '세종', short: '세종시', main: true };
+  if (name.startsWith('충청남도')) return { city: '충남', short: rest, main: true };
   // 지도 네모 안에 함께 들어온 이웃 시·군
   return { city: rest, short: rest, main: false };
 }
@@ -754,7 +761,7 @@ export function createMap({ onSelect, onCell, onDesignStation }) {
     // 행정구역 이름표: 도시 이름은 늘 보이고, 구·군 이름은 조금 확대하면 보인다. 글자 크기는 화면에서 늘 같다.
     for (const text of layers.districtLabels?.children ?? []) {
       const city = text.getAttribute('data-level') === 'city';
-      // 이웃 시·군(지도 네모에 함께 들어온 전북·충남·경북·제주 등)은 지도 전체를 볼 때는 숨긴다
+      // 이웃 시·군(지도 네모에 함께 들어온 전북·충북·제주 등)은 지도 전체를 볼 때는 숨긴다
       const neighbor = text.getAttribute('data-main') === 'no';
       text.style.display = (city && (!neighbor || state.k >= 0.15)) || state.k >= 1 ? '' : 'none';
       text.setAttribute('font-size', ((city ? 18 : 12) / state.k).toFixed(2));

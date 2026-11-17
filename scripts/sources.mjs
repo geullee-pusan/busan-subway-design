@@ -339,6 +339,13 @@ out center tags;`,
   { key: 'gwangju-ridership', file: 'data/raw/datagokr/15060048.csv', url: dataGoKr('FILE_000000007731276') },
   { key: 'gwangju-timetable', file: 'data/raw/datagokr/15111497.csv', url: dataGoKr('FILE_000000007753914') },
   { key: 'gwangju-exits', file: 'data/raw/datagokr/15046045.csv', url: dataGoKr('FILE_000000002492764') },
+  // 대전 도시철도 1호선(대전교통공사, 공공데이터포털, 이용허락범위 제한 없음, 2026-11-17 받음)
+  { key: 'daejeon-timetable', file: 'data/raw/datagokr/15000960.zip', url: dataGoKr('FILE_000000003539215') },
+  { key: 'daejeon-ridership', file: 'data/raw/datagokr/15060591.csv', url: dataGoKr('FILE_000000007754054') },
+  { key: 'daejeon-stations', file: 'data/raw/datagokr/15083331.csv', url: dataGoKr('FILE_000000002292523') },
+  { key: 'daejeon-curves', file: 'data/raw/datagokr/15043921.zip', url: dataGoKr('FILE_000000007701788') },
+  { key: 'daejeon-depth', file: 'data/raw/datagokr/15043920.csv', url: dataGoKr('FILE_000000002970795') },
+  { key: 'daejeon-monthly', file: 'data/raw/datagokr/15060761.csv', url: dataGoKr('FILE_000000007705104') },
 
   // 지도 범위 넓히기 4: 넓힌 범위(OSM_BOXES_2)만 따로 받는다. 위 파일과 같은 조건이다.
   {
@@ -427,6 +434,28 @@ out center;`,
     file: 'data/raw/osm/rail-lines-3.json',
     overpass: `[out:json][timeout:300][bbox:${OSM_BOX_3}];
 way["railway"="rail"][!"service"];
+out geom;`,
+  },
+  {
+    // 대전 도시철도 1호선이 이 안에 있다
+    key: 'osm-routes-3',
+    file: 'data/raw/osm/routes-3.json',
+    overpass: `[out:json][timeout:180][bbox:${OSM_BOX_3}];
+(
+  relation["type"="route"]["route"~"^(subway|monorail|light_rail)$"];
+  relation["type"="route"]["route"="train"]["service"="commuter"];
+  relation["type"="route_master"]["route_master"~"^(subway|monorail|light_rail|train)$"];
+);
+out geom;`,
+  },
+  {
+    // 수도권 전철 1호선 충남 구간(천안·아산)이 이 안에 있다
+    key: 'osm-routes-4',
+    file: 'data/raw/osm/routes-4.json',
+    overpass: `[out:json][timeout:300];
+(
+${inBoxes4(['  relation["type"="route"]["route"~"^(subway|monorail|light_rail)$"](BOX);', '  relation["type"="route"]["route"="train"]["service"="commuter"](BOX);', '  relation["type"="route_master"]["route_master"~"^(subway|monorail|light_rail|train)$"](BOX);'])}
+);
 out geom;`,
   },
   {

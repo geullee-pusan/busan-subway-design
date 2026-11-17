@@ -3,10 +3,12 @@
 //  - 부산김해경전철, 동해선, 대경선: OpenStreetMap 노선(역 순서, 위치). 역 사이 시간 자료가 없어 추정한다.
 //  - 대구 도시철도 1·2·3호선: scripts/build/daegu.mjs
 //  - 광주 도시철도 1호선: scripts/build/gwangju.mjs
+//  - 대전 도시철도 1호선: scripts/build/daejeon.mjs
 import { readFileSync } from 'node:fs';
 import { readCsv } from '../lib/csv.mjs';
 import { daeguLines } from './daegu.mjs';
 import { gwangjuLines } from './gwangju.mjs';
+import { daejeonLines } from './daejeon.mjs';
 import { utm52 } from '../lib/utm.mjs';
 import { readOsmFile } from '../lib/osm.mjs';
 
@@ -398,7 +400,8 @@ export function buildNetwork(raw, transferEdits = {}, stationEdits = {}) {
   const osm = osmLines(raw, issues, stationEdits);
   const daegu = daeguLines(raw, issues);
   const gwangju = gwangjuLines(raw, issues);
-  const stations = [...humetro.stations, ...osm.stations, ...daegu.stations, ...gwangju.stations];
+  const daejeon = daejeonLines(raw, issues);
+  const stations = [...humetro.stations, ...osm.stations, ...daegu.stations, ...gwangju.stations, ...daejeon.stations];
   const daeguTransfers = readCsv(raw('datagokr/15041092.csv')).records;
   const transfers = transferGroups(stations, humetro.infoRows, osm.korail, daeguTransfers, transferEdits, issues);
   for (const s of stations) {
@@ -406,9 +409,9 @@ export function buildNetwork(raw, transferEdits = {}, stationEdits = {}) {
     s.transfer = group ? group.id : null;
   }
   return {
-    lines: [...humetro.lines, ...osm.lines, ...daegu.lines, ...gwangju.lines],
+    lines: [...humetro.lines, ...osm.lines, ...daegu.lines, ...gwangju.lines, ...daejeon.lines],
     stations,
-    links: [...humetro.links, ...osm.links, ...daegu.links, ...gwangju.links],
+    links: [...humetro.links, ...osm.links, ...daegu.links, ...gwangju.links, ...daejeon.links],
     transfers,
     issues,
   };
