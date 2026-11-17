@@ -246,6 +246,17 @@ export const SOURCES = [
 out geom;`,
   },
   {
+    // 예산군 버스 정류장(예산군 정류소 API 15107976이 응답하지 않아 대신 쓴다). 예산군과 둘레 읍면을 덮는 네모.
+    key: 'osm-bus-stops-yesan',
+    file: 'data/raw/osm/bus-stops-yesan.json',
+    overpass: `[out:json][timeout:120];
+(
+  node["highway"="bus_stop"](36.50,126.55,36.90,127.05);
+  node["public_transport"="platform"]["bus"="yes"](36.50,126.55,36.90,127.05);
+);
+out;`,
+  },
+  {
     key: 'osm-routes',
     file: 'data/raw/osm/routes.json',
     overpass: `[out:json][timeout:180][bbox:${OSM_BBOX}];

@@ -311,7 +311,7 @@
       "osmColour": "#007448",
       "region": "대전",
       "color": "#007448",
-      "colorSource": "OSM colour 태그",
+      "colorSource": "사용자가 붙여 준 나무위키 「대전 도시철도 1호선」 정보 상자(2026-11-18): 상징색 진녹색 (#007448). OSM colour 태그와 같음",
       "carsPerTrain": 4,
       "capacityPerCar": {
         "lead": "113",
