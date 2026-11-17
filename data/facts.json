@@ -7340,6 +7340,959 @@
           "evidence": "11점의 비천상이 그려져 있다."
         }
       ]
+    },
+    "hanbit_tower": {
+      "name": "한빛탑",
+      "facts": [
+        {
+          "text": "한빛탑은 1993년 대전 엑스포를 기념해서 세운 탑이에요.",
+          "source": "한국어 위키백과: 한빛탑",
+          "url": "https://ko.wikipedia.org/wiki/한빛탑",
+          "checked": "2026-11-17",
+          "evidence": "1993년 세계 박람회를 기념하기 위해 세워진 상징 조형물이다"
+        },
+        {
+          "text": "탑의 높이는 93m예요.",
+          "source": "한국어 위키백과: 한빛탑",
+          "url": "https://ko.wikipedia.org/wiki/한빛탑",
+          "checked": "2026-11-17",
+          "evidence": "높이는 93m이다"
+        },
+        {
+          "text": "탑 아래쪽에는 화강암 1,993개가 쌓여 있어요.",
+          "source": "한국어 위키백과: 한빛탑",
+          "url": "https://ko.wikipedia.org/wiki/한빛탑",
+          "checked": "2026-11-17",
+          "evidence": "하단부의 1,993개의 화강암은 개최년도인 1993년과 첨성대를 의미한다"
+        },
+        {
+          "text": "전망대는 땅에서 39m 높이에 있어요.",
+          "source": "한국어 위키백과: 한빛탑",
+          "url": "https://ko.wikipedia.org/wiki/한빛탑",
+          "checked": "2026-11-17",
+          "evidence": "전망대는 지상에서 39m에 위치해 있다"
+        }
+      ]
+    },
+    "national_science_museum": {
+      "name": "국립중앙과학관",
+      "facts": [
+        {
+          "text": "국립중앙과학관은 1990년에 생겼어요.",
+          "source": "한국어 위키백과: 국립중앙과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립중앙과학관",
+          "checked": "2026-11-17",
+          "evidence": "1990년 10월 9일에 발족하였으며"
+        },
+        {
+          "text": "대전 유성구에 있는 나라의 과학관이에요.",
+          "source": "한국어 위키백과: 국립중앙과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립중앙과학관",
+          "checked": "2026-11-17",
+          "evidence": "대전광역시 유성구 대덕대로 481에 위치하고 있다"
+        },
+        {
+          "text": "과학기술관, 자연사관, 어린이과학관이 있어요.",
+          "source": "한국어 위키백과: 국립중앙과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립중앙과학관",
+          "checked": "2026-11-17",
+          "evidence": "무료관: 과학기술관, 자연사관, 인류관, 어린이과학관"
+        }
+      ]
+    },
+    "daejeon_oworld": {
+      "name": "대전 오월드",
+      "facts": [
+        {
+          "text": "오월드는 동물원과 꽃 정원을 합친 큰 공원이에요.",
+          "source": "한국어 위키백과: 대전 오월드",
+          "url": "https://ko.wikipedia.org/wiki/대전_오월드",
+          "checked": "2026-11-17",
+          "evidence": "2002년 개장한 대전동물원과 2009년 개장한 플라워랜드를 통합하였고"
+        },
+        {
+          "text": "동물원에는 138종의 동물이 살아요.",
+          "source": "한국어 위키백과: 대전 오월드",
+          "url": "https://ko.wikipedia.org/wiki/대전_오월드",
+          "checked": "2026-11-17",
+          "evidence": "138종, 940마리의 동물을 보유한"
+        },
+        {
+          "text": "사파리에서 사자와 기린을 볼 수 있어요.",
+          "source": "한국어 위키백과: 대전 오월드",
+          "url": "https://ko.wikipedia.org/wiki/대전_오월드",
+          "checked": "2026-11-17",
+          "evidence": "사파리를 통하여 아메리카검정곰, 사자, 벵갈호랑이, 아시아코끼리, 그물무늬기린"
+        },
+        {
+          "text": "버드랜드에서는 펭귄과 홍학을 볼 수 있어요.",
+          "source": "한국어 위키백과: 대전 오월드",
+          "url": "https://ko.wikipedia.org/wiki/대전_오월드",
+          "checked": "2026-11-17",
+          "evidence": "에뮤, 홈볼트펭귄, 홍학"
+        }
+      ]
+    },
+    "gyejoksan": {
+      "name": "계족산",
+      "facts": [
+        {
+          "text": "계족산은 '닭의 다리'라는 뜻이에요.",
+          "source": "한국어 위키백과: 계족산 (대전)",
+          "url": "https://ko.wikipedia.org/wiki/계족산_(대전)",
+          "checked": "2026-11-17",
+          "evidence": "계족은 닭의 다리라는 뜻으로"
+        },
+        {
+          "text": "산 모양이 닭의 다리를 닮아서 붙은 이름이에요.",
+          "source": "한국어 위키백과: 계족산 (대전)",
+          "url": "https://ko.wikipedia.org/wiki/계족산_(대전)",
+          "checked": "2026-11-17",
+          "evidence": "산의 모양이 닭의 다리를 닮았다고 해서"
+        },
+        {
+          "text": "산에서 대전 시내를 내려다볼 수 있어요.",
+          "source": "한국어 위키백과: 계족산 (대전)",
+          "url": "https://ko.wikipedia.org/wiki/계족산_(대전)",
+          "checked": "2026-11-17",
+          "evidence": "대전시내를 조망해 볼 수 있는 산으로"
+        },
+        {
+          "text": "산 위에는 백제 때 돌로 쌓은 계족산성이 있어요.",
+          "source": "한국어 위키백과: 대전 계족산성",
+          "url": "https://ko.wikipedia.org/wiki/대전_계족산성",
+          "checked": "2026-11-17",
+          "evidence": "1,200m 정도의 백제시대 석축산성이다"
+        }
+      ]
+    },
+    "daecheongho": {
+      "name": "대청호",
+      "facts": [
+        {
+          "text": "대청호는 대청댐을 만들면서 생긴 호수예요.",
+          "source": "한국어 위키백과: 대청다목적댐",
+          "url": "https://ko.wikipedia.org/wiki/대청다목적댐",
+          "checked": "2026-11-17",
+          "evidence": "대청댐으로 인해 생긴 대청호는"
+        },
+        {
+          "text": "물을 담는 양으로 우리나라에서 세 번째로 큰 호수예요.",
+          "source": "한국어 위키백과: 대청다목적댐",
+          "url": "https://ko.wikipedia.org/wiki/대청다목적댐",
+          "checked": "2026-11-17",
+          "evidence": "소양호와 충주호에 이어 세 번째로 큰 호수이다"
+        },
+        {
+          "text": "대청댐은 1981년에 다 지어졌어요.",
+          "source": "한국어 위키백과: 대청다목적댐",
+          "url": "https://ko.wikipedia.org/wiki/대청다목적댐",
+          "checked": "2026-11-17",
+          "evidence": "1981년 6월 완공되었다"
+        },
+        {
+          "text": "'대청'은 대덕군과 청원군의 앞 글자를 딴 이름이에요.",
+          "source": "한국어 위키백과: 대청다목적댐",
+          "url": "https://ko.wikipedia.org/wiki/대청다목적댐",
+          "checked": "2026-11-17",
+          "evidence": "대덕군(現 대전광역시)과 청원군(現 청주시)의 앞 글자를 딴 것이다"
+        }
+      ]
+    },
+    "yuseong_hot_spring": {
+      "name": "유성온천",
+      "facts": [
+        {
+          "text": "유성온천은 땅속 깊은 곳에서 따뜻한 물이 나와요.",
+          "source": "한국어 위키백과: 유성온천",
+          "url": "https://ko.wikipedia.org/wiki/유성온천",
+          "checked": "2026-11-17",
+          "evidence": "지하 100m이하에서 분출되는 섭씨 27~56도의 고온 열천으로"
+        },
+        {
+          "text": "우리나라 온천 지구 가운데 가장 오래되었어요.",
+          "source": "한국어 위키백과: 유성온천",
+          "url": "https://ko.wikipedia.org/wiki/유성온천",
+          "checked": "2026-11-17",
+          "evidence": "우리나라의 온천 지구 가운데서 가장 오래된 유성온천은"
+        },
+        {
+          "text": "다친 학이 이 물로 날개를 고쳤다는 전설이 있어요.",
+          "source": "한국어 위키백과: 유성온천",
+          "url": "https://ko.wikipedia.org/wiki/유성온천",
+          "checked": "2026-11-17",
+          "evidence": "날개 다친 학 한 마리가 눈 녹은 웅덩이 물로 상처 난 날개를 적셔 치료하는 것을 보고"
+        },
+        {
+          "text": "발을 담그는 족욕체험장은 누구나 무료로 쓸 수 있어요.",
+          "source": "한국어 위키백과: 유성온천",
+          "url": "https://ko.wikipedia.org/wiki/유성온천",
+          "checked": "2026-11-17",
+          "evidence": "족욕체험장이 무료로 개방되어 있다"
+        }
+      ]
+    },
+    "sejong_lake_park": {
+      "name": "세종호수공원",
+      "facts": [
+        {
+          "text": "세종호수공원은 세종시에 있는 큰 호수 공원이에요.",
+          "source": "한국어 위키백과: 세종호수공원",
+          "url": "https://ko.wikipedia.org/wiki/세종호수공원",
+          "checked": "2026-11-17",
+          "evidence": "세종특별자치시의 행정중심복합도시에 위치한 공원이다"
+        },
+        {
+          "text": "걷는 길이 8.8km나 있어요.",
+          "source": "한국어 위키백과: 세종호수공원",
+          "url": "https://ko.wikipedia.org/wiki/세종호수공원",
+          "checked": "2026-11-17",
+          "evidence": "산책로 8.8km와 자전거도로 4.7km가 조성되어있다"
+        },
+        {
+          "text": "호수 안에는 사람이 만든 섬이 5개 있어요.",
+          "source": "한국어 위키백과: 세종호수공원",
+          "url": "https://ko.wikipedia.org/wiki/세종호수공원",
+          "checked": "2026-11-17",
+          "evidence": "세종호수공원에는 5개의 인공섬이 있으며"
+        },
+        {
+          "text": "호수 가운데 분수는 물을 50m까지 뿜어요.",
+          "source": "한국어 위키백과: 세종호수공원",
+          "url": "https://ko.wikipedia.org/wiki/세종호수공원",
+          "checked": "2026-11-17",
+          "evidence": "호수 중앙에는 최대 50m까지 물을 뿜는 희망분수"
+        }
+      ]
+    },
+    "sejong_national_arboretum": {
+      "name": "국립세종수목원",
+      "facts": [
+        {
+          "text": "국립세종수목원은 2020년 10월에 문을 열었어요.",
+          "source": "한국어 위키백과: 국립세종수목원",
+          "url": "https://ko.wikipedia.org/wiki/국립세종수목원",
+          "checked": "2026-11-17",
+          "evidence": "2020년 10월 개장하였다"
+        },
+        {
+          "text": "2,450종의 식물이 심어져 있어요.",
+          "source": "한국어 위키백과: 국립세종수목원",
+          "url": "https://ko.wikipedia.org/wiki/국립세종수목원",
+          "checked": "2026-11-17",
+          "evidence": "2,450종 약 110여 만 본의 식물이 심어져 있다"
+        },
+        {
+          "text": "어린이정원과 사계절온실이 있어요.",
+          "source": "한국어 위키백과: 국립세종수목원",
+          "url": "https://ko.wikipedia.org/wiki/국립세종수목원",
+          "checked": "2026-11-17",
+          "evidence": "한국전통정원, 어린이정원, 민속식물원, 희귀특산식물원, 식물분류원, 사계절온실"
+        }
+      ]
+    },
+    "beartree_park": {
+      "name": "베어트리파크",
+      "facts": [
+        {
+          "text": "베어트리파크는 식물원이면서 동물원이에요.",
+          "source": "한국어 위키백과: 베어트리파크",
+          "url": "https://ko.wikipedia.org/wiki/베어트리파크",
+          "checked": "2026-11-17",
+          "evidence": "식물원 겸 동물원이다"
+        },
+        {
+          "text": "2009년에 문을 열었어요.",
+          "source": "한국어 위키백과: 베어트리파크",
+          "url": "https://ko.wikipedia.org/wiki/베어트리파크",
+          "checked": "2026-11-17",
+          "evidence": "2009년 5월 11일 베어트리파크 개원"
+        },
+        {
+          "text": "수목원은 1991년에 경기도 의왕시에서 세종으로 옮겨 왔어요.",
+          "source": "한국어 위키백과: 베어트리파크",
+          "url": "https://ko.wikipedia.org/wiki/베어트리파크",
+          "checked": "2026-11-17",
+          "evidence": "1991년 경기도 의왕시 수목원 '송파원'을 세종특별자치시 전동면으로 이전"
+        },
+        {
+          "text": "곰동산과 전망대가 있어요.",
+          "source": "한국어 위키백과: 베어트리파크",
+          "url": "https://ko.wikipedia.org/wiki/베어트리파크",
+          "checked": "2026-11-17",
+          "evidence": "전망대 베어트리운동장 곰동산"
+        }
+      ]
+    },
+    "independence_hall": {
+      "name": "독립기념관",
+      "facts": [
+        {
+          "text": "독립기념관은 1987년 8월 15일 광복절에 문을 열었어요.",
+          "source": "한국어 위키백과: 독립기념관 (대한민국)",
+          "url": "https://ko.wikipedia.org/wiki/독립기념관_(대한민국)",
+          "checked": "2026-11-17",
+          "evidence": "1987년 8월 15일 제42주년 광복절을 맞아 독립기념관이 준공되어 정식으로 개관하였다"
+        },
+        {
+          "text": "국민들이 모은 돈으로 지었어요.",
+          "source": "한국어 위키백과: 독립기념관 (대한민국)",
+          "url": "https://ko.wikipedia.org/wiki/독립기념관_(대한민국)",
+          "checked": "2026-11-17",
+          "evidence": "국민모금을 통하여 1987년 8월 15일 개관했다"
+        },
+        {
+          "text": "전시관이 모두 7개 있어요.",
+          "source": "한국어 위키백과: 독립기념관 (대한민국)",
+          "url": "https://ko.wikipedia.org/wiki/독립기념관_(대한민국)",
+          "checked": "2026-11-17",
+          "evidence": "전시관: 모두 7개이며"
+        },
+        {
+          "text": "겨레의 탑은 높이가 52m예요.",
+          "source": "한국어 위키백과: 독립기념관 (대한민국)",
+          "url": "https://ko.wikipedia.org/wiki/독립기념관_(대한민국)",
+          "checked": "2026-11-17",
+          "evidence": "겨레의 탑: 높이 52m의 조형물로"
+        }
+      ]
+    },
+    "gongsanseong": {
+      "name": "공주 공산성",
+      "facts": [
+        {
+          "text": "공산성은 백제가 웅진에 도읍했을 때의 성이에요.",
+          "source": "한국어 위키백과: 공주 공산성",
+          "url": "https://ko.wikipedia.org/wiki/공주_공산성",
+          "checked": "2026-11-17",
+          "evidence": "한성에서 웅진으로 이주한 후 성왕 16년(538년)에 사비로 옮길 때까지 도성이었으며"
+        },
+        {
+          "text": "성의 북쪽에는 금강이 흘러요.",
+          "source": "한국어 위키백과: 공주 공산성",
+          "url": "https://ko.wikipedia.org/wiki/공주_공산성",
+          "checked": "2026-11-17",
+          "evidence": "산성의 북쪽에는 금강이 흐르고"
+        },
+        {
+          "text": "성벽 길이는 모두 2,660m예요.",
+          "source": "한국어 위키백과: 공주 공산성",
+          "url": "https://ko.wikipedia.org/wiki/공주_공산성",
+          "checked": "2026-11-17",
+          "evidence": "성곽의 길이는 2,660m이며"
+        }
+      ]
+    },
+    "muryeong_royal_tombs": {
+      "name": "공주 무령왕릉과 왕릉원",
+      "facts": [
+        {
+          "text": "백제 왕들의 무덤으로 여겨지는 곳이에요.",
+          "source": "한국어 위키백과: 공주 무령왕릉과 왕릉원",
+          "url": "https://ko.wikipedia.org/wiki/공주_무령왕릉과_왕릉원",
+          "checked": "2026-11-17",
+          "evidence": "백제의 왕릉들로 추정되는 고분들로"
+        },
+        {
+          "text": "무덤 7개가 복원되어 있어요.",
+          "source": "한국어 위키백과: 공주 무령왕릉과 왕릉원",
+          "url": "https://ko.wikipedia.org/wiki/공주_무령왕릉과_왕릉원",
+          "checked": "2026-11-17",
+          "evidence": "1, 2, 3, 4, 5, 6, 7호 분이 복원이 되어 있다"
+        },
+        {
+          "text": "7호분은 무령왕릉으로 널리 알려져 있어요.",
+          "source": "한국어 위키백과: 공주 무령왕릉과 왕릉원",
+          "url": "https://ko.wikipedia.org/wiki/공주_무령왕릉과_왕릉원",
+          "checked": "2026-11-17",
+          "evidence": "이 중 7호분은 무령왕릉으로 더 널리 알려져 있다"
+        }
+      ]
+    },
+    "daecheon_beach": {
+      "name": "대천해수욕장",
+      "facts": [
+        {
+          "text": "모래사장 길이가 3.5km나 돼요.",
+          "source": "한국어 위키백과: 대천해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/대천해수욕장",
+          "checked": "2026-11-17",
+          "evidence": "백사장의 길이가 3.5km, 폭 100m에 달하는"
+        },
+        {
+          "text": "모래는 조개껍데기가 잘게 부서져서 만들어졌어요.",
+          "source": "한국어 위키백과: 대천해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/대천해수욕장",
+          "checked": "2026-11-17",
+          "evidence": "조개껍질이 오랜 세월을 지나는 동안 잘게 부서져 모래로 변모한 것이다"
+        },
+        {
+          "text": "한 해에 약 천만 명이 찾아와요.",
+          "source": "한국어 위키백과: 대천해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/대천해수욕장",
+          "checked": "2026-11-17",
+          "evidence": "한해 천만 명에 이르는 관광객의"
+        },
+        {
+          "text": "모래사장 남쪽에는 멋진 바위가 많아요.",
+          "source": "한국어 위키백과: 대천해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/대천해수욕장",
+          "checked": "2026-11-17",
+          "evidence": "백사장 남쪽에 기암괴석이 잘 발달되어 있어"
+        }
+      ]
+    },
+    "hyeonchungsa": {
+      "name": "현충사",
+      "facts": [
+        {
+          "text": "현충사는 이순신 장군을 모신 사당이에요.",
+          "source": "한국어 위키백과: 현충사",
+          "url": "https://ko.wikipedia.org/wiki/현충사",
+          "checked": "2026-11-17",
+          "evidence": "충무공(李忠武公) 이순신의 영정(影幀)을 갖춘 사당이다"
+        },
+        {
+          "text": "1706년에 숙종 임금의 명령으로 처음 지었어요.",
+          "source": "한국어 위키백과: 현충사",
+          "url": "https://ko.wikipedia.org/wiki/현충사",
+          "checked": "2026-11-17",
+          "evidence": "조선 숙종 32년(1706)에 숙종의 어명으로 지금의 자리에 사당을 짓고"
+        },
+        {
+          "text": "일제강점기에 사람들이 돈을 모아 다시 지었어요.",
+          "source": "한국어 위키백과: 현충사",
+          "url": "https://ko.wikipedia.org/wiki/현충사",
+          "checked": "2026-11-17",
+          "evidence": "현충사 복원 모금운동 때 모은 성금으로 현재의 모습으로 재건하여"
+        }
+      ]
+    },
+    "oeam_village": {
+      "name": "아산 외암마을",
+      "facts": [
+        {
+          "text": "외암마을은 옛날 집이 남아 있는 민속 마을이에요.",
+          "source": "한국어 위키백과: 외암마을",
+          "url": "https://ko.wikipedia.org/wiki/외암마을",
+          "checked": "2026-11-17",
+          "evidence": "외암리에 위치한 민속 마을이다"
+        },
+        {
+          "text": "약 500년 전에 마을이 생겼다고 전해요.",
+          "source": "한국어 위키백과: 외암마을",
+          "url": "https://ko.wikipedia.org/wiki/외암마을",
+          "checked": "2026-11-17",
+          "evidence": "약 500년전에 강씨와 목씨 등이 정착하여 마을을 이루었다고 전한다"
+        },
+        {
+          "text": "양반집과 50채쯤 되는 초가집이 있어요.",
+          "source": "한국어 위키백과: 외암마을",
+          "url": "https://ko.wikipedia.org/wiki/외암마을",
+          "checked": "2026-11-17",
+          "evidence": "양반주택과 50여 가구의 초가 등"
+        },
+        {
+          "text": "집집마다 돌담으로 둘러져 있어요.",
+          "source": "한국어 위키백과: 외암마을",
+          "url": "https://ko.wikipedia.org/wiki/외암마을",
+          "checked": "2026-11-17",
+          "evidence": "집집마다 돌담으로 둘러져 있으며"
+        }
+      ]
+    },
+    "haemi_eupseong": {
+      "name": "서산 해미읍성",
+      "facts": [
+        {
+          "text": "해미읍성은 조선 시대에 지었지만 지금도 잘 남아 있어요.",
+          "source": "한국어 위키백과: 서산 해미읍성",
+          "url": "https://ko.wikipedia.org/wiki/서산_해미읍성",
+          "checked": "2026-11-17",
+          "evidence": "조선시대 건축된 성이지만 보존 상태가 상당히 양호하다"
+        },
+        {
+          "text": "1421년에 성 쌓기를 마쳤어요.",
+          "source": "한국어 위키백과: 서산 해미읍성",
+          "url": "https://ko.wikipedia.org/wiki/서산_해미읍성",
+          "checked": "2026-11-17",
+          "evidence": "1421년(세종 3년)에 축성이 완료되었다"
+        },
+        {
+          "text": "바다에서 오는 왜구를 막으려고 지은 성이에요.",
+          "source": "한국어 위키백과: 서산 해미읍성",
+          "url": "https://ko.wikipedia.org/wiki/서산_해미읍성",
+          "checked": "2026-11-17",
+          "evidence": "왜구의 출몰에 대응하기 위한 군사적 목적으로 건축되었는데"
+        }
+      ]
+    },
+    "gwanchoksa": {
+      "name": "관촉사",
+      "facts": [
+        {
+          "text": "관촉사는 968년 고려 때 세운 절이에요.",
+          "source": "한국어 위키백과: 관촉사",
+          "url": "https://ko.wikipedia.org/wiki/관촉사",
+          "checked": "2026-11-17",
+          "evidence": "고려 광종 19년(968) 혜명이 창건한 사찰로"
+        },
+        {
+          "text": "은진미륵으로 유명해요.",
+          "source": "한국어 위키백과: 관촉사",
+          "url": "https://ko.wikipedia.org/wiki/관촉사",
+          "checked": "2026-11-17",
+          "evidence": "은진미륵으로 유명하다"
+        },
+        {
+          "text": "미륵이 촛불처럼 빛난다는 말에서 절 이름이 생겼어요.",
+          "source": "한국어 위키백과: 관촉사",
+          "url": "https://ko.wikipedia.org/wiki/관촉사",
+          "checked": "2026-11-17",
+          "evidence": "마치 촛불을 보는 것같이 미륵이 빛난다."
+        },
+        {
+          "text": "절 안의 석등은 보물이에요.",
+          "source": "한국어 위키백과: 관촉사",
+          "url": "https://ko.wikipedia.org/wiki/관촉사",
+          "checked": "2026-11-17",
+          "evidence": "보물232호인 석등"
+        }
+      ]
+    },
+    "gyeryongsan": {
+      "name": "계룡산",
+      "facts": [
+        {
+          "text": "계룡산은 높이가 845m인 산이에요.",
+          "source": "한국어 위키백과: 계룡산",
+          "url": "https://ko.wikipedia.org/wiki/계룡산",
+          "checked": "2026-11-17",
+          "evidence": "높이 845m의 한국의 화강암 산이다"
+        },
+        {
+          "text": "1968년에 우리나라 두 번째 국립공원이 되었어요.",
+          "source": "한국어 위키백과: 계룡산",
+          "url": "https://ko.wikipedia.org/wiki/계룡산",
+          "checked": "2026-11-17",
+          "evidence": "1968년 12월 31일에 2번째 국립공원으로 지정되었다"
+        },
+        {
+          "text": "산줄기가 닭 볏을 쓴 용을 닮아서 계룡산이에요.",
+          "source": "한국어 위키백과: 계룡산",
+          "url": "https://ko.wikipedia.org/wiki/계룡산",
+          "checked": "2026-11-17",
+          "evidence": "닭의 볏을 쓴 용을 닮았다하여 계룡산이라는 이름이 붙여졌다"
+        },
+        {
+          "text": "산기슭에는 동학사와 갑사 같은 절이 있어요.",
+          "source": "한국어 위키백과: 계룡산",
+          "url": "https://ko.wikipedia.org/wiki/계룡산",
+          "checked": "2026-11-17",
+          "evidence": "계룡산 기슭에는 동학사, 갑사, 신원사 등 유명한 사찰이 있으며"
+        }
+      ]
+    },
+    "sagye_house": {
+      "name": "계룡 사계고택",
+      "facts": [
+        {
+          "text": "사계고택은 김장생이 늙어서 살았던 집이에요.",
+          "source": "한국어 위키백과: 계룡 사계고택",
+          "url": "https://ko.wikipedia.org/wiki/계룡_사계고택",
+          "checked": "2026-11-17",
+          "evidence": "김장생(1548∼1631)이 말년에 살았던 사랑채 건물이다"
+        },
+        {
+          "text": "1602년에 지은 집이에요.",
+          "source": "한국어 위키백과: 계룡 사계고택",
+          "url": "https://ko.wikipedia.org/wiki/계룡_사계고택",
+          "checked": "2026-11-17",
+          "evidence": "1602년에 건립한 건물로"
+        },
+        {
+          "text": "사랑채의 이름은 은농재예요.",
+          "source": "한국어 위키백과: 계룡 사계고택",
+          "url": "https://ko.wikipedia.org/wiki/계룡_사계고택",
+          "checked": "2026-11-17",
+          "evidence": "사랑채인 은농재"
+        },
+        {
+          "text": "연못 둘레에 회화나무가 우거져 있어요.",
+          "source": "한국어 위키백과: 계룡 사계고택",
+          "url": "https://ko.wikipedia.org/wiki/계룡_사계고택",
+          "checked": "2026-11-17",
+          "evidence": "그 앞에 연못이 있는데 이 주위에 회화나무가 우거져 있다"
+        }
+      ]
+    },
+    "solmoe_village": {
+      "name": "당진 솔뫼마을 김대건신부 유적",
+      "facts": [
+        {
+          "text": "솔뫼마을은 김대건 신부가 태어난 곳으로 전해져요.",
+          "source": "한국어 위키백과: 당진 솔뫼마을 김대건신부 유적",
+          "url": "https://ko.wikipedia.org/wiki/당진_솔뫼마을_김대건신부_유적",
+          "checked": "2026-11-17",
+          "evidence": "최초의 사제인 김대건신부가 태어난 장소로 전해지며"
+        },
+        {
+          "text": "김대건 신부는 우리나라 최초의 신부예요.",
+          "source": "한국어 위키백과: 당진 솔뫼마을 김대건신부 유적",
+          "url": "https://ko.wikipedia.org/wiki/당진_솔뫼마을_김대건신부_유적",
+          "checked": "2026-11-17",
+          "evidence": "한국 최초의 사제인 김대건신부"
+        },
+        {
+          "text": "2014년에 나라의 사적으로 정해졌어요.",
+          "source": "한국어 위키백과: 당진 솔뫼마을 김대건신부 유적",
+          "url": "https://ko.wikipedia.org/wiki/당진_솔뫼마을_김대건신부_유적",
+          "checked": "2026-11-17",
+          "evidence": "2014년 9월 26일 대한민국의 사적 제529호로 승격되었다"
+        }
+      ]
+    },
+    "sapgyoho": {
+      "name": "삽교호",
+      "facts": [
+        {
+          "text": "삽교호는 당진시와 아산시 사이에 있는 호수예요.",
+          "source": "한국어 위키백과: 삽교호",
+          "url": "https://ko.wikipedia.org/wiki/삽교호",
+          "checked": "2026-11-17",
+          "evidence": "충청남도 당진시 신평면과 아산시 인주면 경계에 있는"
+        },
+        {
+          "text": "삽교방조제는 1979년에 다 지어졌어요.",
+          "source": "한국어 위키백과: 삽교호",
+          "url": "https://ko.wikipedia.org/wiki/삽교호",
+          "checked": "2026-11-17",
+          "evidence": "삽교방조제는 1979년 10월 26일에 완공하였다"
+        },
+        {
+          "text": "바닷가 갯벌을 막아 만든 민물 호수 가운데 우리나라에서 가장 커요.",
+          "source": "한국어 위키백과: 삽교호",
+          "url": "https://ko.wikipedia.org/wiki/삽교호",
+          "checked": "2026-11-17",
+          "evidence": "대한민국 최대 규모의 간석지 담수호이며"
+        }
+      ]
+    },
+    "chilbaek_uichong": {
+      "name": "금산 칠백의총",
+      "facts": [
+        {
+          "text": "칠백의총은 임진왜란 때 싸우다 숨진 700여 명이 묻힌 곳이에요.",
+          "source": "한국어 위키백과: 칠백의총",
+          "url": "https://ko.wikipedia.org/wiki/칠백의총",
+          "checked": "2026-11-17",
+          "evidence": "임진왜란 때 순절한 고경명, 조헌, 영규 대사를 비롯한 700여 명의 의사가 묻힌 묘역이다"
+        },
+        {
+          "text": "조헌은 의병을 이끈 장수였어요.",
+          "source": "한국어 위키백과: 칠백의총",
+          "url": "https://ko.wikipedia.org/wiki/칠백의총",
+          "checked": "2026-11-17",
+          "evidence": "조헌(1544∼1592)은 의병장으로"
+        },
+        {
+          "text": "조헌의 제자들이 무덤을 만들었어요.",
+          "source": "한국어 위키백과: 칠백의총",
+          "url": "https://ko.wikipedia.org/wiki/칠백의총",
+          "checked": "2026-11-17",
+          "evidence": "조헌 선생의 제자인 박정량과 전승업이 시체를 거두어 무덤을 만들었는데"
+        },
+        {
+          "text": "1970년에 기념관을 새로 지었어요.",
+          "source": "한국어 위키백과: 칠백의총",
+          "url": "https://ko.wikipedia.org/wiki/칠백의총",
+          "checked": "2026-11-17",
+          "evidence": "1970년에 기념관·순의탑을 새로 지었다"
+        }
+      ]
+    },
+    "busosanseong": {
+      "name": "부여 부소산성",
+      "facts": [
+        {
+          "text": "부소산성은 백제 사비 도읍의 성으로 여겨져요.",
+          "source": "한국어 위키백과: 부여 부소산성",
+          "url": "https://ko.wikipedia.org/wiki/부여_부소산성",
+          "checked": "2026-11-17",
+          "evidence": "백제 사비도성의 배후산성과 왕궁성으로 추정되는 유적이다"
+        },
+        {
+          "text": "성의 둘레는 약 2.2km예요.",
+          "source": "한국어 위키백과: 부여 부소산성",
+          "url": "https://ko.wikipedia.org/wiki/부여_부소산성",
+          "checked": "2026-11-17",
+          "evidence": "둘레는 대략 2.2km"
+        },
+        {
+          "text": "성 안에는 고란사와 낙화암이 있어요.",
+          "source": "한국어 위키백과: 부여 부소산성",
+          "url": "https://ko.wikipedia.org/wiki/부여_부소산성",
+          "checked": "2026-11-17",
+          "evidence": "영일루·사비루·고란사·낙화암 등이 남아있다"
+        }
+      ]
+    },
+    "gungnamji": {
+      "name": "부여 궁남지",
+      "facts": [
+        {
+          "text": "궁남지는 백제 사비 시대에 만든 연못이에요.",
+          "source": "한국어 위키백과: 궁남지",
+          "url": "https://ko.wikipedia.org/wiki/궁남지",
+          "checked": "2026-11-17",
+          "evidence": "백제 사비시대의 궁원지(宮苑池)이다"
+        },
+        {
+          "text": "사람이 판 인공 연못이에요.",
+          "source": "한국어 위키백과: 궁남지",
+          "url": "https://ko.wikipedia.org/wiki/궁남지",
+          "checked": "2026-11-17",
+          "evidence": "별궁 인공 연못으로"
+        },
+        {
+          "text": "연못 가운데에 섬을 만들었다고 기록되어 있어요.",
+          "source": "한국어 위키백과: 궁남지",
+          "url": "https://ko.wikipedia.org/wiki/궁남지",
+          "checked": "2026-11-17",
+          "evidence": "연못 가운데에는 섬을 만들어"
+        },
+        {
+          "text": "물가에는 버드나무를 심었다고 해요.",
+          "source": "한국어 위키백과: 궁남지",
+          "url": "https://ko.wikipedia.org/wiki/궁남지",
+          "checked": "2026-11-17",
+          "evidence": "물가 주변의 사방에는 버드나무를 심고"
+        }
+      ]
+    },
+    "national_institute_of_ecology": {
+      "name": "국립생태원",
+      "facts": [
+        {
+          "text": "국립생태원은 우리나라에서 가장 큰 생태 전시관이에요.",
+          "source": "한국어 위키백과: 국립생태원",
+          "url": "https://ko.wikipedia.org/wiki/국립생태원",
+          "checked": "2026-11-17",
+          "evidence": "대한민국 최대 생태 전시관이다"
+        },
+        {
+          "text": "2013년 12월에 정식으로 문을 열었어요.",
+          "source": "한국어 위키백과: 국립생태원",
+          "url": "https://ko.wikipedia.org/wiki/국립생태원",
+          "checked": "2026-11-17",
+          "evidence": "2013년 12월 27일 정식 개원"
+        },
+        {
+          "text": "서천군 마서면에 있어요.",
+          "source": "한국어 위키백과: 국립생태원",
+          "url": "https://ko.wikipedia.org/wiki/국립생태원",
+          "checked": "2026-11-17",
+          "evidence": "충청남도 서천군 마서면 금강로 1210(덕암리)에 위치하고 있다"
+        },
+        {
+          "text": "에코리움이라는 전시관이 있어요.",
+          "source": "한국어 위키백과: 국립생태원",
+          "url": "https://ko.wikipedia.org/wiki/국립생태원",
+          "checked": "2026-11-17",
+          "evidence": "국립생태원 에코리움 및 야외공간 조성사업 완료"
+        }
+      ]
+    },
+    "chilgapsan": {
+      "name": "칠갑산",
+      "facts": [
+        {
+          "text": "칠갑산은 청양군에 있는 산이에요.",
+          "source": "한국어 위키백과: 칠갑산",
+          "url": "https://ko.wikipedia.org/wiki/칠갑산",
+          "checked": "2026-11-17",
+          "evidence": "충청남도 청양군에 있는 산이다"
+        },
+        {
+          "text": "1973년에 도립공원이 되었어요.",
+          "source": "한국어 위키백과: 칠갑산",
+          "url": "https://ko.wikipedia.org/wiki/칠갑산",
+          "checked": "2026-11-17",
+          "evidence": "1973년 3월 6일에 도립공원으로 지정되었다"
+        },
+        {
+          "text": "백제 사람들은 이 산을 성스럽게 여겼어요.",
+          "source": "한국어 위키백과: 칠갑산",
+          "url": "https://ko.wikipedia.org/wiki/칠갑산",
+          "checked": "2026-11-17",
+          "evidence": "백제는 이 산을 사비성 정북방의 진산(鎭山)으로 성스럽게 여겨"
+        },
+        {
+          "text": "일곱 장수가 나올 명당이 있다는 이야기가 전해요.",
+          "source": "한국어 위키백과: 칠갑산",
+          "url": "https://ko.wikipedia.org/wiki/칠갑산",
+          "checked": "2026-11-17",
+          "evidence": "일곱 장수가 나올 명당이 있는 산이라고도 전한다"
+        }
+      ]
+    },
+    "hongju_eupseong": {
+      "name": "홍성 홍주읍성",
+      "facts": [
+        {
+          "text": "홍주읍성은 홍성읍에 있는 옛 성이에요.",
+          "source": "한국어 위키백과: 홍성 홍주읍성",
+          "url": "https://ko.wikipedia.org/wiki/홍성_홍주읍성",
+          "checked": "2026-11-17",
+          "evidence": "충청남도 홍성군 홍성읍에 있는 읍성이다"
+        },
+        {
+          "text": "지금 성은 1451년에 고쳐 쌓은 거예요.",
+          "source": "한국어 위키백과: 홍성 홍주읍성",
+          "url": "https://ko.wikipedia.org/wiki/홍성_홍주읍성",
+          "checked": "2026-11-17",
+          "evidence": "조선 문종 1년(1451년)에 수축한 것으로"
+        },
+        {
+          "text": "동쪽 문인 조양문이 지금도 남아 있어요.",
+          "source": "한국어 위키백과: 홍성 홍주읍성",
+          "url": "https://ko.wikipedia.org/wiki/홍성_홍주읍성",
+          "checked": "2026-11-17",
+          "evidence": "동문인 조양문은 현재까지 남아있고"
+        },
+        {
+          "text": "돌로 쌓은 성벽 약 800m가 남아 있어요.",
+          "source": "한국어 위키백과: 홍성 홍주읍성",
+          "url": "https://ko.wikipedia.org/wiki/홍성_홍주읍성",
+          "checked": "2026-11-17",
+          "evidence": "약 800m의 돌로 쌓은 성벽의 일부분이 남아있다"
+        }
+      ]
+    },
+    "sudeoksa": {
+      "name": "수덕사",
+      "facts": [
+        {
+          "text": "수덕사는 덕숭산에 있는 절이에요.",
+          "source": "한국어 위키백과: 수덕사",
+          "url": "https://ko.wikipedia.org/wiki/수덕사",
+          "checked": "2026-11-17",
+          "evidence": "충청남도 예산군 덕산면 사천리 덕숭산에 있는"
+        },
+        {
+          "text": "백제 때 세워진 오래된 절이에요.",
+          "source": "한국어 위키백과: 수덕사",
+          "url": "https://ko.wikipedia.org/wiki/수덕사",
+          "checked": "2026-11-17",
+          "evidence": "수덕사는 백제 때에 창건되어 내려오는 유서깊은 고찰이며"
+        },
+        {
+          "text": "수덕도령과 덕숭낭자 이야기가 전해요.",
+          "source": "한국어 위키백과: 수덕사",
+          "url": "https://ko.wikipedia.org/wiki/수덕사",
+          "checked": "2026-11-17",
+          "evidence": "그중 하나가 수덕도령과 덕숭낭자 이야기다"
+        }
+      ]
+    },
+    "yedang_reservoir": {
+      "name": "예당저수지",
+      "facts": [
+        {
+          "text": "예당저수지는 우리나라 저수지 가운데 가장 커요.",
+          "source": "한국어 위키백과: 예당저수지",
+          "url": "https://ko.wikipedia.org/wiki/예당저수지",
+          "checked": "2026-11-17",
+          "evidence": "대한민국에서 소재한 저수지 중 가장 크다"
+        },
+        {
+          "text": "1964년에 다 지어졌어요.",
+          "source": "한국어 위키백과: 예당저수지",
+          "url": "https://ko.wikipedia.org/wiki/예당저수지",
+          "checked": "2026-11-17",
+          "evidence": "1964년 12월 31일에 준공되었다"
+        },
+        {
+          "text": "예산과 당진의 앞 글자를 따서 이름을 지었어요.",
+          "source": "한국어 위키백과: 예당저수지",
+          "url": "https://ko.wikipedia.org/wiki/예당저수지",
+          "checked": "2026-11-17",
+          "evidence": "예산군과 당진시의 앞머리를 따서 이름을 지었다"
+        },
+        {
+          "text": "논밭에 쓸 물을 대 줘요.",
+          "source": "한국어 위키백과: 예당저수지",
+          "url": "https://ko.wikipedia.org/wiki/예당저수지",
+          "checked": "2026-11-17",
+          "evidence": "예당평야에 농업용수를 공급한다고 해서"
+        }
+      ]
+    },
+    "kkotji_beach": {
+      "name": "꽃지해수욕장",
+      "facts": [
+        {
+          "text": "꽃지해수욕장은 안면도에 있는 바닷가예요.",
+          "source": "한국어 위키백과: 꽃지해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/꽃지해수욕장",
+          "checked": "2026-11-17",
+          "evidence": "태안군 안면읍 해수욕장으로서"
+        },
+        {
+          "text": "바닷가에 할미바위와 할아비바위가 있어요.",
+          "source": "한국어 위키백과: 꽃지해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/꽃지해수욕장",
+          "checked": "2026-11-17",
+          "evidence": "할미바위, 할아비바위(할미할아비바위)가 어우러져"
+        },
+        {
+          "text": "두 바위 너머로 지는 해가 아름다워요.",
+          "source": "한국어 위키백과: 꽃지해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/꽃지해수욕장",
+          "checked": "2026-11-17",
+          "evidence": "2개의 바위 너머로 붉게 물드는 낙조는 태안을 상징하는 풍광으로 꼽힌다"
+        },
+        {
+          "text": "해당화가 많이 피어서 '꽃지'라는 이름이 붙었어요.",
+          "source": "한국어 위키백과: 꽃지해수욕장",
+          "url": "https://ko.wikipedia.org/wiki/꽃지해수욕장",
+          "checked": "2026-11-17",
+          "evidence": "해당화가 지천으로 피어나 ‘꽃지’라는 이름을 얻었다"
+        }
+      ]
+    },
+    "chollipo_arboretum": {
+      "name": "천리포수목원",
+      "facts": [
+        {
+          "text": "천리포 바닷가에 만든 수목원이에요.",
+          "source": "한국어 위키백과: 천리포수목원",
+          "url": "https://ko.wikipedia.org/wiki/천리포수목원",
+          "checked": "2026-11-17",
+          "evidence": "천리포 해변에 본격적인 수목원을 조성하였다"
+        },
+        {
+          "text": "미국에서 와서 한국 사람이 된 민병갈 박사가 만들었어요.",
+          "source": "한국어 위키백과: 천리포수목원",
+          "url": "https://ko.wikipedia.org/wiki/천리포수목원",
+          "checked": "2026-11-17",
+          "evidence": "미국에서 귀화한 민병갈 박사"
+        },
+        {
+          "text": "60여 개 나라에서 모은 식물이 자라요.",
+          "source": "한국어 위키백과: 천리포수목원",
+          "url": "https://ko.wikipedia.org/wiki/천리포수목원",
+          "checked": "2026-11-17",
+          "evidence": "미국 등 60여 개국으로부터 수집한 식물은"
+        },
+        {
+          "text": "아시아에서 처음으로 '세계의 아름다운 수목원'이 되었어요.",
+          "source": "한국어 위키백과: 천리포수목원",
+          "url": "https://ko.wikipedia.org/wiki/천리포수목원",
+          "checked": "2026-11-17",
+          "evidence": "아시아에서는 최초로 '세계의 아름다운 수목원'으로 인증하였다"
+        }
+      ]
     }
   },
   "stationLooks": {
@@ -11409,8 +12362,8 @@
             "pattern": "two-tone",
             "vehicle": "mini",
             "desc": "분홍색과 흰색으로 칠한 버스예요.",
-            "source": "",
-            "url": "",
+            "source": "세종특별자치시 누리집 「시내버스 이용안내」; 나무위키 「세종특별자치시 시내버스」",
+            "url": "https://www.sejong.go.kr/life/sub02_010101.do",
             "confidence": "low",
             "note": "자율주행(A1~A4) 색은 찾지 못함. 기본(시내)과 같게 둠",
             "todo": true

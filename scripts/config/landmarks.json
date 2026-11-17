@@ -1968,6 +1968,259 @@
       "osm": "way/113759760",
       "kind": "temple",
       "radius": 200
+    },
+    {
+      "id": "hanbit_tower",
+      "name": "한빛탑",
+      "city": "대전",
+      "osm": "way/469022520",
+      "kind": "tower",
+      "radius": 250
+    },
+    {
+      "id": "national_science_museum",
+      "name": "국립중앙과학관",
+      "city": "대전",
+      "osm": "relation/12662149",
+      "kind": "science",
+      "radius": 350
+    },
+    {
+      "id": "daejeon_oworld",
+      "name": "대전 오월드",
+      "city": "대전",
+      "osm": "way/68169809",
+      "kind": "themepark",
+      "radius": 500
+    },
+    {
+      "id": "gyejoksan",
+      "name": "계족산",
+      "city": "대전",
+      "osm": "node/8038332869",
+      "kind": "mountain",
+      "radius": 600
+    },
+    {
+      "id": "daecheongho",
+      "name": "대청호",
+      "city": "대전",
+      "osm": "way/26135489",
+      "kind": "lake",
+      "radius": 600,
+      "note": "대청호 호수 relation 413915의 중심은 충북 보은군에 떨어져서, 대전 대덕구 신탄진동 쪽 대청댐(way)의 중심을 썼어요."
+    },
+    {
+      "id": "yuseong_hot_spring",
+      "name": "유성온천",
+      "city": "대전",
+      "osm": "node/355173695",
+      "kind": "street",
+      "radius": 400
+    },
+    {
+      "id": "sejong_lake_park",
+      "name": "세종호수공원",
+      "city": "세종",
+      "osm": "relation/9734480",
+      "kind": "park",
+      "radius": 500
+    },
+    {
+      "id": "sejong_national_arboretum",
+      "name": "국립세종수목원",
+      "city": "세종",
+      "osm": "way/799013764",
+      "kind": "garden",
+      "radius": 450
+    },
+    {
+      "id": "beartree_park",
+      "name": "베어트리파크",
+      "city": "세종",
+      "osm": "way/472545129",
+      "kind": "garden",
+      "radius": 350
+    },
+    {
+      "id": "independence_hall",
+      "name": "독립기념관",
+      "city": "천안",
+      "osm": "node/368635603",
+      "kind": "museum",
+      "radius": 500
+    },
+    {
+      "id": "gongsanseong",
+      "name": "공주 공산성",
+      "city": "공주",
+      "osm": "way/157482752",
+      "kind": "fortress",
+      "radius": 400
+    },
+    {
+      "id": "muryeong_royal_tombs",
+      "name": "공주 무령왕릉과 왕릉원",
+      "city": "공주",
+      "osm": "node/364709499",
+      "kind": "tomb",
+      "radius": 300
+    },
+    {
+      "id": "daecheon_beach",
+      "name": "대천해수욕장",
+      "city": "보령",
+      "osm": "way/591698660",
+      "kind": "beach",
+      "radius": 600,
+      "note": "모래사장 way의 중심이 행정동 경계 바로 바깥(바다 쪽)에 있어요. 가장 가까운 동은 약 140m 떨어진 보령시 대천5동이에요."
+    },
+    {
+      "id": "hyeonchungsa",
+      "name": "현충사",
+      "city": "아산",
+      "osm": "way/633128879",
+      "kind": "shrine",
+      "radius": 350
+    },
+    {
+      "id": "oeam_village",
+      "name": "아산 외암마을",
+      "city": "아산",
+      "osm": "way/474358983",
+      "kind": "village",
+      "radius": 400
+    },
+    {
+      "id": "haemi_eupseong",
+      "name": "서산 해미읍성",
+      "city": "서산",
+      "osm": "way/99653099",
+      "kind": "fortress",
+      "radius": 300
+    },
+    {
+      "id": "gwanchoksa",
+      "name": "관촉사",
+      "city": "논산",
+      "osm": "way/807186103",
+      "kind": "temple",
+      "radius": 250
+    },
+    {
+      "id": "gyeryongsan",
+      "name": "계룡산",
+      "city": "계룡",
+      "osm": "node/7609103069",
+      "kind": "mountain",
+      "radius": 600,
+      "note": "계룡산은 공주·계룡·대전에 걸쳐 있어요. 최고봉 천황봉 node(계룡시 신도안면)를 대표 점으로 썼어요."
+    },
+    {
+      "id": "sagye_house",
+      "name": "계룡 사계고택",
+      "city": "계룡",
+      "osm": "way/1150737942",
+      "kind": "hanok",
+      "radius": 200
+    },
+    {
+      "id": "solmoe_village",
+      "name": "당진 솔뫼마을 김대건신부 유적",
+      "city": "당진",
+      "osm": "way/475187542",
+      "kind": "village",
+      "radius": 300
+    },
+    {
+      "id": "sapgyoho",
+      "name": "삽교호",
+      "city": "당진",
+      "osm": "relation/50461",
+      "kind": "lake",
+      "radius": 600,
+      "note": "호수는 당진·아산 경계에 있어요. relation 중심은 당진시 우강면 안이에요."
+    },
+    {
+      "id": "chilbaek_uichong",
+      "name": "금산 칠백의총",
+      "city": "금산",
+      "osm": "way/256957045",
+      "kind": "tomb",
+      "radius": 300
+    },
+    {
+      "id": "busosanseong",
+      "name": "부여 부소산성",
+      "city": "부여",
+      "osm": "way/38023729",
+      "kind": "fortress",
+      "radius": 500
+    },
+    {
+      "id": "gungnamji",
+      "name": "부여 궁남지",
+      "city": "부여",
+      "osm": "way/860910100",
+      "kind": "garden",
+      "radius": 300
+    },
+    {
+      "id": "national_institute_of_ecology",
+      "name": "국립생태원",
+      "city": "서천",
+      "osm": "way/812557708",
+      "kind": "museum",
+      "radius": 500
+    },
+    {
+      "id": "chilgapsan",
+      "name": "칠갑산",
+      "city": "청양",
+      "osm": "node/5377252847",
+      "kind": "mountain",
+      "radius": 600
+    },
+    {
+      "id": "hongju_eupseong",
+      "name": "홍성 홍주읍성",
+      "city": "홍성",
+      "osm": "node/2633808652",
+      "kind": "fortress",
+      "radius": 300,
+      "note": "OSM에 \"홍주읍성\" 이름의 요소가 없어서 남아 있는 동문인 조양문 node를 썼어요."
+    },
+    {
+      "id": "sudeoksa",
+      "name": "수덕사",
+      "city": "예산",
+      "osm": "way/1137536301",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "yedang_reservoir",
+      "name": "예당저수지",
+      "city": "예산",
+      "osm": "relation/1675743",
+      "kind": "lake",
+      "radius": 600
+    },
+    {
+      "id": "kkotji_beach",
+      "name": "꽃지해수욕장",
+      "city": "태안",
+      "osm": "way/1136955607",
+      "kind": "beach",
+      "radius": 500
+    },
+    {
+      "id": "chollipo_arboretum",
+      "name": "천리포수목원",
+      "city": "태안",
+      "osm": "way/892874476",
+      "kind": "garden",
+      "radius": 400
     }
   ]
 }
