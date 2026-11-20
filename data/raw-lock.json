@@ -557,9 +557,9 @@
   "korail-run-info": {
     "file": "data/raw/korail/run-info-20261111.json",
     "url": "https://apis.data.go.kr/B551457/run/v2/travelerTrainRunInfo2",
-    "bytes": 1880637,
-    "sha256": "d46e99f90e4d4860bcc2a58660e7a0a5342fd6c471ec0bf8ed522050bf4788c7",
-    "fetched": "2026-11-17",
+    "bytes": 2441890,
+    "sha256": "4ff8d6a058023c2693c742ebb96a426bbd05d1b2e236e42d00f41715aa815326",
+    "fetched": "2026-11-20",
     "note": "인증키가 필요한 API(npm run trains). 주소에는 인증키를 적지 않는다."
   },
   "korail-run-info-20261014": {
@@ -573,8 +573,8 @@
   "korail-run-info-20261111": {
     "file": "data/raw/korail/run-info-20261111.json",
     "url": "https://apis.data.go.kr",
-    "bytes": 1880637,
-    "sha256": "d46e99f90e4d4860bcc2a58660e7a0a5342fd6c471ec0bf8ed522050bf4788c7",
+    "bytes": 2441890,
+    "sha256": "4ff8d6a058023c2693c742ebb96a426bbd05d1b2e236e42d00f41715aa815326",
     "fetched": "2026-11-17",
     "note": "인증키가 필요한 API(npm run trains, npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
@@ -583,7 +583,7 @@
     "url": "https://apis.data.go.kr/B551457/run/v2/travelerTrainRunPlan2",
     "bytes": 194134,
     "sha256": "e2b780aad07194a74f2242342eb7f00767b744b3a2e5bdb2acbafcfca63fe94b",
-    "fetched": "2026-11-15",
+    "fetched": "2026-11-20",
     "note": "인증키가 필요한 API(npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "korail-run-plan-20261014": {
@@ -2468,6 +2468,13 @@
     "sha256": "1a2a4c2a0641cb20be648dd46a39b38a835a4515690481e6be6e88864aaffd94",
     "fetched": "2026-11-20"
   },
+  "osm-station-area-R-가평": {
+    "file": "data/raw/osm/station-areas/R-가평.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 27231,
+    "sha256": "d9691e193ee8c85b4ca6615b40c6256037de9168580cfc9e1fdea07e1ad1292e",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-각계": {
     "file": "data/raw/osm/station-areas/R-각계.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -2496,6 +2503,20 @@
     "sha256": "d369de5bf660c1471fa0dcdeb1ca57943d36debb959b149f9481fa00a8e6161f",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-강릉": {
+    "file": "data/raw/osm/station-areas/R-강릉.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 31218,
+    "sha256": "2b4b35c2022ad0a831d27101139b8b6be03803598c88b32e357ab723c3195b66",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-강촌": {
+    "file": "data/raw/osm/station-areas/R-강촌.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 22242,
+    "sha256": "79275761a3d48346807c81f15949a7ff921e70eae29e4c2fd31d24b51b095545",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-개포": {
     "file": "data/raw/osm/station-areas/R-개포.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -2516,6 +2537,13 @@
     "bytes": 15734,
     "sha256": "9843c76cbeef4e7b65810cd5f7879cb40b444fd9fe7082c27c420018eb983c0f",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-고한": {
+    "file": "data/raw/osm/station-areas/R-고한.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 6611,
+    "sha256": "8341ddd15697ce8bb532b690d0c443f3e66896cc3b3592dff4ca0b13e61e4901",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-곡성": {
     "file": "data/raw/osm/station-areas/R-곡성.json",
@@ -2615,6 +2643,13 @@
     "sha256": "dd81c96d032247dc9e5bbc2b96f7f9a80a0bbfec9acdb18150d255b8541adc71",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-근덕": {
+    "file": "data/raw/osm/station-areas/R-근덕.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 1703,
+    "sha256": "c93e07c39b598d75498de26a1aeb6724d1a42a2eed63c11c6794a1a278d8fa79",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-기성": {
     "file": "data/raw/osm/station-areas/R-기성.json",
     "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
@@ -2643,6 +2678,13 @@
     "sha256": "426afc300557467602cd3e781b58696fb8031b85205671f928705bbe336aa56f",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-나전": {
+    "file": "data/raw/osm/station-areas/R-나전.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 5460,
+    "sha256": "7a687b24a4ede5e54ef12914da0ca3196bec055aa16f31871e2ea470fabf8ae8",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-나주": {
     "file": "data/raw/osm/station-areas/R-나주.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -2670,6 +2712,13 @@
     "bytes": 18631,
     "sha256": "1dc619ab950435f33ab013e366de6312182473f7615d81337a68360480269aa5",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-남춘천": {
+    "file": "data/raw/osm/station-areas/R-남춘천.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 7722,
+    "sha256": "c434d4f753d6a5b3e1b51e64a78be57625bb14294a2700126affaa900da241df",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-논산": {
     "file": "data/raw/osm/station-areas/R-논산.json",
@@ -2713,6 +2762,20 @@
     "sha256": "535ec5028b44ff613a849f0070a918bd41a448447b6eda580023975173bcbc94",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-덕소": {
+    "file": "data/raw/osm/station-areas/R-덕소.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 36748,
+    "sha256": "d575611ea4c07e29874ebc865fbde99875e7d75df216bdc927a19e10ce64db82",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-도계": {
+    "file": "data/raw/osm/station-areas/R-도계.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 7813,
+    "sha256": "d32fd36015802afb71b4e2379a0dc7e2d9523388cc08da0cba4218e41cc58770",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-도고온천": {
     "file": "data/raw/osm/station-areas/R-도고온천.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -2727,6 +2790,20 @@
     "sha256": "7e638d62e241a62a8f64aa7453b1c2f619eecce2eefd96c0d04e9ac65cb8ac54",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-동해": {
+    "file": "data/raw/osm/station-areas/R-동해.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 16786,
+    "sha256": "a3a47535fab882958fa2e84113b2a00d77b6df0fbf8c94cb11976f1427533439",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-둔내": {
+    "file": "data/raw/osm/station-areas/R-둔내.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 8961,
+    "sha256": "2cf0e2af838739ef94b584560881d7f157bb9cc3608cfce49b87df9469b7c63d",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-득량": {
     "file": "data/raw/osm/station-areas/R-득량.json",
     "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
@@ -2740,6 +2817,27 @@
     "bytes": 38534,
     "sha256": "00a88b7774434dcd42398387f72ba70e4a2544bf5a0ad8759820842fd2f7d20c",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-마석": {
+    "file": "data/raw/osm/station-areas/R-마석.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 28197,
+    "sha256": "e5d0a53da680d65a863361dcd40638acb393763ed8582cc3f11cb87ea71a397c",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-만종": {
+    "file": "data/raw/osm/station-areas/R-만종.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 21903,
+    "sha256": "451d620923d92c846f5c63d8e2988f931703ed0031fd2be55ec6b86935417ad9",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-매곡": {
+    "file": "data/raw/osm/station-areas/R-매곡.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 12462,
+    "sha256": "830da3f999fc0bb0d1f9799420d6fc759741191dce07597fcff5c4563064c82f",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-매화": {
     "file": "data/raw/osm/station-areas/R-매화.json",
@@ -2797,6 +2895,13 @@
     "sha256": "bef6bb438b89f899c434547d10d0bc0a37667c00b02140edf06b6efac62a255d",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-민둥산": {
+    "file": "data/raw/osm/station-areas/R-민둥산.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 15965,
+    "sha256": "74a48f242d7da8e93e55f7202e77cbce06ce90e8dbd5862fab54617159b7988d",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-밀양": {
     "file": "data/raw/osm/station-areas/R-밀양.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -2825,6 +2930,13 @@
     "sha256": "af16bbd8d150aaa8bfe0b6cda67f93978522b29abec35dbde6017a1aef4a21cc",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-별어곡": {
+    "file": "data/raw/osm/station-areas/R-별어곡.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 11920,
+    "sha256": "9413db8807a315cf62e8936077ef2a5247d3f35b32856c2a0291bd426d7e04e6",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-보성": {
     "file": "data/raw/osm/station-areas/R-보성.json",
     "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
@@ -2852,6 +2964,13 @@
     "bytes": 31546,
     "sha256": "0a9fc2f4d1132734359fd3d16c3dac8b1edc7b60047faee29e37c3cfee50891a",
     "fetched": "2026-11-17"
+  },
+  "osm-station-area-R-부발": {
+    "file": "data/raw/osm/station-areas/R-부발.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 20136,
+    "sha256": "030380f0448bbc836f7d8b9afad5f521e01d9d5b3864c8ee88b904fa9043d782",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-부산": {
     "file": "data/raw/osm/station-areas/R-부산.json",
@@ -2895,6 +3014,20 @@
     "sha256": "6b31c79802cdf1c933630798f945cba3e3667229145688d17af40ee25e916529",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-사릉": {
+    "file": "data/raw/osm/station-areas/R-사릉.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 19827,
+    "sha256": "1d7cb63f9109803be7af48b5e78f41298e38ad976f6fd7a6ed9e1b1ca92a4368",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-사북": {
+    "file": "data/raw/osm/station-areas/R-사북.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 10160,
+    "sha256": "c3da47e52c775e1e73389ed54853189ee46de3c1d45fc3c0d062a2d29ee3dd1d",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-사상": {
     "file": "data/raw/osm/station-areas/R-사상.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -2923,6 +3056,20 @@
     "sha256": "97e76becbe67a83ae8ccae3ed553f725cceb5bb6af724750400ebfeec6431b78",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-삼산": {
+    "file": "data/raw/osm/station-areas/R-삼산.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 20975,
+    "sha256": "332172eed03b8d2fc63edc3fd4de1455b817f3f9058a4eaaa9875aebaafc2884",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-삼척": {
+    "file": "data/raw/osm/station-areas/R-삼척.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 9798,
+    "sha256": "279e5ebece1629f900bbbfe75871830ded62e80031798c8f788bb58e0859e250",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-삼탄": {
     "file": "data/raw/osm/station-areas/R-삼탄.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -2943,6 +3090,13 @@
     "bytes": 17297,
     "sha256": "c5730ac6ca2f333cef3092bb438614b1daef7a8cb995f692c55695357b1ae184",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-상봉": {
+    "file": "data/raw/osm/station-areas/R-상봉.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 72723,
+    "sha256": "950bda2f5aa2ef697e1c10cc43eabcb170c777d268e3add861801c5f39b54fe6",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-상주": {
     "file": "data/raw/osm/station-areas/R-상주.json",
@@ -2986,6 +3140,13 @@
     "sha256": "ff1764a9a01d2366ab500b593f69119b56bef48a6a57ea39162fc1873c4223ff",
     "fetched": "2026-11-20"
   },
+  "osm-station-area-R-서원주": {
+    "file": "data/raw/osm/station-areas/R-서원주.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 29865,
+    "sha256": "98979a7f32c9f818f92d28bc8e865ce85170cab73ce67a4e198e008ab1149517",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-서정리": {
     "file": "data/raw/osm/station-areas/R-서정리.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -3007,12 +3168,26 @@
     "sha256": "27749a2a49a46bbbbde278989c36ea61bb058f0cd9caff78167e126a7b695576",
     "fetched": "2026-11-20"
   },
+  "osm-station-area-R-석불": {
+    "file": "data/raw/osm/station-areas/R-석불.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 7546,
+    "sha256": "73ea5d032e5419b2aac3b659bc59be39b7053983b9ca4ff02bc6f875e1e366ed",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-석포": {
     "file": "data/raw/osm/station-areas/R-석포.json",
     "url": "https://overpass-api.de/api/interpreter",
     "bytes": 18707,
     "sha256": "fe119a257dfd936a1b2da5e01d77b745b0c1ad321a1780389e39d56f70985f2e",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-선평": {
+    "file": "data/raw/osm/station-areas/R-선평.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 5222,
+    "sha256": "16b4984b52e422a321f81236e15892b4d5305c9e650c37d61f1bd5177e158a0a",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-성환": {
     "file": "data/raw/osm/station-areas/R-성환.json",
@@ -3105,12 +3280,26 @@
     "sha256": "414c91794fa55f4c162300d34dd8b329fb753489de15f38d600133f8529ab544",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-쌍룡": {
+    "file": "data/raw/osm/station-areas/R-쌍룡.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 11479,
+    "sha256": "69e25faf1a74401c970fa38b331646dfb0053c803abf885f90da642548b87485",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-아산": {
     "file": "data/raw/osm/station-areas/R-아산.json",
     "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
     "bytes": 50994,
     "sha256": "aed811f9ec937e11dbe68ee0a2b3355773b9e16f7c8ef1c9f5d8e3448d7f1ca1",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-아우라지": {
+    "file": "data/raw/osm/station-areas/R-아우라지.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 7316,
+    "sha256": "96a69b3e44b64323c46c9afed32d2b79be3ccc7c9ccf0e51bee25304f78029f4",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-아화": {
     "file": "data/raw/osm/station-areas/R-아화.json",
@@ -3153,6 +3342,27 @@
     "bytes": 42316,
     "sha256": "7c7db3f9d9d5facdf7beec7f96cdd9345eee63d2aac7a03edc001dafb9c41bf6",
     "fetched": "2026-11-17"
+  },
+  "osm-station-area-R-양동": {
+    "file": "data/raw/osm/station-areas/R-양동.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 17389,
+    "sha256": "a8a767fe3101dc66968404ae970bd8a0a3e41cb2a2956913acfd420c88a9da6e",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-양원": {
+    "file": "data/raw/osm/station-areas/R-양원.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 26527,
+    "sha256": "62e9f3c49d17deb5bc1efd167413b8d986775405a5fbe1db3c07e91efbd97186",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-양평": {
+    "file": "data/raw/osm/station-areas/R-양평.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 39944,
+    "sha256": "d18940e1dace17360c3dd76037fa6eba7808684900ababb0f30ac69e69aa6491",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-여수엑스포": {
     "file": "data/raw/osm/station-areas/R-여수엑스포.json",
@@ -3203,6 +3413,13 @@
     "sha256": "a9e67fb1ce1efd9a5f57d02932a032de475fb19a27b5570ae80f8190063917f1",
     "fetched": "2026-11-20"
   },
+  "osm-station-area-R-영월": {
+    "file": "data/raw/osm/station-areas/R-영월.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 11522,
+    "sha256": "e8f8f91eb7228bb4fd542e0c30a55538be6dc4164811102e60f5f3a9e7d48a1b",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-영주": {
     "file": "data/raw/osm/station-areas/R-영주.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -3230,6 +3447,13 @@
     "bytes": 5365,
     "sha256": "cb16e9d8acf1177b07dfd549685634d35e77fe0a752e56739eca0268d2c88c02",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-예미": {
+    "file": "data/raw/osm/station-areas/R-예미.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 13522,
+    "sha256": "030f2e15981c6f344726188cc04dc81376e98f1dac30c617618dfc64c802fb0c",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-예산": {
     "file": "data/raw/osm/station-areas/R-예산.json",
@@ -3273,6 +3497,20 @@
     "sha256": "8560d661a5c68e5437d512faa94a266efe91ff523ba6737a3d9d61ef705b0120",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-옥수": {
+    "file": "data/raw/osm/station-areas/R-옥수.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 24766,
+    "sha256": "1f94a081f4f826e78adc13300c474c7710a75582c160c1c176c21a3035595cfc",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-옥원": {
+    "file": "data/raw/osm/station-areas/R-옥원.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 11344,
+    "sha256": "954c6c3dfff0b7f35d61cc1a04750f2f02512e5c8e5377fada170fda9021ecec",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-옥천": {
     "file": "data/raw/osm/station-areas/R-옥천.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -3294,6 +3532,13 @@
     "sha256": "1df27e3ad89db49f637ded574cd315907be00da429c02c8f377bab4ee348a49f",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-왕십리": {
+    "file": "data/raw/osm/station-areas/R-왕십리.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 54241,
+    "sha256": "56e3c4a8b88eac088e4bfd1af5efaafe379b1c912298a258e5fa378acf2921ca",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-왜관": {
     "file": "data/raw/osm/station-areas/R-왜관.json",
     "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
@@ -3307,6 +3552,13 @@
     "bytes": 4169,
     "sha256": "3aa0a89ab71587655fba29e01a9f95ecc7904f8e0a147e83167a4d83c8afae29",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-용문": {
+    "file": "data/raw/osm/station-areas/R-용문.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 28610,
+    "sha256": "1b65dae888383c9a0aee58981e04d0ded9e5cb314c5d1a3208edbf234a215b52",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-용산": {
     "file": "data/raw/osm/station-areas/R-용산.json",
@@ -3335,6 +3587,13 @@
     "bytes": 14169,
     "sha256": "f270af20fa5c0db79162e0cbe586f84475470da5c84b16f738264cfacbd0378c",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-원주": {
+    "file": "data/raw/osm/station-areas/R-원주.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 17419,
+    "sha256": "e6e9e533a5319e3c23af1e7f7ac074a32aa30ed4b1a3a546ed4d058309091954",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-월포": {
     "file": "data/raw/osm/station-areas/R-월포.json",
@@ -3392,6 +3651,13 @@
     "sha256": "bf6c7de8859f597467cb8ec0c5b390d79521955606e7d73952965d0933c72e28",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-일신": {
+    "file": "data/raw/osm/station-areas/R-일신.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 18021,
+    "sha256": "7bf0294a9c056876d468e2346f4248a40011501457eeafac058dcaea146b123e",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-임기": {
     "file": "data/raw/osm/station-areas/R-임기.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -3412,6 +3678,13 @@
     "bytes": 15367,
     "sha256": "e6b4c89b25dcd226f72697f232829a5d20ec236817e560d6a6c439705ca22047",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-임원": {
+    "file": "data/raw/osm/station-areas/R-임원.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 7063,
+    "sha256": "45b22cc1ef68e94a24bca8905277791cdbe6fb529279b4e0bd6c8b797fcbdc64",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-장사": {
     "file": "data/raw/osm/station-areas/R-장사.json",
@@ -3460,6 +3733,13 @@
     "url": "https://overpass.private.coffee/api/interpreter",
     "bytes": 14433,
     "sha256": "0f3dd38d113cad8976e96d8883a4e4d3404c38725a0b8e13b9b80101c6a0be53",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-정선": {
+    "file": "data/raw/osm/station-areas/R-정선.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 8339,
+    "sha256": "fb0b1321da0abe017819d93e926393775a001d2c8840a3f489ea0dc0e9c2280f",
     "fetched": "2026-11-20"
   },
   "osm-station-area-R-정읍": {
@@ -3532,6 +3812,13 @@
     "sha256": "282b6c96cc2d4b2324246685633f4270cc13b2837599fdac7da2318de74d8f38",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-진부": {
+    "file": "data/raw/osm/station-areas/R-진부.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 22387,
+    "sha256": "0dc6ee55cb37c00e340cc0565ffda48c6bac67055f6cac686ff340398decbae8",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-진상": {
     "file": "data/raw/osm/station-areas/R-진상.json",
     "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
@@ -3588,6 +3875,13 @@
     "sha256": "b157cb611ccdf655e2c9541b0ca3fbc304d06d4f07c148cd7d3dccb5ae003ec5",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-청량리": {
+    "file": "data/raw/osm/station-areas/R-청량리.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 145125,
+    "sha256": "49fcfad320b01290fdacc9fdeb269dfc30df5d143cfda3981787ed19965fc26e",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-청리": {
     "file": "data/raw/osm/station-areas/R-청리.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -3609,6 +3903,13 @@
     "sha256": "657e02559009d266d37df9cbcdb325d0fef28953387fe42c2e7a01a1cc9864ff",
     "fetched": "2026-11-17"
   },
+  "osm-station-area-R-청평": {
+    "file": "data/raw/osm/station-areas/R-청평.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 33019,
+    "sha256": "59dd3f2a76f76275cab2f9610cfe8ba1a1c376de45f4edf7d41fb963f759390c",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-추풍령": {
     "file": "data/raw/osm/station-areas/R-추풍령.json",
     "url": "https://overpass-api.de/api/interpreter",
@@ -3623,12 +3924,26 @@
     "sha256": "ad6208f34208d0fed2f3fbe1a7d56689cb8699b434a2f6608311a6cd49e53f43",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-춘천": {
+    "file": "data/raw/osm/station-areas/R-춘천.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 29815,
+    "sha256": "06b9388e47edc46dbc5b3c1e7fe0c64ca13583b98daa97e95bf2f74665488a1b",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-충주": {
     "file": "data/raw/osm/station-areas/R-충주.json",
     "url": "https://overpass-api.de/api/interpreter",
     "bytes": 43400,
     "sha256": "481c051d33bd0ec6a7a3de68d49e47a349f32b599eabe626fb47396be7d692d9",
     "fetched": "2026-11-17"
+  },
+  "osm-station-area-R-태백": {
+    "file": "data/raw/osm/station-areas/R-태백.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 9293,
+    "sha256": "79534570f6a3b84fb8844496370f5d474276b463e9640458fa42fae55fbee614",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-태화강": {
     "file": "data/raw/osm/station-areas/R-태화강.json",
@@ -3637,12 +3952,33 @@
     "sha256": "6dbcd45d81c1070885f3b1e8f358433f3717970c48dd05c83561922d867f39f8",
     "fetched": "2026-11-15"
   },
+  "osm-station-area-R-퇴계원": {
+    "file": "data/raw/osm/station-areas/R-퇴계원.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 24945,
+    "sha256": "40c37544c4ad8c9e18c2936d6e534ff68765c0b64b6f672e20eb049d4f3a08f4",
+    "fetched": "2026-11-20"
+  },
   "osm-station-area-R-판교": {
     "file": "data/raw/osm/station-areas/R-판교.json",
     "url": "https://overpass-api.de/api/interpreter",
     "bytes": 13737,
     "sha256": "4f4a871e96c244564cc56def0b5dc367787fb31ad4b89c63d52a57c2f938134f",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-평내호평": {
+    "file": "data/raw/osm/station-areas/R-평내호평.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 18356,
+    "sha256": "d28923ce6f5e3943c4263bfbd9461355228102b1a5c8f971ed02ed93adec1a2d",
+    "fetched": "2026-11-20"
+  },
+  "osm-station-area-R-평창": {
+    "file": "data/raw/osm/station-areas/R-평창.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 13239,
+    "sha256": "c1911e2a1b087316fd36d603affac3bcba9985b6ece1715ec95bdfe6c99b1a65",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-평택": {
     "file": "data/raw/osm/station-areas/R-평택.json",
@@ -3783,6 +4119,13 @@
     "bytes": 15376,
     "sha256": "092c2d60366f07401baaa17eae50493a357cb5de8a414128773b388e0f4d437a",
     "fetched": "2026-11-15"
+  },
+  "osm-station-area-R-횡성": {
+    "file": "data/raw/osm/station-areas/R-횡성.json",
+    "url": "https://overpass.private.coffee/api/interpreter",
+    "bytes": 23523,
+    "sha256": "28d9fcc7b5472438eb5dc2346670f796c5568fedb257089b49d71093ca0d24f0",
+    "fetched": "2026-11-20"
   },
   "osm-station-area-R-횡천": {
     "file": "data/raw/osm/station-areas/R-횡천.json",
@@ -4751,19 +5094,19 @@
     "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
   },
   "tago-train-fares": {
-    "file": "data/raw/korail/tago-fares-20261118.json",
+    "file": "data/raw/korail/tago-fares-20261125.json",
     "url": "https://apis.data.go.kr/1613000/TrainInfo/GetStrtpntAlocFndTrainInfo",
-    "bytes": 3957974,
-    "sha256": "0b7a39b466928eaa57bf188017a9fa27d0014f107ebb6a8d896ef8652c53bb0f",
-    "fetched": "2026-11-17",
+    "bytes": 5999733,
+    "sha256": "072f4e804543532b3adba397ca756de3e048d3110f828365a3a45b54a94848cc",
+    "fetched": "2026-11-20",
     "note": "인증키가 필요한 API(npm run train-fares). 주소에는 인증키를 적지 않는다."
   },
   "tago-train-info": {
-    "file": "data/raw/korail/tago-trains-20261118.json",
+    "file": "data/raw/korail/tago-trains-20261125.json",
     "url": "https://apis.data.go.kr/1613000/TrainInfo/GetStrtpntAlocFndTrainInfo",
-    "bytes": 583361,
-    "sha256": "4d8d4266311d542041283673515a9594c91068680e0cfc8744a8b6c833119005",
-    "fetched": "2026-11-17",
+    "bytes": 632321,
+    "sha256": "323273ca1da7353cb52b13614a6ca26927fa3653d2ebb03433e28f7bd07c72cb",
+    "fetched": "2026-11-20",
     "note": "인증키가 필요한 API(npm run trains). 주소에는 인증키를 적지 않는다."
   },
   "timetable": {

@@ -1,0 +1,404 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-07-15T15:22:01Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 32081088,
+  "bounds": {
+    "minlat": 37.1760861,
+    "minlon": 128.9848535,
+    "maxlat": 37.1772624,
+    "maxlon": 128.9863346
+  },
+  "nodes": [
+    360170230,
+    360170231,
+    360170232,
+    6297142748,
+    6297142749,
+    360170233,
+    360170230
+  ],
+  "geometry": [
+    { "lat": 37.1772624, "lon": 128.9855417 },
+    { "lat": 37.1766268, "lon": 128.9848535 },
+    { "lat": 37.1760861, "lon": 128.9855724 },
+    { "lat": 37.1762225, "lon": 128.9857656 },
+    { "lat": 37.1766312, "lon": 128.9862919 },
+    { "lat": 37.1766519, "lon": 128.9863346 },
+    { "lat": 37.1772624, "lon": 128.9855417 }
+  ],
+  "tags": {
+    "alt_name": "태백버스터미널",
+    "alt_name:ko": "태백버스터미널; 태백시외버스터미널; 태백터미널",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "태백버스정류장",
+    "name:en": "Taebaek Bus Terminal",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 485139732,
+  "bounds": {
+    "minlat": 37.1773956,
+    "minlon": 128.9802142,
+    "maxlat": 37.1775574,
+    "maxlon": 128.9805777
+  },
+  "nodes": [
+    4779079264,
+    6297151948
+  ],
+  "geometry": [
+    { "lat": 37.1775574, "lon": 128.9802142 },
+    { "lat": 37.1773956, "lon": 128.9805777 }
+  ],
+  "tags": {
+    "name": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 485139733,
+  "bounds": {
+    "minlat": 37.1779409,
+    "minlon": 128.9784477,
+    "maxlat": 37.1783629,
+    "maxlon": 128.9793365
+  },
+  "nodes": [
+    4779079263,
+    4779079273,
+    4779079274,
+    4779079275,
+    4779079276
+  ],
+  "geometry": [
+    { "lat": 37.1779409, "lon": 128.9793365 },
+    { "lat": 37.1782133, "lon": 128.9788661 },
+    { "lat": 37.1783629, "lon": 128.9784477 },
+    null,
+    null
+  ],
+  "tags": {
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 485139734,
+  "bounds": {
+    "minlat": 37.1759741,
+    "minlon": 128.9838893,
+    "maxlat": 37.1762694,
+    "maxlon": 128.9844214
+  },
+  "nodes": [
+    4779079277,
+    4779079278,
+    4779079279,
+    4779079280,
+    4779079281,
+    4779079282,
+    4779079283,
+    4779079284,
+    4779079277
+  ],
+  "geometry": [
+    { "lat": 37.1762694, "lon": 128.9839431 },
+    { "lat": 37.1761989, "lon": 128.9838893 },
+    { "lat": 37.1759741, "lon": 128.9843536 },
+    { "lat": 37.1760630, "lon": 128.9844214 },
+    { "lat": 37.1761255, "lon": 128.9842923 },
+    { "lat": 37.1761563, "lon": 128.9843158 },
+    { "lat": 37.1762587, "lon": 128.9841043 },
+    { "lat": 37.1762095, "lon": 128.9840668 },
+    { "lat": 37.1762694, "lon": 128.9839431 }
+  ],
+  "tags": {
+    "alt_name:ja": "テベク",
+    "building": "train_station",
+    "name": "태백역",
+    "name:en": "Taebaek Station",
+    "name:ja": "太白駅",
+    "name:ko": "태백역",
+    "name:ko-Latn": "Taebaengyeok",
+    "public_transport": "station",
+    "wikidata": "Q11278108",
+    "wikipedia": "en:Taebaek Station"
+  }
+},
+{
+  "type": "way",
+  "id": 485139735,
+  "bounds": {
+    "minlat": 37.1751692,
+    "minlon": 128.9825161,
+    "maxlat": 37.1766070,
+    "maxlon": 128.9855840
+  },
+  "nodes": [
+    4779079285,
+    4779079286,
+    4779079287,
+    4779079288,
+    4779079285
+  ],
+  "geometry": [
+    { "lat": 37.1766070, "lon": 128.9825622 },
+    { "lat": 37.1765426, "lon": 128.9825161 },
+    { "lat": 37.1751692, "lon": 128.9855379 },
+    { "lat": 37.1752336, "lon": 128.9855840 },
+    { "lat": 37.1766070, "lon": 128.9825622 }
+  ],
+  "tags": {
+    "area": "yes",
+    "public_transport": "platform",
+    "railway": "platform",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 672455582,
+  "bounds": {
+    "minlat": 37.1773069,
+    "minlon": 128.9805777,
+    "maxlat": 37.1773956,
+    "maxlon": 128.9807769
+  },
+  "nodes": [
+    6297151948,
+    6297151950
+  ],
+  "geometry": [
+    { "lat": 37.1773956, "lon": 128.9805777 },
+    { "lat": 37.1773069, "lon": 128.9807769 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "layer": "1",
+    "name": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 672455583,
+  "bounds": {
+    "minlat": 37.1773285,
+    "minlon": 128.9805832,
+    "maxlat": 37.1774098,
+    "maxlon": 128.9807874
+  },
+  "nodes": [
+    6297151947,
+    6297151949
+  ],
+  "geometry": [
+    { "lat": 37.1774098, "lon": 128.9805832 },
+    { "lat": 37.1773285, "lon": 128.9807874 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "100",
+    "name": "태백선",
+    "name:en": "Taebaek Line",
+    "name:ja": "太白線",
+    "name:ko": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "315",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 672455584,
+  "bounds": {
+    "minlat": 37.1715329,
+    "minlon": 128.9807874,
+    "maxlat": 37.1773285,
+    "maxlon": 128.9898430
+  },
+  "nodes": [
+    6297151949,
+    4779079265,
+    4779079266,
+    4779079267,
+    4779079268,
+    4779079269,
+    4779079270,
+    4779079289,
+    4779079290
+  ],
+  "geometry": [
+    { "lat": 37.1773285, "lon": 128.9807874 },
+    { "lat": 37.1766268, "lon": 128.9825501 },
+    { "lat": 37.1752337, "lon": 128.9856363 },
+    { "lat": 37.1748897, "lon": 128.9863866 },
+    { "lat": 37.1743426, "lon": 128.9873068 },
+    { "lat": 37.1740493, "lon": 128.9876961 },
+    { "lat": 37.1734007, "lon": 128.9884039 },
+    { "lat": 37.1731291, "lon": 128.9886326 },
+    { "lat": 37.1715329, "lon": 128.9898430 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "태백선",
+    "name:en": "Taebaek Line",
+    "name:ja": "太白線",
+    "name:ko": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "315",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 672455585,
+  "bounds": {
+    "minlat": 37.1743426,
+    "minlon": 128.9807769,
+    "maxlat": 37.1773069,
+    "maxlon": 128.9873068
+  },
+  "nodes": [
+    6297151950,
+    4779079271,
+    4779079272,
+    4779079268
+  ],
+  "geometry": [
+    { "lat": 37.1773069, "lon": 128.9807769 },
+    { "lat": 37.1769182, "lon": 128.9816502 },
+    { "lat": 37.1751230, "lon": 128.9855716 },
+    { "lat": 37.1743426, "lon": 128.9873068 }
+  ],
+  "tags": {
+    "name": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 672455605,
+  "bounds": {
+    "minlat": 37.1774098,
+    "minlon": 128.9787915,
+    "maxlat": 37.1781326,
+    "maxlon": 128.9805832
+  },
+  "nodes": [
+    4779079258,
+    4779079259,
+    4779079260,
+    4779079261,
+    4779079262,
+    4779079263,
+    4779079264,
+    6297151947
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    { "lat": 37.1781326, "lon": 128.9787915 },
+    { "lat": 37.1779409, "lon": 128.9793365 },
+    { "lat": 37.1775574, "lon": 128.9802142 },
+    { "lat": 37.1774098, "lon": 128.9805832 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "태백선",
+    "name:en": "Taebaek Line",
+    "name:ja": "太白線",
+    "name:ko": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "315",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+}
+
+  ]
+}

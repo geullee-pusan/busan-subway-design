@@ -1,0 +1,323 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-07-15T15:22:01Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 217319735,
+  "bounds": {
+    "minlat": 37.2245384,
+    "minlon": 129.0428324,
+    "maxlat": 37.2321177,
+    "maxlon": 129.0459049
+  },
+  "nodes": [
+    910387075,
+    5549811396,
+    2824502928,
+    11639699595,
+    462068486,
+    2824502937,
+    462068487,
+    462068489,
+    462068491,
+    462068493,
+    462067798,
+    368636692,
+    462067799,
+    2824495636
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 37.2245384, "lon": 129.0429104 },
+    { "lat": 37.2253890, "lon": 129.0429148 },
+    { "lat": 37.2263775, "lon": 129.0428324 },
+    { "lat": 37.2268099, "lon": 129.0429322 },
+    { "lat": 37.2273980, "lon": 129.0431899 },
+    { "lat": 37.2292200, "lon": 129.0442367 },
+    { "lat": 37.2305741, "lon": 129.0450010 },
+    { "lat": 37.2321177, "lon": 129.0459049 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "영동선",
+    "name:en": "Yeongdong Line",
+    "name:ja": "嶺東線",
+    "name:ko": "영동선",
+    "name:ko-Hani": "嶺東線",
+    "name:ko-Latn": "Yeongdongseon",
+    "name:zh": "嶺東線",
+    "name:zh-Hans": "岭东线",
+    "name:zh-Hant": "嶺東線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "313",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 278019180,
+  "bounds": {
+    "minlat": 37.2321177,
+    "minlon": 129.0459049,
+    "maxlat": 37.2322495,
+    "maxlon": 129.0459704
+  },
+  "nodes": [
+    2824495636,
+    462067800
+  ],
+  "geometry": [
+    { "lat": 37.2321177, "lon": 129.0459049 },
+    { "lat": 37.2322495, "lon": 129.0459704 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "영동선",
+    "name:en": "Yeongdong Line",
+    "name:ja": "嶺東線",
+    "name:ko": "영동선",
+    "name:ko-Hani": "嶺東線",
+    "name:ko-Latn": "Yeongdongseon",
+    "name:zh": "嶺東線",
+    "name:zh-Hans": "岭东线",
+    "name:zh-Hant": "嶺東線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "313",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 278019181,
+  "bounds": {
+    "minlat": 37.2322495,
+    "minlon": 129.0459704,
+    "maxlat": 37.2327503,
+    "maxlon": 129.0462366
+  },
+  "nodes": [
+    462067800,
+    2824495638
+  ],
+  "geometry": [
+    { "lat": 37.2322495, "lon": 129.0459704 },
+    { "lat": 37.2327503, "lon": 129.0462366 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "영동선",
+    "name:en": "Yeongdong Line",
+    "name:ja": "嶺東線",
+    "name:ko": "영동선",
+    "name:ko-Hani": "嶺東線",
+    "name:ko-Latn": "Yeongdongseon",
+    "name:zh": "嶺東線",
+    "name:zh-Hans": "岭东线",
+    "name:zh-Hant": "嶺東線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "313",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 278019183,
+  "bounds": {
+    "minlat": 37.2327503,
+    "minlon": 129.0462366,
+    "maxlat": 37.2329400,
+    "maxlon": 129.0463107
+  },
+  "nodes": [
+    2824495638,
+    2824495639
+  ],
+  "geometry": [
+    { "lat": 37.2327503, "lon": 129.0462366 },
+    { "lat": 37.2329400, "lon": 129.0463107 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "영동선",
+    "name:en": "Yeongdong Line",
+    "name:ja": "嶺東線",
+    "name:ko": "영동선",
+    "name:ko-Hani": "嶺東線",
+    "name:ko-Latn": "Yeongdongseon",
+    "name:zh": "嶺東線",
+    "name:zh-Hans": "岭东线",
+    "name:zh-Hant": "嶺東線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "313",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 278019186,
+  "bounds": {
+    "minlat": 37.2329400,
+    "minlon": 129.0463107,
+    "maxlat": 37.2335117,
+    "maxlon": 129.0463935
+  },
+  "nodes": [
+    2824495639,
+    462067801,
+    2824495644
+  ],
+  "geometry": [
+    { "lat": 37.2329400, "lon": 129.0463107 },
+    { "lat": 37.2332373, "lon": 129.0463935 },
+    { "lat": 37.2335117, "lon": 129.0463663 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "영동선",
+    "name:en": "Yeongdong Line",
+    "name:ja": "嶺東線",
+    "name:ko": "영동선",
+    "name:ko-Hani": "嶺東線",
+    "name:ko-Latn": "Yeongdongseon",
+    "name:zh": "嶺東線",
+    "name:zh-Hans": "岭东线",
+    "name:zh-Hant": "嶺東線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "313",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 466150265,
+  "bounds": {
+    "minlat": 37.2291851,
+    "minlon": 129.0437964,
+    "maxlat": 37.2294860,
+    "maxlon": 129.0440801
+  },
+  "nodes": [
+    4610196717,
+    4610196718,
+    4610196719,
+    4610196720,
+    4610196721,
+    4610196722,
+    4610196723,
+    4610196724,
+    4610196717
+  ],
+  "geometry": [
+    { "lat": 37.2294860, "lon": 129.0439691 },
+    { "lat": 37.2294423, "lon": 129.0440801 },
+    { "lat": 37.2291851, "lon": 129.0439204 },
+    { "lat": 37.2292339, "lon": 129.0437964 },
+    { "lat": 37.2293101, "lon": 129.0438437 },
+    { "lat": 37.2293260, "lon": 129.0438034 },
+    { "lat": 37.2294362, "lon": 129.0438718 },
+    { "lat": 37.2294152, "lon": 129.0439252 },
+    { "lat": 37.2294860, "lon": 129.0439691 }
+  ],
+  "tags": {
+    "addr:housenumber": "220",
+    "addr:street": "도계로",
+    "building": "train_station",
+    "name": "도계역",
+    "public_transport": "station",
+    "train": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q983373",
+    "wikipedia": "ko:도계역"
+  }
+}
+
+  ]
+}

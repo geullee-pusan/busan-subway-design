@@ -8,7 +8,7 @@ import { lookOf } from './train-art.js';
 import { hhmm, runTrainTrip, trainDestination } from './train-journey.js';
 
 /** 종류 버튼 차례(빠른 열차부터) */
-const KIND_ORDER = ['KTX', 'KTX-산천', 'KTX-청룡', 'KTX-이음', 'ITX-새마을', 'ITX-마음', '새마을호', '누리로', '무궁화호', '종류 모름'];
+const KIND_ORDER = ['KTX', 'KTX-산천', 'KTX-청룡', 'KTX-이음', 'ITX-새마을', 'ITX-마음', 'ITX-청춘', '새마을호', '누리로', '무궁화호', '종류 모름'];
 const wonText = (value) => `${Math.round(value).toLocaleString('ko-KR')}원`;
 
 const HOURS = [

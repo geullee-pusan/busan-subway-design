@@ -1,0 +1,470 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-07-15T15:22:01Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 886593777,
+  "bounds": {
+    "minlat": 37.1796480,
+    "minlon": 129.3245290,
+    "maxlat": 37.1818979,
+    "maxlon": 129.3252404
+  },
+  "nodes": [
+    8244138896,
+    8244138910,
+    8244138897
+  ],
+  "geometry": [
+    null,
+    { "lat": 37.1796480, "lon": 129.3252404 },
+    { "lat": 37.1818979, "lon": 129.3245290 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "embankment": "yes",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 886593779,
+  "bounds": {
+    "minlat": 37.1832607,
+    "minlon": 129.3235500,
+    "maxlat": 37.1845490,
+    "maxlon": 129.3239830
+  },
+  "nodes": [
+    8244138906,
+    8244138907,
+    8244138908,
+    8244138909,
+    8244138906
+  ],
+  "geometry": [
+    { "lat": 37.1832607, "lon": 129.3239260 },
+    { "lat": 37.1832696, "lon": 129.3239830 },
+    { "lat": 37.1845490, "lon": 129.3236059 },
+    { "lat": 37.1845385, "lon": 129.3235500 },
+    { "lat": 37.1832607, "lon": 129.3239260 }
+  ],
+  "tags": {
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "platform",
+    "railway": "platform",
+    "start_date": "2025-01-01",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 886593780,
+  "bounds": {
+    "minlat": 37.1818979,
+    "minlon": 129.3241345,
+    "maxlat": 37.1832282,
+    "maxlon": 129.3245290
+  },
+  "nodes": [
+    8244138897,
+    8244138898
+  ],
+  "geometry": [
+    { "lat": 37.1818979, "lon": 129.3245290 },
+    { "lat": 37.1832282, "lon": 129.3241345 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 886593781,
+  "bounds": {
+    "minlat": 37.1796480,
+    "minlon": 129.3244269,
+    "maxlat": 37.1818894,
+    "maxlon": 129.3252404
+  },
+  "nodes": [
+    8244138910,
+    8244138911,
+    8244138912
+  ],
+  "geometry": [
+    { "lat": 37.1796480, "lon": 129.3252404 },
+    { "lat": 37.1806854, "lon": 129.3248163 },
+    { "lat": 37.1818894, "lon": 129.3244269 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "60",
+    "name": "동해본선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ja": "東海線",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "old_name": "동해남부선",
+    "old_name:ko": "동해남부선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "311",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 886593782,
+  "bounds": {
+    "minlat": 37.1832232,
+    "minlon": 129.3235421,
+    "maxlat": 37.1853680,
+    "maxlon": 129.3240270
+  },
+  "nodes": [
+    8244138913,
+    8244138914,
+    8244138916,
+    8244160217
+  ],
+  "geometry": [
+    { "lat": 37.1832232, "lon": 129.3240270 },
+    { "lat": 37.1846951, "lon": 129.3236023 },
+    { "lat": 37.1849996, "lon": 129.3235421 },
+    { "lat": 37.1853680, "lon": 129.3235451 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "60",
+    "name": "동해본선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ja": "東海線",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "old_name": "동해남부선",
+    "old_name:ko": "동해남부선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "311",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 886593783,
+  "bounds": {
+    "minlat": 37.1818894,
+    "minlon": 129.3240270,
+    "maxlat": 37.1832232,
+    "maxlon": 129.3244269
+  },
+  "nodes": [
+    8244138912,
+    8244138913
+  ],
+  "geometry": [
+    { "lat": 37.1818894, "lon": 129.3244269 },
+    { "lat": 37.1832232, "lon": 129.3240270 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "1",
+    "maxspeed": "60",
+    "name": "동해본선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ja": "東海線",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "old_name": "동해남부선",
+    "old_name:ko": "동해남부선",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1;S2",
+    "railway:etcs": "1",
+    "ref": "311",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 886593784,
+  "bounds": {
+    "minlat": 37.1835756,
+    "minlon": 129.3237403,
+    "maxlat": 37.1846782,
+    "maxlon": 129.3241120
+  },
+  "nodes": [
+    8244160218,
+    8244160219,
+    8244160220,
+    8244160221,
+    8244160218
+  ],
+  "geometry": [
+    { "lat": 37.1846697, "lon": 129.3237403 },
+    { "lat": 37.1835756, "lon": 129.3240553 },
+    { "lat": 37.1835841, "lon": 129.3241120 },
+    { "lat": 37.1846782, "lon": 129.3237970 },
+    { "lat": 37.1846697, "lon": 129.3237403 }
+  ],
+  "tags": {
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "platform",
+    "railway": "platform",
+    "start_date": "2025-01-01",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 886593785,
+  "bounds": {
+    "minlat": 37.1832282,
+    "minlon": 129.3234004,
+    "maxlat": 37.1860706,
+    "maxlon": 129.3241345
+  },
+  "nodes": [
+    8244138898,
+    6305338586,
+    8244160217,
+    8244138915
+  ],
+  "geometry": [
+    { "lat": 37.1832282, "lon": 129.3241345 },
+    { "lat": 37.1846978, "lon": 129.3236832 },
+    { "lat": 37.1853680, "lon": 129.3235451 },
+    { "lat": 37.1860706, "lon": 129.3234004 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 886593791,
+  "bounds": {
+    "minlat": 37.1860706,
+    "minlon": 129.3230482,
+    "maxlat": 37.1896010,
+    "maxlon": 129.3234004
+  },
+  "nodes": [
+    8244138915,
+    6305338587,
+    8244160261,
+    8244160222,
+    8244160266,
+    8244160265,
+    8244160262,
+    6305338588,
+    8826385103,
+    8826385104,
+    6305338589,
+    8244160264,
+    8244160263,
+    8244160257
+  ],
+  "geometry": [
+    { "lat": 37.1860706, "lon": 129.3234004 },
+    { "lat": 37.1875558, "lon": 129.3232207 },
+    { "lat": 37.1896010, "lon": 129.3230482 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "-1",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ja": "東海線",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "tunnel": "yes",
+    "tunnel:name": "옥원터널",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+}
+
+  ]
+}

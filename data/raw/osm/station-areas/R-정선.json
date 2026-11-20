@@ -1,0 +1,367 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-20T12:09:20Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 486407909,
+  "bounds": {
+    "minlat": 37.3837617,
+    "minlon": 128.6747171,
+    "maxlat": 37.3840393,
+    "maxlon": 128.6748572
+  },
+  "nodes": [
+    4790240338,
+    4790240339
+  ],
+  "geometry": [
+    { "lat": 37.3837617, "lon": 128.6748572 },
+    { "lat": 37.3840393, "lon": 128.6747171 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "70",
+    "name": "정선선",
+    "name:en": "Jeongseon Line",
+    "name:ja": "旌善線",
+    "name:ko": "정선선",
+    "name:ko-Hani": "旌善線",
+    "name:zh": "旌善線",
+    "name:zh-Hans": "旌善线",
+    "name:zh-Hant": "旌善線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "yes",
+    "railway:ctc": "no",
+    "ref": "31502",
+    "start_date": "1967-01-20",
+    "tracks": "1",
+    "usage": "branch",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 486407910,
+  "bounds": {
+    "minlat": 37.3840393,
+    "minlon": 128.6710533,
+    "maxlat": 37.3923250,
+    "maxlon": 128.6747171
+  },
+  "nodes": [
+    4790240339,
+    4791314073,
+    4791314070,
+    4791314061,
+    4791314062,
+    4791314071,
+    4693459946,
+    4791314072,
+    4791314087,
+    4791314088,
+    4693459947,
+    4791314089,
+    4791314090,
+    4791314091,
+    7836982202,
+    7834018900,
+    7834018901,
+    4791314092,
+    7836982203,
+    7836982204,
+    4791314093,
+    7836982206
+  ],
+  "geometry": [
+    { "lat": 37.3840393, "lon": 128.6747171 },
+    { "lat": 37.3843484, "lon": 128.6745583 },
+    { "lat": 37.3852053, "lon": 128.6741179 },
+    { "lat": 37.3872076, "lon": 128.6730889 },
+    { "lat": 37.3889114, "lon": 128.6722135 },
+    { "lat": 37.3904056, "lon": 128.6714569 },
+    { "lat": 37.3905877, "lon": 128.6713984 },
+    { "lat": 37.3909113, "lon": 128.6711987 },
+    { "lat": 37.3912312, "lon": 128.6711133 },
+    { "lat": 37.3914131, "lon": 128.6710846 },
+    { "lat": 37.3918612, "lon": 128.6710533 },
+    { "lat": 37.3923250, "lon": 128.6710833 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "70",
+    "name": "정선선",
+    "name:en": "Jeongseon Line",
+    "name:ja": "旌善線",
+    "name:ko": "정선선",
+    "name:ko-Hani": "旌善線",
+    "name:zh": "旌善線",
+    "name:zh-Hans": "旌善线",
+    "name:zh-Hant": "旌善線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "yes",
+    "railway:ctc": "no",
+    "ref": "31502",
+    "start_date": "1967-01-20",
+    "tracks": "1",
+    "usage": "branch",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 486407911,
+  "bounds": {
+    "minlat": 37.3878318,
+    "minlon": 128.6720108,
+    "maxlat": 37.3881799,
+    "maxlon": 128.6723060
+  },
+  "nodes": [
+    4790240340,
+    13067891101,
+    4790240341,
+    4790240342,
+    4790240343,
+    4790240340
+  ],
+  "geometry": [
+    { "lat": 37.3878318, "lon": 128.6721695 },
+    { "lat": 37.3879825, "lon": 128.6720906 },
+    { "lat": 37.3881348, "lon": 128.6720108 },
+    { "lat": 37.3881799, "lon": 128.6721473 },
+    { "lat": 37.3878769, "lon": 128.6723060 },
+    { "lat": 37.3878318, "lon": 128.6721695 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 486530725,
+  "bounds": {
+    "minlat": 37.3852053,
+    "minlon": 128.6714569,
+    "maxlat": 37.3904056,
+    "maxlon": 128.6741179
+  },
+  "nodes": [
+    4791314070,
+    4791314069,
+    4791314063,
+    4791314064,
+    7836938472,
+    4791314086,
+    4791314071
+  ],
+  "geometry": [
+    { "lat": 37.3852053, "lon": 128.6741179 },
+    { "lat": 37.3865962, "lon": 128.6732506 },
+    { "lat": 37.3871546, "lon": 128.6729609 },
+    { "lat": 37.3888723, "lon": 128.6720758 },
+    { "lat": 37.3891423, "lon": 128.6719668 },
+    { "lat": 37.3893569, "lon": 128.6718802 },
+    { "lat": 37.3904056, "lon": 128.6714569 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 486530726,
+  "bounds": {
+    "minlat": 37.3871610,
+    "minlon": 128.6720999,
+    "maxlat": 37.3889128,
+    "maxlon": 128.6730736
+  },
+  "nodes": [
+    4791314065,
+    4791314066,
+    4791314067,
+    4791314068,
+    4791314065
+  ],
+  "geometry": [
+    { "lat": 37.3888851, "lon": 128.6720999 },
+    { "lat": 37.3889128, "lon": 128.6721858 },
+    { "lat": 37.3871929, "lon": 128.6730736 },
+    { "lat": 37.3871610, "lon": 128.6729904 },
+    { "lat": 37.3888851, "lon": 128.6720999 }
+  ],
+  "tags": {
+    "area": "yes",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "public_transport": "platform",
+    "railway": "platform"
+  }
+},
+{
+  "type": "way",
+  "id": 486530727,
+  "bounds": {
+    "minlat": 37.3843484,
+    "minlon": 128.6713984,
+    "maxlat": 37.3905877,
+    "maxlon": 128.6745583
+  },
+  "nodes": [
+    4791314073,
+    4791314076,
+    4791314074,
+    4791314075,
+    4791314079,
+    4693459946
+  ],
+  "geometry": [
+    { "lat": 37.3843484, "lon": 128.6745583 },
+    { "lat": 37.3854670, "lon": 128.6740171 },
+    { "lat": 37.3861533, "lon": 128.6736850 },
+    { "lat": 37.3894853, "lon": 128.6719758 },
+    { "lat": 37.3902932, "lon": 128.6715526 },
+    { "lat": 37.3905877, "lon": 128.6713984 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 486530728,
+  "bounds": {
+    "minlat": 37.3854670,
+    "minlon": 128.6715526,
+    "maxlat": 37.3902932,
+    "maxlon": 128.6740171
+  },
+  "nodes": [
+    4791314076,
+    4791314077,
+    4791314078,
+    4791314079
+  ],
+  "geometry": [
+    { "lat": 37.3854670, "lon": 128.6740171 },
+    { "lat": 37.3857785, "lon": 128.6739138 },
+    { "lat": 37.3900382, "lon": 128.6717423 },
+    { "lat": 37.3902932, "lon": 128.6715526 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 486530729,
+  "bounds": {
+    "minlat": 37.3852053,
+    "minlon": 128.6718802,
+    "maxlat": 37.3893569,
+    "maxlon": 128.6741179
+  },
+  "nodes": [
+    4791314070,
+    4791314080,
+    4791314081,
+    4791314082,
+    4791314083,
+    4791314084,
+    7836938471,
+    4791314085,
+    4791314086
+  ],
+  "geometry": [
+    { "lat": 37.3852053, "lon": 128.6741179 },
+    { "lat": 37.3856946, "lon": 128.6737591 },
+    { "lat": 37.3862136, "lon": 128.6733309 },
+    { "lat": 37.3864315, "lon": 128.6731799 },
+    { "lat": 37.3874670, "lon": 128.6726592 },
+    { "lat": 37.3879713, "lon": 128.6724898 },
+    { "lat": 37.3887050, "lon": 128.6721199 },
+    { "lat": 37.3888820, "lon": 128.6720307 },
+    { "lat": 37.3893569, "lon": 128.6718802 }
+  ],
+  "tags": {
+    "gauge": "1435",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 839530313,
+  "bounds": {
+    "minlat": 37.3839537,
+    "minlon": 128.6714826,
+    "maxlat": 37.3840059,
+    "maxlon": 128.6716073
+  },
+  "nodes": [
+    7834081351,
+    7834081352,
+    7834081353,
+    7834081350,
+    7834081351
+  ],
+  "geometry": [
+    { "lat": 37.3840042, "lon": 128.6714832 },
+    { "lat": 37.3839537, "lon": 128.6714826 },
+    { "lat": 37.3839537, "lon": 128.6716073 },
+    { "lat": 37.3840059, "lon": 128.6716045 },
+    { "lat": 37.3840042, "lon": 128.6714832 }
+  ],
+  "tags": {
+    "building": "yes",
+    "building:levels": "2",
+    "name": "역전 막국수"
+  }
+}
+
+  ]
+}

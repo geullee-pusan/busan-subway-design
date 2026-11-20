@@ -1,0 +1,284 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-05-31T22:37:44Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 378403862,
+  "bounds": {
+    "minlat": 37.2022549,
+    "minlon": 128.8503290,
+    "maxlat": 37.2024834,
+    "maxlon": 128.8506214
+  },
+  "nodes": [
+    3818178125,
+    3818178124
+  ],
+  "geometry": [
+    { "lat": 37.2024834, "lon": 128.8503290 },
+    { "lat": 37.2022549, "lon": 128.8506214 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "태백선",
+    "name:en": "Taebaek Line",
+    "name:ja": "太白線",
+    "name:ko": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "315",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 378403863,
+  "bounds": {
+    "minlat": 37.2024834,
+    "minlon": 128.8491081,
+    "maxlat": 37.2034776,
+    "maxlon": 128.8503290
+  },
+  "nodes": [
+    3818178125,
+    2265981436
+  ],
+  "geometry": [
+    { "lat": 37.2024834, "lon": 128.8503290 },
+    { "lat": 37.2034776, "lon": 128.8491081 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "태백선",
+    "name:en": "Taebaek Line",
+    "name:ja": "太白線",
+    "name:ko": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "315",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 484088743,
+  "bounds": {
+    "minlat": 37.2034776,
+    "minlon": 128.8477489,
+    "maxlat": 37.2045122,
+    "maxlon": 128.8491081
+  },
+  "nodes": [
+    2265981854,
+    2265981436
+  ],
+  "geometry": [
+    { "lat": 37.2045122, "lon": 128.8477489 },
+    { "lat": 37.2034776, "lon": 128.8491081 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "태백선",
+    "name:en": "Taebaek Line",
+    "name:ja": "太白線",
+    "name:ko": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "315",
+    "tracks": "1",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 485139680,
+  "bounds": {
+    "minlat": 37.1964933,
+    "minlon": 128.8506214,
+    "maxlat": 37.2022549,
+    "maxlon": 128.8580807
+  },
+  "nodes": [
+    3818178124,
+    4779079006,
+    4779079007,
+    4779079008,
+    4779079009,
+    4779079010,
+    4779079011,
+    4779079018,
+    6291284653,
+    4779079019,
+    6291284654,
+    6705261469,
+    4779079020
+  ],
+  "geometry": [
+    { "lat": 37.2022549, "lon": 128.8506214 },
+    { "lat": 37.2014037, "lon": 128.8518291 },
+    { "lat": 37.2007268, "lon": 128.8526284 },
+    { "lat": 37.1989453, "lon": 128.8547839 },
+    { "lat": 37.1977255, "lon": 128.8563684 },
+    { "lat": 37.1969281, "lon": 128.8573615 },
+    { "lat": 37.1964933, "lon": 128.8580807 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "maxspeed": "100",
+    "name": "태백선",
+    "name:en": "Taebaek Line",
+    "name:ja": "太白線",
+    "name:ko": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S1",
+    "railway:ctc": "yes",
+    "ref": "315",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 485139683,
+  "bounds": {
+    "minlat": 37.1977255,
+    "minlon": 128.8518291,
+    "maxlat": 37.2014037,
+    "maxlon": 128.8563684
+  },
+  "nodes": [
+    4779079006,
+    4779079012,
+    4779079013,
+    4779079009
+  ],
+  "geometry": [
+    { "lat": 37.2014037, "lon": 128.8518291 },
+    { "lat": 37.2007982, "lon": 128.8527579 },
+    { "lat": 37.1986728, "lon": 128.8552633 },
+    { "lat": 37.1977255, "lon": 128.8563684 }
+  ],
+  "tags": {
+    "name": "태백선",
+    "name:ko-Hani": "太白線",
+    "name:zh": "太白線",
+    "name:zh-Hans": "太白线",
+    "name:zh-Hant": "太白線",
+    "railway": "rail"
+  }
+},
+{
+  "type": "way",
+  "id": 485139685,
+  "bounds": {
+    "minlat": 37.1989805,
+    "minlon": 128.8526489,
+    "maxlat": 37.2007715,
+    "maxlon": 128.8548705
+  },
+  "nodes": [
+    4779079014,
+    4779079015,
+    4779079016,
+    4779079017,
+    6291284652,
+    4779079014
+  ],
+  "geometry": [
+    { "lat": 37.2007232, "lon": 128.8526489 },
+    { "lat": 37.2007715, "lon": 128.8527104 },
+    { "lat": 37.1990288, "lon": 128.8548705 },
+    { "lat": 37.1989805, "lon": 128.8548091 },
+    { "lat": 37.1999989, "lon": 128.8535467 },
+    { "lat": 37.2007232, "lon": 128.8526489 }
+  ],
+  "tags": {
+    "area": "yes",
+    "railway": "platform"
+  }
+}
+
+  ]
+}

@@ -71,19 +71,27 @@ for (const add of edits.add ?? []) passenger.add(key(add.name));
 // 열차운행정보(npm run trains로 받은 것)가 있으면, 그날 여객 열차가 실제로 선 역도 여객역으로 본다
 // (센텀·신해운대·기장처럼 코레일 역 목록에 없지만 ITX-마음·무궁화호가 서는 역).
 const RUN_INFO = raw(`korail/run-info-${KORAIL_DATE}.json`);
+// 그날 여객 열차가 선 역(stopsOnly 사슬은 이 역만 쓴다)
+const trainStops = new Set();
 if (existsSync(RUN_INFO)) {
   const runInfo = JSON.parse(readFileSync(RUN_INFO, 'utf8'));
   for (const list of Object.values(runInfo.runs)) {
-    for (const r of list) if (['01', '02', '05', '11'].includes(r.stop_se_cd)) passenger.add(key(r.stn_nm));
+    for (const r of list) if (['01', '02', '05', '11'].includes(r.stop_se_cd)) trainStops.add(key(r.stn_nm));
   }
 }
-const osmStations = readOsmFile(raw('osm/stations.json')).elements.filter(
-  (e) => /^(station|halt)$/.test(e.tags?.railway ?? '') && (e.tags?.train === 'yes' || /철도공사|코레일|Korail/i.test(e.tags?.operator ?? '')),
-);
+for (const n of trainStops) passenger.add(n);
+const osmAll = readOsmFile(raw('osm/stations.json')).elements.filter((e) => /^(station|halt)$/.test(e.tags?.railway ?? ''));
+const osmStations = osmAll.filter((e) => e.tags?.train === 'yes' || /철도공사|코레일|Korail/i.test(e.tags?.operator ?? ''));
+// 열차·운영사 꼬리표가 없는 역 노드(정선선 별어곡·선평·나전). 꼬리표 있는 같은 이름 역이 없을 때만 쓴다(전철역은 뺀다).
+const osmLoose = osmAll.filter((e) => !osmStations.includes(e) && !e.tags.operator && !e.tags.subway && !e.tags.light_rail && !/subway|light_rail/.test(e.tags.station ?? ''));
 /** 이름(또는 옛 이름)이 같은 OSM 역들 */
+// 거리표 이름이 코레일 열차 기록·OSM 이름과 다른 역(거리표 진부오대산 → 진부). 거리표를 읽을 때 바꾼다.
+const aliases = config.aliases ?? {};
 function osmByName(name) {
-  return osmStations
-    .filter((e) => [e.tags.name, e.tags.old_name, ...(e.tags.old_name ?? '').split(';')].some((n) => n && key(n) === name))
+  const osmName = name;
+  const named = (list) => list.filter((e) => [e.tags.name, e.tags.old_name, ...(e.tags.old_name ?? '').split(';')].some((n) => n && key(n) === osmName));
+  const strict = named(osmStations);
+  return (strict.length ? strict : named(osmLoose))
     .map((e) => {
       const lat = e.lat ?? e.center?.lat;
       const lon = e.lon ?? e.center?.lon;
@@ -342,14 +350,16 @@ for (const def of config.lines) {
         km = 0;
         continue; // 이어 붙이는 역은 이미 있다
       }
-      along.push({ name: p.name, km: Math.round((base + km) * 10) / 10 });
+      along.push({ name: aliases[p.name] ?? p.name, km: Math.round((base + km) * 10) / 10, stopsOnly: Boolean(part.stopsOnly) });
     }
   }
   const ids = [];
   const kms = [];
   for (const point of along) {
     // 여객역인지: 코레일 목록(2024-04)에 이름이 있거나, 그 뒤 이름이 바뀐 역이면 OSM의 옛 이름(old_name)이 목록에 있다(예: 신경주 → 경주).
-    if (!passenger.has(point.name) && !osmByName(point.name).some((c) => c.oldNames.some((n) => passenger.has(n)))) {
+    // stopsOnly: 수도권처럼 전철만 서는 역이 많은 구간은 그날 여객 열차가 선 역만 쓴다
+    const isPassenger = point.stopsOnly ? trainStops.has(point.name) : passenger.has(point.name) || osmByName(point.name).some((c) => c.oldNames.some((n) => passenger.has(n)));
+    if (!isPassenger) {
       if (osmByName(point.name).some(inGrid)) unconfirmed.add(point.name);
       continue;
     }

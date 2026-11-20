@@ -1,0 +1,221 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-20T13:27:20Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 486399102,
+  "bounds": {
+    "minlat": 37.3175463,
+    "minlon": 128.7097975,
+    "maxlat": 37.3248401,
+    "maxlon": 128.7156447
+  },
+  "nodes": [
+    4790155114,
+    4693459925,
+    4790155115,
+    4790155116,
+    4693459926,
+    4790155117,
+    4790155118,
+    4790155119,
+    4790155201,
+    4693459927,
+    4790155202,
+    4790155203,
+    4693459928,
+    4790155204,
+    4790155205
+  ],
+  "geometry": [
+    null,
+    null,
+    { "lat": 37.3175463, "lon": 128.7156447 },
+    { "lat": 37.3178049, "lon": 128.7152625 },
+    { "lat": 37.3180756, "lon": 128.7148990 },
+    { "lat": 37.3183637, "lon": 128.7146240 },
+    { "lat": 37.3186198, "lon": 128.7144230 },
+    { "lat": 37.3218956, "lon": 128.7123598 },
+    { "lat": 37.3227762, "lon": 128.7118562 },
+    { "lat": 37.3235585, "lon": 128.7113481 },
+    { "lat": 37.3238694, "lon": 128.7110804 },
+    { "lat": 37.3241750, "lon": 128.7107826 },
+    { "lat": 37.3244451, "lon": 128.7104697 },
+    { "lat": 37.3246927, "lon": 128.7101202 },
+    { "lat": 37.3248401, "lon": 128.7097975 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "70",
+    "name": "정선선",
+    "name:en": "Jeongseon Line",
+    "name:ja": "旌善線",
+    "name:ko": "정선선",
+    "name:ko-Hani": "旌善線",
+    "name:zh": "旌善線",
+    "name:zh-Hans": "旌善线",
+    "name:zh-Hant": "旌善線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "yes",
+    "railway:ctc": "no",
+    "ref": "31502",
+    "start_date": "1967-01-20",
+    "tracks": "1",
+    "usage": "branch",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 486399104,
+  "bounds": {
+    "minlat": 37.3216752,
+    "minlon": 128.7126164,
+    "maxlat": 37.3218331,
+    "maxlon": 128.7127733
+  },
+  "nodes": [
+    4790155120,
+    4790155121,
+    4790155122,
+    4790155123,
+    4790155120
+  ],
+  "geometry": [
+    { "lat": 37.3216752, "lon": 128.7126899 },
+    { "lat": 37.3217056, "lon": 128.7127733 },
+    { "lat": 37.3218331, "lon": 128.7126997 },
+    { "lat": 37.3218028, "lon": 128.7126164 },
+    { "lat": 37.3216752, "lon": 128.7126899 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "name": "선평역"
+  }
+},
+{
+  "type": "way",
+  "id": 486399112,
+  "bounds": {
+    "minlat": 37.3248401,
+    "minlon": 128.7079191,
+    "maxlat": 37.3255302,
+    "maxlon": 128.7097975
+  },
+  "nodes": [
+    4790155205,
+    4693459929
+  ],
+  "geometry": [
+    { "lat": 37.3248401, "lon": 128.7097975 },
+    { "lat": 37.3255302, "lon": 128.7079191 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "70",
+    "name": "정선선",
+    "name:en": "Jeongseon Line",
+    "name:ja": "旌善線",
+    "name:ko": "정선선",
+    "name:ko-Hani": "旌善線",
+    "name:zh": "旌善線",
+    "name:zh-Hans": "旌善线",
+    "name:zh-Hant": "旌善線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "yes",
+    "railway:ctc": "no",
+    "ref": "31502",
+    "start_date": "1967-01-20",
+    "tracks": "1",
+    "usage": "branch",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 486399113,
+  "bounds": {
+    "minlat": 37.3255302,
+    "minlon": 128.7073318,
+    "maxlat": 37.3257915,
+    "maxlon": 128.7079191
+  },
+  "nodes": [
+    4693459929,
+    4693459930,
+    4790155206,
+    4790155207,
+    4790155208,
+    4790155209,
+    4790155210,
+    4790155211,
+    4790155212,
+    4790155213
+  ],
+  "geometry": [
+    { "lat": 37.3255302, "lon": 128.7079191 },
+    { "lat": 37.3256400, "lon": 128.7076391 },
+    { "lat": 37.3257915, "lon": 128.7073318 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "70",
+    "name": "정선선",
+    "name:en": "Jeongseon Line",
+    "name:ja": "旌善線",
+    "name:ko": "정선선",
+    "name:ko-Hani": "旌善線",
+    "name:zh": "旌善線",
+    "name:zh-Hans": "旌善线",
+    "name:zh-Hant": "旌善線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "yes",
+    "railway:ctc": "no",
+    "ref": "31502",
+    "start_date": "1967-01-20",
+    "tracks": "1",
+    "usage": "branch",
+    "workrules": "KR:RSA"
+  }
+}
+
+  ]
+}

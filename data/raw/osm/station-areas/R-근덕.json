@@ -1,0 +1,68 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-07-15T15:22:01Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 953943340,
+  "bounds": {
+    "minlat": 37.3092989,
+    "minlon": 129.2730060,
+    "maxlat": 37.3173634,
+    "maxlon": 129.2849775
+  },
+  "nodes": [
+    8829371509,
+    6305338599,
+    8829371510,
+    8829371511,
+    8829371506,
+    8829371498
+  ],
+  "geometry": [
+    { "lat": 37.3092989, "lon": 129.2849775 },
+    { "lat": 37.3103685, "lon": 129.2834613 },
+    { "lat": 37.3114434, "lon": 129.2820323 },
+    { "lat": 37.3122249, "lon": 129.2809018 },
+    { "lat": 37.3163280, "lon": 129.2744680 },
+    { "lat": 37.3173634, "lon": 129.2730060 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "200",
+    "name": "동해선",
+    "name:de": "Donghae-Linie",
+    "name:en": "Donghae Line",
+    "name:ko": "동해선",
+    "name:ko-Hani": "東海線",
+    "name:zh": "東海線",
+    "name:zh-Hans": "东海线",
+    "name:zh-Hant": "東海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:etcs": "1",
+    "ref": "206",
+    "start_date": "2025-01-01",
+    "tracks": "1",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+}
+
+  ]
+}

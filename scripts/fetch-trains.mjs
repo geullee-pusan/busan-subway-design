@@ -19,8 +19,8 @@ export { KORAIL_DATE, TAGO_DATE };
 const OUT = resolve(ROOT, 'data/raw/korail');
 const KORAIL = 'https://apis.data.go.kr/B551457/run/v2';
 const TAGO = 'https://apis.data.go.kr/1613000/TrainInfo';
-/** TAGO 시·도 코드: 지도 안 부산, 대구, 광주, 대전, 울산, 세종(12), 경기(31, 서해선 안중·향남과 경부선 평택 쪽), 충북, 충남, 전북, 전남, 경북, 경남 */
-const TAGO_CITIES = ['12', '21', '22', '24', '25', '26', '31', '32', '33', '34', '35', '36', '37', '38'];
+/** TAGO 시·도 코드: 지도 안 서울(11, 서울·용산·청량리), 부산, 대구, 광주, 대전, 울산, 세종(12), 경기(31, 서해선 안중·향남과 경부선 평택 쪽), 충북, 충남, 전북, 전남, 경북, 경남 */
+const TAGO_CITIES = ['11', '12', '21', '22', '24', '25', '26', '31', '32', '33', '34', '35', '36', '37', '38'];
 
 const key = readApiKey();
 if (!key) {
