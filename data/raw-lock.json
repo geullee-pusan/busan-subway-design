@@ -539,12 +539,28 @@
     "fetched": "2026-11-15",
     "note": "인증키가 필요한 API(npm run intercity). 주소에는 인증키를 적지 않는다."
   },
+  "intercity-express-gangwon": {
+    "file": "data/raw/intercity/express-gangwon-20261123.json",
+    "url": "https://apis.data.go.kr/1613000/ExpBusInfo/GetStrtpntAlocFndExpbusInfo",
+    "bytes": 30304,
+    "sha256": "838571a3a3d63ebb76b5d7d84fd501ce7c528a960a6f9536ec7590e79a5ec0a0",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run intercity). 주소에는 인증키를 적지 않는다."
+  },
   "intercity-suburbs": {
     "file": "data/raw/intercity/suburbs-20261114.json",
     "url": "https://apis.data.go.kr/1613000/SuburbsBusInfo/GetStrtpntAlocFndSuberbsBusInfo",
     "bytes": 275155,
     "sha256": "d6a09b4f535dea0c79ab3deecc639ca438b1babf01b59dd9739aa05afea26f2f",
     "fetched": "2026-11-14",
+    "note": "인증키가 필요한 API(npm run intercity). 주소에는 인증키를 적지 않는다."
+  },
+  "intercity-suburbs-gangwon": {
+    "file": "data/raw/intercity/suburbs-gangwon-20261121.json",
+    "url": "https://apis.data.go.kr/1613000/SuburbsBusInfo/GetStrtpntAlocFndSuberbsBusInfo",
+    "bytes": 181392,
+    "sha256": "29b36076fa754eda3b14481e05085f145485aa0bfdcb345694601fdab4232c43",
+    "fetched": "2026-11-21",
     "note": "인증키가 필요한 API(npm run intercity). 주소에는 인증키를 적지 않는다."
   },
   "korail-distances": {

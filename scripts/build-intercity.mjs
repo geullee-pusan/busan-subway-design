@@ -11,8 +11,14 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const RAW = resolve(ROOT, 'data/raw/intercity');
 const places = areaTerminals(ROOT);
 const edits = JSON.parse(readFileSync(resolve(ROOT, 'data/edits/bus-terminals.json'), 'utf8')).edits;
-/** 가장 최근에 받은 파일 */
-const latest = (prefix) => readdirSync(RAW).filter((f) => f.startsWith(prefix) && f.endsWith('.json')).sort().at(-1);
+/** 가장 최근에 받은 파일. 지역을 더할 때 따로 받은 파일(express-gangwon-날짜.json)은 꼬리표마다 가장 최근 것을 함께 쓴다. */
+const filesOf = (prefix) => {
+  const all = readdirSync(RAW).filter((f) => f.startsWith(prefix) && f.endsWith('.json')).sort();
+  const groups = new Map();
+  for (const f of all) groups.set(f.slice(prefix.length).replace(/[0-9]+.json$/, ''), f);
+  const base = groups.get('');
+  return base ? [base, ...[...groups].filter(([tag]) => tag).map(([, f]) => f)] : [];
+};
 
 /** "202611180620" 또는 "20261114054000" → 그날 0시부터 분 */
 const minuteOf = (text) => {
@@ -47,13 +53,14 @@ for (const [kind, prefix] of [
   ['고속', 'express-'],
   ['시외', 'suburbs-'],
 ]) {
-  const file = latest(prefix);
-  if (!file) {
+  const files = filesOf(prefix);
+  if (!files.length) {
     console.log(`${kind}버스 원본이 없어요(npm run intercity).`);
     continue;
   }
+  for (const file of files) {
   const raw = JSON.parse(readFileSync(resolve(RAW, file), 'utf8'));
-  dates[kind] = raw.runDate;
+  dates[kind] = [...new Set([...(dates[kind]?.split(', ') ?? []), raw.runDate])].join(', ');
   const matched = matchTerminals(raw.terminals, places, edits);
   let n = 0;
   let far = 0;
@@ -85,7 +92,8 @@ for (const [kind, prefix] of [
       n += 1;
     }
   }
-  stats[kind] = { file, pairs: Object.keys(raw.pairs).length, trips: n, nearPairs: far };
+  stats[`${kind} ${file}`] = { pairs: Object.keys(raw.pairs).length, trips: n, nearPairs: far };
+  }
 }
 
 const out = {
@@ -102,5 +110,5 @@ const out = {
 const text = JSON.stringify(out);
 writeFileSync(resolve(ROOT, 'data/build/intercity.json'), text);
 console.log(`터미널 ${terminals.length}곳, 노선(터미널 짝) ${out.routes.length}개, 배차 ${out.routes.reduce((s, r) => s + r[3].length, 0)}개, ${(text.length / 1024).toFixed(0)}KB`);
-for (const [kind, s] of Object.entries(stats)) console.log(`${kind}: ${s.file}, 받은 짝 ${s.pairs}개, 배차 줄 ${s.trips}개, 3km보다 가까워 뺀 짝 ${s.nearPairs}개`);
+for (const [kind, s] of Object.entries(stats)) console.log(`${kind}: 받은 짝 ${s.pairs}개, 배차 줄 ${s.trips}개, 3km보다 가까워 뺀 짝 ${s.nearPairs}개`);
 console.log(`시속 120km보다 빠르게 적힌 배차 줄 ${badTimes}개는 뺐어요(원본의 도착 시각 잘못).`);

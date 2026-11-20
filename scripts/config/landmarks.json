@@ -2333,6 +2333,167 @@
       "osm": "node/368662170",
       "kind": "mountain",
       "radius": 200
+    },
+    {
+      "id": "soyang_dam",
+      "name": "소양강댐",
+      "city": "춘천",
+      "osm": "way/583787488",
+      "kind": "lake",
+      "radius": 400
+    },
+    {
+      "id": "nami_island",
+      "name": "남이섬",
+      "city": "춘천",
+      "osm": "way/238212575",
+      "kind": "island",
+      "radius": 500,
+      "onIsland": true
+    },
+    {
+      "id": "museum_san",
+      "name": "뮤지엄산",
+      "city": "원주",
+      "osm": "node/6290608761",
+      "kind": "museum",
+      "radius": 300
+    },
+    {
+      "id": "ojukheon",
+      "name": "오죽헌",
+      "city": "강릉",
+      "osm": "way/657468634",
+      "kind": "hanok",
+      "radius": 250
+    },
+    {
+      "id": "gyeongpodae",
+      "name": "경포대",
+      "city": "강릉",
+      "osm": "way/1521351851",
+      "kind": "pavilion",
+      "radius": 200
+    },
+    {
+      "id": "chuam_rock",
+      "name": "추암 촛대바위",
+      "city": "동해",
+      "osm": "node/461539731",
+      "kind": "cliff",
+      "radius": 250
+    },
+    {
+      "id": "hwanseon_cave",
+      "name": "환선굴",
+      "city": "삼척",
+      "osm": "node/5750035715",
+      "kind": "mountain",
+      "radius": 300
+    },
+    {
+      "id": "hwangji_pond",
+      "name": "황지연못",
+      "city": "태백",
+      "osm": "way/676857655",
+      "kind": "lake",
+      "radius": 200
+    },
+    {
+      "id": "cheongnyeongpo",
+      "name": "영월 청령포",
+      "city": "영월",
+      "osm": "way/546674492",
+      "kind": "hanok",
+      "radius": 400
+    },
+    {
+      "id": "hwaam_cave",
+      "name": "화암동굴",
+      "city": "정선",
+      "osm": "node/360156965",
+      "kind": "mountain",
+      "radius": 300
+    },
+    {
+      "id": "woljeongsa",
+      "name": "월정사",
+      "city": "평창",
+      "osm": "way/476358120",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "goseokjeong",
+      "name": "고석정",
+      "city": "철원",
+      "osm": "node/5167086821",
+      "kind": "valley",
+      "radius": 300
+    },
+    {
+      "id": "baekdamsa",
+      "name": "백담사",
+      "city": "인제",
+      "osm": "way/544620504",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "unification_observatory",
+      "name": "통일전망대",
+      "city": "고성",
+      "osm": "way/231988590",
+      "kind": "viewpoint",
+      "radius": 300
+    },
+    {
+      "id": "naksansa",
+      "name": "낙산사",
+      "city": "양양",
+      "osm": "node/1141919810",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "abai_village",
+      "name": "아바이마을",
+      "city": "속초",
+      "osm": "node/5466151121",
+      "kind": "village",
+      "radius": 300
+    },
+    {
+      "id": "sutasa",
+      "name": "수타사",
+      "city": "홍천",
+      "osm": "way/1268031093",
+      "kind": "temple",
+      "radius": 300
+    },
+    {
+      "id": "pungsuwon_church",
+      "name": "풍수원성당",
+      "city": "횡성",
+      "osm": "way/1055946406",
+      "kind": "museum",
+      "radius": 250
+    },
+    {
+      "id": "paroho",
+      "name": "파로호",
+      "city": "화천",
+      "osm": "node/5923827930",
+      "kind": "lake",
+      "radius": 600
+    },
+    {
+      "id": "parksookeun_museum",
+      "name": "박수근미술관",
+      "city": "양구",
+      "osm": "node/368725279",
+      "kind": "museum",
+      "radius": 250
     }
   ]
 }

@@ -8752,6 +8752,666 @@
           "evidence": "1976년 9월 1일 천연기념물 제256호로 지정되었다"
         }
       ]
+    },
+    "soyang_dam": {
+      "name": "소양강댐",
+      "facts": [
+        {
+          "text": "흙과 돌을 쌓아 만든 댐이에요.",
+          "source": "한국어 위키백과: 소양강댐",
+          "url": "https://ko.wikipedia.org/wiki/소양강댐",
+          "checked": "2026-11-21",
+          "evidence": "흙과 돌로 만들어진 사력(砂礫) 댐으로"
+        },
+        {
+          "text": "댐 높이는 123m예요.",
+          "source": "한국어 위키백과: 소양강댐",
+          "url": "https://ko.wikipedia.org/wiki/소양강댐",
+          "checked": "2026-11-21",
+          "evidence": "높이는 123m이다"
+        },
+        {
+          "text": "1973년에 다 지었어요.",
+          "source": "한국어 위키백과: 소양강댐",
+          "url": "https://ko.wikipedia.org/wiki/소양강댐",
+          "checked": "2026-11-21",
+          "evidence": "1973년 10월 15일 완공되었다"
+        },
+        {
+          "text": "댐 안쪽에 큰 호수인 소양호가 생겼어요.",
+          "source": "한국어 위키백과: 소양강댐",
+          "url": "https://ko.wikipedia.org/wiki/소양강댐",
+          "checked": "2026-11-21",
+          "evidence": "인공 호수 소양호가 위치해 있다"
+        }
+      ]
+    },
+    "nami_island": {
+      "name": "남이섬",
+      "facts": [
+        {
+          "text": "원래는 섬이 아니라 작은 언덕이었어요.",
+          "source": "한국어 위키백과: 남이섬",
+          "url": "https://ko.wikipedia.org/wiki/남이섬",
+          "checked": "2026-11-21",
+          "evidence": "남이섬은 원래 섬이 아니라 구릉지로 형성된 작은 봉우리였다"
+        },
+        {
+          "text": "1944년에 청평댐을 만들면서 강물이 차올라 섬이 됐어요.",
+          "source": "한국어 위키백과: 남이섬",
+          "url": "https://ko.wikipedia.org/wiki/남이섬",
+          "checked": "2026-11-21",
+          "evidence": "1944년 청평댐을 만들 때 북한강 강물이 차서 생긴"
+        },
+        {
+          "text": "섬 둘레는 약 5km예요.",
+          "source": "한국어 위키백과: 남이섬",
+          "url": "https://ko.wikipedia.org/wiki/남이섬",
+          "checked": "2026-11-21",
+          "evidence": "둘레가 약 5km로"
+        },
+        {
+          "text": "한 해에 약 330만 명이 찾아와요.",
+          "source": "한국어 위키백과: 남이섬",
+          "url": "https://ko.wikipedia.org/wiki/남이섬",
+          "checked": "2026-11-21",
+          "evidence": "연간 총 330만명이 찾는"
+        }
+      ]
+    },
+    "museum_san": {
+      "name": "뮤지엄산",
+      "facts": [
+        {
+          "text": "종이 박물관과 미술관이 함께 있어요.",
+          "source": "한국어 위키백과: 뮤지엄산",
+          "url": "https://ko.wikipedia.org/wiki/뮤지엄산",
+          "checked": "2026-11-21",
+          "evidence": "뮤지엄 본관, 종이박물관과 미술관이 있으며"
+        },
+        {
+          "text": "건축가 안도 타다오가 설계한 건물로 유명해요.",
+          "source": "한국어 위키백과: 뮤지엄산",
+          "url": "https://ko.wikipedia.org/wiki/뮤지엄산",
+          "checked": "2026-11-21",
+          "evidence": "건축가 안도 타다오의 작품인 것으로 유명하며"
+        },
+        {
+          "text": "건물 안과 밖을 걸어 다니며 구경해요.",
+          "source": "한국어 위키백과: 뮤지엄산",
+          "url": "https://ko.wikipedia.org/wiki/뮤지엄산",
+          "checked": "2026-11-21",
+          "evidence": "실내와 야외를 직접 걸어다니며 관람해야 한다"
+        },
+        {
+          "text": "2013년에 지금 모습을 갖췄어요.",
+          "source": "한국어 위키백과: 뮤지엄산",
+          "url": "https://ko.wikipedia.org/wiki/뮤지엄산",
+          "checked": "2026-11-21",
+          "evidence": "2013년 개관한 미술관인 청조 갤러리와 통합하면서 현재의 모습을 갖추게 되었다"
+        }
+      ]
+    },
+    "ojukheon": {
+      "name": "오죽헌",
+      "facts": [
+        {
+          "text": "신사임당과 율곡 이이가 태어난 집이에요.",
+          "source": "한국어 위키백과: 오죽헌",
+          "url": "https://ko.wikipedia.org/wiki/오죽헌",
+          "checked": "2026-11-21",
+          "evidence": "신사임당(1504∼1551)과 율곡 이이(1536∼1584)가 태어난 유서 깊은 집이다"
+        },
+        {
+          "text": "뒤뜰에 까마귀처럼 검은 대나무 오죽이 자랐어요.",
+          "source": "한국어 위키백과: 오죽헌",
+          "url": "https://ko.wikipedia.org/wiki/오죽헌",
+          "checked": "2026-11-21",
+          "evidence": "까마귀처럼 검은 대나무인 오죽이 자라고 있어서"
+        },
+        {
+          "text": "그래서 이름이 오죽헌이 됐어요.",
+          "source": "한국어 위키백과: 오죽헌",
+          "url": "https://ko.wikipedia.org/wiki/오죽헌",
+          "checked": "2026-11-21",
+          "evidence": "오죽헌이라는 이름 또한 여기서 유래된 이름이다"
+        },
+        {
+          "text": "우리나라 집 가운데 꽤 오래된 건물이에요.",
+          "source": "한국어 위키백과: 오죽헌",
+          "url": "https://ko.wikipedia.org/wiki/오죽헌",
+          "checked": "2026-11-21",
+          "evidence": "우리나라 주택 건축물 중에서 비교적 오래된 건물 가운데 하나로 손꼽히며"
+        }
+      ]
+    },
+    "gyeongpodae": {
+      "name": "경포대",
+      "facts": [
+        {
+          "text": "경포호수 북쪽 언덕에 있는 누각이에요.",
+          "source": "한국어 위키백과: 경포대",
+          "url": "https://ko.wikipedia.org/wiki/경포대",
+          "checked": "2026-11-21",
+          "evidence": "경포호수 북쪽 언덕에 있는 누각이다"
+        },
+        {
+          "text": "1326년 고려 때 처음 지었어요.",
+          "source": "한국어 위키백과: 경포대",
+          "url": "https://ko.wikipedia.org/wiki/경포대",
+          "checked": "2026-11-21",
+          "evidence": "고려 충숙왕 13년(1326)에 건립되었으며"
+        },
+        {
+          "text": "경치가 좋기로 이름난 관동팔경 가운데 하나예요.",
+          "source": "한국어 위키백과: 경포대",
+          "url": "https://ko.wikipedia.org/wiki/경포대",
+          "checked": "2026-11-21",
+          "evidence": "관동팔경의 하나이다"
+        },
+        {
+          "text": "율곡 이이가 10살 때 지은 글이 걸려 있어요.",
+          "source": "한국어 위키백과: 경포대",
+          "url": "https://ko.wikipedia.org/wiki/경포대",
+          "checked": "2026-11-21",
+          "evidence": "율곡 이이가 10살 때 지었다는 '경포대부'"
+        }
+      ]
+    },
+    "chuam_rock": {
+      "name": "추암 촛대바위",
+      "facts": [
+        {
+          "text": "추암해수욕장에 있는 석회암 바위예요.",
+          "source": "한국어 위키백과: 추암촛대바위",
+          "url": "https://ko.wikipedia.org/wiki/추암촛대바위",
+          "checked": "2026-11-21",
+          "evidence": "추암해수욕장에 위치한 조선 누층군 대기층으로 구성된 석회암 바위로"
+        },
+        {
+          "text": "애국가 첫 부분 화면에 나와서 유명해요.",
+          "source": "한국어 위키백과: 추암촛대바위",
+          "url": "https://ko.wikipedia.org/wiki/추암촛대바위",
+          "checked": "2026-11-21",
+          "evidence": "애국가 첫 소절의 배경으로 유명하다"
+        },
+        {
+          "text": "아주 오래전 고생대에 생긴 돌로 되어 있어요.",
+          "source": "한국어 위키백과: 추암촛대바위",
+          "url": "https://ko.wikipedia.org/wiki/추암촛대바위",
+          "checked": "2026-11-21",
+          "evidence": "고생대 초기 캄브리아기의 조선 누층군 대기층"
+        },
+        {
+          "text": "바위에 금이 갈수록 늘고 있어요.",
+          "source": "한국어 위키백과: 추암촛대바위",
+          "url": "https://ko.wikipedia.org/wiki/추암촛대바위",
+          "checked": "2026-11-21",
+          "evidence": "균열이 갈수록 심해지고 있다는 지적이 나왔다"
+        }
+      ]
+    },
+    "hwanseon_cave": {
+      "name": "환선굴",
+      "facts": [
+        {
+          "text": "우리나라에서 가장 긴 석회암 동굴이에요.",
+          "source": "한국어 위키백과: 환선굴",
+          "url": "https://ko.wikipedia.org/wiki/환선굴",
+          "checked": "2026-11-21",
+          "evidence": "대한민국에서 가장 긴 석회암 동굴로"
+        },
+        {
+          "text": "알려진 굴 길이는 6km 200m예요.",
+          "source": "한국어 위키백과: 환선굴",
+          "url": "https://ko.wikipedia.org/wiki/환선굴",
+          "checked": "2026-11-21",
+          "evidence": "알려진 통로의 길이는 6.2 킬로미터"
+        },
+        {
+          "text": "구경할 수 있는 길은 1km 600m예요.",
+          "source": "한국어 위키백과: 환선굴",
+          "url": "https://ko.wikipedia.org/wiki/환선굴",
+          "checked": "2026-11-21",
+          "evidence": "1.6 킬로미터 (0.99 mi) 구간은"
+        },
+        {
+          "text": "굴 안은 늘 10도에서 14도 사이예요.",
+          "source": "한국어 위키백과: 환선굴",
+          "url": "https://ko.wikipedia.org/wiki/환선굴",
+          "checked": "2026-11-21",
+          "evidence": "동굴 내부의 온도는 10–14 °C"
+        },
+        {
+          "text": "1966년에 천연기념물이 됐어요.",
+          "source": "한국어 위키백과: 환선굴",
+          "url": "https://ko.wikipedia.org/wiki/환선굴",
+          "checked": "2026-11-21",
+          "evidence": "천연기념물 제178호로 지정했다"
+        }
+      ]
+    },
+    "hwangji_pond": {
+      "name": "황지연못",
+      "facts": [
+        {
+          "text": "낙동강이 시작되는 곳으로 알려진 연못이에요.",
+          "source": "한국어 위키백과: 황지연못",
+          "url": "https://ko.wikipedia.org/wiki/황지연못",
+          "checked": "2026-11-21",
+          "evidence": "낙동강의 발원지로도 알려져 있다"
+        },
+        {
+          "text": "크기가 다른 연못 세 개로 되어 있어요.",
+          "source": "한국어 위키백과: 황지연못",
+          "url": "https://ko.wikipedia.org/wiki/황지연못",
+          "checked": "2026-11-21",
+          "evidence": "세 개의 연못으로 구성되어있다"
+        },
+        {
+          "text": "날마다 물이 약 5천 톤씩 솟아요.",
+          "source": "한국어 위키백과: 황지연못",
+          "url": "https://ko.wikipedia.org/wiki/황지연못",
+          "checked": "2026-11-21",
+          "evidence": "매일 약 5000 톤의 물이 용출되는데"
+        },
+        {
+          "text": "이 물은 부산 을숙도를 지나 남해로 흘러가요.",
+          "source": "한국어 위키백과: 황지연못",
+          "url": "https://ko.wikipedia.org/wiki/황지연못",
+          "checked": "2026-11-21",
+          "evidence": "부산광역시 을숙도에서 남해로 유입된다"
+        }
+      ]
+    },
+    "cheongnyeongpo": {
+      "name": "영월 청령포",
+      "facts": [
+        {
+          "text": "세 쪽이 강으로 둘러싸여 섬처럼 생긴 곳이에요.",
+          "source": "한국어 위키백과: 영월 청령포",
+          "url": "https://ko.wikipedia.org/wiki/영월_청령포",
+          "checked": "2026-11-21",
+          "evidence": "삼면이 강으로 둘러싸여 섬과 같이 형성된 곳으로"
+        },
+        {
+          "text": "어린 임금 단종이 쫓겨나 지낸 곳이에요.",
+          "source": "한국어 위키백과: 영월 청령포",
+          "url": "https://ko.wikipedia.org/wiki/영월_청령포",
+          "checked": "2026-11-21",
+          "evidence": "어린 나이에 세조에게 왕위를 빼앗긴 단종의 유배지로"
+        },
+        {
+          "text": "배를 타고 건너가요.",
+          "source": "한국어 위키백과: 영월 청령포",
+          "url": "https://ko.wikipedia.org/wiki/영월_청령포",
+          "checked": "2026-11-21",
+          "evidence": "유람선을 타고 갈 수 있으며"
+        },
+        {
+          "text": "600년쯤 된 소나무 관음송이 있어요.",
+          "source": "한국어 위키백과: 영월 청령포",
+          "url": "https://ko.wikipedia.org/wiki/영월_청령포",
+          "checked": "2026-11-21",
+          "evidence": "600년 된 것으로 추정되는 나무로"
+        }
+      ]
+    },
+    "hwaam_cave": {
+      "name": "화암동굴",
+      "facts": [
+        {
+          "text": "석회암 땅속에 생긴 동굴이에요.",
+          "source": "한국어 위키백과: 정선 화암동굴",
+          "url": "https://ko.wikipedia.org/wiki/정선_화암동굴",
+          "checked": "2026-11-21",
+          "evidence": "석회암 지층 중에 발달한 석회암 동굴이다"
+        },
+        {
+          "text": "광산 굴과 자연 동굴이 섞여 있어요.",
+          "source": "한국어 위키백과: 정선 화암동굴",
+          "url": "https://ko.wikipedia.org/wiki/정선_화암동굴",
+          "checked": "2026-11-21",
+          "evidence": "갱도로 사용한 굴과 천연동굴이 혼재하고 있으며"
+        },
+        {
+          "text": "하얀 석순과 종유석이 크게 자랐어요.",
+          "source": "한국어 위키백과: 정선 화암동굴",
+          "url": "https://ko.wikipedia.org/wiki/정선_화암동굴",
+          "checked": "2026-11-21",
+          "evidence": "하얀색을 띠는 대형의 석순, 석주, 종유석"
+        },
+        {
+          "text": "2019년에 천연기념물이 됐어요.",
+          "source": "한국어 위키백과: 정선 화암동굴",
+          "url": "https://ko.wikipedia.org/wiki/정선_화암동굴",
+          "checked": "2026-11-21",
+          "evidence": "2019년 11월 1일 대한민국의 천연기념물 제557호로 승격 지정되었다"
+        }
+      ]
+    },
+    "woljeongsa": {
+      "name": "월정사",
+      "facts": [
+        {
+          "text": "오대산 기슭에 있는 절이에요.",
+          "source": "한국어 위키백과: 월정사 (평창군)",
+          "url": "https://ko.wikipedia.org/wiki/월정사_(평창군)",
+          "checked": "2026-11-21",
+          "evidence": "오대산(五臺山) 기슭에 위치한 사찰로"
+        },
+        {
+          "text": "643년에 자장율사가 처음 지었어요.",
+          "source": "한국어 위키백과: 월정사 (평창군)",
+          "url": "https://ko.wikipedia.org/wiki/월정사_(평창군)",
+          "checked": "2026-11-21",
+          "evidence": "자장율사가 643년에 창건한 사찰로"
+        },
+        {
+          "text": "보름달이 아주 밝아서 월정이라는 이름이 붙었어요.",
+          "source": "한국어 위키백과: 월정사 (평창군)",
+          "url": "https://ko.wikipedia.org/wiki/월정사_(평창군)",
+          "checked": "2026-11-21",
+          "evidence": "동대산에 떠오른 보름달이 유난히 밝아 '월정'이라는 이름이 붙었다"
+        },
+        {
+          "text": "1951년 전쟁 때 팔각구층석탑만 남고 모두 불탔어요.",
+          "source": "한국어 위키백과: 월정사 (평창군)",
+          "url": "https://ko.wikipedia.org/wiki/월정사_(평창군)",
+          "checked": "2026-11-21",
+          "evidence": "월정사도 팔각구층석탑 이외의 건물은 모두 불타 없어졌다"
+        }
+      ]
+    },
+    "goseokjeong": {
+      "name": "고석정",
+      "facts": [
+        {
+          "text": "한탄강 가에 있는 정자예요.",
+          "source": "한국어 위키백과: 고석정",
+          "url": "https://ko.wikipedia.org/wiki/고석정",
+          "checked": "2026-11-21",
+          "evidence": "고석정은 한탄강 변에 있는 정자이다"
+        },
+        {
+          "text": "정자 앞에 고석바위가 솟아 있어요.",
+          "source": "한국어 위키백과: 고석정",
+          "url": "https://ko.wikipedia.org/wiki/고석정",
+          "checked": "2026-11-21",
+          "evidence": "고석정 앞에 솟아 있는 고석바위"
+        },
+        {
+          "text": "임꺽정이 바위 구멍에 숨어 지냈다는 이야기가 있어요.",
+          "source": "한국어 위키백과: 고석정",
+          "url": "https://ko.wikipedia.org/wiki/고석정",
+          "checked": "2026-11-21",
+          "evidence": "의적 임꺽정이 고석정 앞에 솟아 있는 고석바위의 큰 구멍 안에 숨어 지냈다고 하는데"
+        },
+        {
+          "text": "지금 정자는 1971년에 새로 지었어요.",
+          "source": "한국어 위키백과: 고석정",
+          "url": "https://ko.wikipedia.org/wiki/고석정",
+          "checked": "2026-11-21",
+          "evidence": "1971년에 콘크리트로 새로 지은 것이다"
+        }
+      ]
+    },
+    "baekdamsa": {
+      "name": "백담사",
+      "facts": [
+        {
+          "text": "설악산 안쪽 깊은 곳에 있는 절이에요.",
+          "source": "한국어 위키백과: 백담사",
+          "url": "https://ko.wikipedia.org/wiki/백담사",
+          "checked": "2026-11-21",
+          "evidence": "내설악 깊은 곳에 자리한 고즈넉한 산사"
+        },
+        {
+          "text": "1783년에 백담사라는 이름이 붙었어요.",
+          "source": "한국어 위키백과: 백담사",
+          "url": "https://ko.wikipedia.org/wiki/백담사",
+          "checked": "2026-11-21",
+          "evidence": "1783년에 백담사로 개칭하였다"
+        },
+        {
+          "text": "시인 한용운이 이곳에 머물렀어요.",
+          "source": "한국어 위키백과: 백담사",
+          "url": "https://ko.wikipedia.org/wiki/백담사",
+          "checked": "2026-11-21",
+          "evidence": "만해 한용운이 이 곳에 머물면서"
+        },
+        {
+          "text": "한용운은 여기서 시집 님의 침묵을 썼어요.",
+          "source": "한국어 위키백과: 백담사",
+          "url": "https://ko.wikipedia.org/wiki/백담사",
+          "checked": "2026-11-21",
+          "evidence": "시집 《님의 침묵》 등을 집필했으며"
+        }
+      ]
+    },
+    "unification_observatory": {
+      "name": "통일전망대",
+      "facts": [
+        {
+          "text": "고성 현내면에 있는 전망대예요.",
+          "source": "한국어 위키백과: 통일전망대",
+          "url": "https://ko.wikipedia.org/wiki/통일전망대",
+          "checked": "2026-11-21",
+          "evidence": "고성군 현내면 명호리에 위치한 전망대로"
+        },
+        {
+          "text": "1984년에 문을 열었어요.",
+          "source": "한국어 위키백과: 통일전망대",
+          "url": "https://ko.wikipedia.org/wiki/통일전망대",
+          "checked": "2026-11-21",
+          "evidence": "1984년 2월 9일 : 준공 및 개관"
+        },
+        {
+          "text": "바다에서 70m 높이에 있어요.",
+          "source": "한국어 위키백과: 통일전망대",
+          "url": "https://ko.wikipedia.org/wiki/통일전망대",
+          "checked": "2026-11-21",
+          "evidence": "해발고도 70m"
+        },
+        {
+          "text": "디젤 기관차와 객차를 고쳐 만든 식당이 있어요.",
+          "source": "한국어 위키백과: 통일전망대",
+          "url": "https://ko.wikipedia.org/wiki/통일전망대",
+          "checked": "2026-11-21",
+          "evidence": "3010호 디젤 기관차와 객차를 개조해서 사용함"
+        }
+      ]
+    },
+    "naksansa": {
+      "name": "낙산사",
+      "facts": [
+        {
+          "text": "오봉산에 있는 절이에요.",
+          "source": "한국어 위키백과: 낙산사",
+          "url": "https://ko.wikipedia.org/wiki/낙산사",
+          "checked": "2026-11-21",
+          "evidence": "양양군 오봉산에 있는 사찰로"
+        },
+        {
+          "text": "671년에 신라의 의상이 처음 지었어요.",
+          "source": "한국어 위키백과: 낙산사",
+          "url": "https://ko.wikipedia.org/wiki/낙산사",
+          "checked": "2026-11-21",
+          "evidence": "671년 신라의 승려 의상이 창건하였으며"
+        },
+        {
+          "text": "2005년에 산불 피해를 입었어요.",
+          "source": "한국어 위키백과: 낙산사",
+          "url": "https://ko.wikipedia.org/wiki/낙산사",
+          "checked": "2026-11-21",
+          "evidence": "2005년 산불의 피해를 입어"
+        },
+        {
+          "text": "몇 년 동안 다시 지어 지금 모습이 됐어요.",
+          "source": "한국어 위키백과: 낙산사",
+          "url": "https://ko.wikipedia.org/wiki/낙산사",
+          "checked": "2026-11-21",
+          "evidence": "몇 년에 걸쳐 복원 공사를 벌여 지금의 모습을 갖추었다"
+        }
+      ]
+    },
+    "abai_village": {
+      "name": "아바이마을",
+      "facts": [
+        {
+          "text": "전쟁 때 함경도에서 내려온 사람들이 모여 사는 마을이에요.",
+          "source": "한국어 위키백과: 아바이마을",
+          "url": "https://ko.wikipedia.org/wiki/아바이마을",
+          "checked": "2026-11-21",
+          "evidence": "함경도 출신 실향민들의 집단촌이다"
+        },
+        {
+          "text": "아바이는 함경도 말로 아저씨라는 뜻이에요.",
+          "source": "한국어 위키백과: 아바이마을",
+          "url": "https://ko.wikipedia.org/wiki/아바이마을",
+          "checked": "2026-11-21",
+          "evidence": "함경도 방언으로 '아저씨'를 뜻한다는 '아바이'"
+        },
+        {
+          "text": "마을이 섬처럼 생겼어요.",
+          "source": "한국어 위키백과: 아바이마을",
+          "url": "https://ko.wikipedia.org/wiki/아바이마을",
+          "checked": "2026-11-21",
+          "evidence": "마을이 섬 형태로 이루어져 있어서"
+        },
+        {
+          "text": "갯배는 사람들이 쇠고리로 끌어당겨 움직이는 배예요.",
+          "source": "한국어 위키백과: 아바이마을",
+          "url": "https://ko.wikipedia.org/wiki/아바이마을",
+          "checked": "2026-11-21",
+          "evidence": "여러사람이 배에 있는 쇠고리로 끌어당겨 움직이는"
+        }
+      ]
+    },
+    "sutasa": {
+      "name": "수타사",
+      "facts": [
+        {
+          "text": "공작산에 있는 절이에요.",
+          "source": "한국어 위키백과: 홍천 수타사",
+          "url": "https://ko.wikipedia.org/wiki/홍천_수타사",
+          "checked": "2026-11-21",
+          "evidence": "공작산에 있는 대한불교조계종 사찰이다"
+        },
+        {
+          "text": "1569년에 지금 자리로 옮겨 지었어요.",
+          "source": "한국어 위키백과: 홍천 수타사",
+          "url": "https://ko.wikipedia.org/wiki/홍천_수타사",
+          "checked": "2026-11-21",
+          "evidence": "1569년(선조 2)에 현 위치인 공작산으로 옮겨 지으면서"
+        },
+        {
+          "text": "임진왜란 때 건물이 모두 불탔어요.",
+          "source": "한국어 위키백과: 홍천 수타사",
+          "url": "https://ko.wikipedia.org/wiki/홍천_수타사",
+          "checked": "2026-11-21",
+          "evidence": "임진왜란(1592년)을 겪으면서 사찰건물이 전소되었다가"
+        },
+        {
+          "text": "1636년에 다시 지었어요.",
+          "source": "한국어 위키백과: 홍천 수타사",
+          "url": "https://ko.wikipedia.org/wiki/홍천_수타사",
+          "checked": "2026-11-21",
+          "evidence": "1636년(인조 14) 공잠대사(工岑大師)가 고쳐 지어"
+        }
+      ]
+    },
+    "pungsuwon_church": {
+      "name": "풍수원성당",
+      "facts": [
+        {
+          "text": "1907년에 신자들이 손수 지은 성당이에요.",
+          "source": "한국어 위키백과: 풍수원성당",
+          "url": "https://ko.wikipedia.org/wiki/풍수원성당",
+          "checked": "2026-11-21",
+          "evidence": "1907년 신자들의 손에 의해 직접 지어진 본 성당은"
+        },
+        {
+          "text": "한국인 신부가 지은 강원도 첫 성당이에요.",
+          "source": "한국어 위키백과: 풍수원성당",
+          "url": "https://ko.wikipedia.org/wiki/풍수원성당",
+          "checked": "2026-11-21",
+          "evidence": "한국인 신부가 지은 강원도 최초의 성당이며"
+        },
+        {
+          "text": "우리나라에서 일곱 번째로 지은 성당이에요.",
+          "source": "한국어 위키백과: 풍수원성당",
+          "url": "https://ko.wikipedia.org/wiki/풍수원성당",
+          "checked": "2026-11-21",
+          "evidence": "한국에서 일곱 번째로 지어진 성당이다"
+        },
+        {
+          "text": "앞쪽에 종탑이 튀어나와 있어요.",
+          "source": "한국어 위키백과: 풍수원성당",
+          "url": "https://ko.wikipedia.org/wiki/풍수원성당",
+          "checked": "2026-11-21",
+          "evidence": "앞면에는 돌출한 종탑부가 있고"
+        }
+      ]
+    },
+    "paroho": {
+      "name": "파로호",
+      "facts": [
+        {
+          "text": "1944년에 화천댐을 지으면서 생긴 호수예요.",
+          "source": "한국어 위키백과: 파로호",
+          "url": "https://ko.wikipedia.org/wiki/파로호",
+          "checked": "2026-11-21",
+          "evidence": "1944년 5월에 화천댐이 건설되면서 만들어진 인공 호수이다"
+        },
+        {
+          "text": "물을 약 10억 톤 담을 수 있어요.",
+          "source": "한국어 위키백과: 파로호",
+          "url": "https://ko.wikipedia.org/wiki/파로호",
+          "checked": "2026-11-21",
+          "evidence": "10억 톤의 물을 담을 수 있는 규모이다"
+        },
+        {
+          "text": "처음 이름은 화천호였어요.",
+          "source": "한국어 위키백과: 파로호",
+          "url": "https://ko.wikipedia.org/wiki/파로호",
+          "checked": "2026-11-21",
+          "evidence": "댐 건설 당시 호수에 붙여진 이름은 '화천호'이며"
+        },
+        {
+          "text": "천연기념물 수달이 살아요.",
+          "source": "한국어 위키백과: 파로호",
+          "url": "https://ko.wikipedia.org/wiki/파로호",
+          "checked": "2026-11-21",
+          "evidence": "천연기념물 수달이 광범위하게 서식하고 있다"
+        }
+      ]
+    },
+    "parksookeun_museum": {
+      "name": "박수근미술관",
+      "facts": [
+        {
+          "text": "화가 박수근이 태어난 집터에 지은 미술관이에요.",
+          "source": "한국어 위키백과: 박수근미술관",
+          "url": "https://ko.wikipedia.org/wiki/박수근미술관",
+          "checked": "2026-11-21",
+          "evidence": "화가 박수근의 생가에 건립되었다"
+        },
+        {
+          "text": "2002년에 문을 열었어요.",
+          "source": "한국어 위키백과: 박수근미술관",
+          "url": "https://ko.wikipedia.org/wiki/박수근미술관",
+          "checked": "2026-11-21",
+          "evidence": "2002. 10. 25 양구군립 박수근 미술관 개관"
+        },
+        {
+          "text": "박수근이 직접 글을 쓰고 그린 동화책이 있어요.",
+          "source": "한국어 위키백과: 박수근미술관",
+          "url": "https://ko.wikipedia.org/wiki/박수근미술관",
+          "checked": "2026-11-21",
+          "evidence": "박수근이 직접 글을 쓰고 그린 동화책"
+        }
+      ]
     }
   },
   "stationLooks": {
@@ -14496,7 +15156,7 @@
         "jungang",
         "dongyang"
       ],
-      "전주고속버스터미널": [
+      "전주고속터미널": [
         "kumho",
         "dongyang",
         "samhwa",
@@ -14515,7 +15175,7 @@
       "경주고속버스터미널": [
         "kumho"
       ],
-      "담양공용버스터미널": [
+      "담양 공용버스터미널": [
         "donggwang",
         "jeonbukyeogaek"
       ],
@@ -14724,10 +15384,10 @@
       "논산 시외버스터미널→유·스퀘어 고속": [
         "kumho"
       ],
-      "유·스퀘어→전주고속버스터미널 고속": [
+      "유·스퀘어→전주고속터미널 고속": [
         "kumho"
       ],
-      "전주고속버스터미널→유·스퀘어 고속": [
+      "전주고속터미널→유·스퀘어 고속": [
         "kumho"
       ],
       "유·스퀘어→포항시외버스터미널 고속": [
@@ -14770,11 +15430,11 @@
         "kumho",
         "gwangwoo"
       ],
-      "유·스퀘어→담양공용버스터미널 시외": [
+      "유·스퀘어→담양 공용버스터미널 시외": [
         "donggwang",
         "jeonbukyeogaek"
       ],
-      "담양공용버스터미널→유·스퀘어 시외": [
+      "담양 공용버스터미널→유·스퀘어 시외": [
         "donggwang",
         "jeonbukyeogaek"
       ],
@@ -14904,10 +15564,10 @@
         "cheonil",
         "hanil"
       ],
-      "부산종합버스터미널→전주고속버스터미널 고속": [
+      "부산종합버스터미널→전주고속터미널 고속": [
         "dongyang"
       ],
-      "전주고속버스터미널→부산종합버스터미널 고속": [
+      "전주고속터미널→부산종합버스터미널 고속": [
         "dongyang"
       ],
       "부산종합버스터미널→논산 시외버스터미널 고속": [
@@ -15112,27 +15772,27 @@
         "cheonil",
         "hanil"
       ],
-      "동대구터미널→전주고속버스터미널 고속": [
+      "동대구터미널→전주고속터미널 고속": [
         "dongyang",
         "samhwa"
       ],
-      "전주고속버스터미널→동대구터미널 고속": [
+      "전주고속터미널→동대구터미널 고속": [
         "dongyang",
         "samhwa"
       ],
-      "서대구고속버스터미널→전주고속버스터미널 고속": [
+      "서대구고속버스터미널→전주고속터미널 고속": [
         "dongyang",
         "samhwa"
       ],
-      "전주고속버스터미널→서대구고속버스터미널 고속": [
+      "전주고속터미널→서대구고속버스터미널 고속": [
         "dongyang",
         "samhwa"
       ],
-      "대전청사 터미널→전주고속버스터미널 고속": [
+      "대전청사 터미널→전주고속터미널 고속": [
         "dongyang",
         "jungang"
       ],
-      "전주고속버스터미널→대전청사 터미널 고속": [
+      "전주고속터미널→대전청사 터미널 고속": [
         "dongyang",
         "jungang"
       ],
