@@ -1,6 +1,7 @@
 // 시·군 시내버스 칠(data/facts.json busLooks)로 게임용 data/build/bus-looks.json을 만든다.
 // - 노선 종류의 match(정규식)는 앞뒤 빈칸을 뗀 노선 번호에 맞춘다(시작의 \s*는 지워도 같은 뜻).
 // - 색을 못 찾은 종류(todo)는 그 시·군 기본 칠의 색을 쓰고, 차체(vehicle)는 그 종류 것을 둔다.
+// - mix: 같은 노선에 칠이 다른 차가 섞여 다니면 그 칠들을 적는다(화면에서 타는 정류장으로 하나를 고른다).
 // - data/build/bus.json의 모든 시·군이 들어 있는지, 정규식이 맞는지 확인하고 보고한다.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -13,7 +14,8 @@ const src = facts.busLooks?.cities ?? {};
 const COLOR_KEYS = ['lower', 'upper', 'roof', 'front', 'stripe'];
 // 주소(url)는 facts.json에만 둔다. 배포물에는 바깥 주소를 넣지 않는다.
 const KEEP = ['type', 'match', ...COLOR_KEYS, 'pattern', 'vehicle', 'desc', 'source', 'confidence', 'todo'];
-const pick = (t) => Object.fromEntries(KEEP.filter((k) => t[k] !== undefined && t[k] !== null).map((k) => [k, t[k]]));
+const pickOne = (t) => Object.fromEntries(KEEP.filter((k) => t[k] !== undefined && t[k] !== null).map((k) => [k, t[k]]));
+const pick = (t) => (t.mix?.length ? { ...pickOne(t), mix: t.mix.map(pickOne) } : pickOne(t));
 const hasColor = (t) => Boolean(t?.lower);
 
 const cities = {};

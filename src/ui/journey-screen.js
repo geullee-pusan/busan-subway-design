@@ -130,7 +130,7 @@ export function renderJourney(root, { trip, from, to, hour, rider, world, result
     try {
       const { createBus3D } = await import('./bus-3d.js');
       dropBus3d();
-      bus3d = await withBusy(() => createBus3D({ grid, route: busStep.route, reduceMotion }), '3D를 준비하고 있어요.');
+      bus3d = await withBusy(() => createBus3D({ grid, route: busStep.route, seed: busStep.stops[0]?.name ?? null, reduceMotion }), '3D를 준비하고 있어요.');
       bus3d.onHero((id) => heroPicker.mark(id));
       bus3d.setRide(busStep.stops, { fromFirst: busStep.fromFirst === true });
       return bus3d;

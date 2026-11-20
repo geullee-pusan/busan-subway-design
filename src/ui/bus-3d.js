@@ -437,10 +437,10 @@ function busCabin(body, look, material) {
 
 /**
  * 버스 3D 보기를 만든다. 만들 수 없으면 오류를 던진다(부르는 쪽이 그림으로 돌아간다).
- * @param {{grid: object, route: string, reduceMotion?: boolean}} p route: 노선 이름(예: "1000(급행)", "대구 503")
+ * @param {{grid: object, route: string, seed?: (string|null), reduceMotion?: boolean}} p route: 노선 이름(예: "1000(급행)", "대구 503"), seed: 칠이 섞인 노선에서 차를 고르는 값(타는 정류장)
  */
-export function createBus3D({ grid, route, reduceMotion = false }) {
-  const look = busLookOf(route);
+export function createBus3D({ grid, route, seed = null, reduceMotion = false }) {
+  const look = busLookOf(route, seed);
   const el = document.createElement('div');
   el.className = 'tr3d';
   const canvas = document.createElement('canvas');

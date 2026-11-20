@@ -117,6 +117,13 @@ export const CITIES = [
   { code: 33360, name: '괴산군' },
   { code: 33370, name: '음성군' },
   { code: 33380, name: '단양군' },
+  // 강원 넓히기(2026-11-20, getCtyCodeList로 확인): TAGO에는 강원 시·군이 이 6곳뿐이다(강릉·동해·속초·삼척 등은 없다).
+  { code: 32010, name: '춘천시' },
+  { code: 32020, name: '원주시/횡성군' },
+  { code: 32050, name: '태백시' },
+  { code: 32310, name: '홍천군' },
+  { code: 32360, name: '철원군' },
+  { code: 32410, name: '양양군' },
 ];
 
 const key = readApiKey();

@@ -27,9 +27,10 @@ export function splitRoute(route) {
 
 /**
  * @param {string} route 노선 이름(예: "1000(급행)", "대구 503")
+ * @param {string|null} [seed] 같은 노선에 칠이 다른 차가 섞여 다니면(mix) 이 값(타는 정류장)으로 하나를 고른다. 없으면 첫 칠.
  * @returns {{type: string, lower: string, upper: string, roof: string, front: (string|null), stripe: (string|null), pattern: string, vehicle: string, desc: (string|null), source: (string|null), city: string, no: string}}
  */
-export function busLookOf(route) {
+export function busLookOf(route, seed = null) {
   const [city, no] = splitRoute(route);
   const entry = busLooksFile.cities?.[city];
   let look = null;
@@ -46,11 +47,23 @@ export function busLookOf(route) {
     }
     look = look ?? entry.default ?? null;
   }
+  if (look?.mix?.length && seed !== null && seed !== undefined) {
+    const all = [look, ...look.mix];
+    look = all[hashText(String(seed)) % all.length];
+  }
   const base = look ?? DEFAULT_BUS_LOOK;
+  const { mix: _mix, ...plain } = base;
   return {
     ...DEFAULT_BUS_LOOK,
-    ...Object.fromEntries(Object.entries(base).filter(([, v]) => v !== null && v !== undefined)),
+    ...Object.fromEntries(Object.entries(plain).filter(([, v]) => v !== null && v !== undefined)),
     city,
     no,
   };
+}
+
+/** 글자 → 0 이상 정수(같은 글자는 늘 같은 값) */
+function hashText(text) {
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) >>> 0;
+  return h;
 }
