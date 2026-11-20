@@ -62,7 +62,8 @@ test('간 거리 비율은 0에서 1까지 늘기만 한다', () => {
 });
 
 test('바다 칸은 물보다 낮고, 칸 무늬 수는 늘 같다', () => {
-  assert.ok(groundAt(grid, 1.5, 1.5) < 0);
+  // 북동쪽 모서리(동해). 북서쪽 모서리는 강원까지 넓힌 뒤(2026-11-20) 북한 장산곶 둘레 땅이 되었다.
+  assert.ok(groundAt(grid, grid.cols - 1.5, 1.5) < 0);
   assert.equal(cellNoise(3, 4, 5), cellNoise(3, 4, 5));
   const v = cellNoise(10, 20, 1);
   assert.ok(v >= 0 && v < 1);

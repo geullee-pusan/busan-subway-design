@@ -21,7 +21,7 @@ const TERRAIN_COLORS = {
 const INK = '#1F3342';
 /** 기본으로 그리는 노선망. setNetwork로 옛날 부산으로 바꿀 수 있다. */
 const NOW_NETWORK = { lines, stations, stationById };
-// 지도가 커져서(경남·전남광주, 2026-11-15 경북 본토까지), 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
+// 지도가 커져서(경남·전남광주, 2026-11-15 경북 본토, 2026-11-20 강원 전체까지), 작은 화면에서도 "전체"가 다 들어오도록 넉넉히 작게 볼 수 있게 한다.
 const MIN_ZOOM = 0.05;
 const MAX_ZOOM = 6;
 
@@ -74,6 +74,7 @@ const CITY_COLORS = {
   세종: ['#D6D9F2', '#C4C8EA'],
   충남: ['#EEE0CC', '#E5D1B5', '#F4EADC'],
   충북: ['#D3EAE0', '#BFE0D2', '#E3F2EB'],
+  강원: ['#D4E4F0', '#BFD6E8', '#E4EEF6'],
   이웃: ['#E6E6E0', '#DADAD2', '#EEEEE8'],
 };
 
@@ -100,6 +101,8 @@ function districtParts(name) {
   if (name.startsWith('충청남도')) return { city: '충남', short: rest, main: true };
   // 충북(2026-11-18)
   if (name.startsWith('충청북도')) return { city: '충북', short: rest, main: true };
+  // 강원(2026-11-20 강원 전체를 넣음)
+  if (name.startsWith('강원특별자치도')) return { city: '강원', short: rest, main: true };
   // 지도 네모 안에 함께 들어온 이웃 시·군
   return { city: rest, short: rest, main: false };
 }

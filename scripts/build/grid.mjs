@@ -137,6 +137,21 @@ function islandPolygons(osm) {
   return polygons;
 }
 
+/**
+ * GeoJSON 지물 모음에서 속성이 맞는 지물의 다각형을 MultiPolygon 좌표로(Natural Earth 나라 경계의 북한).
+ * @param {{features: object[]}} fc
+ * @param {{key: string, value: string}} match
+ */
+function geojsonPolygons(fc, match) {
+  const polygons = [];
+  for (const f of fc.features ?? []) {
+    if (f.properties?.[match.key] !== match.value || !f.geometry) continue;
+    if (f.geometry.type === 'Polygon') polygons.push(f.geometry.coordinates);
+    else if (f.geometry.type === 'MultiPolygon') polygons.push(...f.geometry.coordinates);
+  }
+  return polygons;
+}
+
 /** 몫을 정수로 나눈다(최대 나머지 방식). 합계가 total과 정확히 같다. 동점이면 칸 번호가 작은 쪽이 먼저다. */
 export function allocateInteger(total, weights) {
   const entries = [...weights.entries()].sort((a, b) => a[0] - b[0]);
@@ -191,10 +206,12 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
       issues.push(`${land.name}: 섬 모양 원본(${land.file})이 없어 바다로 둬요(npm run fetch).`);
       continue;
     }
-    const polygons = islandPolygons(JSON.parse(readFileSync(file, 'utf8')));
+    const data = JSON.parse(readFileSync(file, 'utf8'));
+    const polygons = land.match ? geojsonPolygons(data, land.match) : islandPolygons(data);
     if (!polygons.length) continue;
     const geometry = { type: 'MultiPolygon', coordinates: polygons };
-    allDongs.push({ code: land.code, name: land.name, sido: land.sido, sgg: land.sgg, sggCode: land.code, geometry, lonLat: lonLatBBox(geometry) });
+    // under: 우리나라 행정동과 겹치는 곳(휴전선 둘레)에서는 행정동을 그대로 둔다
+    allDongs.push({ code: land.code, name: land.name, sido: land.sido, sgg: land.sgg, sggCode: land.code, geometry, lonLat: lonLatBBox(geometry), under: Boolean(land.under) });
   }
 
   // 2. 지도 범위: 대상 지역(config.area) 행정동 전체 + 추가 점 + 여유 칸. excludePrefixes는 빼는 곳(울릉군)
@@ -265,7 +282,11 @@ export function buildGrid({ raw, config, extraPoints, overrides }) {
   // 4. 점마다 행정동 번호(-1이면 어느 동도 아님 = 바다)
   const inBox = dongs.filter((d) => bboxOverlaps(d.bbox, exBox));
   const label = new Int32Array(W * H).fill(-1);
-  inBox.forEach((d, index) => rasterize(d.rings, d.bbox, lattice, (i, j) => (label[j * W + i] = index)));
+  inBox.forEach((d, index) =>
+    rasterize(d.rings, d.bbox, lattice, (i, j) => {
+      if (!d.under || label[j * W + i] < 0) label[j * W + i] = index;
+    }),
+  );
 
   // 5. 점마다 OSM 수면 여부
   const water = new Uint8Array(W * H);

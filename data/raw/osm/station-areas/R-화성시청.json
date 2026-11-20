@@ -1,0 +1,601 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-20T04:49:23Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 885518691,
+  "bounds": {
+    "minlat": 37.1826501,
+    "minlon": 126.8233556,
+    "maxlat": 37.1856042,
+    "maxlon": 126.8253538
+  },
+  "nodes": [
+    8234390682,
+    9034269716,
+    7649181125
+  ],
+  "geometry": [
+    { "lat": 37.1856042, "lon": 126.8233556 },
+    { "lat": 37.1826501, "lon": 126.8253538 },
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 885518694,
+  "bounds": {
+    "minlat": 37.1855828,
+    "minlon": 126.8222257,
+    "maxlat": 37.1872321,
+    "maxlon": 126.8233019
+  },
+  "nodes": [
+    4744760955,
+    8234390683
+  ],
+  "geometry": [
+    { "lat": 37.1872321, "lon": 126.8222257 },
+    { "lat": 37.1855828, "lon": 126.8233019 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 885518695,
+  "bounds": {
+    "minlat": 37.1872321,
+    "minlon": 126.8215444,
+    "maxlat": 37.1882279,
+    "maxlon": 126.8222257
+  },
+  "nodes": [
+    8234390685,
+    12304408904,
+    4744760955
+  ],
+  "geometry": [
+    { "lat": 37.1882279, "lon": 126.8215444 },
+    { "lat": 37.1874799, "lon": 126.8220562 },
+    { "lat": 37.1872321, "lon": 126.8222257 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 885518696,
+  "bounds": {
+    "minlat": 37.1856042,
+    "minlon": 126.8222690,
+    "maxlat": 37.1872491,
+    "maxlon": 126.8233556
+  },
+  "nodes": [
+    8234390684,
+    8234390682
+  ],
+  "geometry": [
+    { "lat": 37.1872491, "lon": 126.8222690 },
+    { "lat": 37.1856042, "lon": 126.8233556 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 885518697,
+  "bounds": {
+    "minlat": 37.1872491,
+    "minlon": 126.8215905,
+    "maxlat": 37.1882723,
+    "maxlon": 126.8222690
+  },
+  "nodes": [
+    7649181124,
+    8234390684
+  ],
+  "geometry": [
+    { "lat": 37.1882723, "lon": 126.8215905 },
+    { "lat": 37.1872491, "lon": 126.8222690 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 885518698,
+  "bounds": {
+    "minlat": 37.1882723,
+    "minlon": 126.8201637,
+    "maxlat": 37.1904650,
+    "maxlon": 126.8215905
+  },
+  "nodes": [
+    8234390686,
+    13376351326,
+    7649181124
+  ],
+  "geometry": [
+    { "lat": 37.1904650, "lon": 126.8201637 },
+    { "lat": 37.1896967, "lon": 126.8206637 },
+    { "lat": 37.1882723, "lon": 126.8215905 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 885518700,
+  "bounds": {
+    "minlat": 37.1882279,
+    "minlon": 126.8200764,
+    "maxlat": 37.1904326,
+    "maxlon": 126.8215444
+  },
+  "nodes": [
+    8234390687,
+    12304408903,
+    13376351325,
+    8234390685
+  ],
+  "geometry": [
+    { "lat": 37.1904326, "lon": 126.8200764 },
+    { "lat": 37.1902908, "lon": 126.8201708 },
+    { "lat": 37.1896807, "lon": 126.8205771 },
+    { "lat": 37.1882279, "lon": 126.8215444 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1083915362,
+  "bounds": {
+    "minlat": 37.1914250,
+    "minlon": 126.8162213,
+    "maxlat": 37.1964438,
+    "maxlon": 126.8195305
+  },
+  "nodes": [
+    8234390688,
+    12307085673,
+    7649181123
+  ],
+  "geometry": [
+    null,
+    { "lat": 37.1964438, "lon": 126.8162213 },
+    { "lat": 37.1914250, "lon": 126.8195305 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "-1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1083915363,
+  "bounds": {
+    "minlat": 37.1914031,
+    "minlon": 126.8161400,
+    "maxlat": 37.1964325,
+    "maxlon": 126.8194397
+  },
+  "nodes": [
+    4744760954,
+    12307085671,
+    12307085672,
+    4744760987
+  ],
+  "geometry": [
+    null,
+    null,
+    { "lat": 37.1964325, "lon": 126.8161400 },
+    { "lat": 37.1914031, "lon": 126.8194397 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "-1",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1083915364,
+  "bounds": {
+    "minlat": 37.1904326,
+    "minlon": 126.8194397,
+    "maxlat": 37.1914031,
+    "maxlon": 126.8200764
+  },
+  "nodes": [
+    4744760987,
+    9932871391,
+    8234390687
+  ],
+  "geometry": [
+    { "lat": 37.1914031, "lon": 126.8194397 },
+    { "lat": 37.1913361, "lon": 126.8194837 },
+    { "lat": 37.1904326, "lon": 126.8200764 }
+  ],
+  "tags": {
+    "cutting": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1083915365,
+  "bounds": {
+    "minlat": 37.1904650,
+    "minlon": 126.8195305,
+    "maxlat": 37.1914250,
+    "maxlon": 126.8201637
+  },
+  "nodes": [
+    7649181123,
+    8234390686
+  ],
+  "geometry": [
+    { "lat": 37.1914250, "lon": 126.8195305 },
+    { "lat": 37.1904650, "lon": 126.8201637 }
+  ],
+  "tags": {
+    "cutting": "yes",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "maxspeed": "260",
+    "name": "서해선",
+    "name:en": "Seohae Line",
+    "name:ja": "西海線",
+    "name:ko": "서해선",
+    "name:ko-Hani": "西海線",
+    "name:zh": "西海線",
+    "name:zh-Hans": "西海线",
+    "name:zh-Hant": "西海線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "S2",
+    "railway:etcs": "1",
+    "ref": "202",
+    "start_date": "2024-11-02",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1329889731,
+  "bounds": {
+    "minlat": 37.1892063,
+    "minlon": 126.8201969,
+    "maxlat": 37.1902563,
+    "maxlon": 126.8209889
+  },
+  "nodes": [
+    12304408906,
+    12304408907,
+    12304408908,
+    12304408909,
+    12304408906
+  ],
+  "geometry": [
+    { "lat": 37.1901883, "lon": 126.8201969 },
+    { "lat": 37.1892063, "lon": 126.8208200 },
+    { "lat": 37.1892744, "lon": 126.8209889 },
+    { "lat": 37.1902563, "lon": 126.8203657 },
+    { "lat": 37.1901883, "lon": 126.8201969 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "layer": "1",
+    "start_date": "2024-11-02"
+  }
+}
+
+  ]
+}

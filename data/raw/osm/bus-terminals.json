@@ -2,11 +2,45 @@
   "version": 0.6,
   "generator": "Overpass API 0.7.62.11 87bfad18",
   "osm3s": {
-    "timestamp_osm_base": "2026-11-15T11:05:34Z",
+    "timestamp_osm_base": "2026-06-01T08:52:28Z",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
   },
   "elements": [
 
+{
+  "type": "node",
+  "id": 34404345,
+  "lat": 37.5859601,
+  "lon": 128.4144272,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "장평 버스 터미널",
+    "name:en": "JangPyung Bus Terminal"
+  }
+},
+{
+  "type": "node",
+  "id": 359884834,
+  "lat": 37.3788429,
+  "lon": 128.6503528,
+  "tags": {
+    "addr:city": "정선군",
+    "addr:housenumber": "1226",
+    "addr:postcode": "26132",
+    "addr:province": "강원특별자치도",
+    "addr:street": "정선로",
+    "addr:town": "정선읍",
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "정선공영버스터미널",
+    "name:en": "Jeongseon Bus Terminal",
+    "name:ko": "정선공영버스터미널",
+    "phone": "+82-033-563-9265",
+    "public_transport": "station",
+    "website": "https://map.kakao.com/pubtrans/intercity/timetable?id=BT40408&name=%EC%A0%95%EC%84%A0%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90",
+    "website2": "https://transportation.asamaru.net/%EC%8B%9C%EC%99%B8%EB%B2%84%EC%8A%A4/%ED%84%B0%EB%AF%B8%EB%84%90/%EC%A0%95%EC%84%A0%EC%8B%9C%EC%99%B8%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90/"
+  }
+},
 {
   "type": "node",
   "id": 360172632,
@@ -17,6 +51,23 @@
     "name": "상동시외버스터미널",
     "name:en": "Sangdong Bus Terminal",
     "name:ko": "상동시외버스터미널"
+  }
+},
+{
+  "type": "node",
+  "id": 368736059,
+  "lat": 37.6787921,
+  "lon": 127.0535233,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "internet_access:fee": "no",
+    "name": "한국도심공항수락터미널",
+    "name:en": "Korea Dosim Airport Terminal - Surak Terminal",
+    "name:ko": "한국도심공항수락터미널",
+    "name:ko-Latn": "Hangukdosimgonghangteomineol",
+    "public_transport": "station"
   }
 },
 {
@@ -47,6 +98,21 @@
 },
 {
   "type": "node",
+  "id": 368736131,
+  "lat": 37.4417431,
+  "lon": 126.7015244,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "인천종합터미널",
+    "name:en": "Incheon Bus Terminal",
+    "name:ko": "인천종합터미널",
+    "operator": "롯데쇼핑",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 368736147,
   "lat": 36.3616460,
   "lon": 127.3797148,
@@ -58,6 +124,75 @@
     "name:ko": "대전청사 터미널",
     "name:ko-Latn": "Daejeoncheongsa Teomineol",
     "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 368736247,
+  "lat": 37.7546152,
+  "lon": 128.8786671,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "name": "강릉시외버스터미널",
+    "name:en": "Gangneung Intercity Bus Terminal",
+    "name:ja": "江陵市外ターミナル",
+    "name:ko": "강릉시외버스터미널",
+    "name:ko-Latn": "Gangneungsioebeoseuteomineol",
+    "public_transport": "station",
+    "wikidata": "Q16099064",
+    "wikipedia": "ko:강릉시외버스터미널"
+  }
+},
+{
+  "type": "node",
+  "id": 368736255,
+  "lat": 37.7545478,
+  "lon": 128.8798105,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "name": "강릉고속버스터미널",
+    "name:en": "Gangneung Express Bus Terminal",
+    "name:ja": "江陵高速バスターミナル",
+    "name:ko": "강릉고속버스터미널",
+    "name:ko-Latn": "Gangneung Gosok Beosu Teomineol",
+    "public_transport": "station",
+    "wikidata": "Q12582816",
+    "wikipedia": "ko:강릉고속버스터미널"
+  }
+},
+{
+  "type": "node",
+  "id": 368736260,
+  "lat": 37.8841645,
+  "lon": 128.8252608,
+  "tags": {
+    "addr:housenumber": "4",
+    "addr:postcode": "25419",
+    "addr:street": "주문로 (Jumun-ro)",
+    "amenity": "bus_station",
+    "name": "주문진 버스 터미널",
+    "name:en": "Jumunjin Intercity Bus Terminal",
+    "name:ja": "注文津 バスターミナル",
+    "name:ko": "주문진 버스 터미널",
+    "name:zh": "注文津 巴士客运站",
+    "phone": "+82-33-661-2233"
+  }
+},
+{
+  "type": "node",
+  "id": 368736276,
+  "lat": 37.4401243,
+  "lon": 129.1691698,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "삼척 터미널",
+    "name:en": "Samcheok Terminal",
+    "name:ko": "삼척 터미널",
+    "name:ko-Latn": "Samcheok Teomineol"
   }
 },
 {
@@ -493,6 +628,47 @@
 },
 {
   "type": "node",
+  "id": 368736811,
+  "lat": 38.2386941,
+  "lon": 127.4374018,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "와수시외버스터미널",
+    "name:en": "Wasu Intercity Bus Terminal",
+    "name:ko": "와수시외버스터미널"
+  }
+},
+{
+  "type": "node",
+  "id": 368736817,
+  "lat": 38.2076737,
+  "lon": 127.2176699,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "동송시외버스공용터미널",
+    "name:en": "Dongsong Intercity Bus Terminal",
+    "name:ja": "東松市外バス公営ターミナル",
+    "name:ko": "동송시외버스공용터미널",
+    "name:ko-Latn": "Dongsongteomineol",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 368736818,
+  "lat": 38.1759210,
+  "lon": 127.5496680,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "다목시외버스터미널",
+    "name:en": "Damok Intercity Bus Terminal",
+    "name:ko": "다목시외버스터미널",
+    "name:ko-Latn": "Damoksioebeoseuteomineol"
+  }
+},
+{
+  "type": "node",
   "id": 368736826,
   "lat": 35.0555830,
   "lon": 128.3666780,
@@ -502,6 +678,74 @@
     "name:en": "Baedun Intercity Bus Terminal",
     "name:ko": "배둔시외버스터미널",
     "name:ko-Latn": "Baedunsioebeoseuteomineol"
+  }
+},
+{
+  "type": "node",
+  "id": 368736831,
+  "lat": 38.1076589,
+  "lon": 127.9893747,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "양구시외버스터미널",
+    "name:en": "Yanggu Intercity Bus Terminal",
+    "name:ko": "양구시외버스터미널",
+    "name:ko-Latn": "Yanggusioebeoseuteomineol"
+  }
+},
+{
+  "type": "node",
+  "id": 368736839,
+  "lat": 38.0659051,
+  "lon": 128.1749584,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "인제시외버스터미널",
+    "name:en": "Inje Intercity Bus Terminal",
+    "name:ja": "麟蹄市外バスターミナル",
+    "name:ko": "인제시외버스터미널",
+    "name:ko-Latn": "Injesioebeoseuteomineol",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 368736852,
+  "lat": 38.1177176,
+  "lon": 128.6282414,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "낙산종합버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 368736889,
+  "lat": 37.4873985,
+  "lon": 127.9840360,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "횡성 시외버스 터미널",
+    "name:en": "Hoengseong Terminal",
+    "name:ja": "横城市外バスターミナル",
+    "name:ko": "횡성 시외버스 터미널",
+    "name:ko-Latn": "Hoengseongteomineol"
+  }
+},
+{
+  "type": "node",
+  "id": 368736897,
+  "lat": 37.5861290,
+  "lon": 128.4144790,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "장평시외버스터미널",
+    "name:en": "Jangpyeong Intercity Bus Terminal",
+    "name:ko": "장평시외버스터미널",
+    "name:ko-Latn": "Jangpyeongsioebeoseuteomineol"
   }
 },
 {
@@ -536,6 +780,19 @@
 },
 {
   "type": "node",
+  "id": 368736956,
+  "lat": 36.4986750,
+  "lon": 126.6237190,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "광천공용시외버스정류장",
+    "name:en": "Gwangcheongongyong Intercity Bus Terminal",
+    "name:ko": "광천공용시외버스정류장",
+    "name:ko-Latn": "Gwangcheongongyongsioebeoseujeongnyujang"
+  }
+},
+{
+  "type": "node",
   "id": 368736978,
   "lat": 36.7747140,
   "lon": 127.6381450,
@@ -558,6 +815,19 @@
     "name:en": "Buheung Bus Terminal",
     "name:ko": "부흥버스정류장",
     "name:ko-Latn": "Buheungbeoseujeongnyujang"
+  }
+},
+{
+  "type": "node",
+  "id": 368736997,
+  "lat": 36.7644531,
+  "lon": 127.9961060,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "연풍시외버스정류장",
+    "name:en": "Yeonpung Intercity Bus Terminal",
+    "name:ko": "연풍시외버스정류장",
+    "name:ko-Latn": "Yeonpungsioebeoseujeongnyujang"
   }
 },
 {
@@ -988,8 +1258,8 @@
 {
   "type": "node",
   "id": 368737330,
-  "lat": 35.8965576,
-  "lon": 127.5509651,
+  "lat": 35.8963056,
+  "lon": 127.5508954,
   "tags": {
     "amenity": "bus_station",
     "name": "안천공용정류장",
@@ -1324,8 +1594,8 @@
 {
   "type": "node",
   "id": 368737546,
-  "lat": 35.5672620,
-  "lon": 128.1629238,
+  "lat": 35.5671475,
+  "lon": 128.1630110,
   "tags": {
     "amenity": "bus_station",
     "bus": "yes",
@@ -1353,16 +1623,14 @@
 {
   "type": "node",
   "id": 368737558,
-  "lat": 35.6413524,
-  "lon": 128.7461415,
+  "lat": 35.6412690,
+  "lon": 128.7463680,
   "tags": {
     "amenity": "bus_station",
-    "bus": "yes",
     "name": "청도버스정류장",
     "name:en": "Cheongdo Bus Terminal",
     "name:ko": "청도버스정류장",
-    "name:ko-Latn": "Cheongdobeoseujeongnyujang",
-    "public_transport": "station"
+    "name:ko-Latn": "Cheongdobeoseujeongnyujang"
   }
 },
 {
@@ -1694,6 +1962,19 @@
 },
 {
   "type": "node",
+  "id": 675494721,
+  "lat": 37.5003795,
+  "lon": 128.4528929,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "대화터미널 (Daehwa Terminal)",
+    "name:en": "Daehwa Terminal",
+    "name:ko": "대화터미널",
+    "name:ko-Latn": "Daehwa Terminal"
+  }
+},
+{
+  "type": "node",
   "id": 903866811,
   "lat": 35.8386932,
   "lon": 129.2035983,
@@ -1727,6 +2008,33 @@
     "name": "경주시외버스터미널",
     "name:en": "Gyeongju Intercity Bus Terminal",
     "phone": "+82 54 1666 5599",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 910394748,
+  "lat": 37.4402838,
+  "lon": 129.1680297,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "삼척고속버스터미널",
+    "name:en": "Samcheok Express Intercity Bus Terminal",
+    "name:ko": "삼척고속버스터미널"
+  }
+},
+{
+  "type": "node",
+  "id": 917957234,
+  "lat": 38.2111808,
+  "lon": 128.5908801,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "속초시외버스터미널",
+    "name:en": "Sokcho Intercity Bus Terminal",
+    "name:ja": "束草市外バスターミナル",
+    "name:ko": "속초시외버스터미널",
     "public_transport": "station"
   }
 },
@@ -1847,6 +2155,21 @@
 },
 {
   "type": "node",
+  "id": 1801300854,
+  "lat": 37.4131075,
+  "lon": 127.1271132,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "성남종합버스터미널",
+    "name:en": "Seongnam Bus Terminal",
+    "name:ja": "城南総合バスターミナル",
+    "name:ko": "성남종합버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 1860186821,
   "lat": 35.7163604,
   "lon": 128.9140968,
@@ -1882,8 +2205,8 @@
 {
   "type": "node",
   "id": 2136835558,
-  "lat": 35.5496167,
-  "lon": 129.3073532,
+  "lat": 35.5496712,
+  "lon": 129.3071887,
   "tags": {
     "amenity": "bus_station",
     "name": "태화시외버스정류장 Taehwa Inter-city bus Stop",
@@ -1900,6 +2223,29 @@
     "name": "장계 시외 버스 터미날",
     "name:ko": "장계 시외 버스 터미날",
     "source": "survey"
+  }
+},
+{
+  "type": "node",
+  "id": 2971001751,
+  "lat": 37.6889850,
+  "lon": 127.8785976,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "홍천시외버스터미널"
+  }
+},
+{
+  "type": "node",
+  "id": 2981998153,
+  "lat": 37.4946493,
+  "lon": 128.8501178,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "임계시외버스터미널",
+    "name:en": "Imgye Bus Terminal",
+    "public_transport": "station"
   }
 },
 {
@@ -1926,6 +2272,46 @@
     "name": "속리산 터미널",
     "name:en": "Songnisan terminal",
     "name:ja": "俗離山ターミナル"
+  }
+},
+{
+  "type": "node",
+  "id": 3421417220,
+  "lat": 37.6335414,
+  "lon": 126.4187495,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "화도공용버스터미널",
+    "name:en": "Hwado Bus Terminal",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3696608219,
+  "lat": 37.2727116,
+  "lon": 127.1034691,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "신갈영덕버스정류장(부산방향)",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3722674610,
+  "lat": 37.3478982,
+  "lon": 126.9738087,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "의왕고천시외버스정류장",
+    "name:en": "Uiwang Intercity Bus Stop",
+    "name:ko": "의왕고천시외버스정류장",
+    "public_transport": "station",
+    "ref": "27220"
   }
 },
 {
@@ -1998,6 +2384,29 @@
   "tags": {
     "amenity": "bus_station",
     "name": "신반정류장"
+  }
+},
+{
+  "type": "node",
+  "id": 4108732591,
+  "lat": 37.3446431,
+  "lon": 127.9307831,
+  "tags": {
+    "addr:city": "원주시",
+    "addr:housenumber": "171",
+    "addr:street": "서원대로",
+    "alt_name": "원주터미널",
+    "amenity": "bus_station",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "name": "원주종합버스터미널",
+    "name:en": "Wonju Bus Terminal",
+    "name:ko": "원주종합버스터미널",
+    "old_name": "원주시외버스터미널",
+    "operator": "동신운수, 동부고속",
+    "public_transport": "station",
+    "wikidata": "Q16220253",
+    "wikipedia": "ko:원주종합버스터미널"
   }
 },
 {
@@ -2104,6 +2513,18 @@
 },
 {
   "type": "node",
+  "id": 4436818291,
+  "lat": 37.5063448,
+  "lon": 127.0073191,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name:en": "Seoul bus station",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 4441726689,
   "lat": 35.7922774,
   "lon": 127.4309922,
@@ -2141,6 +2562,17 @@
     "amenity": "bus_station",
     "name": "대진여객 종점",
     "name:ko": "대진여객 종점"
+  }
+},
+{
+  "type": "node",
+  "id": 4588269223,
+  "lat": 37.5896454,
+  "lon": 126.9537999,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "개미마을종점",
+    "name:ja": "ケミマウル終点"
   }
 },
 {
@@ -2214,12 +2646,21 @@
 {
   "type": "node",
   "id": 4631163361,
-  "lat": 36.3173989,
-  "lon": 127.4250517,
+  "lat": 36.3173546,
+  "lon": 127.4250638,
   "tags": {
     "amenity": "bus_station",
     "bus": "yes",
     "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4631348723,
+  "lat": 37.3571402,
+  "lon": 127.9363060,
+  "tags": {
+    "amenity": "bus_station"
   }
 },
 {
@@ -2314,6 +2755,34 @@
 },
 {
   "type": "node",
+  "id": 4634069705,
+  "lat": 38.0251443,
+  "lon": 127.0676832,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "전곡시외버스터미널",
+    "name:en": "Jeongok Bus Terminal",
+    "name:ja": "全谷市外バスターミナル",
+    "name:ko": "전곡시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4634117377,
+  "lat": 37.4506067,
+  "lon": 128.0846869,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "상대리 2반 버스 정류장",
+    "name:zh": "上上里盘2巴士站",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 4634201467,
   "lat": 36.9923830,
   "lon": 127.5972823,
@@ -2337,12 +2806,31 @@
 },
 {
   "type": "node",
+  "id": 4634373912,
+  "lat": 37.1280536,
+  "lon": 127.6426232,
+  "tags": {
+    "amenity": "bus_station"
+  }
+},
+{
+  "type": "node",
   "id": 4634407207,
   "lat": 35.1868001,
   "lon": 129.0485412,
   "tags": {
     "amenity": "bus_station",
     "name": "대진세탁소"
+  }
+},
+{
+  "type": "node",
+  "id": 4634593094,
+  "lat": 37.6604331,
+  "lon": 127.1783199,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "한신 현대 세아"
   }
 },
 {
@@ -2409,6 +2897,28 @@
 },
 {
   "type": "node",
+  "id": 4636763870,
+  "lat": 37.8387435,
+  "lon": 128.4771384,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "삼봉입구",
+    "name:ko": "삼봉입구"
+  }
+},
+{
+  "type": "node",
+  "id": 4636770317,
+  "lat": 37.8388143,
+  "lon": 128.4773469,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "삼봉입구",
+    "name:ko": "삼봉입구"
+  }
+},
+{
+  "type": "node",
   "id": 4636816116,
   "lat": 34.8911295,
   "lon": 126.4738105,
@@ -2435,6 +2945,20 @@
   "tags": {
     "amenity": "bus_station",
     "name": "창원대학교 종점"
+  }
+},
+{
+  "type": "node",
+  "id": 4637057484,
+  "lat": 37.6731515,
+  "lon": 128.7049512,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "횡계시외버스터미널",
+    "name:en": "Heonggye Intercity Bus Terminal",
+    "name:ja": "横渓市外バスターミナル",
+    "public_transport": "station"
   }
 },
 {
@@ -3164,12 +3688,45 @@
 },
 {
   "type": "node",
+  "id": 4654978739,
+  "lat": 37.6630830,
+  "lon": 127.0616998,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 4655135757,
   "lat": 35.1655800,
   "lon": 129.0719354,
   "tags": {
     "amenity": "bus_station",
     "name": "동의과학대"
+  }
+},
+{
+  "type": "node",
+  "id": 4656490722,
+  "lat": 37.7376397,
+  "lon": 128.9485372,
+  "tags": {
+    "amenity": "bus_station"
+  }
+},
+{
+  "type": "node",
+  "id": 4656490723,
+  "lat": 37.7400998,
+  "lon": 128.9301967,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "공군부대 철길건널목 정류장(강릉시내방향)",
+    "public_transport": "station"
   }
 },
 {
@@ -3214,6 +3771,19 @@
 },
 {
   "type": "node",
+  "id": 4658785374,
+  "lat": 37.8296071,
+  "lon": 127.1480758,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "송우리시외버스터미널",
+    "name:en": "Song-uri Intercity Bus Terminal",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 4660605475,
   "lat": 36.8911146,
   "lon": 128.7359507,
@@ -3246,6 +3816,20 @@
 },
 {
   "type": "node",
+  "id": 4663148488,
+  "lat": 38.1454179,
+  "lon": 127.3081245,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "신철원터미널",
+    "name:ja": "新鉄原ターミナル",
+    "name:ko": "신철원터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 4663265820,
   "lat": 36.1204480,
   "lon": 128.3712338,
@@ -3273,9 +3857,20 @@
   "lat": 36.6330568,
   "lon": 127.4686398,
   "tags": {
+    "amenity": "bus_station"
+  }
+},
+{
+  "type": "node",
+  "id": 4665237904,
+  "lat": 37.6360935,
+  "lon": 128.5583486,
+  "tags": {
     "amenity": "bus_station",
-    "bus": "yes",
-    "public_transport": "station"
+    "name": "진부공영버스정류장",
+    "name:en": "Jinbu Bus Terminal",
+    "name:ja": "珍富公営バス停留場",
+    "name:ko": "진부공영버스정류장"
   }
 },
 {
@@ -3308,6 +3903,22 @@
     "amenity": "bus_station",
     "name": "삽교 입구(Sapgyo Entrance)",
     "name:ko": "삽교 입구(Sapgyo Entrance)"
+  }
+},
+{
+  "type": "node",
+  "id": 4675933083,
+  "lat": 36.3511659,
+  "lon": 127.3973572,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "청솔아파트",
+    "name:ko": "청솔아파트",
+    "public_transport": "platform",
+    "ref": "31300",
+    "shelter": "yes"
   }
 },
 {
@@ -3356,6 +3967,26 @@
     "amenity": "bus_station",
     "internet_access": "wlan",
     "name": "성전터미널(Seongjeon Terminal)"
+  }
+},
+{
+  "type": "node",
+  "id": 4687350168,
+  "lat": 37.6024486,
+  "lon": 127.4192132,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "정배1리 마을회관 정류장 1"
+  }
+},
+{
+  "type": "node",
+  "id": 4687350169,
+  "lat": 37.6023845,
+  "lon": 127.4191835,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "정배1리 마을회관 정류장2"
   }
 },
 {
@@ -3668,6 +4299,40 @@
 },
 {
   "type": "node",
+  "id": 5007736021,
+  "lat": 38.5083523,
+  "lon": 128.4201722,
+  "tags": {
+    "amenity": "bus_station"
+  }
+},
+{
+  "type": "node",
+  "id": 5008559622,
+  "lat": 37.9219514,
+  "lon": 127.7111779,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "신매대교",
+    "name:en": "sinmeadeagyo(bridge)",
+    "name:ko": "신매대교"
+  }
+},
+{
+  "type": "node",
+  "id": 5073661024,
+  "lat": 37.3229952,
+  "lon": 127.9806464,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "원주혁신도시고속버스정류소",
+    "name:ko": "원주혁신도시고속버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 5076422721,
   "lat": 35.1643380,
   "lon": 129.1600291,
@@ -3761,6 +4426,15 @@
 },
 {
   "type": "node",
+  "id": 5629518322,
+  "lat": 37.4741400,
+  "lon": 126.4284415,
+  "tags": {
+    "amenity": "bus_station"
+  }
+},
+{
+  "type": "node",
   "id": 5664068594,
   "lat": 35.0223907,
   "lon": 126.5324838,
@@ -3769,6 +4443,20 @@
     "bus": "yes",
     "name": "학교버스터미널",
     "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 5779355253,
+  "lat": 38.4461010,
+  "lon": 128.4539630,
+  "tags": {
+    "addr:housenumber": "21-2",
+    "addr:street": "거진길",
+    "amenity": "bus_station",
+    "name": "거진종합버스터미널",
+    "name:ko": "거진종합버스터미널",
+    "phone": "033-682-2723"
   }
 },
 {
@@ -3786,6 +4474,15 @@
     "name:ko": "염산터미널",
     "phone": "+82 061-353-1507",
     "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 6031661185,
+  "lat": 37.8998040,
+  "lon": 127.7797986,
+  "tags": {
+    "amenity": "bus_station"
   }
 },
 {
@@ -3845,6 +4542,16 @@
   "tags": {
     "amenity": "bus_station",
     "name": "SHLS launch station"
+  }
+},
+{
+  "type": "node",
+  "id": 6240904386,
+  "lat": 37.4940232,
+  "lon": 126.4930355,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "City bus"
   }
 },
 {
@@ -4096,6 +4803,16 @@
 },
 {
   "type": "node",
+  "id": 6758629286,
+  "lat": 36.8926881,
+  "lon": 126.9753316,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "САМУШИЛЬ УПАКОВКА"
+  }
+},
+{
+  "type": "node",
   "id": 6758675785,
   "lat": 36.8750950,
   "lon": 126.8743336,
@@ -4160,10 +4877,7 @@
   "lon": 128.1029985,
   "tags": {
     "amenity": "bus_station",
-    "bus": "yes",
-    "name": "가매실",
-    "name:ko": "가매실",
-    "public_transport": "station"
+    "name": "Emart 24"
   }
 },
 {
@@ -4345,6 +5059,20 @@
 },
 {
   "type": "node",
+  "id": 7068570386,
+  "lat": 38.0715700,
+  "lon": 127.5229531,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "사창리버스터미널",
+    "name:en": "Sachang-ri Bus Teminal",
+    "name:ko": "사창리버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 7083892888,
   "lat": 36.4343096,
   "lon": 127.2102115,
@@ -4363,6 +5091,18 @@
     "amenity": "bus_station",
     "name": "버스정류장",
     "name:en": "Bus Stop"
+  }
+},
+{
+  "type": "node",
+  "id": 7090732634,
+  "lat": 37.2749031,
+  "lon": 127.1162004,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "기흥역시외버스정류소",
+    "public_transport": "station"
   }
 },
 {
@@ -4415,6 +5155,16 @@
     "amenity": "bus_station",
     "bus": "yes",
     "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 7634592485,
+  "lat": 38.2070823,
+  "lon": 127.6623913,
+  "tags": {
+    "amenity": "bus_station",
+    "name": "산양리 버스터미널"
   }
 },
 {
@@ -4547,6 +5297,19 @@
 },
 {
   "type": "node",
+  "id": 8657373810,
+  "lat": 37.4891499,
+  "lon": 127.5991198,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "용문버스터미널",
+    "name:en": "Yongmun Bus Terminal",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 8699768521,
   "lat": 36.4118880,
   "lon": 126.9499872,
@@ -4640,6 +5403,29 @@
 },
 {
   "type": "node",
+  "id": 9385057416,
+  "lat": 37.6165930,
+  "lon": 127.7683186,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "양덕원터미널"
+  }
+},
+{
+  "type": "node",
+  "id": 9663184519,
+  "lat": 37.7013157,
+  "lon": 126.3795645,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "외포리버스정류장",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 9864834517,
   "lat": 36.4126031,
   "lon": 127.3783418,
@@ -4714,6 +5500,20 @@
 },
 {
   "type": "node",
+  "id": 10211413529,
+  "lat": 37.2510389,
+  "lon": 127.0198743,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "수원버스터미널",
+    "name:en": "Suwon Bus Terminal",
+    "name:ko": "수원버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 10295999611,
   "lat": 35.2328124,
   "lon": 127.0183052,
@@ -4741,6 +5541,55 @@
   "lon": 128.5943412,
   "tags": {
     "amenity": "bus_station"
+  }
+},
+{
+  "type": "node",
+  "id": 10647434282,
+  "lat": 37.6266105,
+  "lon": 126.7119698,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "check_date": "2025-03-26",
+    "name": "김포시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10755081557,
+  "lat": 37.3734773,
+  "lon": 127.5840144,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "대신터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10807238105,
+  "lat": 37.4403679,
+  "lon": 126.4586476,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "국제업무단지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10811394705,
+  "lat": 37.4407664,
+  "lon": 126.4585421,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "국제업무단지",
+    "public_transport": "station"
   }
 },
 {
@@ -4813,6 +5662,18 @@
     "amenity": "bus_station",
     "bus": "yes",
     "name": "안의시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 11149488795,
+  "lat": 37.9182446,
+  "lon": 127.0599151,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "Bus Terminal",
     "public_transport": "station"
   }
 },
@@ -4988,6 +5849,18 @@
 },
 {
   "type": "node",
+  "id": 11513346718,
+  "lat": 37.5646440,
+  "lon": 127.2001104,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "하남시시내버스차고지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 11545664508,
   "lat": 36.8282136,
   "lon": 129.4369439,
@@ -5108,6 +5981,18 @@
 },
 {
   "type": "node",
+  "id": 11640074899,
+  "lat": 37.4843223,
+  "lon": 127.0155640,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "서울남부터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 11684989010,
   "lat": 34.8082209,
   "lon": 127.2481166,
@@ -5176,20 +6061,6 @@
 },
 {
   "type": "node",
-  "id": 11947145012,
-  "lat": 37.0790711,
-  "lon": 127.0589235,
-  "tags": {
-    "amenity": "bus_station",
-    "bus": "yes",
-    "name": "송탄시외버스정류장",
-    "network": "경기도 시내버스",
-    "public_transport": "station",
-    "source": "map note"
-  }
-},
-{
-  "type": "node",
   "id": 12058667737,
   "lat": 36.2835407,
   "lon": 129.3739043,
@@ -5214,6 +6085,18 @@
 },
 {
   "type": "node",
+  "id": 12156674883,
+  "lat": 37.8973246,
+  "lon": 127.2041223,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "포천시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 12167497890,
   "lat": 36.2013954,
   "lon": 129.3518568,
@@ -5221,6 +6104,19 @@
     "amenity": "bus_station",
     "bus": "yes",
     "name": "청하시외버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 12240973439,
+  "lat": 37.5963841,
+  "lon": 127.0928469,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "상봉터미널 임시승차장",
+    "name:en": "Sangbong Terminal",
     "public_transport": "station"
   }
 },
@@ -5304,6 +6200,19 @@
 },
 {
   "type": "node",
+  "id": 13069350659,
+  "lat": 37.2688209,
+  "lon": 127.0832795,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "영통입구(시외버스)",
+    "network": "경기도 시내버스",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 13069429202,
   "lat": 37.0569749,
   "lon": 127.3609782,
@@ -5311,6 +6220,54 @@
     "amenity": "bus_station",
     "bus": "yes",
     "name": "동아예술방송대학교시외버스정류장",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13072155686,
+  "lat": 37.4096104,
+  "lon": 127.2612329,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "광주종합터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13073200114,
+  "lat": 37.5079267,
+  "lon": 127.6320375,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "광탄정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13073260124,
+  "lat": 37.5543753,
+  "lon": 127.7083659,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "용두시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13141627663,
+  "lat": 37.6812284,
+  "lon": 127.3776264,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "대성리",
     "public_transport": "station"
   }
 },
@@ -5335,6 +6292,55 @@
     "amenity": "bus_station",
     "bus": "yes",
     "name": "병점시외버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13180094116,
+  "lat": 37.2682624,
+  "lon": 127.0812075,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "영통입구(시외버스)",
+    "network": "경기도 시내버스",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13198507143,
+  "lat": 37.2737151,
+  "lon": 127.1041163,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "신갈영덕버스정류장(서울방향)",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13198507146,
+  "lat": 37.2712141,
+  "lon": 127.1040636,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "신갈용인정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13198507147,
+  "lat": 37.2699651,
+  "lon": 127.0970279,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "신갈영덕버스정류장",
     "public_transport": "station"
   }
 },
@@ -5377,6 +6383,18 @@
 },
 {
   "type": "node",
+  "id": 13376121033,
+  "lat": 37.3317115,
+  "lon": 126.9273119,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "군포시외버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 13404696956,
   "lat": 37.2037866,
   "lon": 127.0381332,
@@ -5389,12 +6407,73 @@
 },
 {
   "type": "node",
+  "id": 13424478685,
+  "lat": 37.8571805,
+  "lon": 126.7870588,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "문산고속버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13500722513,
+  "lat": 37.3207151,
+  "lon": 127.9816762,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "원주심사평가원고속버스정류소",
+    "name:ko": "원주심사평가원고속버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13500756542,
+  "lat": 37.3017328,
+  "lon": 126.8650319,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "상록수시외버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13500756543,
+  "lat": 37.3015664,
+  "lon": 126.8648897,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "상록수시외버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
   "id": 13523416993,
   "lat": 36.9909101,
   "lon": 127.0869517,
   "tags": {
     "amenity": "bus_station",
     "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13540194270,
+  "lat": 37.5126895,
+  "lon": 127.0971016,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "잠실역시외버스정류소",
     "public_transport": "station"
   }
 },
@@ -5459,26 +6538,30 @@
 },
 {
   "type": "node",
-  "id": 14072576833,
-  "lat": 35.0099034,
-  "lon": 127.2554504,
+  "id": 13824783360,
+  "lat": 37.3469712,
+  "lon": 126.9848031,
   "tags": {
     "amenity": "bus_station",
     "bus": "yes",
-    "name": "송광사시외버스정류소",
+    "name": "의왕톨게이트시외버스정류장",
+    "name:ko": "의왕고천시외버스정류장",
     "public_transport": "station"
   }
 },
 {
   "type": "node",
-  "id": 14137235716,
-  "lat": 35.8222010,
-  "lon": 127.0899974,
+  "id": 13824783361,
+  "lat": 37.3484668,
+  "lon": 126.9844742,
   "tags": {
     "amenity": "bus_station",
     "bus": "yes",
-    "name": "공항버스 터미널",
-    "public_transport": "station"
+    "name": "의왕고천시외버스정류장",
+    "name:en": "Uiwang Intercity Bus Stop",
+    "name:ko": "의왕고천시외버스정류장",
+    "public_transport": "station",
+    "ref": "27220"
   }
 },
 {
@@ -5514,6 +6597,23 @@
     "name:en": "Yeongweol Bus Terminal",
     "name:ko": "영월버스터미널",
     "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 38140952,
+  "center": {
+    "lat": 37.2509669,
+    "lon": 127.0203371
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "수원종합버스터미널",
+    "name:en": "Suwon Bus Terminal",
+    "name:ko": "수원종합버스터미널",
+    "public_transport": "station",
+    "wikidata": "Q59933"
   }
 },
 {
@@ -5570,6 +6670,29 @@
 },
 {
   "type": "way",
+  "id": 74056386,
+  "center": {
+    "lat": 37.5095935,
+    "lon": 127.0594411
+  },
+  "tags": {
+    "addr:city": "서울특별시",
+    "addr:district": "강남구",
+    "addr:subdistrict": "삼성동",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "한국도심공항터미널(KCAT)",
+    "name:en": "City Airport, Logis & Travel",
+    "name:ja": "韓国都心空港ターミナル",
+    "public_transport": "station",
+    "website": "http://www.calt.co.kr/",
+    "wheelchair": "yes",
+    "wikidata": "Q624367"
+  }
+},
+{
+  "type": "way",
   "id": 74275070,
   "center": {
     "lat": 36.3504125,
@@ -5612,8 +6735,8 @@
   "type": "way",
   "id": 136283709,
   "center": {
-    "lat": 35.1910963,
-    "lon": 128.0893741
+    "lat": 35.1911098,
+    "lon": 128.0893994
   },
   "tags": {
     "addr:housenumber": "712",
@@ -5656,6 +6779,23 @@
     "amenity": "bus_station",
     "name": "율리 공영차고지 (Yul-ri Bus garage)",
     "name:ko": "율리 공영차고지 (Yul-ri Bus garage)"
+  }
+},
+{
+  "type": "way",
+  "id": 168664768,
+  "center": {
+    "lat": 38.0774453,
+    "lon": 128.6259471
+  },
+  "tags": {
+    "addr:city": "양양군",
+    "addr:housename": "(구) 양양시외버스터미널",
+    "addr:housenumber": "23",
+    "addr:street": "양양로",
+    "amenity": "bus_station",
+    "name": "(구) 양양고속시외버스터미널",
+    "public_transport": "station"
   }
 },
 {
@@ -5715,6 +6855,40 @@
     "name:ja": "天安高速バスターミナル",
     "name:ko": "천안고속버스터미널",
     "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 175320328,
+  "center": {
+    "lat": 37.5346021,
+    "lon": 127.0942480
+  },
+  "tags": {
+    "addr:city": "서울특별시",
+    "addr:district": "광진구",
+    "addr:housenumber": "50",
+    "addr:postcode": "05116",
+    "addr:street": "강변역로",
+    "addr:subdistrict": "구의동",
+    "alt_name:ko": "동서울버스터미널",
+    "alt_name_1:ko": "동서울터미널",
+    "amenity": "bus_station",
+    "building": "yes",
+    "building:levels": "7",
+    "bus": "yes",
+    "layer": "1",
+    "name": "동서울종합터미널",
+    "name:en": "East Seoul Bus Terminal",
+    "name:ja": "東ソウル総合ターミナル",
+    "name:ko": "동서울종합터미널",
+    "name:ko-Latn": "Dongseoulteomineol",
+    "name:mn": "bus buudal",
+    "name:ru": "Автовокзал Донг Сеул Терминал",
+    "public_transport": "station",
+    "source": "gps",
+    "wikidata": "Q59978",
+    "wikipedia": "ko:동서울종합터미널"
   }
 },
 {
@@ -5926,6 +7100,59 @@
 },
 {
   "type": "way",
+  "id": 309352819,
+  "center": {
+    "lat": 37.5054087,
+    "lon": 127.0067257
+  },
+  "tags": {
+    "addr:city": "서울특별시",
+    "addr:district": "서초구",
+    "addr:housenumber": "194",
+    "addr:postcode": "06545",
+    "addr:street": "신반포로",
+    "addr:subdistrict": "반포동",
+    "alt_name": "서울고속버스터미널",
+    "alt_name:ko": "고속버스터미널",
+    "amenity": "bus_station",
+    "building": "yes",
+    "building:levels": "9",
+    "bus": "yes",
+    "height": "51",
+    "internet_access": "wlan",
+    "name": "서울고속버스터미널 (경부선/영동선)",
+    "name:en": "Seoul Express Bus Terminal (Gyeongbu/Yeongdong Line)",
+    "name:ja": "ソウル高速バスターミナル(京釜線/嶺東線)",
+    "name:ko": "서울고속버스터미널 (경부선/영동선)",
+    "public_transport": "station",
+    "source": "survey",
+    "start_date": "1987",
+    "wikidata": "Q59969"
+  }
+},
+{
+  "type": "way",
+  "id": 344738178,
+  "center": {
+    "lat": 37.2772998,
+    "lon": 127.4471769
+  },
+  "tags": {
+    "addr:housenumber": "1200",
+    "addr:postcode": "17373",
+    "addr:street": "이섭대천로",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "이천터미널",
+    "name:en": "Icheon Bus Terminal",
+    "name:ja": "利川バスターミナル",
+    "name:ko": "이천터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 351530250,
   "center": {
     "lat": 36.7669702,
@@ -5957,6 +7184,73 @@
     "public_transport": "station",
     "wikidata": "Q16100904",
     "wikipedia": "ko:안동버스터미널"
+  }
+},
+{
+  "type": "way",
+  "id": 356127040,
+  "center": {
+    "lat": 37.5040797,
+    "lon": 127.0038254
+  },
+  "tags": {
+    "addr:city": "서울특별시",
+    "addr:district": "서초구",
+    "addr:housenumber": "176",
+    "addr:postcode": "06546",
+    "addr:street": "신반포로",
+    "addr:subdistrict": "반포동",
+    "alt_name": "센트럴시티터미널",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "name": "센트럴시티터미널(호남선)",
+    "name:en": "Central City Bus Terminal(Honam Line)",
+    "name:ja": "セントラルシティバスターミナル(湖南線)",
+    "name:ko": "센트럴시티터미널",
+    "public_transport": "station",
+    "wikidata": "Q16097920",
+    "wikipedia": "ko:센트럴시티 (건축물)"
+  }
+},
+{
+  "type": "way",
+  "id": 364898657,
+  "center": {
+    "lat": 37.4012320,
+    "lon": 126.9217341
+  },
+  "tags": {
+    "addr:city": "안양시",
+    "addr:district": "만안구",
+    "addr:housenumber": "25",
+    "addr:postcode": "13992",
+    "addr:province": "경기도",
+    "addr:street": "만안로223번길",
+    "addr:subdistrict": "안양동",
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "안양역시외버스터미널",
+    "name:en": "Anyang Station Bus Terminal",
+    "name:ja": "安養駅市外バスターミナル",
+    "name:ko": "안양역시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 368708591,
+  "center": {
+    "lat": 38.3791803,
+    "lon": 128.4725116
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "commercial",
+    "name": "간성터미널",
+    "name:en": "Ganseong Bus Terminal",
+    "name:ko": "간성터미널"
   }
 },
 {
@@ -6015,6 +7309,20 @@
 },
 {
   "type": "way",
+  "id": 380687948,
+  "center": {
+    "lat": 37.6788095,
+    "lon": 127.0535165
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 395235675,
   "center": {
     "lat": 34.8909604,
@@ -6050,6 +7358,46 @@
 },
 {
   "type": "way",
+  "id": 422799643,
+  "center": {
+    "lat": 37.3168536,
+    "lon": 126.8463234
+  },
+  "tags": {
+    "addr:city": "안산시",
+    "addr:district": "상록구",
+    "addr:housenumber": "410",
+    "addr:postcode": "15299",
+    "addr:province": "경기도",
+    "addr:street": "항가울로",
+    "amenity": "bus_station",
+    "building": "commercial",
+    "bus": "yes",
+    "name": "안산시외버스터미널",
+    "public_transport": "station",
+    "source": "도로명주소"
+  }
+},
+{
+  "type": "way",
+  "id": 427758710,
+  "center": {
+    "lat": 37.4417557,
+    "lon": 126.7015275
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "인천종합터미널",
+    "name:en": "Incheon Bus Terminal",
+    "name:ko": "인천종합터미널",
+    "operator": "롯데쇼핑",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 452845894,
   "center": {
     "lat": 35.4615257,
@@ -6065,6 +7413,34 @@
     "name:ko-Latn": "Inwol jirisan gongyongteomineol",
     "public_transport": "station",
     "source": "survey"
+  }
+},
+{
+  "type": "way",
+  "id": 455731699,
+  "center": {
+    "lat": 38.1905092,
+    "lon": 128.5987285
+  },
+  "tags": {
+    "addr:city": "속초시",
+    "addr:housenumber": "3988",
+    "addr:postcode": "24885",
+    "addr:province": "강원특별자치도",
+    "addr:street": "동해대로",
+    "addr:subdistrict": "조양동",
+    "air_conditioning": "yes",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "name": "속초고속버스터미널",
+    "name:en": "Sokcho Express Bus Terminal",
+    "name:ja": "束草高速バスターミナル",
+    "name:ko": "속초고속버스터미널",
+    "operator": "동부고속",
+    "public_transport": "station",
+    "toilets": "yes"
   }
 },
 {
@@ -6176,6 +7552,32 @@
 },
 {
   "type": "way",
+  "id": 468595505,
+  "center": {
+    "lat": 37.5389113,
+    "lon": 127.2301327
+  },
+  "tags": {
+    "addr:city": "하남시",
+    "addr:housenumber": "146",
+    "addr:postcode": "13023",
+    "addr:province": "경기도",
+    "addr:street": "창우로",
+    "addr:subdistrict": "창우동",
+    "alt_name:ko": "하남시외버스터미널",
+    "amenity": "bus_station",
+    "building": "yes",
+    "building:levels": "4",
+    "bus": "yes",
+    "height": "16",
+    "name": "하남시버스환승공영차고지",
+    "name:en": "Hanam Intercity Bus Terminal",
+    "name:ko": "하남시버스환승공영차고지",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 468614656,
   "center": {
     "lat": 36.7476740,
@@ -6238,8 +7640,8 @@
   "type": "way",
   "id": 468751931,
   "center": {
-    "lat": 36.7815941,
-    "lon": 126.4585163
+    "lat": 36.7815900,
+    "lon": 126.4585685
   },
   "tags": {
     "addr:city": "서산시",
@@ -6440,6 +7842,41 @@
 },
 {
   "type": "way",
+  "id": 469371516,
+  "center": {
+    "lat": 37.6731456,
+    "lon": 128.7049358
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "횡계시외버스터미널",
+    "name:en": "Heonggye Intercity Bus Terminal",
+    "name:ja": "横渓市外バスターミナル",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 469393845,
+  "center": {
+    "lat": 38.0251635,
+    "lon": 127.0677425
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "전곡시외버스터미널",
+    "name:en": "Jeongok Intercity Bus Terminal",
+    "name:ko": "전곡시외버스터미널",
+    "name_1": "전곡버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 469444128,
   "center": {
     "lat": 34.8480459,
@@ -6504,6 +7941,20 @@
 },
 {
   "type": "way",
+  "id": 469678083,
+  "center": {
+    "lat": 37.8079589,
+    "lon": 126.7669437
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "name": "LG Display 버스 정류장",
+    "name:ko": "LG Display 버스 정류장"
+  }
+},
+{
+  "type": "way",
   "id": 469809257,
   "center": {
     "lat": 34.9394121,
@@ -6562,6 +8013,24 @@
 },
 {
   "type": "way",
+  "id": 470115869,
+  "center": {
+    "lat": 37.7740401,
+    "lon": 128.3906400
+  },
+  "tags": {
+    "addr:city": "홍천군",
+    "addr:province": "강원특별자치도",
+    "addr:town": "내면",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "내면시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 470146163,
   "center": {
     "lat": 35.5907066,
@@ -6576,6 +8045,32 @@
 },
 {
   "type": "way",
+  "id": 470272068,
+  "center": {
+    "lat": 37.6430080,
+    "lon": 126.7898002
+  },
+  "tags": {
+    "addr:city": "고양시",
+    "addr:district": "일산동구",
+    "addr:housenumber": "1036",
+    "addr:postcode": "10450",
+    "addr:province": "경기도",
+    "addr:street": "중앙로",
+    "addr:subdistrict": "백석동",
+    "amenity": "bus_station",
+    "building": "yes",
+    "building:levels": "5",
+    "bus": "yes",
+    "name": "고양종합터미널",
+    "name:en": "Goyang Bus Terminal",
+    "name:ja": "高陽総合ターミナル",
+    "name:ko": "고양종합터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 470419433,
   "center": {
     "lat": 37.2455791,
@@ -6584,6 +8079,22 @@
   "tags": {
     "amenity": "bus_station",
     "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 470697746,
+  "center": {
+    "lat": 38.1044696,
+    "lon": 127.7043321
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "화천공용버스터미널",
+    "name:ko": "화천공용버스터미널",
+    "public_transport": "station"
   }
 },
 {
@@ -6618,6 +8129,32 @@
     "name": "증평시외버스터미널",
     "name:ko": "증평시외버스터미널",
     "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 471459405,
+  "center": {
+    "lat": 37.3788451,
+    "lon": 128.6503510
+  },
+  "tags": {
+    "addr:city": "정선군",
+    "addr:housenumber": "1226",
+    "addr:postcode": "26132",
+    "addr:province": "강원특별자치도",
+    "addr:street": "정선로",
+    "addr:town": "정선읍",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "정선버스터미널",
+    "name:en": "Jeongseon Bus Terminal",
+    "name:ko": "정선버스터미널",
+    "phone": "+82-033-563-9265",
+    "public_transport": "station",
+    "website": "https://map.kakao.com/pubtrans/intercity/timetable?id=BT40408&name=%EC%A0%95%EC%84%A0%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90",
+    "website2": "https://transportation.asamaru.net/%EC%8B%9C%EC%99%B8%EB%B2%84%EC%8A%A4/%ED%84%B0%EB%AF%B8%EB%84%90/%EC%A0%95%EC%84%A0%EC%8B%9C%EC%99%B8%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90/"
   }
 },
 {
@@ -6739,6 +8276,36 @@
     "name:en": "Jecheon Express Bus Terminal",
     "name:ja": "堤川高速バスターミナル",
     "name:zh": "堤川高速公交客运站",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 472085550,
+  "center": {
+    "lat": 38.0658957,
+    "lon": 128.1749438
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 472308899,
+  "center": {
+    "lat": 37.3665203,
+    "lon": 128.3934427
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "평창버스터미널",
+    "name:en": "PyeongChang Bus Terminal",
+    "name:ja": "平昌バスターミナル",
+    "name:zh": "平昌汽车客运站",
     "public_transport": "station"
   }
 },
@@ -6879,40 +8446,10 @@
 },
 {
   "type": "way",
-  "id": 474821540,
-  "center": {
-    "lat": 35.8345372,
-    "lon": 127.1292691
-  },
-  "tags": {
-    "addr:city": "전주시",
-    "addr:district": "덕진구",
-    "addr:housenumber": "70",
-    "addr:postcode": "54933",
-    "addr:province": "전북특별자치도",
-    "addr:street": "가리내로",
-    "addr:subdistrict": "금암동",
-    "amenity": "bus_station",
-    "building": "public",
-    "building:levels": "2",
-    "bus": "yes",
-    "name": "전주고속버스터미널",
-    "name:en": "Jeonju Express Bus Terminal",
-    "name:ja": "全州高速バスターミナル",
-    "name:ko": "전주고속버스터미널",
-    "public_transport": "station",
-    "smoking": "isolated",
-    "wikidata": "Q12615299",
-    "wikimedia_commons": "Category:Jeonju Express Bus Terminal",
-    "wikipedia": "ko:전주고속버스터미널"
-  }
-},
-{
-  "type": "way",
   "id": 474821541,
   "center": {
-    "lat": 35.8349025,
-    "lon": 127.1290295
+    "lat": 35.8348967,
+    "lon": 127.1290011
   },
   "tags": {
     "amenity": "bus_station",
@@ -6954,17 +8491,40 @@
   "type": "way",
   "id": 475223331,
   "center": {
-    "lat": 35.2278674,
-    "lon": 128.8733734
+    "lat": 35.2278728,
+    "lon": 128.8735022
   },
   "tags": {
     "amenity": "bus_station",
-    "building": "yes",
     "bus": "yes",
     "internet_access": "wlan",
     "internet_access:fee": "no",
     "name": "김해 여객 터미널",
     "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 475269480,
+  "center": {
+    "lat": 37.7451827,
+    "lon": 127.0550842
+  },
+  "tags": {
+    "addr:city": "의정부시",
+    "addr:housenumber": "640",
+    "addr:street": "동일로",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "의정부버스터미널",
+    "name:en": "Uijeongbu Bus Terminal",
+    "name:ko": "의정부버스터미널",
+    "public_transport": "station",
+    "start_date": "1990",
+    "website": "http://uijeongbuterminal.co.kr/",
+    "wikidata": "Q16101217",
+    "wikipedia": "ko:의정부버스터미널"
   }
 },
 {
@@ -7024,6 +8584,20 @@
 },
 {
   "type": "way",
+  "id": 477377610,
+  "center": {
+    "lat": 38.4924647,
+    "lon": 128.4275638
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "name": "대진 시외버스 터미널",
+    "name:ko": "대진 시외버스 터미널"
+  }
+},
+{
+  "type": "way",
   "id": 477906799,
   "center": {
     "lat": 37.1832410,
@@ -7050,6 +8624,21 @@
 },
 {
   "type": "way",
+  "id": 478205376,
+  "center": {
+    "lat": 37.8631449,
+    "lon": 127.7184817
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "name": "춘천시외버스터미널",
+    "name:en": "Chuncheon Bus Terminal",
+    "name:ko": "춘천시외버스터미널"
+  }
+},
+{
+  "type": "way",
   "id": 478283242,
   "center": {
     "lat": 34.9867462,
@@ -7063,6 +8652,22 @@
     "internet_access:fee": "no",
     "name": "곡천공용터미널 (Gokcheon Terminal)",
     "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 478539249,
+  "center": {
+    "lat": 37.8646844,
+    "lon": 127.7175342
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "name": "춘천고속버스터미널",
+    "name:en": "Chuncheon Express Bus Terminal",
+    "name:ko": "춘천고속버스터미널",
+    "wikidata": "Q12620051"
   }
 },
 {
@@ -7174,6 +8779,24 @@
     "building": "yes",
     "bus": "yes",
     "name": "죽변시외버스정류장",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 483392645,
+  "center": {
+    "lat": 38.2110105,
+    "lon": 128.5909274
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "check_date": "2024-04-18",
+    "name": "속초시외버스터미널",
+    "name:en": "Sokcho Intercity Bus Terminal",
+    "name:ja": "束草市外バスターミナル",
+    "name:ko": "속초시외버스터미널",
     "public_transport": "station"
   }
 },
@@ -7513,6 +9136,23 @@
 },
 {
   "type": "way",
+  "id": 538643942,
+  "center": {
+    "lat": 37.3426221,
+    "lon": 126.7358110
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "시흥종합버스터미널",
+    "name:en": "Sihwa Central Bus Terminal",
+    "name:ko": "시흥종합버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 542076670,
   "center": {
     "lat": 34.5327893,
@@ -7578,6 +9218,22 @@
 },
 {
   "type": "way",
+  "id": 546705170,
+  "center": {
+    "lat": 35.3151658,
+    "lon": 126.9838132
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "담양 공용버스터미널",
+    "name:en": "Damyang Bus Terminal",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 547424186,
   "center": {
     "lat": 36.5705999,
@@ -7624,6 +9280,29 @@
     "bus": "yes",
     "name": "상주 터미널",
     "name:ko": "상주 터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 550611453,
+  "center": {
+    "lat": 37.4185364,
+    "lon": 126.8860888
+  },
+  "tags": {
+    "addr:city": "광명시",
+    "addr:housenumber": "51",
+    "addr:postcode": "14347",
+    "addr:province": "경기도",
+    "addr:street": "광명역로",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "광명역복합터미널",
+    "name:en": "Gwangmyeong Complex Terminal",
+    "name:ja": "光明駅総合ターミナル",
+    "name:ko": "광명역종합터미널",
     "public_transport": "station"
   }
 },
@@ -7713,6 +9392,32 @@
     "building": "yes",
     "bus": "yes",
     "name": "고금시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 556954296,
+  "center": {
+    "lat": 37.2656180,
+    "lon": 126.9987000
+  },
+  "tags": {
+    "addr:city": "수원시",
+    "addr:district": "권선구",
+    "addr:housenumber": "136",
+    "addr:postcode": "16621",
+    "addr:province": "경기도",
+    "addr:street": "세화로",
+    "addr:subdistrict": "서둔동",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "layer": "1",
+    "name": "수원역환승센터",
+    "name:en": "Suwon Station Transfer Center",
+    "name:ja": "水原駅乗換センター",
+    "name:ko": "수원역환승센터",
     "public_transport": "station"
   }
 },
@@ -7822,15 +9527,14 @@
   "type": "way",
   "id": 560632384,
   "center": {
-    "lat": 36.3425552,
-    "lon": 126.5897306
+    "lat": 36.3426000,
+    "lon": 126.5897259
   },
   "tags": {
     "addr:city": "보령시",
     "addr:housename": "보령종합터미널",
     "addr:housenumber": "8",
     "addr:postcode": "33458",
-    "addr:province": "충청남도",
     "addr:street": "터미널길",
     "amenity": "bus_station",
     "building": "yes",
@@ -7885,6 +9589,54 @@
 },
 {
   "type": "way",
+  "id": 573571500,
+  "center": {
+    "lat": 38.1232906,
+    "lon": 128.2029065
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "원통 버스터미널 매표소",
+    "name:ko": "원통 버스터미널 매표소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 573571506,
+  "center": {
+    "lat": 38.1231969,
+    "lon": 128.2030847
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "원통 버스터미널",
+    "name:ko": "원통 버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 574194416,
+  "center": {
+    "lat": 37.7397930,
+    "lon": 126.4904542
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "check_date": "2024-09-22",
+    "name": "강화여객터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 584926243,
   "center": {
     "lat": 35.2397197,
@@ -7920,8 +9672,8 @@
   "type": "way",
   "id": 591024891,
   "center": {
-    "lat": 34.4787177,
-    "lon": 126.2629019
+    "lat": 34.4786758,
+    "lon": 126.2633776
   },
   "tags": {
     "amenity": "bus_station",
@@ -7937,8 +9689,8 @@
   "type": "way",
   "id": 593979307,
   "center": {
-    "lat": 36.3555066,
-    "lon": 127.3295346
+    "lat": 36.3554860,
+    "lon": 127.3294128
   },
   "tags": {
     "addr:city": "대전광역시",
@@ -8101,6 +9853,22 @@
 },
 {
   "type": "way",
+  "id": 681075012,
+  "center": {
+    "lat": 37.5277167,
+    "lon": 129.1040529
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "동해시종합버스터미널",
+    "name:en": "Donghae Bus Terminal",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 684378205,
   "center": {
     "lat": 37.1362685,
@@ -8171,6 +9939,22 @@
     "building": "yes",
     "bus": "yes",
     "name": "성전터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 698739458,
+  "center": {
+    "lat": 38.2076709,
+    "lon": 127.2177075
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "동송시외버스공용터미널",
+    "name:en": "Dongsong Intercity Bus Terminal",
+    "name:ko": "동송시외버스공용터미널",
     "public_transport": "station"
   }
 },
@@ -8349,6 +10133,55 @@
 },
 {
   "type": "way",
+  "id": 737390270,
+  "center": {
+    "lat": 38.1013882,
+    "lon": 127.0785097
+  },
+  "tags": {
+    "addr:city": "연천군",
+    "addr:housenumber": "90",
+    "addr:postcode": "11012",
+    "addr:street": "문화로",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "name": "연천공영버스터미널",
+    "name:en": "Yeoncheon Bus Terminal",
+    "name:ko": "연천공영버스터미널",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 746756269,
+  "center": {
+    "lat": 37.2900709,
+    "lon": 127.6351722
+  },
+  "tags": {
+    "addr:city": "여주시",
+    "addr:housenumber": "85",
+    "addr:postcode": "12631",
+    "addr:province": "경기도",
+    "addr:street": "세종로",
+    "addr:subdistrict": "홍문동",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "name": "여주종합터미널",
+    "name:en": "Yeoju Bus Terminal",
+    "name:ja": "驪州綜合ターミナル",
+    "name:ko": "여주종합터미널",
+    "name:ko-Latn": "Yeojujonghapteomineol",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 751013009,
   "center": {
     "lat": 35.9312706,
@@ -8376,8 +10209,32 @@
   },
   "tags": {
     "amenity": "bus_station",
+    "building": "yes",
     "bus": "yes",
     "name": "자인버스정류장",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 755435897,
+  "center": {
+    "lat": 37.6897692,
+    "lon": 127.0449118
+  },
+  "tags": {
+    "addr:city": "서울특별시",
+    "addr:district": "도봉구",
+    "addr:housenumber": "955",
+    "addr:postcode": "01301",
+    "addr:street": "도봉로",
+    "addr:subdistrict": "도봉동",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "도봉산역 광역환승센터",
+    "name:ko": "도봉산역 광역환승센터",
+    "operator": "서울특별시",
     "public_transport": "station"
   }
 },
@@ -8397,6 +10254,22 @@
     "amenity": "bus_station",
     "building": "yes",
     "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 761919098,
+  "center": {
+    "lat": 37.8806845,
+    "lon": 127.0532694
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "동두천터미널",
+    "name:ko": "동두천터미널",
     "public_transport": "station"
   }
 },
@@ -8442,12 +10315,9 @@
     "lon": 127.3026325
   },
   "tags": {
-    "addr:city": "세종특별자치시",
     "addr:housenumber": "54",
     "addr:postcode": "30026",
     "addr:street": "조치원로",
-    "addr:subdistrict": "상리",
-    "addr:town": "조치원읍",
     "air_conditioning": "yes",
     "amenity": "bus_station",
     "building": "yes",
@@ -8510,13 +10380,18 @@
 },
 {
   "type": "way",
-  "id": 812586208,
+  "id": 817153241,
   "center": {
-    "lat": 36.9901462,
-    "lon": 127.0877235
+    "lat": 37.8246021,
+    "lon": 127.5154474
   },
   "tags": {
-    "amenity": "bus_station"
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "가평터미널",
+    "name:ko": "가평터미널",
+    "public_transport": "station"
   }
 },
 {
@@ -8573,11 +10448,9 @@
   "tags": {
     "amenity": "bus_station",
     "building": "commercial",
-    "bus": "yes",
-    "name": "송탄터미널",
+    "name": "송탄시내버스터미널",
     "name:en": "SongTan Bus Terminal",
-    "name:ko": "송탄터미널",
-    "public_transport": "station",
+    "name:ko": "송탄시내버스터미널",
     "source": "Bing"
   }
 },
@@ -8850,6 +10723,21 @@
 },
 {
   "type": "way",
+  "id": 903242175,
+  "center": {
+    "lat": 37.6773530,
+    "lon": 127.4878206
+  },
+  "tags": {
+    "alt_name:ko": "설악버스터미널",
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "설악버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 935484294,
   "center": {
     "lat": 36.8473756,
@@ -8880,6 +10768,63 @@
 },
 {
   "type": "way",
+  "id": 939568533,
+  "center": {
+    "lat": 37.4845603,
+    "lon": 127.0155927
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "서울남부버스터미널",
+    "name:en": "Seoul south bus terminal",
+    "name:ja": "ソウル南部バスターミナル",
+    "name:ko": "서울남부버스터미널",
+    "name:zh": "首爾南部綜合客運站",
+    "public_transport": "station",
+    "wikidata": "Q59983",
+    "wikipedia": "ko:서울남부버스터미널"
+  }
+},
+{
+  "type": "way",
+  "id": 957502725,
+  "center": {
+    "lat": 38.2111742,
+    "lon": 128.5908271
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 972224214,
+  "center": {
+    "lat": 36.3563117,
+    "lon": 127.3307128
+  },
+  "tags": {
+    "addr:city": "대전광역시",
+    "addr:district": "유성구",
+    "addr:housenumber": "699",
+    "addr:postcode": "34174",
+    "addr:street": "유성대로",
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "유성시외버스정류소",
+    "name:en": "Yuseong Bus Terminal",
+    "name:ja": "儒城市外バス停留所",
+    "name:ko": "유성시외버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 980744037,
   "center": {
     "lat": 35.8343908,
@@ -8895,10 +10840,21 @@
     "bus": "yes",
     "height": "4",
     "name": "전주시외버스터미널",
-    "name:ja": "全州市外バスターミナル",
-    "public_transport": "station",
-    "wikidata": "Q16101051",
-    "wikipedia": "ko:전주시외버스공용터미널"
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 983860060,
+  "center": {
+    "lat": 37.5003020,
+    "lon": 128.4529604
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "public_transport": "station"
   }
 },
 {
@@ -8958,6 +10914,21 @@
 },
 {
   "type": "way",
+  "id": 998429179,
+  "center": {
+    "lat": 37.4891537,
+    "lon": 127.5991274
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "용문버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 1000367440,
   "center": {
     "lat": 36.9310247,
@@ -8975,8 +10946,8 @@
   "type": "way",
   "id": 1013432400,
   "center": {
-    "lat": 36.0280334,
-    "lon": 129.3676150
+    "lat": 36.0280212,
+    "lon": 129.3676062
   },
   "tags": {
     "addr:city": "포항시",
@@ -8992,6 +10963,20 @@
     "bus": "yes",
     "name": "포항고속버스터미널",
     "phone": "+82 1666 6133",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1028242477,
+  "center": {
+    "lat": 37.4275268,
+    "lon": 126.9974495
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "맘스스테이션",
     "public_transport": "station"
   }
 },
@@ -9015,6 +11000,65 @@
     "public_transport": "station",
     "wikidata": "Q12600395",
     "wikipedia": "ko:삽교천시외버스터미널"
+  }
+},
+{
+  "type": "way",
+  "id": 1044403034,
+  "center": {
+    "lat": 37.4853992,
+    "lon": 126.7843516
+  },
+  "tags": {
+    "addr:city": "부천시",
+    "addr:district": "원미구",
+    "addr:province": "경기도",
+    "addr:subdistrict": "심곡동",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "소신여객 부천역북부",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1051518490,
+  "center": {
+    "lat": 37.7013176,
+    "lon": 126.3795679
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "외포리버스정류장",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1055850971,
+  "center": {
+    "lat": 37.5778890,
+    "lon": 126.7982468
+  },
+  "tags": {
+    "addr:city": "서울특별시",
+    "addr:district": "강서구",
+    "addr:housenumber": "19",
+    "addr:postcode": "07505",
+    "addr:street": "개화동로8길",
+    "addr:subdistrict": "개화동",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "개화역광역환승센터",
+    "name:en": "Gaehwa Station Wide Area Transfer Center",
+    "name:ja": "開化駅広域乗り換えセンター",
+    "name:ko": "개화역광역환승센터",
+    "public_transport": "station",
+    "wheelchair": "yes"
   }
 },
 {
@@ -9084,6 +11128,46 @@
 },
 {
   "type": "way",
+  "id": 1113337742,
+  "center": {
+    "lat": 37.4879366,
+    "lon": 126.7535750
+  },
+  "tags": {
+    "addr:city": "부천시",
+    "addr:district": "원미구",
+    "addr:province": "경기도",
+    "addr:subdistrict": "상동",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "layer": "1",
+    "name": "송내역환승센터",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1115402494,
+  "center": {
+    "lat": 36.3600148,
+    "lon": 127.3363394
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "유성고속버스터미널",
+    "name:en": "Yuseong Express Terminal",
+    "name:ko": "유성고속버스터미널",
+    "name:ko-Latn": "Yuseong Teomineol",
+    "public_transport": "station",
+    "wikidata": "Q12609833",
+    "wikipedia": "ko:유성고속버스터미널"
+  }
+},
+{
+  "type": "way",
   "id": 1115656962,
   "center": {
     "lat": 35.1813631,
@@ -9136,6 +11220,30 @@
 },
 {
   "type": "way",
+  "id": 1125588467,
+  "center": {
+    "lat": 37.3446547,
+    "lon": 127.9308312
+  },
+  "tags": {
+    "addr:city": "원주시",
+    "addr:housenumber": "171",
+    "addr:postcode": "26436",
+    "addr:street": "서원대로",
+    "amenity": "bus_station",
+    "building": "transportation",
+    "building:levels": "9",
+    "bus": "yes",
+    "internet_access": "wlan",
+    "level": "10",
+    "name": "더블유시티",
+    "name:ko": "더블유시티",
+    "public_transport": "station",
+    "smoking": "no"
+  }
+},
+{
+  "type": "way",
   "id": 1144092901,
   "center": {
     "lat": 36.5179513,
@@ -9167,6 +11275,42 @@
     "amenity": "bus_station",
     "bus": "yes",
     "name": "강경버스정류장",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1152617812,
+  "center": {
+    "lat": 36.3563193,
+    "lon": 127.3305984
+  },
+  "tags": {
+    "addr:city": "대전광역시",
+    "addr:district": "유성구",
+    "addr:housenumber": "699",
+    "addr:postcode": "34174",
+    "addr:street": "유성대로",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "유성시외버스정류소",
+    "name:en": "Yuseong Bus Terminal",
+    "name:ko": "유성시외버스정류소",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1156505731,
+  "center": {
+    "lat": 37.3735407,
+    "lon": 127.5840086
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "대신터미널",
     "public_transport": "station"
   }
 },
@@ -9240,6 +11384,35 @@
     "bus": "yes",
     "name": "일죽터미널",
     "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1205924129,
+  "center": {
+    "lat": 37.5113592,
+    "lon": 127.1016014
+  },
+  "tags": {
+    "addr:city": "서울특별시",
+    "addr:district": "송파구",
+    "addr:housenumber": "지하156",
+    "addr:postcode": "05608",
+    "addr:street": "잠실로",
+    "addr:subdistrict": "신천동",
+    "amenity": "bus_station",
+    "bus": "yes",
+    "check_date": "2024-01-25",
+    "covered": "yes",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "location": "underground",
+    "name": "잠실광역환승센터",
+    "name:en": "Jamsil Metro Transfer Center",
+    "public_transport": "station",
+    "wikidata": "Q28699209",
+    "wikipedia": "ko:잠실광역환승센터"
   }
 },
 {
@@ -9331,6 +11504,23 @@
     "amenity": "bus_station",
     "bus": "yes",
     "name": "화명덕천구포버스정류장",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1222662684,
+  "center": {
+    "lat": 37.4410506,
+    "lon": 126.7013467
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "인천종합터미널",
+    "name:en": "Incheon Bus Terminal",
+    "name:ko": "인천종합터미널",
+    "operator": "롯데쇼핑",
     "public_transport": "station"
   }
 },
@@ -9643,6 +11833,19 @@
 },
 {
   "type": "way",
+  "id": 1253931538,
+  "center": {
+    "lat": 37.8245756,
+    "lon": 127.5153648
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 1257893263,
   "center": {
     "lat": 36.6826003,
@@ -9667,6 +11870,27 @@
     "amenity": "bus_station",
     "bus": "yes",
     "name": "후포터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1264970499,
+  "center": {
+    "lat": 37.4912518,
+    "lon": 127.5017015
+  },
+  "tags": {
+    "addr:city": "양평군",
+    "addr:housenumber": "91",
+    "addr:postcode": "12559",
+    "addr:province": "경기도",
+    "addr:street": "시민로",
+    "addr:subdistrict": "공흥리",
+    "addr:town": "양평읍",
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "양평버스터미널",
     "public_transport": "station"
   }
 },
@@ -9754,6 +11978,32 @@
     "building": "yes",
     "bus": "yes",
     "name": "강구버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1297354292,
+  "center": {
+    "lat": 38.0853211,
+    "lon": 128.6299789
+  },
+  "tags": {
+    "addr:city": "양양군",
+    "addr:housenumber": "2700",
+    "addr:province": "강원특별자치도",
+    "addr:street": "동해대로",
+    "addr:town": "양양읍",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "양양종합여객터미널",
+    "name:en": "Yangyang Bus Terminal",
+    "name:ja": "襄陽綜合バスターミナル",
+    "name:ko": "양양종합여객터미널",
+    "name:zh-Hans": "襄陽綜合客运站",
+    "network": "270",
+    "operator": "(주)동부고속",
     "public_transport": "station"
   }
 },
@@ -9897,6 +12147,34 @@
 },
 {
   "type": "way",
+  "id": 1323527067,
+  "center": {
+    "lat": 37.4019792,
+    "lon": 126.9186027
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "안양시외버스정류장",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1324987895,
+  "center": {
+    "lat": 37.4874380,
+    "lon": 127.9839285
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 1346282683,
   "center": {
     "lat": 35.8674947,
@@ -9948,6 +12226,20 @@
 },
 {
   "type": "way",
+  "id": 1375982750,
+  "center": {
+    "lat": 37.3788756,
+    "lon": 128.6505104
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "정선공영버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 1383008791,
   "center": {
     "lat": 37.0761847,
@@ -9976,6 +12268,32 @@
 },
 {
   "type": "way",
+  "id": 1417423540,
+  "center": {
+    "lat": 37.2588384,
+    "lon": 126.4937375
+  },
+  "tags": {
+    "addr:city": "인천광역시",
+    "addr:district": "옹진군",
+    "addr:housenumber": "8",
+    "addr:postcode": "23318",
+    "addr:street": "영흥로176번길",
+    "addr:subdistrict": "내리",
+    "addr:town": "영흥면",
+    "alt_name": "영흥버스터미널",
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "internet_access": "no",
+    "name": "영흥도버스터미널",
+    "name:ko": "영흥도버스터미널",
+    "name:ru": "Автобусный терминал Ёнхындо",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 1422097540,
   "center": {
     "lat": 36.9929930,
@@ -9993,7 +12311,7 @@
   "id": 1422264513,
   "center": {
     "lat": 37.1195941,
-    "lon": 127.6273207
+    "lon": 127.6272778
   },
   "tags": {
     "amenity": "bus_station",
@@ -10018,6 +12336,60 @@
 },
 {
   "type": "way",
+  "id": 1422442486,
+  "center": {
+    "lat": 37.4094922,
+    "lon": 127.2614018
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1422546887,
+  "center": {
+    "lat": 37.4890949,
+    "lon": 127.5994519
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "용문터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1422834472,
+  "center": {
+    "lat": 37.7380887,
+    "lon": 127.4206037
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "청평터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1422834902,
+  "center": {
+    "lat": 37.8868655,
+    "lon": 127.5489518
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 1424664974,
   "center": {
     "lat": 34.8128029,
@@ -10027,6 +12399,34 @@
     "amenity": "bus_station",
     "bus": "yes",
     "name": "목포종합버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1431044914,
+  "center": {
+    "lat": 37.8974161,
+    "lon": 127.2041277
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "포천시외버스터미널",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1431046530,
+  "center": {
+    "lat": 38.1580417,
+    "lon": 127.2501490
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "관인버스터미널",
     "public_transport": "station"
   }
 },
@@ -10046,6 +12446,71 @@
 },
 {
   "type": "way",
+  "id": 1446706378,
+  "center": {
+    "lat": 37.6043025,
+    "lon": 127.3542459
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1462259343,
+  "center": {
+    "lat": 38.0715892,
+    "lon": 127.5231964
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1471086595,
+  "center": {
+    "lat": 37.6893166,
+    "lon": 127.8788896
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1473783895,
+  "center": {
+    "lat": 37.6360787,
+    "lon": 128.5583676
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 1475930582,
+  "center": {
+    "lat": 38.1077165,
+    "lon": 127.9895317
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
   "id": 1484452709,
   "center": {
     "lat": 34.3184044,
@@ -10058,95 +12523,6 @@
     "internet_access": "yes",
     "name": "완도공용버스터미널",
     "name:en": "Wando Terminal",
-    "public_transport": "station"
-  }
-},
-{
-  "type": "way",
-  "id": 1546262841,
-  "center": {
-    "lat": 35.4615417,
-    "lon": 127.6031902
-  },
-  "tags": {
-    "amenity": "bus_station",
-    "bus": "yes",
-    "public_transport": "station"
-  }
-},
-{
-  "type": "way",
-  "id": 1553311699,
-  "center": {
-    "lat": 35.4382331,
-    "lon": 126.6939428
-  },
-  "tags": {
-    "addr:city": "고창군",
-    "addr:housenumber": "675-2",
-    "addr:postcode": "56436",
-    "addr:province": "전북특별자치도",
-    "addr:subdistrict": "읍내리",
-    "addr:town": "고창읍",
-    "amenity": "bus_station",
-    "bus": "yes",
-    "name": "고창임시터미널",
-    "name:en": "Gochang Temporary Terminal",
-    "name:fr": "Terminal temporaire de Gochang",
-    "public_transport": "station"
-  }
-},
-{
-  "type": "way",
-  "id": 1564846002,
-  "center": {
-    "lat": 36.4990484,
-    "lon": 126.6240854
-  },
-  "tags": {
-    "amenity": "bus_station",
-    "bus": "yes",
-    "name": "광천버스터미널",
-    "public_transport": "station"
-  }
-},
-{
-  "type": "way",
-  "id": 1572338135,
-  "center": {
-    "lat": 37.1279951,
-    "lon": 127.6427015
-  },
-  "tags": {
-    "amenity": "bus_station",
-    "area": "yes",
-    "building": "university",
-    "name": "극동대 버스터미널",
-    "name:en": "Far East University Bus Terminal",
-    "name:ko": "극동대 버스터미널"
-  }
-},
-{
-  "type": "way",
-  "id": 1575026269,
-  "center": {
-    "lat": 35.3150817,
-    "lon": 126.9840999
-  },
-  "tags": {
-    "addr:city": "담양군",
-    "addr:housenumber": "22-2",
-    "addr:postcode": "57344",
-    "addr:province": "전남광주통합특별시",
-    "addr:street": "중앙로",
-    "addr:town": "담양읍",
-    "amenity": "bus_station",
-    "area": "yes",
-    "name": "담양공용버스터미널",
-    "name:en": "Damyang Bus Terminal",
-    "name:ja": "潭陽(タミャン)バスターミナル",
-    "name:ko": "담양공용버스터미널",
-    "phone": "+82 061-381-3233",
     "public_transport": "station"
   }
 },

@@ -12,6 +12,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { utm52 } from './lib/utm.mjs';
+import { LEGACY_IDS } from './sources.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const rail = JSON.parse(readFileSync(resolve(ROOT, 'data/build/rail.json'), 'utf8'));
@@ -324,7 +325,7 @@ const lines = [
 ];
 writeFileSync(resolve(ROOT, 'docs/station-areas.md'), lines.join('\n'));
 const size = JSON.stringify(result).length;
-const legacyNames = new Set(rail.stations.slice(0, 8).map((s) => s.name)); // scripts/sources.mjs STATION_LEGACY
+const legacyNames = new Set(LEGACY_IDS.map((id) => id.replace(/^R-/, ''))); // station-areas-1.json에 든 역
 const stillMissing = missing.filter((n) => !(existsSync(legacy) && legacyNames.has(n)));
 if (stillMissing.length) console.log(`! 아직 받지 않은 역 ${stillMissing.length}곳(npm run fetch). 그 역들은 자료 없이 그려요: ${stillMissing.slice(0, 12).join(', ')}${stillMissing.length > 12 ? ' 등' : ''}`);
 console.log(`data/build/station-areas.json ${(size / 1024).toFixed(0)}KB. 역 건물 ${has('buildings')}/${report.length}, 승강장 ${has('platforms')}, 지붕 ${has('roofs')}, 건너는 다리 ${has('bridges')}, 층수·높이 ${has('levels')}`);

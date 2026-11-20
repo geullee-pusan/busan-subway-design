@@ -32,6 +32,11 @@ export const OSM_BOX_3 = '35.95,124.95,36.45,127.80';
 // 충남·충북·세종·대전 북쪽·경기 남쪽 끝·강원 남쪽 끝이 함께 들어온다(길과 인구까지만 넣는다).
 export const OSM_BOXES_4 = ['36.45,124.95,37.25,127.80', '36.65,127.80,37.25,129.75'];
 const inBoxes4 = (lines) => OSM_BOXES_4.map((box) => lines.map((line) => line.replace('(BOX)', `(${box})`)).join('\n')).join('\n');
+// 지도 범위 넓히기 6(강원 전체, 2026-11-20): 격자 북쪽 끝이 북위 약 38.63도(고성 북쪽 끝)까지 올라간다. 위 범위들이 비워 둔
+// 북쪽 띠(위도 37.25~38.70)를 "<이름>-5.json"으로 받는다. 서울·경기·인천이 있는 서쪽(경도 124.80~127.20)과 강원이 있는
+// 동쪽(경도 127.20~129.75)으로 나눠 서버 부담을 줄인다. 서쪽의 경기·서울·인천과 북한 땅은 이웃 지역(길과 인구까지만)이다.
+export const OSM_BOXES_5 = ['37.25,124.80,38.70,127.20', '37.25,127.20,38.70,129.75'];
+const inBoxes5 = (lines) => OSM_BOXES_5.map((box) => lines.map((line) => line.replace('(BOX)', `(${box})`)).join('\n')).join('\n');
 /** 대마도(쓰시마): 지형을 만들 때 땅으로 그릴 섬 모양(OSM place=island). 인구는 넣지 않는다. */
 export const TSUSHIMA_BOX = '34.05,129.10,34.75,129.55';
 /** 동네 길을 나눠 받는 조각 [남, 서, 북, 동] */
@@ -63,6 +68,8 @@ const PATH_TILES_2 = [];
   add('n', 35.95, 124.95, 36.45, 128.1);
   // 지도 범위 넓히기 5: 북쪽 띠(위도 36.45~37.25, 경도 124.95~129.6)
   add('u', 36.45, 124.95, 37.25, 129.6);
+  // 지도 범위 넓히기 6: 강원(위도 37.25~38.65, 경도 127.05~129.45). 서울·경기·인천의 동네 길은 그 지역을 넣을 때 받는다.
+  add('v', 37.25, 127.05, 38.65, 129.45);
 }
 // 6×6 조각(부산 시내처럼 길이 많은 곳은 3×3 조각으로도 서버가 버거워했다).
 // 그래도 받지 못한 조각(17, 18, 20, 23번: 양산·울산·대구 서쪽·경주 둘레)은 다시 2×2로 나눈다(예: 17-1 ~ 17-4).
@@ -100,11 +107,15 @@ function railStationSpots() {
   }
 }
 // Overpass가 바빠 큰 질의는 실패한다(502, 504). 역 하나씩 받는다.
-// 처음 8역(rail.json 차례 앞의 8곳)은 한 묶음(station-areas-1.json)으로 받아 두었다. 그 역은 다시 받지 않는다.
+// 처음 8역(그때 rail.json 차례 앞의 8곳)은 한 묶음(station-areas-1.json)으로 받아 두었다. 그 역은 다시 받지 않는다.
+// 지도를 넓히면 rail.json 차례 앞에 새 역이 끼므로(2026-11-20 서울~광명) 역 이름을 못박아 둔다.
+export const LEGACY_IDS = ['R-천안아산', 'R-오송', 'R-대전', 'R-김천구미', 'R-대구', 'R-동대구', 'R-경주', 'R-울산'];
 const STATION_LEGACY = (() => {
   try {
     const rail = JSON.parse(readFileSync(new URL('../data/build/rail.json', import.meta.url), 'utf8'));
-    return rail.stations.slice(0, 8).map((st) => ({ id: st.id, lat: Number(st.lat.toFixed(6)), lon: Number(st.lon.toFixed(6)) }));
+    return LEGACY_IDS.map((id) => rail.stations.find((st) => st.id === id))
+      .filter(Boolean)
+      .map((st) => ({ id: st.id, lat: Number(st.lat.toFixed(6)), lon: Number(st.lon.toFixed(6)) }));
   } catch {
     return [];
   }
@@ -226,7 +237,9 @@ export const SOURCES = [
   { key: 'dem-N36E129', file: 'data/raw/dem/N36E129.hgt.gz', url: `${SKADI_BASE}/N36/N36E129.hgt.gz`, size: 8473868 },
   // 지도 범위 넓히기 4(경남 전체, 전남광주): 서쪽과 남쪽 타일. 크기는 받은 뒤 적는다.
   // 지도 범위 넓히기 5(경북 본토, 2026-11-15): 북쪽 띠 타일(N37E125는 바다뿐이라 타일이 없다)
-  ...['N33E126', 'N34E125', 'N34E126', 'N34E127', 'N35E125', 'N35E126', 'N36E125', 'N36E126', 'N37E126', 'N37E127', 'N37E128', 'N37E129'].map((tile) => ({
+  // 지도 범위 넓히기 6(강원 전체, 2026-11-20): 북한 옹진반도가 들어와 N37E125도 받는다
+  ...['N33E126', 'N34E125', 'N34E126', 'N34E127', 'N35E125', 'N35E126', 'N36E125', 'N36E126', 'N37E126', 'N37E127', 'N37E128', 'N37E129',
+    'N37E124', 'N37E125', 'N38E124', 'N38E125', 'N38E126', 'N38E127', 'N38E128', 'N38E129'].map((tile) => ({
     key: `dem-${tile}`,
     file: `data/raw/dem/${tile}.hgt.gz`,
     url: `${SKADI_BASE}/${tile.slice(0, 3)}/${tile}.hgt.gz`,
@@ -342,6 +355,7 @@ out center tags qt;`,
 ${inBoxes2(['  nwr["amenity"="bus_station"](BOX);'])}
   nwr["amenity"="bus_station"](${OSM_BOX_3});
 ${inBoxes4(['  nwr["amenity"="bus_station"](BOX);'])}
+${inBoxes5(['  nwr["amenity"="bus_station"](BOX);'])}
 );
 out center tags;`,
   },
@@ -530,6 +544,58 @@ out geom qt;`,
   relation["place"~"^(island|islet)$"];
 );
 out geom;`,
+  },
+  // 지도 범위 넓히기 6(강원 전체, 2026-11-20): 북쪽 띠(OSM_BOXES_5)의 수면, 기차역, 선로, 차도
+  {
+    key: 'osm-water-5',
+    file: 'data/raw/osm/water-5.json',
+    overpass: `[out:json][timeout:600][maxsize:1073741824];
+(
+${inBoxes5(['  way["natural"="water"](BOX);', '  relation["natural"="water"](BOX);', '  way["waterway"="riverbank"](BOX);', '  relation["waterway"="riverbank"](BOX);'])}
+);
+out geom;`,
+  },
+  {
+    key: 'osm-stations-5',
+    file: 'data/raw/osm/stations-5.json',
+    overpass: `[out:json][timeout:300];
+(
+${inBoxes5([
+  '  nwr["railway"~"^(station|halt|stop)$"](BOX);',
+  '  nwr["public_transport"~"^(station|stop_position)$"]["train"="yes"](BOX);',
+  '  nwr["public_transport"~"^(station|stop_position)$"]["subway"="yes"](BOX);',
+  '  relation["public_transport"="stop_area"](BOX);',
+  '  nwr["railway"="construction"]["construction"~"station"](BOX);',
+  '  nwr["construction:railway"~"station"](BOX);',
+])}
+);
+out center;`,
+  },
+  {
+    key: 'osm-rail-lines-5',
+    file: 'data/raw/osm/rail-lines-5.json',
+    overpass: `[out:json][timeout:600][maxsize:1073741824];
+(
+${inBoxes5(['  way["railway"="rail"][!"service"](BOX);'])}
+);
+out geom;`,
+  },
+  {
+    key: 'osm-roads-5',
+    file: 'data/raw/osm/roads-5.json',
+    overpass: `[out:json][timeout:900][maxsize:1073741824];
+(
+${inBoxes5(['  way["highway"~"^(trunk|primary|secondary|tertiary)(_link)?$"](BOX);'])}
+);
+out geom qt;`,
+  },
+  // 북한 땅 모양(Natural Earth 1:10m 나라 경계, 대한민국 시각판, 퍼블릭 도메인). 지도 북서쪽(옹진반도·해주·개성)과
+  // 강원 북쪽(휴전선 너머)이 바다로 그려지지 않게, 인구 없는 땅으로 그린다. 크기가 커서 git에 넣지 않는다.
+  {
+    key: 'ne-countries-kor',
+    file: 'data/raw/naturalearth/ne_10m_admin_0_countries_kor.geojson',
+    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_admin_0_countries_kor.geojson',
+    size: 13233357,
   },
   ...PATH_TILES_2.map(({ name, box: [s, w, n, e] }) => ({
     key: `osm-paths-${name}`,
