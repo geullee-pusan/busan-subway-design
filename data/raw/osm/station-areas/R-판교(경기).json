@@ -1,0 +1,1225 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-21T16:41:21Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 437721771,
+  "bounds": {
+    "minlat": 37.3987804,
+    "minlon": 127.1148061,
+    "maxlat": 37.3993148,
+    "maxlon": 127.1148154
+  },
+  "nodes": [
+    4355174713,
+    12000324336
+  ],
+  "geometry": [
+    { "lat": 37.3993148, "lon": 127.1148061 },
+    { "lat": 37.3987804, "lon": 127.1148154 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "highway": "footway"
+  }
+},
+{
+  "type": "way",
+  "id": 437776546,
+  "bounds": {
+    "minlat": 37.3948135,
+    "minlon": 127.1166427,
+    "maxlat": 37.3948220,
+    "maxlon": 127.1171013
+  },
+  "nodes": [
+    4355887805,
+    4355887804
+  ],
+  "geometry": [
+    { "lat": 37.3948135, "lon": 127.1166427 },
+    { "lat": 37.3948220, "lon": 127.1171013 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "bridge:name": "동판교육교",
+    "bridge:name:ko": "동판교육교",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1",
+    "maxheight": "4.5",
+    "surface": "wood"
+  }
+},
+{
+  "type": "way",
+  "id": 437776549,
+  "bounds": {
+    "minlat": 37.3914411,
+    "minlon": 127.1112644,
+    "maxlat": 37.3919135,
+    "maxlon": 127.1113060
+  },
+  "nodes": [
+    4355887810,
+    10976680438,
+    4355887813,
+    4355887814,
+    4355887815,
+    4355887816,
+    4355887817,
+    4355887818,
+    4355887819,
+    4355887820,
+    10976680436,
+    4355887811
+  ],
+  "geometry": [
+    { "lat": 37.3914411, "lon": 127.1112644 },
+    { "lat": 37.3914581, "lon": 127.1112695 },
+    { "lat": 37.3915247, "lon": 127.1112893 },
+    { "lat": 37.3915804, "lon": 127.1112997 },
+    { "lat": 37.3916352, "lon": 127.1113060 },
+    { "lat": 37.3916846, "lon": 127.1113053 },
+    { "lat": 37.3917160, "lon": 127.1113045 },
+    { "lat": 37.3917739, "lon": 127.1112966 },
+    { "lat": 37.3918198, "lon": 127.1112882 },
+    { "lat": 37.3918538, "lon": 127.1112813 },
+    { "lat": 37.3918885, "lon": 127.1112720 },
+    { "lat": 37.3919135, "lon": 127.1112652 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "bridge:name": "낙생육교",
+    "bridge:name:ko": "낙생육교",
+    "bridge:structure": "cable-stayed",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1",
+    "maxheight": "4.5",
+    "surface": "urethane"
+  }
+},
+{
+  "type": "way",
+  "id": 456484481,
+  "bounds": {
+    "minlat": 37.3945771,
+    "minlon": 127.1126268,
+    "maxlat": 37.3948076,
+    "maxlon": 127.1137918
+  },
+  "nodes": [
+    4527461106,
+    4527461107,
+    4527461108,
+    4527461109,
+    4527461110,
+    4530371729,
+    4530371730,
+    4530371731,
+    4530371732,
+    4530371733,
+    4530371734
+  ],
+  "geometry": [
+    { "lat": 37.3945771, "lon": 127.1126268 },
+    { "lat": 37.3945771, "lon": 127.1131512 },
+    { "lat": 37.3945816, "lon": 127.1132245 },
+    { "lat": 37.3945995, "lon": 127.1132978 },
+    { "lat": 37.3946488, "lon": 127.1133824 },
+    { "lat": 37.3946946, "lon": 127.1134672 },
+    { "lat": 37.3947224, "lon": 127.1135289 },
+    { "lat": 37.3947607, "lon": 127.1136255 },
+    { "lat": 37.3947692, "lon": 127.1136603 },
+    { "lat": 37.3947884, "lon": 127.1137140 },
+    { "lat": 37.3948076, "lon": 127.1137918 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "bridge:name": "나드리육교",
+    "bridge:name:ko": "나드리육교",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1",
+    "lit": "yes",
+    "maxheight": "4.5",
+    "surface": "concrete"
+  }
+},
+{
+  "type": "way",
+  "id": 456802154,
+  "bounds": {
+    "minlat": 37.3943127,
+    "minlon": 127.1090839,
+    "maxlat": 37.3948899,
+    "maxlon": 127.1090894
+  },
+  "nodes": [
+    4530371717,
+    4530371719,
+    4530371718
+  ],
+  "geometry": [
+    { "lat": 37.3943127, "lon": 127.1090894 },
+    { "lat": 37.3945004, "lon": 127.1090880 },
+    { "lat": 37.3948899, "lon": 127.1090839 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "check_date:surface": "2026-02-26",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "surface": "paved"
+  }
+},
+{
+  "type": "way",
+  "id": 456802155,
+  "bounds": {
+    "minlat": 37.3945004,
+    "minlon": 127.1090880,
+    "maxlat": 37.3945108,
+    "maxlon": 127.1099196
+  },
+  "nodes": [
+    4530371719,
+    4530371728,
+    4530371720,
+    4530371721,
+    4530371722
+  ],
+  "geometry": [
+    { "lat": 37.3945004, "lon": 127.1090880 },
+    { "lat": 37.3945024, "lon": 127.1092391 },
+    { "lat": 37.3945022, "lon": 127.1095323 },
+    { "lat": 37.3945065, "lon": 127.1097421 },
+    { "lat": 37.3945108, "lon": 127.1099196 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "bridge:name": "삼평육교",
+    "bridge:name:ko": "삼평육교",
+    "check_date:surface": "2026-02-26",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1",
+    "maxheight": "4.5",
+    "surface": "paved"
+  }
+},
+{
+  "type": "way",
+  "id": 456865996,
+  "bounds": {
+    "minlat": 37.3977697,
+    "minlon": 127.1123531,
+    "maxlat": 37.3982065,
+    "maxlon": 127.1127340
+  },
+  "nodes": [
+    4530988087,
+    4530988088,
+    4530988389,
+    4530988394,
+    4530988395,
+    4530988390,
+    4530988391,
+    4530988392,
+    4530988393,
+    4530988087
+  ],
+  "geometry": [
+    { "lat": 37.3982065, "lon": 127.1123558 },
+    { "lat": 37.3980424, "lon": 127.1123531 },
+    { "lat": 37.3980416, "lon": 127.1124272 },
+    { "lat": 37.3979508, "lon": 127.1124255 },
+    { "lat": 37.3979508, "lon": 127.1124940 },
+    { "lat": 37.3977718, "lon": 127.1124926 },
+    { "lat": 37.3977697, "lon": 127.1127340 },
+    { "lat": 37.3981297, "lon": 127.1127340 },
+    { "lat": 37.3982022, "lon": 127.1126536 },
+    { "lat": 37.3982065, "lon": 127.1123558 }
+  ],
+  "tags": {
+    "addr:city": "성남시",
+    "addr:housenumber": "159",
+    "addr:postcode": "13524",
+    "addr:province": "경기도",
+    "addr:street": "분당내곡로 (Bundangnaegok-ro)",
+    "building": "apartments",
+    "building:flats": "190",
+    "building:levels": "17",
+    "height": "64",
+    "name": "판교역 KCC웰츠타워 오피스텔 A",
+    "name:ko": "판교역 KCC웰츠타워 오피스텔 A",
+    "start_date": "2013"
+  }
+},
+{
+  "type": "way",
+  "id": 457626000,
+  "bounds": {
+    "minlat": 37.3975023,
+    "minlon": 127.1124167,
+    "maxlat": 37.3977350,
+    "maxlon": 127.1127436
+  },
+  "nodes": [
+    4537368979,
+    4537368980,
+    4537368981,
+    4537368982,
+    4537368983,
+    4537368984,
+    4537368985,
+    4537368986,
+    4537368979
+  ],
+  "geometry": [
+    { "lat": 37.3977350, "lon": 127.1124435 },
+    { "lat": 37.3976225, "lon": 127.1124422 },
+    { "lat": 37.3976225, "lon": 127.1124167 },
+    { "lat": 37.3975383, "lon": 127.1124167 },
+    { "lat": 37.3975362, "lon": 127.1125897 },
+    { "lat": 37.3975038, "lon": 127.1125896 },
+    { "lat": 37.3975023, "lon": 127.1127436 },
+    { "lat": 37.3977335, "lon": 127.1127428 },
+    { "lat": 37.3977350, "lon": 127.1124435 }
+  ],
+  "tags": {
+    "addr:city": "성남시",
+    "addr:housenumber": "155",
+    "addr:postcode": "13524",
+    "addr:street": "분당내곡로",
+    "building": "apartments",
+    "building:flats": "66",
+    "building:levels": "16",
+    "height": "64",
+    "name": "판교역 KCC웰츠타워 오피스텔 B",
+    "name:ko": "판교역 KCC웰츠타워 오피스텔 B",
+    "start_date": "2013"
+  }
+},
+{
+  "type": "way",
+  "id": 598086644,
+  "bounds": {
+    "minlat": 37.3981064,
+    "minlon": 127.1111472,
+    "maxlat": 37.3989025,
+    "maxlon": 127.1112079
+  },
+  "nodes": [
+    5693010720,
+    14080436398,
+    14080436399,
+    14080436397,
+    9331477308,
+    9331477309,
+    9331477310,
+    5693010719
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    { "lat": 37.3989025, "lon": 127.1111506 },
+    { "lat": 37.3987369, "lon": 127.1111472 },
+    { "lat": 37.3986030, "lon": 127.1111618 },
+    { "lat": 37.3983145, "lon": 127.1111889 },
+    { "lat": 37.3981064, "lon": 127.1112079 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "bridge:name": "개나리교",
+    "bridge:name:ko": "개나리교",
+    "bridge:structure": "cable-stayed",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 628040345,
+  "bounds": {
+    "minlat": 37.3946643,
+    "minlon": 127.1115671,
+    "maxlat": 37.3946974,
+    "maxlon": 127.1186808
+  },
+  "nodes": [
+    5927786494,
+    5624997113,
+    11778014345,
+    5624997114,
+    5882162370,
+    5624997116,
+    5624997117,
+    5624997118,
+    5624997119,
+    5624997120,
+    8043765352,
+    8043765330,
+    8043765351,
+    8298761349,
+    5624997821,
+    5624997822,
+    5624997823,
+    5624997824,
+    5624997825,
+    5624997826,
+    5624997827,
+    5624997828,
+    5624997829,
+    5624997830,
+    5624997831,
+    5624997832,
+    5624997833,
+    5624997834,
+    5624997835,
+    5624997836,
+    5624997837,
+    5624997838,
+    5624997839,
+    5624997840
+  ],
+  "geometry": [
+    { "lat": 37.3946974, "lon": 127.1115671 },
+    { "lat": 37.3946848, "lon": 127.1142190 },
+    { "lat": 37.3946643, "lon": 127.1186808 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-4",
+    "maxspeed": "120",
+    "name": "경강선",
+    "name:en": "Gyeonggang Line",
+    "name:ja": "京江線",
+    "name:ko": "경강선",
+    "name:ko-Hani": "京江線",
+    "name:zh": "京江線",
+    "name:zh-Hans": "京江线",
+    "name:zh-Hant": "京江線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ctc": "yes",
+    "railway:etcs": "1",
+    "ref": "323",
+    "start_date": "2016-09-24",
+    "tunnel": "yes",
+    "tunnel:name": "이매터널",
+    "tunnel:name:ko": "이매터널",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 628040346,
+  "bounds": {
+    "minlat": 37.3947210,
+    "minlon": 127.1115664,
+    "maxlat": 37.3947577,
+    "maxlon": 127.1171489
+  },
+  "nodes": [
+    5927786495,
+    8298761347,
+    3985555619,
+    3985555622,
+    3985555615,
+    11778014346,
+    8855638899,
+    5438262710,
+    5882162369,
+    5882162371,
+    5882162372,
+    3541201401,
+    3541201400,
+    3541201402,
+    8043765329,
+    3541201399,
+    8043765347,
+    3541201398,
+    3541201397,
+    3541201396,
+    4257666901,
+    3541201403,
+    3541201411,
+    3541201404,
+    3541201412,
+    3541201395,
+    3541201410,
+    3541201414,
+    3541201409,
+    3541201413,
+    3541201394,
+    3541201418,
+    3541201408,
+    3541201417,
+    3541201407,
+    3541201416,
+    3541201415,
+    3541201419,
+    3541201406,
+    3541201422
+  ],
+  "geometry": [
+    { "lat": 37.3947577, "lon": 127.1115664 },
+    { "lat": 37.3947482, "lon": 127.1124031 },
+    { "lat": 37.3947210, "lon": 127.1165080 },
+    { "lat": 37.3947241, "lon": 127.1171489 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-4",
+    "maxspeed": "120",
+    "name": "경강선",
+    "name:en": "Gyeonggang Line",
+    "name:ja": "京江線",
+    "name:ko": "경강선",
+    "name:ko-Hani": "京江線",
+    "name:zh": "京江線",
+    "name:zh-Hans": "京江线",
+    "name:zh-Hant": "京江線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ctc": "yes",
+    "railway:etcs": "1",
+    "ref": "323",
+    "start_date": "2016-09-24",
+    "tunnel": "yes",
+    "tunnel:name": "이매터널",
+    "tunnel:name:ko": "이매터널",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 840030985,
+  "bounds": {
+    "minlat": 37.3981064,
+    "minlon": 127.1066599,
+    "maxlat": 37.3988829,
+    "maxlon": 127.1068311
+  },
+  "nodes": [
+    7838758718,
+    4678565179,
+    4678565178,
+    4678565177,
+    7838758717
+  ],
+  "geometry": [
+    { "lat": 37.3981064, "lon": 127.1068311 },
+    { "lat": 37.3982338, "lon": 127.1068291 },
+    { "lat": 37.3983600, "lon": 127.1068123 },
+    { "lat": 37.3986677, "lon": 127.1067491 },
+    { "lat": 37.3988829, "lon": 127.1066599 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 892900371,
+  "bounds": {
+    "minlat": 37.3946850,
+    "minlon": 127.1054948,
+    "maxlat": 37.3947073,
+    "maxlon": 127.1115671
+  },
+  "nodes": [
+    9706770459,
+    14079814206,
+    5927786494
+  ],
+  "geometry": [
+    { "lat": 37.3946850, "lon": 127.1054948 },
+    { "lat": 37.3947073, "lon": 127.1064307 },
+    { "lat": 37.3946974, "lon": 127.1115671 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-4",
+    "maxspeed": "120",
+    "name": "경강선",
+    "name:en": "Gyeonggang Line",
+    "name:ja": "京江線",
+    "name:ko": "경강선",
+    "name:ko-Hani": "京江線",
+    "name:zh": "京江線",
+    "name:zh-Hans": "京江线",
+    "name:zh-Hant": "京江線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ctc": "yes",
+    "railway:etcs": "1",
+    "ref": "323",
+    "start_date": "2016-09-24",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 892900372,
+  "bounds": {
+    "minlat": 37.3947577,
+    "minlon": 127.1054583,
+    "maxlat": 37.3947684,
+    "maxlon": 127.1115664
+  },
+  "nodes": [
+    5928942377,
+    5927786495
+  ],
+  "geometry": [
+    { "lat": 37.3947684, "lon": 127.1054583 },
+    { "lat": 37.3947577, "lon": 127.1115664 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-4",
+    "maxspeed": "120",
+    "name": "경강선",
+    "name:en": "Gyeonggang Line",
+    "name:ja": "京江線",
+    "name:ko": "경강선",
+    "name:ko-Hani": "京江線",
+    "name:zh": "京江線",
+    "name:zh-Hans": "京江线",
+    "name:zh-Hant": "京江線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ctc": "yes",
+    "railway:etcs": "1",
+    "ref": "323",
+    "start_date": "2016-09-24",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 949889490,
+  "bounds": {
+    "minlat": 37.3846852,
+    "minlon": 127.1111216,
+    "maxlat": 37.4024207,
+    "maxlon": 127.1112779
+  },
+  "nodes": [
+    1996623989,
+    8808844595,
+    1906756403,
+    1906756220,
+    1906756238,
+    1906756391,
+    1906756410,
+    1906756375,
+    1906756393,
+    1906756312,
+    12236628994,
+    1906756320,
+    1906756334,
+    1906756395,
+    1906756298,
+    1906756302,
+    14078153933,
+    1906756385,
+    14078153939,
+    1906756246,
+    3855980466,
+    1906756388,
+    1906756381,
+    1906756225,
+    8808844568,
+    2879171972,
+    2879171973,
+    1906756322,
+    5624997112,
+    2879171979,
+    8808844562,
+    1906756229,
+    1906756227,
+    1906756223,
+    1906756265,
+    1906756413,
+    1906756338,
+    1906756233,
+    1906756347,
+    1906756343,
+    1906756319,
+    1906756398,
+    1906756329,
+    8793714493,
+    1915043092
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 37.4024207, "lon": 127.1111216 },
+    { "lat": 37.3985056, "lon": 127.1111758 },
+    { "lat": 37.3953972, "lon": 127.1111765 },
+    { "lat": 37.3950617, "lon": 127.1111791 },
+    { "lat": 37.3947644, "lon": 127.1111814 },
+    { "lat": 37.3943639, "lon": 127.1111873 },
+    { "lat": 37.3941183, "lon": 127.1111850 },
+    { "lat": 37.3912899, "lon": 127.1112779 },
+    { "lat": 37.3846852, "lon": 127.1112370 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-3",
+    "maxspeed": "90",
+    "name": "신분당선",
+    "name:en": "Shinbundang Line",
+    "name:ja": "新盆唐線",
+    "name:ko": "신분당선",
+    "name:ko-Hani": "新盆唐線",
+    "name:zh": "新盆唐线",
+    "name:zh-Hans": "新盆唐线",
+    "name:zh-Hant": "新盆唐線",
+    "network": "수도권 전철",
+    "oneway": "yes",
+    "operator": "네오트랜스주식회사",
+    "operator:en": "NEO TRANS CO., LTD",
+    "operator:ko": "네오트랜스주식회사",
+    "operator:type": "private",
+    "operator:wikidata": "Q13709959",
+    "railway": "rail",
+    "railway:ato": "dto",
+    "railway:cbtc": "RF",
+    "ref": "320",
+    "start_date": "2011-10-28",
+    "tracks": "2",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 951688079,
+  "bounds": {
+    "minlat": 37.3896260,
+    "minlon": 127.1110861,
+    "maxlat": 37.3991614,
+    "maxlon": 127.1111524
+  },
+  "nodes": [
+    8808844625,
+    8808844548,
+    8808844549,
+    8808844550,
+    8808844551,
+    8808844552,
+    8808844553,
+    8808844554,
+    8808844555,
+    8808844556,
+    8808844557,
+    8808844558,
+    8808844559,
+    8808844560,
+    8808844561,
+    8808844563,
+    8808844566,
+    8808844564,
+    8808844565,
+    8808844567,
+    8808844569,
+    8808844570,
+    8808844571,
+    8808844572,
+    8808844573,
+    8808844574,
+    8808844575,
+    8808844576,
+    8808844577,
+    8808844578,
+    8808844579,
+    8808844580,
+    8808844581,
+    8808844582,
+    8808844583,
+    8808844584,
+    8808844585,
+    8808844586,
+    8808844587,
+    4313280937,
+    8808844588,
+    8808844589,
+    8808844590,
+    8808844591,
+    8808844594,
+    8808844592,
+    8808844593
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 37.3896260, "lon": 127.1111267 },
+    { "lat": 37.3914195, "lon": 127.1111524 },
+    { "lat": 37.3933442, "lon": 127.1111385 },
+    { "lat": 37.3943545, "lon": 127.1111220 },
+    { "lat": 37.3946321, "lon": 127.1111174 },
+    { "lat": 37.3954105, "lon": 127.1111200 },
+    { "lat": 37.3975341, "lon": 127.1110987 },
+    { "lat": 37.3991614, "lon": 127.1110861 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-3",
+    "maxspeed": "90",
+    "name": "신분당선",
+    "name:en": "Shinbundang Line",
+    "name:ja": "新盆唐線",
+    "name:ko": "신분당선",
+    "name:ko-Hani": "新盆唐線",
+    "name:zh": "新盆唐线",
+    "name:zh-Hans": "新盆唐线",
+    "name:zh-Hant": "新盆唐線",
+    "network": "수도권 전철",
+    "oneway": "yes",
+    "operator": "네오트랜스주식회사",
+    "operator:en": "NEO TRANS CO., LTD",
+    "operator:ko": "네오트랜스주식회사",
+    "operator:type": "private",
+    "operator:wikidata": "Q13709959",
+    "railway": "rail",
+    "railway:ato": "dto",
+    "railway:cbtc": "RF",
+    "ref": "320",
+    "start_date": "2011-10-28",
+    "tracks": "1",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1132123001,
+  "bounds": {
+    "minlat": 37.3919987,
+    "minlon": 127.1099856,
+    "maxlat": 37.3928320,
+    "maxlon": 127.1109857
+  },
+  "nodes": [
+    10555946759,
+    10555946760,
+    10555946761,
+    10555946762,
+    10555946763,
+    10555946764,
+    10555946765,
+    10555946766,
+    10555946759
+  ],
+  "geometry": [
+    { "lat": 37.3928159, "lon": 127.1099856 },
+    { "lat": 37.3922151, "lon": 127.1099978 },
+    { "lat": 37.3919987, "lon": 127.1109817 },
+    { "lat": 37.3928320, "lon": 127.1109857 },
+    { "lat": 37.3928320, "lon": 127.1108028 },
+    { "lat": 37.3921840, "lon": 127.1107925 },
+    { "lat": 37.3923152, "lon": 127.1102051 },
+    { "lat": 37.3928159, "lon": 127.1102051 },
+    { "lat": 37.3928159, "lon": 127.1099856 }
+  ],
+  "tags": {
+    "building": "apartments",
+    "building:flats": "486",
+    "building:levels": "20",
+    "height": "63",
+    "layer": "1",
+    "name": "힐스테이트 판교역",
+    "start_date": "2022"
+  }
+},
+{
+  "type": "way",
+  "id": 1284737071,
+  "bounds": {
+    "minlat": 37.3986271,
+    "minlon": 127.1131211,
+    "maxlat": 37.3992100,
+    "maxlon": 127.1131260
+  },
+  "nodes": [
+    11918729121,
+    11918728974
+  ],
+  "geometry": [
+    { "lat": 37.3986271, "lon": 127.1131211 },
+    { "lat": 37.3992100, "lon": 127.1131260 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1284737101,
+  "bounds": {
+    "minlat": 37.3985738,
+    "minlon": 127.1128247,
+    "maxlat": 37.3991668,
+    "maxlon": 127.1128256
+  },
+  "nodes": [
+    11918728970,
+    11918728978
+  ],
+  "geometry": [
+    { "lat": 37.3985738, "lon": 127.1128256 },
+    { "lat": 37.3991668, "lon": 127.1128247 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1306729812,
+  "bounds": {
+    "minlat": 37.3928995,
+    "minlon": 127.1099625,
+    "maxlat": 37.3931266,
+    "maxlon": 127.1110076
+  },
+  "nodes": [
+    12101817317,
+    12101817318,
+    12101817319,
+    12101817320,
+    12101817317
+  ],
+  "geometry": [
+    { "lat": 37.3928995, "lon": 127.1110069 },
+    { "lat": 37.3931246, "lon": 127.1110076 },
+    { "lat": 37.3931266, "lon": 127.1099632 },
+    { "lat": 37.3929016, "lon": 127.1099625 },
+    { "lat": 37.3928995, "lon": 127.1110069 }
+  ],
+  "tags": {
+    "building": "apartments",
+    "building:flats": "98",
+    "building:levels": "20",
+    "height": "67",
+    "layer": "1",
+    "name": "힐스테이트 판교역",
+    "start_date": "2022"
+  }
+},
+{
+  "type": "way",
+  "id": 1359236946,
+  "bounds": {
+    "minlat": 37.3938878,
+    "minlon": 127.1062064,
+    "maxlat": 37.3942257,
+    "maxlon": 127.1068286
+  },
+  "nodes": [
+    12580990076,
+    12580990077
+  ],
+  "geometry": [
+    { "lat": 37.3938878, "lon": 127.1068286 },
+    { "lat": 37.3942257, "lon": 127.1062064 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1359236948,
+  "bounds": {
+    "minlat": 37.3944357,
+    "minlon": 127.1060905,
+    "maxlat": 37.3948936,
+    "maxlon": 127.1064830
+  },
+  "nodes": [
+    12580990083,
+    12580990080
+  ],
+  "geometry": [
+    { "lat": 37.3944357, "lon": 127.1060905 },
+    { "lat": 37.3948936, "lon": 127.1064830 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1"
+  }
+},
+{
+  "type": "relation",
+  "id": 20504072,
+  "bounds": {
+    "minlat": 37.3967231,
+    "minlon": 127.1117813,
+    "maxlat": 37.3970264,
+    "maxlon": 127.1121414
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 456802150,
+      "role": "outer",
+      "geometry": [
+         { "lat": 37.3967231, "lon": 127.1119579 },
+         { "lat": 37.3967876, "lon": 127.1119585 },
+         { "lat": 37.3968962, "lon": 127.1119593 },
+         { "lat": 37.3968956, "lon": 127.1121402 },
+         { "lat": 37.3970249, "lon": 127.1121414 },
+         { "lat": 37.3970259, "lon": 127.1119151 },
+         { "lat": 37.3969538, "lon": 127.1119151 },
+         { "lat": 37.3969538, "lon": 127.1117828 },
+         { "lat": 37.3967239, "lon": 127.1117813 },
+         { "lat": 37.3967231, "lon": 127.1119579 }
+      ]
+    },
+    {
+      "type": "way",
+      "ref": 456802149,
+      "role": "outer",
+      "geometry": [
+         { "lat": 37.3969538, "lon": 127.1117828 },
+         { "lat": 37.3969538, "lon": 127.1119151 },
+         { "lat": 37.3970259, "lon": 127.1119151 },
+         { "lat": 37.3970264, "lon": 127.1117833 },
+         { "lat": 37.3969538, "lon": 127.1117828 }
+      ]
+    }
+  ],
+  "tags": {
+    "addr:city": "성남시",
+    "addr:housenumber": "45",
+    "addr:postcode": "13524",
+    "addr:street": "대왕판교로606번길",
+    "building": "apartments",
+    "building:flats": "257",
+    "building:levels": "14",
+    "height": "46",
+    "name": "판교역 푸르지오시티",
+    "name:en": "Pan-gyo station Prugio City",
+    "name:ko": "판교역 푸르지오시티",
+    "start_date": "2014",
+    "type": "multipolygon"
+  }
+}
+
+  ]
+}

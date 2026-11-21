@@ -76,7 +76,8 @@ const trainStops = new Set();
 if (existsSync(RUN_INFO)) {
   const runInfo = JSON.parse(readFileSync(RUN_INFO, 'utf8'));
   for (const list of Object.values(runInfo.runs)) {
-    for (const r of list) if (['01', '02', '05', '11'].includes(r.stop_se_cd)) trainStops.add(key(r.stn_nm));
+    // 수서역은 코레일 기록에 "S수서"처럼 앞에 S가 붙어 온다(SRT 역). 떼고 견준다.
+    for (const r of list) if (['01', '02', '05', '11'].includes(r.stop_se_cd)) trainStops.add(key(String(r.stn_nm).replace(/^S(?=[가-힣])/, '')));
   }
 }
 for (const n of trainStops) passenger.add(n);
@@ -335,6 +336,8 @@ const findChain = (sheet, names) =>
   allChains.find((c) => c.sheet === sheet && names.every((n) => c.seq.some((p) => p.name === key(n))));
 for (const def of config.lines) {
   const along = [];
+  // start: 거리표에 없는 노선(수서고속선은 에스알이 운영해 코레일 거리표에 없다)은 이 역에서 시작해 append로 OSM 역을 잇는다.
+  if (def.start) along.push({ name: key(def.start), km: 0, start: true });
   for (const [i, part] of def.chains.entries()) {
     const found = findChain(part.sheet, part.contains);
     if (!found) {
@@ -360,7 +363,8 @@ for (const def of config.lines) {
         km = 0;
         continue; // 이어 붙이는 역은 이미 있다
       }
-      along.push({ name: aliases[p.name] ?? p.name, km: Math.round((base + km) * 10) / 10, stopsOnly: Boolean(part.stopsOnly) });
+      // only: 이 역만 쓴다(경강선 판교(경기)는 코레일 역 코드가 없어 그날 선 역을 기록으로 가릴 수 없다)
+      along.push({ name: aliases[p.name] ?? p.name, km: Math.round((base + km) * 10) / 10, stopsOnly: Boolean(part.stopsOnly), only: part.only?.map(key) });
     }
   }
   const ids = [];
@@ -368,7 +372,7 @@ for (const def of config.lines) {
   for (const point of along) {
     // 여객역인지: 코레일 목록(2024-04)에 이름이 있거나, 그 뒤 이름이 바뀐 역이면 OSM의 옛 이름(old_name)이 목록에 있다(예: 신경주 → 경주).
     // stopsOnly: 수도권처럼 전철만 서는 역이 많은 구간은 그날 여객 열차가 선 역만 쓴다
-    const isPassenger = point.stopsOnly ? trainStops.has(point.name) : passenger.has(point.name) || osmByName(point.name).some((c) => c.oldNames.some((n) => passenger.has(n)));
+    const isPassenger = point.start || point.only?.includes(point.name) || (!point.only && point.stopsOnly ? trainStops.has(point.name) : passenger.has(point.name) || osmByName(point.name).some((c) => c.oldNames.some((n) => passenger.has(n))));
     if (!isPassenger) {
       if (osmByName(point.name).some(inGrid)) unconfirmed.add(point.name);
       continue;
@@ -378,16 +382,20 @@ for (const def of config.lines) {
       if (osmByName(point.name).length === 0 && koreanInGrid.has(point.name)) issues.push(`${def.name} ${point.name}: OSM에 이 이름의 역이 없어 뺐어요(문을 닫았거나 이름이 바뀐 역일 수 있어요).`);
       continue;
     }
-    // 같은 이름이 여럿이면 앞 역에 가까운 쪽
+    // 같은 이름이 여럿이면 앞 역에 가까운 쪽. 첫 역이면 다음 역에 가까운 쪽(경강선 판교와 장항선 판교처럼 멀리 떨어진 같은 이름 역).
     const last = ids.length ? stations.get(ids.at(-1)) : null;
-    const s = last ? candidates.sort((a, b) => Math.hypot(a.x - last.x, a.y - last.y) - Math.hypot(b.x - last.x, b.y - last.y))[0] : candidates[0];
+    const nextName = along[along.indexOf(point) + 1]?.name ?? def.append?.[0];
+    const ref = last ?? (nextName ? osmByName(key(nextName)).filter(inGrid)[0] : null);
+    const s = ref ? candidates.sort((a, b) => Math.hypot(a.x - ref.x, a.y - ref.y) - Math.hypot(b.x - ref.x, b.y - ref.y))[0] : candidates[0];
     const snap = nearestNode(s);
     if (snap.km > 0.5) {
       issues.push(`${def.name} ${point.name}: 역이 선로에서 ${snap.km.toFixed(1)}km 떨어져 있어 뺐어요.`);
       continue;
     }
-    const id = `R-${s.label}`;
-    if (!stations.has(id)) stations.set(id, { id, name: s.label, x: round2(s.x), y: round2(s.y), lon: s.lon, lat: s.lat, lines: [], osm: s.osm, node: snap.node });
+    // rename: 다른 곳에 같은 이름 역이 있어 코레일이 이름에 지역을 붙인 역(경강선 판교 → 판교(경기), 장항선 판교와 다른 역)
+    const label = def.rename?.[s.label] ?? s.label;
+    const id = `R-${label}`;
+    if (!stations.has(id)) stations.set(id, { id, name: label, x: round2(s.x), y: round2(s.y), lon: s.lon, lat: s.lat, lines: [], osm: s.osm, node: snap.node });
     if (!stations.get(id).lines.includes(def.id)) stations.get(id).lines.push(def.id);
     if (ids.at(-1) === id) continue;
     ids.push(id);

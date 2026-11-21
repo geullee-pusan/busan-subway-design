@@ -1,0 +1,758 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-21T16:46:18Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 588474656,
+  "bounds": {
+    "minlat": 37.1957706,
+    "minlon": 127.0957514,
+    "maxlat": 37.2045131,
+    "maxlon": 127.0958327
+  },
+  "nodes": [
+    4642004677,
+    10253131043,
+    7632207716,
+    5865327645,
+    5620475667,
+    5620475668,
+    10253131045
+  ],
+  "geometry": [
+    { "lat": 37.1957706, "lon": 127.0957514 },
+    { "lat": 37.1972862, "lon": 127.0958282 },
+    { "lat": 37.1986263, "lon": 127.0958274 },
+    { "lat": 37.1990142, "lon": 127.0958271 },
+    { "lat": 37.2015572, "lon": 127.0958327 },
+    { "lat": 37.2024141, "lon": 127.0958140 },
+    { "lat": 37.2045131, "lon": 127.0957916 }
+  ],
+  "tags": {
+    "construction:railway:etcs": "2",
+    "construction:railway:ktcs": "2",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "-5",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding",
+    "start_date": "2004-04-01",
+    "tunnel": "yes",
+    "voltage": "25000",
+    "wikidata": "Q3088068"
+  }
+},
+{
+  "type": "way",
+  "id": 814108392,
+  "bounds": {
+    "minlat": 37.2006420,
+    "minlon": 127.0915453,
+    "maxlat": 37.2009135,
+    "maxlon": 127.0919223
+  },
+  "nodes": [
+    7604981042,
+    11788913179,
+    7604981043,
+    7604981044,
+    7604981045,
+    7604981042
+  ],
+  "geometry": [
+    { "lat": 37.2009135, "lon": 127.0915470 },
+    { "lat": 37.2009122, "lon": 127.0918812 },
+    { "lat": 37.2008754, "lon": 127.0919223 },
+    { "lat": 37.2006420, "lon": 127.0919209 },
+    { "lat": 37.2006434, "lon": 127.0915453 },
+    { "lat": 37.2009135, "lon": 127.0915470 }
+  ],
+  "tags": {
+    "addr:city": "화성시",
+    "addr:district": "동탄구",
+    "addr:housenumber": "447-54",
+    "addr:postcode": "18479",
+    "addr:province": "경기도",
+    "addr:street": "동탄기흥로",
+    "addr:subdistrict": "여울동",
+    "building": "apartments",
+    "building:flats": "144",
+    "building:levels": "12",
+    "height": "59",
+    "name": "동탄역스타디움블루오피스텔",
+    "start_date": "2021"
+  }
+},
+{
+  "type": "way",
+  "id": 817199330,
+  "bounds": {
+    "minlat": 37.1957706,
+    "minlon": 127.0956667,
+    "maxlat": 37.2070839,
+    "maxlon": 127.0957514
+  },
+  "nodes": [
+    3370207082,
+    9289228553,
+    5620475664,
+    4642004677
+  ],
+  "geometry": [
+    null,
+    { "lat": 37.2070839, "lon": 127.0956667 },
+    { "lat": 37.1987445, "lon": 127.0956825 },
+    { "lat": 37.1957706, "lon": 127.0957514 }
+  ],
+  "tags": {
+    "construction:railway:etcs": "2",
+    "construction:railway:ktcs": "2",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "-5",
+    "maxspeed": "300",
+    "name": "수서평택고속선",
+    "name:en": "Suseo high-speed railway",
+    "name:ja": "水西平沢高速線",
+    "name:ko": "수서평택고속선",
+    "name:ko-Hani": "水西平澤高速線",
+    "name:zh": "水西平澤高速線",
+    "name:zh-Hans": "水西平泽高速线",
+    "name:zh-Hant": "水西平澤高速線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "proposed:railway:ktcs": "2",
+    "railway": "rail",
+    "railway:ctc": "yes",
+    "railway:radio": "lte-r",
+    "railway:tvm": "430",
+    "ref": "103",
+    "start_date": "2016-12-09",
+    "tracks": "1",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "wikidata": "Q3088068",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 817199331,
+  "bounds": {
+    "minlat": 37.1957722,
+    "minlon": 127.0954571,
+    "maxlat": 37.2072530,
+    "maxlon": 127.0955451
+  },
+  "nodes": [
+    5620475670,
+    10253131044,
+    5620475671
+  ],
+  "geometry": [
+    { "lat": 37.2072530, "lon": 127.0955451 },
+    { "lat": 37.2033208, "lon": 127.0954571 },
+    { "lat": 37.1957722, "lon": 127.0954691 }
+  ],
+  "tags": {
+    "construction:railway:etcs": "2",
+    "construction:railway:ktcs": "2",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "-5",
+    "maxspeed": "300",
+    "name": "수서평택고속선",
+    "name:en": "Suseo high-speed railway",
+    "name:ja": "水西平沢高速線",
+    "name:ko": "수서평택고속선",
+    "name:ko-Hani": "水西平澤高速線",
+    "name:zh": "水西平澤高速線",
+    "name:zh-Hans": "水西平泽高速线",
+    "name:zh-Hant": "水西平澤高速線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "proposed:railway:ktcs": "2",
+    "railway": "rail",
+    "railway:ctc": "yes",
+    "railway:radio": "lte-r",
+    "railway:tvm": "430",
+    "ref": "103",
+    "start_date": "2016-12-09",
+    "tracks": "1",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "25000",
+    "wikidata": "Q3088068",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 820409006,
+  "bounds": {
+    "minlat": 37.1957722,
+    "minlon": 127.0952596,
+    "maxlat": 37.2022854,
+    "maxlon": 127.0954691
+  },
+  "nodes": [
+    7632207771,
+    11778009546,
+    5620475674,
+    5620475675,
+    5620475676,
+    10253131040,
+    5620475671
+  ],
+  "geometry": [
+    { "lat": 37.2022854, "lon": 127.0952596 },
+    { "lat": 37.2017534, "lon": 127.0952692 },
+    { "lat": 37.2010395, "lon": 127.0952821 },
+    { "lat": 37.1995359, "lon": 127.0952983 },
+    { "lat": 37.1987468, "lon": 127.0953034 },
+    { "lat": 37.1971947, "lon": 127.0953927 },
+    { "lat": 37.1957722, "lon": 127.0954691 }
+  ],
+  "tags": {
+    "construction:railway:etcs": "2",
+    "construction:railway:ktcs": "2",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "-5",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding",
+    "start_date": "2004-04-01",
+    "tunnel": "yes",
+    "voltage": "25000",
+    "wikidata": "Q3088068"
+  }
+},
+{
+  "type": "way",
+  "id": 1240795614,
+  "bounds": {
+    "minlat": 37.1970493,
+    "minlon": 127.0963876,
+    "maxlat": 37.1974090,
+    "maxlon": 127.0973413
+  },
+  "nodes": [
+    11528358017,
+    11528358018,
+    11528358019,
+    11528358020,
+    11528358022,
+    11528358023,
+    11528358017
+  ],
+  "geometry": [
+    { "lat": 37.1970589, "lon": 127.0964654 },
+    { "lat": 37.1970493, "lon": 127.0973352 },
+    { "lat": 37.1973985, "lon": 127.0973413 },
+    { "lat": 37.1974090, "lon": 127.0963925 },
+    { "lat": 37.1971039, "lon": 127.0963876 },
+    { "lat": 37.1970730, "lon": 127.0964159 },
+    { "lat": 37.1970589, "lon": 127.0964654 }
+  ],
+  "tags": {
+    "addr:city": "화성시",
+    "addr:district": "동탄구",
+    "addr:housenumber": "122",
+    "addr:postcode": "18478",
+    "addr:province": "경기도",
+    "addr:street": "동탄역로",
+    "addr:subdistrict": "여울동",
+    "building": "yes",
+    "name": "동탄역 그린파킹파크"
+  }
+},
+{
+  "type": "way",
+  "id": 1262408704,
+  "bounds": {
+    "minlat": 37.2002993,
+    "minlon": 127.0965584,
+    "maxlat": 37.2006792,
+    "maxlon": 127.0969149
+  },
+  "nodes": [
+    11729573138,
+    11729573139,
+    11729573140,
+    11729573141,
+    11729573138
+  ],
+  "geometry": [
+    { "lat": 37.2006792, "lon": 127.0965633 },
+    { "lat": 37.2006762, "lon": 127.0969149 },
+    { "lat": 37.2002993, "lon": 127.0969098 },
+    { "lat": 37.2003023, "lon": 127.0965584 },
+    { "lat": 37.2006792, "lon": 127.0965633 }
+  ],
+  "tags": {
+    "addr:city": "화성시",
+    "addr:district": "동탄구",
+    "addr:housenumber": "156",
+    "addr:postcode": "18478",
+    "addr:province": "경기도",
+    "addr:street": "동탄역로",
+    "addr:subdistrict": "여울동",
+    "building": "apartments",
+    "building:flats": "400",
+    "building:levels": "35",
+    "name": "동탄역롯데캐슬오피스텔 A동",
+    "start_date": "2021"
+  }
+},
+{
+  "type": "way",
+  "id": 1262408705,
+  "bounds": {
+    "minlat": 37.2009138,
+    "minlon": 127.0967531,
+    "maxlat": 37.2011036,
+    "maxlon": 127.0973666
+  },
+  "nodes": [
+    11729573142,
+    11729573143,
+    11729573144,
+    11729573145,
+    11729573142
+  ],
+  "geometry": [
+    { "lat": 37.2011036, "lon": 127.0967536 },
+    { "lat": 37.2009148, "lon": 127.0967531 },
+    { "lat": 37.2009138, "lon": 127.0973661 },
+    { "lat": 37.2011025, "lon": 127.0973666 },
+    { "lat": 37.2011036, "lon": 127.0967536 }
+  ],
+  "tags": {
+    "addr:city": "화성시",
+    "addr:district": "동탄구",
+    "addr:housenumber": "156",
+    "addr:postcode": "18478",
+    "addr:province": "경기도",
+    "addr:street": "동탄역로",
+    "addr:subdistrict": "여울동",
+    "building": "apartments",
+    "building:flats": "357",
+    "building:levels": "30",
+    "name": "동탄역롯데캐슬오피스텔 B동",
+    "start_date": "2021"
+  }
+},
+{
+  "type": "way",
+  "id": 1262631307,
+  "bounds": {
+    "minlat": 37.1950983,
+    "minlon": 127.0959659,
+    "maxlat": 37.1984804,
+    "maxlon": 127.0959773
+  },
+  "nodes": [
+    11731222398,
+    11731222405,
+    14138088205,
+    11731222397,
+    11778009550,
+    11731222399
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    { "lat": 37.1950983, "lon": 127.0959659 },
+    { "lat": 37.1963262, "lon": 127.0959700 },
+    { "lat": 37.1984804, "lon": 127.0959773 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-5",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "yard",
+    "start_date": "2024-03-30",
+    "tunnel": "yes",
+    "voltage": "25000"
+  }
+},
+{
+  "type": "way",
+  "id": 1262631308,
+  "bounds": {
+    "minlat": 37.1953646,
+    "minlon": 127.0950728,
+    "maxlat": 37.2019878,
+    "maxlon": 127.0951142
+  },
+  "nodes": [
+    11731222404,
+    11731222403,
+    11731222414,
+    11731222409,
+    11731222407,
+    11731222415,
+    11731222408,
+    11731222402,
+    11731222406,
+    11731222401,
+    11778009547,
+    11731222400
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 37.1953646, "lon": 127.0950728 },
+    { "lat": 37.1984039, "lon": 127.0951142 },
+    { "lat": 37.2019878, "lon": 127.0950729 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-5",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "yard",
+    "start_date": "2024-03-30",
+    "tunnel": "yes",
+    "voltage": "25000",
+    "wikidata": "Q3088068"
+  }
+},
+{
+  "type": "way",
+  "id": 1262631309,
+  "bounds": {
+    "minlat": 37.1984804,
+    "minlon": 127.0957916,
+    "maxlat": 37.2045131,
+    "maxlon": 127.0959966
+  },
+  "nodes": [
+    10253131045,
+    11731222393,
+    11731222396,
+    11778009549,
+    11731222399
+  ],
+  "geometry": [
+    { "lat": 37.2045131, "lon": 127.0957916 },
+    { "lat": 37.2025827, "lon": 127.0959966 },
+    { "lat": 37.2006422, "lon": 127.0959846 },
+    { "lat": 37.1994097, "lon": 127.0959804 },
+    { "lat": 37.1984804, "lon": 127.0959773 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-5",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding",
+    "start_date": "2024-03-30",
+    "tunnel": "yes",
+    "voltage": "25000",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1262631312,
+  "bounds": {
+    "minlat": 37.2019878,
+    "minlon": 127.0950729,
+    "maxlat": 37.2046535,
+    "maxlon": 127.0952970
+  },
+  "nodes": [
+    11731222400,
+    11731222394,
+    11778009548,
+    11731222392
+  ],
+  "geometry": [
+    { "lat": 37.2019878, "lon": 127.0950729 },
+    { "lat": 37.2028985, "lon": 127.0950748 },
+    { "lat": 37.2029115, "lon": 127.0950764 },
+    { "lat": 37.2046535, "lon": 127.0952970 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "layer": "-5",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding",
+    "start_date": "2024-03-30",
+    "tunnel": "yes",
+    "voltage": "25000",
+    "wikidata": "Q3088068",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 1268124415,
+  "bounds": {
+    "minlat": 37.2022854,
+    "minlon": 127.0952318,
+    "maxlat": 37.2046535,
+    "maxlon": 127.0952970
+  },
+  "nodes": [
+    11731222392,
+    7632207770,
+    7632207771
+  ],
+  "geometry": [
+    { "lat": 37.2046535, "lon": 127.0952970 },
+    { "lat": 37.2030291, "lon": 127.0952318 },
+    { "lat": 37.2022854, "lon": 127.0952596 }
+  ],
+  "tags": {
+    "construction:railway:etcs": "2",
+    "construction:railway:ktcs": "2",
+    "electrified": "contact_line",
+    "frequency": "60",
+    "gauge": "1435",
+    "highspeed": "yes",
+    "layer": "-5",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding",
+    "start_date": "2004-04-01",
+    "tunnel": "yes",
+    "voltage": "25000",
+    "wikidata": "Q3088068"
+  }
+},
+{
+  "type": "way",
+  "id": 1269236038,
+  "bounds": {
+    "minlat": 37.2006271,
+    "minlon": 127.0911559,
+    "maxlat": 37.2009366,
+    "maxlon": 127.0915427
+  },
+  "nodes": [
+    11788913186,
+    11788913187,
+    11788913194,
+    11788913195,
+    11788913186
+  ],
+  "geometry": [
+    { "lat": 37.2009366, "lon": 127.0911559 },
+    { "lat": 37.2006436, "lon": 127.0911559 },
+    { "lat": 37.2006271, "lon": 127.0915392 },
+    { "lat": 37.2009281, "lon": 127.0915427 },
+    { "lat": 37.2009366, "lon": 127.0911559 }
+  ],
+  "tags": {
+    "addr:city": "화성시",
+    "addr:district": "동탄구",
+    "addr:housenumber": "447-46",
+    "addr:province": "경기도",
+    "addr:street": "동탄기흥로",
+    "addr:subdistrict": "여울동",
+    "building": "apartments",
+    "building:flats": "88",
+    "building:levels": "13",
+    "height": "68",
+    "name": "동탄역현대위버포레",
+    "start_date": "2024"
+  }
+},
+{
+  "type": "way",
+  "id": 1299284402,
+  "bounds": {
+    "minlat": 37.2036828,
+    "minlon": 127.0975984,
+    "maxlat": 37.2039024,
+    "maxlon": 127.0982355
+  },
+  "nodes": [
+    12035913841,
+    12035913842,
+    12035913843,
+    12035913844,
+    12035913845,
+    12035913846,
+    12035913847,
+    12035913848,
+    12035913841
+  ],
+  "geometry": [
+    { "lat": 37.2037870, "lon": 127.0975984 },
+    { "lat": 37.2036830, "lon": 127.0977305 },
+    { "lat": 37.2036828, "lon": 127.0981059 },
+    { "lat": 37.2037826, "lon": 127.0982355 },
+    { "lat": 37.2038962, "lon": 127.0980976 },
+    { "lat": 37.2038037, "lon": 127.0979774 },
+    { "lat": 37.2038039, "lon": 127.0978668 },
+    { "lat": 37.2039024, "lon": 127.0977417 },
+    { "lat": 37.2037870, "lon": 127.0975984 }
+  ],
+  "tags": {
+    "addr:city": "화성시",
+    "addr:district": "동탄구",
+    "addr:housenumber": "196",
+    "addr:postcode": "18478",
+    "addr:province": "경기도",
+    "addr:street": "동탄역로",
+    "addr:subdistrict": "여울동",
+    "building": "apartments",
+    "building:flats": "498",
+    "building:levels": "25",
+    "height": "98",
+    "layer": "1",
+    "name": "동탄역예미지시그너스오피스텔",
+    "start_date": "2021"
+  }
+},
+{
+  "type": "way",
+  "id": 1561928673,
+  "bounds": {
+    "minlat": 37.2009746,
+    "minlon": 127.0921633,
+    "maxlat": 37.2012849,
+    "maxlon": 127.0925349
+  },
+  "nodes": [
+    14211554834,
+    14211554835,
+    14211554836,
+    14211554837,
+    14211554838,
+    13047650277,
+    14211554834
+  ],
+  "geometry": [
+    { "lat": 37.2012849, "lon": 127.0921633 },
+    { "lat": 37.2012849, "lon": 127.0923840 },
+    { "lat": 37.2011647, "lon": 127.0925349 },
+    { "lat": 37.2009746, "lon": 127.0925259 },
+    { "lat": 37.2009871, "lon": 127.0921633 },
+    { "lat": 37.2010244, "lon": 127.0921633 },
+    { "lat": 37.2012849, "lon": 127.0921633 }
+  ],
+  "tags": {
+    "addr:city": "화성시",
+    "addr:district": "동탄구",
+    "addr:housenumber": "447-14",
+    "addr:postcode": "18479",
+    "addr:province": "경기도",
+    "addr:street": "동탄기흥로",
+    "addr:subdistrict": "여울동",
+    "building": "apartments",
+    "building:flats": "96",
+    "building:levels": "13",
+    "height": "65",
+    "name": "동탄역CH리베로",
+    "start_date": "2024"
+  }
+},
+{
+  "type": "way",
+  "id": 1561928674,
+  "bounds": {
+    "minlat": 37.2005773,
+    "minlon": 127.0921413,
+    "maxlat": 37.2009238,
+    "maxlon": 127.0925157
+  },
+  "nodes": [
+    14211554839,
+    14211554840,
+    14211554844,
+    14211554841,
+    14211554842,
+    14211554843,
+    14211554839
+  ],
+  "geometry": [
+    { "lat": 37.2009238, "lon": 127.0921413 },
+    { "lat": 37.2006286, "lon": 127.0921413 },
+    { "lat": 37.2005819, "lon": 127.0921933 },
+    { "lat": 37.2005773, "lon": 127.0924344 },
+    { "lat": 37.2006301, "lon": 127.0925139 },
+    { "lat": 37.2009193, "lon": 127.0925157 },
+    { "lat": 37.2009238, "lon": 127.0921413 }
+  ],
+  "tags": {
+    "building": "construction",
+    "construction": "office",
+    "name": "동탄역루센채"
+  }
+}
+
+  ]
+}

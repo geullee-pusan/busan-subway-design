@@ -64,13 +64,16 @@ async function korailAll(path, params) {
 }
 
 /** 이름 견주기 */
-const nameKey = (name) => String(name ?? '').replace(/\s+/g, '').replace(/[()]/g, '').replace(/역$/, '');
+// 수서역은 코레일 기록과 역 코드에 "S수서"처럼 앞에 S가 붙어 온다(SRT 역). 떼고 견준다.
+const nameKey = (name) => String(name ?? '').replace(/^S(?=[가-힣])/, '').replace(/\s+/g, '').replace(/[()]/g, '').replace(/역$/, '');
 
 // 1. 지도 안 기차역 이름: 일반·고속 철도(rail.json)와 코레일이 운영하는 광역전철(동해선, 대경선)
 const rail = JSON.parse(readFileSync(resolve(ROOT, 'data/build/rail.json'), 'utf8'));
 const metro = JSON.parse(readFileSync(resolve(ROOT, 'data/build/stations.json'), 'utf8')).stations;
 // candidates: 여객역 목록에 없어 아직 넣지 않은 지도 안 역(열차가 서는지 보려고 함께 받는다)
-const wanted = new Set([...rail.stations.map((s) => nameKey(s.name)), ...(rail.candidates ?? []).map(nameKey), ...metro.filter((s) => s.line === 'DH' || s.line === 'DK').map((s) => nameKey(s.name))]);
+// rename: 같은 이름 역이 다른 곳에 있어 코레일이 지역을 붙인 이름(판교(경기)). 아직 노선에 없어도 받아 본다.
+const renamed = JSON.parse(readFileSync(resolve(ROOT, 'scripts/config/rail-lines.json'), 'utf8')).lines.flatMap((l) => Object.values(l.rename ?? {}));
+const wanted = new Set([...rail.stations.map((s) => nameKey(s.name)), ...(rail.candidates ?? []).map(nameKey), ...renamed.map(nameKey),...metro.filter((s) => s.line === 'DH' || s.line === 'DK').map((s) => nameKey(s.name))]);
 
 // 2. 코레일 역 코드
 console.log('코레일 역 코드를 받아요.');
@@ -177,7 +180,10 @@ const files = {
 };
 const lockPath = resolve(ROOT, 'data/raw-lock.json');
 const lock = JSON.parse(readFileSync(lockPath, 'utf8'));
-const today = new Date().toISOString().slice(0, 10);
+// 받은 날은 한국 시각으로 적는다(UTC로 적으면 새벽에 받은 것이 전날이 된다)
+const today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+// 같은 파일을 가리키는 날짜 붙은 옛 기록(korail-run-info-20261111 등)은 지운다. 해시가 맞지 않게 되기 때문이다.
+for (const [k, v] of Object.entries(lock)) if (/-\d{8}$/.test(k) && Object.values(files).some((f) => f.file === v.file)) delete lock[k];
 for (const [lockKey, { file, data }] of Object.entries(files)) {
   const text = JSON.stringify(data);
   writeFileSync(resolve(ROOT, file), text);

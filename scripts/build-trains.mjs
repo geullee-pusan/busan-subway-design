@@ -21,7 +21,8 @@ const runPlan = optional(`data/raw/korail/run-plan-${KORAIL_DATE}.json`);
 const tagoFares = optional(`data/raw/korail/tago-fares-${TAGO_DATE}.json`);
 const facts = JSON.parse(readFileSync(resolve(ROOT, 'data/facts.json'), 'utf8'));
 const planByNo = new Map((runPlan?.plans ?? []).map((p) => [Number(p.trn_no), p]));
-const key = (name) => String(name ?? '').replace(/\s+/g, '').replace(/[()]/g, '').replace(/역$/, '');
+// 수서역은 코레일 기록에 "S수서"처럼 앞에 S가 붙어 온다(SRT 역). 떼고 견준다.
+const key = (name) => String(name ?? '').replace(/^S(?=[가-힣])/, '').replace(/\s+/g, '').replace(/[()]/g, '').replace(/역$/, '');
 const issues = [];
 
 /** 열차 종류 이름을 화면에 쓸 이름으로: KTX-산천(A-type), KTX-산천(B-type) → KTX-산천 */

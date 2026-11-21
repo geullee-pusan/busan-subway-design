@@ -1,0 +1,424 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-21T16:39:20Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 45770596,
+  "bounds": {
+    "minlat": 37.7199198,
+    "minlon": 126.9747192,
+    "maxlat": 37.7200823,
+    "maxlon": 126.9755754
+  },
+  "nodes": [
+    582879626,
+    582879628
+  ],
+  "geometry": [
+    { "lat": 37.7199198, "lon": 126.9747192 },
+    { "lat": 37.7200823, "lon": 126.9755754 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "80",
+    "name": "교외선",
+    "name:en": "Gyooe Line",
+    "name:ja": "郊外線",
+    "name:ko": "교외선",
+    "name:ko-Hani": "郊外線",
+    "name:zh": "郊外線",
+    "name:zh-Hans": "郊外线",
+    "name:zh-Hant": "郊外線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "yes",
+    "ref": "30303",
+    "start_date": "1961-07-10",
+    "tracks": "1",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 45770597,
+  "bounds": {
+    "minlat": 37.7200823,
+    "minlon": 126.9755754,
+    "maxlat": 37.7216680,
+    "maxlon": 126.9850188
+  },
+  "nodes": [
+    582879628,
+    4699365505,
+    9704822018,
+    7966064379,
+    12518370672,
+    582879629,
+    7966064285,
+    4699365509,
+    582879632,
+    582879633,
+    8236227155,
+    582879634,
+    582879636,
+    582879637,
+    582879638,
+    582879639,
+    9819684797,
+    582879381,
+    5281083471,
+    582879358
+  ],
+  "geometry": [
+    { "lat": 37.7200823, "lon": 126.9755754 },
+    { "lat": 37.7201266, "lon": 126.9758319 },
+    { "lat": 37.7202427, "lon": 126.9766663 },
+    { "lat": 37.7203684, "lon": 126.9774251 },
+    { "lat": 37.7207271, "lon": 126.9795052 },
+    { "lat": 37.7212267, "lon": 126.9826049 },
+    { "lat": 37.7212339, "lon": 126.9826488 },
+    { "lat": 37.7214713, "lon": 126.9840976 },
+    { "lat": 37.7215238, "lon": 126.9844180 },
+    { "lat": 37.7216680, "lon": 126.9850188 },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "80",
+    "name": "교외선",
+    "name:en": "Gyooe Line",
+    "name:ja": "郊外線",
+    "name:ko": "교외선",
+    "name:ko-Hani": "郊外線",
+    "name:zh": "郊外線",
+    "name:zh-Hans": "郊外线",
+    "name:zh-Hant": "郊外線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "yes",
+    "ref": "30303",
+    "start_date": "1961-07-10",
+    "tracks": "1",
+    "usage": "branch",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 45770612,
+  "bounds": {
+    "minlat": 37.7198317,
+    "minlon": 126.9740898,
+    "maxlat": 37.7199198,
+    "maxlon": 126.9747192
+  },
+  "nodes": [
+    582879829,
+    582879830,
+    582879832,
+    582879834,
+    582879835,
+    582879838,
+    582879839,
+    582879841,
+    582879842,
+    4699365510,
+    582879646,
+    6483643543,
+    582879648,
+    582879650,
+    582879651,
+    582879653,
+    582879655,
+    582879626
+  ],
+  "geometry": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "lat": 37.7198317, "lon": 126.9740898 },
+    { "lat": 37.7199198, "lon": 126.9747192 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "maxspeed": "80",
+    "name": "교외선",
+    "name:en": "Gyooe Line",
+    "name:ja": "郊外線",
+    "name:ko": "교외선",
+    "name:ko-Hani": "郊外線",
+    "name:zh": "郊外線",
+    "name:zh-Hans": "郊外线",
+    "name:zh-Hant": "郊外線",
+    "operator": "한국철도공사",
+    "operator:en": "Korea Railroad Corporation",
+    "operator:ko": "한국철도공사",
+    "operator:short": "KORAIL",
+    "operator:type": "public",
+    "operator:wikidata": "Q18169",
+    "operator:wikipedia": "en:Korail",
+    "railway": "rail",
+    "railway:ats": "yes",
+    "ref": "30303",
+    "start_date": "1961-07-10",
+    "tracks": "1",
+    "usage": "branch",
+    "workrules": "KR:RSA"
+  }
+},
+{
+  "type": "way",
+  "id": 476329975,
+  "bounds": {
+    "minlat": 37.7202257,
+    "minlon": 126.9762108,
+    "maxlat": 37.7214713,
+    "maxlon": 126.9840976
+  },
+  "nodes": [
+    9704822019,
+    4699365506,
+    4699365507,
+    9704794113,
+    4699365508,
+    7966059884,
+    4699365509
+  ],
+  "geometry": [
+    { "lat": 37.7202257, "lon": 126.9762108 },
+    { "lat": 37.7204190, "lon": 126.9773751 },
+    { "lat": 37.7209396, "lon": 126.9805984 },
+    { "lat": 37.7210116, "lon": 126.9811333 },
+    { "lat": 37.7212250, "lon": 126.9823340 },
+    { "lat": 37.7212659, "lon": 126.9826271 },
+    { "lat": 37.7214713, "lon": 126.9840976 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 776934346,
+  "bounds": {
+    "minlat": 37.7205575,
+    "minlon": 126.9793667,
+    "maxlat": 37.7206641,
+    "maxlon": 126.9796335
+  },
+  "nodes": [
+    7249447653,
+    7249447654,
+    7249447655,
+    7249447656,
+    7249447653
+  ],
+  "geometry": [
+    { "lat": 37.7205575, "lon": 126.9793812 },
+    { "lat": 37.7206242, "lon": 126.9793667 },
+    { "lat": 37.7206641, "lon": 126.9796154 },
+    { "lat": 37.7205964, "lon": 126.9796335 },
+    { "lat": 37.7205575, "lon": 126.9793812 }
+  ],
+  "tags": {
+    "building": "train_station",
+    "building:levels": "1",
+    "internet_access": "no",
+    "train": "yes",
+    "wikidata": "Q789498",
+    "wikipedia": "ko:송추역"
+  }
+},
+{
+  "type": "way",
+  "id": 1056169493,
+  "bounds": {
+    "minlat": 37.7210116,
+    "minlon": 126.9811333,
+    "maxlat": 37.7211261,
+    "maxlon": 126.9815477
+  },
+  "nodes": [
+    9704794113,
+    9704794114,
+    9704794115
+  ],
+  "geometry": [
+    { "lat": 37.7210116, "lon": 126.9811333 },
+    { "lat": 37.7210903, "lon": 126.9813480 },
+    { "lat": 37.7211261, "lon": 126.9815477 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "yard"
+  }
+},
+{
+  "type": "way",
+  "id": 1056169494,
+  "bounds": {
+    "minlat": 37.7201277,
+    "minlon": 126.9761906,
+    "maxlat": 37.7202427,
+    "maxlon": 126.9766663
+  },
+  "nodes": [
+    9704822017,
+    9704822018
+  ],
+  "geometry": [
+    { "lat": 37.7201277, "lon": 126.9761906 },
+    { "lat": 37.7202427, "lon": 126.9766663 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "operator": "한국철도공사",
+    "operator:wikidata": "Q18169",
+    "railway": "rail",
+    "service": "yard"
+  }
+},
+{
+  "type": "way",
+  "id": 1075524186,
+  "bounds": {
+    "minlat": 37.7206187,
+    "minlon": 126.9791054,
+    "maxlat": 37.7207743,
+    "maxlon": 126.9799322
+  },
+  "nodes": [
+    9863842265,
+    9863842266,
+    9863842269,
+    9863842270,
+    9863842267,
+    9863842268,
+    9863842265
+  ],
+  "geometry": [
+    { "lat": 37.7206407, "lon": 126.9791054 },
+    { "lat": 37.7206187, "lon": 126.9791150 },
+    { "lat": 37.7206472, "lon": 126.9792578 },
+    { "lat": 37.7207124, "lon": 126.9796765 },
+    { "lat": 37.7207569, "lon": 126.9799322 },
+    { "lat": 37.7207743, "lon": 126.9799288 },
+    { "lat": 37.7206407, "lon": 126.9791054 }
+  ],
+  "tags": {
+    "departures_board": "realtime",
+    "public_transport": "platform",
+    "railway": "platform",
+    "surface": "paving_stones",
+    "train": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1075524197,
+  "bounds": {
+    "minlat": 37.7206291,
+    "minlon": 126.9791384,
+    "maxlat": 37.7207714,
+    "maxlon": 126.9799264
+  },
+  "nodes": [
+    9863842306,
+    9863842307,
+    9863842308,
+    9863842309,
+    9863842306
+  ],
+  "geometry": [
+    { "lat": 37.7206419, "lon": 126.9791384 },
+    { "lat": 37.7206291, "lon": 126.9791430 },
+    { "lat": 37.7207581, "lon": 126.9799264 },
+    { "lat": 37.7207714, "lon": 126.9799229 },
+    { "lat": 37.7206419, "lon": 126.9791384 }
+  ],
+  "tags": {
+    "building": "roof",
+    "layer": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1112813661,
+  "bounds": {
+    "minlat": 37.7183673,
+    "minlon": 126.9740120,
+    "maxlat": 37.7184660,
+    "maxlon": 126.9742431
+  },
+  "nodes": [
+    10181714247,
+    10181714257
+  ],
+  "geometry": [
+    { "lat": 37.7183673, "lon": 126.9740120 },
+    { "lat": 37.7184660, "lon": 126.9742431 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1"
+  }
+}
+
+  ]
+}
