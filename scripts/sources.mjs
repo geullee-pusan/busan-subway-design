@@ -195,6 +195,8 @@ export const SOURCES = [
   { key: 'bus-stops-miryang', file: 'data/raw/datagokr/15072448.csv', url: dataGoKr('FILE_000000002447072'), size: 74963 },
   { key: 'bus-route-use-2025', file: 'data/raw/datagokr/15095329.csv', url: dataGoKr('FILE_000000003617805'), size: 20763 },
   { key: 'bus-stops', file: 'data/raw/datagokr/15084251.zip', url: dataGoKr('FILE_000000002797912'), size: 454474 },
+  // 강원 시내버스(2026-11-21): 국토교통부 노선별 경유정류장(15142031, npm run molit-bus)에는 좌표가 없어 이 전국 정류장 위치로 찾는다(22MB, git에 넣지 않음)
+  { key: 'bus-stops-national', file: 'data/raw/datagokr/15067528.csv', url: dataGoKr('FILE_000000007759750'), size: 22328212 },
 
   // 대구 도시철도(대구교통공사, 지도 범위 넓히기 3단계 다음의 대구권 전철)
   { key: 'daegu-link', file: 'data/raw/datagokr/15002510.csv', url: dataGoKr('FILE_000000003093558'), size: 1701 },
@@ -266,6 +268,17 @@ out geom;`,
 (
   node["highway"="bus_stop"](36.50,126.55,36.90,127.05);
   node["public_transport"="platform"]["bus"="yes"](36.50,126.55,36.90,127.05);
+);
+out;`,
+  },
+  {
+    // 강원 버스 정류장(2026-11-21). 15067528에 강릉·속초·동해 정류장이 거의 없어 이름으로 자리를 찾을 때 쓴다. 지도 안 강원을 덮는 네모.
+    key: 'osm-bus-stops-gangwon',
+    file: 'data/raw/osm/bus-stops-gangwon.json',
+    overpass: `[out:json][timeout:180];
+(
+  node["highway"="bus_stop"](36.95,127.45,38.65,129.45);
+  node["public_transport"="platform"]["bus"="yes"](36.95,127.45,38.65,129.45);
 );
 out;`,
   },

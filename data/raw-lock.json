@@ -111,6 +111,13 @@
     "sha256": "7dbc42424c4cafc461d1c959aa21038aebb95797908557ab5592608fe59aed9a",
     "fetched": "2026-10-18"
   },
+  "bus-stops-national": {
+    "file": "data/raw/datagokr/15067528.csv",
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007759750&fileDetailSn=1&insertDataPrcus=N",
+    "bytes": 22328212,
+    "sha256": "ed0d652469aa0983241a2fff73237b1aa4893955bbfe09511b8f1399d1d8f5ba",
+    "fetched": "2026-11-21"
+  },
   "bus-stops-ulsan": {
     "file": "data/raw/datagokr/15052671.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003644754&fileDetailSn=1&insertDataPrcus=N",
@@ -692,12 +699,115 @@
     "sha256": "7f913662cb61c16e7648dcb5024e6d9ff60a66bdae6860ec5cb6731f0b970916",
     "fetched": "2026-09-22"
   },
+  "molit-bus-51150": {
+    "file": "data/raw/molit-bus/51150.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 359347,
+    "sha256": "7b69caba3fbd2fc915c75682e1911f1384f6217f811a4776ed10cc6a1effc0dd",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51170": {
+    "file": "data/raw/molit-bus/51170.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 189079,
+    "sha256": "05a1979d0904aeaa85af15c26642824281df80a4c1db6b5509f379d97259a026",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51210": {
+    "file": "data/raw/molit-bus/51210.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 204494,
+    "sha256": "48b892fcb3ed61d2917c2d57a522f3403d92accfcd4e0ed1de175d0aeb0f3f8b",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51230": {
+    "file": "data/raw/molit-bus/51230.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 217610,
+    "sha256": "35883dd8833e6f6eb01aeb6e8b4cf6103b6c1a99d65cb2d3697e1e2542f27ffb",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51750": {
+    "file": "data/raw/molit-bus/51750.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 219532,
+    "sha256": "ef81095481d1522ed58909bc331c6d5614457e2131fd7c2d3d6a811f0178f410",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51760": {
+    "file": "data/raw/molit-bus/51760.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 113231,
+    "sha256": "1f9d9bdbde1069cd87340539102d8459009c7a8cfb5647df183fd00daa33d5b5",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51770": {
+    "file": "data/raw/molit-bus/51770.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 97490,
+    "sha256": "b9bf5c5e204a95f046234da83c7be648c525867e52501f7f9e38c9b3cdbebc43",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51790": {
+    "file": "data/raw/molit-bus/51790.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 26981,
+    "sha256": "7f926e787754fb066d15f34dfd1564db099e974ee4c21c9d26dd3789bbae13f8",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51800": {
+    "file": "data/raw/molit-bus/51800.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 1084,
+    "sha256": "b6c506e4fcbd5347904a7007151417ade448328e363aa8d05a9e28b7a7196b57",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51810": {
+    "file": "data/raw/molit-bus/51810.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 102855,
+    "sha256": "c931019dfcdb5994458be76a5df605cbb8da66618a0e894abe0c4450c95aa3c7",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51820": {
+    "file": "data/raw/molit-bus/51820.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 359186,
+    "sha256": "ac2418efb7120f003650a699ea906e8667d9ac58675332b9197635a8804ec304",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-51830": {
+    "file": "data/raw/molit-bus/51830.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 88931,
+    "sha256": "5d5e003152286e1d8322c89db6c3a887b4682d667262aea2777454ce1382c915",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
   "ne-countries-kor": {
     "file": "data/raw/naturalearth/ne_10m_admin_0_countries_kor.geojson",
     "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_admin_0_countries_kor.geojson",
     "bytes": 13233357,
     "sha256": "0dd7351fd445628d190d40a3f7b756fea21fd058e63e400ad498e4108ea0130c",
     "fetched": "2026-11-19"
+  },
+  "osm-bus-stops-gangwon": {
+    "file": "data/raw/osm/bus-stops-gangwon.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 3439519,
+    "sha256": "44451d8785571ad7c084350103216af023faaaa4434d72e22dc1aaa1a4004550",
+    "fetched": "2026-11-21"
   },
   "osm-bus-stops-yesan": {
     "file": "data/raw/osm/bus-stops-yesan.json",

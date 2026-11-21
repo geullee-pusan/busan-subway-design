@@ -27,6 +27,7 @@
     "train-fares": "node scripts/fetch-train-extras.mjs",
     "roads": "node scripts/build-roads.mjs",
     "tago-bus": "node scripts/fetch-tago-bus.mjs",
+    "molit-bus": "node scripts/fetch-molit-bus.mjs",
     "bus-hours": "node scripts/fetch-bus-hours.mjs",
     "dong-shapes": "node scripts/build-dong-shapes.mjs",
     "water-shapes": "node scripts/build-water-shapes.mjs",

@@ -46,7 +46,7 @@ const count = { 노선: 0, 종류: 0, 기본: 0, 없음: 0 };
 const missingCity = new Set();
 for (const r of bus.routes ?? []) {
   const text = String(r.no ?? '');
-  const m = /^([가-힣]{1,3})\s+(.+)$/.exec(text);
+  const m = /^([가-힣]{1,3}(?:\([가-힣]{1,3}\))?)\s+(.+)$/.exec(text);
   const city = m ? m[1] : '부산';
   const no = (m ? m[2] : text).trim();
   count.노선++;

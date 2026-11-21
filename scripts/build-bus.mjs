@@ -17,6 +17,7 @@ import { inflateRawSync } from 'node:zlib';
 import { readCsv } from './lib/csv.mjs';
 import { orderStops } from './lib/stop-order.mjs';
 import { makeUtm, tmEast } from './lib/utm.mjs';
+import { MOLIT_CITIES, makeStopFinder, readMolitRoutes } from './lib/molit-bus.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
@@ -592,6 +593,42 @@ for (const [code, city] of TAGO_CITIES) {
   if (data) addTagoCity(data, city);
 }
 
+// 4-3. TAGO에 없는 강원 시·군(2026-11-21): 국토교통부_버스노선별 경유정류장(15142031, npm run molit-bus).
+//      좌표가 없어 전국 버스정류장 위치정보(15067528)와 OSM 버스 정류장에서 같은 시·군 안의 같은 이름을 찾는다(scripts/lib/molit-bus.mjs).
+//      정류장 줄의 절반 넘게 자리를 찾은 노선만 넣는다(나머지는 길이 엉뚱하게 이어지기 쉽다). 첫차·막차 자료는 없다.
+const MOLIT_MIN_SHARE = 0.5;
+const molitStats = {};
+{
+  const finder = makeStopFinder(ROOT, gridPoint, MOLIT_CITIES.map((c) => c.sggName));
+  const list = readMolitRoutes(ROOT, MOLIT_CITIES).sort((a, b) => a.city.localeCompare(b.city, 'ko') || a.no.localeCompare(b.no, 'ko', { numeric: true }) || a.id.localeCompare(b.id));
+  for (const route of list) {
+    const st = (molitStats[route.city] ??= { routes: 0, kept: 0, rows: 0, placedRows: 0, low: 0, night: 0 });
+    st.routes += 1;
+    if (route.no.includes('심야')) {
+      st.night += 1;
+      continue;
+    }
+    const { placed } = finder.place(route.rows);
+    st.rows += route.rows.length;
+    if (placed.length < 2 || placed.length / route.rows.length < MOLIT_MIN_SHARE) {
+      st.low += 1;
+      continue;
+    }
+    const seq = [];
+    for (const p of placed) {
+      const index = routedStop(p.name, { x: p.x, y: p.y });
+      if (seq.at(-1)?.[0] !== index) seq.push([index, 0, 0]);
+    }
+    if (seq.length < 2) {
+      st.low += 1;
+      continue;
+    }
+    st.placedRows += placed.length;
+    routes.push({ no: `${route.city} ${route.no}`, city: route.city, stops: seq });
+    st.kept += 1;
+  }
+}
+
 // 5. 노선 자료가 없는 정류소(울산·창원·김해·구미·경산·밀양, 자리와 이름만 있다)
 //    노선이 서는 정류장 뒤에 붙인다. 격자 밖과, 이미 넣은 곳(같은 이름, 40m 안)은 뺀다.
 const busanCount = stops.length;
@@ -638,7 +675,7 @@ const out = {
   stopsDate: '2026-09-12',
   source: '공공데이터포털 15123610 부산광역시_버스노선별 승하차 정보, 15084251 부산광역시_버스 정류소 정보',
   routesSource:
-    '대구 등 13개 시·군: 공공데이터포털 15098529 국토교통부_(TAGO)_버스노선정보(2026-10-31 받음). 양산: 15160339 경상남도 양산시_버스노선별 정차 정류장 정보_20260714, 15156436 경상남도 양산시_버스정류장 현황_20251212',
+    '대구 등 13개 시·군: 공공데이터포털 15098529 국토교통부_(TAGO)_버스노선정보(2026-10-31 받음). 양산: 15160339 경상남도 양산시_버스노선별 정차 정류장 정보_20260714, 15156436 경상남도 양산시_버스정류장 현황_20251212. 강릉·동해·속초·삼척·영월·평창·정선·인제·고성·양양: 15142031 국토교통부_버스노선별 경유정류장(운행일 2026-10-01, 2026-11-21 받음), 정류장 자리는 15067528 국토교통부_전국 버스정류장 위치정보(2026-11-09 판)와 OpenStreetMap 버스 정류장에서 이름으로 찾음',
   extraFrom: busanCount,
   extraSource:
     '공공데이터포털 15052671 울산광역시_버스 정류소 위치 정보_20260522, 15037805 경상남도 창원시_버스정류소 위치정보_20251231, 15104697 경상남도 김해시_버스정보 안내 단말기(BIT) 설치 현황_20251031, 15049485 경상북도 구미시_버스정류장_20260413, 15168960 경상북도 경산시_버스정류장위치정보_20261001, 15072448 경상남도 밀양시_버스정류장 정보',
@@ -650,6 +687,7 @@ writeFileSync(resolve(ROOT, 'data/build/bus.json'), JSON.stringify(out));
 const size = Buffer.byteLength(JSON.stringify(out));
 console.log(`노선 ${routes.length}개(부산 ${busanOnly.routes}, 대구 ${daeguStats.routes}, 양산 ${yangsanStats.routes}. 부산에서 뺀 노선 ${skipped.length}개), 노선이 서는 정류장 ${busanCount}곳(부산 ${busanOnly.stops}), 이름 ${names.length}개`);
 console.log(`TAGO 노선: ${Object.entries(tagoStats).map(([city, st]) => `${city} ${st.routes}개(정류장 ${st.kept}/${st.rows}, 심야 ${st.night})`).join(', ')}`);
+console.log(`국토교통부 노선(강원, 자리를 찾은 정류장 절반 넘는 것만): ${Object.entries(molitStats).map(([city, st]) => `${city} ${st.kept}/${st.routes}개(정류장 ${st.placedRows}/${st.rows})`).join(', ')}`);
 console.log(`대구(예전 방식): 노선·방향별 정류장 ${daeguStats.rows}줄 가운데 자리를 모르는 것 ${daeguStats.noPlace}줄. 양산: 정류장 차례 ${yangsanStats.placed}/${yangsanStats.rows}(자리를 찾은 것)${yangsanStats.skipped.length ? `, 뺀 노선 ${yangsanStats.skipped.join(', ')}` : ''}`);
 console.log(`노선 자료가 없는 정류소: ${Object.entries(extraCounts).map(([city, n]) => `${city} ${n}곳`).join(', ')} (김해는 좌표가 있는 단말기 설치 정류장만. 김해 정류소 현황은 ${gimhaeAll}곳)`);
 console.log(`자리를 찾은 정류장 차례 ${rowsKept}/${rowsAll}(${((rowsKept / rowsAll) * 100).toFixed(1)}%), 승차 ${((boardKept / boardAll) * 100).toFixed(1)}%`);

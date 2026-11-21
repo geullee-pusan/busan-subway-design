@@ -20,8 +20,9 @@ export const DEFAULT_BUS_LOOK = {
 /** 노선 이름 → [도시, 번호]. 부산 노선은 도시 이름이 없다. */
 export function splitRoute(route) {
   const text = String(route ?? '');
-  // 부산 밖 노선은 "대구 503"처럼 도시 이름과 빈칸이 앞에 붙어 있다(data/build/bus.json)
-  const m = /^([가-힣]{1,3})\s+(.+)$/.exec(text);
+  // 부산 밖 노선은 "대구 503"처럼 도시 이름과 빈칸이 앞에 붙어 있다(data/build/bus.json).
+  // 이름이 겹치는 도시는 "고성(강원) 1-5"처럼 괄호로 가른다.
+  const m = /^([가-힣]{1,3}(?:\([가-힣]{1,3}\))?)\s+(.+)$/.exec(text);
   return m ? [m[1], m[2]] : ['부산', text];
 }
 
