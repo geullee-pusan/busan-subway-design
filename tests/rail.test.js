@@ -52,9 +52,10 @@ test('선로 모양의 길이가 거리표와 크게 다르지 않다(중앙선 
       if (line.id === 'GJS' && link.from === 'R-광주송정') return;
       if (line.id === 'GB' && link.from === 'R-신동' && link.to === 'R-서대구') return;
       if (line.id === 'CB' && link.from === 'R-삼탄' && link.to === 'R-봉양') return;
-      // 강원 산길(2026-11-20): 그린 선로가 거리표보다 짧다(영동선 동백산–도계 18.2km/7.3km, 정동진–강릉 23km/15.2km,
-      // 태백선 태백–동백산 10.5km/7.6km, 정선선 민둥산–별어곡 6.4km/4.6km). 걸리는 시간은 거리표를 쓴다(data/SOURCES.md, TODO 확인 필요)
-      const KANGWON = ['YD R-동백산 R-도계', 'YD R-정동진 R-강릉', 'TB R-태백 R-동백산', 'JS R-민둥산 R-별어곡'];
+      // 강원 산길(2026-11-20): 그린 선로가 거리표보다 짧다(영동선 정동진–강릉 23km/15.2km,
+      // 태백선 태백–동백산 10.5km/8.0km, 정선선 민둥산–별어곡 6.4km/4.6km). 걸리는 시간은 거리표를 쓴다(data/SOURCES.md, TODO 확인 필요)
+      // 영동선 동백산–도계는 솔안터널을 따라 그리도록 고쳐(2026-11-21, 17.7km) 이 검사를 받는다.
+      const KANGWON = ['YD R-정동진 R-강릉', 'TB R-태백 R-동백산', 'JS R-민둥산 R-별어곡'];
       if (KANGWON.includes(`${line.id} ${link.from} ${link.to}`)) return;
       const pts = line.paths[i];
       let km = 0;

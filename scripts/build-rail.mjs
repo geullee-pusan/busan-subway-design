@@ -116,6 +116,8 @@ const node = (g) => {
 };
 for (const way of osmRail.elements) {
   if (!way.geometry) continue;
+  // 관광 선로(usage=tourism: 레일바이크, 해변열차, 하이원추추파크 전용선 등)는 여객 열차가 다니지 않으므로 길 찾기에서 뺀다.
+  if (way.tags?.usage === 'tourism') continue;
   for (let i = 1; i < way.geometry.length; i++) {
     const a = node(way.geometry[i - 1]);
     const b = node(way.geometry[i]);
@@ -275,6 +277,14 @@ function railPath(fromNodes, toNodes, limitKm) {
   while (prev.has(path[0])) path.unshift(prev.get(path[0]));
   return path;
 }
+
+/**
+ * 역에서 선로 길을 찾기 시작할 마디의 반경(km). 보통 0.6km.
+ * 동백산은 솔안터널 북쪽 입구 마디가 역에서 0.57km라, 0.6km면 똬리굴(10.3km)을 건너뛰고 터널 북쪽에서 바로 시작한다.
+ * 그래서 0.25km로 줄인다(우리가 정한 값. 나무위키 「솔안터널」: 동백산–도계 18.2km, 거리표와 같다).
+ */
+const STATION_SNAP_KM = { 동백산: 0.25 };
+const snapKm = (s) => STATION_SNAP_KM[s.name] ?? 0.6;
 
 /** 점 둘레 km 안의 본선 마디들 */
 function nodesNear(p, km) {
@@ -455,7 +465,7 @@ for (const def of config.lines) {
     const a = stations.get(ids[i - 1]);
     const b = stations.get(ids[i]);
     const km = Math.round((kms[i] - kms[i - 1]) * 10) / 10;
-    const path = railPath(nodesNear(a, 0.6), nodesNear(b, 0.6), km * 2 + 5);
+    const path = railPath(nodesNear(a, snapKm(a)), nodesNear(b, snapKm(b)), km * 2 + 5);
     let points;
     if (path) {
       points = path.map((n) => nodes[n]);
