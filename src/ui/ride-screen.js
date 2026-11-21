@@ -898,7 +898,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       return { korean: lines.map((line) => fillTemplate(line, { name: stop.name, next: next?.name ?? '' })), english: [] };
     }
     if (phase === '역' && at === boardIndex) {
-      const middle = trip.stops.slice(1, -1);
+      // 이 역 뒤로 지나갈 역(이미 지나온 역은 빼고, 끝 역도 뺀다)
+      const middle = trip.stops.slice(at + 1, -1);
       // 방면: 지나는 역 가운데 갈아타는 역을 먼저, 두 곳까지
       const via = [...middle.filter((s) => transferLines(s.id).length > 0), ...middle.filter((s) => transferLines(s.id).length === 0)]
         .slice(0, 2)

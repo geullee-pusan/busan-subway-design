@@ -29,6 +29,7 @@
     "tago-bus": "node scripts/fetch-tago-bus.mjs",
     "molit-bus": "node scripts/fetch-molit-bus.mjs",
     "gangwon-bis": "node scripts/fetch-gangwon-bis.mjs",
+    "metro-sudogwon": "node scripts/fetch-metro-sudogwon.mjs",
     "bus-hours": "node scripts/fetch-bus-hours.mjs",
     "dong-shapes": "node scripts/build-dong-shapes.mjs",
     "water-shapes": "node scripts/build-water-shapes.mjs",

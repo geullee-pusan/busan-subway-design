@@ -72,11 +72,22 @@ function subwayTrip(world, prepared, rules, from, to) {
   if (!best) return null;
   const inside = subwayLegs(world, prepared, best.s.station.index, best.e.station.index);
   if (!inside) return null;
+  // 길이 갈아타기로 시작하면(갈아타는 역에서 다른 노선으로 떠날 때) 처음 노선은 타지 않는다:
+  // 갈아탈 역까지 걸어가서 그 노선 열차를 기다린다.
+  let rideLegs = inside.legs;
+  let first = best.s.station;
+  let walkMin = best.s.walkMin;
+  while (rideLegs[0]?.mode === '갈아타기') {
+    first = world.stations.find((s) => s.id === rideLegs[0].stations[1]) ?? first;
+    walkMin += rules.transferWalkMin;
+    rideLegs = rideLegs.slice(1);
+  }
+  const wait = first === best.s.station ? best.wait : (prepared.lineInfo[first.line]?.headwayMin ?? 0) / 2;
   return {
     legs: [
-      { mode: '걷기', minutes: best.s.walkMin, meters: meters(straightKm(from, best.s.station)), to: best.s.station.id },
-      { mode: '기다리기', minutes: best.wait, meters: 0, line: best.s.station.line },
-      ...inside.legs,
+      { mode: '걷기', minutes: walkMin, meters: meters(straightKm(from, first)), to: first.id },
+      { mode: '기다리기', minutes: wait, meters: 0, line: first.line },
+      ...rideLegs,
       { mode: '걷기', minutes: best.e.walkMin, meters: meters(straightKm(best.e.station, to)), from: best.e.station.id },
     ],
     subwayKm: inside.km,

@@ -16,6 +16,9 @@ export function openedBy(year, openedOn) {
   return opened !== null && opened <= year;
 }
 
+/** 개통일 자료가 없는 수도권 역(lines.json region '수도권')은 자료를 받은 해부터 있는 것으로 본다(옛날 수도권은 다루지 않는다). */
+export const SUDOGWON_DATA_YEAR = 2026;
+
 /**
  * 그 해의 노선망.
  * @param {number} year
@@ -37,7 +40,9 @@ export function networkAt(year, { lines, stations, links, transfers, stationInfo
     const order = (line.stations ?? []).filter((id) => byId.has(id));
     const openIndexes = [];
     for (let i = 0; i < order.length; i++) {
-      if (openedBy(year, stationInfo[order[i]]?.openedOn)) openIndexes.push(i);
+      const openedOn = stationInfo[order[i]]?.openedOn;
+      const open = !openedOn && line.region === '수도권' ? year >= SUDOGWON_DATA_YEAR : openedBy(year, openedOn);
+      if (open) openIndexes.push(i);
     }
     if (openIndexes.length === 0) continue;
 
@@ -70,6 +75,11 @@ export function networkAt(year, { lines, stations, links, transfers, stationInfo
         // 사이에 아직 생기지 않은 역의 수. 0보다 크면 구간을 더해 이은 것이다.
         skipped: to - from - 1,
       });
+    }
+    // 순환선(2호선): 모든 역이 있으면 끝 역 → 첫 역 구간도 잇는다
+    if (line.loop && openIndexes.length === order.length) {
+      const closing = linkBetween.get(`${order.at(-1)}|${order[0]}`);
+      if (closing) outLinks.push({ line: line.id, from: closing.from, to: closing.to, distanceM: closing.distanceM, runS: closing.runS, skipped: 0 });
     }
   }
 

@@ -4,11 +4,13 @@
 //  - 대구 도시철도 1·2·3호선: scripts/build/daegu.mjs
 //  - 광주 도시철도 1호선: scripts/build/gwangju.mjs
 //  - 대전 도시철도 1호선: scripts/build/daejeon.mjs
+//  - 수도권 도시철도(전철·지하철): scripts/build/sudogwon.mjs
 import { readFileSync } from 'node:fs';
 import { readCsv } from '../lib/csv.mjs';
 import { daeguLines } from './daegu.mjs';
 import { gwangjuLines } from './gwangju.mjs';
 import { daejeonLines } from './daejeon.mjs';
+import { sudogwonLines, sudogwonTransferPairs } from './sudogwon.mjs';
 import { utm52 } from '../lib/utm.mjs';
 import { readOsmFile } from '../lib/osm.mjs';
 
@@ -290,8 +292,8 @@ function osmLines(raw, issues, stationEdits) {
  *    이 파일은 좌표가 틀린 행이 있어서 좌표 대신 이름으로 맞춘다.
  *  - edits(data/edits/transfers.json): 공식 파일에 없거나 틀린 환승을 출처와 함께 더하거나 뺀다.
  */
-function transferGroups(stations, infoRows, korail, daeguTransfers, edits, issues) {
-  const pairs = [];
+function transferGroups(stations, infoRows, korail, daeguTransfers, edits, issues, extraPairs = []) {
+  const pairs = [...extraPairs];
   const onLine = (line) => stations.filter((s) => s.line === line);
   for (const row of infoRows) {
     if (!row['환승노선번호']) continue;
@@ -401,17 +403,18 @@ export function buildNetwork(raw, transferEdits = {}, stationEdits = {}) {
   const daegu = daeguLines(raw, issues);
   const gwangju = gwangjuLines(raw, issues);
   const daejeon = daejeonLines(raw, issues);
-  const stations = [...humetro.stations, ...osm.stations, ...daegu.stations, ...gwangju.stations, ...daejeon.stations];
+  const sudogwon = sudogwonLines(raw, issues);
+  const stations = [...humetro.stations, ...osm.stations, ...daegu.stations, ...gwangju.stations, ...daejeon.stations, ...sudogwon.stations];
   const daeguTransfers = readCsv(raw('datagokr/15041092.csv')).records;
-  const transfers = transferGroups(stations, humetro.infoRows, osm.korail, daeguTransfers, transferEdits, issues);
+  const transfers = transferGroups(stations, humetro.infoRows, osm.korail, daeguTransfers, transferEdits, issues, sudogwonTransferPairs(stations));
   for (const s of stations) {
     const group = transfers.find((t) => t.stations.includes(s.id));
     s.transfer = group ? group.id : null;
   }
   return {
-    lines: [...humetro.lines, ...osm.lines, ...daegu.lines, ...gwangju.lines, ...daejeon.lines],
+    lines: [...humetro.lines, ...osm.lines, ...daegu.lines, ...gwangju.lines, ...daejeon.lines, ...sudogwon.lines],
     stations,
-    links: [...humetro.links, ...osm.links, ...daegu.links, ...gwangju.links, ...daejeon.links],
+    links: [...humetro.links, ...osm.links, ...daegu.links, ...gwangju.links, ...daejeon.links, ...sudogwon.links],
     transfers,
     issues,
   };

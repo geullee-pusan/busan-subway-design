@@ -11,6 +11,7 @@ import { prepareWorld, runDay } from '../src/sim/run.js';
 import { nearbyStations, straightKm, walkMinutes } from '../src/sim/walk.js';
 import { buildBusNetwork, withBusTimes } from '../src/sim/bus-network.js';
 import { buildWorld, rulesFromCards } from '../src/sim/world.js';
+import { withoutSudogwon } from '../src/sim/regions.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (p) => JSON.parse(readFileSync(resolve(ROOT, p), 'utf8'));
@@ -113,14 +114,21 @@ test('순위 상관: 같은 순서면 1, 뒤집으면 -1', () => {
 function loadWorld({ year = 2026, dayType = '평일' } = {}) {
   const rules = rulesFromCards(readJson('src/content/rules.json').rules);
   const future = year >= 2027 ? readJson('data/build/future-lines.json') : { stations: [], lines: [], links: [], transfers: [] };
-  const stations = [...readJson('data/build/stations.json').stations, ...future.stations];
+  // 게임(src/model.js worldFor)과 같이 부산 하루 운행에서는 수도권 도시철도를 뺀다
+  const near = withoutSudogwon({
+    lines: readJson('data/build/lines.json').lines,
+    stations: readJson('data/build/stations.json').stations,
+    links: readJson('data/build/links.json').links,
+    transfers: readJson('data/build/transfers.json').transfers,
+  });
+  const stations = [...near.stations, ...future.stations];
   const grid = readJson('data/build/grid.json');
   const plainWorld = buildWorld({
     grid,
     stations,
-    lines: [...readJson('data/build/lines.json').lines, ...future.lines],
-    links: [...readJson('data/build/links.json').links, ...future.links],
-    transfers: [...readJson('data/build/transfers.json').transfers, ...future.transfers],
+    lines: [...near.lines, ...future.lines],
+    links: [...near.links, ...future.links],
+    transfers: [...near.transfers, ...future.transfers],
     places: readJson('src/content/places.json').places,
     dongs: readJson('data/build/dongs.json').dongs,
     hourShape: readJson('data/build/ridership.json').shape[dayType],

@@ -585,6 +585,26 @@ ${inBoxes5([
 out center;`,
   },
   {
+    // 수도권 넓히기 1단계(2026-11-21): 수도권 지하철 노선(역 차례, 선로 모양). 위 노선 파일과 같은 조건을 둘로 나눴다(아래 -6).
+    key: 'osm-routes-5',
+    file: 'data/raw/osm/routes-5.json',
+    overpass: `[out:json][timeout:600][maxsize:1073741824];
+(
+${inBoxes5(['  relation["type"="route"]["route"="subway"](BOX);'])}
+);
+out geom;`,
+  },
+  {
+    // 수도권 넓히기 1단계: 경전철·모노레일·광역 열차(commuter)와 노선 묶음. 한 번에 받으면 Overpass가 502를 내서 나눠 받는다.
+    key: 'osm-routes-6',
+    file: 'data/raw/osm/routes-6.json',
+    overpass: `[out:json][timeout:600][maxsize:1073741824];
+(
+${inBoxes5(['  relation["type"="route"]["route"~"^(monorail|light_rail)$"](BOX);', '  relation["type"="route"]["route"="train"]["service"="commuter"](BOX);', '  relation["type"="route_master"]["route_master"~"^(subway|monorail|light_rail|train)$"](BOX);'])}
+);
+out geom;`,
+  },
+  {
     key: 'osm-rail-lines-5',
     file: 'data/raw/osm/rail-lines-5.json',
     overpass: `[out:json][timeout:600][maxsize:1073741824];

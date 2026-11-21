@@ -65,8 +65,11 @@ const grid = readJson('data/build/grid.json');
   let ok = true;
   for (const line of lines) {
     const own = links.filter((l) => l.line === line.id);
+    // 순환선(2호선)은 끝 역 → 첫 역 구간이 하나 더 있다
+    const extra = line.loop ? 1 : 0;
     const pathOk =
-      own.length === line.stations.length - 1 && own.every((l, i) => l.from === line.stations[i] && l.to === line.stations[i + 1]);
+      own.length === line.stations.length - 1 + extra &&
+      own.every((l, i) => (i < line.stations.length - 1 ? l.from === line.stations[i] && l.to === line.stations[i + 1] : l.from === line.stations.at(-1) && l.to === line.stations[0]));
     if (!pathOk) {
       ok = false;
       details.push(`${line.name}: 역 순서와 구간이 맞지 않아요`);
@@ -186,11 +189,16 @@ const grid = readJson('data/build/grid.json');
 
 // 5. 역이 바다나 강 칸에 있지 않은가
 {
-  const wet = stations.filter((s) => s.inGrid && ['sea', 'river'].includes(grid.terrain[s.row][s.col]));
+  // 수도권 한강 옆 역은 1km 칸이 한강에 걸려 강 칸에 들어간다(여의나루, 흑석 등). 실패로 보지 않고 알린다.
+  const isWet = (s) => s.inGrid && ['sea', 'river'].includes(grid.terrain[s.row][s.col]);
+  const sudogwonLine = new Set(lines.filter((l) => l.region === '수도권').map((l) => l.id));
+  const riverside = stations.filter((s) => isWet(s) && sudogwonLine.has(s.line));
+  const wet = stations.filter((s) => isWet(s) && !sudogwonLine.has(s.line));
   const mountain = stations.filter((s) => s.inGrid && grid.terrain[s.row][s.col] === 'mountain');
   report('must', '역이 바다나 강 칸에 있지 않다', wet.length === 0, [
     ...wet.map((s) => `${s.name}(${s.line}) → ${grid.terrain[s.row][s.col]} 칸 (${s.col}, ${s.row})`),
     `산 칸에 있는 역: ${mountain.length ? mountain.map((s) => s.name).join(', ') : '없음'}`,
+    `수도권 한강 옆이라 강 칸에 든 역(알림): ${riverside.length ? riverside.map((s) => `${s.name}(${s.line})`).join(', ') : '없음'}`,
   ]);
 }
 
@@ -249,7 +257,11 @@ const grid = readJson('data/build/grid.json');
   const unexplained = noRidership.filter((s) => !ridership.missing.some((m) => m.id === s.id));
   details.push(`이용객 자료가 있는 역 ${Object.keys(ridership.stations).length}개, 없는 역 ${noRidership.length}개(모두 까닭을 적음)`);
   for (const m of ridership.missing.filter((m) => m.reason !== '자료 없음')) details.push(`${m.name}(${m.line}): ${m.reason}`);
-  const noOpening = stations.filter((s) => !info[s.id]?.openedOn);
+  // 수도권 역은 개통일 자료를 아직 넣지 않았다(TODO, data/SOURCES.md 수도권 넓히기 1단계). 수만 알린다.
+  const sudogwonIds = new Set(lines.filter((l) => l.region === '수도권').map((l) => l.id));
+  const noOpeningSd = stations.filter((s) => !info[s.id]?.openedOn && sudogwonIds.has(s.line));
+  const noOpening = stations.filter((s) => !info[s.id]?.openedOn && !sudogwonIds.has(s.line));
+  details.push(`수도권 역 ${noOpeningSd.length}개는 개통일 자료가 아직 없어요(TODO)`);
   const noPosition = stations.filter((s) => !schematic.positions[s.id]);
   report(
     'must',

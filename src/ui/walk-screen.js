@@ -4,7 +4,7 @@
 // 타는 장면은 여행 모드(가 보기, journey-screen.js)와 진짜 기차 타 보기(train-journey.js)를 그대로 쓴다.
 import faresFile from '../content/fares.json';
 import { dongShapes, dongs, grid, intercity, waterShapes, landmarks, lineById, places, rail, railStationById, ridership, roadsData, service, stationById, stations, trains as trainData } from '../data.js';
-import { BASE_YEAR, busNetwork, rules, worldFor } from '../model.js';
+import { BASE_YEAR, busNetwork, rules, travelWorld, worldFor } from '../model.js';
 import { stopGroup, stopsInCell } from '../sim/bus-network.js';
 import { decodeDongs, dongAt } from '../sim/address.js';
 import { decodeWater } from '../sim/water.js';
@@ -32,9 +32,13 @@ const SCREEN_KM_PER_SEC = 0.12;
 const TAXI_SCREEN_KM_PER_SEC = 0.6;
 /** 지하철 노선 표시 글자 */
 const LINE_MARK = { BGL: '김', DH: '동', DK: '경', DG1: 'D1', DG2: 'D2', DG3: 'D3', GJ1: 'G1', DJ1: 'J1' };
-/** 서로 이어진 지하철 묶음(부산·김해·양산·울산 쪽, 대구 쪽, 광주 쪽, 대전 쪽은 서로 이어져 있지 않다) */
+/** 서로 이어진 지하철 묶음(부산·김해·양산·울산 쪽, 대구 쪽, 광주 쪽, 대전 쪽, 수도권 쪽은 서로 이어져 있지 않다) */
 const NETWORK_OF = { DG1: '대구', DG2: '대구', DG3: '대구', DK: '대구', GJ1: '광주', DJ1: '대전' };
-const sameNetwork = (a, b) => (NETWORK_OF[a] ?? '부산') === (NETWORK_OF[b] ?? '부산');
+/** 노선의 묶음. 수도권 노선은 lines.json의 region으로 가른다. */
+const networkOf = (line) => NETWORK_OF[line] ?? (lineById.get(line)?.region === '수도권' ? '수도권' : '부산');
+const sameNetwork = (a, b) => networkOf(a) === networkOf(b);
+/** 노선 표시 글자: 수도권 노선은 lines.json의 label(1~9, 경의, 수인 등) */
+const lineMark = (line) => LINE_MARK[line] ?? (lineById.get(line)?.region === '수도권' ? lineById.get(line).label : line);
 const START_HOURS = [
   [8, '아침 8시'],
   [13, '낮 1시'],
@@ -110,7 +114,9 @@ function walkHere(saved) {
 export function renderWalk(root, { onHome }) {
   root.replaceChildren();
   const saved = walkHere(loadView().walk);
-  const { world, prepared, result } = worldFor({ year: BASE_YEAR, dayType: '평일' });
+  // 길 찾기는 수도권까지 넣은 세상(travelWorld), 붐빔 같은 하루 결과는 부산 하루 운행(worldFor)
+  const { result } = worldFor({ year: BASE_YEAR, dayType: '평일' });
+  const { world, prepared } = travelWorld();
   const network = busNetwork();
   const { roads, index: roadIndex, dongs: dongShapesList, water: waterList } = roadWorld();
   const subwayStations = stations.filter((s) => s.inGrid);
@@ -242,7 +248,7 @@ export function renderWalk(root, { onHome }) {
       dongs: dongShapesList,
       water: waterList,
       lineColor: (line) => lineById.get(line)?.color ?? '#1F3342',
-      lineName: (line) => LINE_MARK[line] ?? line,
+      lineName: (line) => lineMark(line),
     });
   }
 

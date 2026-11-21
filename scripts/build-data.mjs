@@ -217,6 +217,9 @@ for (const line of network.lines) {
   const headwayFact = facts.lines?.[line.id]?.headwayMin;
   if (daeguRun) {
     Object.assign(line, daeguRun);
+  } else if (line.region === '수도권') {
+    // 수도권 노선은 scripts/build/sudogwon.mjs가 TAGO 시각표로 이미 셌다(없으면 그대로 비워 둔다)
+    if (!line.hourly) issues.push(`[노선] ${line.name} 배차 간격: TODO(확인 필요). 시각표가 없어 모델의 기본값을 쓴다.`);
   } else if (headwayFact) {
     // 시각표 자료가 없는 노선: 발표된 배차 간격(평시, 출퇴근)을 쓴다.
     line.trainsPerHourPeak = Math.round((60 / (headwayFact.peak ?? headwayFact.value)) * 10) / 10;

@@ -2719,6 +2719,7260 @@
       "origin": null,
       "openedOn": "2007-04-17",
       "openedWith": "갈마~반석"
+    },
+    "S1.01": {
+      "name": "연천",
+      "line": "S1",
+      "nameEn": "Yeoncheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.02": {
+      "name": "전곡",
+      "line": "S1",
+      "nameEn": "Jeongok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.03": {
+      "name": "청산",
+      "line": "S1",
+      "nameEn": "Cheongsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.04": {
+      "name": "소요산",
+      "line": "S1",
+      "nameEn": "Soyosan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.05": {
+      "name": "동두천",
+      "line": "S1",
+      "nameEn": "Dongducheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.06": {
+      "name": "보산",
+      "line": "S1",
+      "nameEn": "Bosan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.07": {
+      "name": "동두천중앙",
+      "line": "S1",
+      "nameEn": "Dongducheonjungang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.08": {
+      "name": "지행",
+      "line": "S1",
+      "nameEn": "Jihaeng",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.09": {
+      "name": "덕정",
+      "line": "S1",
+      "nameEn": "Deokjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.10": {
+      "name": "덕계",
+      "line": "S1",
+      "nameEn": "Deokgye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.11": {
+      "name": "양주",
+      "line": "S1",
+      "nameEn": "Yangju",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.12": {
+      "name": "녹양",
+      "line": "S1",
+      "nameEn": "Nogyang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.13": {
+      "name": "가능",
+      "line": "S1",
+      "nameEn": "Ganeung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.14": {
+      "name": "의정부",
+      "line": "S1",
+      "nameEn": "Uijeongbu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.15": {
+      "name": "회룡",
+      "line": "S1",
+      "nameEn": "Hoeryong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.16": {
+      "name": "망월사",
+      "line": "S1",
+      "nameEn": "Mangwolsa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.17": {
+      "name": "도봉산",
+      "line": "S1",
+      "nameEn": "Dobongsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.18": {
+      "name": "도봉",
+      "line": "S1",
+      "nameEn": "Dobong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.19": {
+      "name": "방학",
+      "line": "S1",
+      "nameEn": "Banghak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.20": {
+      "name": "창동",
+      "line": "S1",
+      "nameEn": "Chang-Dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.21": {
+      "name": "녹천",
+      "line": "S1",
+      "nameEn": "Nokcheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.22": {
+      "name": "월계",
+      "line": "S1",
+      "nameEn": "Wolgye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.23": {
+      "name": "광운대",
+      "line": "S1",
+      "nameEn": "Kwangwoon University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.24": {
+      "name": "석계",
+      "line": "S1",
+      "nameEn": "Seokgye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.25": {
+      "name": "신이문",
+      "line": "S1",
+      "nameEn": "Sinimun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.26": {
+      "name": "외대앞",
+      "line": "S1",
+      "nameEn": "Hankuk University of Foreign Studies",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.27": {
+      "name": "회기",
+      "line": "S1",
+      "nameEn": "Hoegi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.28": {
+      "name": "청량리",
+      "line": "S1",
+      "nameEn": "Cheongnyangni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.29": {
+      "name": "제기동",
+      "line": "S1",
+      "nameEn": "Jegidong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.30": {
+      "name": "신설동",
+      "line": "S1",
+      "nameEn": "Sinseol-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.31": {
+      "name": "동묘앞",
+      "line": "S1",
+      "nameEn": "Dongmyo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.32": {
+      "name": "동대문",
+      "line": "S1",
+      "nameEn": "Dongdaemun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.33": {
+      "name": "종로5가",
+      "line": "S1",
+      "nameEn": "Jongno 5-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.34": {
+      "name": "종로3가",
+      "line": "S1",
+      "nameEn": "Jongno 3-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.35": {
+      "name": "종각",
+      "line": "S1",
+      "nameEn": "Jonggak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.36": {
+      "name": "시청",
+      "line": "S1",
+      "nameEn": "City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.37": {
+      "name": "서울역",
+      "line": "S1",
+      "nameEn": "Seoul Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.38": {
+      "name": "남영",
+      "line": "S1",
+      "nameEn": "Namyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.39": {
+      "name": "용산",
+      "line": "S1",
+      "nameEn": "Yongsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.40": {
+      "name": "노량진",
+      "line": "S1",
+      "nameEn": "Noryangjin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.41": {
+      "name": "대방",
+      "line": "S1",
+      "nameEn": "Daebang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.42": {
+      "name": "신길",
+      "line": "S1",
+      "nameEn": "Singil",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.43": {
+      "name": "영등포",
+      "line": "S1",
+      "nameEn": "Yeongdeungpo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.44": {
+      "name": "신도림",
+      "line": "S1",
+      "nameEn": "Sindorim",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.45": {
+      "name": "구로",
+      "line": "S1",
+      "nameEn": "Guro",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.46": {
+      "name": "구일",
+      "line": "S1",
+      "nameEn": "Guil",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.47": {
+      "name": "개봉",
+      "line": "S1",
+      "nameEn": "Gaebong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.48": {
+      "name": "오류동",
+      "line": "S1",
+      "nameEn": "Oryu-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.49": {
+      "name": "온수",
+      "line": "S1",
+      "nameEn": "Onsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.50": {
+      "name": "역곡",
+      "line": "S1",
+      "nameEn": "Yeokgok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.51": {
+      "name": "소사",
+      "line": "S1",
+      "nameEn": "Sosa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.52": {
+      "name": "부천",
+      "line": "S1",
+      "nameEn": "Bucheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.53": {
+      "name": "중동",
+      "line": "S1",
+      "nameEn": "Jung-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.54": {
+      "name": "송내",
+      "line": "S1",
+      "nameEn": "Songnae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.55": {
+      "name": "부개",
+      "line": "S1",
+      "nameEn": "Bugae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.56": {
+      "name": "부평",
+      "line": "S1",
+      "nameEn": "Bupyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.57": {
+      "name": "백운",
+      "line": "S1",
+      "nameEn": "Baegun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.58": {
+      "name": "동암",
+      "line": "S1",
+      "nameEn": "Dongam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.59": {
+      "name": "간석",
+      "line": "S1",
+      "nameEn": "Ganseok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.60": {
+      "name": "주안",
+      "line": "S1",
+      "nameEn": "Juan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.61": {
+      "name": "도화",
+      "line": "S1",
+      "nameEn": "Dohwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.62": {
+      "name": "제물포",
+      "line": "S1",
+      "nameEn": "Jemulpo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.63": {
+      "name": "도원",
+      "line": "S1",
+      "nameEn": "Dowon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.64": {
+      "name": "동인천",
+      "line": "S1",
+      "nameEn": "Dongincheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1.65": {
+      "name": "인천",
+      "line": "S1",
+      "nameEn": "Incheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.01": {
+      "name": "구로",
+      "line": "S1K",
+      "nameEn": "Guro",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.02": {
+      "name": "가산디지털단지",
+      "line": "S1K",
+      "nameEn": "Gasan Digital Complex",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.03": {
+      "name": "독산",
+      "line": "S1K",
+      "nameEn": "Doksan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.04": {
+      "name": "금천구청",
+      "line": "S1K",
+      "nameEn": "Geumcheon-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.05": {
+      "name": "석수",
+      "line": "S1K",
+      "nameEn": "Seoksu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.06": {
+      "name": "관악",
+      "line": "S1K",
+      "nameEn": "Gwanak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.07": {
+      "name": "안양",
+      "line": "S1K",
+      "nameEn": "Anyang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.08": {
+      "name": "명학",
+      "line": "S1K",
+      "nameEn": "Myeonghak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.09": {
+      "name": "금정",
+      "line": "S1K",
+      "nameEn": "Geumjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.10": {
+      "name": "군포",
+      "line": "S1K",
+      "nameEn": "Gunpo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.11": {
+      "name": "당정",
+      "line": "S1K",
+      "nameEn": "Dangjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.12": {
+      "name": "의왕",
+      "line": "S1K",
+      "nameEn": "Uiwang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.13": {
+      "name": "성균관대",
+      "line": "S1K",
+      "nameEn": "Sungkyunkwan Univ",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.14": {
+      "name": "화서",
+      "line": "S1K",
+      "nameEn": "Hwaseo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.15": {
+      "name": "수원",
+      "line": "S1K",
+      "nameEn": "Suwon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.16": {
+      "name": "세류",
+      "line": "S1K",
+      "nameEn": "Seryu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.17": {
+      "name": "병점",
+      "line": "S1K",
+      "nameEn": "Byeongjeom",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.18": {
+      "name": "세마",
+      "line": "S1K",
+      "nameEn": "Sema",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.19": {
+      "name": "오산대",
+      "line": "S1K",
+      "nameEn": "Osan College",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.20": {
+      "name": "오산",
+      "line": "S1K",
+      "nameEn": "Osan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.21": {
+      "name": "진위",
+      "line": "S1K",
+      "nameEn": "Jinwi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.22": {
+      "name": "송탄",
+      "line": "S1K",
+      "nameEn": "Songtan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.23": {
+      "name": "서정리",
+      "line": "S1K",
+      "nameEn": "Seojeong-ri",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.24": {
+      "name": "평택지제",
+      "line": "S1K",
+      "nameEn": "Pyeongtaek Jije",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.25": {
+      "name": "평택",
+      "line": "S1K",
+      "nameEn": "Pyeongtaek",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.26": {
+      "name": "성환",
+      "line": "S1K",
+      "nameEn": "Seonghwan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.27": {
+      "name": "직산",
+      "line": "S1K",
+      "nameEn": "Jiksan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.28": {
+      "name": "두정",
+      "line": "S1K",
+      "nameEn": "Dujeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.29": {
+      "name": "천안",
+      "line": "S1K",
+      "nameEn": "Cheonan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.30": {
+      "name": "봉명",
+      "line": "S1K",
+      "nameEn": "Bongmyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.31": {
+      "name": "쌍용",
+      "line": "S1K",
+      "nameEn": "Ssangyong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.32": {
+      "name": "아산",
+      "line": "S1K",
+      "nameEn": "Asan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.33": {
+      "name": "탕정",
+      "line": "S1K",
+      "nameEn": "Tangjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.34": {
+      "name": "배방",
+      "line": "S1K",
+      "nameEn": "Baebang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.35": {
+      "name": "온양온천",
+      "line": "S1K",
+      "nameEn": "Onyangoncheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1K.36": {
+      "name": "신창",
+      "line": "S1K",
+      "nameEn": "Sinchang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1G.01": {
+      "name": "금천구청",
+      "line": "S1G",
+      "nameEn": "Geumcheon-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1G.02": {
+      "name": "광명",
+      "line": "S1G",
+      "nameEn": "Gwangmyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1D.01": {
+      "name": "병점",
+      "line": "S1D",
+      "nameEn": "Byeongjeom",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S1D.02": {
+      "name": "서동탄",
+      "line": "S1D",
+      "nameEn": "Seodongtan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.01": {
+      "name": "시청",
+      "line": "S2",
+      "nameEn": "City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.02": {
+      "name": "을지로입구",
+      "line": "S2",
+      "nameEn": "Euljiro 1-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.03": {
+      "name": "을지로3가",
+      "line": "S2",
+      "nameEn": "Euljiro 3-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.04": {
+      "name": "을지로4가",
+      "line": "S2",
+      "nameEn": "Euljiro 4-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.05": {
+      "name": "동대문역사문화공원",
+      "line": "S2",
+      "nameEn": "Dongdaemun History & Culture Park Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.06": {
+      "name": "신당",
+      "line": "S2",
+      "nameEn": "Sindang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.07": {
+      "name": "상왕십리",
+      "line": "S2",
+      "nameEn": "Sangwangsimni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.08": {
+      "name": "왕십리",
+      "line": "S2",
+      "nameEn": "Wangsimni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.09": {
+      "name": "한양대",
+      "line": "S2",
+      "nameEn": "Hanyang University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.10": {
+      "name": "뚝섬",
+      "line": "S2",
+      "nameEn": "Ttukseom",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.11": {
+      "name": "성수",
+      "line": "S2",
+      "nameEn": "Seongsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.12": {
+      "name": "건대입구",
+      "line": "S2",
+      "nameEn": "Konkuk University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.13": {
+      "name": "구의",
+      "line": "S2",
+      "nameEn": "Guui",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.14": {
+      "name": "강변",
+      "line": "S2",
+      "nameEn": "Gangbyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.15": {
+      "name": "잠실나루",
+      "line": "S2",
+      "nameEn": "Jamsillaru",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.16": {
+      "name": "잠실",
+      "line": "S2",
+      "nameEn": "Jamsil",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.17": {
+      "name": "잠실새내",
+      "line": "S2",
+      "nameEn": "Jamsilsaenae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.18": {
+      "name": "종합운동장",
+      "line": "S2",
+      "nameEn": "Sports Complex",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.19": {
+      "name": "삼성",
+      "line": "S2",
+      "nameEn": "Samseong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.20": {
+      "name": "선릉",
+      "line": "S2",
+      "nameEn": "Seolleung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.21": {
+      "name": "역삼",
+      "line": "S2",
+      "nameEn": "Yeoksam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.22": {
+      "name": "강남",
+      "line": "S2",
+      "nameEn": "Gangnam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.23": {
+      "name": "교대",
+      "line": "S2",
+      "nameEn": "Seoul Nat'l Univ. of Education",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.24": {
+      "name": "서초",
+      "line": "S2",
+      "nameEn": "Seocho",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.25": {
+      "name": "방배",
+      "line": "S2",
+      "nameEn": "Bangbae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.26": {
+      "name": "사당",
+      "line": "S2",
+      "nameEn": "Sadang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.27": {
+      "name": "낙성대",
+      "line": "S2",
+      "nameEn": "Nakseongdae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.28": {
+      "name": "서울대입구",
+      "line": "S2",
+      "nameEn": "Seoul Nat'l University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.29": {
+      "name": "봉천",
+      "line": "S2",
+      "nameEn": "Bongcheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.30": {
+      "name": "신림",
+      "line": "S2",
+      "nameEn": "Sillim",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.31": {
+      "name": "신대방",
+      "line": "S2",
+      "nameEn": "Sindaebang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.32": {
+      "name": "구로디지털단지",
+      "line": "S2",
+      "nameEn": "Guro Digital Complex",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.33": {
+      "name": "대림",
+      "line": "S2",
+      "nameEn": "Daerim",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.34": {
+      "name": "신도림",
+      "line": "S2",
+      "nameEn": "Sindorim",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.35": {
+      "name": "문래",
+      "line": "S2",
+      "nameEn": "Mullae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.36": {
+      "name": "영등포구청",
+      "line": "S2",
+      "nameEn": "Yeongdeungpo-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.37": {
+      "name": "당산",
+      "line": "S2",
+      "nameEn": "Dangsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.38": {
+      "name": "합정",
+      "line": "S2",
+      "nameEn": "Hapjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.39": {
+      "name": "홍대입구",
+      "line": "S2",
+      "nameEn": "Hongik University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.40": {
+      "name": "신촌",
+      "line": "S2",
+      "nameEn": "Sinchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.41": {
+      "name": "이대",
+      "line": "S2",
+      "nameEn": "Ewha Womans University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.42": {
+      "name": "아현",
+      "line": "S2",
+      "nameEn": "Ahyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2.43": {
+      "name": "충정로",
+      "line": "S2",
+      "nameEn": "Chungjeongno",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2A.01": {
+      "name": "신설동",
+      "line": "S2A",
+      "nameEn": "Sinseol-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2A.02": {
+      "name": "용두",
+      "line": "S2A",
+      "nameEn": "Yongdu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2A.03": {
+      "name": "신답",
+      "line": "S2A",
+      "nameEn": "Sindap",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2A.04": {
+      "name": "용답",
+      "line": "S2A",
+      "nameEn": "Yongdap",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2A.05": {
+      "name": "성수",
+      "line": "S2A",
+      "nameEn": "Seongsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2B.01": {
+      "name": "신도림",
+      "line": "S2B",
+      "nameEn": "Sindorim",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2B.02": {
+      "name": "도림천",
+      "line": "S2B",
+      "nameEn": "Dorimcheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2B.03": {
+      "name": "양천구청",
+      "line": "S2B",
+      "nameEn": "Yangcheon-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2B.04": {
+      "name": "신정네거리",
+      "line": "S2B",
+      "nameEn": "Sinjeongnegeori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S2B.05": {
+      "name": "까치산",
+      "line": "S2B",
+      "nameEn": "Kkachisan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.01": {
+      "name": "대화",
+      "line": "S3",
+      "nameEn": "Daehwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.02": {
+      "name": "주엽",
+      "line": "S3",
+      "nameEn": "Juyeop",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.03": {
+      "name": "정발산",
+      "line": "S3",
+      "nameEn": "Jeongbalsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.04": {
+      "name": "마두",
+      "line": "S3",
+      "nameEn": "Madu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.05": {
+      "name": "백석",
+      "line": "S3",
+      "nameEn": "Baekseok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.06": {
+      "name": "대곡",
+      "line": "S3",
+      "nameEn": "Daegok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.07": {
+      "name": "화정",
+      "line": "S3",
+      "nameEn": "Hwajeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.08": {
+      "name": "원당",
+      "line": "S3",
+      "nameEn": "Wondang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.09": {
+      "name": "원흥",
+      "line": "S3",
+      "nameEn": "Wonheung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.10": {
+      "name": "삼송",
+      "line": "S3",
+      "nameEn": "Samsong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.11": {
+      "name": "지축",
+      "line": "S3",
+      "nameEn": "Jichuk",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.12": {
+      "name": "구파발",
+      "line": "S3",
+      "nameEn": "Gupabal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.13": {
+      "name": "연신내",
+      "line": "S3",
+      "nameEn": "Yeonsinnae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.14": {
+      "name": "불광",
+      "line": "S3",
+      "nameEn": "Bulgwang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.15": {
+      "name": "녹번",
+      "line": "S3",
+      "nameEn": "Nokbeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.16": {
+      "name": "홍제",
+      "line": "S3",
+      "nameEn": "Hongje",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.17": {
+      "name": "무악재",
+      "line": "S3",
+      "nameEn": "Muakjae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.18": {
+      "name": "독립문",
+      "line": "S3",
+      "nameEn": "Dongnimmun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.19": {
+      "name": "경복궁",
+      "line": "S3",
+      "nameEn": "Gyeongbokgung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.20": {
+      "name": "안국",
+      "line": "S3",
+      "nameEn": "Anguk",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.21": {
+      "name": "종로3가",
+      "line": "S3",
+      "nameEn": "Jongno 3-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.22": {
+      "name": "을지로3가",
+      "line": "S3",
+      "nameEn": "Euljiro 3-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.23": {
+      "name": "충무로",
+      "line": "S3",
+      "nameEn": "Chungmuro",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.24": {
+      "name": "동대입구",
+      "line": "S3",
+      "nameEn": "Dongguk Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.25": {
+      "name": "약수",
+      "line": "S3",
+      "nameEn": "Yaksu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.26": {
+      "name": "금호",
+      "line": "S3",
+      "nameEn": "Geumho",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.27": {
+      "name": "옥수",
+      "line": "S3",
+      "nameEn": "Oksu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.28": {
+      "name": "압구정",
+      "line": "S3",
+      "nameEn": "Apgujeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.29": {
+      "name": "신사",
+      "line": "S3",
+      "nameEn": "Sinsa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.30": {
+      "name": "잠원",
+      "line": "S3",
+      "nameEn": "Jamwon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.31": {
+      "name": "고속터미널",
+      "line": "S3",
+      "nameEn": "Express Bus Terminal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.32": {
+      "name": "교대",
+      "line": "S3",
+      "nameEn": "Seoul Nat'l Univ. of Education",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.33": {
+      "name": "남부터미널",
+      "line": "S3",
+      "nameEn": "Nambu Bus Terminal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.34": {
+      "name": "양재",
+      "line": "S3",
+      "nameEn": "Yangjae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.35": {
+      "name": "매봉",
+      "line": "S3",
+      "nameEn": "Maebong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.36": {
+      "name": "도곡",
+      "line": "S3",
+      "nameEn": "Dogok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.37": {
+      "name": "대치",
+      "line": "S3",
+      "nameEn": "Daechi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.38": {
+      "name": "학여울",
+      "line": "S3",
+      "nameEn": "Hangnyeoul",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.39": {
+      "name": "대청",
+      "line": "S3",
+      "nameEn": "Daecheong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.40": {
+      "name": "일원",
+      "line": "S3",
+      "nameEn": "Irwon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.41": {
+      "name": "수서",
+      "line": "S3",
+      "nameEn": "Suseo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.42": {
+      "name": "가락시장",
+      "line": "S3",
+      "nameEn": "Garak Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.43": {
+      "name": "경찰병원",
+      "line": "S3",
+      "nameEn": "Nat'l Police Hospital",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S3.44": {
+      "name": "오금",
+      "line": "S3",
+      "nameEn": "Ogeum",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.01": {
+      "name": "진접",
+      "line": "S4",
+      "nameEn": "Jinjeop",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.02": {
+      "name": "오남",
+      "line": "S4",
+      "nameEn": "Onam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.03": {
+      "name": "별내별가람",
+      "line": "S4",
+      "nameEn": "Byeollaebyeolgaram",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.04": {
+      "name": "불암산",
+      "line": "S4",
+      "nameEn": "Buramsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.05": {
+      "name": "상계",
+      "line": "S4",
+      "nameEn": "Sanggye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.06": {
+      "name": "노원",
+      "line": "S4",
+      "nameEn": "Nowon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.07": {
+      "name": "창동",
+      "line": "S4",
+      "nameEn": "Chang-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.08": {
+      "name": "쌍문",
+      "line": "S4",
+      "nameEn": "Ssangmun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.09": {
+      "name": "수유",
+      "line": "S4",
+      "nameEn": "Suyu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.10": {
+      "name": "미아",
+      "line": "S4",
+      "nameEn": "Mia",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.11": {
+      "name": "미아사거리",
+      "line": "S4",
+      "nameEn": "Miasageori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.12": {
+      "name": "길음",
+      "line": "S4",
+      "nameEn": "Gireum",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.13": {
+      "name": "성신여대입구",
+      "line": "S4",
+      "nameEn": "Sungshin Women's Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.14": {
+      "name": "한성대입구",
+      "line": "S4",
+      "nameEn": "Hansung Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.15": {
+      "name": "혜화",
+      "line": "S4",
+      "nameEn": "Hyehwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.16": {
+      "name": "동대문",
+      "line": "S4",
+      "nameEn": "Dongdaemun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.17": {
+      "name": "동대문역사문화공원",
+      "line": "S4",
+      "nameEn": "Dongdaemun History & Culture Park Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.18": {
+      "name": "충무로",
+      "line": "S4",
+      "nameEn": "Chungmuro",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.19": {
+      "name": "명동",
+      "line": "S4",
+      "nameEn": "Myeong-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.20": {
+      "name": "회현",
+      "line": "S4",
+      "nameEn": "Hoehyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.21": {
+      "name": "서울역",
+      "line": "S4",
+      "nameEn": "Seoul Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.22": {
+      "name": "숙대입구",
+      "line": "S4",
+      "nameEn": "Sookmyung Women's Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.23": {
+      "name": "삼각지",
+      "line": "S4",
+      "nameEn": "Samgakji",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.24": {
+      "name": "신용산",
+      "line": "S4",
+      "nameEn": "Sinyongsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.25": {
+      "name": "이촌",
+      "line": "S4",
+      "nameEn": "Ichon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.26": {
+      "name": "동작",
+      "line": "S4",
+      "nameEn": "Dongjak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.27": {
+      "name": "총신대입구",
+      "line": "S4",
+      "nameEn": "Chongsin Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.28": {
+      "name": "사당",
+      "line": "S4",
+      "nameEn": "Sadang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.29": {
+      "name": "남태령",
+      "line": "S4",
+      "nameEn": "Namtaeryeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.30": {
+      "name": "선바위",
+      "line": "S4",
+      "nameEn": "Seonbawi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.31": {
+      "name": "경마공원",
+      "line": "S4",
+      "nameEn": "Seoul Racecourse park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.32": {
+      "name": "대공원",
+      "line": "S4",
+      "nameEn": "Seoul Grand park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.33": {
+      "name": "과천",
+      "line": "S4",
+      "nameEn": "Gwacheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.34": {
+      "name": "정부과천청사",
+      "line": "S4",
+      "nameEn": "Ansan Line",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.35": {
+      "name": "인덕원",
+      "line": "S4",
+      "nameEn": "Indeogwon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.36": {
+      "name": "평촌",
+      "line": "S4",
+      "nameEn": "Pyeongchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.37": {
+      "name": "범계",
+      "line": "S4",
+      "nameEn": "Beomgye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.38": {
+      "name": "금정",
+      "line": "S4",
+      "nameEn": "Geumjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.39": {
+      "name": "산본",
+      "line": "S4",
+      "nameEn": "Sanbon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.40": {
+      "name": "수리산",
+      "line": "S4",
+      "nameEn": "Surisan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.41": {
+      "name": "대야미",
+      "line": "S4",
+      "nameEn": "Daeyami",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.42": {
+      "name": "반월",
+      "line": "S4",
+      "nameEn": "Banwol",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.43": {
+      "name": "상록수",
+      "line": "S4",
+      "nameEn": "Sangnoksu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.44": {
+      "name": "한대앞",
+      "line": "S4",
+      "nameEn": "Hanyang University at Ansan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.45": {
+      "name": "중앙",
+      "line": "S4",
+      "nameEn": "Jungang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.46": {
+      "name": "고잔",
+      "line": "S4",
+      "nameEn": "Gojan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.47": {
+      "name": "초지",
+      "line": "S4",
+      "nameEn": "Choji",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.48": {
+      "name": "안산",
+      "line": "S4",
+      "nameEn": "Ansan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.49": {
+      "name": "신길온천",
+      "line": "S4",
+      "nameEn": "Singiloncheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.50": {
+      "name": "정왕",
+      "line": "S4",
+      "nameEn": "Jeongwang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S4.51": {
+      "name": "오이도",
+      "line": "S4",
+      "nameEn": "Oido",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.01": {
+      "name": "방화",
+      "line": "S5",
+      "nameEn": "Banghwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.02": {
+      "name": "개화산",
+      "line": "S5",
+      "nameEn": "Gaehwasan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.03": {
+      "name": "김포공항",
+      "line": "S5",
+      "nameEn": "Gimpo Int'l Airport",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.04": {
+      "name": "송정",
+      "line": "S5",
+      "nameEn": "Songjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.05": {
+      "name": "마곡",
+      "line": "S5",
+      "nameEn": "Magok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.06": {
+      "name": "발산",
+      "line": "S5",
+      "nameEn": "Balsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.07": {
+      "name": "우장산",
+      "line": "S5",
+      "nameEn": "Ujangsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.08": {
+      "name": "화곡",
+      "line": "S5",
+      "nameEn": "Hwagok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.09": {
+      "name": "까치산",
+      "line": "S5",
+      "nameEn": "Kkachisan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.10": {
+      "name": "신정",
+      "line": "S5",
+      "nameEn": "Sinjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.11": {
+      "name": "목동",
+      "line": "S5",
+      "nameEn": "Mok-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.12": {
+      "name": "오목교",
+      "line": "S5",
+      "nameEn": "Omokgyo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.13": {
+      "name": "양평",
+      "line": "S5",
+      "nameEn": "Yangpyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.14": {
+      "name": "영등포구청",
+      "line": "S5",
+      "nameEn": "Yeongdeungpo-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.15": {
+      "name": "영등포시장",
+      "line": "S5",
+      "nameEn": "Yeongdeungpo Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.16": {
+      "name": "신길",
+      "line": "S5",
+      "nameEn": "Singil",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.17": {
+      "name": "여의도",
+      "line": "S5",
+      "nameEn": "Yeouido",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.18": {
+      "name": "여의나루",
+      "line": "S5",
+      "nameEn": "Yeouinaru",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.19": {
+      "name": "마포",
+      "line": "S5",
+      "nameEn": "Mapo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.20": {
+      "name": "공덕",
+      "line": "S5",
+      "nameEn": "Gongdeok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.21": {
+      "name": "애오개",
+      "line": "S5",
+      "nameEn": "Aeogae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.22": {
+      "name": "충정로",
+      "line": "S5",
+      "nameEn": "Chungjeongno",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.23": {
+      "name": "서대문",
+      "line": "S5",
+      "nameEn": "Seodaemun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.24": {
+      "name": "광화문",
+      "line": "S5",
+      "nameEn": "Gwanghwamun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.25": {
+      "name": "종로3가",
+      "line": "S5",
+      "nameEn": "Jongno 3-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.26": {
+      "name": "을지로4가",
+      "line": "S5",
+      "nameEn": "Euljiro 4-ga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.27": {
+      "name": "동대문역사문화공원",
+      "line": "S5",
+      "nameEn": "Dongdaemun History & Culture Park Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.28": {
+      "name": "청구",
+      "line": "S5",
+      "nameEn": "Cheonggu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.29": {
+      "name": "신금호",
+      "line": "S5",
+      "nameEn": "Singeumho",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.30": {
+      "name": "행당",
+      "line": "S5",
+      "nameEn": "Haengdang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.31": {
+      "name": "왕십리",
+      "line": "S5",
+      "nameEn": "Wangsimni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.32": {
+      "name": "마장",
+      "line": "S5",
+      "nameEn": "Majang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.33": {
+      "name": "답십리",
+      "line": "S5",
+      "nameEn": "Dapsipri",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.34": {
+      "name": "장한평",
+      "line": "S5",
+      "nameEn": "Janghanpyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.35": {
+      "name": "군자",
+      "line": "S5",
+      "nameEn": "Gunja",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.36": {
+      "name": "아차산",
+      "line": "S5",
+      "nameEn": "Achasan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.37": {
+      "name": "광나루",
+      "line": "S5",
+      "nameEn": "Gwangnaru",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.38": {
+      "name": "천호",
+      "line": "S5",
+      "nameEn": "Cheonho",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.39": {
+      "name": "강동",
+      "line": "S5",
+      "nameEn": "Gangdong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.40": {
+      "name": "길동",
+      "line": "S5",
+      "nameEn": "Gil-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.41": {
+      "name": "굽은다리",
+      "line": "S5",
+      "nameEn": "Gubeundari",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.42": {
+      "name": "명일",
+      "line": "S5",
+      "nameEn": "Myeongil",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.43": {
+      "name": "고덕",
+      "line": "S5",
+      "nameEn": "Godeok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.44": {
+      "name": "상일동",
+      "line": "S5",
+      "nameEn": "Sangil-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.45": {
+      "name": "강일",
+      "line": "S5",
+      "nameEn": "Gangil",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.46": {
+      "name": "미사",
+      "line": "S5",
+      "nameEn": "Misa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.47": {
+      "name": "하남풍산",
+      "line": "S5",
+      "nameEn": "Hanam Pungsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.48": {
+      "name": "하남시청",
+      "line": "S5",
+      "nameEn": "Hanam City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5.49": {
+      "name": "하남검단산",
+      "line": "S5",
+      "nameEn": "Hanam Geomdansan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5M.01": {
+      "name": "강동",
+      "line": "S5M",
+      "nameEn": "Gangdong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5M.02": {
+      "name": "둔촌동",
+      "line": "S5M",
+      "nameEn": "Dunchon-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5M.03": {
+      "name": "올림픽공원",
+      "line": "S5M",
+      "nameEn": "Olympic Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5M.04": {
+      "name": "방이",
+      "line": "S5M",
+      "nameEn": "Bangi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5M.05": {
+      "name": "오금",
+      "line": "S5M",
+      "nameEn": "Ogeum",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5M.06": {
+      "name": "개롱",
+      "line": "S5M",
+      "nameEn": "Gaerong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5M.07": {
+      "name": "거여",
+      "line": "S5M",
+      "nameEn": "Geoyeo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S5M.08": {
+      "name": "마천",
+      "line": "S5M",
+      "nameEn": "Macheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.01": {
+      "name": "응암",
+      "line": "S6",
+      "nameEn": "Eungam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.02": {
+      "name": "역촌",
+      "line": "S6",
+      "nameEn": "Yeokchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.03": {
+      "name": "불광",
+      "line": "S6",
+      "nameEn": "Bulgwang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.04": {
+      "name": "독바위",
+      "line": "S6",
+      "nameEn": "Dokbawi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.05": {
+      "name": "연신내",
+      "line": "S6",
+      "nameEn": "Yeonsinnae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.06": {
+      "name": "구산",
+      "line": "S6",
+      "nameEn": "Gusan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.07": {
+      "name": "응암",
+      "line": "S6",
+      "nameEn": "Eungam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.08": {
+      "name": "새절",
+      "line": "S6",
+      "nameEn": "Saejeol",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.09": {
+      "name": "증산",
+      "line": "S6",
+      "nameEn": "Jeungsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.10": {
+      "name": "디지털미디어시티",
+      "line": "S6",
+      "nameEn": "Digital Media City",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.11": {
+      "name": "월드컵경기장",
+      "line": "S6",
+      "nameEn": "World Cup Stadium",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.12": {
+      "name": "마포구청",
+      "line": "S6",
+      "nameEn": "Mapo-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.13": {
+      "name": "망원",
+      "line": "S6",
+      "nameEn": "Mangwon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.14": {
+      "name": "합정",
+      "line": "S6",
+      "nameEn": "Hapjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.15": {
+      "name": "상수",
+      "line": "S6",
+      "nameEn": "Sangsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.16": {
+      "name": "광흥창",
+      "line": "S6",
+      "nameEn": "Gwangheungchang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.17": {
+      "name": "대흥",
+      "line": "S6",
+      "nameEn": "Daeheung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.18": {
+      "name": "공덕",
+      "line": "S6",
+      "nameEn": "Gongdeok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.19": {
+      "name": "효창공원앞",
+      "line": "S6",
+      "nameEn": "Hyochang Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.20": {
+      "name": "삼각지",
+      "line": "S6",
+      "nameEn": "Samgakji",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.21": {
+      "name": "녹사평",
+      "line": "S6",
+      "nameEn": "Noksapyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.22": {
+      "name": "이태원",
+      "line": "S6",
+      "nameEn": "Itaewon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.23": {
+      "name": "한강진",
+      "line": "S6",
+      "nameEn": "Hangangjin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.24": {
+      "name": "버티고개",
+      "line": "S6",
+      "nameEn": "Beotigogae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.25": {
+      "name": "약수",
+      "line": "S6",
+      "nameEn": "Yaksu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.26": {
+      "name": "청구",
+      "line": "S6",
+      "nameEn": "Cheonggu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.27": {
+      "name": "신당",
+      "line": "S6",
+      "nameEn": "Sindang station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.28": {
+      "name": "동묘앞",
+      "line": "S6",
+      "nameEn": "Dongmyo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.29": {
+      "name": "창신",
+      "line": "S6",
+      "nameEn": "Changsin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.30": {
+      "name": "보문",
+      "line": "S6",
+      "nameEn": "Bomun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.31": {
+      "name": "안암",
+      "line": "S6",
+      "nameEn": "Anam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.32": {
+      "name": "고려대",
+      "line": "S6",
+      "nameEn": "Korea Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.33": {
+      "name": "월곡",
+      "line": "S6",
+      "nameEn": "Wolgok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.34": {
+      "name": "상월곡",
+      "line": "S6",
+      "nameEn": "Sangwolgok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.35": {
+      "name": "돌곶이",
+      "line": "S6",
+      "nameEn": "Dolgoji",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.36": {
+      "name": "석계",
+      "line": "S6",
+      "nameEn": "Seokgye Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.37": {
+      "name": "태릉입구",
+      "line": "S6",
+      "nameEn": "Taereung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.38": {
+      "name": "화랑대",
+      "line": "S6",
+      "nameEn": "Hwarangdae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.39": {
+      "name": "봉화산",
+      "line": "S6",
+      "nameEn": "Bonghwasan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S6.40": {
+      "name": "신내",
+      "line": "S6",
+      "nameEn": "Sinnae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.01": {
+      "name": "장암",
+      "line": "S7",
+      "nameEn": "Jangam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.02": {
+      "name": "도봉산",
+      "line": "S7",
+      "nameEn": "Dobongsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.03": {
+      "name": "수락산",
+      "line": "S7",
+      "nameEn": "Suraksan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.04": {
+      "name": "마들",
+      "line": "S7",
+      "nameEn": "Madeul",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.05": {
+      "name": "노원",
+      "line": "S7",
+      "nameEn": "Nowon Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.06": {
+      "name": "중계",
+      "line": "S7",
+      "nameEn": "Junggye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.07": {
+      "name": "하계",
+      "line": "S7",
+      "nameEn": "Hagye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.08": {
+      "name": "공릉",
+      "line": "S7",
+      "nameEn": "Gongneung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.09": {
+      "name": "태릉입구",
+      "line": "S7",
+      "nameEn": "Taereung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.10": {
+      "name": "먹골",
+      "line": "S7",
+      "nameEn": "Meokgol",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.11": {
+      "name": "중화",
+      "line": "S7",
+      "nameEn": "Junghwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.12": {
+      "name": "상봉",
+      "line": "S7",
+      "nameEn": "Sangbong Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.13": {
+      "name": "면목",
+      "line": "S7",
+      "nameEn": "Myeonmok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.14": {
+      "name": "사가정",
+      "line": "S7",
+      "nameEn": "Sagajeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.15": {
+      "name": "용마산",
+      "line": "S7",
+      "nameEn": "Yongmasan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.16": {
+      "name": "중곡",
+      "line": "S7",
+      "nameEn": "Junggok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.17": {
+      "name": "군자",
+      "line": "S7",
+      "nameEn": "Gunja",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.18": {
+      "name": "어린이대공원",
+      "line": "S7",
+      "nameEn": "Children's Grand Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.19": {
+      "name": "건대입구",
+      "line": "S7",
+      "nameEn": "Konkuk Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.20": {
+      "name": "자양",
+      "line": "S7",
+      "nameEn": "Jayang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.21": {
+      "name": "청담",
+      "line": "S7",
+      "nameEn": "Cheongdam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.22": {
+      "name": "강남구청",
+      "line": "S7",
+      "nameEn": "Gangnam-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.23": {
+      "name": "학동",
+      "line": "S7",
+      "nameEn": "Hak-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.24": {
+      "name": "논현",
+      "line": "S7",
+      "nameEn": "Nonhyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.25": {
+      "name": "반포",
+      "line": "S7",
+      "nameEn": "Banpo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.26": {
+      "name": "고속터미널",
+      "line": "S7",
+      "nameEn": "Express Bus Terminal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.27": {
+      "name": "내방",
+      "line": "S7",
+      "nameEn": "Naebang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.28": {
+      "name": "이수",
+      "line": "S7",
+      "nameEn": "Isu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.29": {
+      "name": "남성",
+      "line": "S7",
+      "nameEn": "Namseong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.30": {
+      "name": "숭실대입구",
+      "line": "S7",
+      "nameEn": "Soongsil Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.31": {
+      "name": "상도",
+      "line": "S7",
+      "nameEn": "Sangdo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.32": {
+      "name": "장승배기",
+      "line": "S7",
+      "nameEn": "Jangseungbaegi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.33": {
+      "name": "신대방삼거리",
+      "line": "S7",
+      "nameEn": "Sindaebangsamgeori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.34": {
+      "name": "보라매",
+      "line": "S7",
+      "nameEn": "Boramae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.35": {
+      "name": "신풍",
+      "line": "S7",
+      "nameEn": "Sinpung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.36": {
+      "name": "대림",
+      "line": "S7",
+      "nameEn": "Daerim",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.37": {
+      "name": "남구로",
+      "line": "S7",
+      "nameEn": "Namguro",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.38": {
+      "name": "가산디지털단지",
+      "line": "S7",
+      "nameEn": "Gasan Digital Complex",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.39": {
+      "name": "철산",
+      "line": "S7",
+      "nameEn": "Cheolsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.40": {
+      "name": "광명사거리",
+      "line": "S7",
+      "nameEn": "Gwangmyeongsageori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.41": {
+      "name": "천왕",
+      "line": "S7",
+      "nameEn": "Cheonwang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.42": {
+      "name": "온수",
+      "line": "S7",
+      "nameEn": "Onsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.43": {
+      "name": "까치울",
+      "line": "S7",
+      "nameEn": "Kkachiul",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.44": {
+      "name": "부천종합운동장",
+      "line": "S7",
+      "nameEn": "Bucheon Stadium",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.45": {
+      "name": "춘의",
+      "line": "S7",
+      "nameEn": "Chunui",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.46": {
+      "name": "신중동",
+      "line": "S7",
+      "nameEn": "Sinjung-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.47": {
+      "name": "부천시청",
+      "line": "S7",
+      "nameEn": "Bucheon City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.48": {
+      "name": "상동",
+      "line": "S7",
+      "nameEn": "Sang-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.49": {
+      "name": "삼산체육관",
+      "line": "S7",
+      "nameEn": "Samsan Gymnasium",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.50": {
+      "name": "굴포천",
+      "line": "S7",
+      "nameEn": "Gulpocheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.51": {
+      "name": "부평구청",
+      "line": "S7",
+      "nameEn": "Bupyeong-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.52": {
+      "name": "산곡",
+      "line": "S7",
+      "nameEn": "Sangok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S7.53": {
+      "name": "석남",
+      "line": "S7",
+      "nameEn": "Seongnam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.01": {
+      "name": "별내",
+      "line": "S8",
+      "nameEn": "Byeollae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.02": {
+      "name": "다산",
+      "line": "S8",
+      "nameEn": "Dasan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.03": {
+      "name": "동구릉",
+      "line": "S8",
+      "nameEn": "Donggureung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.04": {
+      "name": "구리",
+      "line": "S8",
+      "nameEn": "Guri",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.05": {
+      "name": "장자호수공원",
+      "line": "S8",
+      "nameEn": "Jangja Lake Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.06": {
+      "name": "암사역사공원",
+      "line": "S8",
+      "nameEn": "Amsa History Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.07": {
+      "name": "암사",
+      "line": "S8",
+      "nameEn": "Amsa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.08": {
+      "name": "천호",
+      "line": "S8",
+      "nameEn": "Cheonho",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.09": {
+      "name": "강동구청",
+      "line": "S8",
+      "nameEn": "Gangdong-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.10": {
+      "name": "몽촌토성",
+      "line": "S8",
+      "nameEn": "Mongchontoseong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.11": {
+      "name": "잠실",
+      "line": "S8",
+      "nameEn": "Jamsil",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.12": {
+      "name": "석촌",
+      "line": "S8",
+      "nameEn": "Seokchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.13": {
+      "name": "송파",
+      "line": "S8",
+      "nameEn": "Songpa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.14": {
+      "name": "가락시장",
+      "line": "S8",
+      "nameEn": "Garak Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.15": {
+      "name": "문정",
+      "line": "S8",
+      "nameEn": "Munjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.16": {
+      "name": "장지",
+      "line": "S8",
+      "nameEn": "Jangji",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.17": {
+      "name": "복정",
+      "line": "S8",
+      "nameEn": "Bokjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.18": {
+      "name": "남위례",
+      "line": "S8",
+      "nameEn": "Namwirye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.19": {
+      "name": "산성",
+      "line": "S8",
+      "nameEn": "Sanseong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.20": {
+      "name": "남한산성입구",
+      "line": "S8",
+      "nameEn": "Namhansanseong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.21": {
+      "name": "단대오거리",
+      "line": "S8",
+      "nameEn": "Dandaeogeori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.22": {
+      "name": "신흥",
+      "line": "S8",
+      "nameEn": "Sinheung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.23": {
+      "name": "수진",
+      "line": "S8",
+      "nameEn": "Sujin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S8.24": {
+      "name": "모란",
+      "line": "S8",
+      "nameEn": "Moran",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.01": {
+      "name": "개화",
+      "line": "S9",
+      "nameEn": "Gaehwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.02": {
+      "name": "김포공항",
+      "line": "S9",
+      "nameEn": "Gimpo Int'l Airport",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.03": {
+      "name": "공항시장",
+      "line": "S9",
+      "nameEn": "Airport Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.04": {
+      "name": "신방화",
+      "line": "S9",
+      "nameEn": "Sinbanghwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.05": {
+      "name": "마곡나루",
+      "line": "S9",
+      "nameEn": "Magongnaru",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.06": {
+      "name": "양천향교",
+      "line": "S9",
+      "nameEn": "Yangcheon Hyanggyo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.07": {
+      "name": "가양",
+      "line": "S9",
+      "nameEn": "Gayang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.08": {
+      "name": "증미",
+      "line": "S9",
+      "nameEn": "Jeungmi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.09": {
+      "name": "등촌",
+      "line": "S9",
+      "nameEn": "Deungchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.10": {
+      "name": "염창",
+      "line": "S9",
+      "nameEn": "Yeomchang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.11": {
+      "name": "신목동",
+      "line": "S9",
+      "nameEn": "Sinmokdong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.12": {
+      "name": "선유도",
+      "line": "S9",
+      "nameEn": "Seonyudo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.13": {
+      "name": "당산",
+      "line": "S9",
+      "nameEn": "Dangsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.14": {
+      "name": "국회의사당",
+      "line": "S9",
+      "nameEn": "National Assembly",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.15": {
+      "name": "여의도",
+      "line": "S9",
+      "nameEn": "Yeouido",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.16": {
+      "name": "샛강",
+      "line": "S9",
+      "nameEn": "Saetgang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.17": {
+      "name": "노량진",
+      "line": "S9",
+      "nameEn": "Noryangjin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.18": {
+      "name": "노들",
+      "line": "S9",
+      "nameEn": "Nodeul",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.19": {
+      "name": "흑석",
+      "line": "S9",
+      "nameEn": "Heukseok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.20": {
+      "name": "동작",
+      "line": "S9",
+      "nameEn": "Dongjak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.21": {
+      "name": "구반포",
+      "line": "S9",
+      "nameEn": "Gubanpo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.22": {
+      "name": "신반포",
+      "line": "S9",
+      "nameEn": "Sinbanpo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.23": {
+      "name": "고속터미널",
+      "line": "S9",
+      "nameEn": "Express Bus Terminal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.24": {
+      "name": "사평",
+      "line": "S9",
+      "nameEn": "Sapyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.25": {
+      "name": "신논현역",
+      "line": "S9",
+      "nameEn": "Sinnonhyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.26": {
+      "name": "언주",
+      "line": "S9",
+      "nameEn": "Eonju",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.27": {
+      "name": "선정릉",
+      "line": "S9",
+      "nameEn": "Seonjeongneung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.28": {
+      "name": "삼성중앙",
+      "line": "S9",
+      "nameEn": "Samseong Jungang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.29": {
+      "name": "봉은사역",
+      "line": "S9",
+      "nameEn": "Bongeunsa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.30": {
+      "name": "종합운동장",
+      "line": "S9",
+      "nameEn": "Sports Complex",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.31": {
+      "name": "삼전",
+      "line": "S9",
+      "nameEn": "Samjeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.32": {
+      "name": "석촌고분",
+      "line": "S9",
+      "nameEn": "Seokchon Gobun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.33": {
+      "name": "석촌",
+      "line": "S9",
+      "nameEn": "Seokchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.34": {
+      "name": "송파나루",
+      "line": "S9",
+      "nameEn": "Songpanaru",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.35": {
+      "name": "한성백제",
+      "line": "S9",
+      "nameEn": "Hanseong Baekje",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.36": {
+      "name": "올림픽공원",
+      "line": "S9",
+      "nameEn": "Olympic Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.37": {
+      "name": "둔촌오륜",
+      "line": "S9",
+      "nameEn": "Dunchon Oryun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "S9.38": {
+      "name": "중앙보훈병원",
+      "line": "S9",
+      "nameEn": "VHS Medical Center",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.01": {
+      "name": "문산",
+      "line": "SGJ",
+      "nameEn": "Munsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.02": {
+      "name": "파주",
+      "line": "SGJ",
+      "nameEn": "Paju Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.03": {
+      "name": "월롱",
+      "line": "SGJ",
+      "nameEn": "Wollong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.04": {
+      "name": "금촌",
+      "line": "SGJ",
+      "nameEn": "Geumchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.05": {
+      "name": "금릉",
+      "line": "SGJ",
+      "nameEn": "Geumneung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.06": {
+      "name": "운정",
+      "line": "SGJ",
+      "nameEn": "Unjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.07": {
+      "name": "야당",
+      "line": "SGJ",
+      "nameEn": "Yadang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.08": {
+      "name": "탄현",
+      "line": "SGJ",
+      "nameEn": "Tanhyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.09": {
+      "name": "일산",
+      "line": "SGJ",
+      "nameEn": "Ilsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.10": {
+      "name": "풍산",
+      "line": "SGJ",
+      "nameEn": "Pungsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.11": {
+      "name": "백마",
+      "line": "SGJ",
+      "nameEn": "Baengma",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.12": {
+      "name": "곡산",
+      "line": "SGJ",
+      "nameEn": "Goksan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.13": {
+      "name": "대곡",
+      "line": "SGJ",
+      "nameEn": "Daegok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.14": {
+      "name": "능곡",
+      "line": "SGJ",
+      "nameEn": "Neunggok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.15": {
+      "name": "행신",
+      "line": "SGJ",
+      "nameEn": "Haengsin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.16": {
+      "name": "강매",
+      "line": "SGJ",
+      "nameEn": "Gangmae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.17": {
+      "name": "한국항공대",
+      "line": "SGJ",
+      "nameEn": "Korea Aerospace University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.18": {
+      "name": "수색",
+      "line": "SGJ",
+      "nameEn": "Susaek",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.19": {
+      "name": "디지털미디어시티",
+      "line": "SGJ",
+      "nameEn": "Digital Media City",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.20": {
+      "name": "가좌",
+      "line": "SGJ",
+      "nameEn": "Gajwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.21": {
+      "name": "홍대입구",
+      "line": "SGJ",
+      "nameEn": "Hongik Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.22": {
+      "name": "서강대",
+      "line": "SGJ",
+      "nameEn": "Sogang Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.23": {
+      "name": "공덕",
+      "line": "SGJ",
+      "nameEn": "Gongdeok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.24": {
+      "name": "효창공원앞",
+      "line": "SGJ",
+      "nameEn": "Hyochang Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.25": {
+      "name": "용산",
+      "line": "SGJ",
+      "nameEn": "Yongsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.26": {
+      "name": "이촌",
+      "line": "SGJ",
+      "nameEn": "Ichon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.27": {
+      "name": "서빙고",
+      "line": "SGJ",
+      "nameEn": "Seobinggo Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.28": {
+      "name": "한남",
+      "line": "SGJ",
+      "nameEn": "Hannam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.29": {
+      "name": "옥수",
+      "line": "SGJ",
+      "nameEn": "Oksu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.30": {
+      "name": "응봉",
+      "line": "SGJ",
+      "nameEn": "Eungbong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.31": {
+      "name": "왕십리",
+      "line": "SGJ",
+      "nameEn": "Wangsimni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.32": {
+      "name": "청량리",
+      "line": "SGJ",
+      "nameEn": "Cheongnyangni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.33": {
+      "name": "회기",
+      "line": "SGJ",
+      "nameEn": "Hoegi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.34": {
+      "name": "중랑",
+      "line": "SGJ",
+      "nameEn": "Jungnang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.35": {
+      "name": "상봉",
+      "line": "SGJ",
+      "nameEn": "Sangbong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.36": {
+      "name": "망우",
+      "line": "SGJ",
+      "nameEn": "Mangu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.37": {
+      "name": "양원",
+      "line": "SGJ",
+      "nameEn": "Yangwon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.38": {
+      "name": "구리",
+      "line": "SGJ",
+      "nameEn": "Guri",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.39": {
+      "name": "도농",
+      "line": "SGJ",
+      "nameEn": "Donong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.40": {
+      "name": "양정",
+      "line": "SGJ",
+      "nameEn": "Yangjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.41": {
+      "name": "덕소",
+      "line": "SGJ",
+      "nameEn": "Deokso",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.42": {
+      "name": "도심",
+      "line": "SGJ",
+      "nameEn": "Dosim",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.43": {
+      "name": "팔당",
+      "line": "SGJ",
+      "nameEn": "Paldang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.44": {
+      "name": "운길산",
+      "line": "SGJ",
+      "nameEn": "Ungilsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.45": {
+      "name": "양수",
+      "line": "SGJ",
+      "nameEn": "Yangsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.46": {
+      "name": "신원",
+      "line": "SGJ",
+      "nameEn": "Sinwon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.47": {
+      "name": "국수",
+      "line": "SGJ",
+      "nameEn": "Guksu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.48": {
+      "name": "아신",
+      "line": "SGJ",
+      "nameEn": "Asin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.49": {
+      "name": "오빈",
+      "line": "SGJ",
+      "nameEn": "Obin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.50": {
+      "name": "양평",
+      "line": "SGJ",
+      "nameEn": "Yangpyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.51": {
+      "name": "원덕",
+      "line": "SGJ",
+      "nameEn": "Wondeok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.52": {
+      "name": "용문",
+      "line": "SGJ",
+      "nameEn": "Yongmun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJ.53": {
+      "name": "지평",
+      "line": "SGJ",
+      "nameEn": "Jipyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJB.01": {
+      "name": "서울역",
+      "line": "SGJB",
+      "nameEn": "Seoul Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJB.02": {
+      "name": "신촌",
+      "line": "SGJB",
+      "nameEn": "Sinchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGJB.03": {
+      "name": "가좌",
+      "line": "SGJB",
+      "nameEn": "Gajwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.01": {
+      "name": "인천",
+      "line": "SSB",
+      "nameEn": "Incheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.02": {
+      "name": "신포",
+      "line": "SSB",
+      "nameEn": "Sinpo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.03": {
+      "name": "숭의",
+      "line": "SSB",
+      "nameEn": "Sungui",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.04": {
+      "name": "인하대",
+      "line": "SSB",
+      "nameEn": "Inha University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.05": {
+      "name": "송도",
+      "line": "SSB",
+      "nameEn": "Songdo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.06": {
+      "name": "연수",
+      "line": "SSB",
+      "nameEn": "Yeonsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.07": {
+      "name": "원인재",
+      "line": "SSB",
+      "nameEn": "Woninjae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.08": {
+      "name": "남동인더스파크",
+      "line": "SSB",
+      "nameEn": "Namdong Induspark",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.09": {
+      "name": "호구포",
+      "line": "SSB",
+      "nameEn": "Hogupo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.10": {
+      "name": "인천논현",
+      "line": "SSB",
+      "nameEn": "Incheon Nonhyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.11": {
+      "name": "소래포구",
+      "line": "SSB",
+      "nameEn": "Soraepogu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.12": {
+      "name": "월곶",
+      "line": "SSB",
+      "nameEn": "Wolgot",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.13": {
+      "name": "달월",
+      "line": "SSB",
+      "nameEn": "Darwol",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.14": {
+      "name": "오이도",
+      "line": "SSB",
+      "nameEn": "Oido",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.15": {
+      "name": "정왕",
+      "line": "SSB",
+      "nameEn": "Jeongwang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.16": {
+      "name": "신길온천",
+      "line": "SSB",
+      "nameEn": "Singiloncheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.17": {
+      "name": "안산",
+      "line": "SSB",
+      "nameEn": "Ansan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.18": {
+      "name": "초지",
+      "line": "SSB",
+      "nameEn": "Choji",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.19": {
+      "name": "고잔",
+      "line": "SSB",
+      "nameEn": "Gojan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.20": {
+      "name": "중앙",
+      "line": "SSB",
+      "nameEn": "Jungang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.21": {
+      "name": "한대앞",
+      "line": "SSB",
+      "nameEn": "Hanyang University at Ansan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.22": {
+      "name": "사리",
+      "line": "SSB",
+      "nameEn": "Sari",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.23": {
+      "name": "야목",
+      "line": "SSB",
+      "nameEn": "Yamok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.24": {
+      "name": "어천",
+      "line": "SSB",
+      "nameEn": "Eocheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.25": {
+      "name": "오목천",
+      "line": "SSB",
+      "nameEn": "Omokcheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.26": {
+      "name": "고색",
+      "line": "SSB",
+      "nameEn": "Gosaek",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.27": {
+      "name": "수원",
+      "line": "SSB",
+      "nameEn": "Suwon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.28": {
+      "name": "매교",
+      "line": "SSB",
+      "nameEn": "Maegyo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.29": {
+      "name": "수원시청",
+      "line": "SSB",
+      "nameEn": "Suwon City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.30": {
+      "name": "매탄권선",
+      "line": "SSB",
+      "nameEn": "MaetanGwonseon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.31": {
+      "name": "망포",
+      "line": "SSB",
+      "nameEn": "Mangpo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.32": {
+      "name": "영통",
+      "line": "SSB",
+      "nameEn": "Yeongtong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.33": {
+      "name": "청명",
+      "line": "SSB",
+      "nameEn": "Cheongmyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.34": {
+      "name": "상갈",
+      "line": "SSB",
+      "nameEn": "Sanggal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.35": {
+      "name": "기흥",
+      "line": "SSB",
+      "nameEn": "Giheung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.36": {
+      "name": "신갈",
+      "line": "SSB",
+      "nameEn": "Singal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.37": {
+      "name": "구성",
+      "line": "SSB",
+      "nameEn": "Guseong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.38": {
+      "name": "보정",
+      "line": "SSB",
+      "nameEn": "Bojeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.39": {
+      "name": "죽전",
+      "line": "SSB",
+      "nameEn": "Jukjeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.40": {
+      "name": "오리",
+      "line": "SSB",
+      "nameEn": "Ori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.41": {
+      "name": "미금",
+      "line": "SSB",
+      "nameEn": "Migeum",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.42": {
+      "name": "정자",
+      "line": "SSB",
+      "nameEn": "Jeongja",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.43": {
+      "name": "수내",
+      "line": "SSB",
+      "nameEn": "Sunae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.44": {
+      "name": "서현",
+      "line": "SSB",
+      "nameEn": "Seohyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.45": {
+      "name": "이매",
+      "line": "SSB",
+      "nameEn": "Imae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.46": {
+      "name": "야탑",
+      "line": "SSB",
+      "nameEn": "Yatap",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.47": {
+      "name": "모란",
+      "line": "SSB",
+      "nameEn": "Moran",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.48": {
+      "name": "태평",
+      "line": "SSB",
+      "nameEn": "Taepyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.49": {
+      "name": "가천대",
+      "line": "SSB",
+      "nameEn": "Gachon Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.50": {
+      "name": "복정",
+      "line": "SSB",
+      "nameEn": "Bokjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.51": {
+      "name": "수서",
+      "line": "SSB",
+      "nameEn": "Suseo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.52": {
+      "name": "대모산입구",
+      "line": "SSB",
+      "nameEn": "Daemosan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.53": {
+      "name": "개포동",
+      "line": "SSB",
+      "nameEn": "Gaepo-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.54": {
+      "name": "구룡",
+      "line": "SSB",
+      "nameEn": "Guryong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.55": {
+      "name": "도곡",
+      "line": "SSB",
+      "nameEn": "Dogok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.56": {
+      "name": "한티",
+      "line": "SSB",
+      "nameEn": "Hanti",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.57": {
+      "name": "선릉",
+      "line": "SSB",
+      "nameEn": "Seolleung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.58": {
+      "name": "선정릉",
+      "line": "SSB",
+      "nameEn": "Seonjeongneung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.59": {
+      "name": "강남구청",
+      "line": "SSB",
+      "nameEn": "Gangnam-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.60": {
+      "name": "압구정로데오",
+      "line": "SSB",
+      "nameEn": "Apgujungrodeo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.61": {
+      "name": "서울숲",
+      "line": "SSB",
+      "nameEn": "Seoul-forest",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.62": {
+      "name": "왕십리",
+      "line": "SSB",
+      "nameEn": "Wangsimni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSB.63": {
+      "name": "청량리",
+      "line": "SSB",
+      "nameEn": "Cheongnyangni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.01": {
+      "name": "청량리",
+      "line": "SGC",
+      "nameEn": "Cheongnyangni",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.02": {
+      "name": "회기",
+      "line": "SGC",
+      "nameEn": "Hoegi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.03": {
+      "name": "중랑",
+      "line": "SGC",
+      "nameEn": "Jungnang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.04": {
+      "name": "상봉",
+      "line": "SGC",
+      "nameEn": "Sangbong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.05": {
+      "name": "망우",
+      "line": "SGC",
+      "nameEn": "Mangu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.06": {
+      "name": "신내",
+      "line": "SGC",
+      "nameEn": "Sinnae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.07": {
+      "name": "갈매",
+      "line": "SGC",
+      "nameEn": "Galmae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.08": {
+      "name": "별내",
+      "line": "SGC",
+      "nameEn": "Byeollae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.09": {
+      "name": "퇴계원",
+      "line": "SGC",
+      "nameEn": "Toegyewon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.10": {
+      "name": "사릉",
+      "line": "SGC",
+      "nameEn": "Sareung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.11": {
+      "name": "금곡",
+      "line": "SGC",
+      "nameEn": "Geumgok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.12": {
+      "name": "평내호평",
+      "line": "SGC",
+      "nameEn": "PyeongnaeHopyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.13": {
+      "name": "천마산",
+      "line": "SGC",
+      "nameEn": "Cheonmasan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.14": {
+      "name": "마석",
+      "line": "SGC",
+      "nameEn": "Maseok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.15": {
+      "name": "대성리",
+      "line": "SGC",
+      "nameEn": "Daeseong-ri",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.16": {
+      "name": "청평",
+      "line": "SGC",
+      "nameEn": "Cheongpyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.17": {
+      "name": "상천",
+      "line": "SGC",
+      "nameEn": "Sangcheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.18": {
+      "name": "가평",
+      "line": "SGC",
+      "nameEn": "Gapyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.19": {
+      "name": "굴봉산",
+      "line": "SGC",
+      "nameEn": "Gulbongsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.20": {
+      "name": "백양리",
+      "line": "SGC",
+      "nameEn": "Baekyangri",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.21": {
+      "name": "강촌",
+      "line": "SGC",
+      "nameEn": "Gangchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.22": {
+      "name": "김유정",
+      "line": "SGC",
+      "nameEn": "Gimyujeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.23": {
+      "name": "남춘천",
+      "line": "SGC",
+      "nameEn": "Namchuncheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGC.24": {
+      "name": "춘천",
+      "line": "SGC",
+      "nameEn": "Chuncheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGCB.01": {
+      "name": "광운대",
+      "line": "SGCB",
+      "nameEn": "Kwangwoon University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGCB.02": {
+      "name": "상봉",
+      "line": "SGCB",
+      "nameEn": "Sangbong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.01": {
+      "name": "판교",
+      "line": "SGG",
+      "nameEn": "Pangyo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.02": {
+      "name": "성남",
+      "line": "SGG",
+      "nameEn": "Seongnam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.03": {
+      "name": "이매",
+      "line": "SGG",
+      "nameEn": "Imae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.04": {
+      "name": "삼동",
+      "line": "SGG",
+      "nameEn": "Samdong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.05": {
+      "name": "경기광주",
+      "line": "SGG",
+      "nameEn": "Gyeonggi Gwangju",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.06": {
+      "name": "초월",
+      "line": "SGG",
+      "nameEn": "Chowol",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.07": {
+      "name": "곤지암",
+      "line": "SGG",
+      "nameEn": "Gonjiam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.08": {
+      "name": "신둔도예촌",
+      "line": "SGG",
+      "nameEn": "Sindundoyechon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.09": {
+      "name": "이천",
+      "line": "SGG",
+      "nameEn": "Icheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.10": {
+      "name": "부발",
+      "line": "SGG",
+      "nameEn": "Bubal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.11": {
+      "name": "세종대왕릉",
+      "line": "SGG",
+      "nameEn": "Sejongdaewangneung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGG.12": {
+      "name": "여주",
+      "line": "SGG",
+      "nameEn": "Yeoju",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.01": {
+      "name": "일산",
+      "line": "SSH",
+      "nameEn": "Ilsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.02": {
+      "name": "풍산",
+      "line": "SSH",
+      "nameEn": "Pungsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.03": {
+      "name": "백마",
+      "line": "SSH",
+      "nameEn": "Baengma",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.04": {
+      "name": "곡산",
+      "line": "SSH",
+      "nameEn": "Goksan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.05": {
+      "name": "대곡",
+      "line": "SSH",
+      "nameEn": "Daegok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.06": {
+      "name": "능곡",
+      "line": "SSH",
+      "nameEn": "Neunggok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.07": {
+      "name": "김포공항",
+      "line": "SSH",
+      "nameEn": "Gimpo Int'l Airport",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.08": {
+      "name": "원종",
+      "line": "SSH",
+      "nameEn": "Wonjong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.09": {
+      "name": "부천종합운동장",
+      "line": "SSH",
+      "nameEn": "Bucheon Stadium",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.10": {
+      "name": "소사",
+      "line": "SSH",
+      "nameEn": "Sosa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.11": {
+      "name": "소새울",
+      "line": "SSH",
+      "nameEn": "Sosaeul",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.12": {
+      "name": "시흥대야",
+      "line": "SSH",
+      "nameEn": "Siheung Daeya",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.13": {
+      "name": "신천",
+      "line": "SSH",
+      "nameEn": "Sincheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.14": {
+      "name": "신현",
+      "line": "SSH",
+      "nameEn": "Sinhyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.15": {
+      "name": "시흥시청",
+      "line": "SSH",
+      "nameEn": "Siheung City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.16": {
+      "name": "시흥능곡",
+      "line": "SSH",
+      "nameEn": "Siheung Neunggok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.17": {
+      "name": "달미",
+      "line": "SSH",
+      "nameEn": "Dalmi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.18": {
+      "name": "선부",
+      "line": "SSH",
+      "nameEn": "Seonbu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.19": {
+      "name": "초지",
+      "line": "SSH",
+      "nameEn": "Choji",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.20": {
+      "name": "시우",
+      "line": "SSH",
+      "nameEn": "Siu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSH.21": {
+      "name": "원시",
+      "line": "SSH",
+      "nameEn": "Wonsi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.01": {
+      "name": "신사",
+      "line": "SSBD",
+      "nameEn": "Sinsa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.02": {
+      "name": "논현",
+      "line": "SSBD",
+      "nameEn": "Nonhyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.03": {
+      "name": "신논현",
+      "line": "SSBD",
+      "nameEn": "Sinnonhyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.04": {
+      "name": "강남",
+      "line": "SSBD",
+      "nameEn": "Gangnam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.05": {
+      "name": "양재",
+      "line": "SSBD",
+      "nameEn": "Yangjae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.06": {
+      "name": "양재시민의숲",
+      "line": "SSBD",
+      "nameEn": "Yangjae Citizen's Forest",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.07": {
+      "name": "청계산입구",
+      "line": "SSBD",
+      "nameEn": "Cheonggyesan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.08": {
+      "name": "판교",
+      "line": "SSBD",
+      "nameEn": "Pangyo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.09": {
+      "name": "정자",
+      "line": "SSBD",
+      "nameEn": "Jeongja",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.10": {
+      "name": "미금",
+      "line": "SSBD",
+      "nameEn": "Migeum",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.11": {
+      "name": "동천",
+      "line": "SSBD",
+      "nameEn": "Dongcheon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.12": {
+      "name": "수지구청",
+      "line": "SSBD",
+      "nameEn": "Suji-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.13": {
+      "name": "성복",
+      "line": "SSBD",
+      "nameEn": "Seongbok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.14": {
+      "name": "상현",
+      "line": "SSBD",
+      "nameEn": "Sanghyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.15": {
+      "name": "광교중앙",
+      "line": "SSBD",
+      "nameEn": "Gwanggyo Jungang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSBD.16": {
+      "name": "광교",
+      "line": "SSBD",
+      "nameEn": "Gwanggyo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.01": {
+      "name": "서울역",
+      "line": "SAR",
+      "nameEn": "Seoul Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.02": {
+      "name": "공덕",
+      "line": "SAR",
+      "nameEn": "Gongdeok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.03": {
+      "name": "홍대입구",
+      "line": "SAR",
+      "nameEn": "Hongik Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.04": {
+      "name": "디지털미디어시티",
+      "line": "SAR",
+      "nameEn": "Digital Media City",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.05": {
+      "name": "마곡나루",
+      "line": "SAR",
+      "nameEn": "Magongnaru",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.06": {
+      "name": "김포공항",
+      "line": "SAR",
+      "nameEn": "Gimpo Int'l Airport",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.07": {
+      "name": "계양",
+      "line": "SAR",
+      "nameEn": "Gyeyang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.08": {
+      "name": "검암",
+      "line": "SAR",
+      "nameEn": "Geomam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.09": {
+      "name": "청라국제도시",
+      "line": "SAR",
+      "nameEn": "Cheongna Int'l City",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.10": {
+      "name": "영종",
+      "line": "SAR",
+      "nameEn": "Yeongjong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.11": {
+      "name": "운서",
+      "line": "SAR",
+      "nameEn": "Unseo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.12": {
+      "name": "공항화물청사",
+      "line": "SAR",
+      "nameEn": "Incheon International Airport Cargo Terminal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.13": {
+      "name": "인천공항1터미널",
+      "line": "SAR",
+      "nameEn": "Incheon Int'l Airport Terminal 1",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SAR.14": {
+      "name": "인천공항2터미널",
+      "line": "SAR",
+      "nameEn": "Incheon Airport Terminal 2",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.01": {
+      "name": "운정중앙",
+      "line": "SGTXA",
+      "nameEn": "Unjeongjungang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.02": {
+      "name": "킨텍스",
+      "line": "SGTXA",
+      "nameEn": "Kintex",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.03": {
+      "name": "대곡",
+      "line": "SGTXA",
+      "nameEn": "Daegok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.04": {
+      "name": "연신내",
+      "line": "SGTXA",
+      "nameEn": "Yeonsinnae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.05": {
+      "name": "서울역",
+      "line": "SGTXA",
+      "nameEn": "Seoul Station",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.06": {
+      "name": "수서",
+      "line": "SGTXA",
+      "nameEn": "Suseo",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.07": {
+      "name": "성남",
+      "line": "SGTXA",
+      "nameEn": "Seongnam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.08": {
+      "name": "구성",
+      "line": "SGTXA",
+      "nameEn": "Guseong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGTXA.09": {
+      "name": "동탄",
+      "line": "SGTXA",
+      "nameEn": "Dongtan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.01": {
+      "name": "송도달빛축제공원",
+      "line": "SI1",
+      "nameEn": "Songdo Moonlight Festival Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.02": {
+      "name": "국제업무지구",
+      "line": "SI1",
+      "nameEn": "International Business District",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.03": {
+      "name": "센트럴파크",
+      "line": "SI1",
+      "nameEn": "Central Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.04": {
+      "name": "인천대입구",
+      "line": "SI1",
+      "nameEn": "Incheon National University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.05": {
+      "name": "지식정보단지",
+      "line": "SI1",
+      "nameEn": "BIT Zone",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.06": {
+      "name": "테크노파크",
+      "line": "SI1",
+      "nameEn": "Technopark",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.07": {
+      "name": "캠퍼스타운",
+      "line": "SI1",
+      "nameEn": "Campus Town",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.08": {
+      "name": "동막",
+      "line": "SI1",
+      "nameEn": "Dongmak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.09": {
+      "name": "동춘",
+      "line": "SI1",
+      "nameEn": "Dongchun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.10": {
+      "name": "원인재",
+      "line": "SI1",
+      "nameEn": "Woninjae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.11": {
+      "name": "신연수",
+      "line": "SI1",
+      "nameEn": "Sinyeonsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.12": {
+      "name": "선학",
+      "line": "SI1",
+      "nameEn": "Seonhak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.13": {
+      "name": "문학경기장",
+      "line": "SI1",
+      "nameEn": "Munhak Sports Complex",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.14": {
+      "name": "인천터미널",
+      "line": "SI1",
+      "nameEn": "Incheon Bus Terminal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.15": {
+      "name": "예술회관",
+      "line": "SI1",
+      "nameEn": "Arts Center",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.16": {
+      "name": "인천시청",
+      "line": "SI1",
+      "nameEn": "Incheon City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.17": {
+      "name": "간석오거리",
+      "line": "SI1",
+      "nameEn": "Ganseogogeori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.18": {
+      "name": "부평삼거리",
+      "line": "SI1",
+      "nameEn": "Bupyeongsamgeori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.19": {
+      "name": "동수",
+      "line": "SI1",
+      "nameEn": "Dongsu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.20": {
+      "name": "부평",
+      "line": "SI1",
+      "nameEn": "Bupyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.21": {
+      "name": "부평시장",
+      "line": "SI1",
+      "nameEn": "Bupyeong Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.22": {
+      "name": "부평구청",
+      "line": "SI1",
+      "nameEn": "Bupyeong-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.23": {
+      "name": "갈산",
+      "line": "SI1",
+      "nameEn": "Galsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.24": {
+      "name": "작전",
+      "line": "SI1",
+      "nameEn": "Jakjeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.25": {
+      "name": "경인교대입구",
+      "line": "SI1",
+      "nameEn": "Gyeongin Nat'l Univ. of Education",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.26": {
+      "name": "계산",
+      "line": "SI1",
+      "nameEn": "Gyesan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.27": {
+      "name": "임학",
+      "line": "SI1",
+      "nameEn": "Imhak",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.28": {
+      "name": "박촌",
+      "line": "SI1",
+      "nameEn": "Bakchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.29": {
+      "name": "귤현",
+      "line": "SI1",
+      "nameEn": "Gyulhyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.30": {
+      "name": "계양",
+      "line": "SI1",
+      "nameEn": "Gyeyang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.31": {
+      "name": "아라",
+      "line": "SI1",
+      "nameEn": "Ara",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.32": {
+      "name": "신검단중앙",
+      "line": "SI1",
+      "nameEn": "Singeomdanjungang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI1.33": {
+      "name": "검단호수공원",
+      "line": "SI1",
+      "nameEn": "Geomdan Lake Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.01": {
+      "name": "검단오류",
+      "line": "SI2",
+      "nameEn": "Geomdan Oryu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.02": {
+      "name": "왕길",
+      "line": "SI2",
+      "nameEn": "Wanggil",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.03": {
+      "name": "검단사거리",
+      "line": "SI2",
+      "nameEn": "Geomdan Sageori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.04": {
+      "name": "마전",
+      "line": "SI2",
+      "nameEn": "Majeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.05": {
+      "name": "완정",
+      "line": "SI2",
+      "nameEn": "Wanjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.06": {
+      "name": "독정",
+      "line": "SI2",
+      "nameEn": "Dokjeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.07": {
+      "name": "검암",
+      "line": "SI2",
+      "nameEn": "Geomam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.08": {
+      "name": "검바위",
+      "line": "SI2",
+      "nameEn": "Geombawi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.09": {
+      "name": "아시아드경기장",
+      "line": "SI2",
+      "nameEn": "Asiad Stadium",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.10": {
+      "name": "서해구청",
+      "line": "SI2",
+      "nameEn": "Seo-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.11": {
+      "name": "가정",
+      "line": "SI2",
+      "nameEn": "Gajeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.12": {
+      "name": "가정중앙시장",
+      "line": "SI2",
+      "nameEn": "Gajeong Jungang Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.13": {
+      "name": "석남",
+      "line": "SI2",
+      "nameEn": "Seongnam",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.14": {
+      "name": "서부여성회관",
+      "line": "SI2",
+      "nameEn": "West Woman's Community Center",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.15": {
+      "name": "인천가좌",
+      "line": "SI2",
+      "nameEn": "Incheon Gajwa",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.16": {
+      "name": "가재울",
+      "line": "SI2",
+      "nameEn": "Gajaeul",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.17": {
+      "name": "주안국가산단",
+      "line": "SI2",
+      "nameEn": "Juan National Industrial Complex",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.18": {
+      "name": "주안",
+      "line": "SI2",
+      "nameEn": "Juan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.19": {
+      "name": "시민공원",
+      "line": "SI2",
+      "nameEn": "Citizens Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.20": {
+      "name": "석바위시장",
+      "line": "SI2",
+      "nameEn": "Seokbawi Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.21": {
+      "name": "인천시청",
+      "line": "SI2",
+      "nameEn": "Incheon City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.22": {
+      "name": "석천사거리",
+      "line": "SI2",
+      "nameEn": "Seokcheon Sageori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.23": {
+      "name": "모래내시장",
+      "line": "SI2",
+      "nameEn": "Moraenae Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.24": {
+      "name": "만수",
+      "line": "SI2",
+      "nameEn": "Mansu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.25": {
+      "name": "남동구청",
+      "line": "SI2",
+      "nameEn": "Namdong-gu Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.26": {
+      "name": "인천대공원",
+      "line": "SI2",
+      "nameEn": "Incheon Grand Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SI2.27": {
+      "name": "운연",
+      "line": "SI2",
+      "nameEn": "Unyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.01": {
+      "name": "신설동",
+      "line": "SUI",
+      "nameEn": "Sinseol-dong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.02": {
+      "name": "보문",
+      "line": "SUI",
+      "nameEn": "Bomun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.03": {
+      "name": "성신여대입구",
+      "line": "SUI",
+      "nameEn": "Sungshin Women's University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.04": {
+      "name": "정릉",
+      "line": "SUI",
+      "nameEn": "Jeongneung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.05": {
+      "name": "북한산보국문",
+      "line": "SUI",
+      "nameEn": "Bukhansan Bogungmun",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.06": {
+      "name": "솔샘",
+      "line": "SUI",
+      "nameEn": "Solsaem",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.07": {
+      "name": "삼양사거리",
+      "line": "SUI",
+      "nameEn": "Samyang Sageori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.08": {
+      "name": "삼양",
+      "line": "SUI",
+      "nameEn": "Samyang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.09": {
+      "name": "화계",
+      "line": "SUI",
+      "nameEn": "Hwagye",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.10": {
+      "name": "가오리",
+      "line": "SUI",
+      "nameEn": "Gaori",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.11": {
+      "name": "4·19민주묘지",
+      "line": "SUI",
+      "nameEn": "April 19th National Cemetery",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.12": {
+      "name": "솔밭공원",
+      "line": "SUI",
+      "nameEn": "Solbat Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUI.13": {
+      "name": "북한산우이",
+      "line": "SUI",
+      "nameEn": "Bukhansan Ui",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.01": {
+      "name": "관악산",
+      "line": "SSL",
+      "nameEn": "Gwanaksan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.02": {
+      "name": "서울대벤처타운",
+      "line": "SSL",
+      "nameEn": "Seoul Nat'l Univ. Venture Town",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.03": {
+      "name": "서원",
+      "line": "SSL",
+      "nameEn": "Seowon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.04": {
+      "name": "신림",
+      "line": "SSL",
+      "nameEn": "Sillim",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.05": {
+      "name": "당곡",
+      "line": "SSL",
+      "nameEn": "Danggok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.06": {
+      "name": "보라매병원",
+      "line": "SSL",
+      "nameEn": "Boramae Medical Center",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.07": {
+      "name": "보라매공원",
+      "line": "SSL",
+      "nameEn": "Boramae Park",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.08": {
+      "name": "보라매",
+      "line": "SSL",
+      "nameEn": "Boramae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.09": {
+      "name": "서울지방병무청",
+      "line": "SSL",
+      "nameEn": "Seoul Regional Office of Military Manpower",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.10": {
+      "name": "대방",
+      "line": "SSL",
+      "nameEn": "Daebang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SSL.11": {
+      "name": "샛강",
+      "line": "SSL",
+      "nameEn": "Saetgang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.01": {
+      "name": "발곡",
+      "line": "SUJ",
+      "nameEn": "Balgok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.02": {
+      "name": "회룡",
+      "line": "SUJ",
+      "nameEn": "Hoeryong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.03": {
+      "name": "범골",
+      "line": "SUJ",
+      "nameEn": "Beomgol",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.04": {
+      "name": "경전철의정부",
+      "line": "SUJ",
+      "nameEn": "LRT Uijeongbu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.05": {
+      "name": "의정부시청",
+      "line": "SUJ",
+      "nameEn": "Uijeongbu City Hall",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.06": {
+      "name": "흥선",
+      "line": "SUJ",
+      "nameEn": "Heungseon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.07": {
+      "name": "의정부중앙",
+      "line": "SUJ",
+      "nameEn": "Uijeongbu Jung-ang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.08": {
+      "name": "동오",
+      "line": "SUJ",
+      "nameEn": "Dong-o",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.09": {
+      "name": "새말",
+      "line": "SUJ",
+      "nameEn": "Sae-mal",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.10": {
+      "name": "경기도청북부청사",
+      "line": "SUJ",
+      "nameEn": "Gyeonggi Provincial Government Northern Office",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.11": {
+      "name": "효자",
+      "line": "SUJ",
+      "nameEn": "Hyoja",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.12": {
+      "name": "곤제",
+      "line": "SUJ",
+      "nameEn": "Gonje",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.13": {
+      "name": "어룡",
+      "line": "SUJ",
+      "nameEn": "Eoryong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.14": {
+      "name": "송산",
+      "line": "SUJ",
+      "nameEn": "Songsan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SUJ.15": {
+      "name": "탑석",
+      "line": "SUJ",
+      "nameEn": "Tapseok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.01": {
+      "name": "기흥",
+      "line": "SEV",
+      "nameEn": "Giheung",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.02": {
+      "name": "강남대",
+      "line": "SEV",
+      "nameEn": "Kangnam Univ.",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.03": {
+      "name": "지석",
+      "line": "SEV",
+      "nameEn": "Jiseok",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.04": {
+      "name": "어정",
+      "line": "SEV",
+      "nameEn": "Eojeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.05": {
+      "name": "동백",
+      "line": "SEV",
+      "nameEn": "Dongback",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.06": {
+      "name": "초당",
+      "line": "SEV",
+      "nameEn": "Chodang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.07": {
+      "name": "삼가",
+      "line": "SEV",
+      "nameEn": "Samga",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.08": {
+      "name": "시청·용인대",
+      "line": "SEV",
+      "nameEn": "City Hall·Yongin University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.09": {
+      "name": "명지대",
+      "line": "SEV",
+      "nameEn": "Myongji University",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.10": {
+      "name": "김량장",
+      "line": "SEV",
+      "nameEn": "Gimnyangjang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.11": {
+      "name": "용인중앙시장",
+      "line": "SEV",
+      "nameEn": "Yongin Jungang Market",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.12": {
+      "name": "고진",
+      "line": "SEV",
+      "nameEn": "Gojin",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.13": {
+      "name": "보평",
+      "line": "SEV",
+      "nameEn": "Bopyeong",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.14": {
+      "name": "둔전",
+      "line": "SEV",
+      "nameEn": "Dunjeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SEV.15": {
+      "name": "전대·에버랜드",
+      "line": "SEV",
+      "nameEn": "Jeondae·Everland",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.01": {
+      "name": "김포공항",
+      "line": "SGM",
+      "nameEn": "Gimpo Int'l Airport",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.02": {
+      "name": "고촌",
+      "line": "SGM",
+      "nameEn": "Gochon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.03": {
+      "name": "풍무",
+      "line": "SGM",
+      "nameEn": "Pungmu",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.04": {
+      "name": "사우",
+      "line": "SGM",
+      "nameEn": "Sau",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.05": {
+      "name": "걸포북변",
+      "line": "SGM",
+      "nameEn": "Geolpo Bukbyeon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.06": {
+      "name": "운양",
+      "line": "SGM",
+      "nameEn": "Unyang",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.07": {
+      "name": "장기",
+      "line": "SGM",
+      "nameEn": "Janggi",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.08": {
+      "name": "마산",
+      "line": "SGM",
+      "nameEn": "Masan",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.09": {
+      "name": "구래",
+      "line": "SGM",
+      "nameEn": "Gurae",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
+    },
+    "SGM.10": {
+      "name": "양촌",
+      "line": "SGM",
+      "nameEn": "Yangchon",
+      "address": null,
+      "origin": null,
+      "openedOn": null,
+      "openedWith": null
     }
   }
 }

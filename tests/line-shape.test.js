@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { lineShape, pointBetween, shapeLength } from '../src/sim/line-shape.js';
 import { lineRoutes, trainsAt, tripSeconds } from '../src/sim/train-motion.js';
 import { buildWorld, rulesFromCards } from '../src/sim/world.js';
+import { withoutSudogwon } from '../src/sim/regions.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (p) => JSON.parse(readFileSync(resolve(ROOT, p), 'utf8'));
@@ -147,13 +148,20 @@ test('중간 역에서는 서는 시간만큼 머문다', () => {
 
 test('실제 부산 노선으로 노선마다 역 차례를 만든다', () => {
   const rules = rulesFromCards(readJson('src/content/rules.json').rules);
-  const lines = readJson('data/build/lines.json').lines;
-  const world = buildWorld({
-    grid: readJson('data/build/grid.json'),
+  // 부산 하루 운행과 같이 수도권 도시철도는 뺀다(수도권은 tests/sudogwon.test.js)
+  const near = withoutSudogwon({
+    lines: readJson('data/build/lines.json').lines,
     stations: readJson('data/build/stations.json').stations,
-    lines,
     links: readJson('data/build/links.json').links,
     transfers: readJson('data/build/transfers.json').transfers,
+  });
+  const lines = near.lines;
+  const world = buildWorld({
+    grid: readJson('data/build/grid.json'),
+    stations: near.stations,
+    lines,
+    links: near.links,
+    transfers: near.transfers,
     places: readJson('src/content/places.json').places,
     dongs: readJson('data/build/dongs.json').dongs,
     hourShape: readJson('data/build/ridership.json').shape['평일'],

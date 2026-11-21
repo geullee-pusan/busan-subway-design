@@ -26,6 +26,7 @@ import {
 import { compareToReal, meetsTargets } from './sim/compare.js';
 import { asPlan, withPlan } from './sim/plan.js';
 import { networkAt } from './sim/history.js';
+import { withoutSudogwon } from './sim/regions.js';
 import { buildBusNetwork, withBusTimes } from './sim/bus-network.js';
 import { prepareWorld, runDay } from './sim/run.js';
 import { populationRowsAt } from './sim/history-population.js';
@@ -106,10 +107,11 @@ export function worldFor({ year = 2026, dayType = '평일', population = 'now' }
   // 옛날 부산: 그 해에 문을 연 역까지만 남긴다.
   const past =
     year < BASE_YEAR ? networkAt(year, { lines, stations, links, transfers, stationInfo }) : null;
-  const allStations = useFuture ? [...stations, ...futureLines.stations] : (past?.stations ?? stations);
-  const allLines = useFuture ? [...lines, ...futureLines.lines] : (past?.lines ?? lines);
-  const allLinks = useFuture ? [...links, ...futureLines.links] : (past?.links ?? links);
-  const allTransfers = useFuture ? [...transfers, ...futureLines.transfers] : (past?.transfers ?? transfers);
+  const near = withoutSudogwon(past ?? { lines, stations, links, transfers });
+  const allStations = useFuture ? [...near.stations, ...futureLines.stations] : near.stations;
+  const allLines = useFuture ? [...near.lines, ...futureLines.lines] : near.lines;
+  const allLinks = useFuture ? [...near.links, ...futureLines.links] : near.links;
+  const allTransfers = useFuture ? [...near.transfers, ...futureLines.transfers] : near.transfers;
 
   const weekendPlaces = places.map((place) => ({
     ...place,
@@ -139,6 +141,30 @@ export function worldFor({ year = 2026, dayType = '평일', population = 'now' }
   const entry = { world, prepared, result, rules: dayRules, year, dayType };
   worlds.set(key, entry);
   return entry;
+}
+
+let travel = null;
+/**
+ * 걸어서 여행하기의 세상: 지금 평일, 수도권을 포함한 모든 도시철도와 부산 버스. 길 찾기 준비(prepareWorld)까지만 하고 하루는 돌리지 않는다.
+ * @returns {{world: object, prepared: object}}
+ */
+export function travelWorld() {
+  if (travel) return travel;
+  const plainWorld = buildWorld({
+    grid,
+    stations,
+    lines,
+    links,
+    transfers,
+    places,
+    dongs,
+    hourShape: ridership.shape['평일'],
+    defaultHeadwayMin: rules.defaultHeadwayMin,
+    anchorStations: stations,
+  });
+  const world = withBusTimes(plainWorld, busNetwork(), rules);
+  travel = { world, prepared: prepareWorld(world, rules) };
+  return travel;
 }
 
 /** 지금 부산의 평일 기본 세상 */

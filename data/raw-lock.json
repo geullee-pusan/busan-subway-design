@@ -2715,6 +2715,20 @@
     "sha256": "06e511a05ddbfb897138e1cf45f390726677f7708569366815f90f4d974449ea",
     "fetched": "2026-11-17"
   },
+  "osm-routes-5": {
+    "file": "data/raw/osm/routes-5.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 6495004,
+    "sha256": "c1183092dc1c6a328eb8edf13c10a8988999e459be3c90aa8cbea6604c2199d9",
+    "fetched": "2026-11-21"
+  },
+  "osm-routes-6": {
+    "file": "data/raw/osm/routes-6.json",
+    "url": "https://overpass-api.de/api/interpreter",
+    "bytes": 2537289,
+    "sha256": "e77c5047b39e0062c290cd878acb3e503101d933d040ad79b0cf5bd3f4c8bccb",
+    "fetched": "2026-11-21"
+  },
   "osm-station-area-R-가남": {
     "file": "data/raw/osm/station-areas/R-가남.json",
     "url": "https://overpass.private.coffee/api/interpreter",
@@ -5394,6 +5408,22 @@
     "sha256": "4d26be300839fbe675e1db443c65b1dbfd62847c9c81f47cf854db13186083c3",
     "fetched": "2026-11-14",
     "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-subway-schedules": {
+    "file": "data/raw/tago-subway/schedules-weekday.json",
+    "url": "https://apis.data.go.kr/1613000/SubwayInfo/GetSubwaySttnAcctoSchdulList",
+    "bytes": 10531384,
+    "sha256": "1969713f410f5496d590e6182e257bcd420b3c47d0d2771fc43df38bce6391cb",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run metro-sudogwon). 수도권 역마다 평일 상·하행. 주소에는 인증키를 적지 않는다."
+  },
+  "tago-subway-stations": {
+    "file": "data/raw/tago-subway/stations.json",
+    "url": "https://apis.data.go.kr/1613000/SubwayInfo/GetKwrdFndSubwaySttnList",
+    "bytes": 44893,
+    "sha256": "6efac8fbb3471ccc57a1213e489998e6ba6ea3876038ce1d4dc6ea697f9275d9",
+    "fetched": "2026-11-21",
+    "note": "인증키가 필요한 API(npm run metro-sudogwon). 이름을 비우고 전체 역을 받는다. 주소에는 인증키를 적지 않는다."
   },
   "tago-train-fares": {
     "file": "data/raw/korail/tago-fares-20261125.json",

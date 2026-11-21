@@ -22,7 +22,7 @@ export function readOsmFile(path) {
   const first = JSON.parse(readFileSync(path, 'utf8'));
   const seen = new Set(first.elements.map((e) => `${e.type}/${e.id}`));
   const elements = [...first.elements];
-  for (const n of [2, 3, 4, 5]) {
+  for (const n of [2, 3, 4, 5, 6]) {
     const morePath = path.replace(/\.json$/, `-${n}.json`);
     if (!existsSync(morePath)) continue;
     for (const e of JSON.parse(readFileSync(morePath, 'utf8')).elements) {
