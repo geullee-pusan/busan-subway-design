@@ -1,6 +1,6 @@
 // npm run gangwon-bis: 강원 시·군 버스정보 누리집의 정류장 목록(이름, 좌표)을 받아 data/raw/gangwon-bis/<이름>.json에 둔다.
 // 국토교통부_버스노선별 경유정류장(15142031, npm run molit-bus)에는 좌표가 없어서, scripts/lib/molit-bus.mjs가 이 목록으로 자리를 찾는다.
-// - BIS 형식(삼척·정선·양양·인제·고성·평창·강릉): /search/station?keyword=% 한 번. 정류장 번호(stationId2)가 15142031의 sttn_id와 같다.
+// - BIS 형식(삼척·정선·양양·인제·고성·평창·강릉·양구): /search/station?keyword=% 한 번. 양구는 노선(saveRoutes)도 받는다. 정류장 번호(stationId2)가 15142031의 sttn_id와 같다.
 // - pti 형식(화천·속초·동해·영월): typicalstop getsrch 한 번(artpp를 크게). 번호 체계가 달라 이름으로 맞춘다.
 // 누리집마다 한 번만 부르고, 부른 뒤 쉰다(삼척시 누리집 robots.txt Crawl-delay 30초). 인증키는 쓰지 않는다.
 //   npm run gangwon-bis -- --force   이미 받은 곳도 다시 받는다
@@ -87,6 +87,44 @@ async function routeStops(site) {
   return { routes: ids.length, rows: [...stops.values()], routeList: routes };
 }
 
+/**
+ * BIS 형식 노선(양구처럼 15142031 자료가 거의 없는 곳): 노선 검색(/search/route?keyword=%) 뒤 노선마다 /search/route/map.
+ * list가 정류장 차례(stationOrder, stationId2, stationNm)이고 routeSchedule에 첫차·막차(기점 출발)가 있다.
+ * 정류장 좌표는 정류장 검색의 번호(stationId2)로 찾고, 없으면 list의 vertexX·vertexY를 쓴다.
+ */
+async function bisRoutes(site, stationRows) {
+  const get = async (path) => {
+    const res = await fetch(`${site.base}${path}`, { headers: HEADERS, signal: AbortSignal.timeout(60_000) });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  };
+  const byId = new Map(stationRows.map((r) => [r[0], r]));
+  const list = (await get('/search/route?keyword=%25&locale=0')).list ?? [];
+  const routes = [];
+  for (const r of list) {
+    await sleep(site.delay * 1000);
+    let data = null;
+    for (let attempt = 1; attempt <= 3 && !data; attempt++) {
+      try {
+        data = await get(`/search/route/map?routeId=${encodeURIComponent(r.routeId)}`);
+      } catch (error) {
+        console.log(`  ${site.name} 노선 ${r.routeNm}: ${error.message}. 다시 해요.`);
+        await sleep(attempt * 5000);
+      }
+    }
+    if (!data) throw new Error(`노선 ${r.routeNm}를 받지 못했어요`);
+    const stops = [...(data.list ?? [])]
+      .sort((a, b) => Number(a.stationOrder) - Number(b.stationOrder))
+      .map((s) => {
+        const known = byId.get(String(s.stationId2));
+        return [String(s.stationId2), String(s.stationNm ?? '').trim(), known ? known[2] : Number(s.vertexX), known ? known[3] : Number(s.vertexY)];
+      });
+    const sch = data.routeSchedule?.[0] ?? {};
+    routes.push({ id: String(r.routeId), no: String(r.routeNm).trim(), days: '', runs: [sch.firstTime, sch.lastTime].filter((t) => /^\d{1,2}:\d{2}$/.test(t ?? '')), stops });
+  }
+  return routes;
+}
+
 const FIELDS = ['id', 'name', 'lon', 'lat', 'addr'];
 for (const site of GANGWON_BIS_SITES) {
   const file = resolve(outDir, `${site.id}.json`);
@@ -111,12 +149,13 @@ for (const site of GANGWON_BIS_SITES) {
     continue;
   }
   let routeNote = '';
-  if (site.routePages) {
+  if (site.routePages || (site.kind === 'bis' && site.saveRoutes)) {
     await sleep(site.delay * 1000);
-    const extra = await routeStops(site);
+    const extra = site.kind === 'bis' ? { routes: 0, rows: [], routeList: await bisRoutes(site, rows) } : await routeStops(site);
+    if (site.kind === 'bis') extra.routes = extra.routeList.length;
     rows.push(...extra.rows);
-    routeNote = ` 노선 ${extra.routes}개의 자세히 보기 쪽에서 정류장 ${extra.rows.length}곳을 더함(id가 ds로 시작).`;
-    console.log(`  ${site.name}: 노선 ${extra.routes}개에서 정류장 ${extra.rows.length}곳`);
+    if (extra.rows.length) routeNote = ` 노선 ${extra.routes}개의 자세히 보기 쪽에서 정류장 ${extra.rows.length}곳을 더함(id가 ds로 시작).`;
+    console.log(`  ${site.name}: 노선 ${extra.routes}개${extra.rows.length ? `에서 정류장 ${extra.rows.length}곳` : ''}`);
     if (site.saveRoutes) {
       const routeText = JSON.stringify({
         source: `${site.title} 노선정보 자세히 보기`,

@@ -35,6 +35,8 @@ const NOSE = {
   short: { length: 4.8, steps: 12, top: (f) => 1 - 0.5 * f ** 1.5, wide: (f) => 1 - 0.38 * f ** 2.2, rise: 0.06, round: 0.8 },
   maum: { length: 4.4, steps: 12, top: (f) => 1 - 0.48 * f ** 1.35, wide: (f) => 1 - 0.34 * f ** 2.1, rise: 0.06, round: 0.8 },
   itx: { length: 2.6, steps: 8, top: (f) => 1 - 0.3 * f ** 1.2, wide: (f) => 1 - 0.2 * f ** 2, rise: 0.03, round: 0.5 },
+  // ITX-청춘: ITX 앞모습과 같은 코
+  cheongchun: { length: 2.6, steps: 8, top: (f) => 1 - 0.3 * f ** 1.2, wide: (f) => 1 - 0.2 * f ** 2, rise: 0.03, round: 0.5 },
   // 앞이 납작한 차: 끝을 오므리지 않고 모서리만 깎는다(bevel). frontGlass: 앞 유리 [아래, 위 높이 비율, 폭 비율]
   flat: { length: 1.1, steps: 5, top: (f) => 1 - 0.12 * f, wide: (f) => 1 - 0.1 * f ** 2, rise: 0.02, round: 0.25, bevel: true },
   loco: { length: 1.3, steps: 5, top: (f) => 1 - 0.14 * f, wide: (f) => 1 - 0.08 * f ** 2, rise: 0.02, round: 0.3, bevel: true, frontGlass: [0.6, 0.84, 0.78] },
@@ -50,6 +52,7 @@ export const shade = (hex, k) => `#${new Color(hex).multiplyScalar(1 - k).getHex
  */
 function specOf(kind, look) {
   if (kind === 'maum') return maumSpec(look);
+  if (kind === 'cheongchun') return cheongchunSpec(look);
   if (kind === 'loco') return mugunghwaSpec(look);
   const L = look;
   // 띠 하나: 높이 a~b에 있으면 참
@@ -198,6 +201,42 @@ function maumSpec(look) {
       if (inBand(c.hn, 0.47, 0.74)) return look.band;
       if (c.hn >= 0.74) return red;
       if (inBand(c.hn, 0.36, 0.4)) return red;
+      return look.body;
+    },
+  };
+}
+
+/**
+ * ITX-청춘: 사용자 제공 사진(2026-11-21) 네 장으로 어림한 칠. 은회색 몸통, 지붕 쪽 연두 띠, 아래쪽 파랑·흰 줄과 짙은 회색 치마.
+ * 앞은 유리 둘레가 검고 옆을 연두 띠가 감싼다. 4·5호차는 2층 칸(사용자가 알려 줌, 4호차 사진)으로 키가 크고 창이 두 줄이다.
+ * 편성은 8칸으로 어림한다(4·5호차가 가운데 오게).
+ */
+function cheongchunSpec(look) {
+  const GREEN = look.stripe;
+  const BLUE = look.accent;
+  const WHITE = '#F2F3F1';
+  const SKIRT = '#5E6469';
+  const FACE = '#23272B';
+  return {
+    ...COMMON,
+    set: 8,
+    bottom: 0.95,
+    sizes: { cab: [22, 3.1, 3.85], mid: [20, 3.1, 3.85], deck: [20, 3.1, 4.6] },
+    deckCars: [3, 4],
+    windows: { w: 1.25, pitch: 1.5 },
+    paint(c) {
+      if (c.f >= 0) {
+        if (c.f > 0.08 && c.f < 0.62 && c.hn > 0.55 && c.hn < 0.9) return GLASS;
+        if (c.hn > 0.94) return look.roof;
+        if (c.hn > 0.5) return c.f < 0.12 ? GREEN : FACE;
+        if (c.hn < 0.1) return SKIRT;
+        return '#D5D8DB';
+      }
+      if (c.hn > 0.95) return look.roof;
+      if (inBand(c.hn, 0.84, 0.95)) return GREEN;
+      if (inBand(c.hn, 0.2, 0.25)) return BLUE;
+      if (inBand(c.hn, 0.16, 0.2)) return WHITE;
+      if (c.hn < 0.1) return SKIRT;
       return look.body;
     },
   };
@@ -383,7 +422,7 @@ export class Parts {
  * @returns {Array<{role: string, length: number, width: number, height: number, nose: (null|'front'|'back'), lead: boolean, tail: boolean, gapAfter: number, bogies: Array<{x: number, axles: number}>, panto: (null|'up'|'down')}>}
  */
 export function formation(look, count, name = '') {
-  const kind = name === 'ITX-마음' ? 'maum' : NOSE[look.nose] ? look.nose : 'flat';
+  const kind = name === 'ITX-마음' ? 'maum' : name === 'ITX-청춘' ? 'cheongchun' : NOSE[look.nose] ? look.nose : 'flat';
   const spec = specOf(kind, look);
   const n = Math.max(2, Math.min(20, Math.round(count)));
   // 몇 편성을 이어 달리는지(산천 20칸은 10칸 두 편성)
@@ -407,7 +446,7 @@ export function formation(look, count, name = '') {
     } else if (kind === 'loco') {
       for (let i = 0; i < size; i++) roles.push(i === 0 && s === 0 ? 'loco' : 'coach');
     } else {
-      for (let i = 0; i < size; i++) roles.push(i === 0 || i === size - 1 ? 'cab' : 'mid');
+      for (let i = 0; i < size; i++) roles.push(i === 0 || i === size - 1 ? 'cab' : spec.deckCars?.includes(i) ? 'deck' : 'mid');
     }
     roles.forEach((role, i) => {
       const [length, width, height] = spec.sizes[role];
@@ -548,7 +587,12 @@ function carGeometry(car, spec, look) {
     // 문간(어두운 구멍). 문짝은 따로 움직이는 그물이다(doorPanel).
     for (const dx of doors) parts.box(doorW - 0.02, span * 0.72, 0.02, dx, by + span * 0.38, side * (sideZ + 0.002), '#15171a');
     if (passenger) {
-      for (const win of windows) parts.box(win.w, winH, 0.04, win.x, winY, side * sideZ, GLASS);
+      if (car.role === 'deck') {
+        // 2층 칸: 아래층·위층 창 두 줄
+        for (const [a, b] of [[0.24, 0.42], [0.6, 0.78]]) for (const win of windows) parts.box(win.w, span * (b - a), 0.04, win.x, by + span * ((a + b) / 2), side * sideZ, GLASS);
+      } else {
+        for (const win of windows) parts.box(win.w, winH, 0.04, win.x, winY, side * sideZ, GLASS);
+      }
     } else {
       // 동력차·기관차: 기계실 바람 구멍(옆 창살)
       const grilleY = by + span * 0.43;
@@ -633,7 +677,7 @@ function lampSpots(car) {
     // 코 없는 끝(무궁화 끝 객차 뒤): 납작한 끝에 불빛
     return [-1, 1].map((s) => [-car.length / 2 - 0.02, by + span * 0.35, s * car.width * 0.33]);
   }
-  const f = car.kind === 'flat' || car.kind === 'loco' || car.kind === 'itx' ? 0.9 : car.kind === 'maum' ? 0.85 : 0.8;
+  const f = car.kind === 'flat' || car.kind === 'loco' || car.kind === 'itx' || car.kind === 'cheongchun' ? 0.9 : car.kind === 'maum' ? 0.85 : 0.8;
   const x = car.length / 2 - shape.round - (shape.length - shape.round) * (1 - f) + 0.05;
   const lift = shape.rise * span * f ** 3;
   const y = by + lift + (span * shape.top(f) - lift) * 0.42;

@@ -17,7 +17,7 @@ import { inflateRawSync } from 'node:zlib';
 import { readCsv } from './lib/csv.mjs';
 import { orderStops } from './lib/stop-order.mjs';
 import { makeUtm, tmEast } from './lib/utm.mjs';
-import { MOLIT_CITIES, makeStopFinder, readMolitRoutes } from './lib/molit-bus.mjs';
+import { GANGWON_BIS_SITES, MOLIT_CITIES, makeStopFinder, readMolitRoutes } from './lib/molit-bus.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
@@ -598,13 +598,17 @@ for (const [code, city] of TAGO_CITIES) {
 //      정류장 줄의 절반 넘게 자리를 찾은 노선만 넣는다(나머지는 길이 엉뚱하게 이어지기 쉽다). 첫차·막차 자료는 없다.
 const MOLIT_MIN_SHARE = 0.5;
 const molitStats = {};
-const hwacheonPath = resolve(ROOT, 'data/raw/gangwon-bis/hwacheon-routes.json');
-const hwacheonRoutes = existsSync(hwacheonPath) ? JSON.parse(readFileSync(hwacheonPath, 'utf8')).routes : null;
+/** 누리집 노선 자료가 있는 시·군(npm run gangwon-bis의 saveRoutes): 이름 → 노선 목록. 이 시·군은 15142031 대신 이것을 쓴다(아래 4-4). */
+const siteRoutes = new Map();
+for (const site of GANGWON_BIS_SITES.filter((s) => s.saveRoutes)) {
+  const file = resolve(ROOT, `data/raw/gangwon-bis/${site.id}-routes.json`);
+  if (existsSync(file)) siteRoutes.set(site.name, JSON.parse(readFileSync(file, 'utf8')).routes);
+}
 {
   const finder = makeStopFinder(ROOT, gridPoint, MOLIT_CITIES.map((c) => c.sggName));
   const list = readMolitRoutes(ROOT, MOLIT_CITIES).sort((a, b) => a.city.localeCompare(b.city, 'ko') || a.no.localeCompare(b.no, 'ko', { numeric: true }) || a.id.localeCompare(b.id));
   for (const route of list) {
-    if (hwacheonRoutes && route.city === '화천') continue; // 화천은 누리집 노선을 쓴다(아래 4-4)
+    if (siteRoutes.has(route.city)) continue; // 누리집 노선을 쓴다(아래 4-4)
     const st = (molitStats[route.city] ??= { routes: 0, kept: 0, rows: 0, placedRows: 0, low: 0, night: 0 });
     st.routes += 1;
     if (route.no.includes('심야')) {
@@ -632,14 +636,17 @@ const hwacheonRoutes = existsSync(hwacheonPath) ? JSON.parse(readFileSync(hwache
   }
 }
 
-// 4-4. 화천(2026-11-21): 15142031의 정류장 이름이 누리집과 달라 자리를 거의 못 찾는다. 그래서 화천군 대중교통정보 누리집의
-//      노선 자세히 보기(npm run gangwon-bis, hwacheon-routes.json)에 있는 정류장 차례·좌표와 출발 시각으로 노선을 만든다.
+// 4-4. 누리집 노선(2026-11-21): 화천·영월·양구.
+//      화천은 15142031의 정류장 이름이 누리집과 달라 자리를 거의 못 찾고(4/19), 영월은 10개 노선이 빠지고, 양구는 15142031 자료가 13줄뿐이다.
+//      그래서 시·군 버스정보 누리집의 노선 자료(npm run gangwon-bis, <이름>-routes.json)에 있는 정류장 차례·좌표와 출발 시각으로 노선을 만든다.
+//      화천·영월(pti)은 "일 N회 운행"의 출발 시각, 양구(BIS)는 첫차·막차다.
 //      같은 번호에 정류장 차례가 똑같은 운행(요일이 다른 것)은 하나로 합치고 첫차·막차를 넓힌다. 차례가 다르면 따로 둔다.
-const hwacheonStats = { routes: 0, kept: 0, merged: 0 };
-if (hwacheonRoutes) {
+const siteStats = {};
+for (const [city, list] of siteRoutes) {
+  const st = (siteStats[city] = { routes: 0, kept: 0, merged: 0 });
   const byKey = new Map();
-  for (const r of hwacheonRoutes) {
-    hwacheonStats.routes += 1;
+  for (const r of list) {
+    st.routes += 1;
     const seq = [];
     for (const [, name, lon, lat] of r.stops) {
       const point = gridPoint(Number(lon), Number(lat));
@@ -652,7 +659,7 @@ if (hwacheonRoutes) {
     const key = `${r.no}|${seq.map((s) => s[0]).join(',')}`;
     const old = byKey.get(key);
     if (old) {
-      hwacheonStats.merged += 1;
+      st.merged += 1;
       if (mins.length) old.mins.push(...mins);
       continue;
     }
@@ -660,8 +667,8 @@ if (hwacheonRoutes) {
   }
   for (const { no, seq, mins } of byKey.values()) {
     const hours = mins.length ? [Math.min(...mins), Math.max(...mins)] : null;
-    routes.push(hours ? { no: `화천 ${no}`, city: '화천', stops: seq, hours } : { no: `화천 ${no}`, city: '화천', stops: seq });
-    hwacheonStats.kept += 1;
+    routes.push(hours ? { no: `${city} ${no}`, city, stops: seq, hours } : { no: `${city} ${no}`, city, stops: seq });
+    st.kept += 1;
   }
 }
 
@@ -711,7 +718,7 @@ const out = {
   stopsDate: '2026-09-12',
   source: '공공데이터포털 15123610 부산광역시_버스노선별 승하차 정보, 15084251 부산광역시_버스 정류소 정보',
   routesSource:
-    '대구 등 13개 시·군: 공공데이터포털 15098529 국토교통부_(TAGO)_버스노선정보(2026-10-31 받음). 양산: 15160339 경상남도 양산시_버스노선별 정차 정류장 정보_20260714, 15156436 경상남도 양산시_버스정류장 현황_20251212. 강릉·동해·속초·삼척·영월·평창·정선·인제·고성·양양: 15142031 국토교통부_버스노선별 경유정류장(운행일 2026-10-01, 2026-11-21 받음), 정류장 자리는 시·군 버스정보 누리집 정류장(BIS 번호, 2026-11-21 받음), 15067528 국토교통부_전국 버스정류장 위치정보(2026-11-09 판), OpenStreetMap 버스 정류장에서 찾음. 화천: 화천군 대중교통정보 누리집 노선정보(2026-11-21 받음)',
+    '대구 등 13개 시·군: 공공데이터포털 15098529 국토교통부_(TAGO)_버스노선정보(2026-10-31 받음). 양산: 15160339 경상남도 양산시_버스노선별 정차 정류장 정보_20260714, 15156436 경상남도 양산시_버스정류장 현황_20251212. 강릉·동해·속초·삼척·영월·평창·정선·인제·고성·양양: 15142031 국토교통부_버스노선별 경유정류장(운행일 2026-10-01, 2026-11-21 받음), 정류장 자리는 시·군 버스정보 누리집 정류장(BIS 번호, 2026-11-21 받음), 15067528 국토교통부_전국 버스정류장 위치정보(2026-11-09 판), OpenStreetMap 버스 정류장에서 찾음. 화천·영월·양구: 시·군 버스정보 누리집 노선 자료(2026-11-21 받음)',
   extraFrom: busanCount,
   extraSource:
     '공공데이터포털 15052671 울산광역시_버스 정류소 위치 정보_20260522, 15037805 경상남도 창원시_버스정류소 위치정보_20251231, 15104697 경상남도 김해시_버스정보 안내 단말기(BIT) 설치 현황_20251031, 15049485 경상북도 구미시_버스정류장_20260413, 15168960 경상북도 경산시_버스정류장위치정보_20261001, 15072448 경상남도 밀양시_버스정류장 정보',
@@ -724,7 +731,7 @@ const size = Buffer.byteLength(JSON.stringify(out));
 console.log(`노선 ${routes.length}개(부산 ${busanOnly.routes}, 대구 ${daeguStats.routes}, 양산 ${yangsanStats.routes}. 부산에서 뺀 노선 ${skipped.length}개), 노선이 서는 정류장 ${busanCount}곳(부산 ${busanOnly.stops}), 이름 ${names.length}개`);
 console.log(`TAGO 노선: ${Object.entries(tagoStats).map(([city, st]) => `${city} ${st.routes}개(정류장 ${st.kept}/${st.rows}, 심야 ${st.night})`).join(', ')}`);
 console.log(`국토교통부 노선(강원, 자리를 찾은 정류장 절반 넘는 것만): ${Object.entries(molitStats).map(([city, st]) => `${city} ${st.kept}/${st.routes}개(정류장 ${st.placedRows}/${st.rows})`).join(', ')}`);
-console.log(`화천 누리집 노선: 받은 ${hwacheonStats.routes}개, 넣은 ${hwacheonStats.kept}개(차례가 같아 합친 것 ${hwacheonStats.merged}개)`);
+console.log(`누리집 노선: ${Object.entries(siteStats).map(([city, st]) => `${city} 받은 ${st.routes}개, 넣은 ${st.kept}개(차례가 같아 합친 것 ${st.merged}개)`).join(', ')}`);
 console.log(`대구(예전 방식): 노선·방향별 정류장 ${daeguStats.rows}줄 가운데 자리를 모르는 것 ${daeguStats.noPlace}줄. 양산: 정류장 차례 ${yangsanStats.placed}/${yangsanStats.rows}(자리를 찾은 것)${yangsanStats.skipped.length ? `, 뺀 노선 ${yangsanStats.skipped.join(', ')}` : ''}`);
 console.log(`노선 자료가 없는 정류소: ${Object.entries(extraCounts).map(([city, n]) => `${city} ${n}곳`).join(', ')} (김해는 좌표가 있는 단말기 설치 정류장만. 김해 정류소 현황은 ${gimhaeAll}곳)`);
 console.log(`자리를 찾은 정류장 차례 ${rowsKept}/${rowsAll}(${((rowsKept / rowsAll) * 100).toFixed(1)}%), 승차 ${((boardKept / boardAll) * 100).toFixed(1)}%`);

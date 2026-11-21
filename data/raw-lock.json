@@ -576,6 +576,22 @@
     "fetched": "2026-11-21",
     "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
   },
+  "gangwon-bis-yanggu": {
+    "file": "data/raw/gangwon-bis/yanggu.json",
+    "url": "https://bis.yanggubus.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
+    "bytes": 22799,
+    "sha256": "b9afee316f71c11ca620ecfe6219919af1c1e9a7e07fc0001bcd57f94ffe5648",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-yanggu-routes": {
+    "file": "data/raw/gangwon-bis/yanggu-routes.json",
+    "url": "https://bis.yanggubus.kr/index.php?mp=undefined",
+    "bytes": 125285,
+    "sha256": "08782192260b808fa2befc52c3d9fea8d326b95d0c404e2b911701e6c5425081",
+    "fetched": "2026-11-21",
+    "note": "노선 목록과 노선마다 자세히 보기 쪽(24개)에서 번호, 요일, 출발 시각, 정류장 차례를 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
   "gangwon-bis-yangyang": {
     "file": "data/raw/gangwon-bis/yangyang.json",
     "url": "https://bis.yangyang.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
@@ -591,6 +607,14 @@
     "sha256": "b86dfc8b26c37453ed9dcc28f764125d7b0f5327b290b2f53317eaa45233e364",
     "fetched": "2026-11-21",
     "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis). 노선 115개의 자세히 보기 쪽에서 정류장 1415곳을 더함(id가 ds로 시작)."
+  },
+  "gangwon-bis-yeongwol-routes": {
+    "file": "data/raw/gangwon-bis/yeongwol-routes.json",
+    "url": "https://www.yeongwol-pti.com/index.php?mp=p2_3",
+    "bytes": 335088,
+    "sha256": "999bfc25898c46f9972bfb3d4cdb046005493d7d949f0f5bc260af4fe1530f21",
+    "fetched": "2026-11-21",
+    "note": "노선 목록과 노선마다 자세히 보기 쪽(115개)에서 번호, 요일, 출발 시각, 정류장 차례를 골라 다시 적은 파일(npm run gangwon-bis)."
   },
   "gwangju-exits": {
     "file": "data/raw/datagokr/15046045.csv",

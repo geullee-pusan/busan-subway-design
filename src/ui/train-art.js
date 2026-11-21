@@ -24,6 +24,8 @@ export const TRAIN_LOOK = {
   'KTX-이음': { nose: 'short', body: '#C9D3DC', roof: '#AFBBC6', band: '#2E3B4B', stripe: '#C9A75A', lower: '#9BA7B3', accent: '#2E3B4B', windows: 'each', power: 'electric', carsShown: 4 },
   'ITX-새마을': { nose: 'itx', body: '#C8323A', roof: '#3A3F45', band: '#2E3237', stripe: '#C8323A', lower: '#9CA1A5', accent: '#C8323A', windows: 'band', power: 'electric', carsShown: 4 },
   'ITX-마음': { nose: 'itx', body: '#4B5249', roof: '#3E443C', band: '#262A25', stripe: '#D2232A', lower: '#4B5249', accent: '#D2232A', windows: 'band', power: 'electric', carsShown: 4 },
+  // ITX-청춘: 사용자 제공 사진(2026-11-21, 369902·368906 편성). 은색 몸통, 앞 얼굴을 두르는 밝은 초록 띠, 옆 창 위 초록 띠, 옆 아래 가는 파란 줄. 2층 칸(4·5호차)은 3D 칸(src/ui/train-3d-cars.js cheongchunSpec)에서 그린다.
+  'ITX-청춘': { nose: 'itx', body: '#B9BEC3', roof: '#C9CDD1', band: '#2A3138', stripe: '#3DB83A', lower: '#A9AEB3', accent: '#2C4E9E', windows: 'band', power: 'electric', carsShown: 4 },
   누리로: { nose: 'flat', body: '#F5F6F7', roof: '#D9DDE1', band: '#2C66C7', stripe: '#2C66C7', lower: '#DADDE0', accent: '#2C66C7', windows: 'band', power: 'electric', carsShown: 4 },
   무궁화호: { nose: 'loco', body: '#F2F2EE', roof: '#9BA2A8', band: '#2F3640', stripe: '#C8312E', lower: '#2E57A8', accent: '#C8312E', windows: 'small', power: 'diesel', carsShown: 4 },
   새마을호: { nose: 'itx', body: '#C8323A', roof: '#3A3F45', band: '#2E3237', stripe: '#C8323A', lower: '#9CA1A5', accent: '#C8323A', windows: 'band', power: 'electric', carsShown: 4 },
