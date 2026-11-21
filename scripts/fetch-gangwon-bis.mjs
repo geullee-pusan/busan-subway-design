@@ -56,6 +56,7 @@ async function routeStops(site) {
   const list = await page('subcmd=list&artpp=1000&cpage=1');
   const ids = [...new Set([...list.matchAll(/actionView\('table','view','(\d+)'/g)].map((m) => m[1]))];
   const stops = new Map();
+  const routes = [];
   for (const [i, id] of ids.entries()) {
     await sleep(site.delay * 1000);
     let html = null;
@@ -71,9 +72,19 @@ async function routeStops(site) {
     for (const m of html.matchAll(/ds,(?:first|stop|last|end),(\d+),([0-9.]+),([0-9.]+),([^|"']+)/g)) {
       if (!stops.has(m[1])) stops.set(m[1], [`ds${m[1]}`, m[4].trim(), Number(m[3]), Number(m[2]), null]);
     }
+    if (site.saveRoutes) {
+      // 노선 번호(span.num), 다니는 요일, "일 4회 운행 - 07:00 11:00 …"(기점을 떠나는 시각), 정류장 차례(map1, map2 …의 oxMapMark)
+      const no = /<span class="num">([^<]*)<\/span>/.exec(html)?.[1]?.trim() ?? '';
+      const days = /<span class="days">([^<]*)<\/span>/.exec(html)?.[1]?.trim() ?? '';
+      const runs = /운행\s*-\s*([0-9:\s]+)</.exec(html)?.[1]?.match(/\d{1,2}:\d{2}/g) ?? [];
+      const seq = [...html.matchAll(/id="map(\d+)"[^>]*oxMapMark="ds,[a-z]+,(\d+),([0-9.]+),([0-9.]+),([^"]*)"/g)]
+        .sort((a, b) => Number(a[1]) - Number(b[1]))
+        .map((m) => [`ds${m[2]}`, m[5].trim(), Number(m[4]), Number(m[3])]);
+      routes.push({ id, no, days, runs, stops: seq });
+    }
     if ((i + 1) % 20 === 0) console.log(`  ${site.name}: 노선 ${i + 1}/${ids.length}`);
   }
-  return { routes: ids.length, rows: [...stops.values()] };
+  return { routes: ids.length, rows: [...stops.values()], routeList: routes };
 }
 
 const FIELDS = ['id', 'name', 'lon', 'lat', 'addr'];
@@ -106,6 +117,26 @@ for (const site of GANGWON_BIS_SITES) {
     rows.push(...extra.rows);
     routeNote = ` 노선 ${extra.routes}개의 자세히 보기 쪽에서 정류장 ${extra.rows.length}곳을 더함(id가 ds로 시작).`;
     console.log(`  ${site.name}: 노선 ${extra.routes}개에서 정류장 ${extra.rows.length}곳`);
+    if (site.saveRoutes) {
+      const routeText = JSON.stringify({
+        source: `${site.title} 노선정보 자세히 보기`,
+        site: site.base,
+        fetched: today,
+        fields: { stops: ['id', 'name', 'lon', 'lat'], runs: '기점을 떠나는 시각' },
+        routes: extra.routeList,
+      });
+      writeFileSync(resolve(outDir, `${site.id}-routes.json`), routeText);
+      const lock = JSON.parse(readFileSync(lockPath, 'utf8'));
+      lock[`gangwon-bis-${site.id}-routes`] = {
+        file: `data/raw/gangwon-bis/${site.id}-routes.json`,
+        url: `${site.base}/index.php?mp=${site.routePages}`,
+        bytes: Buffer.byteLength(routeText),
+        sha256: createHash('sha256').update(routeText).digest('hex'),
+        fetched: today,
+        note: `노선 목록과 노선마다 자세히 보기 쪽(${extra.routes}개)에서 번호, 요일, 출발 시각, 정류장 차례를 골라 다시 적은 파일(npm run gangwon-bis).`,
+      };
+      writeFileSync(lockPath, JSON.stringify(Object.fromEntries(Object.entries(lock).sort(([a], [b]) => a.localeCompare(b))), null, 2) + '\n');
+    }
   }
   const bad = rows.filter((r) => !(r[2] > 124 && r[2] < 132 && r[3] > 33 && r[3] < 39.5)).length;
   rows = rows.filter((r) => r[2] > 124 && r[2] < 132 && r[3] > 33 && r[3] < 39.5);

@@ -39,7 +39,7 @@ export const GANGWON_BIS_SITES = [
   { id: 'goseong', name: '고성(강원)', title: '고성군 버스정보시스템', kind: 'bis', base: 'https://bis.gwgs.go.kr', delay: 3 },
   { id: 'pyeongchang', name: '평창', title: '평창군 버스정보시스템', kind: 'bis', base: 'https://bus.pc.go.kr', delay: 3 },
   { id: 'gangneung', name: '강릉', title: '강릉시 버스정보시스템', kind: 'bis', base: 'https://bis.gn.go.kr', delay: 3 },
-  { id: 'hwacheon', name: '화천', title: '화천군 대중교통정보', kind: 'pti', base: 'https://hwacheon-pti.kr', delay: 3, routePages: 'p2_3' },
+  { id: 'hwacheon', name: '화천', title: '화천군 대중교통정보', kind: 'pti', base: 'https://hwacheon-pti.kr', delay: 3, routePages: 'p2_3', saveRoutes: true },
   { id: 'sokcho', name: '속초', title: '속초시 대중교통정보', kind: 'pti', base: 'https://www.sokcho-pti.kr', delay: 3 },
   { id: 'donghae', name: '동해', title: '동해시 대중교통정보', kind: 'pti', base: 'https://www.donghae-pti.kr', delay: 3 },
   { id: 'yeongwol', name: '영월', title: '영월군 대중교통정보', kind: 'pti', base: 'https://www.yeongwol-pti.com', delay: 3, routePages: 'p2_3' },

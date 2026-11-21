@@ -528,6 +528,14 @@
     "fetched": "2026-11-21",
     "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis). 노선 48개의 자세히 보기 쪽에서 정류장 299곳을 더함(id가 ds로 시작)."
   },
+  "gangwon-bis-hwacheon-routes": {
+    "file": "data/raw/gangwon-bis/hwacheon-routes.json",
+    "url": "https://hwacheon-pti.kr/index.php?mp=p2_3",
+    "bytes": 58214,
+    "sha256": "b764d71945861d521ce4dc1c5eef94901f1c041518fc00b981b573fc7a1a8dbb",
+    "fetched": "2026-11-21",
+    "note": "노선 목록과 노선마다 자세히 보기 쪽(48개)에서 번호, 요일, 출발 시각, 정류장 차례를 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
   "gangwon-bis-inje": {
     "file": "data/raw/gangwon-bis/inje.json",
     "url": "https://bis.inje.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
