@@ -1203,6 +1203,36 @@
         "url": "https://info.korail.com/info/selectBbsNttView.do?key=911&bbsNo=199&nttNo=19552"
       }
     },
+    "ITX-청춘": {
+      "speedKmh": {
+        "value": 180,
+        "source": "나무위키 「ITX-청춘」 제원(2026-11-21 확인)",
+        "url": "https://namu.wiki/w/ITX-%EC%B2%AD%EC%B6%98",
+        "detail": "영업 최고속도예요. 설계 최고속도는 198km/h예요."
+      },
+      "cars": {
+        "value": 8,
+        "source": "나무위키 「ITX-청춘」 제원(2026-11-21 확인)",
+        "url": "https://namu.wiki/w/ITX-%EC%B2%AD%EC%B6%98",
+        "detail": "8칸이 한 편성이에요. 4·5호차는 2층 칸이에요."
+      },
+      "power": {
+        "value": "동력분산식",
+        "source": "나무위키 「ITX-청춘」 제원(2026-11-21 확인)",
+        "url": "https://namu.wiki/w/ITX-%EC%B2%AD%EC%B6%98"
+      },
+      "maker": {
+        "value": "현대로템",
+        "source": "나무위키 「ITX-청춘」 제원(2026-11-21 확인)",
+        "url": "https://namu.wiki/w/ITX-%EC%B2%AD%EC%B6%98"
+      },
+      "room": {
+        "value": "4·5호차는 1층과 2층으로 나뉜 2층 칸이에요",
+        "source": "나무위키 「ITX-청춘」 제원(2026-11-21 확인)",
+        "url": "https://namu.wiki/w/ITX-%EC%B2%AD%EC%B6%98",
+        "detail": "편성 TC-M'-M-T-T-M-M'-TC, 2층 차량 높이 4,410mm"
+      }
+    },
     "누리로": {
       "speedKmh": {
         "value": 165,

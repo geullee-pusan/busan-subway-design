@@ -162,10 +162,11 @@ export function speedProfile(km, minutes, topKmh) {
  * @param {{no: number}} train
  * @param {number|null} cars 편성 칸 수(모르면 null)
  * @param {boolean} reverseSeats 돌지 않는 좌석인지
+ * @param {number[]|null} onlyCars 이 호차들 가운데서만 고른다(ITX-청춘은 2층 칸 4·5호차, 우리가 정한 규칙)
  */
-export function seatFor(train, cars, reverseSeats = false) {
+export function seatFor(train, cars, reverseSeats = false, onlyCars = null) {
   const passengerCars = Math.max(1, (cars ?? 6) - (cars && cars >= 10 ? 2 : 0));
-  const car = 1 + (train.no * 7) % passengerCars;
+  const car = onlyCars?.length ? onlyCars[(train.no * 7) % onlyCars.length] : 1 + (train.no * 7) % passengerCars;
   const row = 1 + (train.no * 13) % 14;
   const letter = 'ABCD'[(train.no * 3) % 4];
   return { car, seat: `${row}${letter}`, reverse: reverseSeats && row % 2 === 0 };

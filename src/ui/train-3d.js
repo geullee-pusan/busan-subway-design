@@ -384,8 +384,12 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   // 2층 칸(ITX-청춘 4·5호차)은 한 층 객실 그물과 맞지 않아 고르지 않는다
   const plain = passengerCars.filter(([c]) => c.car.nose === null && c.car.role !== 'deck');
   const pool = plain.length ? plain : passengerCars;
-  const [cabinCar, cabinIndex] = pool.length ? pool[Math.max(0, seatCar - 1) % pool.length] : [train.cars[0], 0];
-  const cabin = buildCabin(cabinCar.car, train.spec, INTERIOR[kind] ?? INTERIOR['종류 모름'], materials.car);
+  // 탄 호차가 2층 칸이면(ITX-청춘 4·5호차) 그 칸에 1층·2층 객실을 짓는다
+  const seatDeck = train.cars[seatCar - 1]?.car.role === 'deck' ? [train.cars[seatCar - 1], seatCar - 1] : null;
+  const [cabinCar, cabinIndex] = seatDeck ?? (pool.length ? pool[Math.max(0, seatCar - 1) % pool.length] : [train.cars[0], 0]);
+  const inside = (seatDeck && INTERIOR[`${kind} 2층 칸`]) || INTERIOR[kind] || INTERIOR['종류 모름'];
+  const cabin = buildCabin(cabinCar.car, train.spec, inside, materials.car);
+  let levelDone = () => {};
   cabin.group.visible = false;
   cabinCar.inner.add(cabin.group);
   const heroImage = new Image();
@@ -954,6 +958,12 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
     if (mode === 'cabin') {
       // 객실: 칸과 함께 움직이는 아이 눈높이 카메라(부드럽게 따라가지 않는다)
       mixer.update(reduceMotion ? 0 : dt); // 움직임 줄이기: 서 있는 자세로 멈춘다
+      if (cabin.levels > 1) {
+        const wasMoving = Boolean(cabin.moving);
+        cabin.update(dt);
+        hero.root.position.set(cabin.hero.x, cabin.hero.y, cabin.hero.z);
+        if (wasMoving && !cabin.moving) levelDone(cabin.level);
+      }
       cabinCar.group.updateMatrixWorld(true);
       cabinEye.fromArray(cabin.eye);
       cabinTarget.fromArray(cabin.target);
@@ -1125,6 +1135,30 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
         drawDepartureBoard(concourse.canvas, title, rows, highlight);
         concourse.texture.needsUpdate = true;
       }
+    },
+    /** 객실 층 수(2층 칸이면 2) */
+    get cabinLevels() {
+      return cabin.levels;
+    },
+    /** 지금 있는 층(0: 1층, 1: 2층) */
+    get cabinLevel() {
+      return cabin.level;
+    },
+    /**
+     * 다른 층으로 옮긴다(계단을 따라 간다. 움직임 줄이기면 바로). 다 옮기면 onLevel로 알린다.
+     * @returns {boolean} 옮기기 시작했는지
+     */
+    setCabinLevel(level) {
+      const ok = cabin.setLevel(level, reduceMotion);
+      if (ok && reduceMotion) {
+        hero.root.position.set(cabin.hero.x, cabin.hero.y, cabin.hero.z);
+        levelDone(cabin.level);
+      }
+      return ok;
+    },
+    /** 층을 다 옮겼을 때 부른다 */
+    onLevel(fn) {
+      levelDone = fn;
     },
     /** 주인공 동작: 'stand'(서 있기) 또는 춤 이름. 춤은 한 번 춘 뒤 다시 선다. */
     playHero(id) {

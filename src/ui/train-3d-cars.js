@@ -175,6 +175,15 @@ function specOf(kind, look) {
   }
 }
 
+/**
+ * 2층 칸(ITX-청춘 4·5호차)의 층 높이(레일 윗면에서, 미터, 그림을 위한 어림). 바깥 창 두 줄과 객실(train-3d-cabin.js)이 함께 쓴다.
+ * floor: 바닥, ceil: 천장, win: 창 [아래, 위]. 아이 눈높이(바닥 + 1.1m)가 창 안에 들게 정했다.
+ */
+export const DECK = {
+  lower: { floor: 0.6, ceil: 2.36, win: [1.2, 1.95] },
+  upper: { floor: 2.5, ceil: 4.2, win: [3.05, 3.75] },
+};
+
 const COMMON = { gap: 0.8, bottom: 1.0, windowHn: [0.52, 0.69], windows: { w: 1.5, pitch: 1.75 }, doors: 'ends', roofBoxes: true, articulated: false, doorColor: null };
 const inBand = (hn, a, b) => hn >= a && hn < b;
 
@@ -209,7 +218,8 @@ function maumSpec(look) {
 /**
  * ITX-청춘: 사용자 제공 사진(2026-11-21) 네 장으로 어림한 칠. 은회색 몸통, 지붕 쪽 연두 띠, 아래쪽 파랑·흰 줄과 짙은 회색 치마.
  * 앞은 유리 둘레가 검고 옆을 연두 띠가 감싼다. 4·5호차는 2층 칸(사용자가 알려 줌, 4호차 사진)으로 키가 크고 창이 두 줄이다.
- * 편성은 8칸으로 어림한다(4·5호차가 가운데 오게).
+ * 칸 크기와 편성은 나무위키 「ITX-청춘」 제원(2026-11-21, 사용자가 붙여 줌): 8량 1편성 TC-M'-M-T-T-M-M'-TC,
+ * 길이 TC 20,405mm·나머지 19,500mm, 폭 3,120mm, 높이 1층 차량 3,750mm·2층 차량 4,410mm, 시트피치 980mm.
  */
 function cheongchunSpec(look) {
   const GREEN = look.stripe;
@@ -221,7 +231,8 @@ function cheongchunSpec(look) {
     ...COMMON,
     set: 8,
     bottom: 0.95,
-    sizes: { cab: [22, 3.1, 3.85], mid: [20, 3.1, 3.85], deck: [20, 3.1, 4.6] },
+    sizes: { cab: [20.405, 3.12, 3.75], mid: [19.5, 3.12, 3.75], deck: [19.5, 3.12, 4.41] },
+    seatPitch: 0.98,
     deckCars: [3, 4],
     windows: { w: 1.25, pitch: 1.5 },
     paint(c) {
@@ -589,7 +600,7 @@ function carGeometry(car, spec, look) {
     if (passenger) {
       if (car.role === 'deck') {
         // 2층 칸: 아래층·위층 창 두 줄
-        for (const [a, b] of [[0.24, 0.42], [0.6, 0.78]]) for (const win of windows) parts.box(win.w, span * (b - a), 0.04, win.x, by + span * ((a + b) / 2), side * sideZ, GLASS);
+        for (const { win: [a, b] } of [DECK.lower, DECK.upper]) for (const win of windows) parts.box(win.w, b - a, 0.04, win.x, (a + b) / 2, side * sideZ, GLASS);
       } else {
         for (const win of windows) parts.box(win.w, winH, 0.04, win.x, winY, side * sideZ, GLASS);
       }

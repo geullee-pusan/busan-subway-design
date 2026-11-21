@@ -171,7 +171,33 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
   const to = train.stops[toIndex];
   const fromName = nameOf(from[0]);
   const toName = nameOf(to[0]);
-  const seat = seatFor(train, info.cars?.value ?? null, info.seatsTurn?.value === false);
+  // ITX-청춘은 2층 칸(4·5호차)에 앉아 1층과 2층을 오갈 수 있게 한다
+  const seat = seatFor(train, info.cars?.value ?? null, info.seatsTurn?.value === false, kind === 'ITX-청춘' ? [4, 5] : null);
+
+  // 2층 칸(ITX-청춘 4·5호차) 객실: 1층과 2층을 오가는 단추. 3D 객실이 보일 때만 나온다.
+  const levelRow = element('div', 'tr-sound-row tr-level-row');
+  const levelNow = element('p', 'tr-status', '');
+  const levelButton = element('button', 'button tr-level', '2층으로 가요');
+  levelButton.type = 'button';
+  levelRow.append(levelNow, levelButton);
+  levelRow.style.display = 'none';
+  levelButton.addEventListener('click', () => {
+    if (!outside || outside.cabinLevels < 2) return;
+    if (outside.setCabinLevel(outside.cabinLevel === 0 ? 1 : 0)) {
+      levelButton.disabled = true;
+      levelButton.textContent = outside.cabinLevel === 0 ? '계단을 올라가요' : '계단을 내려가요';
+      levelNow.textContent = '🚃 계단으로 가고 있어요.';
+    }
+  });
+  function markLevel() {
+    const can = Boolean(cabin3d && outside && outside.cabinLevels > 1);
+    levelRow.style.display = can ? '' : 'none';
+    if (!can) return;
+    levelButton.disabled = false;
+    levelNow.textContent = outside.cabinLevel === 0 ? '🚃 지금 1층이에요.' : '🚃 지금 2층이에요.';
+    levelButton.textContent = outside.cabinLevel === 0 ? '2층으로 가요' : '1층으로 가요';
+    levelButton.setAttribute('aria-label', outside.cabinLevel === 0 ? '지금 1층이에요. 계단으로 2층에 가요.' : '지금 2층이에요. 계단으로 1층에 가요.');
+  }
 
   const later = (fn, ms) => {
     const id = setTimeout(fn, ms);
@@ -362,7 +388,9 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
     if (!outside) {
       outside = await withBusy(() => createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind, seatCar: seat.car }), '3D를 준비하고 있어요.');
       outside.onHero((id) => heroPicker.mark(id));
+      outside.onLevel(() => markLevel());
     }
+    markLevel();
     return outside;
   }
 
@@ -465,6 +493,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
       heroPicker.el.style.display = view === 'seat' ? '' : 'none';
       if (cabin3d !== seat3d) heroPicker.mark('stand');
       cabin3d = seat3d;
+      markLevel();
       for (const [id, b] of Object.entries(viewButtons)) {
         b.className = id === view ? 'button is-on' : 'button';
         b.setAttribute('aria-pressed', String(id === view));
@@ -494,7 +523,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
         pick('seat');
       }
     }
-    area.append(viewRow, outsideNote, seatBox, cabView.svg, outsideBox, heroPicker.el);
+    area.append(viewRow, outsideNote, seatBox, cabView.svg, outsideBox, levelRow, heroPicker.el);
     pick(showing);
     area.append(element('p', 'tr-seat', `${seat.car}호차 ${seat.seat} 자리에 앉았어요.${seat.reverse ? ' 뒤를 보고 앉아 가요.' : ''}`));
     panel = element('div', 'tr-panel');

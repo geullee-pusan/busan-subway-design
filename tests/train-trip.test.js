@@ -155,6 +155,17 @@ test('자리는 열차번호로 늘 같고, 칸 수 안에 있다', () => {
   assert.equal(seatFor({ no: 5 }, 8, false).reverse, false);
 });
 
+test('ITX-청춘처럼 고를 호차를 주면 그 호차(2층 칸 4·5호차) 가운데서만 자리를 준다', () => {
+  const cars = new Set();
+  for (let no = 1; no <= 40; no++) {
+    const a = seatFor({ no }, 8, false, [4, 5]);
+    assert.ok(a.car === 4 || a.car === 5);
+    assert.deepEqual(seatFor({ no }, 8, false, [4, 5]), a);
+    cars.add(a.car);
+  }
+  assert.equal(cars.size, 2);
+});
+
 test('풍경: 바다·강·도시·들, 고속열차는 산을 터널로 지난다', () => {
   const grid = {
     cols: 4,

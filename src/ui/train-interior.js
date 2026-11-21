@@ -31,6 +31,9 @@ export const INTERIOR = {
   // ITX-청춘: 사용자 제공 사진(2026-11-21). 밝은 파랑 천에 잔점, 흰 머리 덮개, 등받이 뒤 아래쪽 밝은 회색 판(접이 탁자),
   // 흰 벽과 천장, 천장에 영상 화면, 회청색 카펫, 창에 베이지 가리개
   'ITX-청춘': { seat: '#1F5FC4', seatDark: '#174A9C', cover: '#F2F2F0', coverShort: true, shellLower: '#E3E5E7', pattern: 'sprinkle', patternColor: '#5E8FE0', cushion: '#1F5FC4', wall: '#F1F2F2', ceiling: '#F7F8F8', floor: '#8E98A6', windows: 'band', screen: false, curtain: 'blind', reverseRows: false, display: 'lcd' },
+  // ITX-청춘 2층 칸(4·5호차): 사용자 제공 4호차 실내 사진(2026-11-21). 청록빛 파랑 천에 연두 잔점, 흰 머리 덮개, 연한 회청색 바닥.
+  // 3D 2층 칸 객실(train-3d.js)에서만 쓴다.
+  'ITX-청춘 2층 칸': { seat: '#1B6FA6', seatDark: '#155A88', cover: '#F2F2F0', coverShort: true, pattern: 'sprinkle', patternColor: '#B5D334', cushion: '#1B6FA6', wall: '#EEF1F2', ceiling: '#F6F7F7', floor: '#BCC8D0', windows: 'band', screen: false, curtain: false, reverseRows: false, display: 'lcd' },
   // 누리로: 남색 천에 노랑·파랑·빨강 잔점, 길게 덮은 연회색 덮개, 위에 검은 손잡이, 회색 바닥, 창 가리개
   누리로: { seat: '#1F2550', seatDark: '#171B3E', cover: '#D8D9DB', coverTall: true, knob: true, pattern: 'confetti', patternColors: ['#E5C34A', '#5C8FD6', '#D9534F', '#EDEDED'], cushion: '#1F2550', wall: '#F2F3F4', ceiling: '#F7F8F9', floor: '#5E6064', windows: 'band', screen: false, curtain: 'blind', reverseRows: false, display: 'lcd' },
   // 무궁화호: 남색 바탕에 잔무늬 좌석, 등받이 뒤는 밝은 회색 껍데기(그물 주머니, 위 손잡이),
