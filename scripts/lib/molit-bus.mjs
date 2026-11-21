@@ -33,7 +33,7 @@ export const MOLIT_CITIES = [
  */
 export const GANGWON_BIS_SITES = [
   { id: 'samcheok', name: '삼척', title: '삼척시 버스정보시스템', kind: 'bis', base: 'https://www.samcheok.go.kr/bis', delay: 30 },
-  { id: 'jeongseon', name: '정선', title: '정선군 버스정보시스템', kind: 'bis', base: 'https://bis.jeongseon.go.kr', delay: 3 },
+  { id: 'jeongseon', name: '정선', title: '정선군 버스정보시스템', kind: 'bis', base: 'https://bis.jeongseon.go.kr', delay: 3, saveRoutes: true },
   { id: 'yangyang', name: '양양', title: '양양군 버스정보시스템', kind: 'bis', base: 'https://bis.yangyang.go.kr', delay: 3 },
   { id: 'inje', name: '인제', title: '인제군 버스정보시스템', kind: 'bis', base: 'https://bis.inje.go.kr', delay: 3 },
   { id: 'goseong', name: '고성(강원)', title: '고성군 버스정보시스템', kind: 'bis', base: 'https://bis.gwgs.go.kr', delay: 3 },

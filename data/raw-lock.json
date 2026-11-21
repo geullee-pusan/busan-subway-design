@@ -552,6 +552,14 @@
     "fetched": "2026-11-21",
     "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
   },
+  "gangwon-bis-jeongseon-routes": {
+    "file": "data/raw/gangwon-bis/jeongseon-routes.json",
+    "url": "https://bis.jeongseon.go.kr/index.php?mp=undefined",
+    "bytes": 233433,
+    "sha256": "a914ca495bd264b5c7e729ecb9ea8cba0511c3adb3ce7985038b6cfb3c0373ba",
+    "fetched": "2026-11-21",
+    "note": "노선 목록과 노선마다 자세히 보기 쪽(76개)에서 번호, 요일, 출발 시각, 정류장 차례를 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
   "gangwon-bis-pyeongchang": {
     "file": "data/raw/gangwon-bis/pyeongchang.json",
     "url": "https://bus.pc.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
