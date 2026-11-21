@@ -28,6 +28,9 @@ export const INTERIOR = {
   // ITX-새마을: 남색 천에 가는 빨강·회청색 물결 줄, 앞면에 산호색 머리 베개, 등받이 뒤 아래쪽에 검은 주머니
   'ITX-새마을': { seat: '#23264F', seatDark: '#1A1C3E', cover: '#EE7766', coverFrontOnly: true, pocket: '#15171C', pattern: 'waves', patternColor: '#E0453A', patternColor2: '#7D86A8', cushion: '#23264F', wall: '#EFEFEF', ceiling: '#FBFBFB', floor: '#5E6268', windows: 'band', screen: false, curtain: false, reverseRows: false, display: 'lcd' },
   'ITX-마음': { seat: '#3D403E', seatDark: '#2C2F2D', cover: null, pattern: 'line', patternColor: '#D2232A', cushion: '#3D403E', wall: '#ECECEA', ceiling: '#F8F8F6', floor: '#6E726E', windows: 'band', screen: false, curtain: false, reverseRows: false, display: 'lcd' },
+  // ITX-청춘: 사용자 제공 사진(2026-11-21). 밝은 파랑 천에 잔점, 흰 머리 덮개, 등받이 뒤 아래쪽 밝은 회색 판(접이 탁자),
+  // 흰 벽과 천장, 천장에 영상 화면, 회청색 카펫, 창에 베이지 가리개
+  'ITX-청춘': { seat: '#1F5FC4', seatDark: '#174A9C', cover: '#F2F2F0', coverShort: true, shellLower: '#E3E5E7', pattern: 'sprinkle', patternColor: '#5E8FE0', cushion: '#1F5FC4', wall: '#F1F2F2', ceiling: '#F7F8F8', floor: '#8E98A6', windows: 'band', screen: false, curtain: 'blind', reverseRows: false, display: 'lcd' },
   // 누리로: 남색 천에 노랑·파랑·빨강 잔점, 길게 덮은 연회색 덮개, 위에 검은 손잡이, 회색 바닥, 창 가리개
   누리로: { seat: '#1F2550', seatDark: '#171B3E', cover: '#D8D9DB', coverTall: true, knob: true, pattern: 'confetti', patternColors: ['#E5C34A', '#5C8FD6', '#D9534F', '#EDEDED'], cushion: '#1F2550', wall: '#F2F3F4', ceiling: '#F7F8F9', floor: '#5E6064', windows: 'band', screen: false, curtain: 'blind', reverseRows: false, display: 'lcd' },
   // 무궁화호: 남색 바탕에 잔무늬 좌석, 등받이 뒤는 밝은 회색 껍데기(그물 주머니, 위 손잡이),

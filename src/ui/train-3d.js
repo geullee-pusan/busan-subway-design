@@ -381,7 +381,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
 
   // 객실: 손님이 타는 칸 가운데 호차 차례로 고른다(코가 없는 칸을 먼저). 칸 안에 객실을 짓고 주인공을 세운다.
   const passengerCars = train.cars.map((c, i) => [c, i]).filter(([c]) => c.car.role !== 'power' && c.car.role !== 'loco');
-  const plain = passengerCars.filter(([c]) => c.car.nose === null);
+  // 2층 칸(ITX-청춘 4·5호차)은 한 층 객실 그물과 맞지 않아 고르지 않는다
+  const plain = passengerCars.filter(([c]) => c.car.nose === null && c.car.role !== 'deck');
   const pool = plain.length ? plain : passengerCars;
   const [cabinCar, cabinIndex] = pool.length ? pool[Math.max(0, seatCar - 1) % pool.length] : [train.cars[0], 0];
   const cabin = buildCabin(cabinCar.car, train.spec, INTERIOR[kind] ?? INTERIOR['종류 모름'], materials.car);
