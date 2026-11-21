@@ -465,7 +465,21 @@ for (const def of config.lines) {
     const a = stations.get(ids[i - 1]);
     const b = stations.get(ids[i]);
     const km = Math.round((kms[i] - kms[i - 1]) * 10) / 10;
-    const path = railPath(nodesNear(a, snapKm(a)), nodesNear(b, snapKm(b)), km * 2 + 5);
+    // via: 거리표가 세는 길이 가장 짧은 선로와 다르면 거쳐 갈 자리를 준다(scripts/config/rail-lines.json)
+    const via = (def.via ?? {})[`${a.name}-${b.name}`] ?? [];
+    let path = null;
+    if (via.length) {
+      const stops = [a, ...via.map((v) => toGrid(v.lon, v.lat)), b];
+      path = [];
+      for (let k = 1; k < stops.length && path; k++) {
+        const from = k === 1 ? nodesNear(a, snapKm(a)) : nodesNear(stops[k - 1], 0.1);
+        const to = k === stops.length - 1 ? nodesNear(b, snapKm(b)) : nodesNear(stops[k], 0.1);
+        const piece = railPath(from, to, km * 2 + 5);
+        path = piece ? [...path, ...(path.length ? piece.slice(1) : piece)] : null;
+      }
+      if (!path) issues.push(`${def.name} ${a.name}–${b.name}: 거쳐 갈 자리로 이어지지 않아 가장 짧은 선로로 그려요.`);
+    }
+    path = path ?? railPath(nodesNear(a, snapKm(a)), nodesNear(b, snapKm(b)), km * 2 + 5);
     let points;
     if (path) {
       points = path.map((n) => nodes[n]);
