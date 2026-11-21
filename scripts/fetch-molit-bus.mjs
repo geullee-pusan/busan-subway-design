@@ -1,6 +1,6 @@
 // npm run molit-bus: 국토교통부_버스노선별 경유정류장(공공데이터포털 15142031)으로 TAGO 버스노선정보에 없는
 // 강원 시·군의 시내·농어촌버스 노선과 노선마다 서는 정류장 차례를 받아 data/raw/molit-bus/<시군구 코드>.json에 둔다.
-// 이 자료에는 정류장 좌표가 없다. 좌표는 scripts/build-bus.mjs가 국토교통부 전국 버스정류장 위치정보(15067528)와
+// 이 자료에는 정류장 좌표가 없다. 좌표는 scripts/build-bus.mjs가 시·군 버스정보 누리집 정류장(npm run gangwon-bis), 국토교통부 전국 버스정류장 위치정보(15067528)와
 // OpenStreetMap 버스 정류장(osm-bus-stops-gangwon)에서 이름으로 찾는다.
 // 한 시·군을 부르면 그 시·군 안에 있는 정류장 줄만 온다. 그래서 시·군을 넘는 노선은 build-bus가 노선 번호(rte_id)로 다시 잇는다.
 // 인증키(npm run api-key로 저장한 것)를 쓰고, 원본 파일과 raw-lock.json에는 인증키를 적지 않는다.

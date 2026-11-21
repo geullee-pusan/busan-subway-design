@@ -1,6 +1,6 @@
 // 국토교통부_버스노선별 경유정류장(15142031, npm run molit-bus) 노선에 정류장 자리를 붙인다.
-// 이 자료에는 좌표가 없다. 그래서 국토교통부 전국 버스정류장 위치정보(15067528)와 OpenStreetMap 버스 정류장에서
-// 같은 이름을 찾는다. 시·군을 하나씩 불러 받은 자료라 정류장 줄마다 그 정류장이 있는 시·군을 안다.
+// 이 자료에는 좌표가 없다. 그래서 먼저 시·군 버스정보 누리집(BIS) 정류장 번호로 찾고, 없으면 누리집(BIS·pti),
+// 국토교통부 전국 버스정류장 위치정보(15067528), OpenStreetMap 버스 정류장에서 같은 이름을 찾는다. 시·군을 하나씩 불러 받은 자료라 정류장 줄마다 그 정류장이 있는 시·군을 안다.
 // 그래서 후보는 그 시·군(행정동 경계) 안의 같은 이름 정류장만 쓴다.
 // 같은 이름이 여럿이면(길 양쪽, 같은 이름 마을) 노선을 따라 가장 짧게 이어지는 것을 고른다.
 import { existsSync, readFileSync } from 'node:fs';
@@ -27,6 +27,24 @@ export const MOLIT_CITIES = [
   { sgg: '51830', name: '양양', sggName: '양양군' },
 ];
 
+/**
+ * 강원 시·군 버스정보 누리집(사용자가 2026-11-21에 알려 줌, npm run gangwon-bis). delay는 부른 뒤 쉬는 초.
+ * 삼척시 누리집 robots.txt에 Crawl-delay 30이 있다.
+ */
+export const GANGWON_BIS_SITES = [
+  { id: 'samcheok', name: '삼척', title: '삼척시 버스정보시스템', kind: 'bis', base: 'https://www.samcheok.go.kr/bis', delay: 30 },
+  { id: 'jeongseon', name: '정선', title: '정선군 버스정보시스템', kind: 'bis', base: 'https://bis.jeongseon.go.kr', delay: 3 },
+  { id: 'yangyang', name: '양양', title: '양양군 버스정보시스템', kind: 'bis', base: 'https://bis.yangyang.go.kr', delay: 3 },
+  { id: 'inje', name: '인제', title: '인제군 버스정보시스템', kind: 'bis', base: 'https://bis.inje.go.kr', delay: 3 },
+  { id: 'goseong', name: '고성(강원)', title: '고성군 버스정보시스템', kind: 'bis', base: 'https://bis.gwgs.go.kr', delay: 3 },
+  { id: 'pyeongchang', name: '평창', title: '평창군 버스정보시스템', kind: 'bis', base: 'https://bus.pc.go.kr', delay: 3 },
+  { id: 'gangneung', name: '강릉', title: '강릉시 버스정보시스템', kind: 'bis', base: 'https://bis.gn.go.kr', delay: 3 },
+  { id: 'hwacheon', name: '화천', title: '화천군 대중교통정보', kind: 'pti', base: 'https://hwacheon-pti.kr', delay: 3, routePages: 'p2_3' },
+  { id: 'sokcho', name: '속초', title: '속초시 대중교통정보', kind: 'pti', base: 'https://www.sokcho-pti.kr', delay: 3 },
+  { id: 'donghae', name: '동해', title: '동해시 대중교통정보', kind: 'pti', base: 'https://www.donghae-pti.kr', delay: 3 },
+  { id: 'yeongwol', name: '영월', title: '영월군 대중교통정보', kind: 'pti', base: 'https://www.yeongwol-pti.com', delay: 3, routePages: 'p2_3' },
+];
+
 /** 띄어쓰기와 문장 부호를 뺀 이름 */
 export const squashName = (name) => String(name ?? '').replace(/[\s.·ㆍ,\-_'"]/g, '');
 /** 괄호 안(방면, 상·하행 등)을 뗀 이름 */
@@ -45,18 +63,21 @@ export function makeStopFinder(root, gridPoint, sggNames) {
   /** 이름 → 후보 [{x, y, sgg, from}] */
   const byName = new Map();
   const byBare = new Map();
-  const counts = { national: 0, osm: 0 };
+  const counts = { bis: 0, pti: 0, national: 0, osm: 0, byId: 0 };
   const seen = new Set();
-  function add(name, lon, lat, from) {
+  /** BIS 정류장 번호 → 자리(번호가 15142031 sttn_id와 같다) */
+  const byId = new Map();
+  function add(name, lon, lat, from, id = null) {
     const point = gridPoint(lon, lat);
     if (!point || !name) return;
     const dong = dongAt(dongs, { x: point.x / 100, y: point.y / 100 });
     const sgg = dong?.split(' ')[1];
     if (!sgg || !wanted.has(sgg) || !dong.startsWith('강원')) return;
+    const cand = { x: point.x, y: point.y, sgg, from };
+    if (id && !byId.has(id)) byId.set(id, cand);
     const key = `${squashName(name)}|${Math.round(point.x / 2)}|${Math.round(point.y / 2)}`;
     if (seen.has(key)) return; // 두 자료에 같은 곳(20m 안)이 함께 있으면 하나만
     seen.add(key);
-    const cand = { x: point.x, y: point.y, sgg, from };
     for (const [map, k] of [
       [byName, squashName(name)],
       [byBare, bare(name)],
@@ -66,6 +87,14 @@ export function makeStopFinder(root, gridPoint, sggNames) {
       map.get(k).push(cand);
     }
     counts[from] += 1;
+  }
+  // 시·군 버스정보 누리집 정류장(npm run gangwon-bis). 가장 먼저 넣어 같은 곳이면 이 자리를 쓴다.
+  for (const site of GANGWON_BIS_SITES) {
+    const file = resolve(root, `data/raw/gangwon-bis/${site.id}.json`);
+    if (!existsSync(file)) continue;
+    const data = JSON.parse(readFileSync(file, 'utf8'));
+    const f = Object.fromEntries(data.fields.map((name, i) => [name, i]));
+    for (const r of data.rows) add(r[f.name], r[f.lon], r[f.lat], site.kind, site.kind === 'bis' ? String(r[f.id]) : null);
   }
   const nationalPath = resolve(root, 'data/raw/datagokr/15067528.csv');
   if (existsSync(nationalPath)) {
@@ -83,7 +112,12 @@ export function makeStopFinder(root, gridPoint, sggNames) {
   }
 
   /** 정류장 이름과 시·군으로 찾은 후보들 */
-  function candidatesOf(name, sgg) {
+  function candidatesOf(name, sgg, id) {
+    // 번호는 누리집마다 따로 매기므로 다른 시·군 번호와 우연히 같을 수 있다(영월 노선 ID가 이웃 군 BIS 번호와 겹침). 같은 시·군 안일 때만 쓴다.
+    if (id && byId.get(id)?.sgg === sgg) {
+      counts.byId += 1;
+      return [byId.get(id)];
+    }
     const inCity = (list) => (list ?? []).filter((c) => c.sgg === sgg);
     let found = inCity(byName.get(squashName(name)));
     if (!found.length) found = inCity(byName.get(bare(name)));
@@ -102,7 +136,7 @@ export function makeStopFinder(root, gridPoint, sggNames) {
    * @returns {{placed: {name:string, x:number, y:number}[], found:number, strays:number}}
    */
   function place(rows) {
-    const known = rows.map((row) => ({ ...row, cands: candidatesOf(row.name, row.sgg) })).filter((row) => row.cands.length);
+    const known = rows.map((row) => ({ ...row, cands: candidatesOf(row.name, row.sgg, row.id) })).filter((row) => row.cands.length);
     if (!known.length) return { placed: [], found: 0, strays: 0 };
     const cost = [known[0].cands.map(() => 0)];
     const back = [known[0].cands.map(() => -1)];
@@ -180,7 +214,7 @@ export function readMolitRoutes(root, cities) {
       const id = String(row[f.rte_id]);
       if (!byId.has(id)) byId.set(id, { id, no: routeNumberOf(row[f.rte_no], city), rows: [], perCity: {} });
       const route = byId.get(id);
-      route.rows.push({ seq: Number(row[f.sttn_seq]), name: String(row[f.sttn_nm] ?? '').trim(), sgg: city.sggName });
+      route.rows.push({ seq: Number(row[f.sttn_seq]), id: String(row[f.sttn_id] ?? ''), name: String(row[f.sttn_nm] ?? '').trim(), sgg: city.sggName });
       route.perCity[city.name] = (route.perCity[city.name] ?? 0) + 1;
     }
   }

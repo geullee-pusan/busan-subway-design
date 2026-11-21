@@ -496,6 +496,94 @@
     "sha256": "349bf4be3c0bfdd53876d464042d977998171632ccbe5780f80fad7684f7a725",
     "fetched": "2026-09-22"
   },
+  "gangwon-bis-donghae": {
+    "file": "data/raw/gangwon-bis/donghae.json",
+    "url": "https://www.donghae-pti.kr/index.php?mt=data&cm=road&oxid=1&cmd=typicalstop&subcmd=getsrch&cpage=1&artpp=5000&navinum=5&orf=0&ort=0&str=%25&sdate=20261121",
+    "bytes": 77228,
+    "sha256": "c79683d30c08de883fb6a089d638e780d9246775b40df802f3d62b99aaf82b28",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-gangneung": {
+    "file": "data/raw/gangwon-bis/gangneung.json",
+    "url": "https://bis.gn.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
+    "bytes": 92137,
+    "sha256": "0ccb9bf97a994dab31ed77a100185b487ad5d2c83658b729bc5d79b290980393",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-goseong": {
+    "file": "data/raw/gangwon-bis/goseong.json",
+    "url": "https://bis.gwgs.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
+    "bytes": 49355,
+    "sha256": "d01922dafb38d5d72683d99532d3499e031739b75eb2721a983fbb5adb30b617",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-hwacheon": {
+    "file": "data/raw/gangwon-bis/hwacheon.json",
+    "url": "https://hwacheon-pti.kr/index.php?mt=data&cm=road&oxid=1&cmd=typicalstop&subcmd=getsrch&cpage=1&artpp=5000&navinum=5&orf=0&ort=0&str=%25&sdate=20261121",
+    "bytes": 86725,
+    "sha256": "c41e6a506316483eafa0610cce449835f26d94690d3e04f5447ba1230809979f",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis). 노선 48개의 자세히 보기 쪽에서 정류장 299곳을 더함(id가 ds로 시작)."
+  },
+  "gangwon-bis-inje": {
+    "file": "data/raw/gangwon-bis/inje.json",
+    "url": "https://bis.inje.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
+    "bytes": 38102,
+    "sha256": "018151e883d9c388860e9f7b68fff4280dd4c98cb85b9affabb74691fbf90289",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-jeongseon": {
+    "file": "data/raw/gangwon-bis/jeongseon.json",
+    "url": "https://bis.jeongseon.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
+    "bytes": 62172,
+    "sha256": "8261904ae9ebc21d8068cdb7257a02c741005558af011f8dac75a6ac153c5e71",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-pyeongchang": {
+    "file": "data/raw/gangwon-bis/pyeongchang.json",
+    "url": "https://bus.pc.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
+    "bytes": 84511,
+    "sha256": "5b331791ba00b0a77c692868dbd88b9e50fc56ea24acb6dccd990db6e7f2f2af",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-samcheok": {
+    "file": "data/raw/gangwon-bis/samcheok.json",
+    "url": "https://www.samcheok.go.kr/bis/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
+    "bytes": 66288,
+    "sha256": "5bc4b20fb6e8a952feea086b6d290bd04ab6c40a24de7ec7bec5c029b8b4a8c0",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-sokcho": {
+    "file": "data/raw/gangwon-bis/sokcho.json",
+    "url": "https://www.sokcho-pti.kr/index.php?mt=data&cm=road&oxid=1&cmd=typicalstop&subcmd=getsrch&cpage=1&artpp=5000&navinum=5&orf=0&ort=0&str=%25&sdate=20261121",
+    "bytes": 125612,
+    "sha256": "d7fb77527294f598cc3122935bf8ef378da8bcc86e4f15b690bc63c080925662",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-yangyang": {
+    "file": "data/raw/gangwon-bis/yangyang.json",
+    "url": "https://bis.yangyang.go.kr/search/station?keyword=%25&locale=0&searchBy=stationNm&sigungu=sigungu&umdong=umdong",
+    "bytes": 30354,
+    "sha256": "bd2913ebcb2b88b2536721878eeb87ccc85660d7bfd78f440529c717170a2adf",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis)."
+  },
+  "gangwon-bis-yeongwol": {
+    "file": "data/raw/gangwon-bis/yeongwol.json",
+    "url": "https://www.yeongwol-pti.com/index.php?mt=data&cm=road&oxid=1&cmd=typicalstop&subcmd=getsrch&cpage=1&artpp=5000&navinum=5&orf=0&ort=0&str=%25&sdate=20261121",
+    "bytes": 181957,
+    "sha256": "b86dfc8b26c37453ed9dcc28f764125d7b0f5327b290b2f53317eaa45233e364",
+    "fetched": "2026-11-21",
+    "note": "누리집 화면이 부르는 정류장 검색 응답을 필드만 골라 다시 적은 파일(npm run gangwon-bis). 노선 115개의 자세히 보기 쪽에서 정류장 1415곳을 더함(id가 ds로 시작)."
+  },
   "gwangju-exits": {
     "file": "data/raw/datagokr/15046045.csv",
     "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002492764&fileDetailSn=1&insertDataPrcus=N",

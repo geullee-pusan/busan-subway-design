@@ -11,6 +11,8 @@ data/raw/datagokr/3033578.zip
 data/raw/datagokr/15063230.zip
 # 전국 버스정류장 위치정보(22MB). 강원 버스 정류장 자리를 찾는 데만 쓴다(npm run bus).
 data/raw/datagokr/15067528.csv
+# 강원 시·군 버스정보 누리집 정류장(npm run gangwon-bis). 공개 이용 조건이 적혀 있지 않아 원본은 나누지 않는다.
+data/raw/gangwon-bis/
 
 # 공공데이터포털 인증키(npm run api-key). 절대 git에 넣지 않는다.
 .data-go-kr-key

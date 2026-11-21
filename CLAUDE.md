@@ -52,6 +52,7 @@
 - `npm run water-shapes`: OpenStreetMap 수면 원본(`data/raw/osm/water.json`)으로 걸어서 여행하기 지도의 강과 호수 모양(`data/build/water-shapes.json`)을 만든다
 - `npm run tago-bus`: 저장한 인증키로 TAGO 버스노선정보에서 부산 밖 도시의 노선과 정류장 차례를 받아 `data/raw/tago-bus/`에 둔다(네트워크를 쓴다, 노선마다 한 번 부른다)
 - `npm run molit-bus`: 저장한 인증키로 국토교통부 버스노선별 경유정류장(15142031)에서 TAGO에 없는 강원 시·군의 노선과 정류장 차례를 받아 `data/raw/molit-bus/`에 둔다(네트워크를 쓴다). 좌표가 없어 `npm run bus`가 15067528 정류장 위치와 OSM 정류장에서 이름으로 자리를 찾는다
+- `npm run gangwon-bis`: 강원 11개 시·군 버스정보 누리집(BIS·pti)의 정류장 이름과 좌표를 `data/raw/gangwon-bis/`에 받는다(네트워크를 쓴다, git에 넣지 않음). `npm run bus`가 molit-bus 노선 정류장 자리를 이것으로 먼저 찾는다(BIS는 정류장 번호, pti는 이름)
 - `npm run bus-hours`: 저장한 인증키로 TAGO 버스노선정보에서 부산 시내버스 노선마다 첫차·막차 시각을 받아 `data/raw/tago-bus/route-hours-21.json`에 둔다(네트워크를 쓴다, 한두 번 부른다)
 - `npm run intercity`: 저장한 인증키로 TAGO 고속버스·시외버스 정보에서 지도 안 터미널끼리의 배차를 받아 `data/raw/intercity/`에 둔다(네트워크를 쓴다, 시외버스는 그날 배차만 준다)
 - `npm run intercity-build`: 받은 배차와 OSM 버스터미널로 걸어서 여행하기의 고속·시외버스(`data/build/intercity.json`)를 만든다
