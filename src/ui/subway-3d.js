@@ -186,6 +186,13 @@ STATION_LOOK.S6 = { ...STATION_LOOK.S6, psdHeader: '#7FB5AE' };
 STATION_LOOK.S5 = { ...STATION_LOOK.S5, ceil: '#b9c6bd', psdHeader: '#c9cdd2' };
 STATION_LOOK.S5M = STATION_LOOK.S5;
 STATION_LOOK.S3 = { ...STATION_LOOK.S3, psdHeader: '#3a3f45', wallTile: '#f2f2ee' };
+// 7호선 중화 사진: 분홍빛 베이지 타일 벽. 8호선 몽촌토성 사진: 연두 타일 벽, 초록 기둥, 청록 틀 안전문. 9호선 가양 사진: 회색 틀, 반짝이는 화강석 바닥
+// GTX-A 대곡 사진: 흰 큰 판 벽, 자홍 틀 안전문, 은색 기둥. 신림선 당곡 사진: 흰 판 벽, 흰 안전문 틀
+STATION_LOOK.SGTXA = { ...STATION_LOOK.SGTXA, wallTile: '#eeeeec', psdHeader: '#B3348E', pillar: '#c9ccd0', round: false };
+STATION_LOOK.SSL = { ...STATION_LOOK.SSL, wallTile: '#f2f2f0', psdHeader: '#f2f3f4' };
+STATION_LOOK.S7 = { ...STATION_LOOK.S7, wallTile: '#efd9cf' };
+STATION_LOOK.S8 = { ...STATION_LOOK.S8, wallTile: '#dfe8c8', pillar: '#3aa25a', round: false, psdHeader: '#6fa7a0' };
+STATION_LOOK.S9 = { ...STATION_LOOK.S9, psdHeader: '#4a4f55', floor: '#d3d4d4', wallTile: '#d9dbdc' };
 STATION_LOOK.S4 = { ...STATION_LOOK.S4, psdHeader: '#6b7076', floor: '#a9adb1', wallTile: '#ece4cf' }; // 혜화 역명판 사진: 크림색 네모 타일 벽
 STATION_LOOK.S2B = STATION_LOOK.S2;
 
@@ -964,6 +971,165 @@ function seoulSignTexture({ name, en, hanja, num, next, nextEn, nextNum, prev, p
     if (hanja) {
       g.font = '20px serif';
       g.fillText(hanja, cx, 128, x1 - x0 - 150);
+    }
+  });
+}
+
+/**
+ * 서울 7·8호선 역명판(사용자가 보내 준 중화·몽촌토성 사진): 노선 색 가로 띠 위에 화살촉 모양 판(위아래 흰 줄무늬),
+ * 흰 동그라미 번호, 흰 글씨 역 이름·영어·한자, 띠 양옆에 이전·다음 역. 부역명과 일본어는 넣지 않는다.
+ */
+function seoulArrowSignTexture({ name, en, hanja, num, next, nextEn, nextNum, prev, prevEn, prevNum, color }) {
+  return tex(1024, 320, (g, W, H) => {
+    const band = [128, 196];
+    g.fillStyle = color;
+    g.fillRect(0, band[0], W, band[1] - band[0]);
+    // 화살촉 판(왼쪽을 가리킨다): 가운데 위아래로 솟은 마름모 반쪽
+    const cx = 470;
+    g.beginPath();
+    g.moveTo(cx - 180, (band[0] + band[1]) / 2);
+    g.lineTo(cx + 110, 8);
+    g.lineTo(cx + 230, 8);
+    g.lineTo(cx + 230, H - 8);
+    g.lineTo(cx + 110, H - 8);
+    g.closePath();
+    g.fill();
+    g.save();
+    g.clip();
+    g.fillStyle = 'rgba(255,255,255,0.85)';
+    for (let y = 12; y < 70; y += 12) g.fillRect(0, y, W, 4);
+    for (let y = H - 70; y < H - 12; y += 12) g.fillRect(0, y, W, 4);
+    g.restore();
+    g.fillStyle = '#ffffff';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    if (num) {
+      g.beginPath();
+      g.arc(cx + 150, 98, 30, 0, Math.PI * 2);
+      g.fill();
+      g.fillStyle = color;
+      g.font = 'bold 26px sans-serif';
+      g.fillText(num, cx + 150, 99);
+      g.fillStyle = '#ffffff';
+    }
+    g.font = 'bold 54px sans-serif';
+    g.fillText(name, cx + 40, (band[0] + band[1]) / 2 + 2, 300);
+    g.font = '26px sans-serif';
+    g.fillText(en ?? '', cx + 120, 226, 220);
+    if (hanja) {
+      g.font = '20px serif';
+      g.fillText(hanja, cx + 120, 256, 220);
+    }
+    const side = (label, en2, n, x, align) => {
+      if (!label) return;
+      g.textAlign = align;
+      g.font = 'bold 30px sans-serif';
+      g.fillText(label, x, 152, 200);
+      g.font = '16px sans-serif';
+      g.fillText(en2 ?? '', x, 180, 200);
+    };
+    side(prev, prevEn, prevNum, 40, 'left');
+    side(next, nextEn, nextNum, W - 40, 'right');
+  });
+}
+
+/** 서울 9호선 역명판(사용자가 보내 준 가양 사진): 베이지 네모 판, 검은 큰 역 이름, 오른쪽 위 번호, 아래 양쪽 이전(회색)·다음 역 */
+function seoulPlateSignTexture({ name, en, hanja, num, next, nextEn, prev, prevEn }) {
+  return tex(768, 400, (g, W, H) => {
+    g.fillStyle = '#EDE3D6';
+    g.fillRect(0, 0, W, H);
+    g.textBaseline = 'middle';
+    g.fillStyle = '#1b1d20';
+    g.textAlign = 'left';
+    g.font = 'bold 96px sans-serif';
+    g.fillText(name, 120, 110, 440);
+    g.font = '30px sans-serif';
+    g.fillText(en ?? '', 120, 188, 440);
+    if (hanja) {
+      g.font = '26px serif';
+      g.fillText(hanja, 120, 226, 440);
+    }
+    if (num) {
+      g.textAlign = 'right';
+      g.font = '34px sans-serif';
+      g.fillText(num, W - 140, 50);
+    }
+    g.textAlign = 'left';
+    g.fillStyle = '#7a7f86';
+    g.font = 'bold 44px sans-serif';
+    if (prev) g.fillText(prev, 40, 300, 300);
+    g.font = '20px sans-serif';
+    if (prev) g.fillText(prevEn ?? '', 40, 344, 300);
+    g.textAlign = 'right';
+    g.fillStyle = '#1b1d20';
+    g.font = 'bold 44px sans-serif';
+    if (next) g.fillText(next, W - 40, 300, 300);
+    g.font = '20px sans-serif';
+    if (next) g.fillText(nextEn ?? '', W - 40, 344, 300);
+  });
+}
+
+/** GTX-A 역명판(사용자가 보내 준 대곡 사진): 말풍선 꼴 흰 판에 노선 색 테, 검은 번호 상자, 양옆 검은 판에 이전·다음 역 */
+function gtxSignTexture({ name, en, hanja, num, next, nextEn, nextNum, prev, prevEn, prevNum, color }) {
+  return tex(1024, 360, (g, W, H) => {
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    const side = (x0, label, en2, n, arrow) => {
+      g.fillStyle = '#1b2230';
+      g.beginPath();
+      g.roundRect(x0, 50, 270, 220, 10);
+      g.fill();
+      if (!label) return;
+      const cx = x0 + 135;
+      if (n) {
+        g.fillStyle = '#e8e9eb';
+        g.beginPath();
+        g.roundRect(cx - 45, 80, 90, 34, 5);
+        g.fill();
+        g.fillStyle = '#1b2230';
+        g.font = '22px sans-serif';
+        g.fillText(n, cx, 98);
+      }
+      g.fillStyle = '#ffffff';
+      g.font = 'bold 40px sans-serif';
+      g.fillText(label + (arrow ? ' →' : ''), cx, 160, 250);
+      g.font = '18px sans-serif';
+      g.fillText(en2 ?? '', cx, 205, 250);
+    };
+    side(20, prev, prevEn, prevNum, false);
+    side(W - 290, next, nextEn, nextNum, true);
+    // 말풍선
+    g.fillStyle = color;
+    g.beginPath();
+    g.roundRect(280, 14, 464, 280, 18);
+    g.fill();
+    g.beginPath();
+    g.moveTo(640, 280);
+    g.lineTo(730, 350);
+    g.lineTo(720, 280);
+    g.closePath();
+    g.fill();
+    g.fillStyle = '#ffffff';
+    g.beginPath();
+    g.roundRect(290, 24, 444, 260, 12);
+    g.fill();
+    if (num) {
+      g.fillStyle = '#1b2230';
+      g.beginPath();
+      g.roundRect(512 - 60, 40, 120, 40, 6);
+      g.fill();
+      g.fillStyle = '#ffffff';
+      g.font = 'bold 26px sans-serif';
+      g.fillText(num, 512, 61);
+    }
+    g.fillStyle = '#1b1d20';
+    g.font = 'bold 76px sans-serif';
+    g.fillText(name.split('').join(name.length <= 2 ? ' ' : ''), 512, 140, 420);
+    g.font = '28px sans-serif';
+    g.fillText(en ?? '', 512, 205, 420);
+    if (hanja) {
+      g.font = '22px serif';
+      g.fillText(hanja, 512, 240, 420);
     }
   });
 }
@@ -2497,9 +2663,19 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       const sdNum = stationById.get(stop.id)?.number ?? null;
       const sudogwon = Boolean(SUDOGWON_CARS[lineId]);
       const seoulMetro = sudogwon && /^\d{3}$/.test(sdNum ?? '');
-      const korailTall = sudogwon && !seoulMetro;
+      const gtx = lineId === 'SGTXA';
+      const korailTall = sudogwon && !seoulMetro && !gtx;
       const numOf = (st) => (st ? stationById.get(st.id)?.number ?? null : null);
-      const signTex = seoulMetro
+      const sdLine = String(lineId);
+      const signStyle = !seoulMetro ? null : /^S[78]$/.test(sdLine) ? 'arrow' : /^S9$/.test(sdLine) ? 'plate' : 'oval';
+      const signArgs = { name: here.ko, en: here.en, hanja: here.hanja, num: sdNum, next: nx?.ko, nextEn: nx?.en, nextNum: numOf(stops[si + 1]), prev: pv?.ko, prevEn: pv?.en, prevNum: numOf(stops[si - 1]), color };
+      const signTex = gtx
+        ? gtxSignTexture({ ...signArgs, color: '#B3348E' })
+        : signStyle === 'arrow'
+        ? seoulArrowSignTexture(signArgs)
+        : signStyle === 'plate'
+          ? seoulPlateSignTexture(signArgs)
+        : seoulMetro
         ? seoulSignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: sdNum, next: nx?.ko, nextEn: nx?.en, nextNum: numOf(stops[si + 1]), prev: pv?.ko, prevEn: pv?.en, prevNum: numOf(stops[si - 1]), color })
         : korailTall
           ? korailTallSignTexture({ name: here.ko, en: here.en, hanja: here.hanja })
@@ -2522,12 +2698,12 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
               : boardTexture([stop.name], { bg: '#ffffff', fg: '#1F3342', bar: color, width: 512, height: 128 });
       textures.push(signTex);
       const tex = signTex;
-      const [pw, ph] = seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
+      const [pw, ph] = gtx ? [6.4, 2.25] : signStyle === 'arrow' ? [6.4, 2.0] : signStyle === 'plate' ? [2.4, 1.25] : seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
       for (const off of [-0.06, -0.03, 0, 0.03, 0.06]) {
         const s = sampleAt(kmS + off);
         if (!s) continue;
         const under = s.under > 0.5;
-        const b = new Mesh(new PlaneGeometry(pw, ph), new MeshBasicMaterial({ map: tex, transparent: busan || gwangju || seoulMetro }));
+        const b = new Mesh(new PlaneGeometry(pw, ph), new MeshBasicMaterial({ map: tex, transparent: busan || gwangju || gtx || (seoulMetro && signStyle !== 'plate') }));
         const o = under ? 8.45 : 7.5;
         b.position.set(s.x + s.rx * o, s.y + 3.2, s.z + s.rz * o);
         b.rotation.y = Math.atan2(-s.uz, s.ux) + Math.PI;
