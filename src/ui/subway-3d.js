@@ -188,6 +188,10 @@ STATION_LOOK.S5M = STATION_LOOK.S5;
 STATION_LOOK.S3 = { ...STATION_LOOK.S3, psdHeader: '#3a3f45', wallTile: '#f2f2ee' };
 // 7호선 중화 사진: 분홍빛 베이지 타일 벽. 8호선 몽촌토성 사진: 연두 타일 벽, 초록 기둥, 청록 틀 안전문. 9호선 가양 사진: 회색 틀, 반짝이는 화강석 바닥
 // GTX-A 대곡 사진: 흰 큰 판 벽, 자홍 틀 안전문, 은색 기둥. 신림선 당곡 사진: 흰 판 벽, 흰 안전문 틀
+// 신분당선 판교 사진: 흰 판 벽, 흰 틀 안전문, 반짝이는 밝은 바닥. 경강선 판교: 흰 틀 안전문 위 파란 줄, 화강석 바닥. 수인·분당선 한티: 빨간 네모 기둥, 회색·흰 무늬 바닥, 흰 틀 안전문 위 노란 줄
+STATION_LOOK.SSBD = { ...STATION_LOOK.SSBD, wallTile: '#f0f0ee', psdHeader: '#eef0f2', psdStripe: '#D7262E', floor: '#d5d6d6' };
+STATION_LOOK.SGG = { ...STATION_LOOK.SGG, psdHeader: '#e6e8ea', psdStripe: '#1F4FB5', floor: '#cfd0d0' };
+STATION_LOOK.SSB = { ...STATION_LOOK.SSB, pillar: '#C8262E', round: false, floor: '#b9bbbd' };
 STATION_LOOK.SGTXA = { ...STATION_LOOK.SGTXA, wallTile: '#eeeeec', psdHeader: '#B3348E', pillar: '#c9ccd0', round: false };
 STATION_LOOK.SSL = { ...STATION_LOOK.SSL, wallTile: '#f2f2f0', psdHeader: '#f2f3f4' };
 STATION_LOOK.S7 = { ...STATION_LOOK.S7, wallTile: '#efd9cf' };
@@ -1130,6 +1134,34 @@ function gtxSignTexture({ name, en, hanja, num, next, nextEn, nextNum, prev, pre
     if (hanja) {
       g.font = '22px serif';
       g.fillText(hanja, 512, 240, 420);
+    }
+  });
+}
+
+/** 신분당선 역명판(사용자가 보내 준 판교 사진): 파란 판 가운데 남색 띠(아래 빨간 줄)에 번호·역 이름·영어·한자. 판의 동그라미 무늬는 넣지 않는다 */
+function shinbundangSignTexture({ name, en, hanja, num }) {
+  return tex(768, 512, (g, W, H) => {
+    g.fillStyle = '#1F5BC4';
+    g.fillRect(0, 0, W, H);
+    g.fillStyle = '#1B2A5E';
+    g.fillRect(0, 190, W, 140);
+    g.fillStyle = '#D7262E';
+    g.fillRect(0, 330, W, 14);
+    g.fillStyle = '#ffffff';
+    g.textBaseline = 'middle';
+    g.textAlign = 'left';
+    if (num) {
+      g.font = '28px sans-serif';
+      g.fillText(num, 30, 240);
+    }
+    g.font = 'bold 64px sans-serif';
+    g.fillText(name, 110, 240, 420);
+    g.font = '26px sans-serif';
+    g.fillText(en ?? '', 110, 300, 420);
+    if (hanja) {
+      g.textAlign = 'right';
+      g.font = '26px serif';
+      g.fillText(hanja, W - 40, 300, 240);
     }
   });
 }
@@ -2662,14 +2694,18 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       // 수도권: 역 번호가 세 자리 숫자면 서울교통공사 꼴(둥근 판, 제기동·청량리 사진), 글자가 붙으면(K117, P148) 코레일 꼴(남색 세로 판, 회기 사진)
       const sdNum = stationById.get(stop.id)?.number ?? null;
       const sudogwon = Boolean(SUDOGWON_CARS[lineId]);
-      const seoulMetro = sudogwon && /^\d{3}$/.test(sdNum ?? '');
+      // 땅속 코레일 역(수인·분당선 한티, 경강선 판교 사진)도 서울교통공사처럼 둥근 판에 번호 동그라미를 쓴다
+      const seoulMetro = sudogwon && (/^\d{3}$/.test(sdNum ?? '') || ['SSB', 'SGG'].includes(lineId));
+      const shinbundang = lineId === 'SSBD';
       const gtx = lineId === 'SGTXA';
-      const korailTall = sudogwon && !seoulMetro && !gtx;
+      const korailTall = sudogwon && !seoulMetro && !gtx && !shinbundang;
       const numOf = (st) => (st ? stationById.get(st.id)?.number ?? null : null);
       const sdLine = String(lineId);
       const signStyle = !seoulMetro ? null : /^S[78]$/.test(sdLine) ? 'arrow' : /^S9$/.test(sdLine) ? 'plate' : 'oval';
       const signArgs = { name: here.ko, en: here.en, hanja: here.hanja, num: sdNum, next: nx?.ko, nextEn: nx?.en, nextNum: numOf(stops[si + 1]), prev: pv?.ko, prevEn: pv?.en, prevNum: numOf(stops[si - 1]), color };
-      const signTex = gtx
+      const signTex = shinbundang
+        ? shinbundangSignTexture(signArgs)
+        : gtx
         ? gtxSignTexture({ ...signArgs, color: '#B3348E' })
         : signStyle === 'arrow'
         ? seoulArrowSignTexture(signArgs)
@@ -2698,7 +2734,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
               : boardTexture([stop.name], { bg: '#ffffff', fg: '#1F3342', bar: color, width: 512, height: 128 });
       textures.push(signTex);
       const tex = signTex;
-      const [pw, ph] = gtx ? [6.4, 2.25] : signStyle === 'arrow' ? [6.4, 2.0] : signStyle === 'plate' ? [2.4, 1.25] : seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
+      const [pw, ph] = shinbundang ? [3.6, 2.4] : gtx ? [6.4, 2.25] : signStyle === 'arrow' ? [6.4, 2.0] : signStyle === 'plate' ? [2.4, 1.25] : seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
       for (const off of [-0.06, -0.03, 0, 0.03, 0.06]) {
         const s = sampleAt(kmS + off);
         if (!s) continue;
