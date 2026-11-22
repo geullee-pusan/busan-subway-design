@@ -165,3 +165,76 @@ export function cabinFloor() {
     }
   });
 }
+
+/** 승강장 바닥(꼭짓점 색에 곱한다): 0.6m 보도블록 넷(2 × 2)과 줄눈, 블록마다 조금 다른 밝기. 한 칸 그림이 1.2m. */
+export function platformPaving() {
+  return texture((g) => {
+    const rand = seeded(31);
+    const half = SIZE / 2;
+    for (let by = 0; by < 2; by++) {
+      for (let bx = 0; bx < 2; bx++) {
+        const v = Math.round(236 + rand() * 19);
+        g.fillStyle = `rgb(${v},${v},${v})`;
+        g.fillRect(bx * half, by * half, half, half);
+      }
+    }
+    for (let i = 0; i < 2500; i++) {
+      g.fillStyle = `rgba(0,0,0,${0.03 + rand() * 0.06})`;
+      g.fillRect(Math.floor(rand() * SIZE), Math.floor(rand() * SIZE), 1 + Math.floor(rand() * 2), 1);
+    }
+    // 줄눈
+    g.fillStyle = 'rgba(0,0,0,0.28)';
+    for (const p of [0, half]) {
+      g.fillRect(p, 0, 2, SIZE);
+      g.fillRect(0, p, SIZE, 2);
+    }
+  });
+}
+
+/** 노란 점자 블록(꼭짓점 색에 곱한다): 점이 도드라진 블록. 한 칸 그림이 0.3m. */
+export function tactileDots() {
+  return texture((g) => {
+    g.fillStyle = '#ffffff';
+    g.fillRect(0, 0, SIZE, SIZE);
+    const n = 5;
+    const step = SIZE / n;
+    for (let y = 0; y < n; y++) {
+      for (let x = 0; x < n; x++) {
+        const cx = x * step + step / 2;
+        const cy = y * step + step / 2;
+        // 점: 아래쪽 그늘과 위쪽 밝은 테
+        g.fillStyle = 'rgba(0,0,0,0.25)';
+        g.beginPath();
+        g.arc(cx + 2, cy + 3, step * 0.3, 0, Math.PI * 2);
+        g.fill();
+        g.fillStyle = '#ffffff';
+        g.beginPath();
+        g.arc(cx, cy, step * 0.28, 0, Math.PI * 2);
+        g.fill();
+        g.fillStyle = 'rgba(0,0,0,0.08)';
+        g.beginPath();
+        g.arc(cx + 1, cy + 1, step * 0.18, 0, Math.PI * 2);
+        g.fill();
+      }
+    }
+    g.fillStyle = 'rgba(0,0,0,0.22)';
+    g.fillRect(0, 0, 2, SIZE);
+    g.fillRect(0, 0, SIZE, 2);
+  });
+}
+
+/** 승강장 지붕(꼭짓점 색에 곱한다): 금속 지붕판의 골과 이음새. 한 칸 그림이 1.5m. */
+export function roofPanels() {
+  return texture((g) => {
+    g.fillStyle = '#ffffff';
+    g.fillRect(0, 0, SIZE, SIZE);
+    for (let x = 0; x < SIZE; x += 16) {
+      g.fillStyle = 'rgba(0,0,0,0.10)';
+      g.fillRect(x, 0, 3, SIZE);
+      g.fillStyle = 'rgba(255,255,255,0.5)';
+      g.fillRect(x + 3, 0, 1, SIZE);
+    }
+    g.fillStyle = 'rgba(0,0,0,0.25)';
+    g.fillRect(0, 0, SIZE, 3);
+  });
+}

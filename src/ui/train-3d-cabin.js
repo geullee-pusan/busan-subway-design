@@ -1,9 +1,9 @@
 // 기차 3D 객실: 승객이 탄 칸 안을 짓는다. 창문 너머로는 3D 바깥(땅, 터널, 다리, 역)이 그대로 지나간다.
 // 색은 객실 그림(src/ui/train-interior.js INTERIOR)과 같다. 칸 안 좌표는 차량과 같다(x 앞, y 레일 윗면에서 위, z 옆).
 // 2층 칸(ITX-청춘 4·5호차)은 1층과 2층 두 방을 짓고 계단으로 잇는다. 층을 옮기면 눈(카메라)과 주인공이 계단을 따라 간다.
-import { BufferAttribute, CanvasTexture, ExtrudeGeometry, Group, Mesh, MeshBasicMaterial, MeshLambertMaterial, PlaneGeometry, SRGBColorSpace, Shape, BoxGeometry } from 'three';
+import { CanvasTexture, ExtrudeGeometry, Group, Mesh, MeshBasicMaterial, MeshLambertMaterial, PlaneGeometry, SRGBColorSpace, Shape, BoxGeometry } from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { DARK, DECK, GLASS, Parts, shade, sideLayout } from './train-3d-cars.js';
+import { DARK, DECK, GLASS, Parts, TexParts, shade, sideLayout } from './train-3d-cars.js';
 import { cabinFabric, cabinFloor, cabinPanel } from './train-3d-textures.js';
 
 /** 바닥 높이(레일 윗면에서, 미터) */
@@ -15,39 +15,6 @@ const HERO_TALL = 1.25;
 const HERO_AHEAD = 3.2;
 /** 층을 옮길 때 걸리는 시간(초, 우리가 정한 값) */
 const CLIMB_SECONDS = 4.5;
-
-/**
- * 무늬를 입히는 조각 묶음: 면마다 가장 크게 향한 축에 맞춰 평면으로 무늬 자리(uv)를 정한다(미터 / tile).
- * 그래서 크기가 다른 상자들도 무늬 크기가 같다.
- */
-class TexParts extends Parts {
-  constructor(tile) {
-    super();
-    this.tile = tile;
-    this.uv = [];
-  }
-
-  add(geometry, color) {
-    const from = this.pos.length;
-    super.add(geometry, color);
-    for (let i = from; i < this.pos.length; i += 3) {
-      const x = this.pos[i];
-      const y = this.pos[i + 1];
-      const z = this.pos[i + 2];
-      const ax = Math.abs(this.nor[i]);
-      const ay = Math.abs(this.nor[i + 1]);
-      const az = Math.abs(this.nor[i + 2]);
-      const [u, v] = ax >= ay && ax >= az ? [z, y] : ay >= az ? [x, z] : [x, y];
-      this.uv.push(u / this.tile, v / this.tile);
-    }
-  }
-
-  geometry() {
-    const g = super.geometry();
-    g.setAttribute('uv', new BufferAttribute(new Float32Array(this.uv), 2));
-    return g;
-  }
-}
 
 /**
  * 객실 조각 묶음: base(무늬 없음: 틀, 금속, 어두운 곳), seat·cushion(좌석 천), panel(벽·천장 판), floor(바닥).

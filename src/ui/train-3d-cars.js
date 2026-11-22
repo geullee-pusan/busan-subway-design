@@ -767,3 +767,36 @@ export function buildTrain(look, count, { material, headMaterial, tailMaterial, 
     },
   };
 }
+
+/**
+ * 무늬를 입히는 조각 묶음: 면마다 가장 크게 향한 축에 맞춰 평면으로 무늬 자리(uv)를 정한다(미터 / tile).
+ * 그래서 크기가 다른 상자들도 무늬 크기가 같다.
+ */
+export class TexParts extends Parts {
+  constructor(tile) {
+    super();
+    this.tile = tile;
+    this.uv = [];
+  }
+
+  add(geometry, color) {
+    const from = this.pos.length;
+    super.add(geometry, color);
+    for (let i = from; i < this.pos.length; i += 3) {
+      const x = this.pos[i];
+      const y = this.pos[i + 1];
+      const z = this.pos[i + 2];
+      const ax = Math.abs(this.nor[i]);
+      const ay = Math.abs(this.nor[i + 1]);
+      const az = Math.abs(this.nor[i + 2]);
+      const [u, v] = ax >= ay && ax >= az ? [z, y] : ay >= az ? [x, z] : [x, y];
+      this.uv.push(u / this.tile, v / this.tile);
+    }
+  }
+
+  geometry() {
+    const g = super.geometry();
+    g.setAttribute('uv', new BufferAttribute(new Float32Array(this.uv), 2));
+    return g;
+  }
+}

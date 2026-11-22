@@ -9,6 +9,7 @@ import {
   BufferGeometry,
   CanvasTexture,
   Color,
+  CylinderGeometry,
   DoubleSide,
   Group,
   Mesh,
@@ -22,7 +23,8 @@ import {
 } from 'three';
 import stationAreas from '../../data/build/station-areas.json';
 import { pointAt } from '../sim/train-3d-path.js';
-import { Parts } from './train-3d-cars.js';
+import { Parts, TexParts } from './train-3d-cars.js';
+import { platformPaving, roofPanels, tactileDots } from './train-3d-textures.js';
 import { railStationById } from '../data.js';
 
 /** 역 자료가 있는가(역 안 선로를 그리면 기본 두 번째 선로를 숨긴다) */
@@ -424,6 +426,22 @@ export function buildStation(ctx) {
 
   const parts = new Parts(); // 꼭짓점 색(조명 받음)
   const glow = new Parts(); // 빛나는 것(등)
+  // 무늬를 입히는 것: 승강장 바닥(보도블록), 점자 블록, 승강장 지붕판(src/ui/train-3d-textures.js)
+  const pave = new TexParts(1.2);
+  const tactile = new TexParts(0.3);
+  const roofTex = new TexParts(1.5);
+  /** 둥근 기둥: 바닥 받침, 몸통, 위 머리(지붕을 받친다) */
+  const pillar = ([x, z], y0, y1, color = '#5d6670') => {
+    const body = new CylinderGeometry(0.14, 0.16, y1 - y0, 10);
+    body.translate(x, (y0 + y1) / 2, z);
+    parts.add(body, color);
+    const foot = new CylinderGeometry(0.26, 0.28, 0.12, 10);
+    foot.translate(x, y0 + 0.06, z);
+    parts.add(foot, '#4a525a');
+    const head = new CylinderGeometry(0.34, 0.15, 0.3, 10);
+    head.translate(x, y1 - 0.15, z);
+    parts.add(head, color);
+  };
   /** 두 점 사이 상자(세계 x, z; 높이 y0~y1) */
   const beam = (a, b, y0, y1, w, color, into = parts) => {
     const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
@@ -580,16 +598,24 @@ export function buildStation(ctx) {
   const tracksForEdges = [trainLine, ...otherTracks.map((t) => t.line)];
   const drawPlatform = (ring) => {
     platformRingsDrawn.push(ring);
-    slab(ring, trackY, -2, T, '#c9c4ba');
+    slab(ring, trackY, -2, T, '#c9c4ba', pave);
     // 선로 쪽 끝: 흰 줄과 노란 점자 블록
     const ccw = signedArea(ring) > 0;
     for (let i = 0; i < ring.length; i++) {
       const a = ring[i];
       const b = ring[(i + 1) % ring.length];
       const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
-      if (len < 8) continue;
+      if (len < 2) continue; // OSM 승강장은 짧은 변이 많다(8m로 두면 끝 줄이 빠진다)
       const mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
-      if (!tracksForEdges.some((l) => nearestOnLine(mid, l).d < 3.2)) continue;
+      // 변을 5m 토막으로 나눠 선로 가까운 토막에만 줄을 긋는다(승강장 끝이 선로와 비스듬한 역이 있다)
+      const pieces = Math.max(1, Math.ceil(len / 5));
+      const near = [];
+      for (let j = 0; j < pieces; j++) {
+        const t = (j + 0.5) / pieces;
+        const q = [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+        near.push(tracksForEdges.some((l) => nearestOnLine(q, l).d < 3.2));
+      }
+      if (!near.some(Boolean)) continue;
       // 안쪽 방향
       let nx = -(b[1] - a[1]) / len;
       let nz = (b[0] - a[0]) / len;
@@ -601,12 +627,17 @@ export function buildStation(ctx) {
         nx = -nx;
         nz = -nz;
       }
-      const y = trackY(...mid);
-      const inset = (d) => [[a[0] + nx * d, a[1] + nz * d], [b[0] + nx * d, b[1] + nz * d]];
-      const [w0, w1] = inset(0.08);
-      beam(w0, w1, y + T, y + T + 0.02, 0.16, '#f4f4f0');
-      const [t0, t1] = inset(0.85);
-      beam(t0, t1, y + T, y + T + 0.03, 0.32, '#f2c230');
+      for (let j = 0; j < pieces; j++) {
+        if (!near[j]) continue;
+        const pa = [a[0] + ((b[0] - a[0]) * j) / pieces, a[1] + ((b[1] - a[1]) * j) / pieces];
+        const pb = [a[0] + ((b[0] - a[0]) * (j + 1)) / pieces, a[1] + ((b[1] - a[1]) * (j + 1)) / pieces];
+        const y = trackY((pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2);
+        const inset = (dd) => [[pa[0] + nx * dd, pa[1] + nz * dd], [pb[0] + nx * dd, pb[1] + nz * dd]];
+        const [w0, w1] = inset(0.08);
+        beam(w0, w1, y + T, y + T + 0.02, 0.16, '#f4f4f0');
+        const [t0, t1] = inset(0.85);
+        beam(t0, t1, y + T, y + T + 0.03, 0.32, '#f2c230', tactile);
+      }
     }
   };
   const platformRingsDrawn = [];
@@ -654,15 +685,25 @@ export function buildStation(ctx) {
       const p = boxPoint(o, u, 0);
       if (!platformRingsDrawn.some((r) => insideRing(p, r))) continue;
       const base = trackY(...p);
-      block(p, [o.ux, o.uz], base + T, base + y0, 0.3, 0.3, '#5d6670');
+      pillar(p, base + T, base + y0);
     }
   };
   if (W && !underground) {
     for (const r of W.roofs) {
       const over = crossesTrain(r.ring);
       const h = r.minHeight ?? (over ? 8.5 : 4.8);
-      slab(r.ring, trackY, h, h + 0.35, over ? '#8d98a3' : '#7b8794');
+      slab(r.ring, trackY, h, h + 0.35, over ? '#8d98a3' : '#7b8794', roofTex);
       columnsUnder(r.ring, h, h + 0.35);
+      // 지붕 아래 불빛 띠(긴 축을 따라 6m마다)
+      const ob = orientedBox(r.ring);
+      if (ob && !over) {
+        for (let u = -ob.A + 3; u <= ob.A - 3; u += 6) {
+          const q = boxPoint(ob, u, 0);
+          if (!platformRingsDrawn.some((pr) => insideRing(q, pr))) continue;
+          const y = trackY(...q) + h - 0.04;
+          glow.add(new BoxGeometry(1.2, 0.06, 0.18).rotateY(Math.atan2(-ob.uz, ob.ux)).translate(q[0], y, q[1]), '#fffbe8');
+        }
+      }
       if (platformRingsDrawn.some((pr) => pr.some((p) => insideRing(p, r.ring)))) roofed = true;
     }
   }
@@ -683,7 +724,7 @@ export function buildStation(ctx) {
       const off = TRACK_SIDE + midLat;
       const a = [pa.x + pa.lx * off, pa.z + pa.lz * off];
       const b = [pb.x + pb.lx * off, pb.z + pb.lz * off];
-      if (recipe.shed === 'wide') beam(a, b, pa.y + 9, pa.y + 9.5, span + 4, '#6f7a85');
+      if (recipe.shed === 'wide') beam(a, b, pa.y + 9, pa.y + 9.5, span + 4, '#6f7a85', roofTex);
       else {
         // 아치: 가로 방향으로 휜 판 조각
         const n = 10;
@@ -702,7 +743,7 @@ export function buildStation(ctx) {
           g.rotateX(Math.atan2(h1 - h0, lat1 - lat0) * -1);
           g.rotateY(Math.atan2(-(piece2[1] - piece[1]), piece2[0] - piece[0]));
           g.translate((piece[0] + piece2[0]) / 2, pa.y + hC, (piece[1] + piece2[1]) / 2);
-          parts.add(g, j % 2 ? '#9aa6b1' : '#a9b4bd');
+          roofTex.add(g, j % 2 ? '#9aa6b1' : '#a9b4bd');
         }
       }
     }
@@ -717,8 +758,8 @@ export function buildStation(ctx) {
       const la = TRACK_SIDE + off;
       const pa = [a.x + a.lx * la, a.z + a.lz * la];
       const pb = [b.x + b.lx * la, b.z + b.lz * la];
-      beam(pa, pb, a.y + 4.8, a.y + 5.15, stop.width + 1, '#7b8794');
-      block(pa, [a.dx, a.dz], a.y + T, a.y + 4.8, 0.3, 0.3, '#5d6670');
+      beam(pa, pb, a.y + 4.8, a.y + 5.15, stop.width + 1, '#7b8794', roofTex);
+      pillar(pa, a.y + T, a.y + 4.8);
       glow.add(new BoxGeometry(1.2, 0.06, 0.18).rotateY(Math.atan2(-a.dz, a.dx)).translate(pa[0], a.y + 4.72, pa[1]), '#fffbe8');
     }
   }
@@ -1060,6 +1101,11 @@ export function buildStation(ctx) {
 
   // ── 모아서 그물로 ──
   group.add(new Mesh(parts.geometry(), materials.car), new Mesh(glow.geometry(), materials.glowV));
+  // 무늬 그물: 재질과 그림은 이 역 것이라 구간을 버릴 때(train-3d.js disposeWorld) 함께 지워진다
+  for (const [k, map] of [[pave, platformPaving], [tactile, tactileDots], [roofTex, roofPanels]]) {
+    if (!k.pos.length) continue;
+    group.add(new Mesh(k.geometry(), new MeshLambertMaterial({ vertexColors: true, map: map(), ...(k === roofTex ? { side: DoubleSide } : {}) })));
+  }
   for (const [style, m] of wallMeshers) {
     if (!m.pos.length) continue;
     const mat =
