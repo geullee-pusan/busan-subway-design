@@ -211,14 +211,16 @@ function cutMp3(buffer, seconds) {
 
 const SUNO = [
   // 서울교통공사가 모는 열차: 2~8호선과 갈래. 1호선은 코레일 열차가 대부분이라 코레일 쪽에 둔다(우리가 정한 값).
-  ['seoulMetro', 'data/raw/suno/seoul-metro-transfer.mp3', ['S2', 'S2A', 'S2B', 'S3', 'S4', 'S5', 'S5M', 'S6', 'S7', 'S8']],
+  // volume: 두 곡의 소리 크기를 맞추는 값. 브라우저에서 앞 10초를 풀어 잰 평균 RMS(서울교통공사 쪽 0.159, 코레일 쪽 0.083)의 비로
+  // 큰 쪽을 줄인다(Audio의 소리 크기는 1보다 키울 수 없다).
+  ['seoulMetro', 'data/raw/suno/seoul-metro-transfer.mp3', 0.52, ['S2', 'S2A', 'S2B', 'S3', 'S4', 'S5', 'S5M', 'S6', 'S7', 'S8']],
   // 코레일 광역전철, 우이신설선, 의정부경전철(나무위키 「환승음악」: 같은 국악 환승음악을 쓴다)
-  ['korail', 'data/raw/suno/korail-transfer.mp3', ['S1', 'S1K', 'S1G', 'S1D', 'SGJ', 'SGJB', 'SSB', 'SGC', 'SGCB', 'SGG', 'SSH', 'SUI', 'SUJ']],
+  ['korail', 'data/raw/suno/korail-transfer.mp3', 1, ['S1', 'S1K', 'S1G', 'S1D', 'SGJ', 'SGJB', 'SSB', 'SGC', 'SGCB', 'SGG', 'SSH', 'SUI', 'SUJ']],
 ];
 const sudogwonClips = {};
 const sudogwonLines = {};
-for (const [key, file, lineIds] of SUNO) {
-  sudogwonClips[key] = { type: 'audio/mpeg', data: cutMp3(readFileSync(resolve(ROOT, file)), 10).toString('base64') };
+for (const [key, file, volume, lineIds] of SUNO) {
+  sudogwonClips[key] = { type: 'audio/mpeg', volume, data: cutMp3(readFileSync(resolve(ROOT, file)), 10).toString('base64') };
   for (const id of lineIds) sudogwonLines[id] = key;
 }
 
@@ -239,7 +241,7 @@ const out = {
   },
   sudogwon: {
     _설명:
-      '수도권 환승역 음악. 사용자가 Suno로 만들어 보낸 곡의 앞 10초(원곡 녹음이 아니다). lines: 노선 → clips의 열쇠. 환승역 방송 앞에서 우리가 지은 가락 대신 튼다.',
+      '수도권 환승역 음악. 사용자가 Suno로 만들어 보낸 곡의 앞 10초(원곡 녹음이 아니다). lines: 노선 → clips의 열쇠. clips.volume: 두 곡의 소리 크기를 맞추는 값. 환승역 방송 앞에서 우리가 지은 가락 대신 튼다.',
     source: '사용자가 Suno로 만든 곡(2026-11-22)',
     lines: sudogwonLines,
     clips: sudogwonClips,

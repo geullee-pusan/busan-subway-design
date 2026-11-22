@@ -856,7 +856,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     if (daeguSound && soundOn) return daeguAnnounce(korean, english);
     if (sudogwonTransfer && soundOn && melodyHere() === 'transfer') {
       const leg = legToken;
-      return sound.playClip(sudogwonTransfer.data, sudogwonTransfer.type, { fade: 0.8 }).then(() => {
+      return sound.playClip(sudogwonTransfer.data, sudogwonTransfer.type, { fade: 0.8, volume: sudogwonTransfer.volume ?? 1 }).then(() => {
         if (leg !== legToken) return undefined;
         return sound.announce({ korean, english, voice: voiceOn, music: false });
       });
