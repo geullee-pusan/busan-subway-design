@@ -1,8 +1,10 @@
 // 기차 3D 객실: 승객이 탄 칸 안을 짓는다. 창문 너머로는 3D 바깥(땅, 터널, 다리, 역)이 그대로 지나간다.
 // 색은 객실 그림(src/ui/train-interior.js INTERIOR)과 같다. 칸 안 좌표는 차량과 같다(x 앞, y 레일 윗면에서 위, z 옆).
 // 2층 칸(ITX-청춘 4·5호차)은 1층과 2층 두 방을 짓고 계단으로 잇는다. 층을 옮기면 눈(카메라)과 주인공이 계단을 따라 간다.
-import { CanvasTexture, Group, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace, BoxGeometry } from 'three';
+import { BufferAttribute, CanvasTexture, ExtrudeGeometry, Group, Mesh, MeshBasicMaterial, MeshLambertMaterial, PlaneGeometry, SRGBColorSpace, Shape, BoxGeometry } from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { DARK, DECK, GLASS, Parts, shade, sideLayout } from './train-3d-cars.js';
+import { cabinFabric, cabinFloor, cabinPanel } from './train-3d-textures.js';
 
 /** 바닥 높이(레일 윗면에서, 미터) */
 export const CABIN_FLOOR = 1.1;
@@ -13,6 +15,122 @@ const HERO_TALL = 1.25;
 const HERO_AHEAD = 3.2;
 /** 층을 옮길 때 걸리는 시간(초, 우리가 정한 값) */
 const CLIMB_SECONDS = 4.5;
+
+/**
+ * 무늬를 입히는 조각 묶음: 면마다 가장 크게 향한 축에 맞춰 평면으로 무늬 자리(uv)를 정한다(미터 / tile).
+ * 그래서 크기가 다른 상자들도 무늬 크기가 같다.
+ */
+class TexParts extends Parts {
+  constructor(tile) {
+    super();
+    this.tile = tile;
+    this.uv = [];
+  }
+
+  add(geometry, color) {
+    const from = this.pos.length;
+    super.add(geometry, color);
+    for (let i = from; i < this.pos.length; i += 3) {
+      const x = this.pos[i];
+      const y = this.pos[i + 1];
+      const z = this.pos[i + 2];
+      const ax = Math.abs(this.nor[i]);
+      const ay = Math.abs(this.nor[i + 1]);
+      const az = Math.abs(this.nor[i + 2]);
+      const [u, v] = ax >= ay && ax >= az ? [z, y] : ay >= az ? [x, z] : [x, y];
+      this.uv.push(u / this.tile, v / this.tile);
+    }
+  }
+
+  geometry() {
+    const g = super.geometry();
+    g.setAttribute('uv', new BufferAttribute(new Float32Array(this.uv), 2));
+    return g;
+  }
+}
+
+/**
+ * 객실 조각 묶음: base(무늬 없음: 틀, 금속, 어두운 곳), seat·cushion(좌석 천), panel(벽·천장 판), floor(바닥).
+ * 천은 무늬 그림이 색을 갖고(꼭짓점 색은 흰색), 판과 바닥은 옅은 이음새·잔점 그림을 꼭짓점 색에 곱한다.
+ */
+function cabinKit(inside) {
+  return {
+    base: new Parts(),
+    seat: new TexParts(0.3),
+    cushion: new TexParts(0.3),
+    panel: new TexParts(1.25),
+    floor: new TexParts(0.6),
+    inside,
+  };
+}
+
+/** 조각 묶음을 그물로: 무늬 그림과 재질을 만든다. dispose로 함께 지운다. */
+function kitMeshes(kit, material) {
+  const { inside } = kit;
+  const textures = [cabinFabric(inside.seat, inside), cabinFabric(inside.cushion, inside), cabinPanel(), cabinFloor()];
+  const mats = textures.map((map) => new MeshLambertMaterial({ vertexColors: true, map }));
+  const meshes = [new Mesh(kit.base.geometry(), material)];
+  [kit.seat, kit.cushion, kit.panel, kit.floor].forEach((k, i) => {
+    if (k.pos.length) meshes.push(new Mesh(k.geometry(), mats[i]));
+  });
+  return {
+    meshes,
+    dispose() {
+      for (const m of meshes) m.geometry.dispose();
+      for (const m of mats) m.dispose();
+      for (const t of textures) t.dispose();
+    },
+  };
+}
+
+/** 둥근 모서리 상자 */
+function rounded(l, h, w, r) {
+  const rr = Math.min(r, l / 2 - 0.001, h / 2 - 0.001, w / 2 - 0.001);
+  return new RoundedBoxGeometry(l, h, w, 1, Math.max(0.001, rr));
+}
+
+/** 옆모습(x 앞, y 위)을 z로 밀어 만든 도형. 모서리를 조금 둥글린다. 가운데가 z = 0. 점이 4개 값이면 곡선(조절점, 끝점). */
+function extrudeSide(points, depth, bevel) {
+  const shape = new Shape();
+  shape.moveTo(points[0][0], points[0][1]);
+  for (let i = 1; i < points.length; i++) {
+    const pt = points[i];
+    if (pt.length === 4) shape.quadraticCurveTo(pt[0], pt[1], pt[2], pt[3]);
+    else shape.lineTo(pt[0], pt[1]);
+  }
+  shape.closePath();
+  const g = new ExtrudeGeometry(shape, { depth: depth - bevel * 2, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 1, curveSegments: 4 });
+  g.translate(0, 0, -(depth - bevel * 2) / 2);
+  return g;
+}
+
+/** 등받이 껍데기 옆모습: 허리가 볼록하고 위가 둥글다(뒤 -x, 앞 +x, 바닥 y = 0, 우리가 정한 모양) */
+const BACK_SHELL = [[-0.06, 0], [0.045, 0], [0.085, 0.2, 0.06, 0.38], [0.05, 0.62], [0.05, 0.75, -0.005, 0.76], [-0.06, 0.76, -0.06, 0.66], [-0.06, 0]];
+/** 등받이 앞 천(껍데기 앞에 붙는 쿠션) */
+const BACK_PAD = [[0.03, 0.05], [0.04, 0.05], [0.1, 0.22, 0.078, 0.38], [0.068, 0.63], [0.05, 0.66], [0.035, 0.63], [0.045, 0.38], [0.03, 0.05]];
+
+/** 창틀: 둥근 모서리 네모 테두리(x 가로, y 세로, z로 두께). 가운데가 원점. */
+function windowFrame(w, h, r, band, depth) {
+  const rr = (shape, x0, y0, x1, y1, rad) => {
+    shape.moveTo(x0 + rad, y0);
+    shape.lineTo(x1 - rad, y0);
+    shape.quadraticCurveTo(x1, y0, x1, y0 + rad);
+    shape.lineTo(x1, y1 - rad);
+    shape.quadraticCurveTo(x1, y1, x1 - rad, y1);
+    shape.lineTo(x0 + rad, y1);
+    shape.quadraticCurveTo(x0, y1, x0, y1 - rad);
+    shape.lineTo(x0, y0 + rad);
+    shape.quadraticCurveTo(x0, y0, x0 + rad, y0);
+  };
+  const outer = new Shape();
+  rr(outer, -w / 2 - band, -h / 2 - band, w / 2 + band, h / 2 + band, r + band * 0.6);
+  const hole = new Shape();
+  rr(hole, -w / 2, -h / 2, w / 2, h / 2, r);
+  outer.holes.push(hole);
+  const g = new ExtrudeGeometry(outer, { depth, bevelEnabled: false, curveSegments: 3 });
+  g.translate(0, 0, -depth / 2);
+  return g;
+}
 
 /** 행선 안내판(글자를 캔버스에 그린 그림) */
 function displayBoard(kind) {
@@ -70,7 +188,8 @@ function slab(parts, x0, x1, y, h, halfW, color, hole = null) {
  * @param {number} o.pitch 좌석 줄 사이
  * @param {{x0: number, x1: number, halfW: number}|null} o.floorHole 바닥 구멍, o.ceilHole 천장 구멍
  */
-function addRoom(parts, o) {
+function addRoom(kit, o) {
+  const parts = kit.base;
   const { x0, x1, fy, cy, winBottom, winTop, inside, halfW: iw } = o;
   const len = x1 - x0;
   const mid = (x0 + x1) / 2;
@@ -80,24 +199,24 @@ function addRoom(parts, o) {
   const wallLow = shade(wall, 0.06);
 
   // 바닥: 가운데 복도는 조금 다른 색
-  slab(parts, x0, x1, fy - 0.05, 0.1, iw, inside.floor, o.floorHole);
-  slab(parts, x0, x1, fy + 0.006, 0.012, 0.31, shade(inside.floor, 0.18), o.floorHole);
+  slab(kit.floor, x0, x1, fy - 0.05, 0.1, iw, inside.floor, o.floorHole);
+  slab(kit.floor, x0, x1, fy + 0.006, 0.012, 0.31, shade(inside.floor, 0.18), o.floorHole);
   // 천장과 비스듬한 어깨(o.cove: 2층 칸 위층은 지붕 바로 아래라 어깨가 크다)
   const coveW = o.cove?.w ?? 0.42;
   const coveDrop = o.cove?.drop ?? 0.32;
-  slab(parts, x0, x1, cy, 0.06, iw - coveW, inside.ceiling, o.ceilHole);
+  slab(kit.panel, x0, x1, cy, 0.06, iw - coveW, inside.ceiling, o.ceilHole);
   for (const s of [-1, 1]) {
     const g = new BoxGeometry(len, 0.05, Math.hypot(coveW, coveDrop));
     g.rotateX(s * Math.atan2(coveDrop, coveW));
     g.translate(mid, cy - coveDrop / 2, s * (iw - coveW / 2));
-    parts.add(g, shade(inside.ceiling, 0.06));
+    kit.panel.add(g, shade(inside.ceiling, 0.06));
   }
   // 양옆 벽: 창 아래, 창 위, 창 사이 기둥(창 자리는 비워 둔다: 바깥이 보인다)
   const rackY = cy - 0.55;
   for (const s of [-1, 1]) {
     const z = s * iw;
-    parts.box(len, winBottom - fy, 0.06, mid, (fy + winBottom) / 2, z, wallLow);
-    if (cy - coveDrop - winTop > 0.005) parts.box(len, cy - coveDrop - winTop, 0.06, mid, (winTop + cy - coveDrop) / 2, z, wall);
+    kit.panel.box(len, winBottom - fy, 0.06, mid, (fy + winBottom) / 2, z, wallLow);
+    if (cy - coveDrop - winTop > 0.005) kit.panel.box(len, cy - coveDrop - winTop, 0.06, mid, (winTop + cy - coveDrop) / 2, z, wall);
     const holes = o.windows
       .map((w) => ({ x: w.x, w: w.w + widen }))
       .filter((w) => w.x - w.w / 2 > x0 && w.x + w.w / 2 < x1)
@@ -105,12 +224,15 @@ function addRoom(parts, o) {
     let from = x0;
     for (const h of holes) {
       const to = h.x - h.w / 2;
-      if (to - from > 0.01) parts.box(to - from, winTop - winBottom, 0.06, (from + to) / 2, winMid, z, wall);
-      // 창틀(안쪽으로 조금 깊게)
+      if (to - from > 0.01) kit.panel.box(to - from, winTop - winBottom, 0.06, (from + to) / 2, winMid, z, wall);
+      // 창턱(안쪽으로 조금 깊게)과 둥근 모서리 창틀(구멍 네 귀를 둥글게 가린다)
       parts.box(h.w + 0.06, 0.05, 0.14, h.x, winBottom + 0.02, z - s * 0.05, shade(wall, 0.15));
+      const frame = windowFrame(h.w - 0.02, winTop - winBottom - 0.02, 0.13, 0.05, 0.03);
+      frame.translate(h.x, winMid, z - s * 0.035);
+      parts.add(frame, shade(wall, 0.1));
       from = h.x + h.w / 2;
     }
-    if (x1 - from > 0.01) parts.box(x1 - from, winTop - winBottom, 0.06, (from + x1) / 2, winMid, z, wall);
+    if (x1 - from > 0.01) kit.panel.box(x1 - from, winTop - winBottom, 0.06, (from + x1) / 2, winMid, z, wall);
     if (o.rack) {
       // 짐 선반과 그 아래 불빛 띠
       parts.box(len, 0.05, 0.42, mid, rackY, s * (iw - 0.24), shade(inside.ceiling, 0.12));
@@ -124,12 +246,12 @@ function addRoom(parts, o) {
   for (const [x, dir, end] of [[x1, 1, o.frontEnd], [x0, -1, o.rearEnd]]) {
     if (end === 'open') continue;
     if (end === 'plain') {
-      parts.box(0.08, cy - fy, iw * 2, x, (fy + cy) / 2, 0, wall);
+      kit.panel.box(0.08, cy - fy, iw * 2, x, (fy + cy) / 2, 0, wall);
       continue;
     }
     const sideW = iw - doorW / 2;
-    for (const s of [-1, 1]) parts.box(0.08, cy - fy, sideW, x, (fy + cy) / 2, s * (doorW / 2 + sideW / 2), wall);
-    parts.box(0.08, cy - fy - doorH, doorW, x, fy + doorH + (cy - fy - doorH) / 2, 0, wall);
+    for (const s of [-1, 1]) kit.panel.box(0.08, cy - fy, sideW, x, (fy + cy) / 2, s * (doorW / 2 + sideW / 2), wall);
+    kit.panel.box(0.08, cy - fy - doorH, doorW, x, fy + doorH + (cy - fy - doorH) / 2, 0, wall);
     const doorColor = inside.door ?? shade(wall, 0.22);
     parts.box(0.05, doorH, doorW - 0.04, x + dir * 0.02, fy + doorH / 2, 0, doorColor);
     parts.box(0.06, 0.7, 0.42, x - dir * 0.005, fy + 1.3, 0, GLASS);
@@ -142,22 +264,23 @@ function addRoom(parts, o) {
     for (const s of [-1, 1]) {
       for (const k of [0, 1]) {
         const z = s * (aisle + seatW / 2 + k * (seatW + 0.02));
-        // 앉는 자리, 등받이(조금 뒤로 기운다), 머리받침 덮개, 등받이 뒤 그물 주머니
-        parts.box(0.48, 0.13, seatW - 0.02, x, fy + 0.46, z, inside.cushion);
-        const back = new BoxGeometry(0.13, 0.74, seatW - 0.02);
-        back.translate(0, 0.37, 0);
+        // 앉는 자리(둥근 방석), 등받이 껍데기(허리가 볼록하고 위가 둥글다, 조금 뒤로 기운다), 등받이 앞 천,
+        // 머리받침 덮개, 등받이 뒤 그물 주머니
+        const cushion = rounded(0.48, 0.13, seatW - 0.02, 0.045);
+        cushion.translate(x, fy + 0.46, z);
+        kit.cushion.add(cushion, '#ffffff');
+        const back = extrudeSide(BACK_SHELL, seatW - 0.02, 0.018);
         back.rotateZ(0.13);
         back.translate(x - 0.25, fy + 0.5, z);
         parts.add(back, shell);
-        const front = new BoxGeometry(0.02, 0.64, seatW - 0.06);
-        front.translate(0.08, 0.35, 0);
+        const front = extrudeSide(BACK_PAD, seatW - 0.07, 0.014);
         front.rotateZ(0.13);
         front.translate(x - 0.25, fy + 0.5, z);
-        parts.add(front, inside.seat);
+        kit.seat.add(front, '#ffffff');
         if (inside.cover) {
           // coverFrontOnly: 덮개가 앞쪽(앉는 쪽)에만 있다(뒤에서는 안 보인다)
           const frontOnly = inside.coverFrontOnly;
-          const cover = new BoxGeometry(frontOnly ? 0.02 : 0.17, inside.coverShort ? 0.14 : 0.22, seatW - 0.05);
+          const cover = rounded(frontOnly ? 0.02 : 0.15, inside.coverShort ? 0.14 : 0.22, seatW - 0.05, 0.03);
           cover.translate(frontOnly ? 0.09 : 0, 0.66, 0);
           cover.rotateZ(0.13);
           cover.translate(x - 0.25, fy + 0.5, z);
@@ -172,7 +295,11 @@ function addRoom(parts, o) {
         }
       }
       // 팔걸이(바깥쪽과 복도 쪽), 다리
-      for (const az of [aisle + 0.01, aisle + seatW * 2 + 0.03]) parts.box(0.42, 0.05, 0.05, x - 0.02, fy + 0.66, s * az, shade(shell, 0.2));
+      for (const az of [aisle + 0.01, aisle + seatW * 2 + 0.03]) {
+        const arm = rounded(0.42, 0.055, 0.06, 0.025);
+        arm.translate(x - 0.02, fy + 0.66, s * az);
+        parts.add(arm, shade(shell, 0.2));
+      }
       parts.box(0.3, 0.4, seatW * 2 - 0.1, x - 0.05, fy + 0.2, s * (aisle + seatW + 0.01), DARK);
     }
   }
@@ -206,7 +333,7 @@ function addLights(group, rooms, glow, lightGeos, boardMat, boardGeo, iw) {
  */
 export function buildCabin(car, spec, inside, material) {
   if (car.role === 'deck') return buildDeckCabin(car, spec, inside, material);
-  const parts = new Parts();
+  const kit = cabinKit(inside);
   const { width: W, height: H } = car;
   const L = sideLayout(car, spec);
   const fy = CABIN_FLOOR;
@@ -220,7 +347,7 @@ export function buildCabin(car, spec, inside, material) {
   const hasFrontDoor = L.doors.some((d) => d > 0);
   const x0 = hasRearDoor ? L.rear + 2.25 : L.rear + 0.6;
   const x1 = hasFrontDoor ? L.bodyFront - 2.25 : L.bodyFront - 0.6;
-  const room = addRoom(parts, {
+  const room = addRoom(kit, {
     x0, x1, fy, cy, winBottom, winTop, windows: L.windows, inside, halfW: iw,
     rearEnd: 'doors', frontEnd: 'doors', rack: true,
     seatFrom: x0 + 1.9, // 첫 줄은 카메라(뒤 끝 벽 앞)에서 조금 떨어뜨린다
@@ -228,8 +355,8 @@ export function buildCabin(car, spec, inside, material) {
     floorHole: null, ceilHole: null,
   });
   const group = new Group();
-  const mesh = new Mesh(parts.geometry(), material);
-  group.add(mesh);
+  const built = kitMeshes(kit, material);
+  for (const m of built.meshes) group.add(m);
   const glow = new MeshBasicMaterial({ color: inside.glow ?? '#fbfbf6' });
   const board = displayBoard(inside.display);
   const boardMat = new MeshBasicMaterial({ map: board.texture });
@@ -250,7 +377,7 @@ export function buildCabin(car, spec, inside, material) {
     update() {},
     setDisplay: (lines) => board.draw(lines),
     dispose() {
-      mesh.geometry.dispose();
+      built.dispose();
       glow.dispose();
       for (const g of lightGeos) g.dispose();
       board.texture.dispose();
@@ -265,7 +392,8 @@ export function buildCabin(car, spec, inside, material) {
  * 층 높이는 바깥 창과 같이 DECK(train-3d-cars.js)를 쓴다.
  */
 function buildDeckCabin(car, spec, inside, material) {
-  const parts = new Parts();
+  const kit = cabinKit(inside);
+  const parts = kit.base;
   const { width: W } = car;
   const L = sideLayout(car, spec);
   const iw = W / 2 - 0.12;
@@ -285,7 +413,7 @@ function buildDeckCabin(car, spec, inside, material) {
   const seatFrom = xb + 1.9;
   const rooms = [];
   for (const d of [lo, hi]) {
-    const room = addRoom(parts, {
+    const room = addRoom(kit, {
       x0: xb, x1, fy: d.floor, cy: d.ceil, winBottom: d.win[0], winTop: d.win[1], windows: L.windows, inside, halfW: iw,
       rearEnd: 'open', frontEnd: 'plain', rack: false,
       seatFrom, pitch: spec.seatPitch ?? 1.0,
@@ -332,8 +460,8 @@ function buildDeckCabin(car, spec, inside, material) {
   parts.add(g, rail);
 
   const group = new Group();
-  const mesh = new Mesh(parts.geometry(), material);
-  group.add(mesh);
+  const built = kitMeshes(kit, material);
+  for (const m of built.meshes) group.add(m);
   const glow = new MeshBasicMaterial({ color: inside.glow ?? '#fbfbf6' });
   const board = displayBoard(inside.display);
   const boardMat = new MeshBasicMaterial({ map: board.texture });
@@ -409,7 +537,7 @@ function buildDeckCabin(car, spec, inside, material) {
     },
     setDisplay: (lines) => board.draw(lines),
     dispose() {
-      mesh.geometry.dispose();
+      built.dispose();
       glow.dispose();
       for (const g of lightGeos) g.dispose();
       board.texture.dispose();

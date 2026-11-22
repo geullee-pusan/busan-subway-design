@@ -1,0 +1,377 @@
+diff --git a/src/ui/render-quality.js b/src/ui/render-quality.js
+new file mode 100644
+index 0000000..442c35a
+--- /dev/null
++++ b/src/ui/render-quality.js
+@@ -0,0 +1,200 @@
++// 3D 화면 품질: '보통'(지금 그림) 또는 '실감'(더 실감 나게).
++// 실감은 three.js 패키지에 들어 있는 기능만 쓴다(새 의존성 없음, 네트워크 없음).
++//  - 재질: 빛을 단순하게 받는 재질(Lambert)을 빛 반사를 셈하는 재질(Standard)로 바꾼다. 금속·유리는 반짝이고 천·벽은 무광.
++//  - 주변 반사: 방 모양 빛(RoomEnvironment)을 코드로 만들어 모든 면이 은은하게 받는다.
++//  - 색 다듬기: ACES 톤 매핑(밝은 곳이 하얗게 날아가지 않는다).
++//  - 모서리 그늘: GTAO.
++//  - 불빛 번짐: 밝은 천장 불빛과 창밖 햇빛이 살짝 번진다(Bloom).
++//  - 계단 현상 줄이기: SMAA.
++// 넓은 바깥 풍경에서는 색 다듬기가 하늘과 풀빛을 바래게 해서, 실감은 가까이 보는 장면(객실, 승강장, 대합실)에만 쓴다.
++// 태블릿에서 무거울 수 있어 고를 수 있게 둔다(기본은 보통).
++import { ACESFilmicToneMapping, Color, MeshStandardMaterial, NoToneMapping, PMREMGenerator, Vector2 } from 'three';
++import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
++import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
++import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
++import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
++import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
++import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
++import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
++
++export const QUALITIES = ['보통', '실감'];
++
++/** 색으로 어림한 표면: 아주 밝은 회색·은색은 금속(손잡이, 기둥), 나머지는 무광(우리가 정한 값) */
++function finishOf(material) {
++  if (material.transparent && material.opacity < 0.9) return { roughness: 0.08, metalness: 0.0 }; // 유리
++  if (material.vertexColors) return { roughness: 0.62, metalness: 0.04 };
++  const c = material.color ?? new Color(1, 1, 1);
++  const grey = Math.abs(c.r - c.g) < 0.04 && Math.abs(c.g - c.b) < 0.04;
++  if (grey && c.r > 0.55) return { roughness: 0.32, metalness: 0.55 };
++  return { roughness: 0.7, metalness: 0.02 };
++}
++
++/** Lambert 재질 하나를 같은 생김새의 Standard 재질로 */
++function upgrade(m) {
++  const s = new MeshStandardMaterial({
++    color: m.color,
++    map: m.map,
++    vertexColors: m.vertexColors,
++    side: m.side,
++    transparent: m.transparent,
++    opacity: m.opacity,
++    emissive: m.emissive,
++    emissiveIntensity: m.emissiveIntensity,
++    emissiveMap: m.emissiveMap,
++    flatShading: m.flatShading,
++    depthWrite: m.depthWrite,
++    polygonOffset: m.polygonOffset,
++    polygonOffsetFactor: m.polygonOffsetFactor,
++    polygonOffsetUnits: m.polygonOffsetUnits,
++    ...finishOf(m),
++  });
++  s.name = m.name;
++  return s;
++}
++
++/**
++ * @param {import('three').WebGLRenderer} renderer
++ * @param {import('three').Scene} scene
++ * @param {import('three').PerspectiveCamera} camera
++ */
++export function createQuality(renderer, scene, camera) {
++  let level = '보통';
++  /** 지금 그림에 실감을 쓰는지(실감을 골랐고 가까이 보는 장면일 때만) */
++  let active = false;
++  /** Lambert → Standard(한 번 만든 것은 다시 쓴다) */
++  const toGood = new WeakMap();
++  /** Standard → 원래 Lambert */
++  const toPlain = new WeakMap();
++  const made = new Set();
++  let env = null;
++  let composer = null;
++  let ao = null;
++  let smaa = null;
++  let bloom = null;
++  let near = false;
++  let sweepAt = 0;
++  const size = { w: 0, h: 0 };
++
++  function swap(root) {
++    root.traverse((o) => {
++      if (!o.isMesh || !o.material) return;
++      const one = (m) => {
++        if (active) {
++          if (!m.isMeshLambertMaterial) return m;
++          let s = toGood.get(m);
++          if (!s) {
++            s = upgrade(m);
++            toGood.set(m, s);
++            toPlain.set(s, m);
++            made.add(s);
++          }
++          return s;
++        }
++        return toPlain.get(m) ?? m;
++      };
++      o.material = Array.isArray(o.material) ? o.material.map(one) : one(o.material);
++    });
++  }
++
++  function ensureGood() {
++    if (!env) {
++      const pmrem = new PMREMGenerator(renderer);
++      env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
++      pmrem.dispose();
++    }
++    if (!composer) {
++      composer = new EffectComposer(renderer);
++      composer.setPixelRatio(1); // 화면 효과는 1배로(태블릿 부담을 줄인다)
++      composer.addPass(new RenderPass(scene, camera));
++      ao = new GTAOPass(scene, camera, 640, 400);
++      ao.output = GTAOPass.OUTPUT.Default;
++      ao.blendIntensity = 1;
++      ao.updateGtaoMaterial({ radius: 0.9, distanceExponent: 1.2, thickness: 1.5, scale: 1.2, samples: 12 });
++      composer.addPass(ao);
++      bloom = new UnrealBloomPass(new Vector2(640, 400), 0.28, 0.5, 0.88);
++      composer.addPass(bloom);
++      composer.addPass(new OutputPass());
++      smaa = new SMAAPass();
++      composer.addPass(smaa);
++      if (size.w) composer.setSize(size.w, size.h);
++    }
++  }
++
++  /** 장면의 빛 세기: 실감에서는 주변 반사가 빛을 더하므로 원래 빛을 줄인다(우리가 정한 값) */
++  function scaleLights(k) {
++    scene.traverse((o) => {
++      if (!o.isLight) return;
++      if (o.userData.baseIntensity === undefined) o.userData.baseIntensity = o.intensity;
++      o.intensity = o.userData.baseIntensity * k;
++    });
++  }
++
++  function apply() {
++    active = level === '실감' && near;
++    if (active) {
++      ensureGood();
++      scene.environment = env;
++      scene.environmentIntensity = 0.45;
++      renderer.toneMapping = ACESFilmicToneMapping;
++      renderer.toneMappingExposure = 0.95;
++      scaleLights(0.62);
++    } else {
++      scaleLights(1);
++      scene.environment = null;
++      renderer.toneMapping = NoToneMapping;
++      renderer.toneMappingExposure = 1;
++    }
++    swap(scene);
++  }
++
++  return {
++    get level() {
++      return level;
++    },
++    setLevel(next) {
++      if (!QUALITIES.includes(next) || next === level) return;
++      level = next;
++      apply();
++    },
++    /** 지금 실감으로 그리는지 */
++    get active() {
++      return active;
++    },
++    /** 가까이 보는 장면(객실, 승강장, 대합실)인지: 모서리 그늘을 켠다 */
++    setNear(value) {
++      if (near === value) return;
++      near = value;
++      apply();
++    },
++    /** 바꿔 끼운 재질이면 원래 재질(구간을 버릴 때 함께 지운다) */
++    original(m) {
++      return toPlain.get(m) ?? null;
++    },
++    setSize(w, h) {
++      size.w = w;
++      size.h = h;
++      composer?.setSize(w, h);
++    },
++    /** 한 장 그린다. 새로 지은 것(구간이 바뀌면 생기는 땅·역)도 0.5초마다 재질을 맞춘다. */
++    render(now = 0) {
++      if (!active) {
++        renderer.render(scene, camera);
++        return;
++      }
++      if (now - sweepAt > 500) {
++        sweepAt = now;
++        swap(scene);
++      }
++      composer.render();
++    },
++    dispose() {
++      for (const m of made) m.dispose();
++      made.clear();
++      env?.dispose();
++      composer?.dispose();
++      ao?.dispose?.();
++      smaa?.dispose?.();
++      bloom?.dispose?.();
++    },
++  };
++}
+diff --git a/src/ui/storage.js b/src/ui/storage.js
+index 20321ba..00e3175 100644
+--- a/src/ui/storage.js
++++ b/src/ui/storage.js
+@@ -156,6 +156,7 @@ const VIEW_DEFAULTS = {
+   walk: null, // 걸어서 여행하기 이어 하기 {x, y, rider, record}
+   walkSound: true, // 걸어서 여행하기 랜드마크 음악
+   trainCab: false, // 진짜 기차 타 보기에서 운전석으로 볼지
++  graphics: '보통', // 3D 화면 품질: '보통' 또는 '실감'(반사 재질, 주변 반사, 모서리 그늘)
+   busStopPick: '직접 고르기', // 버스 노선 정류장 놓는 방법: '직접 고르기'(목록, 한 칸에 여러 개) 또는 '알아서 놓기'(아무거나 하나, 한 칸에 하나)
+ };
+ 
+@@ -170,6 +171,7 @@ export function loadView() {
+     if (typeof view.rideVoice !== 'boolean') view.rideVoice = false;
+     if (typeof view.rideSound !== 'boolean') view.rideSound = false;
+     if (typeof view.walkSound !== 'boolean') view.walkSound = true;
++    if (!['보통', '실감'].includes(view.graphics)) view.graphics = '보통';
+     if (!['now', 'then'].includes(view.historyPopulation)) view.historyPopulation = 'now';
+     if (view.trip !== null && (typeof view.trip !== 'object' || Array.isArray(view.trip))) view.trip = null;
+     if (!['voice', 'lang', 'default'].includes(view.rideVoiceMode)) view.rideVoiceMode = 'voice';
+diff --git a/src/ui/train-3d.js b/src/ui/train-3d.js
+index 6a20444..c8b5a8b 100644
+--- a/src/ui/train-3d.js
++++ b/src/ui/train-3d.js
+@@ -35,6 +35,7 @@ import { Parts } from './train-3d-cars.js';
+ import { buildCabin } from './train-3d-cabin.js';
+ import { buildHero } from './hero-model.js';
+ import { INTERIOR } from './train-interior.js';
++import { createQuality } from './render-quality.js';
+ import heroData from '../content/hero/hero3d.json';
+ import heroTextureUrl from '../content/hero/hero3d.webp';
+ import { cellNoise, distanceFraction, extendBack, extendForward, groundAt, headOf, joinPoints, pointAt, routeProfile, tailOf, terrainAt } from '../sim/train-3d-path.js';
+@@ -318,7 +319,7 @@ function buildConcourse(hall, materials, accent) {
+  * @param {string} p.kind 열차 종류 이름(ITX-마음처럼 같은 앞모습 안에서 칠이 다른 열차를 가른다)
+  * @param {number} p.seatCar 탄 칸(호차). 객실 보기에서 이 칸 안에 선다.
+  */
+-export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceMotion = false, kind = '', seatCar = 1 }) {
++export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceMotion = false, kind = '', seatCar = 1, quality: startQuality = '보통' }) {
+   const el = element('div', 'tr3d');
+   const canvas = element('canvas', 'tr3d-canvas');
+   canvas.setAttribute('aria-label', '기차 밖에서 본 3D 그림');
+@@ -344,6 +345,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+   const sun = new DirectionalLight(0xffffff, 2.2);
+   sun.position.set(-0.5, 1, 0.35);
+   scene.add(sun);
++  // 화면 품질(보통 / 실감). 실감은 반사 재질, 주변 반사, 모서리 그늘, 계단 현상 줄이기(render-quality.js)
++  const quality = createQuality(renderer, scene, camera);
+ 
+   const mat = (hex, extra = {}) => new MeshLambertMaterial({ color: hex, ...extra });
+   const materials = {
+@@ -476,6 +479,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+       if (m) for (const one of Array.isArray(m) ? m : [m]) {
+         one.map?.dispose();
+         one.dispose();
++        quality.original(one)?.dispose(); // 실감에서 바꿔 끼운 재질이면 원래 재질도
+       }
+     });
+     world = null;
+@@ -866,6 +870,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+     const h = Math.round(Math.min(560, Math.max(260, w * 0.62)));
+     if (canvas.width !== Math.round(w * renderer.getPixelRatio()) || canvas.height !== Math.round(h * renderer.getPixelRatio())) {
+       renderer.setSize(w, h, false);
++      quality.setSize(w, h);
+       canvas.style.height = `${h}px`;
+       camera.aspect = w / h;
+       camera.updateProjectionMatrix();
+@@ -919,7 +924,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+       }
+       scene.fog.near = 900;
+       scene.fog.far = 2900;
+-      renderer.render(scene, camera);
++      quality.setNear(true);
++      quality.render(now);
+       return;
+     }
+     if (mode === 'platform') {
+@@ -952,7 +958,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+       hero.root.rotation.set(0, Math.atan2(fx, fz), 0);
+       scene.fog.near = 900;
+       scene.fog.far = 2900;
+-      renderer.render(scene, camera);
++      quality.setNear(true);
++      quality.render(now);
+       return;
+     }
+     if (mode === 'cabin') {
+@@ -973,7 +980,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+       camera.lookAt(cabinTarget);
+       scene.fog.near = dark ? 40 : 900;
+       scene.fog.far = dark ? 420 : 2900;
+-      renderer.render(scene, camera);
++      quality.setNear(true);
++      quality.render(now);
+       return;
+     }
+     const goal = cameraGoal(inTunnel);
+@@ -997,7 +1005,8 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+     const floor = dark ? -Infinity : surfaceAt(camera.position.x, camera.position.z) + 6;
+     if (camera.position.y < floor) camera.position.y = floor;
+     camera.lookAt(camLook.clone().add(anchor));
+-    renderer.render(scene, camera);
++    quality.setNear(false);
++    quality.render(now);
+   }
+   raf = requestAnimationFrame(frame);
+ 
+@@ -1179,6 +1188,13 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+     onHero(fn) {
+       heroDone = fn;
+     },
++    /** 화면 품질: '보통' 또는 '실감' */
++    get quality() {
++      return quality.level;
++    },
++    setQuality(level) {
++      quality.setLevel(level);
++    },
+     destroy() {
+       cancelAnimationFrame(raf);
+       disposeWorld();
+@@ -1188,10 +1204,12 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
+       train.dispose();
+       scene.traverse((o) => o.geometry?.dispose());
+       for (const m of Object.values(materials)) m.dispose();
++      quality.dispose();
+       renderer.dispose();
+       renderer.forceContextLoss?.();
+     },
+   };
++  quality.setLevel(startQuality);
+   // 개발할 때만: 그림을 살펴보려고 진행 정도를 손으로 정한다(배포물에는 들어가지 않는다)
+   if (import.meta.env?.DEV) {
+     el.devApi = api;
+diff --git a/src/ui/train-journey.js b/src/ui/train-journey.js
+index c639fd1..17be24e 100644
+--- a/src/ui/train-journey.js
++++ b/src/ui/train-journey.js
+@@ -164,6 +164,8 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
+   let frame = null;
+   let soundOn = loadView().rideSound === true;
+   let voiceOn = loadView().rideVoice === true;
++  // 3D 화면 품질: '보통' 또는 '실감'(반사 재질과 그늘, 태블릿에서 무거울 수 있다)
++  let quality3d = loadView().graphics === '실감' ? '실감' : '보통';
+   const kind = train.kind ?? '종류 모름';
+   const look = lookOf(kind);
+   const info = trainData.kindInfo?.[kind] ?? {};
+@@ -228,7 +230,14 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
+       saveView({ rideVoice: voiceOn });
+       v.textContent = voiceOn ? '방송 읽기: 켬' : '방송 읽기: 끔';
+     });
+-    row.append(s, v);
++    const q = button(`화면: ${quality3d}`, () => {
++      quality3d = quality3d === '실감' ? '보통' : '실감';
++      saveView({ graphics: quality3d });
++      q.textContent = `화면: ${quality3d}`;
++      outside?.setQuality(quality3d);
++    });
++    q.title = '실감: 빛 반사와 그늘을 더 그려요. 기기가 느려지면 보통으로 바꿔요.';
++    row.append(s, v, q);
+     return row;
+   }
+ 
+@@ -386,7 +395,7 @@ export function runTrainTrip(area, { train, fromIndex, toIndex, readyMinute, far
+     if (outside) return outside;
+     const { createTrain3D } = await import('./train-3d.js');
+     if (!outside) {
+-      outside = await withBusy(() => createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind, seatCar: seat.car }), '3D를 준비하고 있어요.');
++      outside = await withBusy(() => createTrain3D({ grid, look, cars: info.cars?.value ?? 6, highSpeed: trainGroup(kind) === '고속', reduceMotion, kind, seatCar: seat.car, quality: quality3d }), '3D를 준비하고 있어요.');
+       outside.onHero((id) => heroPicker.mark(id));
+       outside.onLevel(() => markLevel());
+     }

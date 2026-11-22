@@ -1195,7 +1195,7 @@ export function createTrain3D({ grid, look, cars = 6, highSpeed = false, reduceM
   // 개발할 때만: 그림을 살펴보려고 진행 정도를 손으로 정한다(배포물에는 들어가지 않는다)
   if (import.meta.env?.DEV) {
     el.devApi = api;
-    el.dev3d = { scene, camera, trackPoint: (...x) => trackPoint(...x), hero: hero.root, get world() { return world; }, get startKm() { return startKm; }, get stops() { return stops; }, get hall() { return hallFrom; }, get debug() { return lastDebug; } };
+    el.dev3d = { scene, camera, trackPoint: (...x) => trackPoint(...x), hero: hero.root, cabin, get world() { return world; }, get startKm() { return startKm; }, get stops() { return stops; }, get hall() { return hallFrom; }, get debug() { return lastDebug; } };
   }
   return api;
 }
