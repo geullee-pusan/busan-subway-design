@@ -12,11 +12,11 @@ import { dirname, resolve } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { fileURLToPath } from 'node:url';
 import { readApiKey } from './lib/api-key.mjs';
-import { MOLIT_CITIES } from './lib/molit-bus.mjs';
+import { MOLIT_CITIES, SEOUL_MOLIT } from './lib/molit-bus.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation';
-const CTPV = '51';
+const CTPV = '51'; // 강원. 서울 구는 city.ctpv('11')
 
 const key = readApiKey();
 if (!key) {
@@ -31,11 +31,11 @@ if (!/^\d{8}$/.test(OPR_YMD)) {
 }
 const encodedKey = encodeURIComponent(key);
 let calls = 0;
-async function getPage(sgg, pageNo) {
+async function getPage(sgg, pageNo, ctpv = CTPV) {
   for (let attempt = 1; attempt <= 3; attempt++) {
     calls += 1;
     try {
-      const url = `${BASE}?serviceKey=${encodedKey}&pageNo=${pageNo}&numOfRows=1000&dataType=JSON&opr_ymd=${OPR_YMD}&ctpv_cd=${CTPV}&sgg_cd=${sgg}`;
+      const url = `${BASE}?serviceKey=${encodedKey}&pageNo=${pageNo}&numOfRows=1000&dataType=JSON&opr_ymd=${OPR_YMD}&ctpv_cd=${ctpv}&sgg_cd=${sgg}`;
       const res = await fetch(url, { signal: AbortSignal.timeout(60_000) });
       const text = await res.text();
       if (res.ok) {
@@ -63,7 +63,7 @@ const lockPath = resolve(ROOT, 'data/raw-lock.json');
 const today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 const FIELDS = ['rte_id', 'rte_no', 'rte_nm', 'sttn_seq', 'sttn_id', 'sttn_nm', 'emd_nm'];
 
-for (const city of MOLIT_CITIES) {
+for (const city of [...MOLIT_CITIES, ...SEOUL_MOLIT]) {
   const file = resolve(outDir, `${city.sgg}.json`);
   if (existsSync(file) && !process.argv.includes('--force')) {
     console.log(`${city.name}: 이미 받았어요.`);
@@ -73,7 +73,7 @@ for (const city of MOLIT_CITIES) {
   let total = null;
   let ok = true;
   for (let page = 1; total === null || rows.length < total; page++) {
-    const got = await getPage(city.sgg, page);
+    const got = await getPage(city.sgg, page, city.ctpv ?? CTPV);
     if (!got) {
       ok = false;
       break;
@@ -90,7 +90,7 @@ for (const city of MOLIT_CITIES) {
   const data = {
     source: '공공데이터포털 15142031 국토교통부_버스노선별 경유정류장 getBusRoutespecificStopInformation',
     city: city.name,
-    ctpvCd: CTPV,
+    ctpvCd: city.ctpv ?? CTPV,
     sggCd: city.sgg,
     oprYmd: OPR_YMD,
     fetched: today,

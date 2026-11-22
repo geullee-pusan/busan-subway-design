@@ -17,7 +17,7 @@ import { inflateRawSync } from 'node:zlib';
 import { readCsv } from './lib/csv.mjs';
 import { orderStops } from './lib/stop-order.mjs';
 import { makeUtm, tmEast } from './lib/utm.mjs';
-import { GANGWON_BIS_SITES, MOLIT_CITIES, makeStopFinder, readMolitRoutes } from './lib/molit-bus.mjs';
+import { GANGWON_BIS_SITES, MOLIT_CITIES, SEOUL_MOLIT, makeStopFinder, readMolitRoutes } from './lib/molit-bus.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const grid = JSON.parse(readFileSync(resolve(ROOT, 'data/build/grid.json'), 'utf8'));
@@ -587,6 +587,39 @@ const TAGO_CITIES = [
   [32050, '태백'],
   [32310, '홍천'],
   [32360, '철원'],
+  // 수도권 넓히기 3단계(2026-11-22): 인천과 경기 31개 시·군. 경기 광주는 전라도 광주와 나누려고 '광주(경기)'로 쓴다.
+  [23, '인천'],
+  [31010, '수원'],
+  [31020, '성남'],
+  [31030, '의정부'],
+  [31040, '안양'],
+  [31050, '부천'],
+  [31060, '광명'],
+  [31070, '평택'],
+  [31080, '동두천'],
+  [31090, '안산'],
+  [31100, '고양'],
+  [31110, '과천'],
+  [31120, '구리'],
+  [31130, '남양주'],
+  [31140, '오산'],
+  [31150, '시흥'],
+  [31160, '군포'],
+  [31170, '의왕'],
+  [31180, '하남'],
+  [31190, '용인'],
+  [31200, '파주'],
+  [31210, '이천'],
+  [31220, '안성'],
+  [31230, '김포'],
+  [31240, '화성'],
+  [31250, '광주(경기)'],
+  [31260, '양주'],
+  [31270, '포천'],
+  [31320, '여주'],
+  [31350, '연천'],
+  [31370, '가평'],
+  [31380, '양평'],
 ];
 for (const [code, city] of TAGO_CITIES) {
   const data = tagoOf(code);
@@ -604,14 +637,19 @@ for (const site of GANGWON_BIS_SITES.filter((s) => s.saveRoutes)) {
   const file = resolve(ROOT, `data/raw/gangwon-bis/${site.id}-routes.json`);
   if (existsSync(file)) siteRoutes.set(site.name, JSON.parse(readFileSync(file, 'utf8')).routes);
 }
-{
-  const finder = makeStopFinder(ROOT, gridPoint, MOLIT_CITIES.map((c) => c.sggName));
-  const list = readMolitRoutes(ROOT, MOLIT_CITIES).sort((a, b) => a.city.localeCompare(b.city, 'ko') || a.no.localeCompare(b.no, 'ko', { numeric: true }) || a.id.localeCompare(b.id));
+// 서울(수도권 넓히기 3단계, 2026-11-22)도 같은 방식이다: 서울 25개 구를 받아 같은 구 안의 같은 이름 정류장을 찾는다.
+for (const [cities, region] of [[MOLIT_CITIES, '강원'], [SEOUL_MOLIT, '서울']]) {
+  const finder = makeStopFinder(ROOT, gridPoint, cities.map((c) => c.sggName), region);
+  const list = readMolitRoutes(ROOT, cities).sort((a, b) => a.city.localeCompare(b.city, 'ko') || a.no.localeCompare(b.no, 'ko', { numeric: true }) || a.id.localeCompare(b.id));
   for (const route of list) {
     if (siteRoutes.has(route.city)) continue; // 누리집 노선을 쓴다(아래 4-4)
+    // 서울 자료(구마다 부른 것)에는 서울을 지나는 다른 지역 노선도 들어 있다. 노선 번호(rte_id) 앞 두 자리가 11인 서울 시내·마을버스만 쓴다.
+    // 29(인천)·41(경기)은 TAGO로 넣고, 12(6000번대 공항버스), 91(출퇴근 맞춤버스), 92(한강버스, 배)는 시각이 없거나 시내버스가 아니라 뺀다(2026-11-22 자료로 확인한 앞자리).
+    if (region === '서울' && !route.id.startsWith('11')) continue;
     const st = (molitStats[route.city] ??= { routes: 0, kept: 0, rows: 0, placedRows: 0, low: 0, night: 0 });
     st.routes += 1;
-    if (route.no.includes('심야')) {
+    // 심야버스: 이 자료에는 첫차·막차 시각이 없어 낮에도 다니는 것으로 보이므로 뺀다. 서울 심야버스는 번호가 N으로 시작한다(N51 등).
+    if (route.no.includes('심야') || (region === '서울' && /^N/.test(route.no))) {
       st.night += 1;
       continue;
     }

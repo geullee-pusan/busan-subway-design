@@ -28,6 +28,18 @@ export const MOLIT_CITIES = [
 ];
 
 /**
+ * 서울 25개 구(수도권 넓히기 3단계, 2026-11-22). 서울은 TAGO 버스노선정보에 없어 15142031로 받는다(ctpv_cd 11).
+ * 노선의 도시는 모두 '서울'이다. sggName은 행정동 경계 이름의 구 부분이다.
+ */
+export const SEOUL_MOLIT = [
+  ['11110', '종로구'], ['11140', '중구'], ['11170', '용산구'], ['11200', '성동구'], ['11215', '광진구'],
+  ['11230', '동대문구'], ['11260', '중랑구'], ['11290', '성북구'], ['11305', '강북구'], ['11320', '도봉구'],
+  ['11350', '노원구'], ['11380', '은평구'], ['11410', '서대문구'], ['11440', '마포구'], ['11470', '양천구'],
+  ['11500', '강서구'], ['11530', '구로구'], ['11545', '금천구'], ['11560', '영등포구'], ['11590', '동작구'],
+  ['11620', '관악구'], ['11650', '서초구'], ['11680', '강남구'], ['11710', '송파구'], ['11740', '강동구'],
+].map(([sgg, sggName]) => ({ sgg, name: '서울', sggName, ctpv: '11' }));
+
+/**
  * 강원 시·군 버스정보 누리집(사용자가 2026-11-21에 알려 줌, npm run gangwon-bis). delay는 부른 뒤 쉬는 초.
  * 삼척시 누리집 robots.txt에 Crawl-delay 30이 있다.
  */
@@ -57,8 +69,9 @@ const STRAY = 800;
  * @param {string} root 저장소 폴더
  * @param {(lon:number, lat:number) => ({x:number,y:number}|null)} gridPoint 경위도 → 격자(×100)
  * @param {string[]} sggNames 자료를 받은 시·군 이름(예: '강릉시'). 이 시·군 안의 정류장만 후보로 모은다.
+ * @param {string} region 시·도 이름 앞부분('강원' 또는 '서울'). 행정동 경계와 전국 정류장 자료의 도시명을 이것으로 거른다.
  */
-export function makeStopFinder(root, gridPoint, sggNames) {
+export function makeStopFinder(root, gridPoint, sggNames, region = '강원') {
   const dongs = decodeDongs(JSON.parse(readFileSync(resolve(root, 'data/build/dong-shapes.json'), 'utf8')));
   const wanted = new Set(sggNames);
   /** 이름 → 후보 [{x, y, sgg, from}] */
@@ -73,7 +86,7 @@ export function makeStopFinder(root, gridPoint, sggNames) {
     if (!point || !name) return;
     const dong = dongAt(dongs, { x: point.x / 100, y: point.y / 100 });
     const sgg = dong?.split(' ')[1];
-    if (!sgg || !wanted.has(sgg) || !dong.startsWith('강원')) return;
+    if (!sgg || !wanted.has(sgg) || !dong.startsWith(region)) return;
     const cand = { x: point.x, y: point.y, sgg, from };
     if (id && !byId.has(id)) byId.set(id, cand);
     const key = `${squashName(name)}|${Math.round(point.x / 2)}|${Math.round(point.y / 2)}`;
@@ -90,7 +103,7 @@ export function makeStopFinder(root, gridPoint, sggNames) {
     counts[from] += 1;
   }
   // 시·군 버스정보 누리집 정류장(npm run gangwon-bis). 가장 먼저 넣어 같은 곳이면 이 자리를 쓴다.
-  for (const site of GANGWON_BIS_SITES) {
+  for (const site of region === '강원' ? GANGWON_BIS_SITES : []) {
     const file = resolve(root, `data/raw/gangwon-bis/${site.id}.json`);
     if (!existsSync(file)) continue;
     const data = JSON.parse(readFileSync(file, 'utf8'));
@@ -100,12 +113,12 @@ export function makeStopFinder(root, gridPoint, sggNames) {
   const nationalPath = resolve(root, 'data/raw/datagokr/15067528.csv');
   if (existsSync(nationalPath)) {
     for (const r of readCsv(nationalPath).records) {
-      if (!String(r['도시명'] ?? '').startsWith('강원')) continue;
+      if (!String(r['도시명'] ?? '').startsWith(region)) continue;
       add(String(r['정류장명'] ?? '').trim(), Number(r['경도']), Number(r['위도']), 'national');
     }
   }
   const osmPath = resolve(root, 'data/raw/osm/bus-stops-gangwon.json');
-  if (existsSync(osmPath)) {
+  if (region === '강원' && existsSync(osmPath)) {
     for (const e of JSON.parse(readFileSync(osmPath, 'utf8')).elements ?? []) {
       const name = e.tags?.name ?? e.tags?.['name:ko'];
       if (name) add(String(name).trim(), e.lon, e.lat, 'osm');

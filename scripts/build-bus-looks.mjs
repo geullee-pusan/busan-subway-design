@@ -3,7 +3,7 @@
 // - 색을 못 찾은 종류(todo)는 그 시·군 기본 칠의 색을 쓰고, 차체(vehicle)는 그 종류 것을 둔다.
 // - mix: 같은 노선에 칠이 다른 차가 섞여 다니면 그 칠들을 적는다(화면에서 타는 정류장으로 하나를 고른다).
 // - data/build/bus.json의 모든 시·군이 들어 있는지, 정규식이 맞는지 확인하고 보고한다.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
@@ -18,12 +18,25 @@ const pickOne = (t) => Object.fromEntries(KEEP.filter((k) => t[k] !== undefined 
 const pick = (t) => (t.mix?.length ? { ...pickOne(t), mix: t.mix.map(pickOne) } : pickOne(t));
 const hasColor = (t) => Boolean(t?.lower);
 
+const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+/** TAGO 원본에서 노선 종류가 kind인 노선 번호들 → 정규식(없으면 null). 번호는 build-bus처럼 앞뒤 빈칸을 뗀다. */
+function tagoMatch(code, kind) {
+  const file = resolve(ROOT, `data/raw/tago-bus/${code}.json`);
+  if (!existsSync(file)) return null;
+  const nos = [...new Set(JSON.parse(readFileSync(file, 'utf8')).routes.filter((r) => (r.routetp ?? '(없음)') === kind).map((r) => String(r.routeno).trim()))].sort();
+  return nos.length ? `^(?:${nos.map(escapeRe).join('|')})$` : null;
+}
+
 const cities = {};
 const problems = [];
 for (const [city, entry] of Object.entries(src)) {
   const def = entry.default && hasColor(entry.default) ? pick(entry.default) : null;
   const types = [];
-  for (const raw of entry.types ?? []) {
+  for (const raw0 of entry.types ?? []) {
+    // tagoType: 노선 번호 대신 TAGO 노선 종류(routetp, 예: '직행좌석버스')로 고른다(수도권 넓히기 3단계, 경기·인천).
+    // 받아 둔 TAGO 원본(data/raw/tago-bus/<tagoCode>.json)에서 그 종류의 노선 번호를 모아 match를 만든다. '(없음)'은 종류가 비어 있는 노선.
+    const raw = raw0.tagoType ? { ...raw0, match: tagoMatch(entry.tagoCode, raw0.tagoType) } : raw0;
+    if (!raw.match) continue;
     const t = pick(raw);
     try {
       new RegExp(t.match);

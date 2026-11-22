@@ -51,7 +51,7 @@
 - `npm run dong-shapes`: 행정동 경계로 걸어서 여행하기의 주소용 동 모양(`data/build/dong-shapes.json`)을 만든다
 - `npm run water-shapes`: OpenStreetMap 수면 원본(`data/raw/osm/water.json`)으로 걸어서 여행하기 지도의 강과 호수 모양(`data/build/water-shapes.json`)을 만든다
 - `npm run tago-bus`: 저장한 인증키로 TAGO 버스노선정보에서 부산 밖 도시의 노선과 정류장 차례를 받아 `data/raw/tago-bus/`에 둔다(네트워크를 쓴다, 노선마다 한 번 부른다)
-- `npm run molit-bus`: 저장한 인증키로 국토교통부 버스노선별 경유정류장(15142031)에서 TAGO에 없는 강원 시·군의 노선과 정류장 차례를 받아 `data/raw/molit-bus/`에 둔다(네트워크를 쓴다). 좌표가 없어 `npm run bus`가 15067528 정류장 위치와 OSM 정류장에서 이름으로 자리를 찾는다
+- `npm run molit-bus`: 저장한 인증키로 국토교통부 버스노선별 경유정류장(15142031)에서 TAGO에 없는 강원 시·군과 서울 25개 구의 노선과 정류장 차례를 받아 `data/raw/molit-bus/`에 둔다(네트워크를 쓴다). 좌표가 없어 `npm run bus`가 15067528 정류장 위치와 OSM 정류장에서 이름으로 자리를 찾는다
 - `npm run gangwon-bis`: 강원 12개 시·군 버스정보 누리집(BIS·pti)의 정류장 이름과 좌표를 `data/raw/gangwon-bis/`에 받는다(네트워크를 쓴다, git에 넣지 않음). `npm run bus`가 molit-bus 노선 정류장 자리를 이것으로 먼저 찾는다(BIS는 정류장 번호, pti는 이름). 화천·영월·양구·정선은 누리집 노선 자료로 노선을 만든다(`<이름>-routes.json`)
 - `npm run metro-sudogwon`: 저장한 인증키로 TAGO 지하철정보(15098554)에서 수도권 도시철도 역 목록과 역마다 평일 시각표를 받아 `data/raw/tago-subway/`에 둔다(네트워크를 쓴다, 약 1,900번 부른다, 멈췄다가 다시 돌리면 이어서 받는다). `npm run data`가 OSM 운행 계통(routes-5·6)과 함께 수도권 노선을 만든다(`scripts/build/sudogwon.mjs`)
 - `npm run bus-hours`: 저장한 인증키로 TAGO 버스노선정보에서 부산 시내버스 노선마다 첫차·막차 시각을 받아 `data/raw/tago-bus/route-hours-21.json`에 둔다(네트워크를 쓴다, 한두 번 부른다)

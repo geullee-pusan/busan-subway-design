@@ -819,6 +819,206 @@
     "sha256": "7f913662cb61c16e7648dcb5024e6d9ff60a66bdae6860ec5cb6731f0b970916",
     "fetched": "2026-09-22"
   },
+  "molit-bus-11110": {
+    "file": "data/raw/molit-bus/11110.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 182108,
+    "sha256": "1f0f06e79fa8712bad8965fc5f294c7694be264e0063809bcd69f2dceb40db63",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11140": {
+    "file": "data/raw/molit-bus/11140.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 207030,
+    "sha256": "1056624da75bd14e6d0fba8ac2ddf4a32fa34eb88085140e029628748c363ae3",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11170": {
+    "file": "data/raw/molit-bus/11170.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 149517,
+    "sha256": "8797464f9015bae53427185f03d3502952feb98c030b75114ee6870b5b5d5056",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11200": {
+    "file": "data/raw/molit-bus/11200.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 128071,
+    "sha256": "fee7dfa4fd5031b2c173cd71c44258b5879fe06c7fd41de6d53d6332559a8645",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11215": {
+    "file": "data/raw/molit-bus/11215.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 147290,
+    "sha256": "2d2422267b3f0b9dc490f2cca6a7b213071af79183d3a5de796d3736db540851",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11230": {
+    "file": "data/raw/molit-bus/11230.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 173178,
+    "sha256": "462e80e44d9ffe2e0811adfec973138469836ab5c697d5557f72c76a8be27310",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11260": {
+    "file": "data/raw/molit-bus/11260.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 228641,
+    "sha256": "a99c5ffe9b710b8132c5c3573c222192af93a5c8ff7aeba823fd66e4d5d46487",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11290": {
+    "file": "data/raw/molit-bus/11290.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 210772,
+    "sha256": "629dd77c52d23b113d720ece0f36f3e90035aefc63096821e687d95500411ae0",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11305": {
+    "file": "data/raw/molit-bus/11305.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 142338,
+    "sha256": "e8949740ace45e08db9a9bee5c71ac50a51b5a2aaa00b71f7703a1957171d3aa",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11320": {
+    "file": "data/raw/molit-bus/11320.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 126700,
+    "sha256": "cc386362d3696a6f6e081088599ebf58095f9d75946e1fdab11e2efa85eb46bd",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11350": {
+    "file": "data/raw/molit-bus/11350.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 217995,
+    "sha256": "f60793e46331047d8f6dcf2677d4f6b0d6af33c290e7937ba99a4a092a84a146",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11380": {
+    "file": "data/raw/molit-bus/11380.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 264056,
+    "sha256": "9a8c82ddb48bc3695cdb67b849624342ae6829cde588e95b777d12621bf2d22a",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11410": {
+    "file": "data/raw/molit-bus/11410.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 246297,
+    "sha256": "f79e8ab075455456d1c6b61b6f19bb5b4e0ca02bf68bfff1a32cad662329b43c",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11440": {
+    "file": "data/raw/molit-bus/11440.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 273618,
+    "sha256": "49a162f39c546e534b206ca025d1d9900724b81116b78ad7eee66b6ebfe8bc71",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11470": {
+    "file": "data/raw/molit-bus/11470.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 189590,
+    "sha256": "fbcf2c830004c10cc5013419a1844f7f66a74a3c9a881d048288499335f44bcd",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11500": {
+    "file": "data/raw/molit-bus/11500.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 297608,
+    "sha256": "456d2a4ea69b7427e88c0ecdcae803d2b54df8383d6eb10d33da2b9727cd4254",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11530": {
+    "file": "data/raw/molit-bus/11530.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 187136,
+    "sha256": "e7665e126d3f42c55787a62268031d30cc741a333e9b6827a680c313de34f9ba",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11545": {
+    "file": "data/raw/molit-bus/11545.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 138612,
+    "sha256": "5ad19b175779fbcfd8c6a2d48886ade9a63538d65d73f77a09f9746073088b37",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11560": {
+    "file": "data/raw/molit-bus/11560.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 273571,
+    "sha256": "5eaf95f1f2ca30eac03c248a3ee78d5a789312d685eaa7e601b899295d3a54cb",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11590": {
+    "file": "data/raw/molit-bus/11590.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 185801,
+    "sha256": "b65afb7d74750d04c8315bc73a992c9993d99febaef087f78a798107607c9631",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11620": {
+    "file": "data/raw/molit-bus/11620.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 218624,
+    "sha256": "a6feb87b6845e3edba563369443b56496de070177b639c0258ec3ce9e5ca56a7",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11650": {
+    "file": "data/raw/molit-bus/11650.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 465325,
+    "sha256": "a3c5c4f838252c837bf63e11cdd13a68381cc4521f80293db7de0873991e2e6d",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11680": {
+    "file": "data/raw/molit-bus/11680.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 358287,
+    "sha256": "4aea008e1988537c13f67d1e94cccdbf41bf69f593b5341e909768c3a4a05f9f",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11710": {
+    "file": "data/raw/molit-bus/11710.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 315006,
+    "sha256": "9080fadbbe7b5869373b10b43c625611ad95626354ec8228d4a711b938a232d9",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
+  "molit-bus-11740": {
+    "file": "data/raw/molit-bus/11740.json",
+    "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
+    "bytes": 194241,
+    "sha256": "9a1a3306c6a798973414109ec2b983fe4899d0f67409c37667b84c0ee3541b3e",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run molit-bus). 운행일 20261001. 주소에는 인증키를 적지 않는다."
+  },
   "molit-bus-51150": {
     "file": "data/raw/molit-bus/51150.json",
     "url": "https://apis.data.go.kr/1613000/BusRoutespecificStopInformation/getBusRoutespecificStopInformation",
@@ -4662,6 +4862,14 @@
     "fetched": "2026-10-31",
     "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
   },
+  "tago-bus-23": {
+    "file": "data/raw/tago-bus/23.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 1859059,
+    "sha256": "fdaab9fe2d565ae87b17978c10096d4ffa40eaac307dc75434d9f0b67351a517",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
   "tago-bus-24": {
     "file": "data/raw/tago-bus/24.json",
     "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
@@ -4684,6 +4892,254 @@
     "bytes": 1805741,
     "sha256": "18846f352cecc181cafdf52e4a64b86a65527b3709359fe591ef8229e9ab2631",
     "fetched": "2026-10-31",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31010": {
+    "file": "data/raw/tago-bus/31010.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 687757,
+    "sha256": "026f2ab82cf792c11efb62cb52826ba66478ffd2f4ace0733a8d7c9f7b4db588",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31020": {
+    "file": "data/raw/tago-bus/31020.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 477183,
+    "sha256": "23e0c6fe7a5678d5b105f374dc062da9809700bdb9e99bc9bb8fe488d201f4b0",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31030": {
+    "file": "data/raw/tago-bus/31030.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 237253,
+    "sha256": "0dd2bfa770771e147aa54b3c5e4c59ee4031259ccb50b324b13f5deea70381ee",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31040": {
+    "file": "data/raw/tago-bus/31040.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 287938,
+    "sha256": "966ec92c5c31a7458e13f5550c0f07c51f2383519d9d6bf2754f6e65bcd828d9",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31050": {
+    "file": "data/raw/tago-bus/31050.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 312723,
+    "sha256": "b0b861dcadf30f240a13584173fd71141455e99a1e2ae5217de20a2d08432afe",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31060": {
+    "file": "data/raw/tago-bus/31060.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 121561,
+    "sha256": "1a81df2881176fb72d467ce1df0fc23d0994e9bc9564027881e82b6cfce3fb87",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31070": {
+    "file": "data/raw/tago-bus/31070.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 364575,
+    "sha256": "4cb75ae77d222941b8eaa371dd69e6bf07d5ba3c1c2b96f3333d017e42a063e8",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31080": {
+    "file": "data/raw/tago-bus/31080.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 169200,
+    "sha256": "a7d2d75da437021d2617c0e42a69ecc5e189c759a0cf0d81d757718240ecd54b",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31090": {
+    "file": "data/raw/tago-bus/31090.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 420854,
+    "sha256": "365e39854a3ca24be04c767f475826fadcb988ca128b339a1461e492696ce558",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31100": {
+    "file": "data/raw/tago-bus/31100.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 285264,
+    "sha256": "61a0ac98ca71b022f18841ce518d64594740a4f2b7e5aff80c5fd8e3e6beb8c5",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31110": {
+    "file": "data/raw/tago-bus/31110.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 15674,
+    "sha256": "940be786d124dd53049e227ca0c4e3cff81e48db84a30acc17ee57a5611f92d9",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31120": {
+    "file": "data/raw/tago-bus/31120.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 88256,
+    "sha256": "13d3b7ef5e8c7a21d07f4ef1a9c50c2388af28f047f252bd8d6354f4bf29a5d0",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31130": {
+    "file": "data/raw/tago-bus/31130.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 683321,
+    "sha256": "cb65523de0b28bac1736319f597b7c2fc64aa516cb3935c49f7259b4ebcff550",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31140": {
+    "file": "data/raw/tago-bus/31140.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 188267,
+    "sha256": "78cd1fda9be68ba8ff1644d884492e6e6b80bc3159372272110a556c0559d9e6",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31150": {
+    "file": "data/raw/tago-bus/31150.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 267450,
+    "sha256": "119cc13a0c695ff83e06f2939c01b818bf565e3b866d1db90608c5fbea5f6b4e",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31160": {
+    "file": "data/raw/tago-bus/31160.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 36473,
+    "sha256": "380c5abc6c92064bade78719c1f552fb3dfc67d22a019242221f4dd1b17f4374",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31170": {
+    "file": "data/raw/tago-bus/31170.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 20787,
+    "sha256": "ff0416bf2226bd6b3bee5f808ca23e253f3b78bafb41a9e8101bde8a5100092c",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31180": {
+    "file": "data/raw/tago-bus/31180.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 143907,
+    "sha256": "5b48bef4c997c404fa337c4e279f4f58877ce930672572191d5303af2e2b4742",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31190": {
+    "file": "data/raw/tago-bus/31190.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 893744,
+    "sha256": "0bf2f6b2f2bb8d493f21d09bbc5d5572bbf47dcfcc1f99cca6708e8ef5166947",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31200": {
+    "file": "data/raw/tago-bus/31200.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 485534,
+    "sha256": "e6d4983c24b5da4dcf2c8ae8e1eb13c362ba7a827455733944efdad8d65a420c",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31210": {
+    "file": "data/raw/tago-bus/31210.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 407244,
+    "sha256": "e733a8b9d75fd92b5ea5f904e68d466a96baa4c530819bda1cfe9da3de679d46",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31220": {
+    "file": "data/raw/tago-bus/31220.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 379556,
+    "sha256": "aadc2b9709fd5cd89bda789c909d61eaa2d3a39829a8997a68973866d9e2f8c5",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31230": {
+    "file": "data/raw/tago-bus/31230.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 331316,
+    "sha256": "b82e003a7fff679fa5292a4c806876a6248937481143d86cd01340d3ce5bb81e",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31240": {
+    "file": "data/raw/tago-bus/31240.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 914448,
+    "sha256": "fa1e25855d85552a8a7616129c88a52c50245f99e885baabcd3da45fa12baf0c",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31250": {
+    "file": "data/raw/tago-bus/31250.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 999151,
+    "sha256": "aeb2f12d0ceec4ea6e8ea0976213e9a9a3bf00f15b9d2000fc23f11d67e729d3",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31260": {
+    "file": "data/raw/tago-bus/31260.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 193418,
+    "sha256": "ecfb916bbcf6de373823243760f8ed330a0767106baf9687e9f6316285ccb82d",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31270": {
+    "file": "data/raw/tago-bus/31270.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 513379,
+    "sha256": "fe6735f703db0eeae3c2b1e15a1fad42ee0724dbc99a61f67311b0c2f21410c6",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31320": {
+    "file": "data/raw/tago-bus/31320.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 42501,
+    "sha256": "0771e50980e9aa60050635ed217bfc2339b3ba6488ac4f2e06e346830a9bbe16",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31350": {
+    "file": "data/raw/tago-bus/31350.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 182985,
+    "sha256": "26bfdfc4b538a529befcff568344f9bdfe0a69cdf77d1254335a1faa2e43f257",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31370": {
+    "file": "data/raw/tago-bus/31370.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 251864,
+    "sha256": "32fc47422f372267ca313edce419a3f4b021844e5c35c477e457e95a52b64e5b",
+    "fetched": "2026-11-22",
+    "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
+  },
+  "tago-bus-31380": {
+    "file": "data/raw/tago-bus/31380.json",
+    "url": "https://apis.data.go.kr/1613000/BusRouteInfoInqireService/getRouteAcctoThrghSttnList",
+    "bytes": 630838,
+    "sha256": "80505a6c1e7ef57b57ee993dbdeb7c2a5fbd0d92cc74422dcf908e4b569a73fd",
+    "fetched": "2026-11-22",
     "note": "인증키가 필요한 API(npm run tago-bus). 주소에는 인증키를 적지 않는다."
   },
   "tago-bus-32010": {

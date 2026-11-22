@@ -33,3 +33,6 @@ assets/hero/
 
 # Mixamo 승객 원본(FBX, 크고 다시 배포하지 않는다): npm run passengers가 src/content/passengers/로 굽는다
 assets/passengers/
+
+# 서울 열린데이터광장 인증키(사용자가 2026-11-22에 둠). 올리지 않는다.
+seoul_api.txt
