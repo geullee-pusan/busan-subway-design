@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { daeguRidership, daeguService } from './build/daegu.mjs';
 import { GWANGJU_LINE, gwangjuRidership, gwangjuService } from './build/gwangju.mjs';
 import { DAEJEON_LINE, daejeonRidership, daejeonService } from './build/daejeon.mjs';
+import { sudogwonRidership } from './build/sudogwon.mjs';
 import { buildDistricts } from './build/districts.mjs';
 import { buildFutureLines } from './build/future.mjs';
 import { buildGrid } from './build/grid.mjs';
@@ -174,6 +175,14 @@ ridership.gwangju = {
   ridership.daejeon = {
     source: `대전교통공사 시간대별 승하차인원 ${dj.period ?? ''}(공공데이터포털 15060591)`,
     stations: dj.stations,
+  };
+}
+{
+  // 수도권 지하철 이용객(수도권 넓히기, 2026-11-22): 서울 열린데이터광장 교통카드 자료. 보여 주기만 한다(보정은 부산 자료로만).
+  const sd = sudogwonRidership(raw, network.stations, issues);
+  ridership.sudogwon = {
+    source: `서울 열린데이터광장 서울시 지하철호선별 역별 승하차 인원·시간대별 승하차 인원 ${sd.period ?? ''}(교통카드 자료)`,
+    stations: sd.stations,
   };
 }
 if (ridershipRaw.unusedRows.length) issues.push(`[이용객] 역 목록에 없는 역번호 자료: ${ridershipRaw.unusedRows.join(', ')}`);

@@ -10,7 +10,7 @@ import { readCsv } from '../lib/csv.mjs';
 import { daeguLines } from './daegu.mjs';
 import { gwangjuLines } from './gwangju.mjs';
 import { daejeonLines } from './daejeon.mjs';
-import { sudogwonLines, sudogwonTransferPairs } from './sudogwon.mjs';
+import { addSudogwonNumbers, sudogwonLines, sudogwonTransferPairs } from './sudogwon.mjs';
 import { utm52 } from '../lib/utm.mjs';
 import { readOsmFile } from '../lib/osm.mjs';
 
@@ -404,6 +404,7 @@ export function buildNetwork(raw, transferEdits = {}, stationEdits = {}) {
   const gwangju = gwangjuLines(raw, issues);
   const daejeon = daejeonLines(raw, issues);
   const sudogwon = sudogwonLines(raw, issues);
+  addSudogwonNumbers(raw, sudogwon.stations, issues);
   const stations = [...humetro.stations, ...osm.stations, ...daegu.stations, ...gwangju.stations, ...daejeon.stations, ...sudogwon.stations];
   const daeguTransfers = readCsv(raw('datagokr/15041092.csv')).records;
   const transfers = transferGroups(stations, humetro.infoRows, osm.korail, daeguTransfers, transferEdits, issues, sudogwonTransferPairs(stations));

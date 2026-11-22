@@ -366,3 +366,160 @@ export function sudogwonTransferPairs(stations) {
   }
   return pairs;
 }
+
+/**
+ * 서울 교통카드 노선 이름(서울 열린데이터광장) → 우리 수도권 노선 id(앞 것부터 같은 이름 역을 찾는다).
+ * 1호선·경부선·경인선·경원선·장항선은 모두 수도권 1호선, 일산선은 3호선, 과천선·안산선은 4호선, 분당선·수인선은 수인·분당선이다.
+ */
+const CARD_LINES = {
+  '1호선': ['S1', 'S1K', 'S1G', 'S1D'],
+  경부선: ['S1', 'S1K', 'S1G', 'S1D'],
+  경인선: ['S1', 'S1K'],
+  경원선: ['S1', 'S1K', 'SGJ'], // 용산~청량리(이촌·서빙고·한남·옥수·응봉·왕십리)는 경의·중앙선이 다닌다
+  장항선: ['S1K', 'S1'],
+  '2호선': ['S2', 'S2A', 'S2B'],
+  '3호선': ['S3'],
+  일산선: ['S3'],
+  '4호선': ['S4'],
+  과천선: ['S4'],
+  안산선: ['S4'],
+  '5호선': ['S5', 'S5M'],
+  '6호선': ['S6'],
+  '7호선': ['S7'],
+  '8호선': ['S8'],
+  '9호선': ['S9'],
+  '9호선2~3단계': ['S9'],
+  경의선: ['SGJ', 'SGJB'],
+  중앙선: ['SGJ', 'SGJB'],
+  경춘선: ['SGC', 'SGCB'],
+  분당선: ['SSB'],
+  수인선: ['SSB'],
+  경강선: ['SGG'],
+  서해선: ['SSH'],
+  '공항철도 1호선': ['SAR'],
+  우이신설선: ['SUI'],
+  신림선: ['SSL'],
+};
+
+/**
+ * 수도권 지하철 이용객(서울 열린데이터광장 교통카드 자료, npm run seoul-riders). 대전처럼 요일 묶음별 하루 평균과 시간대 값.
+ * 날마다의 승하차(CardSubwayStatsNew)로 요일 묶음별 하루 평균을 내고, 시간대는 그 달 시간대 합계(CardSubwayTime)의 모양으로 나눈다
+ * (시간대 자료는 요일을 가르지 않는다. **우리가 정한 어림**). 공휴일은 표시가 없어 평일·토요일에 섞여 있다(부산 자료와 같다).
+ * 같은 노선 묶음의 같은 이름 역(환승역은 노선마다 따로 센다)에 붙인다. 이 자료에 없는 노선(신분당선, GTX-A, 인천 1·2호선, 경전철)은 비워 둔다.
+ */
+export function sudogwonRidership(raw, stations, issues) {
+  const files = ['seoul-subway/riders-202610.json'].filter((f) => existsSync(raw(f)));
+  if (!files.length) return { stations: {}, period: null };
+  const data = JSON.parse(readFileSync(raw(files[0]), 'utf8'));
+  const key = (name) => normalizeName(String(name ?? '').replace(/\([^)]*\)/g, '')).replace(/역$/, '');
+  const index = new Map();
+  for (const s of stations) index.set(`${s.line}|${key(s.name)}`, s);
+  const find = (line, name) => {
+    for (const id of CARD_LINES[line] ?? []) {
+      const s = index.get(`${id}|${key(name)}`);
+      if (s) return s;
+    }
+    return null;
+  };
+  const WEEKDAY = ['일요일', '평일', '평일', '평일', '평일', '평일', '토요일'];
+  const tally = new Map();
+  const unknown = new Set();
+  for (const [date, line, name, board, alight] of data.daily) {
+    const s = find(line, name);
+    if (!s) {
+      unknown.add(`${line} ${name}`);
+      continue;
+    }
+    const type = WEEKDAY[new Date(Date.UTC(Number(date.slice(0, 4)), Number(date.slice(4, 6)) - 1, Number(date.slice(6)))).getUTCDay()];
+    const k = `${s.id}|${type}`;
+    const t = tally.get(k) ?? { days: new Set(), board: 0, alight: 0 };
+    t.days.add(date);
+    t.board += board;
+    t.alight += alight;
+    tally.set(k, t);
+  }
+  // 시간대 모양(그 달 합계를 1로)
+  const shape = new Map();
+  for (const [line, name, b, a] of data.hourly) {
+    const s = find(line, name);
+    if (!s) continue;
+    const old = shape.get(s.id) ?? { b: new Array(24).fill(0), a: new Array(24).fill(0) };
+    b.forEach((v, h) => (old.b[h] += v));
+    a.forEach((v, h) => (old.a[h] += v));
+    shape.set(s.id, old);
+  }
+  const spread = (total, arr) => {
+    const sum = arr.reduce((x, v) => x + v, 0);
+    return sum > 0 ? arr.map((v) => Math.round((total * v) / sum)) : new Array(24).fill(0);
+  };
+  const out = {};
+  for (const [k, t] of tally) {
+    const [id, type] = k.split('|');
+    const board = Math.round(t.board / t.days.size);
+    const alight = Math.round(t.alight / t.days.size);
+    const sh = shape.get(id);
+    const hourly = sh ? { board: spread(board, sh.b), alight: spread(alight, sh.a) } : null;
+    out[id] ??= {};
+    out[id][type] = hourly
+      ? { days: t.days.size, board: hourly.board.reduce((s, v) => s + v, 0), alight: hourly.alight.reduce((s, v) => s + v, 0), hourly }
+      : { days: t.days.size, board, alight };
+  }
+  if (unknown.size) issues.push(`[이용객] 수도권 교통카드 자료에서 우리 역을 찾지 못한 것 ${unknown.size}개: ${[...unknown].slice(0, 20).join(', ')}${unknown.size > 20 ? ' …' : ''}`);
+  const month = data.month;
+  return { stations: out, period: `${month.slice(0, 4)}년 ${Number(month.slice(4))}월` };
+}
+
+/** 서울 열린데이터광장 역 목록의 노선 이름 → 우리 수도권 노선 id */
+const LIST_LINES = {
+  '01호선': ['S1', 'S1K', 'S1G', 'S1D'],
+  '02호선': ['S2', 'S2A', 'S2B'],
+  '03호선': ['S3'],
+  '04호선': ['S4'],
+  '05호선': ['S5', 'S5M'],
+  '06호선': ['S6'],
+  '07호선': ['S7'],
+  '08호선': ['S8'],
+  '09호선': ['S9'],
+  경의선: ['SGJ', 'SGJB'],
+  경춘선: ['SGC', 'SGCB'],
+  수인분당선: ['SSB'],
+  경강선: ['SGG'],
+  서해선: ['SSH'],
+  신분당선: ['SSBD'],
+  공항철도: ['SAR'],
+  'GTX-A': ['SGTXA'],
+  인천선: ['SI1'],
+  인천2호선: ['SI2'],
+  우이신설경전철: ['SUI'],
+  신림선: ['SSL'],
+  의정부경전철: ['SUJ'],
+  용인경전철: ['SEV'],
+  김포도시철도: ['SGM'],
+};
+
+/**
+ * 수도권 역에 역명판 번호(number, 예: 제기동 125, 청량리 경의·중앙선 K117)를 붙인다(서울 열린데이터광장 역 목록, npm run seoul-riders).
+ * 같은 노선 묶음의 같은 이름 역에 붙인다. 자료가 없으면 그대로 둔다.
+ */
+export function addSudogwonNumbers(raw, stations, issues) {
+  const file = 'seoul-subway/stations.json';
+  if (!existsSync(raw(file))) return;
+  const data = JSON.parse(readFileSync(raw(file), 'utf8'));
+  const key = (name) => normalizeName(String(name ?? '').replace(/\([^)]*\)/g, '')).replace(/역$/, '');
+  const byLineName = new Map(stations.map((s) => [`${s.line}|${key(s.name)}`, s]));
+  let placed = 0;
+  for (const [line, name, number] of data.rows) {
+    for (const id of LIST_LINES[line] ?? []) {
+      const s = byLineName.get(`${id}|${key(name)}`);
+      if (s && number) {
+        s.number ??= String(number);
+        placed += 1;
+      }
+    }
+  }
+  const sd = stations.filter((s) => LIST_LINES_IDS.has(s.line));
+  const without = sd.filter((s) => !s.number);
+  if (without.length) issues.push(`[역] 수도권 역명판 번호가 없는 역 ${without.length}곳(서울 열린데이터광장 역 목록에 없음): ${without.slice(0, 15).map((s) => `${s.name}(${s.line})`).join(', ')}${without.length > 15 ? ' …' : ''}`);
+  return placed;
+}
+const LIST_LINES_IDS = new Set(Object.values(LIST_LINES).flat());

@@ -17,3 +17,18 @@ export function readApiKey() {
     return null;
   }
 }
+
+/** 서울 열린데이터광장 인증키 파일(git에 넣지 않는다. 사용자가 2026-11-22에 둠) */
+export const SEOUL_KEY_FILE = resolve(dirname(fileURLToPath(import.meta.url)), '../../seoul_api.txt');
+
+/** @returns {string|null} 서울 열린데이터광장 인증키(환경 변수 SEOUL_OPEN_KEY 또는 seoul_api.txt). 없으면 null */
+export function readSeoulKey() {
+  const fromEnv = process.env.SEOUL_OPEN_KEY?.trim();
+  if (fromEnv) return fromEnv;
+  try {
+    if (!existsSync(SEOUL_KEY_FILE)) return null;
+    return readFileSync(SEOUL_KEY_FILE, 'utf8').trim() || null;
+  } catch {
+    return null;
+  }
+}

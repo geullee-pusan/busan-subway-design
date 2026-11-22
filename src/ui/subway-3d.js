@@ -61,6 +61,48 @@ const EYE = 1.1;
 const EDGE = 1.75;
 
 /**
+ * 수도권 도시철도 차량(수도권 넓히기, 2026-11-22). 칠과 차 안은 사용자가 보내 준 사진(서울 1~9호선, 광역, 경전철)을 보고 정했다.
+ * 크기: 신분당선(19.5 × 3.12 × 3.6m)과 인천 2호선(17.2 × 2.65 × 3.6m)은 위키백과, 우이신설선(14.0 × 2.65 × 3.4m)과
+ * 의정부경전철(13.07 × 2.08 × 3.27m)은 사용자가 붙여 준 나무위키 제원. 나머지 큰 전동차는 동해선 제원(19.5 × 3.12 × 3.75m)과 같게 둔
+ * 어림이다(TODO). 칸 수: 2호선 본선 10·신정지선 6·성수지선 4, 신분당선 6, 인천 1호선 8, 인천 2호선·김포골드라인 2는 위키백과,
+ * 우이신설선·의정부경전철 2는 사용자 제원, 1호선 10은 위키백과(코레일 311000호대), 나머지는 어림(TODO). 한쪽 문 수는 어림.
+ * under: 땅속으로 그린다(서울 지하철과 지하 노선). 땅 위 노선(1호선·경의중앙·경춘·경강·서해선·의정부·용인)은 땅 위로 그린다(어림).
+ */
+const BIG = { L: 19.5, W: 3.12, H: 3.75, doors: 4, rubber: false };
+const SUDOGWON_CARS = {
+  S1: { ...BIG, cars: 10, body: '#F2F3F4', front: '#24306A', frontTop: '#24306A', band: '#1F5FC4', band2: null, frontBand: '#D7262E', lower: '#C9CDD2', seat: '#24306A', inside: 's1', rim: true, rimColor: '#24306A' },
+  S2: { ...BIG, cars: 10, under: true, body: '#C5C9CE', front: '#C5C9CE', frontTop: '#1E2125', band: '#3CB44A', band2: null, frontBand: '#3CB44A', lower: '#B8BCC1', seat: '#4A4F55', inside: 's2' },
+  S3: { ...BIG, cars: 10, under: true, body: '#C9CDD2', front: '#3A3F45', frontTop: '#3A3F45', band: '#F07A1A', band2: null, frontBand: '#F07A1A', lower: '#B9BEC3', seat: '#E8822E', inside: 's3' },
+  S4: { ...BIG, cars: 10, under: true, body: '#F2F3F4', front: '#24306A', frontTop: '#24306A', band: '#3FA9E0', band2: '#24306A', frontBand: '#3FA9E0', lower: '#C9CDD2', seat: '#B9BEC3', inside: 's4' },
+  S5: { ...BIG, cars: 8, under: true, body: '#C9CDD2', front: '#1E2125', frontTop: '#1E2125', band: '#8B4FB8', band2: null, frontBand: '#8B4FB8', lower: '#B9BEC3', seat: '#8B4FB8', inside: 's5' },
+  S6: { ...BIG, cars: 8, under: true, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#D7782A', band2: null, frontBand: '#D7782A', lower: '#B9BEC3', seat: '#8A8D90', inside: 's6' },
+  S7: { ...BIG, cars: 8, under: true, body: '#C9CDD2', front: '#F2F3F4', frontTop: '#1E2125', band: '#6B6B2E', band2: null, frontBand: '#6B6B2E', lower: '#B9BEC3', seat: '#8DC63F', inside: 's7' },
+  S8: { ...BIG, cars: 6, under: true, body: '#E9EBED', front: '#F2F3F4', frontTop: '#1E2125', band: '#E0457B', band2: null, frontBand: '#E0457B', lower: '#C9CDD2', seat: '#2F5FB8', inside: 's8' },
+  S9: { ...BIG, cars: 6, under: true, body: '#C9CDD2', front: '#B8923A', frontTop: '#1E2125', band: '#B8923A', band2: null, frontBand: '#D7262E', lower: '#B9BEC3', seat: '#8A8D90', inside: 's9' },
+  SGJ: { ...BIG, cars: 8, body: '#C9CDD2', front: '#24306A', frontTop: '#24306A', band: '#5BBFB5', band2: null, frontBand: '#F08A7A', lower: '#B9BEC3', seat: '#24306A', inside: 'sgj', rim: true, rimColor: '#24306A' },
+  SSB: { ...BIG, cars: 6, under: true, body: '#C9CDD2', front: '#1E2A4A', frontTop: '#1E2A4A', band: '#F2C200', band2: null, frontBand: '#F2C200', lower: '#B9BEC3', seat: '#F2F3F4', inside: 'ssb', rim: true, rimColor: '#F2C200' },
+  SGC: { ...BIG, cars: 8, body: '#F2F3F4', front: '#1F5FC4', frontTop: '#1F5FC4', band: '#1F5FC4', band2: null, frontBand: '#1F5FC4', lower: '#C9CDD2', seat: '#7CC242', inside: 'sgc', rim: true, rimColor: '#1F5FC4' },
+  SGG: { ...BIG, cars: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#1F4FB5', band2: null, frontBand: '#1F4FB5', lower: '#B9BEC3', seat: '#C85A6A', inside: 'sgg', doorColor: '#2A5FCC' },
+  SSH: { ...BIG, cars: 4, body: '#F2F3F4', front: '#F2F3F4', frontTop: '#1E2125', band: '#5BBE2E', band2: '#5BC2E7', frontBand: '#5BBE2E', lower: '#C9CDD2', seat: '#9EA4AA', inside: 'ssh' },
+  SSBD: { L: 19.5, W: 3.12, H: 3.6, doors: 4, rubber: false, cars: 6, under: true, body: '#C9CDD2', front: '#D7262E', frontTop: '#1E2125', band: '#D7262E', band2: null, frontBand: '#D7262E', lower: '#B9BEC3', seat: '#D9822E', inside: 'ssbd' },
+  SAR: { ...BIG, cars: 6, body: '#2B7BD9', front: '#2B7BD9', frontTop: '#1E2125', band: '#F2F3F4', band2: '#F2F3F4', frontBand: '#F2F3F4', lower: '#1F5FB0', seat: '#24306A', inside: 'sar' },
+  SGTXA: { ...BIG, cars: 8, under: true, body: '#4A90E2', front: '#3A7BD5', frontTop: '#1E2125', band: '#F2F3F4', band2: '#E0457B', frontBand: '#1E2125', lower: '#2F5FB8', seat: '#9EC5E8', inside: 'sgtxa' },
+  SI1: { L: 18, W: 2.75, H: 3.6, doors: 4, rubber: false, cars: 8, under: true, body: '#F2F3F4', front: '#C9CDD2', frontTop: '#1E2125', band: '#6EC6F0', band2: null, frontBand: '#6EC6F0', lower: '#C9CDD2', seat: '#3A3F45', inside: 'si1' },
+  SI2: { L: 17.2, W: 2.65, H: 3.6, doors: 3, rubber: false, cars: 2, under: true, body: '#9EA4AA', front: '#9EA4AA', frontTop: '#1E2125', band: '#F07A1A', band2: '#F2F3F4', frontBand: '#F07A1A', lower: '#2A2D31', seat: '#2F5FB8', inside: 'si2' },
+  SUI: { L: 14, W: 2.65, H: 3.4, doors: 2, rubber: false, thirdRail: true, cars: 2, under: true, body: '#B5D334', front: '#1E2125', frontTop: '#1F5FC4', band: '#1F5FC4', band2: null, frontBand: '#B5D334', lower: '#3A3F45', seat: '#8EC8E8', inside: 'sui', rim: true, rimColor: '#1F5FC4' },
+  SSL: { L: 14, W: 2.65, H: 3.4, doors: 2, rubber: true, thirdRail: true, cars: 3, under: true, body: '#F2F3F4', front: '#F2F3F4', frontTop: '#1E2125', band: '#1F3F8F', band2: null, frontBand: '#1F3F8F', lower: '#C9CDD2', seat: '#2F5FB8', inside: 'ssl', rim: true, rimColor: '#1F3F8F' },
+  SUJ: { L: 13.07, W: 2.08, H: 3.27, doors: 2, rubber: true, thirdRail: true, cars: 2, body: '#F2F3F4', front: '#F2F3F4', frontTop: '#D7262E', band: '#2EAA6B', band2: '#1F5FC4', frontBand: '#D7262E', lower: '#C9CDD2', seat: '#9EA4AA', inside: 'suj' },
+  SEV: { L: 12, W: 2.65, H: 3.4, doors: 2, rubber: true, thirdRail: true, cars: 1, body: '#F2F3F4', front: '#1F5FC4', frontTop: '#1F5FC4', band: '#8DC63F', band2: null, frontBand: '#1F5FC4', lower: '#1F5FC4', seat: '#C9CDD2', inside: 'sev', rim: true, rimColor: '#1F5FC4' },
+  SGM: { L: 13, W: 2.65, H: 3.4, doors: 2, rubber: false, thirdRail: true, cars: 2, under: true, body: '#B8923A', front: '#3A3F45', frontTop: '#1E2125', band: '#B8923A', band2: null, frontBand: '#3A3F45', lower: '#3A3F45', seat: '#C8B49A', inside: 'sgm' },
+};
+for (const id of ['S1K', 'S1G', 'S1D']) SUDOGWON_CARS[id] = SUDOGWON_CARS.S1;
+SUDOGWON_CARS.S2A = { ...SUDOGWON_CARS.S2, cars: 4 };
+SUDOGWON_CARS.S2B = { ...SUDOGWON_CARS.S2, cars: 6 };
+SUDOGWON_CARS.S5M = SUDOGWON_CARS.S5;
+SUDOGWON_CARS.SGJB = SUDOGWON_CARS.SGJ;
+SUDOGWON_CARS.SGCB = SUDOGWON_CARS.SGC;
+
+/**
  * 노선별 차량. L·W·H(미터)와 칸 수, 한쪽 출입문 수는 부산교통공사 제원(1~4호선).
  * 칠: 바탕(body), 앞판(front), 띠(band, band2), 창 둘레(win).
  */
@@ -89,6 +131,7 @@ export const SUBWAY_CARS = {
   GJ1: { L: 18, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#1BB5A0', band2: '#11695F', frontBand: '#1BB5A0', lower: '#B9BEC3', seat: '#1F5A4A', rubber: false, under: true, inside: 'gj1' },
   // 대전 1호선: 칠은 사용자가 보내 준 사진(은색 차체, 창 아래 청록빛 초록 띠, 앞유리와 행선판을 잇는 검은 띠). 18m×2.75m×3.6m, 4칸(Tc-M'-M'-Tc)은 사용자가 붙여 준 제원(subwayCars.DJ1). 문 수는 어림(TODO), 땅속으로 그린다(어림)
   DJ1: { L: 18, W: 2.75, H: 3.6, cars: 4, doors: 4, body: '#C9CDD2', front: '#C9CDD2', frontTop: '#1E2125', band: '#1FB592', band2: null, frontBand: '#1FB592', lower: '#B9BEC3', seat: '#36B5AA', rubber: false, under: true, inside: 'dj1' },
+  ...SUDOGWON_CARS,
 };
 
 /**
@@ -124,6 +167,28 @@ const STATION_LOOK = {
   DJ1: { ceilStyle: 'linear', wallTile: '#e4e5e5', trackTile: '#dcdedf', ceil: '#f0f1f1', floor: '#d9d8d4', pillar: '#f2f2f0', round: true, tactileLine: true, psdHeader: '#e8eaec', wallBench: { seat: '#C49A5E', base: '#A3A7AB', legs: 2, length: 2.4 } },
   default: { ceilStyle: 'panel', wallTile: '#ece6da', trackTile: '#e8e6e0', ceil: '#e9ebeb', floor: '#c9cbcc', pillar: '#e3d6c4', round: true, tactileLine: true },
 };
+// 수도권(사용자가 보내 준 승강장 사진, 2026-11-22)
+// 땅속 역(시청·종로5가·신설동·청량리 사진): 흰 타일 벽, 밝은 천장판과 긴 등, 회색 화강석 바닥, 은색 안전문 틀 위 흰 판에 노선 색 줄
+const SEOUL_UNDER = { ceilStyle: 'linear', wallTile: '#ecebe6', trackTile: '#e8e6e0', ceil: '#eceeee', floor: '#c9cbcc', pillar: '#eeeeec', round: true, tactileLine: false, psdHeader: '#eef0f2' };
+// 땅 위 역(대방·도봉산·영등포·회기·외대앞·신이문 사진): 철골 지붕, 청록 둥근 기둥, 회색 바닥, 흰 안전문 틀과 노선 색 줄, 나무 의자
+const KORAIL_ABOVE = { ceil: '#e6e8ea', floor: '#a8abae', pillar: '#2F9C88', round: true, tactileLine: false, psdHeader: '#e6e8ea', roof: '#5b7f86', benches: true };
+for (const [id, spec] of Object.entries(SUDOGWON_CARS)) {
+  const stripe = { S1: '#24306A', S1K: '#24306A', S1G: '#24306A', S1D: '#24306A', SGJ: '#5BBFB5', SGJB: '#5BBFB5', SGC: '#1BA37A', SGCB: '#1BA37A', SSB: '#F2C200' }[id] ?? spec.band;
+  STATION_LOOK[id] = spec.under ? { ...SEOUL_UNDER, psdStripe: stripe } : { ...KORAIL_ABOVE, psdStripe: stripe };
+}
+// 2호선 신설동 사진: 흰 타일 벽에 초록 띠, 베이지 화강석 바닥
+STATION_LOOK.S2 = { ...STATION_LOOK.S2, wallTile: '#f2f2ee', floor: '#d8cdb8' };
+STATION_LOOK.S2A = STATION_LOOK.S2;
+// 6호선 석계 사진: 청록 틀 안전문
+STATION_LOOK.S6 = { ...STATION_LOOK.S6, psdHeader: '#7FB5AE' };
+// 5호선 광화문 사진: 녹회색 둥근 천장판, 흰 둥근 기둥, 회색 안전문. 3호선 신사 사진: 흰 네모 타일 벽에 주황 띠, 짙은 안전문 틀.
+// 4호선 혜화 사진: 회색 안전문 틀, 위 흰 판에 하늘색 줄, 회색 타일 바닥
+STATION_LOOK.S5 = { ...STATION_LOOK.S5, ceil: '#b9c6bd', psdHeader: '#c9cdd2' };
+STATION_LOOK.S5M = STATION_LOOK.S5;
+STATION_LOOK.S3 = { ...STATION_LOOK.S3, psdHeader: '#3a3f45', wallTile: '#f2f2ee' };
+STATION_LOOK.S4 = { ...STATION_LOOK.S4, psdHeader: '#6b7076', floor: '#a9adb1', wallTile: '#ece4cf' }; // 혜화 역명판 사진: 크림색 네모 타일 벽
+STATION_LOOK.S2B = STATION_LOOK.S2;
+
 // 2호선: 기본 모양에 벽 앞 긴 의자(사용자가 보내 준 덕천역 사진: 화강석 받침 위 짙은 초록 앉음판)
 STATION_LOOK[2] = { ...STATION_LOOK.default, wallBench: { seat: '#2F5E4E', base: '#B3B1AC', legs: 3, length: 3.2 } };
 
@@ -846,6 +911,88 @@ function korailSignTexture({ name, en, hanja, next, nextEn, prev, prevEn }) {
   });
 }
 
+/**
+ * 서울교통공사 역명판(사용자가 보내 준 제기동·청량리 사진): 흰 바탕 둥근 판에 노선 색 테, 왼쪽 노선 색 동그라미 역 번호,
+ * 가운데 역 이름·영어·한자, 양옆 노선 색 띠에 이전·다음 역(번호 동그라미). 부역명과 일본어는 넣지 않는다.
+ */
+function seoulSignTexture({ name, en, hanja, num, next, nextEn, nextNum, prev, prevEn, prevNum, color }) {
+  return tex(1024, 160, (g, W, H) => {
+    // 양옆 띠
+    g.fillStyle = color;
+    g.fillRect(0, 54, W, 52);
+    g.fillStyle = '#ffffff';
+    g.textBaseline = 'middle';
+    const side = (label, en2, n, x, align) => {
+      if (!label) return;
+      g.textAlign = align;
+      g.font = 'bold 26px sans-serif';
+      g.fillText(label, x, 72, 170);
+      g.font = '14px sans-serif';
+      g.fillText(en2 ?? '', x, 94, 170);
+    };
+    side(prev, prevEn, prevNum, 70, 'left');
+    side(next, nextEn, nextNum, W - 70, 'right');
+    // 가운데 둥근 판
+    const x0 = 250;
+    const x1 = W - 250;
+    const r = 70;
+    g.fillStyle = color;
+    g.beginPath();
+    g.roundRect(x0 - 6, 4, x1 - x0 + 12, H - 8, r + 6);
+    g.fill();
+    g.fillStyle = '#ffffff';
+    g.beginPath();
+    g.roundRect(x0, 10, x1 - x0, H - 20, r);
+    g.fill();
+    if (num) {
+      g.fillStyle = color;
+      g.beginPath();
+      g.arc(x0 + 62, H / 2, 40, 0, Math.PI * 2);
+      g.fill();
+      g.fillStyle = '#ffffff';
+      g.textAlign = 'center';
+      g.font = 'bold 32px sans-serif';
+      g.fillText(num, x0 + 62, H / 2 + 1);
+    }
+    g.fillStyle = '#1b1d20';
+    g.textAlign = 'center';
+    const cx = (x0 + 110 + x1) / 2;
+    g.font = 'bold 52px sans-serif';
+    g.fillText(name, cx, 52, x1 - x0 - 150);
+    g.font = '24px sans-serif';
+    g.fillText(en ?? '', cx, 98, x1 - x0 - 150);
+    if (hanja) {
+      g.font = '20px serif';
+      g.fillText(hanja, cx, 128, x1 - x0 - 150);
+    }
+  });
+}
+
+/** 코레일 역명판(사용자가 보내 준 회기 사진): 남색 세로 판에 흰 글자로 역 이름(한 글자씩 세로로), 영어, 한자 */
+function korailTallSignTexture({ name, en, hanja }) {
+  return tex(256, 720, (g, W, H) => {
+    // 파란 판(외대앞·신이문 사진). 회기는 남색에 가깝다. 회사 로고는 넣지 않는다
+    g.fillStyle = '#1F48A8';
+    g.fillRect(0, 0, W, H);
+    g.fillStyle = '#ffffff';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    const chars = name.split('');
+    const size = chars.length > 4 ? 70 : 96;
+    chars.forEach((c, i) => {
+      g.font = `bold ${size}px sans-serif`;
+      g.fillText(c, W / 2, 110 + i * (size + 14), W - 30);
+    });
+    const yEn = Math.min(H - 110, 110 + chars.length * (size + 14) + 10);
+    g.font = '30px sans-serif';
+    g.fillText(en ?? '', W / 2, yEn, W - 24);
+    if (hanja) {
+      g.font = '30px serif';
+      g.fillText(hanja, W / 2, yEn + 48, W - 24);
+    }
+  });
+}
+
 /** 대경선 역명판(사진): 남색 가로 판, 가운데 큰 역 이름과 영어·한자, 양옆 다음·앞 역, 가로지르는 노란 화살표(다음 역 쪽). 로고는 넣지 않는다 */
 function korailWideSignTexture({ name, en, hanja, next, nextEn, prev, prevEn }) {
   return tex(1024, 360, (g, W, H) => {
@@ -1159,6 +1306,31 @@ const INSIDE = {
   // 차 안 안내: 천장에 매단 틀에 화면 둘(사용자가 보내 준 사진). 왼쪽 화면의 광고·영상은 넣지 않는다
   dj1: { pole: '#C9CDD2', strap: '#1E2125', shape: 'triangle', floor: '#C9CBCC', wall: '#F4F4F2', partition: '#F4F4F2', dots: '#7FD3CC', led: 'twin', ledFrame: '#c9ccd0' },
   default: { pole: '#f2c230', strap: '#f2c230', shape: 'box', floor: '#7d8186', wall: '#e6e8e6', partition: null, dots: null },
+  // 수도권(사용자가 보내 준 차 안 사진, 2026-11-22)
+  s1: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#9EA3A8', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'door' },
+  s2: { pole: '#C9CDD2', strap: '#3CB44A', shape: 'triangle', floor: '#5A5F64', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'end' },
+  s3: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'ceiling' },
+  s4: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#B9BEC3', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'ceiling-small' },
+  s5: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#B9BEC3', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'ceiling' },
+  s6: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#9EA3A8', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#B5B8BB', led: 'end' },
+  s7: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#B9BEC3', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'ceiling' },
+  s8: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'ceiling' },
+  s9: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'ring', floor: '#C9CCCF', wall: '#E2E4E6', partition: '#D9DCDF', dots: '#A9ADB1', led: 'ceiling' },
+  sgj: { pole: '#C9CDD2', strap: '#8A5A3A', shape: 'triangle', floor: '#9EA3A8', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'twin', twinStyle: 'dh', ledFrame: '#d5d7d9' },
+  ssb: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#9EA3A8', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, pads: '#F2C200', led: 'twin', twinStyle: 'dh', ledFrame: '#d5d7d9' },
+  sgc: { pole: '#C9CDD2', strap: '#1F5FC4', shape: 'triangle', floor: '#9EA3A8', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#5AA83A', led: 'twin', twinStyle: 'dh', ledFrame: '#d5d7d9' },
+  sgg: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#E0A0A8', led: 'twin', twinStyle: 'dh', ledFrame: '#d5d7d9' },
+  ssh: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#C0C3C6', led: 'twin', twinStyle: 'dh', ledFrame: '#d5d7d9' },
+  ssbd: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'ring', floor: '#2F5FB8', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, pads: '#2F4FA8', led: 'ceiling' },
+  sar: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'ring', floor: '#D9DCDF', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'twin', twinStyle: 'dk', ledFrame: '#d5d7d9' },
+  sgtxa: { pole: '#C9CDD2', strap: '#3F9BD9', shape: 'triangle', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, buckets: true, led: 'twin', twinStyle: 'dk', ledFrame: '#d5d7d9' },
+  si1: { pole: '#C9CDD2', strap: '#C9CDD2', shape: 'triangle', floor: '#3F78D9', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#E8B04A', led: 'ceiling' },
+  si2: { pole: '#C9CDD2', strap: '#3FB0E0', shape: 'triangle', floor: '#D9D3C4', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, led: 'ceiling' },
+  sui: { pole: '#C9CDD2', strap: '#D9E021', shape: 'triangle', floor: '#8A8F94', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#E8EA6A', led: 'ceiling-small' },
+  ssl: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'ring', floor: '#C9CCCF', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, buckets: true, led: 'ceiling-small' },
+  suj: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'ring', floor: '#B9BEC3', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, buckets: true },
+  sev: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'triangle', floor: '#B9BEC3', wall: '#F2F3F3', partition: '#F4F5F5', dots: null, buckets: true },
+  sgm: { pole: '#C9CDD2', strap: '#E6E8EA', shape: 'ring', floor: '#E2DCCF', wall: '#F2F3F3', partition: '#F4F5F5', dots: '#B8A080', led: 'ceiling-small' },
 };
 
 /** 열차 안: 긴 의자, 손잡이 기둥, 손잡이, 천장 등, 문 위 안내 화면. 칸 하나 */
@@ -2321,7 +2493,17 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       const korailWide = lineId === 'DK';
       const gwangju = lineId === 'GJ1';
       const daejeon = lineId === 'DJ1';
-      const signTex = busan
+      // 수도권: 역 번호가 세 자리 숫자면 서울교통공사 꼴(둥근 판, 제기동·청량리 사진), 글자가 붙으면(K117, P148) 코레일 꼴(남색 세로 판, 회기 사진)
+      const sdNum = stationById.get(stop.id)?.number ?? null;
+      const sudogwon = Boolean(SUDOGWON_CARS[lineId]);
+      const seoulMetro = sudogwon && /^\d{3}$/.test(sdNum ?? '');
+      const korailTall = sudogwon && !seoulMetro;
+      const numOf = (st) => (st ? stationById.get(st.id)?.number ?? null : null);
+      const signTex = seoulMetro
+        ? seoulSignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: sdNum, next: nx?.ko, nextEn: nx?.en, nextNum: numOf(stops[si + 1]), prev: pv?.ko, prevEn: pv?.en, prevNum: numOf(stops[si - 1]), color })
+        : korailTall
+          ? korailTallSignTexture({ name: here.ko, en: here.en, hanja: here.hanja })
+        : busan
         ? busanSignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: code ? String(code).padStart(3, '0') : '', next: nx?.ko, nextEn: nx?.en, prev: pv?.ko, prevEn: pv?.en, color })
         : bgl
           ? bglSignTexture({ name: here.ko, en: here.en, hanja: here.hanja, num: Number(String(stop.id).replace(/\D/g, '')) || '' })
@@ -2340,12 +2522,12 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
               : boardTexture([stop.name], { bg: '#ffffff', fg: '#1F3342', bar: color, width: 512, height: 128 });
       textures.push(signTex);
       const tex = signTex;
-      const [pw, ph] = busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
+      const [pw, ph] = seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
       for (const off of [-0.06, -0.03, 0, 0.03, 0.06]) {
         const s = sampleAt(kmS + off);
         if (!s) continue;
         const under = s.under > 0.5;
-        const b = new Mesh(new PlaneGeometry(pw, ph), new MeshBasicMaterial({ map: tex, transparent: busan || gwangju }));
+        const b = new Mesh(new PlaneGeometry(pw, ph), new MeshBasicMaterial({ map: tex, transparent: busan || gwangju || seoulMetro }));
         const o = under ? 8.45 : 7.5;
         b.position.set(s.x + s.rx * o, s.y + 3.2, s.z + s.rz * o);
         b.rotation.y = Math.atan2(-s.uz, s.ux) + Math.PI;

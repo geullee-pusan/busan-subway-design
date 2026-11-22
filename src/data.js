@@ -92,6 +92,8 @@ export function ridershipOf(stationId) {
   if (gwangju) return { data: gwangju, from: null, source: ridership.gwangju.source };
   const daejeon = ridership.daejeon?.stations[stationId];
   if (daejeon) return { data: daejeon, from: null, source: ridership.daejeon.source };
+  const sudogwon = ridership.sudogwon?.stations[stationId];
+  if (sudogwon) return { data: sudogwon, from: null, source: ridership.sudogwon.source };
   const shared = ridership.missing.find((m) => m.id === stationId);
   if (shared) {
     for (const sibling of transferSiblings(stationId)) {
