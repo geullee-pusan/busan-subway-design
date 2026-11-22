@@ -38,7 +38,9 @@ function bootScreen() {
     name: 'boot-screen',
     transformIndexHtml: {
       order: 'post',
-      handler: (html) => html.replace('<head>', `<head>
+      // 글자 설정(<meta charset>) 바로 뒤에 넣는다. 브라우저는 문서 앞 1,024바이트 안에서만 charset을 찾아서,
+      // 로딩 화면이 그 앞에 오면 한글이 깨진다(서버가 charset 없이 text/html만 보내는 경우).
+      handler: (html) => html.replace(/(<meta charset="UTF-8"\s*\/?>)/i, `$1
 ${LOADING}`),
     },
   };

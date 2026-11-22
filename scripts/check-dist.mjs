@@ -23,6 +23,9 @@ if (extra.length) problems.push(`쓰지 않기로 한 파일이 있어요: ${ext
 if (missing.length) problems.push(`있어야 할 파일이 없어요: ${missing.join(', ')}`);
 
 const html = readFileSync(resolve(DIST, APP), 'utf8');
+// 브라우저는 문서 앞 1,024바이트 안에서만 <meta charset>을 찾는다. 그 뒤에 있으면 한글이 깨질 수 있다.
+const charsetAt = Buffer.from(html, 'utf8').indexOf('<meta charset');
+if (charsetAt < 0 || charsetAt > 1024 - 64) problems.push(`<meta charset>이 문서 앞 1,024바이트 안에 없어요(${charsetAt}바이트째). 한글이 깨질 수 있어요.`);
 
 // 게임 코드와 자료는 index.html 안에 다 있어야 한다. 곁들이 파일만 밖에서 부른다.
 const scriptSrc = [...html.matchAll(/<script[^>]*\ssrc=["']([^"']+)["']/gi)].map((m) => m[1]);
