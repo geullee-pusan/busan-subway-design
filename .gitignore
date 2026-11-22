@@ -36,3 +36,4 @@ assets/passengers/
 
 # 서울 열린데이터광장 인증키(사용자가 2026-11-22에 둠). 올리지 않는다.
 seoul_api.txt
+data/raw/suno/

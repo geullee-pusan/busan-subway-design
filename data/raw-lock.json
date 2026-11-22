@@ -5988,5 +5988,19 @@
     "bytes": 3595188,
     "sha256": "30397f2aa38835dfc37c2093a02a6e02547eb8a9b635b187f0db4c9e19ec69b7",
     "fetched": "2026-09-22"
+  },
+  "suno-seoul-metro-transfer": {
+    "file": "data/raw/suno/seoul-metro-transfer.mp3",
+    "url": "(사용자가 Suno로 만들어 보낸 파일: 가야금의 아침.mp3)",
+    "bytes": 3115025,
+    "sha256": "4e9e6cd4451d7aa9a416f4416f024ed1f872d87603a040f9dda9dad311ed4b8e",
+    "fetched": "2026-11-22"
+  },
+  "suno-korail-transfer": {
+    "file": "data/raw/suno/korail-transfer.mp3",
+    "url": "(사용자가 Suno로 만들어 보낸 파일: 신랑신랑이 오옵니다.mp3)",
+    "bytes": 2812444,
+    "sha256": "bed758b61851af4a9b17c0c0af14c3956fe3e35ea55fe4ab99c97f9a4e8074ef",
+    "fetched": "2026-11-22"
   }
 }

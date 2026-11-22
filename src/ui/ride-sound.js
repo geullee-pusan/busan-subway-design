@@ -704,7 +704,7 @@ export function createRideSound() {
    * 녹음된 소리(MP3를 base64로 적은 글자)를 낸다. 끝나면(또는 못 내면) 풀리는 약속을 돌려준다.
    * 게임 파일 안의 글자로 소리를 만들어서 네트워크를 쓰지 않는다.
    */
-  function playClip(base64, type = 'audio/mpeg') {
+  function playClip(base64, type = 'audio/mpeg', { fade = 0 } = {}) {
     return new Promise((resolve) => {
       let audio;
       try {
@@ -714,7 +714,16 @@ export function createRideSound() {
         return;
       }
       clips.add(audio);
+      // 곡 가운데를 잘라 낸 소리는 끝 fade초 동안 소리를 줄여 끝낸다.
+      let fading = 0;
+      const step = () => {
+        const left = audio.duration - audio.currentTime;
+        if (Number.isFinite(left)) audio.volume = Math.max(0, Math.min(1, left / fade));
+        fading = requestAnimationFrame(step);
+      };
+      if (fade > 0) fading = requestAnimationFrame(step);
       const finish = () => {
+        cancelAnimationFrame(fading);
         clearTimeout(limit);
         clips.delete(audio);
         resolve();

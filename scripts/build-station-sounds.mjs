@@ -177,6 +177,51 @@ for (const line of ['DG1', 'DG2', 'DG3']) {
   for (const [kind] of KINDS) if (!daeguLinesOut[line]?.[kind]) throw new Error(`대구 ${line} ${kind} 소리를 찾지 못했어요`);
 }
 
+// 3. 수도권 환승역 음악: 사용자가 Suno로 만들어 보낸 곡(data/raw/suno/, git에 넣지 않음).
+//    원곡 녹음은 이용 허락이 없어 쓰지 않는다. 곡의 앞 10초를 MP3 프레임 그대로 잘라 넣는다(끝은 게임에서 줄여 끝낸다).
+/** MPEG-1 Layer III 파일에서 앞 seconds초의 프레임만 남긴다(ID3 머리와 VBR 정보 프레임은 뗀다). */
+function cutMp3(buffer, seconds) {
+  const RATES = [44100, 48000, 32000];
+  const KBPS = [0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320];
+  let at = 0;
+  if (buffer.toString('ascii', 0, 3) === 'ID3') at = 10 + ((buffer[6] << 21) | (buffer[7] << 14) | (buffer[8] << 7) | buffer[9]);
+  const frames = [];
+  let time = 0;
+  while (at + 4 <= buffer.length && time < seconds) {
+    const b1 = buffer[at + 1];
+    const b2 = buffer[at + 2];
+    const ok = buffer[at] === 0xff && (b1 & 0xfe) === 0xfa && b2 >> 4 > 0 && b2 >> 4 < 15 && ((b2 >> 2) & 3) < 3;
+    if (!ok) {
+      at += 1;
+      continue;
+    }
+    const rate = RATES[(b2 >> 2) & 3];
+    const length = Math.floor((144000 * KBPS[b2 >> 4]) / rate) + ((b2 >> 1) & 1);
+    const frame = buffer.subarray(at, at + length);
+    const info = frame.subarray(0, 64).toString('latin1');
+    if (frames.length > 0 || !/Xing|Info/.test(info)) {
+      frames.push(frame);
+      time += 1152 / rate;
+    }
+    at += length;
+  }
+  if (time < seconds - 0.1) throw new Error('MP3가 너무 짧아요');
+  return Buffer.concat(frames);
+}
+
+const SUNO = [
+  // 서울교통공사가 모는 열차: 2~8호선과 갈래. 1호선은 코레일 열차가 대부분이라 코레일 쪽에 둔다(우리가 정한 값).
+  ['seoulMetro', 'data/raw/suno/seoul-metro-transfer.mp3', ['S2', 'S2A', 'S2B', 'S3', 'S4', 'S5', 'S5M', 'S6', 'S7', 'S8']],
+  // 코레일 광역전철, 우이신설선, 의정부경전철(나무위키 「환승음악」: 같은 국악 환승음악을 쓴다)
+  ['korail', 'data/raw/suno/korail-transfer.mp3', ['S1', 'S1K', 'S1G', 'S1D', 'SGJ', 'SGJB', 'SSB', 'SGC', 'SGCB', 'SGG', 'SSH', 'SUI', 'SUJ']],
+];
+const sudogwonClips = {};
+const sudogwonLines = {};
+for (const [key, file, lineIds] of SUNO) {
+  sudogwonClips[key] = { type: 'audio/mpeg', data: cutMp3(readFileSync(resolve(ROOT, file)), 10).toString('base64') };
+  for (const id of lineIds) sudogwonLines[id] = key;
+}
+
 const out = {
   _설명:
     '승강장 소리(부산교통공사 실제 녹음, MP3를 base64로). chimes: 열차진입 알림음(up = 상행선 갈매기·파도, down = 하행선 뱃고동·파도). approach: "호선|끝 역" → 열차진입 방송(한국어), approachEnglish: 같은 열차의 영어 방송. downEnds: 호선마다 하행으로 보는 끝 역(열차 번호가 홀수인 열차가 가는 끝 역, TODO 확인 필요). 만든 곳: scripts/build-station-sounds.mjs',
@@ -191,6 +236,13 @@ const out = {
     source: '공공데이터포털 15063230 대구교통공사_열차 안내방송 음원_20260331',
     lines: daeguLinesOut,
     clips: daeguClips,
+  },
+  sudogwon: {
+    _설명:
+      '수도권 환승역 음악. 사용자가 Suno로 만들어 보낸 곡의 앞 10초(원곡 녹음이 아니다). lines: 노선 → clips의 열쇠. 환승역 방송 앞에서 우리가 지은 가락 대신 튼다.',
+    source: '사용자가 Suno로 만든 곡(2026-11-22)',
+    lines: sudogwonLines,
+    clips: sudogwonClips,
   },
 };
 writeFileSync(resolve(ROOT, 'data/build/station-sounds.json'), JSON.stringify(out));

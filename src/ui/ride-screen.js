@@ -157,6 +157,8 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   /** 대구 도시철도면 열차 안 실제 녹음(도착역·출발역 음악, 환승역 음악, 문 닫힘 방송). 다른 노선은 null */
   const daeguSound = stationSounds.daegu?.lines?.[design.id] ?? null;
   const daeguClip = (kind) => stationSounds.daegu.clips[daeguSound[kind]];
+  /** 수도권 노선이면 환승역 음악(사용자가 Suno로 만든 곡의 앞 10초). 없으면 null */
+  const sudogwonTransfer = stationSounds.sudogwon?.clips?.[stationSounds.sudogwon?.lines?.[design.id]] ?? null;
   const stopLabel = (name) => (isBus ? `${String(name).replace(/역$/, '')} 정류장` : stationLabel(name));
   const kind = { ...kindTable, capacityPerTrain: design.capacityPerTrain ?? kindTable.capacityPerTrain };
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -663,6 +665,7 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
       });
     }
     if (soundOn && daeguSound) card.append(element('p', 'panel-note', '열차 안 음악과 문 닫힘 방송은 대구교통공사의 실제 녹음이에요.'));
+    else if (soundOn && sudogwonTransfer) card.append(element('p', 'panel-note', '환승역에서는 방송 앞에 음악이 나와요. 진짜 열차 음악이 아니라 새로 만든 곡이에요.'));
     else if (soundOn) card.append(element('p', 'panel-note', '환승역과 종착역에서는 방송 앞에 가락이 나와요.'));
 
     card.append(button('타기', startTrip, 'button big ride-go'));
@@ -836,11 +839,13 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
    * 방송이 더 길면 열차는 역 앞에서 기다린다. 가장 짧게 7초.
    */
   function announceMs() {
-    if (!voiceOn) return 7000 + (soundOn && melodyHere() ? 3000 : 0);
+    // 수도권 환승역 음악은 10초짜리 녹음이다
+    const tuneMs = () => (!soundOn || !melodyHere() ? 0 : sudogwonTransfer && melodyHere() === 'transfer' ? 10000 : 3000);
+    if (!voiceOn) return 7000 + tuneMs();
     const { korean, english } = announcement();
     const ko = korean.join('').length * 170;
     const en = english.join('').length * 70;
-    const tune = soundOn && melodyHere() ? 3000 : 0;
+    const tune = tuneMs();
     return Math.max(7000, Math.min(40000, ko + en + tune + 2500));
   }
 
@@ -849,6 +854,13 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
     if (!voiceOn && !soundOn) return Promise.resolve();
     const { korean, english } = announcement();
     if (daeguSound && soundOn) return daeguAnnounce(korean, english);
+    if (sudogwonTransfer && soundOn && melodyHere() === 'transfer') {
+      const leg = legToken;
+      return sound.playClip(sudogwonTransfer.data, sudogwonTransfer.type, { fade: 0.8 }).then(() => {
+        if (leg !== legToken) return undefined;
+        return sound.announce({ korean, english, voice: voiceOn, music: false });
+      });
+    }
     return sound.announce({ korean, english, voice: voiceOn, music: soundOn, melody: melodyHere() });
   }
 
