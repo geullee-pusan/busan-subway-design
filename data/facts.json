@@ -9442,6 +9442,791 @@
           "evidence": "박수근이 직접 글을 쓰고 그린 동화책"
         }
       ]
+    },
+    "gyeongbokgung": {
+      "name": "경복궁",
+      "facts": [
+        {
+          "text": "경복궁은 조선의 으뜸 궁궐이에요.",
+          "source": "한국어 위키백과: 경복궁",
+          "url": "https://ko.wikipedia.org/wiki/경복궁",
+          "checked": "2026-11-22",
+          "evidence": "조선 왕조의 법궁(法宮, 정궁)이다"
+        },
+        {
+          "text": "경복궁은 태조 이성계가 한양으로 도읍을 옮기면서 지었어요.",
+          "source": "한국어 위키백과: 경복궁",
+          "url": "https://ko.wikipedia.org/wiki/경복궁",
+          "checked": "2026-11-22",
+          "evidence": "1395년 태조 이성계의 한양 천도를 계기로 창건되었으며"
+        },
+        {
+          "text": "경복궁이라는 이름에는 온 백성이 큰 복을 누리라는 바람이 담겨 있어요.",
+          "source": "한국어 위키백과: 경복궁",
+          "url": "https://ko.wikipedia.org/wiki/경복궁",
+          "checked": "2026-11-22",
+          "evidence": "온 백성들이 태평성대의 큰 복을 누리기를 축원한다는 의미다"
+        },
+        {
+          "text": "근정전까지 가려면 광화문, 흥례문, 근정문을 차례로 지나요.",
+          "source": "한국어 위키백과: 경복궁",
+          "url": "https://ko.wikipedia.org/wiki/경복궁",
+          "checked": "2026-11-22",
+          "evidence": "궁 밖에서 근정전까지 바깥부터 광화문, 흥례문, 근정문이다"
+        }
+      ]
+    },
+    "changdeokgung": {
+      "name": "창덕궁",
+      "facts": [
+        {
+          "text": "창덕궁은 경복궁 다음으로 두 번째로 세워진 조선의 궁궐이에요.",
+          "source": "한국어 위키백과: 창덕궁",
+          "url": "https://ko.wikipedia.org/wiki/창덕궁",
+          "checked": "2026-11-22",
+          "evidence": "경복궁에 이어 두 번째로 세워진 조선의 궁궐이다"
+        },
+        {
+          "text": "창덕궁은 산자락 생김새에 맞추어 건물을 놓았어요.",
+          "source": "한국어 위키백과: 창덕궁",
+          "url": "https://ko.wikipedia.org/wiki/창덕궁",
+          "checked": "2026-11-22",
+          "evidence": "응봉의 산자락 생긴 모양에 맞추어 적절하게 궁궐의 기능을 배치하였다"
+        },
+        {
+          "text": "창덕궁 후원은 한국의 정원을 대표하는 곳이에요.",
+          "source": "한국어 위키백과: 창덕궁",
+          "url": "https://ko.wikipedia.org/wiki/창덕궁",
+          "checked": "2026-11-22",
+          "evidence": "한국의 정원을 대표한다는 점에서 그 가치가 높다"
+        },
+        {
+          "text": "창덕궁은 유네스코 세계문화유산이에요.",
+          "source": "한국어 위키백과: 창덕궁",
+          "url": "https://ko.wikipedia.org/wiki/창덕궁",
+          "checked": "2026-11-22",
+          "evidence": "유네스코가 지정한 세계문화유산으로 등록되었다"
+        }
+      ]
+    },
+    "gwanghwamun_square": {
+      "name": "광화문광장",
+      "facts": [
+        {
+          "text": "광화문광장은 서울 종로구에 있는 광장이에요.",
+          "source": "한국어 위키백과: 광화문광장",
+          "url": "https://ko.wikipedia.org/wiki/광화문광장",
+          "checked": "2026-11-22",
+          "evidence": "서울특별시 종로구에 위치한 광장으로"
+        },
+        {
+          "text": "광장은 광화문에서 청계광장까지 이어져요.",
+          "source": "한국어 위키백과: 광화문광장",
+          "url": "https://ko.wikipedia.org/wiki/광화문광장",
+          "checked": "2026-11-22",
+          "evidence": "범위는 광화문에서 세종로 사거리 및 청계광장에 이르며"
+        },
+        {
+          "text": "광장의 길이는 740m예요.",
+          "source": "한국어 위키백과: 광화문광장",
+          "url": "https://ko.wikipedia.org/wiki/광화문광장",
+          "checked": "2026-11-22",
+          "evidence": "폭 34m, 길이 740m의 상시 광장에"
+        },
+        {
+          "text": "광장에는 이순신 동상이 있고, 둘레에 바닥분수가 있어요.",
+          "source": "한국어 위키백과: 광화문광장",
+          "url": "https://ko.wikipedia.org/wiki/광화문광장",
+          "checked": "2026-11-22",
+          "evidence": "〈도심속의 광장〉은 이순신 동상 주변으로 인공연못 및 바닥분수 등을"
+        }
+      ]
+    },
+    "cheonggyecheon": {
+      "name": "청계천",
+      "facts": [
+        {
+          "text": "청계천은 서울 도심을 가로질러 흐르는 냇물이에요.",
+          "source": "한국어 위키백과: 청계천",
+          "url": "https://ko.wikipedia.org/wiki/청계천",
+          "checked": "2026-11-22",
+          "evidence": "서울의 전통적인 도심지를 가로지르다가"
+        },
+        {
+          "text": "청계천은 한양대학교 옆에서 중랑천과 만나요.",
+          "source": "한국어 위키백과: 청계천",
+          "url": "https://ko.wikipedia.org/wiki/청계천",
+          "checked": "2026-11-22",
+          "evidence": "한양대학교 서울캠퍼스 옆에서 중랑천으로 흘러든다"
+        },
+        {
+          "text": "지금은 청계광장에서 물을 흘려보내 냇물을 채워요.",
+          "source": "한국어 위키백과: 청계천",
+          "url": "https://ko.wikipedia.org/wiki/청계천",
+          "checked": "2026-11-22",
+          "evidence": "청계광장에서 하루에 40,000 세제곱미터씩 인공적으로 방류하는 형태로"
+        },
+        {
+          "text": "조선 시대에는 개천이라고 불렀어요.",
+          "source": "한국어 위키백과: 청계천",
+          "url": "https://ko.wikipedia.org/wiki/청계천",
+          "checked": "2026-11-22",
+          "evidence": "개천(開川)이라는 이름을 얻었다"
+        }
+      ]
+    },
+    "namsan_tower": {
+      "name": "남산서울타워",
+      "facts": [
+        {
+          "text": "남산서울타워는 남산 꼭대기 가까이에 있는 탑이에요.",
+          "source": "한국어 위키백과: YTN서울타워",
+          "url": "https://ko.wikipedia.org/wiki/YTN서울타워",
+          "checked": "2026-11-22",
+          "evidence": "남산 정상 부근에 위치한 전파 송출 및 관광용 타워이다"
+        },
+        {
+          "text": "탑의 높이는 약 237m예요.",
+          "source": "한국어 위키백과: YTN서울타워",
+          "url": "https://ko.wikipedia.org/wiki/YTN서울타워",
+          "checked": "2026-11-22",
+          "evidence": "높이는 236.7m, 해발 479.7m이다"
+        },
+        {
+          "text": "방송국들이 이 탑에서 전파를 보내요.",
+          "source": "한국어 위키백과: YTN서울타워",
+          "url": "https://ko.wikipedia.org/wiki/YTN서울타워",
+          "checked": "2026-11-22",
+          "evidence": "수도권의 지상파 방송사들이 이 타워를 이용하여 전파를 송출한다"
+        },
+        {
+          "text": "전망대에서 서울 시내를 내려다볼 수 있어요.",
+          "source": "한국어 위키백과: YTN서울타워",
+          "url": "https://ko.wikipedia.org/wiki/YTN서울타워",
+          "checked": "2026-11-22",
+          "evidence": "전망대에서 서울 시내 전역을 내려다볼 수 있으며"
+        }
+      ]
+    },
+    "lotte_world_tower": {
+      "name": "롯데월드타워",
+      "facts": [
+        {
+          "text": "롯데월드타워는 땅 위로 123층까지 있어요.",
+          "source": "한국어 위키백과: 롯데월드타워",
+          "url": "https://ko.wikipedia.org/wiki/롯데월드타워",
+          "checked": "2026-11-22",
+          "evidence": "지상 123층"
+        },
+        {
+          "text": "롯데월드타워의 높이는 555m예요.",
+          "source": "한국어 위키백과: 롯데월드타워",
+          "url": "https://ko.wikipedia.org/wiki/롯데월드타워",
+          "checked": "2026-11-22",
+          "evidence": "높이가 무려 555m까지 된다"
+        },
+        {
+          "text": "한반도에서 가장 높은 건물이에요.",
+          "source": "한국어 위키백과: 롯데월드타워",
+          "url": "https://ko.wikipedia.org/wiki/롯데월드타워",
+          "checked": "2026-11-22",
+          "evidence": "현재 한반도에서 가장 높은 마천루다"
+        },
+        {
+          "text": "우리나라에서 처음으로 100층을 넘은 건물이에요.",
+          "source": "한국어 위키백과: 롯데월드타워",
+          "url": "https://ko.wikipedia.org/wiki/롯데월드타워",
+          "checked": "2026-11-22",
+          "evidence": "국내 최초로 100층을 돌파하는 건물이 되었으며"
+        }
+      ]
+    },
+    "lotte_world": {
+      "name": "롯데월드",
+      "facts": [
+        {
+          "text": "롯데월드는 서울 송파구에 있는 테마파크예요.",
+          "source": "한국어 위키백과: 롯데월드",
+          "url": "https://ko.wikipedia.org/wiki/롯데월드",
+          "checked": "2026-11-22",
+          "evidence": "송파구 올림픽로 240에 위치한 테마파크이다"
+        },
+        {
+          "text": "건물 안에는 롯데월드 어드벤처가 있고, 바깥에는 매직아일랜드가 있어요.",
+          "source": "한국어 위키백과: 롯데월드",
+          "url": "https://ko.wikipedia.org/wiki/롯데월드",
+          "checked": "2026-11-22",
+          "evidence": "실내의 롯데월드 어드벤처(Lotte World Adventure)와 야외의 매직아일랜드"
+        },
+        {
+          "text": "롯데월드 어드벤처는 1989년에 놀이기구 18가지로 문을 열었어요.",
+          "source": "한국어 위키백과: 롯데월드",
+          "url": "https://ko.wikipedia.org/wiki/롯데월드",
+          "checked": "2026-11-22",
+          "evidence": "1989년 7월 12일 11시에 18종의 어트랙션과 함께 개장했고"
+        },
+        {
+          "text": "롯데월드는 잠실역 가까이에 있어요.",
+          "source": "한국어 위키백과: 롯데월드",
+          "url": "https://ko.wikipedia.org/wiki/롯데월드",
+          "checked": "2026-11-22",
+          "evidence": "잠실역 부근에 위치해 있다"
+        }
+      ]
+    },
+    "national_museum_korea": {
+      "name": "국립중앙박물관",
+      "facts": [
+        {
+          "text": "국립중앙박물관은 서울 용산구에 있는 나라의 박물관이에요.",
+          "source": "한국어 위키백과: 국립중앙박물관",
+          "url": "https://ko.wikipedia.org/wiki/국립중앙박물관",
+          "checked": "2026-11-22",
+          "evidence": "서울특별시 용산구 서빙고로 137번지에 위치한 국립박물관이다"
+        },
+        {
+          "text": "우리나라에서 가장 큰 박물관이에요.",
+          "source": "한국어 위키백과: 국립중앙박물관",
+          "url": "https://ko.wikipedia.org/wiki/국립중앙박물관",
+          "checked": "2026-11-22",
+          "evidence": "대한민국에서 가장 큰 박물관이자"
+        },
+        {
+          "text": "세계에서 13번째로 큰 박물관이에요.",
+          "source": "한국어 위키백과: 국립중앙박물관",
+          "url": "https://ko.wikipedia.org/wiki/국립중앙박물관",
+          "checked": "2026-11-22",
+          "evidence": "세계에서 13번째로 큰 박물관이다"
+        },
+        {
+          "text": "박물관 건물의 길이는 404m예요.",
+          "source": "한국어 위키백과: 국립중앙박물관",
+          "url": "https://ko.wikipedia.org/wiki/국립중앙박물관",
+          "checked": "2026-11-22",
+          "evidence": "길이 404m, 최고 높이 43.08m의 건물로"
+        }
+      ]
+    },
+    "yeouido_hangang_park": {
+      "name": "여의도한강공원",
+      "facts": [
+        {
+          "text": "한강공원은 한강을 깨끗한 강으로 되살리려고 만든 공원이에요.",
+          "source": "한국어 위키백과: 한강공원",
+          "url": "https://ko.wikipedia.org/wiki/한강공원",
+          "checked": "2026-11-22",
+          "evidence": "한강을 옛날과 같이 깨끗한 강으로 되살리자는 목표로 만든 공원이다"
+        },
+        {
+          "text": "한강공원에는 축구장, 농구장, 수영장 같은 운동 시설이 있어요.",
+          "source": "한국어 위키백과: 한강공원",
+          "url": "https://ko.wikipedia.org/wiki/한강공원",
+          "checked": "2026-11-22",
+          "evidence": "축구장, 배구장, 농구장, 수영장"
+        },
+        {
+          "text": "여의도한강공원에는 저녁과 주말에 많은 사람이 쉬러 와요.",
+          "source": "한국어 위키백과: 여의도",
+          "url": "https://ko.wikipedia.org/wiki/여의도",
+          "checked": "2026-11-22",
+          "evidence": "여의도 한강공원은 저녁이나 주말에 많은 사람들이 찾는 도심 속 휴식지로"
+        },
+        {
+          "text": "잔디밭에서 쉬거나 자전거를 탈 수 있어요.",
+          "source": "한국어 위키백과: 여의도",
+          "url": "https://ko.wikipedia.org/wiki/여의도",
+          "checked": "2026-11-22",
+          "evidence": "잔디밭에 앉아 휴식을 취하고 자전거를 타며"
+        }
+      ]
+    },
+    "namdaemun_market": {
+      "name": "남대문시장",
+      "facts": [
+        {
+          "text": "남대문시장은 숭례문(남대문) 옆에 있는 큰 전통시장이에요.",
+          "source": "한국어 위키백과: 남대문시장",
+          "url": "https://ko.wikipedia.org/wiki/남대문시장",
+          "checked": "2026-11-22",
+          "evidence": "숭례문(남대문) 부근 동쪽에 위치한 종합재래시장이다"
+        },
+        {
+          "text": "동대문시장과 함께 서울의 2대 시장이에요.",
+          "source": "한국어 위키백과: 남대문시장",
+          "url": "https://ko.wikipedia.org/wiki/남대문시장",
+          "checked": "2026-11-22",
+          "evidence": "동대문 시장과 함께 서울의 2대 시장 중 하나이다"
+        },
+        {
+          "text": "시장에는 가게가 1만 곳보다 많아요.",
+          "source": "한국어 위키백과: 남대문시장",
+          "url": "https://ko.wikipedia.org/wiki/남대문시장",
+          "checked": "2026-11-22",
+          "evidence": "크고 작은 1만점 이상의 상점이 줄지어 서 있다"
+        },
+        {
+          "text": "지하철 4호선 회현역과 가까워요.",
+          "source": "한국어 위키백과: 남대문시장",
+          "url": "https://ko.wikipedia.org/wiki/남대문시장",
+          "checked": "2026-11-22",
+          "evidence": "서울 지하철 4호선 회현역과 가깝다"
+        }
+      ]
+    },
+    "seoul_forest": {
+      "name": "서울숲",
+      "facts": [
+        {
+          "text": "서울숲은 서울 성동구 성수동에 있는 공원이에요.",
+          "source": "한국어 위키백과: 서울숲",
+          "url": "https://ko.wikipedia.org/wiki/서울숲",
+          "checked": "2026-11-22",
+          "evidence": "서울특별시 성동구 성수동 1가 685번지 일대에 있는 공원이다"
+        },
+        {
+          "text": "서울숲 자리에는 원래 골프장과 경마장이 있었어요.",
+          "source": "한국어 위키백과: 서울숲",
+          "url": "https://ko.wikipedia.org/wiki/서울숲",
+          "checked": "2026-11-22",
+          "evidence": "본래 골프장과 경마장이 있던 곳으로"
+        },
+        {
+          "text": "서울에서 세 번째로 큰 공원이에요.",
+          "source": "한국어 위키백과: 서울숲",
+          "url": "https://ko.wikipedia.org/wiki/서울숲",
+          "checked": "2026-11-22",
+          "evidence": "서울에서 세 번째로 큰 공원이다"
+        },
+        {
+          "text": "한강과 중랑천이 공원 가까이에서 흘러요.",
+          "source": "한국어 위키백과: 서울숲",
+          "url": "https://ko.wikipedia.org/wiki/서울숲",
+          "checked": "2026-11-22",
+          "evidence": "한강과 중랑천이 공원 근처를 흐른다"
+        }
+      ]
+    },
+    "culture_station_seoul": {
+      "name": "문화역서울284",
+      "facts": [
+        {
+          "text": "문화역서울284는 옛 서울역 건물이에요.",
+          "source": "한국어 위키백과: 문화역서울284",
+          "url": "https://ko.wikipedia.org/wiki/문화역서울284",
+          "checked": "2026-11-22",
+          "evidence": "서울역(본옥) 건물이자 서울특별시의 복합문화공간이다"
+        },
+        {
+          "text": "이 역의 처음 이름은 경성역이었어요.",
+          "source": "한국어 위키백과: 문화역서울284",
+          "url": "https://ko.wikipedia.org/wiki/문화역서울284",
+          "checked": "2026-11-22",
+          "evidence": "역명도 경성역으로 시작되었다"
+        },
+        {
+          "text": "1925년에 르네상스식 건물로 새로 지었어요.",
+          "source": "한국어 위키백과: 문화역서울284",
+          "url": "https://ko.wikipedia.org/wiki/문화역서울284",
+          "checked": "2026-11-22",
+          "evidence": "르네상스식 건축물로 새롭게 신축하였고"
+        },
+        {
+          "text": "지금은 여러 문화 행사를 여는 복합문화공간이에요.",
+          "source": "한국어 위키백과: 문화역서울284",
+          "url": "https://ko.wikipedia.org/wiki/문화역서울284",
+          "checked": "2026-11-22",
+          "evidence": "2011년 복합문화공간으로 개관하였다"
+        }
+      ]
+    },
+    "national_childrens_science": {
+      "name": "국립어린이과학관",
+      "facts": [
+        {
+          "text": "국립어린이과학관은 서울 종로구 창경궁로에 있어요.",
+          "source": "한국어 위키백과: 국립어린이과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립어린이과학관",
+          "checked": "2026-11-22",
+          "evidence": "서울특별시 종로구 창경궁로 215에 위치하고 있다"
+        },
+        {
+          "text": "국립과천과학관에 속한 과학관이에요.",
+          "source": "한국어 위키백과: 국립어린이과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립어린이과학관",
+          "checked": "2026-11-22",
+          "evidence": "국립과천과학관의 소속기관이다"
+        },
+        {
+          "text": "과학관은 창경궁과 과학문으로 이어져 있어요.",
+          "source": "한국어 위키백과: 국립어린이과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립어린이과학관",
+          "checked": "2026-11-22",
+          "evidence": "창경궁과 '과학문'을 통하여 연결되어 있다"
+        },
+        {
+          "text": "상상놀이터에서는 관찰하고 실험해 볼 수 있어요.",
+          "source": "한국어 위키백과: 국립어린이과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립어린이과학관",
+          "checked": "2026-11-22",
+          "evidence": "상상놀이터: 관찰·탐구·실험을 통해 문제해결과정을 체험하는 공간"
+        }
+      ]
+    },
+    "childrens_grand_park": {
+      "name": "서울어린이대공원",
+      "facts": [
+        {
+          "text": "어린이대공원은 서울 광진구 능동에 있는 쉼터 공원이에요.",
+          "source": "한국어 위키백과: 서울어린이대공원",
+          "url": "https://ko.wikipedia.org/wiki/서울어린이대공원",
+          "checked": "2026-11-22",
+          "evidence": "서울특별시 광진구 능동에 소재한 가족 단위 휴식 공간이다"
+        },
+        {
+          "text": "어린이대공원은 어린이날에 문을 열었어요.",
+          "source": "한국어 위키백과: 서울어린이대공원",
+          "url": "https://ko.wikipedia.org/wiki/서울어린이대공원",
+          "checked": "2026-11-22",
+          "evidence": "1973년 5월 5일 어린이날에 개장하였으며"
+        },
+        {
+          "text": "문을 열 때는 동양에서 가장 큰 공원이었어요.",
+          "source": "한국어 위키백과: 서울어린이대공원",
+          "url": "https://ko.wikipedia.org/wiki/서울어린이대공원",
+          "checked": "2026-11-22",
+          "evidence": "개장 당시에는 동양 최대의 규모였다"
+        },
+        {
+          "text": "공원 안에 동물원과 식물원, 놀이시설이 있어요.",
+          "source": "한국어 위키백과: 서울어린이대공원",
+          "url": "https://ko.wikipedia.org/wiki/서울어린이대공원",
+          "checked": "2026-11-22",
+          "evidence": "교양시설, 동물원, 식물원, 놀이시설 등을 갖춘"
+        }
+      ]
+    },
+    "railroad_museum": {
+      "name": "철도박물관",
+      "facts": [
+        {
+          "text": "철도박물관은 의왕시에 있는 한국철도공사의 박물관이에요.",
+          "source": "한국어 위키백과: 철도박물관 (대한민국)",
+          "url": "https://ko.wikipedia.org/wiki/철도박물관_(대한민국)",
+          "checked": "2026-11-22",
+          "evidence": "경기도 의왕시에 위치한 한국철도공사 산하의 박물관이다"
+        },
+        {
+          "text": "전동차 운전대처럼 만든 곳에서 운전 연습을 해 볼 수 있어요.",
+          "source": "한국어 위키백과: 철도박물관 (대한민국)",
+          "url": "https://ko.wikipedia.org/wiki/철도박물관_(대한민국)",
+          "checked": "2026-11-22",
+          "evidence": "운전대에서 모의 운전이 가능하다"
+        },
+        {
+          "text": "모형철도 파노라마실에서는 우리나라 기차들을 작은 모형으로 볼 수 있어요.",
+          "source": "한국어 위키백과: 철도박물관 (대한민국)",
+          "url": "https://ko.wikipedia.org/wiki/철도박물관_(대한민국)",
+          "checked": "2026-11-22",
+          "evidence": "다양한 철도 차량을 디오라마로 제작하여"
+        },
+        {
+          "text": "1899년부터 쓰던 여러 가지 기차표도 볼 수 있어요.",
+          "source": "한국어 위키백과: 철도박물관 (대한민국)",
+          "url": "https://ko.wikipedia.org/wiki/철도박물관_(대한민국)",
+          "checked": "2026-11-22",
+          "evidence": "1899년부터 현재까지의 다양한 승차권이 전시되어 있다"
+        }
+      ]
+    },
+    "hwaseong_fortress": {
+      "name": "수원 화성",
+      "facts": [
+        {
+          "text": "수원 화성은 한 바퀴 길이가 5km 740m인 성곽이에요.",
+          "source": "한국어 위키백과: 수원 화성",
+          "url": "https://ko.wikipedia.org/wiki/수원_화성",
+          "checked": "2026-11-22",
+          "evidence": "총 길이 5.74킬로미터의 성곽이다"
+        },
+        {
+          "text": "수원 화성은 유네스코 세계문화유산이에요.",
+          "source": "한국어 위키백과: 수원 화성",
+          "url": "https://ko.wikipedia.org/wiki/수원_화성",
+          "checked": "2026-11-22",
+          "evidence": "1997년 유네스코 세계문화유산으로 등록되었다"
+        },
+        {
+          "text": "정약용은 무거운 재료를 쉽게 들어 올리는 거중기를 만들었어요.",
+          "source": "한국어 위키백과: 수원 화성",
+          "url": "https://ko.wikipedia.org/wiki/수원_화성",
+          "checked": "2026-11-22",
+          "evidence": "자재를 쉽게 들어 올리는 거중기와 튼튼한 수레 유형거를 발명하여"
+        },
+        {
+          "text": "성을 쌓은 과정은 화성성역의궤라는 책에 꼼꼼히 적혀 있어요.",
+          "source": "한국어 위키백과: 수원 화성",
+          "url": "https://ko.wikipedia.org/wiki/수원_화성",
+          "checked": "2026-11-22",
+          "evidence": "축성의 모든 과정은 『화성성역의궤』라는 공사보고서에 꼼꼼하게 기록했다"
+        }
+      ]
+    },
+    "seoul_grand_park": {
+      "name": "서울대공원",
+      "facts": [
+        {
+          "text": "서울대공원은 과천시에 있는 공원이에요.",
+          "source": "한국어 위키백과: 서울대공원",
+          "url": "https://ko.wikipedia.org/wiki/서울대공원",
+          "checked": "2026-11-22",
+          "evidence": "경기도 과천시에 있는 공원이다"
+        },
+        {
+          "text": "우리나라에서 가장 큰 동물원과 식물원이 있어요.",
+          "source": "한국어 위키백과: 서울대공원",
+          "url": "https://ko.wikipedia.org/wiki/서울대공원",
+          "checked": "2026-11-22",
+          "evidence": "대한민국에서 가장 큰 동물원과 식물원이 있고"
+        },
+        {
+          "text": "놀이공원인 서울랜드도 있어요.",
+          "source": "한국어 위키백과: 서울대공원",
+          "url": "https://ko.wikipedia.org/wiki/서울대공원",
+          "checked": "2026-11-22",
+          "evidence": "놀이공원인 서울랜드가 있다"
+        },
+        {
+          "text": "과천에 있지만 서울시가 돌봐요.",
+          "source": "한국어 위키백과: 서울대공원",
+          "url": "https://ko.wikipedia.org/wiki/서울대공원",
+          "checked": "2026-11-22",
+          "evidence": "시설 운영관리는 서울특별시청에서 담당한다"
+        }
+      ]
+    },
+    "gwacheon_science": {
+      "name": "국립과천과학관",
+      "facts": [
+        {
+          "text": "국립과천과학관은 과천시에 있는 나라의 과학관이에요.",
+          "source": "한국어 위키백과: 국립과천과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립과천과학관",
+          "checked": "2026-11-22",
+          "evidence": "경기도 과천시 상하벌로 110에 위치하고 있다"
+        },
+        {
+          "text": "과학관 본관은 비행체 모양이에요.",
+          "source": "한국어 위키백과: 국립과천과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립과천과학관",
+          "checked": "2026-11-22",
+          "evidence": "과학관 본관은 비행체 모양의 미래 지향적 외관으로"
+        },
+        {
+          "text": "천체투영관은 지름 25m인 둥근 지붕 안에 있어요.",
+          "source": "한국어 위키백과: 국립과천과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립과천과학관",
+          "checked": "2026-11-22",
+          "evidence": "천체관은 내부 지름 25m의 돔 내부에 천체투영관이 설치되었다"
+        },
+        {
+          "text": "자연사관과 전통과학관 같은 전시관이 있어요.",
+          "source": "한국어 위키백과: 국립과천과학관",
+          "url": "https://ko.wikipedia.org/wiki/국립과천과학관",
+          "checked": "2026-11-22",
+          "evidence": "기초과학관, 자연사관, 전통과학관, 첨단기술관"
+        }
+      ]
+    },
+    "everland": {
+      "name": "에버랜드",
+      "facts": [
+        {
+          "text": "에버랜드는 용인시 처인구 포곡읍에 있는 테마파크예요.",
+          "source": "한국어 위키백과: 에버랜드",
+          "url": "https://ko.wikipedia.org/wiki/에버랜드",
+          "checked": "2026-11-22",
+          "evidence": "경기도 용인시 처인구 포곡읍에 위치한 테마파크이다"
+        },
+        {
+          "text": "놀이기구와 동물원, 식물원이 있어요.",
+          "source": "한국어 위키백과: 에버랜드",
+          "url": "https://ko.wikipedia.org/wiki/에버랜드",
+          "checked": "2026-11-22",
+          "evidence": "놀이기구와 동물원, 식물원 및 다양한 테마 공간을 갖추고 있다"
+        },
+        {
+          "text": "에버랜드의 옛 이름은 용인자연농원이에요.",
+          "source": "한국어 위키백과: 에버랜드",
+          "url": "https://ko.wikipedia.org/wiki/에버랜드",
+          "checked": "2026-11-22",
+          "evidence": "과거에는 용인자연농원이라는 명칭으로 운영되었으며"
+        },
+        {
+          "text": "판다월드라는 곳도 있어요.",
+          "source": "한국어 위키백과: 에버랜드",
+          "url": "https://ko.wikipedia.org/wiki/에버랜드",
+          "checked": "2026-11-22",
+          "evidence": "판다월드를 개장하였으며"
+        }
+      ]
+    },
+    "korean_folk_village": {
+      "name": "한국민속촌",
+      "facts": [
+        {
+          "text": "한국민속촌은 용인시 기흥구에 있는 테마파크예요.",
+          "source": "한국어 위키백과: 한국민속촌",
+          "url": "https://ko.wikipedia.org/wiki/한국민속촌",
+          "checked": "2026-11-22",
+          "evidence": "용인시 기흥구 보라동 민속촌로 90에 위치한 테마파크이다"
+        },
+        {
+          "text": "조선 시대 사람들이 살던 모습을 꾸며 놓았어요.",
+          "source": "한국어 위키백과: 한국민속촌",
+          "url": "https://ko.wikipedia.org/wiki/한국민속촌",
+          "checked": "2026-11-22",
+          "evidence": "조선시대 500년의 생활상을 재현한 곳으로"
+        },
+        {
+          "text": "초가집과 기와집이 270채쯤 있어요.",
+          "source": "한국어 위키백과: 한국민속촌",
+          "url": "https://ko.wikipedia.org/wiki/한국민속촌",
+          "checked": "2026-11-22",
+          "evidence": "270여 동의 각종 농가(초가집과 기와집)"
+        },
+        {
+          "text": "농악놀이와 전통혼례 공연을 볼 수 있어요.",
+          "source": "한국어 위키백과: 한국민속촌",
+          "url": "https://ko.wikipedia.org/wiki/한국민속촌",
+          "checked": "2026-11-22",
+          "evidence": "농악놀이에 전통혼례 및 마상무예 공연을 볼 수 있다"
+        }
+      ]
+    },
+    "namhansanseong": {
+      "name": "남한산성",
+      "facts": [
+        {
+          "text": "남한산성은 경기도 광주시 남한산에 있는 산성이에요.",
+          "source": "한국어 위키백과: 남한산성",
+          "url": "https://ko.wikipedia.org/wiki/남한산성",
+          "checked": "2026-11-22",
+          "evidence": "경기도 광주시 남한산성면에 있는 남한산을 중심으로 하는 산성이다"
+        },
+        {
+          "text": "남한산성은 경기도의 도립공원이기도 해요.",
+          "source": "한국어 위키백과: 남한산성",
+          "url": "https://ko.wikipedia.org/wiki/남한산성",
+          "checked": "2026-11-22",
+          "evidence": "경기도의 도립공원이기도 하다"
+        },
+        {
+          "text": "인조 임금이 청나라에 맞선 곳이에요.",
+          "source": "한국어 위키백과: 남한산성",
+          "url": "https://ko.wikipedia.org/wiki/남한산성",
+          "checked": "2026-11-22",
+          "evidence": "인조가 청나라에 대항한 곳으로 알려져 있으며"
+        },
+        {
+          "text": "고려 시대에는 몽골의 침입을 두 번이나 막았어요.",
+          "source": "한국어 위키백과: 남한산성",
+          "url": "https://ko.wikipedia.org/wiki/남한산성",
+          "checked": "2026-11-22",
+          "evidence": "몽골의 침입을 두 차례나 막기도 했고"
+        }
+      ]
+    },
+    "imjingak": {
+      "name": "임진각",
+      "facts": [
+        {
+          "text": "임진각은 파주시에 있는 관광지예요.",
+          "source": "한국어 위키백과: 임진각국민관광지",
+          "url": "https://ko.wikipedia.org/wiki/임진각국민관광지",
+          "checked": "2026-11-22",
+          "evidence": "경기도 파주시에 소재한 관광지이다"
+        },
+        {
+          "text": "평화누리공원과 평화의 종이 함께 있어요.",
+          "source": "한국어 위키백과: 임진각국민관광지",
+          "url": "https://ko.wikipedia.org/wiki/임진각국민관광지",
+          "checked": "2026-11-22",
+          "evidence": "평화누리공원, 평화의 종, 망배단 등의 소재지 일대를 통칭하고 있다"
+        },
+        {
+          "text": "고향에 갈 수 없는 실향민들이 명절에 망배단에 모여 제사를 지내요.",
+          "source": "한국어 위키백과: 임진각국민관광지",
+          "url": "https://ko.wikipedia.org/wiki/임진각국민관광지",
+          "checked": "2026-11-22",
+          "evidence": "망배단에서 실향민들이 설날과 추석 때 모여 합동으로 제사를 지내고"
+        }
+      ]
+    },
+    "wolmido": {
+      "name": "월미도",
+      "facts": [
+        {
+          "text": "월미도는 원래 섬이었는데 지금은 땅과 이어졌어요.",
+          "source": "한국어 위키백과: 월미도",
+          "url": "https://ko.wikipedia.org/wiki/월미도",
+          "checked": "2026-11-22",
+          "evidence": "지금은 간척되어 육지가 된 인천 앞바다의 육계도로"
+        },
+        {
+          "text": "월미도는 넓이가 0.7km²인 작은 섬이었어요.",
+          "source": "한국어 위키백과: 월미도",
+          "url": "https://ko.wikipedia.org/wiki/월미도",
+          "checked": "2026-11-22",
+          "evidence": "면적이 0.7 km2밖에 되지 않는 작은 섬이었지만"
+        },
+        {
+          "text": "옛날에 월미도는 파도와 바람을 막아 항구의 배들을 지켜 주었어요.",
+          "source": "한국어 위키백과: 월미도",
+          "url": "https://ko.wikipedia.org/wiki/월미도",
+          "checked": "2026-11-22",
+          "evidence": "파도와 바람으로부터 제물포에 정박한 배들을 지켜주었기 때문이다"
+        },
+        {
+          "text": "놀이시설이 많아서 가족 나들이객이 많이 와요.",
+          "source": "한국어 위키백과: 월미도",
+          "url": "https://ko.wikipedia.org/wiki/월미도",
+          "checked": "2026-11-22",
+          "evidence": "위락 시설들이 많아서 가족 단위의 나들이객하고 관광객들이 많을"
+        }
+      ]
+    },
+    "incheon_chinatown": {
+      "name": "인천 차이나타운",
+      "facts": [
+        {
+          "text": "인천 차이나타운은 인천역 앞에 있어요.",
+          "source": "한국어 위키백과: 인천 차이나타운",
+          "url": "https://ko.wikipedia.org/wiki/인천_차이나타운",
+          "checked": "2026-11-22",
+          "evidence": "인천역 앞에 있는 차이나타운이다"
+        },
+        {
+          "text": "중국 음식점과 기념품 가게가 많아요.",
+          "source": "한국어 위키백과: 인천 차이나타운",
+          "url": "https://ko.wikipedia.org/wiki/인천_차이나타운",
+          "checked": "2026-11-22",
+          "evidence": "중국 음식점이나 기념품 등을 파는 상점이 많은 편이다"
+        },
+        {
+          "text": "짜장면을 처음 만들어 판 공화춘 건물이 짜장면 박물관이 되었어요.",
+          "source": "한국어 위키백과: 인천 차이나타운",
+          "url": "https://ko.wikipedia.org/wiki/인천_차이나타운",
+          "checked": "2026-11-22",
+          "evidence": "처음 짜장면을 만들어 팔기 시작한 ‘구)공화춘’을 개조해 박물관으로"
+        },
+        {
+          "text": "이곳 화교는 중국 산둥 지방 출신이 많아요.",
+          "source": "한국어 위키백과: 인천 차이나타운",
+          "url": "https://ko.wikipedia.org/wiki/인천_차이나타운",
+          "checked": "2026-11-22",
+          "evidence": "인천 차이나타운은 특이하게 산둥 출신이 중심을 이룬다"
+        }
+      ]
     }
   },
   "stationLooks": {

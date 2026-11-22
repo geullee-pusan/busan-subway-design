@@ -10,7 +10,7 @@
 //  - 받다가 멈추면 다시 돌릴 때 이어서 받는다(임시 파일). 하루 허용량을 넘으면(결과 코드 22) 멈춘다.
 //  - 지역을 새로 넣을 때는 --add-area=강원특별자치도 --add-tag=gangwon처럼 돌린다. 한쪽 끝이라도 그 지역에 있는 짝만 불러
 //    따로 저장한다(express-gangwon-날짜.json). 앞서 받은 원본은 그대로 두고, intercity-build가 둘을 함께 읽는다.
-//    --dry를 붙이면 부를 짝 수만 센다.
+//    --dry를 붙이면 부를 짝 수만 센다. 여러 지역은 쉼표로 잇는다(--add-area=서울특별시,인천광역시,경기도 --add-tag=sudogwon).
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -86,7 +86,8 @@ async function fetchPairs(label, base, op, ids, date) {
   const partialPath = resolve(tmpdir(), `busan-subway-${label}${ADD_TAG ? `-${ADD_TAG}` : ''}-${date}.json`);
   const done = existsSync(partialPath) ? JSON.parse(readFileSync(partialPath, 'utf8')) : {};
   const queue = [];
-  const inAdd = (t) => !ADD_AREA || t.place.dong.startsWith(ADD_AREA);
+  // 여러 지역은 쉼표로 적는다(--add-area=서울특별시,인천광역시,경기도)
+  const inAdd = (t) => !ADD_AREA || ADD_AREA.split(',').some((a) => t.place.dong.startsWith(a));
   for (const a of ids) for (const b of ids) if (a.id !== b.id && a.place.id !== b.place.id && (inAdd(a) || inAdd(b)) && !(`${a.id}|${b.id}` in done)) queue.push([a, b]);
   console.log(`${label}: 터미널 ${ids.length}개(새 지역 ${ids.filter(inAdd).length}개), 부를 짝 ${queue.length}개(앞서 받은 짝 ${Object.keys(done).length}개)`);
   if (DRY) return null;

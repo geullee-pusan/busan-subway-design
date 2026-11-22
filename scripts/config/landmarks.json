@@ -2494,6 +2494,198 @@
       "osm": "node/368725279",
       "kind": "museum",
       "radius": 250
+    },
+    {
+      "id": "gyeongbokgung",
+      "name": "경복궁",
+      "city": "서울",
+      "osm": "relation/5501517",
+      "kind": "hanok",
+      "radius": 350
+    },
+    {
+      "id": "changdeokgung",
+      "name": "창덕궁",
+      "city": "서울",
+      "osm": "way/789965985",
+      "kind": "hanok",
+      "radius": 350
+    },
+    {
+      "id": "gwanghwamun_square",
+      "name": "광화문광장",
+      "city": "서울",
+      "osm": "relation/5672803",
+      "kind": "street",
+      "radius": 250
+    },
+    {
+      "id": "cheonggyecheon",
+      "name": "청계천",
+      "city": "서울",
+      "osm": "way/368276771",
+      "kind": "street",
+      "radius": 250
+    },
+    {
+      "id": "namsan_tower",
+      "name": "남산서울타워",
+      "city": "서울",
+      "osm": "relation/16474080",
+      "kind": "tower",
+      "radius": 250
+    },
+    {
+      "id": "lotte_world_tower",
+      "name": "롯데월드타워",
+      "city": "서울",
+      "osm": "relation/8824257",
+      "kind": "tower",
+      "radius": 250
+    },
+    {
+      "id": "lotte_world",
+      "name": "롯데월드",
+      "city": "서울",
+      "osm": "way/636527742",
+      "kind": "themepark",
+      "radius": 300
+    },
+    {
+      "id": "national_museum_korea",
+      "name": "국립중앙박물관",
+      "city": "서울",
+      "osm": "way/168364800",
+      "kind": "museum",
+      "radius": 300
+    },
+    {
+      "id": "yeouido_hangang_park",
+      "name": "여의도한강공원",
+      "city": "서울",
+      "osm": "relation/7550666",
+      "kind": "park",
+      "radius": 400
+    },
+    {
+      "id": "namdaemun_market",
+      "name": "남대문시장",
+      "city": "서울",
+      "osm": "way/78503350",
+      "kind": "market",
+      "radius": 200
+    },
+    {
+      "id": "seoul_forest",
+      "name": "서울숲",
+      "city": "서울",
+      "osm": "relation/17338887",
+      "kind": "park",
+      "radius": 400
+    },
+    {
+      "id": "culture_station_seoul",
+      "name": "문화역서울284",
+      "city": "서울",
+      "osm": "way/759569673",
+      "kind": "museum",
+      "radius": 150
+    },
+    {
+      "id": "national_childrens_science",
+      "name": "국립어린이과학관",
+      "city": "서울",
+      "osm": "node/368632876",
+      "kind": "science",
+      "radius": 150
+    },
+    {
+      "id": "childrens_grand_park",
+      "name": "서울어린이대공원",
+      "city": "서울",
+      "osm": "way/202365904",
+      "kind": "park",
+      "radius": 400
+    },
+    {
+      "id": "railroad_museum",
+      "name": "철도박물관",
+      "city": "의왕",
+      "osm": "way/60819387",
+      "kind": "museum",
+      "radius": 200
+    },
+    {
+      "id": "hwaseong_fortress",
+      "name": "수원 화성",
+      "city": "수원",
+      "osm": "relation/21586932",
+      "kind": "fortress",
+      "radius": 600
+    },
+    {
+      "id": "seoul_grand_park",
+      "name": "서울대공원",
+      "city": "과천",
+      "osm": "node/5179298547",
+      "kind": "park",
+      "radius": 700
+    },
+    {
+      "id": "gwacheon_science",
+      "name": "국립과천과학관",
+      "city": "과천",
+      "osm": "way/279271034",
+      "kind": "science",
+      "radius": 300
+    },
+    {
+      "id": "everland",
+      "name": "에버랜드",
+      "city": "용인",
+      "osm": "way/357422240",
+      "kind": "themepark",
+      "radius": 700
+    },
+    {
+      "id": "korean_folk_village",
+      "name": "한국민속촌",
+      "city": "용인",
+      "osm": "way/392288060",
+      "kind": "village",
+      "radius": 400
+    },
+    {
+      "id": "namhansanseong",
+      "name": "남한산성",
+      "city": "광주",
+      "osm": "node/2668229479",
+      "kind": "fortress",
+      "radius": 600
+    },
+    {
+      "id": "imjingak",
+      "name": "임진각",
+      "city": "파주",
+      "osm": "way/499779122",
+      "kind": "viewpoint",
+      "radius": 300
+    },
+    {
+      "id": "wolmido",
+      "name": "월미도",
+      "city": "인천",
+      "osm": "node/7403763386",
+      "kind": "island",
+      "radius": 400
+    },
+    {
+      "id": "incheon_chinatown",
+      "name": "인천 차이나타운",
+      "city": "인천",
+      "osm": "way/307656684",
+      "kind": "street",
+      "radius": 250
     }
   ]
 }
