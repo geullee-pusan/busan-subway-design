@@ -189,6 +189,9 @@ STATION_LOOK.S3 = { ...STATION_LOOK.S3, psdHeader: '#3a3f45', wallTile: '#f2f2ee
 // 7호선 중화 사진: 분홍빛 베이지 타일 벽. 8호선 몽촌토성 사진: 연두 타일 벽, 초록 기둥, 청록 틀 안전문. 9호선 가양 사진: 회색 틀, 반짝이는 화강석 바닥
 // GTX-A 대곡 사진: 흰 큰 판 벽, 자홍 틀 안전문, 은색 기둥. 신림선 당곡 사진: 흰 판 벽, 흰 안전문 틀
 // 신분당선 판교 사진: 흰 판 벽, 흰 틀 안전문, 반짝이는 밝은 바닥. 경강선 판교: 흰 틀 안전문 위 파란 줄, 화강석 바닥. 수인·분당선 한티: 빨간 네모 기둥, 회색·흰 무늬 바닥, 흰 틀 안전문 위 노란 줄
+// 인천 1호선 계양 사진: 철골 지붕, 반짝이는 회색 바닥, 흰 안전문 틀 위 파란 줄. 인천 2호선 석남 사진: 주황 안전문 틀, 반짝이는 흰 바닥
+STATION_LOOK.SI1 = { ...STATION_LOOK.SI1, psdHeader: '#e6e8ea', psdStripe: '#3F78D9', floor: '#bfc2c4' };
+STATION_LOOK.SI2 = { ...STATION_LOOK.SI2, psdHeader: '#E8892E', psdStripe: '#E8892E', floor: '#e2e3e3', wallTile: '#f2f2f0' };
 STATION_LOOK.SSBD = { ...STATION_LOOK.SSBD, wallTile: '#f0f0ee', psdHeader: '#eef0f2', psdStripe: '#D7262E', floor: '#d5d6d6' };
 STATION_LOOK.SGG = { ...STATION_LOOK.SGG, psdHeader: '#e6e8ea', psdStripe: '#1F4FB5', floor: '#cfd0d0' };
 STATION_LOOK.SSB = { ...STATION_LOOK.SSB, pillar: '#C8262E', round: false, floor: '#b9bbbd' };
@@ -1163,6 +1166,58 @@ function shinbundangSignTexture({ name, en, hanja, num }) {
       g.font = '26px serif';
       g.fillText(hanja, W - 40, 300, 240);
     }
+  });
+}
+
+/**
+ * 인천 도시철도 역명판(사용자가 보내 준 1호선 계양 사진): 짙은 자줏빛 회색 판, 위 노선 색 띠, 번호·역 이름·영어·한자,
+ * 아래 가는 줄 밑에 다음 역(흰 글씨, 화살표)과 지나온 역(회색 글씨). 인천 2호선은 사진이 승강장뿐이라 같은 꼴로 둔다(어림).
+ */
+function incheonSignTexture({ name, en, hanja, num, next, nextEn, prev, prevEn, color }) {
+  return tex(768, 520, (g, W, H) => {
+    g.fillStyle = '#4A3F4E';
+    g.fillRect(0, 0, W, H);
+    g.fillStyle = color;
+    g.fillRect(0, 0, W, 34);
+    g.fillStyle = '#ffffff';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    if (num) {
+      g.font = '32px sans-serif';
+      g.fillText(num, W / 2, 80);
+    }
+    g.font = 'bold 84px sans-serif';
+    g.fillText(name, W / 2, 158, W - 80);
+    g.font = '34px sans-serif';
+    g.fillText(en ?? '', W / 2, 228, W - 80);
+    if (hanja) {
+      g.font = '28px serif';
+      g.fillText(hanja, W / 2, 272, W - 80);
+    }
+    g.fillStyle = 'rgba(255,255,255,0.5)';
+    g.fillRect(30, 318, W - 60, 2);
+    g.textAlign = 'left';
+    g.fillStyle = '#ffffff';
+    g.font = 'bold 44px sans-serif';
+    if (next) g.fillText(next, 60, 392, 260);
+    g.font = '20px sans-serif';
+    if (next) g.fillText(nextEn ?? '', 60, 440, 260);
+    g.textAlign = 'right';
+    g.fillStyle = '#a79fac';
+    g.font = 'bold 40px sans-serif';
+    if (prev) g.fillText(prev, W - 60, 392, 230);
+    g.font = '20px sans-serif';
+    if (prev) g.fillText(prevEn ?? '', W - 60, 440, 230);
+    // 다음 역 쪽 화살표
+    g.strokeStyle = '#ffffff';
+    g.lineWidth = 6;
+    g.beginPath();
+    g.moveTo(450, 400);
+    g.lineTo(350, 400);
+    g.moveTo(385, 370);
+    g.lineTo(350, 400);
+    g.lineTo(385, 430);
+    g.stroke();
   });
 }
 
@@ -2697,13 +2752,16 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       // 땅속 코레일 역(수인·분당선 한티, 경강선 판교 사진)도 서울교통공사처럼 둥근 판에 번호 동그라미를 쓴다
       const seoulMetro = sudogwon && (/^\d{3}$/.test(sdNum ?? '') || ['SSB', 'SGG'].includes(lineId));
       const shinbundang = lineId === 'SSBD';
+      const incheon = lineId === 'SI1' || lineId === 'SI2';
       const gtx = lineId === 'SGTXA';
-      const korailTall = sudogwon && !seoulMetro && !gtx && !shinbundang;
+      const korailTall = sudogwon && !seoulMetro && !gtx && !shinbundang && !incheon;
       const numOf = (st) => (st ? stationById.get(st.id)?.number ?? null : null);
       const sdLine = String(lineId);
       const signStyle = !seoulMetro ? null : /^S[78]$/.test(sdLine) ? 'arrow' : /^S9$/.test(sdLine) ? 'plate' : 'oval';
       const signArgs = { name: here.ko, en: here.en, hanja: here.hanja, num: sdNum, next: nx?.ko, nextEn: nx?.en, nextNum: numOf(stops[si + 1]), prev: pv?.ko, prevEn: pv?.en, prevNum: numOf(stops[si - 1]), color };
-      const signTex = shinbundang
+      const signTex = incheon
+        ? incheonSignTexture({ ...signArgs, color: lineId === 'SI1' ? '#7CA8D9' : '#F5A251' })
+        : shinbundang
         ? shinbundangSignTexture(signArgs)
         : gtx
         ? gtxSignTexture({ ...signArgs, color: '#B3348E' })
@@ -2734,7 +2792,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
               : boardTexture([stop.name], { bg: '#ffffff', fg: '#1F3342', bar: color, width: 512, height: 128 });
       textures.push(signTex);
       const tex = signTex;
-      const [pw, ph] = shinbundang ? [3.6, 2.4] : gtx ? [6.4, 2.25] : signStyle === 'arrow' ? [6.4, 2.0] : signStyle === 'plate' ? [2.4, 1.25] : seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
+      const [pw, ph] = incheon ? [3.0, 2.0] : shinbundang ? [3.6, 2.4] : gtx ? [6.4, 2.25] : signStyle === 'arrow' ? [6.4, 2.0] : signStyle === 'plate' ? [2.4, 1.25] : seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
       for (const off of [-0.06, -0.03, 0, 0.03, 0.06]) {
         const s = sampleAt(kmS + off);
         if (!s) continue;
