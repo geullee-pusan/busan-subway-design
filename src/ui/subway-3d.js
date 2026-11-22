@@ -192,6 +192,10 @@ STATION_LOOK.S3 = { ...STATION_LOOK.S3, psdHeader: '#3a3f45', wallTile: '#f2f2ee
 // 인천 1호선 계양 사진: 철골 지붕, 반짝이는 회색 바닥, 흰 안전문 틀 위 파란 줄. 인천 2호선 석남 사진: 주황 안전문 틀, 반짝이는 흰 바닥
 STATION_LOOK.SI1 = { ...STATION_LOOK.SI1, psdHeader: '#e6e8ea', psdStripe: '#3F78D9', floor: '#bfc2c4' };
 STATION_LOOK.SI2 = { ...STATION_LOOK.SI2, psdHeader: '#E8892E', psdStripe: '#E8892E', floor: '#e2e3e3', wallTile: '#f2f2f0' };
+// 김포골드라인 장기 사진: 흰 벽, 흰 틀 안전문 위 금색 줄. 용인 김량장·동백 사진: 회색 안전문 위 연두 줄, 철골 아치 지붕. 서해선 소사(지하) 사진: 흰 벽판, 연두 줄
+STATION_LOOK.SGM = { ...STATION_LOOK.SGM, wallTile: '#f0f0ee', psdHeader: '#eef0f2', psdStripe: '#C9A23A' };
+STATION_LOOK.SEV = { ...STATION_LOOK.SEV, psdHeader: '#9ea4aa', psdStripe: '#7CC242', pillar: '#c9ccd0' };
+STATION_LOOK.SSH = { ...STATION_LOOK.SSH, psdHeader: '#eef0f2', psdStripe: '#7CC242' };
 STATION_LOOK.SSBD = { ...STATION_LOOK.SSBD, wallTile: '#f0f0ee', psdHeader: '#eef0f2', psdStripe: '#D7262E', floor: '#d5d6d6' };
 STATION_LOOK.SGG = { ...STATION_LOOK.SGG, psdHeader: '#e6e8ea', psdStripe: '#1F4FB5', floor: '#cfd0d0' };
 STATION_LOOK.SSB = { ...STATION_LOOK.SSB, pillar: '#C8262E', round: false, floor: '#b9bbbd' };
@@ -1218,6 +1222,60 @@ function incheonSignTexture({ name, en, hanja, num, next, nextEn, prev, prevEn, 
     g.lineTo(350, 400);
     g.lineTo(385, 430);
     g.stroke();
+  });
+}
+
+/** 김포골드라인 역명판(사용자가 보내 준 장기 사진): 흰 판, 금빛 동그라미 번호, 이름·영어·한자, 아래 점선에 이전·다음 역 */
+function goldSignTexture({ name, en, hanja, num, next, nextEn, prev, prevEn }) {
+  return tex(768, 400, (g, W, H) => {
+    g.fillStyle = '#2b2d30';
+    g.fillRect(0, 0, W, H);
+    g.fillStyle = '#f4f5f4';
+    g.fillRect(10, 10, W - 20, H - 20);
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    if (num) {
+      g.fillStyle = '#C9B23A';
+      g.beginPath();
+      g.arc(255, 75, 34, 0, Math.PI * 2);
+      g.fill();
+      g.fillStyle = '#ffffff';
+      g.font = 'bold 22px sans-serif';
+      g.fillText(num, 255, 76);
+    }
+    g.fillStyle = '#3a3d42';
+    g.font = 'bold 68px sans-serif';
+    g.fillText(name, W / 2 + 20, 72, 360);
+    g.font = '28px sans-serif';
+    g.fillText(en ?? '', W / 2, 140, W - 80);
+    if (hanja) {
+      g.font = '24px serif';
+      g.fillText(hanja, W / 2, 178, W - 80);
+    }
+    // 점선과 이전·다음 역(다음 역 쪽 화살표)
+    g.fillStyle = '#8a8e94';
+    for (let x = 90; x < W - 40; x += 14) g.fillRect(x, 238, 8, 4);
+    g.beginPath();
+    g.moveTo(40, 240);
+    g.lineTo(80, 218);
+    g.lineTo(80, 262);
+    g.closePath();
+    g.fill();
+    g.strokeStyle = '#8a8e94';
+    g.lineWidth = 5;
+    g.beginPath();
+    g.arc(W / 2, 240, 14, 0, Math.PI * 2);
+    g.stroke();
+    g.fillStyle = '#3a3d42';
+    g.font = 'bold 40px sans-serif';
+    if (next) g.fillText(next, 190, 300, 260);
+    g.font = '20px sans-serif';
+    if (next) g.fillText(nextEn ?? '', 190, 340, 260);
+    g.fillStyle = '#8a8e94';
+    g.font = 'bold 40px sans-serif';
+    if (prev) g.fillText(prev, W - 190, 300, 260);
+    g.font = '20px sans-serif';
+    if (prev) g.fillText(prevEn ?? '', W - 190, 340, 260);
   });
 }
 
@@ -2750,16 +2808,19 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
       const sdNum = stationById.get(stop.id)?.number ?? null;
       const sudogwon = Boolean(SUDOGWON_CARS[lineId]);
       // 땅속 코레일 역(수인·분당선 한티, 경강선 판교 사진)도 서울교통공사처럼 둥근 판에 번호 동그라미를 쓴다
-      const seoulMetro = sudogwon && (/^\d{3}$/.test(sdNum ?? '') || ['SSB', 'SGG'].includes(lineId));
+      const seoulMetro = sudogwon && (/^\d{3}$/.test(sdNum ?? '') || ['SSB', 'SGG', 'SSH'].includes(lineId));
+      const gold = lineId === 'SGM';
       const shinbundang = lineId === 'SSBD';
       const incheon = lineId === 'SI1' || lineId === 'SI2';
       const gtx = lineId === 'SGTXA';
-      const korailTall = sudogwon && !seoulMetro && !gtx && !shinbundang && !incheon;
+      const korailTall = sudogwon && !seoulMetro && !gtx && !shinbundang && !incheon && !gold;
       const numOf = (st) => (st ? stationById.get(st.id)?.number ?? null : null);
       const sdLine = String(lineId);
       const signStyle = !seoulMetro ? null : /^S[78]$/.test(sdLine) ? 'arrow' : /^S9$/.test(sdLine) ? 'plate' : 'oval';
       const signArgs = { name: here.ko, en: here.en, hanja: here.hanja, num: sdNum, next: nx?.ko, nextEn: nx?.en, nextNum: numOf(stops[si + 1]), prev: pv?.ko, prevEn: pv?.en, prevNum: numOf(stops[si - 1]), color };
-      const signTex = incheon
+      const signTex = gold
+        ? goldSignTexture(signArgs)
+        : incheon
         ? incheonSignTexture({ ...signArgs, color: lineId === 'SI1' ? '#7CA8D9' : '#F5A251' })
         : shinbundang
         ? shinbundangSignTexture(signArgs)
@@ -2792,7 +2853,7 @@ export function createSubway3D({ grid, lineId, color = '#1F3342', stops: stopLis
               : boardTexture([stop.name], { bg: '#ffffff', fg: '#1F3342', bar: color, width: 512, height: 128 });
       textures.push(signTex);
       const tex = signTex;
-      const [pw, ph] = incheon ? [3.0, 2.0] : shinbundang ? [3.6, 2.4] : gtx ? [6.4, 2.25] : signStyle === 'arrow' ? [6.4, 2.0] : signStyle === 'plate' ? [2.4, 1.25] : seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
+      const [pw, ph] = gold ? [2.6, 1.35] : incheon ? [3.0, 2.0] : shinbundang ? [3.6, 2.4] : gtx ? [6.4, 2.25] : signStyle === 'arrow' ? [6.4, 2.0] : signStyle === 'plate' ? [2.4, 1.25] : seoulMetro ? [7.6, 1.2] : korailTall ? [0.75, 2.1] : busan ? [7.2, 2.25] : bgl ? [0.9, 2.25] : daegu ? [6.4, 1.9] : daegu2 ? [7, 1.5] : korail ? [1.6, 2.0] : korailWide ? [6, 2.1] : gwangju ? [7.2, 1.7] : daejeon ? [1.15, 1.44] : [6, 1.5];
       for (const off of [-0.06, -0.03, 0, 0.03, 0.06]) {
         const s = sampleAt(kmS + off);
         if (!s) continue;

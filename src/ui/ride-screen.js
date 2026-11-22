@@ -7,7 +7,8 @@ import { withBusy } from './busy.js';
 import { concourseArt, concourseSign, platformArt, platformSigns } from './station-scenes.js';
 import { terrainAt } from '../sim/design.js';
 import { isNewLineId } from '../sim/plan.js';
-import announcementsFile from '../content/announcements.json';
+import announcementsFileBase from '../content/announcements.json';
+const announcementsFile = announcementsFileBase;
 import { announcementLines, englishLines, fillTemplate } from '../sim/announce.js';
 import { lineNameEnglish, romanize } from '../sim/romanize.js';
 import { crowdWord, lineLevel, rideTrip, windowScene } from '../sim/ride.js';
@@ -886,6 +887,9 @@ function renderRideLine(root, { plan, lines, lineIndex, onChooseLine, world, res
   // 실제 부산 도시철도 차내 방송의 모양을 따른다(src/content/announcements.json).
   //  첫 역에서 떠나기 전: 출발 방송. 달리는 동안과 역에 선 뒤: 그 역의 "이번 역은" 방송(종착역은 종착 방송).
   function announcement() {
+    // 수도권 노선은 수도권 방송 틀(src/content/announcements.json sudogwon)을 부산 틀 위에 덮는다
+    const sd = lineById.get(design.id)?.region === '수도권' ? announcementsFile.sudogwon : null;
+    const announcementsFile = sd ? { ...announcementsFileBase, ...sd, english: { ...announcementsFileBase.english, ...sd.english } } : announcementsFileBase;
     const stop = trip.stops[at];
     if (isBus) {
       const bus = announcementsFile.bus;
